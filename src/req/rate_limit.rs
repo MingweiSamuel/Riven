@@ -3,7 +3,8 @@ use std::time::{
     Duration,
     Instant,
 };
-use std::sync::{
+
+use parking_lot::{
     RwLock,
 };
 
@@ -48,8 +49,8 @@ impl RateLimit {
             return retry_after_delay
         }
         // Check buckets.
-        let app_buckets = app_rate_limit.buckets.read().unwrap();
-        let method_buckets = app_rate_limit.buckets.read().unwrap();
+        let app_buckets = app_rate_limit.buckets.read();
+        let method_buckets = method_rate_limit.buckets.read();
         for bucket in app_buckets.iter().chain(method_buckets.iter()) {
             let delay = bucket.get_delay();
             if delay.is_some() {

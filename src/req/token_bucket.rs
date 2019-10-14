@@ -1,6 +1,7 @@
 use std::collections::VecDeque;
 use std::time::{Duration, Instant};
-use std::sync::{Mutex, MutexGuard};
+
+use parking_lot::{Mutex, MutexGuard};
 
 pub trait TokenBucket {
     /// Get the duration til the next available token, or 0 duration if a token is available.
@@ -45,7 +46,7 @@ impl VectorTokenBucket {
     }
 
     fn update_get_timestamps(&self) -> MutexGuard<VecDeque<Instant>> {
-        let mut timestamps = self.timestamps.lock().unwrap();
+        let mut timestamps = self.timestamps.lock();
         let cutoff = Instant::now() - self.duration;
         while timestamps.back().map_or(false, |ts| ts < &cutoff) {
             timestamps.pop_back();
