@@ -1,6 +1,9 @@
-mod req;
+#![allow(dead_code)] // TODO REMOVE
 
-use req::rate_limit;
+pub mod consts;
+
+mod req;
+mod riot_api_config;
 
 #[cfg(test)]
 mod tests {

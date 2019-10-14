@@ -2,7 +2,7 @@
 name = "riven"
 version = "0.0.1"
 authors = ["Mingwei Samuel <mingwei.samuel@gmail.com>"]
-description = "RiotApi library (wip)"
+description = "Riot API Library (WIP)"
 license = "LGPL-3.0"
 edition = "2018"
 exclude = [
@@ -12,3 +12,6 @@ exclude = [
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+async-std = "0.99"
+reqwest = { version = "0.10.0-alpha.1", features = [ "gzip", "json" ] }
+serde = "^1.0"
