@@ -1,17 +1,14 @@
 use std::collections::HashMap;
 use std::future::Future;
-use parking_lot::{
-    RwLock,
-    RwLockReadGuard,
-    RwLockWriteGuard,
-    MappedRwLockReadGuard,
-    MappedRwLockWriteGuard,
-};
+use std::sync::Arc;
 
 use async_std::task;
 use reqwest::{
     Client,
     StatusCode,
+};
+use parking_lot::{
+    Mutex,
 };
 use serde::de::DeserializeOwned;
 
@@ -29,10 +26,10 @@ pub struct RegionalRequester<'a> {
     /// Represents the app rate limit.
     app_rate_limit: RateLimit,
     /// Represents method rate limits.
-    method_rate_limits: RwLock<HashMap<&'a str, RateLimit>>,
+    method_rate_limits: Mutex<HashMap<&'a str, Arc<RateLimit>>>,
 }
 
-impl <'a> RegionalRequester<'a> {
+impl<'a> RegionalRequester<'a> {
     /// Request header name for the Riot API key.
     const RIOT_KEY_HEADER: &'static str = "X-Riot-Token";
 
@@ -40,12 +37,12 @@ impl <'a> RegionalRequester<'a> {
     const NONE_STATUS_CODES: [u16; 3] = [ 204, 404, 422 ];
 
 
-    pub fn new(riot_api_config: &'a RiotApiConfig<'a>, client: &'a Client) -> RegionalRequester<'a> {
-        RegionalRequester {
+    pub fn new(riot_api_config: &'a RiotApiConfig<'a>, client: &'a Client) -> Self {
+        Self {
             riot_api_config: riot_api_config,
             client: client,
             app_rate_limit: RateLimit::new(RateLimitType::Application),
-            method_rate_limits: RwLock::new(HashMap::new()),
+            method_rate_limits: Mutex::new(HashMap::new()),
         }
     }
 
@@ -59,8 +56,8 @@ impl <'a> RegionalRequester<'a> {
 
             // Rate limiting.
             while let Some(delay) = {
-                let method_rate_limit = &self.get_insert_rate_limit(method_id);
-                RateLimit::get_both_or_delay(&self.app_rate_limit, method_rate_limit)
+                let method_rate_limit = self.get_method_rate_limit(method_id);
+                RateLimit::get_both_or_delay(&self.app_rate_limit, &*method_rate_limit)
             } {
                 task::sleep(delay).await;
             }
@@ -81,7 +78,7 @@ impl <'a> RegionalRequester<'a> {
             // Update rate limits (if needed).
             {
                 self.app_rate_limit.on_response(&response);
-                self.method_rate_limits.read().get(method_id).unwrap().on_response(&response);
+                self.get_method_rate_limit(method_id).on_response(&response);
             }
 
             // Handle response.
@@ -118,20 +115,10 @@ impl <'a> RegionalRequester<'a> {
         self.get(method_id, relative_url, region, query)
     }
 
-    fn get_insert_rate_limit(&self, method_id: &'a str) -> MappedRwLockReadGuard<RateLimit> {
-        // This is really stupid?
-        {
-            let map_guard = self.method_rate_limits.read();
-            if map_guard.contains_key(method_id) {
-                return RwLockReadGuard::map(map_guard, |mrl| mrl.get(method_id).unwrap());
-            }
-        }
-        let map_guard = self.method_rate_limits.write();
-        let val_write = RwLockWriteGuard::map(
-            map_guard, |mrl| mrl.entry(method_id)
-                .or_insert(RateLimit::new(RateLimitType::Method))
-        );
-        MappedRwLockWriteGuard::downgrade(val_write)
+    fn get_method_rate_limit(&self, method_id: &'a str) -> Arc<RateLimit> {
+        Arc::clone(self.method_rate_limits.lock()
+            .entry(method_id)
+            .or_insert_with(|| Arc::new(RateLimit::new(RateLimitType::Method))))
     }
 
     fn is_none_status_code(status: &StatusCode) -> bool {
