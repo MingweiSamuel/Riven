@@ -97,13 +97,8 @@ impl TokenBucket for VectorTokenBucket {
 mod tests {
     use super::*;
 
-    fn send_sync() {
-        fn is_send_sync<T: Send + Sync>() {}
-        is_send_sync::<VectorTokenBucket>();
-    }
-
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
+    // #[test]
+    // fn it_works() {
+    //     assert_eq!(2 + 2, 4);
+    // }
 }

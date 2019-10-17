@@ -106,12 +106,6 @@ impl<'a> RegionalRequester<'a> {
         panic!("FAILED AFTER {} ATTEMPTS!", attempts);
     }
 
-    pub fn get2<T: 'a + serde::de::DeserializeOwned>(&'a self, method_id: &'a str, region: &'a Region<'_>, relative_url: &'a str,
-        query: &'a [(&'a str, &'a str)]) -> impl Future<Output = Result<Option<T>, reqwest::Error>> + 'a
-    {
-        self.get(method_id, region, relative_url, query)
-    }
-
     fn is_none_status_code(status: &StatusCode) -> bool {
         Self::NONE_STATUS_CODES.contains(&status.as_u16())
     }
@@ -120,9 +114,4 @@ impl<'a> RegionalRequester<'a> {
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    fn send_sync() {
-        fn is_send_sync<T: Send + Sync>() {}
-        is_send_sync::<RegionalRequester>();
-    }
 }

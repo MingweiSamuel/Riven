@@ -21,7 +21,7 @@ pub struct RequesterManager<'a> {
 
 impl<'a> RequesterManager<'a> {
     pub fn new(riot_api_config: RiotApiConfig<'a>) -> Self {
-        // TODO client.
+        // TODO configure client.
         let client = Client::new();
         Self {
             riot_api_config: riot_api_config,
@@ -34,7 +34,7 @@ impl<'a> RequesterManager<'a> {
         &'a self, method_id: &'a str, region: &'a Region<'a>, relative_url: &'_ str,
         query: &[(&'_ str, &'_ str)]) -> Result<Option<T>, reqwest::Error>
     {
-        // TODO: max concurrent requests?
+        // TODO: max concurrent requests? Or can configure client?
         let regional_requester = self.regional_requesters
             .get_or_insert_with(region, || RegionalRequester::new(&self.riot_api_config, &self.client));
         regional_requester.get(method_id, region, relative_url, query).await

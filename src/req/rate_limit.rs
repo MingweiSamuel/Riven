@@ -19,7 +19,6 @@ pub struct RateLimit {
     // Buckets for this rate limit (synchronized).
     // Almost always read, written only when rate limit rates are updated
     // from API response.
-    // TODO: Question of writer starvation.
     buckets: RwLock<Vec<VectorTokenBucket>>,
     // Set to when we can retry if a retry-after header is received.
     retry_after: Option<Instant>,
