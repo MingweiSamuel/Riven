@@ -69,7 +69,8 @@ impl RateLimit {
     }
 
     pub fn on_response(&self, _response: &reqwest::Response) {
-        unimplemented!();
+        return;
+        // TODO!!!!!!!!!!
     }
 }
 

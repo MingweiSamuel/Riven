@@ -11,7 +11,7 @@ macro_rules! regions {
         )*
     ) => {
         $(
-            const $key: &'static Region<'static> = &Region {
+            pub const $key: &'static Region<'static> = &Region {
                 key: stringify!($key),
                 platform: $plat,
             };
