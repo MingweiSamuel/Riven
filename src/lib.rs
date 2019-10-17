@@ -14,12 +14,14 @@ mod tests {
     use tokio::runtime::Runtime;
     use super::*;
 
-    const API_KEY: &'static str = "RGAPI-nothinghereowo";
-
     #[test]
     fn it_works() {
+        let api_key_raw = std::fs::read_to_string("apikey.txt").unwrap(); // TODO don't use unwrap.
+        let api_key = api_key_raw.trim();
+
+
         let rt = Runtime::new().unwrap();
-        let riot_api = RiotApi::with_key(API_KEY);
+        let riot_api = RiotApi::with_key(api_key);
 
         // https://na1.api.riotgames.com/lol/champion-mastery/v4/scores/by-summoner/SBM8Ubipo4ge2yj7bhEzL7yvV0C9Oc1XA2l6v5okGMA_nCw
         let my_future = riot_api.get::<u32>("asdf", consts::Region::NA,
