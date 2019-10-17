@@ -1,1 +1,3 @@
-pub mod region;
+mod region;
+
+pub use region::*;

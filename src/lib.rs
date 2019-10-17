@@ -3,6 +3,7 @@
 pub mod consts;
 
 mod req;
+mod util;
 mod riot_api_config;
 
 #[cfg(test)]

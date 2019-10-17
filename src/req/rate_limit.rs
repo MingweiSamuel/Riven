@@ -8,11 +8,11 @@ use parking_lot::{
     RwLock,
 };
 
-use super::token_bucket::{
+use super::{
     TokenBucket,
     VectorTokenBucket,
 };
-use super::rate_limit_type::RateLimitType;
+use super::RateLimitType;
 
 pub struct RateLimit {
     rate_limit_type: RateLimitType,

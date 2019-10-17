@@ -1,4 +1,3 @@
-use std::collections::HashMap;
 use std::future::Future;
 use std::sync::Arc;
 
@@ -7,15 +6,14 @@ use reqwest::{
     Client,
     StatusCode,
 };
-use parking_lot::{
-    Mutex,
-};
-use serde::de::DeserializeOwned;
+use parking_lot::Mutex;
 
-use super::rate_limit::RateLimit;
-use super::rate_limit_type::RateLimitType;
 use crate::riot_api_config::RiotApiConfig;
-use crate::consts::region::Region;
+use crate::consts::Region;
+use crate::util::InsertOnlyCHashMap;
+
+use super::RateLimit;
+use super::RateLimitType;
 
 pub struct RegionalRequester<'a> {
     /// Configuration settings.
@@ -26,7 +24,7 @@ pub struct RegionalRequester<'a> {
     /// Represents the app rate limit.
     app_rate_limit: RateLimit,
     /// Represents method rate limits.
-    method_rate_limits: Mutex<HashMap<&'a str, Arc<RateLimit>>>,
+    method_rate_limits: InsertOnlyCHashMap<&'a str, RateLimit>,
 }
 
 impl<'a> RegionalRequester<'a> {
@@ -42,23 +40,24 @@ impl<'a> RegionalRequester<'a> {
             riot_api_config: riot_api_config,
             client: client,
             app_rate_limit: RateLimit::new(RateLimitType::Application),
-            method_rate_limits: Mutex::new(HashMap::new()),
+            method_rate_limits: InsertOnlyCHashMap::new(),
         }
     }
 
-    pub async fn get<T: DeserializeOwned>(
-        &mut self, method_id: &'a str, relative_url: &'_ str,
-        region: &'_ Region<'_>, query: &[(&'_ str, &'_ str)]) -> Result<Option<T>, reqwest::Error> {
+    pub async fn get<T: serde::de::DeserializeOwned>(
+        &self, method_id: &'a str, region: &'_ Region<'_>, relative_url: &'_ str,
+        query: &[(&'_ str, &'_ str)]) -> Result<Option<T>, reqwest::Error>
+    {
 
         let mut attempts: u8 = 0;
         for _ in 0..=self.riot_api_config.retries {
             attempts += 1;
 
+            let method_rate_limit: Arc<RateLimit> = self.method_rate_limits
+                .get_or_insert_with(method_id, || RateLimit::new(RateLimitType::Method));
+
             // Rate limiting.
-            while let Some(delay) = {
-                let method_rate_limit = self.get_method_rate_limit(method_id);
-                RateLimit::get_both_or_delay(&self.app_rate_limit, &*method_rate_limit)
-            } {
+            while let Some(delay) = RateLimit::get_both_or_delay(&self.app_rate_limit, &*method_rate_limit) {
                 task::sleep(delay).await;
             }
 
@@ -75,11 +74,9 @@ impl<'a> RegionalRequester<'a> {
                 Ok(r) => r,
             };
 
-            // Update rate limits (if needed).
-            {
-                self.app_rate_limit.on_response(&response);
-                self.get_method_rate_limit(method_id).on_response(&response);
-            }
+            // Maybe update rate limits (based on response headers).
+            self.app_rate_limit.on_response(&response);
+            method_rate_limit.on_response(&response);
 
             // Handle response.
             let status = response.status();
@@ -109,16 +106,10 @@ impl<'a> RegionalRequester<'a> {
         panic!("FAILED AFTER {} ATTEMPTS!", attempts);
     }
 
-    pub fn get2<T: 'a + DeserializeOwned>(&'a mut self, method_id: &'a str, relative_url: &'a str,
-        region: &'a Region<'_>, query: &'a [(&'a str, &'a str)]) -> impl Future<Output = Result<Option<T>, reqwest::Error>> + 'a {
-
-        self.get(method_id, relative_url, region, query)
-    }
-
-    fn get_method_rate_limit(&self, method_id: &'a str) -> Arc<RateLimit> {
-        Arc::clone(self.method_rate_limits.lock()
-            .entry(method_id)
-            .or_insert_with(|| Arc::new(RateLimit::new(RateLimitType::Method))))
+    pub fn get2<T: 'a + serde::de::DeserializeOwned>(&'a self, method_id: &'a str, region: &'a Region<'_>, relative_url: &'a str,
+        query: &'a [(&'a str, &'a str)]) -> impl Future<Output = Result<Option<T>, reqwest::Error>> + 'a
+    {
+        self.get(method_id, region, relative_url, query)
     }
 
     fn is_none_status_code(status: &StatusCode) -> bool {
