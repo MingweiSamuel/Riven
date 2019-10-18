@@ -13,7 +13,12 @@ exclude = [
 
 [dependencies]
 async-std = "0.99"
+log = "0.4"
 parking_lot = { version = "0.9", features = [ "nightly" ] }
 reqwest = { version = "0.10.0-alpha.1", features = [ "gzip", "json" ] }
+scan_fmt = "0.2"
 serde = "^1.0"
 tokio = "0.2.0-alpha.6"
+
+[dev-dependencies]
+env_logger = "0.7"

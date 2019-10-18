@@ -1,12 +1,7 @@
-use std::future::Future;
 use std::sync::Arc;
 
 use async_std::task;
-use reqwest::{
-    Client,
-    StatusCode,
-};
-use parking_lot::Mutex;
+use reqwest::{ Client, StatusCode };
 
 use crate::riot_api_config::RiotApiConfig;
 use crate::consts::Region;
@@ -113,5 +108,5 @@ impl<'a> RegionalRequester<'a> {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    // use super::*;
 }

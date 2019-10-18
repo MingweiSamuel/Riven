@@ -1,6 +1,3 @@
-use std::collections::HashMap;
-use std::sync::Arc;
-
 use reqwest::Client;
 
 use crate::riot_api_config::RiotApiConfig;

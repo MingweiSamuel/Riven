@@ -27,6 +27,7 @@ pub trait TokenBucket {
     fn get_total_limit(&self) -> usize;
 }
 
+#[derive(Debug)]
 pub struct VectorTokenBucket {
     /// Duration of this TokenBucket.
     duration: Duration,
@@ -95,8 +96,8 @@ impl TokenBucket for VectorTokenBucket {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-
+    // use super::*;
+    //
     // #[test]
     // fn it_works() {
     //     assert_eq!(2 + 2, 4);
