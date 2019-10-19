@@ -1,0 +1,4 @@
+node_modules/
+*.rs
+!mod.rs
+.*.json

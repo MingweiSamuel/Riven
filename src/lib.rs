@@ -1,3 +1,5 @@
+include!("../srcgen/mod.rs");
+
 pub mod consts;
 
 mod riot_api_config;
@@ -18,9 +20,11 @@ mod tests {
     fn it_works() {
         env_logger::init();
 
+        let champ = crate::consts::Champion::Riven;
+        println!("{}", champ);
+
         let api_key_raw = std::fs::read_to_string("apikey.txt").unwrap(); // TODO don't use unwrap.
         let api_key = api_key_raw.trim();
-
 
         let rt = Runtime::new().unwrap();
         let riot_api = RiotApi::with_key(api_key);

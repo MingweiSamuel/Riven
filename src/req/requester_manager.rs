@@ -1,3 +1,4 @@
+use log::*;
 use reqwest::Client;
 
 use crate::riot_api_config::RiotApiConfig;
@@ -20,6 +21,8 @@ impl<'a> RequesterManager<'a> {
     pub fn new(riot_api_config: RiotApiConfig<'a>) -> Self {
         // TODO configure client.
         let client = Client::new();
+        trace!("Creating client (TODO: configuration).");
+
         Self {
             riot_api_config: riot_api_config,
             client: client,

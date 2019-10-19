@@ -1,7 +1,7 @@
 use std::cmp;
 use std::time::{ Duration, Instant };
 
-use log::debug;
+use log::*;
 use parking_lot::{ RwLock, RwLockUpgradableReadGuard };
 use reqwest::{ StatusCode, Response };
 use scan_fmt::scan_fmt;
@@ -81,7 +81,8 @@ impl RateLimit {
             {
                 // Only care if the header that indicates the relevant RateLimit is present.
                 let type_name_header = response.headers()
-                    .get(RateLimit::HEADER_XRATELIMITTYPE)?.to_str().unwrap();
+                    .get(RateLimit::HEADER_XRATELIMITTYPE)?.to_str()
+                    .expect("Failed to read x-rate-limit-type header as string.");
                 // Only care if that header's value matches us.
                 if self.rate_limit_type.type_name() != type_name_header.to_lowercase() {
                     return None;
@@ -90,9 +91,14 @@ impl RateLimit {
 
             // Get retry after header. Only care if it exists.
             let retry_after_header = response.headers()
-                .get(RateLimit::HEADER_RETRYAFTER)?.to_str().ok()?;
-            let retry_after_secs: u64 = retry_after_header.parse().ok()?;
-            return Some(Instant::now() + Duration::from_secs(retry_after_secs));
+                .get(RateLimit::HEADER_RETRYAFTER)?.to_str()
+                .expect("Failed to read retry-after header as string.");
+            // Header currently only returns ints, but float is more general. Can be zero.
+            let retry_after_secs: f32 = retry_after_header.parse()
+                .expect("Failed to parse retry-after header as f32.");
+            // Add 0.5 seconds to account for rounding, cases when response is zero.
+            let delay = Duration::from_secs_f32(0.5 + retry_after_secs);
+            return Some(Instant::now() + delay);
         }() {
             *self.retry_after.write() = Some(retry_after);
         }
@@ -102,11 +108,15 @@ impl RateLimit {
     fn on_response_rate_limits(&self, response: &Response) {
         // Check if rate limits changed.
         let headers = response.headers();
-        let limit_header_opt = headers.get(self.rate_limit_type.limit_header()).map(|h| h.to_str().unwrap());
-        let count_header_opt = headers.get(self.rate_limit_type.count_header()).map(|h| h.to_str().unwrap());
+        let limit_header_opt = headers.get(self.rate_limit_type.limit_header())
+            .map(|h| h.to_str().expect("Failed to read limit header as string."));
+        let count_header_opt = headers.get(self.rate_limit_type.count_header())
+            .map(|h| h.to_str().expect("Failed to read count header as string."));
 
+        // https://github.com/rust-lang/rust/issues/53667
         if let Some(limit_header) = limit_header_opt {
         if let Some(count_header) = count_header_opt {
+
             let buckets = self.buckets.upgradable_read();
             if !buckets_require_updating(limit_header, &*buckets) {
                 return;
@@ -141,8 +151,10 @@ fn buckets_from_header(limit_header: &str, count_header: &str) -> Vec<VectorToke
     let mut out = Vec::with_capacity(size);
 
     for (limit_entry, count_entry) in limit_header.split(",").zip(count_header.split(",")) {
-        let (limit, limit_secs) = scan_fmt!(limit_entry, "{d}:{d}", usize, u64).unwrap();
-        let (count, count_secs) = scan_fmt!(count_entry, "{d}:{d}", usize, u64).unwrap();
+        let (limit, limit_secs) = scan_fmt!(limit_entry, "{d}:{d}", usize, u64)
+            .unwrap_or_else(|_| panic!("Failed to parse limit entry \"{}\".", limit_entry));
+        let (count, count_secs) = scan_fmt!(count_entry, "{d}:{d}", usize, u64)
+            .unwrap_or_else(|_| panic!("Failed to parse count entry \"{}\".", count_entry));
         debug_assert!(limit_secs == count_secs);
 
         let bucket = VectorTokenBucket::new(Duration::from_secs(limit_secs), limit);

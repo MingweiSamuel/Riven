@@ -61,16 +61,13 @@ impl TokenBucket for VectorTokenBucket {
     fn get_delay(&self) -> Option<Duration> {
         let timestamps = self.update_get_timestamps();
 
-        if timestamps.len() < self.total_limit {
-            None
-        }
-        else {
-            // Timestamp that needs to be popped before
-            // we can enter another timestamp.
-            let ts = *timestamps.get(self.total_limit - 1).unwrap();
-            Instant::now().checked_duration_since(ts)
-                .and_then(|passed_dur| self.duration.checked_sub(passed_dur))
-        }
+        // The "?" means:
+        // `if timestamps.len() < self.total_limit { return None }`
+        // Timestamp that needs to be popped before
+        // we can enter another timestamp.
+        let ts = *timestamps.get(self.total_limit - 1)?;
+        Instant::now().checked_duration_since(ts)
+            .and_then(|passed_dur| self.duration.checked_sub(passed_dur))
     }
 
     fn get_tokens(&self, n: usize) -> bool {
