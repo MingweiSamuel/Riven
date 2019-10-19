@@ -1,7 +1,9 @@
-#[derive(Debug, PartialEq, Eq, Hash, PartialOrd, Ord)]
-pub struct Region<'a> {
-    pub key: &'a str,
-    pub platform: &'a str,
+#[derive(Debug)]
+#[derive(PartialEq, Eq, Hash, PartialOrd, Ord)]
+#[derive(Clone, Copy)]
+pub struct Region {
+    pub key: &'static str,
+    pub platform: &'static str,
 }
 
 macro_rules! regions {
@@ -11,7 +13,7 @@ macro_rules! regions {
         )*
     ) => {
         $(
-            pub const $key: &'static Region<'static> = &Region {
+            pub const $key: Region = Region {
                 key: stringify!($key),
                 platform: $plat,
             };
@@ -23,7 +25,7 @@ macro_rules! regions {
         #[doc="# Returns"]
         #[doc="`Some(&Region)` if match found, `None` if no match found."]
         #[allow(unreachable_patterns)]
-        pub fn get(name: &str) -> Option<&Region> {
+        pub fn get(name: &str) -> Option<Region> {
             match &*name.to_ascii_uppercase() {
                 $(
                     stringify!($key) | $plat => Some(Self::$key),
@@ -34,7 +36,7 @@ macro_rules! regions {
     }
 }
 
-impl Region<'_> {
+impl Region {
     // Is this stupid?
     regions! {
         BR       => "BR1";

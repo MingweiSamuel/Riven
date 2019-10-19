@@ -1,5 +1,7 @@
 include!("../srcgen/mod.rs");
 
+pub use dto::*;
+
 pub mod consts;
 
 mod riot_api_config;
@@ -11,10 +13,23 @@ pub use riot_api::*;
 mod req;
 mod util;
 
+
 #[cfg(test)]
 mod tests {
     use tokio::runtime::Runtime;
     use super::*;
+
+
+    use url::form_urlencoded::Serializer;
+    #[test]
+    fn checkme() {
+        let mut query = Serializer::new(String::new());
+        query.append_pair("hello", "false");
+        query.append_pair("hello", "world");
+        let result = query.finish();
+        println!("{}", result);
+    }
+
 
     #[test]
     fn it_works() {

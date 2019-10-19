@@ -19,7 +19,7 @@
 }}
 // {{= endpoint }}
 #[allow(dead_code)]
-pub mod {{= dotUtils.normalizeEndpointName(endpoint) }} {
+pub mod {{= dotUtils.changeCase.snakeCase(endpoint) }} {
 {{
         for (let schemaKey of schemaKeyGroup) {
             let [endpoint, rawSchemaName] = schemaKey.split('.');
@@ -32,8 +32,22 @@ pub mod {{= dotUtils.normalizeEndpointName(endpoint) }} {
     /// # Description
     /// {{= schema.description }}
 {{?}}
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
     pub struct {{= schemaName }} {
-        // TODO.
+{{
+            for (let [ propKey, prop ] of Object.entries(props))
+            {
+                let name = dotUtils.normalizePropName(propKey, schemaName, prop);
+}}
+{{? prop.description }}
+        /// {{= prop.description.split('\n').map(x => x.trim()).join('  \r\n        /// ') }}
+{{?}}
+        {{= dotUtils.formatJsonProperty(propKey) }}
+        pub {{= name }}: {{= dotUtils.stringifyType(prop) }},
+{{
+            }
+}}
     }
 {{
         }

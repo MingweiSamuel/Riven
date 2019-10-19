@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "request": "^2.88.0",
-    "request-promise-native": "^1.0.7",
+    "change-case": "^3.1.0",
     "dot": "^1.1.2",
     "glob": "^7.1.2",
-    "glob-promise": "^3.3.0"
+    "glob-promise": "^3.3.0",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.7"
   },
   "devDependencies": {},
   "scripts": {

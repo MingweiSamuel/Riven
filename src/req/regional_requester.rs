@@ -1,7 +1,7 @@
 use std::sync::Arc;
 
 use async_std::task;
-use reqwest::{ Client, StatusCode };
+use reqwest::{ Client, StatusCode, Url };
 
 use crate::riot_api_config::RiotApiConfig;
 use crate::consts::Region;
@@ -40,8 +40,8 @@ impl<'a> RegionalRequester<'a> {
     }
 
     pub async fn get<T: serde::de::DeserializeOwned>(
-        &self, method_id: &'a str, region: &'_ Region<'_>, relative_url: &'_ str,
-        query: &[(&'_ str, &'_ str)]) -> Result<Option<T>, reqwest::Error>
+        &self, method_id: &'a str, region: Region, path: &str,
+        query: Option<&str>) -> Result<Option<T>, reqwest::Error>
     {
 
         let mut attempts: u8 = 0;
@@ -57,10 +57,14 @@ impl<'a> RegionalRequester<'a> {
             }
 
             // Send request.
-            let url = &*format!("https://{}.api.riotgames.com{}", region.platform, relative_url);
+            let url_base = format!("https://{}.api.riotgames.com", region.platform);
+            let mut url = Url::parse(&*url_base)
+                .unwrap_or_else(|_| panic!("Failed to parse url_base: \"{}\".", url_base));
+            url.set_path(path);
+            url.set_query(query);
+
             let result = self.client.get(url)
                 .header(Self::RIOT_KEY_HEADER, self.riot_api_config.api_key)
-                .query(query)
                 .send()
                 .await;
 
