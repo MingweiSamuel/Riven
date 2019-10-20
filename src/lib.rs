@@ -32,6 +32,7 @@ mod tests {
 
 
     #[test]
+    #[ignore]
     fn it_works() {
         env_logger::init();
 
@@ -45,12 +46,10 @@ mod tests {
         let riot_api = RiotApi::with_key(api_key);
 
         for i in 0..2 {
-            // https://na1.api.riotgames.com/lol/champion-mastery/v4/scores/by-summoner/SBM8Ubipo4ge2yj7bhEzL7yvV0C9Oc1XA2l6v5okGMA_nCw
-            let my_future = riot_api.get::<u32>("asdf", consts::Region::NA,
-                "/lol/champion-mastery/v4/scores/by-summoner/SBM8Ubipo4ge2yj7bhEzL7yvV0C9Oc1XA2l6v5okGMA_nCw",
-                &[]);
+            let my_future = riot_api.champion_mastery_v4_get_all_champion_masteries(
+                consts::Region::NA, "SBM8Ubipo4ge2yj7bhEzL7yvV0C9Oc1XA2l6v5okGMA_nCw");
             let val = rt.block_on(my_future).unwrap();
-            println!("VAL {}: {}", i, val.unwrap());
+            println!("VAL {}: {:#?}", i, val.unwrap());
         }
     }
 }

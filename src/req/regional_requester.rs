@@ -1,7 +1,7 @@
 use std::sync::Arc;
 
-use async_std::task;
 use reqwest::{ Client, StatusCode, Url };
+use tokio_timer::delay_for;
 
 use crate::riot_api_config::RiotApiConfig;
 use crate::consts::Region;
@@ -53,7 +53,7 @@ impl<'a> RegionalRequester<'a> {
 
             // Rate limiting.
             while let Some(delay) = RateLimit::get_both_or_delay(&self.app_rate_limit, &*method_rate_limit) {
-                task::sleep(delay).await;
+                delay_for(delay).await;
             }
 
             // Send request.

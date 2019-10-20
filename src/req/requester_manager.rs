@@ -9,7 +9,7 @@ use super::RegionalRequester;
 
 pub struct RequesterManager<'a> {
     /// Configuration settings.
-    riot_api_config: RiotApiConfig<'a>,
+    pub riot_api_config: RiotApiConfig<'a>,
     /// Client for making requests.
     client: Client,
 
