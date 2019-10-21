@@ -54,7 +54,7 @@ downloadFilesPromise.then(() => glob.promise("**/*" + suffix, { ignore: ["**/nod
           console.error(`Error thrown while running "${file}":`, e);
         }
       })
-      .then(output => fs.writeFileAsync(file.slice(0, -suffix.length), output, "utf8"))
+      .then(output => fs.writeFileAsync("../src/" + file.slice(0, -suffix.length), output, "utf8"))
     )
   ))
   .catch(console.error);

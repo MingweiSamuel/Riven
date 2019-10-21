@@ -59,6 +59,11 @@ macro_rules! rassert {
             if $x { Ok(()) } else { Err(stringify!($x)) }?
         }
     };
+    ( $x:expr, $format:expr $(, $arg:expr)* ) => {
+        {
+            if $x { Ok(()) } else { Err( format!($format, $( $arg )* ) ) }?
+        }
+    };
 }
 
 #[macro_export]

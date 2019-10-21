@@ -1,4 +1,5 @@
 mod region;
+mod champion;
 
 pub use region::*;
-pub use crate::champion::*;
+pub use champion::*;

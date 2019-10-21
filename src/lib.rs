@@ -1,6 +1,8 @@
-include!("../srcgen/mod.rs");
-
+mod dto;
 pub use dto::*;
+
+mod endpoints;
+pub use endpoints::*;
 
 pub mod consts;
 
