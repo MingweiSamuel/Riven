@@ -38,15 +38,11 @@ impl RegionalRequester {
 
     pub fn get<'a, T: serde::de::DeserializeOwned>(self: Arc<Self>,
         config: &'a RiotApiConfig, client: &'a Client,
-        method_id: &'static str, region: Region, path: String,
-        query: Option<String>)
+        method_id: &'static str, region: Region, path: String, query: Option<String>)
         -> impl Future<Output = Result<Option<T>, reqwest::Error>> + 'a
     {
         async move {
-            let query = query.as_ref().map(|s| s.as_ref());
-
-            // let ref config = RiotApiConfig::with_key("asdf");
-            // let ref client = Client::new();
+            let query = query.as_deref();
 
             let mut attempts: u8 = 0;
             for _ in 0..=config.retries {
