@@ -1,6 +1,6 @@
 [package]
 name = "riven"
-version = "0.0.2"
+version = "0.0.3"
 authors = ["Mingwei Samuel <mingwei.samuel@gmail.com>"]
 repository = "https://github.com/MingweiSamuel/Riven"
 description = "Riot API Library (WIP)"
