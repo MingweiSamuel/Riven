@@ -32,6 +32,10 @@ impl RiotApi {
         const method = dotUtils.changeCase.snakeCase(endpointName);
         const type = dotUtils.changeCase.pascalCase(endpointName);
 }}
+    /// Handle for {{= type }} endpoints. This method is automatically generated.
+    /// # Official API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#{{= endpointName }}">https://developer.riotgames.com/api-methods/#{{= endpointName }}</a>
+    #[inline]
     pub fn {{= method }}(&self) -> {{= type }} {
         {{= type }} { base: self }
     }
@@ -44,9 +48,9 @@ impl RiotApi {
         let endpoint = dotUtils.changeCase.pascalCase(endpointName);
 }}
 
-/// {{= endpoint }} endpoints. This class is automatically generated.<para />
+/// {{= endpoint }} endpoints. This struct is automatically generated.
 /// # Official API Reference
-/// a href="https://developer.riotgames.com/api-methods/#{{= endpointName }}">https://developer.riotgames.com/api-methods/#{{= endpointName }}</a>
+/// <a href="https://developer.riotgames.com/api-methods/#{{= endpointName }}">https://developer.riotgames.com/api-methods/#{{= endpointName }}</a>
 pub struct {{= endpoint }}<'a> {
     base: &'a RiotApi,
 }

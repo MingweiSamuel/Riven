@@ -27,7 +27,7 @@ pub mod {{= dotUtils.changeCase.snakeCase(endpoint) }} {
             let schema = schemas[schemaKey];
             let props = schema.properties;
 }}
-    /// {{= schemaName }} data object. This class is automatically generated.
+    /// {{= schemaName }} data object. This struct is automatically generated.
 {{? schema.description }}
     /// # Description
     /// {{= schema.description }}
