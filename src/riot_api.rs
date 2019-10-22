@@ -1,6 +1,3 @@
-mod endpoints;
-pub use endpoints::*;
-
 use std::future::Future;
 
 use log::*;

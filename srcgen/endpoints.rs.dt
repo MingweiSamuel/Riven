@@ -25,13 +25,32 @@ use crate::riot_api::RiotApi;
         endpointGroups[ep] = endpointGroups[ep] || [];
         endpointGroups[ep].push(path);
     }
-
+}}
+impl RiotApi {
+{{
+    for (const endpointName of Object.keys(endpointGroups)) {
+        const method = dotUtils.changeCase.snakeCase(endpointName);
+        const type = dotUtils.changeCase.pascalCase(endpointName);
+}}
+    pub fn {{= method }}(&self) -> {{= type }} {
+        {{= type }} { base: self }
+    }
+{{
+    }
+}}
+}
+{{
     for (let [ endpointName, endpointMethods ] of Object.entries(endpointGroups)) {
         let endpoint = dotUtils.changeCase.pascalCase(endpointName);
 }}
 
-// {{= endpoint }}
-impl RiotApi {
+/// {{= endpoint }} endpoints. This class is automatically generated.<para />
+/// # Official API Reference
+/// a href="https://developer.riotgames.com/api-methods/#{{= endpointName }}">https://developer.riotgames.com/api-methods/#{{= endpointName }}</a>
+pub struct {{= endpoint }}<'a> {
+    base: &'a RiotApi,
+}
+impl<'a> {{= endpoint }}<'a> {
 {{
         for (let [ route, path ] of endpointMethods)
         {
@@ -106,7 +125,7 @@ impl RiotApi {
                 }
             }
 }}
-        pub fn {{= dotUtils.changeCase.snakeCase(endpoint) }}_{{= method }}<'a>(&'a self, region: Region{{= argBuilder.join('') }})
+        pub fn {{= method }}(&self, region: Region{{= argBuilder.join('') }})
             -> impl Future<Output = Result<Option<{{= returnType }}>, reqwest::Error>> + 'a
         {
 {{? queryParams.length }}
@@ -122,7 +141,7 @@ impl RiotApi {
             let query_string = query_params.finish();
 {{?}}
             let path_string = {{= routeArgument }};
-            self.get::<{{= returnType }}>("{{= operationId }}", region, path_string, {{= queryParams.length ? 'Some(query_string)' : 'None' }})
+            self.base.get::<{{= returnType }}>("{{= operationId }}", region, path_string, {{= queryParams.length ? 'Some(query_string)' : 'None' }})
         }
 
 {{

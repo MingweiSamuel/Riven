@@ -3,6 +3,7 @@ pub use dto::*;
 
 pub mod consts;
 
+mod endpoints;
 mod riot_api_config;
 pub use riot_api_config::*;
 
@@ -18,7 +19,6 @@ mod tests {
     use tokio::runtime::Runtime;
     use super::*;
 
-
     use url::form_urlencoded::Serializer;
     #[test]
     fn checkme() {
@@ -28,7 +28,6 @@ mod tests {
         let result = query.finish();
         println!("{}", result);
     }
-
 
     #[test]
     #[ignore]
@@ -44,7 +43,7 @@ mod tests {
         let riot_api = RiotApi::with_key(api_key.trim());
 
         for i in 0..2 {
-            let my_future = riot_api.champion_mastery_v4_get_all_champion_masteries(
+            let my_future = riot_api.champion_mastery_v4().get_all_champion_masteries(
                 consts::Region::NA, "SBM8Ubipo4ge2yj7bhEzL7yvV0C9Oc1XA2l6v5okGMA_nCw");
             let val = rt.block_on(my_future).unwrap();
             println!("VAL {}: {:#?}", i, val.unwrap());

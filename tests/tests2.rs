@@ -9,12 +9,9 @@ use riven::RiotApi;
 use tokio::runtime::current_thread::Runtime;
 
 lazy_static! {
-    static ref API_KEY: String = {
+    static ref RIOT_API: RiotApi = {
         let api_key = std::fs::read_to_string("apikey.txt").unwrap(); // TODO don't use unwrap.
-        api_key.trim().to_owned()
-    };
-    static ref RIOT_API: RiotApi<'static> = {
-        RiotApi::with_key(&API_KEY)
+        RiotApi::with_key(api_key.trim())
     };
 }
 
