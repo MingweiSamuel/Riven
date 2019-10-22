@@ -1,21 +1,47 @@
-use crate::RiotApiConfig;
-use crate::req::RequesterManager;
+mod endpoints;
+pub use endpoints::*;
 
-pub struct RiotApi<'a> {
-    pub requester_manager: RequesterManager<'a>,
-    _private: (),
+use std::future::Future;
+
+use log::*;
+use reqwest::Client;
+
+use crate::RiotApiConfig;
+use crate::consts::Region;
+use crate::req::RegionalRequester;
+use crate::util::InsertOnlyCHashMap;
+
+pub struct RiotApi {
+    /// Configuration settings.
+    config: RiotApiConfig,
+    /// Client for making requests.
+    client: Client,
+
+    /// Per-region requesters.
+    regional_requesters: InsertOnlyCHashMap<Region, RegionalRequester>,
 }
 
-impl<'a> RiotApi<'a> {
-    pub fn with_config(config: RiotApiConfig<'a>) -> Self {
-        let req_man = RequesterManager::new(config);
+impl RiotApi {
+    pub fn with_config(config: RiotApiConfig) -> Self {
+        trace!("Creating client (TODO: configuration).");
         Self {
-            requester_manager: req_man,
-            _private: (),
+            config: config,
+            client: Client::new(),
+            regional_requesters: InsertOnlyCHashMap::new(),
         }
     }
 
-    pub fn with_key(api_key: &'a str) -> Self {
+    pub fn with_key<T: Into<String>>(api_key: T) -> Self {
         Self::with_config(RiotApiConfig::with_key(api_key))
+    }
+
+    pub fn get<'a, T: serde::de::DeserializeOwned + 'a>(&'a self,
+        method_id: &'static str, region: Region, path: String, query: Option<String>)
+        -> impl Future<Output = Result<Option<T>, reqwest::Error>> + 'a
+    {
+        // TODO: max concurrent requests? Or can configure client?
+        self.regional_requesters
+            .get_or_insert_with(region, || RegionalRequester::new())
+            .get(&self.config, &self.client, method_id, region, path, query)
     }
 }

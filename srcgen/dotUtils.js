@@ -100,7 +100,7 @@ function formatAddQueryParam(param) {
 
 function formatRouteArgument(route, pathParams = []) {
   if (!pathParams.length)
-    return `"${route}"`;
+    return `"${route}".to_owned()`;
 
   route = route.replace(/\{\S+?\}/g, '{}');
   const args = pathParams

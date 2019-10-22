@@ -1,9 +1,6 @@
 mod dto;
 pub use dto::*;
 
-mod endpoints;
-pub use endpoints::*;
-
 pub mod consts;
 
 mod riot_api_config;
@@ -41,11 +38,10 @@ mod tests {
         let champ = crate::consts::Champion::Riven;
         println!("{}", champ);
 
-        let api_key_raw = std::fs::read_to_string("apikey.txt").unwrap(); // TODO don't use unwrap.
-        let api_key = api_key_raw.trim();
+        let api_key = std::fs::read_to_string("apikey.txt").unwrap(); // TODO don't use unwrap.
 
         let rt = Runtime::new().unwrap();
-        let riot_api = RiotApi::with_key(api_key);
+        let riot_api = RiotApi::with_key(api_key.trim());
 
         for i in 0..2 {
             let my_future = riot_api.champion_mastery_v4_get_all_champion_masteries(

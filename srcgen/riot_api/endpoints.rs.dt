@@ -9,6 +9,7 @@
 // http://www.mingweisamuel.com/riotapi-schema/tool/
 // Version {{= spec.info.version }}
 
+use std::future::Future;
 use std::vec::Vec;
 
 use reqwest;
@@ -30,7 +31,7 @@ use crate::riot_api::RiotApi;
 }}
 
 // {{= endpoint }}
-impl<'a> RiotApi<'a> {
+impl RiotApi {
 {{
         for (let [ route, path ] of endpointMethods)
         {
@@ -105,7 +106,9 @@ impl<'a> RiotApi<'a> {
                 }
             }
 }}
-        pub async fn {{= dotUtils.changeCase.snakeCase(endpoint) }}_{{= method }}(&'a self, region: Region{{= argBuilder.join('') }}) -> Result<Option<{{= returnType }}>, reqwest::Error> {
+        pub fn {{= dotUtils.changeCase.snakeCase(endpoint) }}_{{= method }}<'a>(&'a self, region: Region{{= argBuilder.join('') }})
+            -> impl Future<Output = Result<Option<{{= returnType }}>, reqwest::Error>> + 'a
+        {
 {{? queryParams.length }}
             let mut query_params = Serializer::new(String::new());
 {{
@@ -119,9 +122,7 @@ impl<'a> RiotApi<'a> {
             let query_string = query_params.finish();
 {{?}}
             let path_string = {{= routeArgument }};
-            return self.requester_manager.get::<{{= returnType }}>(
-                "{{= operationId }}", region, &*path_string,
-                {{= queryParams.length ? 'Some(&*query_string)' : 'None' }}).await; // {{= rateLimitExcluded }});
+            self.get::<{{= returnType }}>("{{= operationId }}", region, path_string, {{= queryParams.length ? 'Some(query_string)' : 'None' }})
         }
 
 {{

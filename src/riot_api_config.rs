@@ -1,13 +1,13 @@
 #[derive(Debug)]
-pub struct RiotApiConfig<'a> {
-    pub api_key: &'a str,
+pub struct RiotApiConfig {
+    pub api_key: String,
     pub retries: u8,
 }
 
-impl<'a> RiotApiConfig<'a> {
-    pub fn with_key(api_key: &'a str) -> Self {
+impl RiotApiConfig {
+    pub fn with_key<T: Into<String>>(api_key: T) -> Self {
         Self {
-            api_key: api_key,
+            api_key: api_key.into(),
             retries: 3 // TODO defaults.
         }
     }
