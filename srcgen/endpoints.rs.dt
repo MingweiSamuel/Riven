@@ -9,6 +9,9 @@
 // http://www.mingweisamuel.com/riotapi-schema/tool/
 // Version {{= spec.info.version }}
 
+mod dto;
+pub use dto::*;
+
 use std::future::Future;
 use std::vec::Vec;
 

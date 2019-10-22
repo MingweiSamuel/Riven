@@ -1,10 +1,6 @@
-mod dto;
-pub use dto::*;
-
 pub mod consts;
 
-mod endpoints;
-pub use endpoints::*;
+pub mod endpoints;
 
 mod riot_api_config;
 pub use riot_api_config::*;

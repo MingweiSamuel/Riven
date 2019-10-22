@@ -51,7 +51,7 @@ function stringifyType(prop, endpoint = null, optional = false, fullpath = true,
 
   let refType = prop['$ref'];
   if (refType) {
-    return (!endpoint ? '' : 'crate::' + changeCase.snakeCase(endpoint) + '::') +
+    return (!endpoint ? '' : changeCase.snakeCase(endpoint) + '::') +
       normalizeSchemaName(refType.slice(refType.indexOf('.') + 1));
   }
   if (optional) {
