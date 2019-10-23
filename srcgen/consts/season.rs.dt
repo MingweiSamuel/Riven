@@ -1,0 +1,17 @@
+﻿{{
+    const dotUtils = require('./dotUtils.js');
+    const seasons = require('./.seasons.json');
+}}{{= dotUtils.preamble() }}
+
+/// League of Legends matchmaking seasons.
+pub enum Season {
+{{
+    for (const { id, season } of seasons) {
+        let name = season.replace(' ', '');
+        name = dotUtils.changeCase.pascalCase(name).padEnd(13);
+}}
+    {{= name }} = {{= id }},
+{{
+    }
+}}
+}
