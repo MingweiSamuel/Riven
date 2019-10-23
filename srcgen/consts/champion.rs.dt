@@ -19,17 +19,23 @@
 use std::fmt;
 use num_derive;
 
+/// League of Legend's champions.
+///
+/// The documentation of each variant specifies:<br>
+/// NAME (`IDENTIFIER`, ID).
 #[derive(fmt::Debug, Copy, Clone)]
 #[derive(num_derive::FromPrimitive, num_derive::ToPrimitive)]
 pub enum Champion {
 {{
-    for (let { id, name } of champions) {
+    for (let { id, alias, name } of champions) {
+        const comment = `${name.padEnd(14)} (\`${alias}\`, ${id}).`.padEnd(36);
+        const ename = enumName(name).padEnd(12);
 }}
-    {{= enumName(name).padEnd(12) }} = {{= id }},
+    /** {{= comment }} */ {{= ename }} = {{= id }},
 {{
     }
 }}
-    }
+}
 
 impl Champion {
     pub fn name(self) -> &'static str {
