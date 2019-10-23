@@ -23,8 +23,7 @@ pub enum Queue {
 }}
     /// {{= doc }}.
 {{? notes }}
-    /// # Notes
-    /// {{= notes }}
+    /// <br>{{= notes }}
 {{?}}
 {{? deprecated}}
     #[deprecated(note="{{= notes }}")]
