@@ -15,9 +15,9 @@ pub use dto::*;
 use std::future::Future;
 use std::vec::Vec;
 
-use reqwest;
 use url::form_urlencoded::Serializer;
 
+use crate::Result;
 use crate::consts::Region;
 use crate::riot_api::RiotApi;
 
@@ -133,7 +133,7 @@ impl<'a> {{= endpoint }}<'a> {
             }
 }}
         pub fn {{= method }}(&self, region: Region{{= argBuilder.join('') }})
-            -> impl Future<Output = Result<Option<{{= returnType }}>, reqwest::Error>> + 'a
+            -> impl Future<Output = Result<Option<{{= returnType }}>>> + 'a
         {
 {{? queryParams.length }}
             let mut query_params = Serializer::new(String::new());

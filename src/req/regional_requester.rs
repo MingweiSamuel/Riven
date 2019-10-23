@@ -1,9 +1,11 @@
 use std::future::Future;
 use std::sync::Arc;
 
+use log;
 use reqwest::{ Client, StatusCode, Url };
 use tokio_timer::delay_for;
 
+use crate::Result;
 use crate::riot_api_config::RiotApiConfig;
 use crate::consts::Region;
 use crate::util::InsertOnlyCHashMap;
@@ -12,9 +14,6 @@ use super::RateLimit;
 use super::RateLimitType;
 
 pub struct RegionalRequester {
-
-
-
     /// Represents the app rate limit.
     app_rate_limit: RateLimit,
     /// Represents method rate limits.
@@ -39,15 +38,13 @@ impl RegionalRequester {
     pub fn get<'a, T: serde::de::DeserializeOwned>(self: Arc<Self>,
         config: &'a RiotApiConfig, client: &'a Client,
         method_id: &'static str, region: Region, path: String, query: Option<String>)
-        -> impl Future<Output = Result<Option<T>, reqwest::Error>> + 'a
+        -> impl Future<Output = Result<Option<T>>> + 'a
     {
         async move {
             let query = query.as_deref();
 
-            let mut attempts: u8 = 0;
-            for _ in 0..=config.retries {
-                attempts += 1;
-
+            let mut retries: u8 = 0;
+            loop {
                 let method_rate_limit: Arc<RateLimit> = self.method_rate_limits
                     .get_or_insert_with(method_id, || RateLimit::new(RateLimitType::Method));
 
@@ -63,15 +60,10 @@ impl RegionalRequester {
                 url.set_path(&*path);
                 url.set_query(query);
 
-                let result = client.get(url)
+                let response = client.get(url)
                     .header(Self::RIOT_KEY_HEADER, &*config.api_key)
                     .send()
-                    .await;
-
-                let response = match result {
-                    Err(e) => return Err(e),
-                    Ok(r) => r,
-                };
+                    .await?;
 
                 // Maybe update rate limits (based on response headers).
                 self.app_rate_limit.on_response(&response);
@@ -79,30 +71,33 @@ impl RegionalRequester {
 
                 // Handle response.
                 let status = response.status();
-                // Success, return None.
+                log::trace!("Response {} (retried {} times).", status, retries);
+                // Special "none success" cases, return None.
                 if Self::is_none_status_code(&status) {
-                    return Ok(None);
+                    break Ok(None);
                 }
-                // Success, return a value.
-                if status.is_success() {
-                    let value = response.json::<T>().await;
-                    return match value {
-                        Err(e) => Err(e),
-                        Ok(v) => Ok(Some(v)),
-                    }
-                }
-                // Retryable.
-                if StatusCode::TOO_MANY_REQUESTS == status || status.is_server_error() {
-                    continue;
-                }
-                // Failure (non-retryable).
-                if status.is_client_error() {
-                    break;
-                }
-                panic!("NOT HANDLED: {}!", status);
+                // Handle normal success / failure cases.
+                match response.error_for_status_ref() {
+                    // Success.
+                    Ok(_) => {
+                        let value = response.json::<T>().await;
+                        break value.map(|v| Some(v));
+                    },
+                    // Failure, may or may not be retryable.
+                    Err(err) => {
+                        // Not-retryable: no more retries or 4xx or ? (3xx, redirects exceeded).
+                        // Retryable: retries remaining, and 429 or 5xx.
+                        if retries >= config.retries ||
+                            (StatusCode::TOO_MANY_REQUESTS != status
+                            && !status.is_server_error())
+                        {
+                            break Err(err);
+                        }
+                    },
+                };
+
+                retries += 1;
             }
-            // TODO: return error.
-            panic!("FAILED AFTER {} ATTEMPTS!", attempts);
         }
     }
 

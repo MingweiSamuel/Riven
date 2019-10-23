@@ -1,3 +1,6 @@
+pub use reqwest::Error as Error;
+pub use reqwest::Result as Result;
+
 pub mod consts;
 
 pub mod endpoints;
@@ -44,7 +47,7 @@ mod tests {
             let my_future = riot_api.champion_mastery_v4().get_all_champion_masteries(
                 consts::Region::NA, "SBM8Ubipo4ge2yj7bhEzL7yvV0C9Oc1XA2l6v5okGMA_nCw");
             let val = rt.block_on(my_future).unwrap();
-            println!("VAL {}: {:#?}", i, val.unwrap());
+            //println!("VAL {}: {:#?}", i, val.unwrap());
         }
     }
 }

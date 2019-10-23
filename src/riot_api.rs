@@ -1,6 +1,6 @@
 use std::future::Future;
 
-use log::*;
+use log;
 use reqwest::Client;
 
 use crate::RiotApiConfig;
@@ -20,7 +20,7 @@ pub struct RiotApi {
 
 impl RiotApi {
     pub fn with_config(config: RiotApiConfig) -> Self {
-        trace!("Creating client (TODO: configuration).");
+        log::trace!("Creating client (TODO: configuration).");
         Self {
             config: config,
             client: Client::new(),
