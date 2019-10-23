@@ -9,6 +9,8 @@
 // http://www.mingweisamuel.com/riotapi-schema/tool/
 // Version {{= spec.info.version }}
 
+//! Automatically generated endpoint handles and data transfer structs.
+
 mod dto;
 pub use dto::*;
 

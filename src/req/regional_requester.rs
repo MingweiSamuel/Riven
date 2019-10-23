@@ -6,6 +6,7 @@ use reqwest::{ Client, StatusCode, Url };
 use tokio_timer::delay_for;
 
 use crate::Result;
+use crate::RiotApiError;
 use crate::riot_api_config::RiotApiConfig;
 use crate::consts::Region;
 use crate::util::InsertOnlyCHashMap;
@@ -63,7 +64,8 @@ impl RegionalRequester {
                 let response = client.get(url)
                     .header(Self::RIOT_KEY_HEADER, &*config.api_key)
                     .send()
-                    .await?;
+                    .await
+                    .map_err(|e| RiotApiError::new(e, retries, None))?;
 
                 // Maybe update rate limits (based on response headers).
                 self.app_rate_limit.on_response(&response);
@@ -81,7 +83,8 @@ impl RegionalRequester {
                     // Success.
                     Ok(_) => {
                         let value = response.json::<T>().await;
-                        break value.map(|v| Some(v));
+                        break value.map(|v| Some(v))
+                            .map_err(|e| RiotApiError::new(e, retries, None));
                     },
                     // Failure, may or may not be retryable.
                     Err(err) => {
@@ -91,7 +94,7 @@ impl RegionalRequester {
                             (StatusCode::TOO_MANY_REQUESTS != status
                             && !status.is_server_error())
                         {
-                            break Err(err);
+                            break Err(RiotApiError::new(err, retries, Some(response)));
                         }
                     },
                 };

@@ -3,11 +3,13 @@ use std::future::Future;
 use log;
 use reqwest::Client;
 
+use crate::Result;
 use crate::RiotApiConfig;
 use crate::consts::Region;
 use crate::req::RegionalRequester;
 use crate::util::InsertOnlyCHashMap;
 
+/// For retrieving data from the Riot Games API.
 pub struct RiotApi {
     /// Configuration settings.
     config: RiotApiConfig,
@@ -34,7 +36,7 @@ impl RiotApi {
 
     pub fn get<'a, T: serde::de::DeserializeOwned + 'a>(&'a self,
         method_id: &'static str, region: Region, path: String, query: Option<String>)
-        -> impl Future<Output = Result<Option<T>, reqwest::Error>> + 'a
+        -> impl Future<Output = Result<Option<T>>> + 'a
     {
         // TODO: max concurrent requests? Or can configure client?
         self.regional_requesters

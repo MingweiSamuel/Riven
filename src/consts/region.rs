@@ -1,3 +1,6 @@
+//! A region served by a single game server.
+//! Each Riot Games API request is directed at a particular region,
+//! with tournament API requests directed at the AMERICAS "global" region.
 #[derive(Debug)]
 #[derive(PartialEq, Eq, Hash, PartialOrd, Ord)]
 #[derive(Clone, Copy)]
@@ -54,6 +57,7 @@ impl Region {
         AMERICAS => "AMERICAS";
         EUROPE   => "EUROPE";
         ASIA     => "ASIA";
+
     }
 }
 

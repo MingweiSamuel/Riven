@@ -1,3 +1,4 @@
+/// Configuration for instantiating RiotApi.
 #[derive(Debug)]
 pub struct RiotApiConfig {
     pub api_key: String,

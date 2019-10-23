@@ -1,5 +1,7 @@
-pub use reqwest::Error as Error;
-pub use reqwest::Result as Result;
+//! Module docs TODO.
+
+mod riot_api_error;
+pub use riot_api_error::*;
 
 pub mod consts;
 

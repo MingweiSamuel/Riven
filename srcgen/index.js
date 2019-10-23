@@ -14,6 +14,10 @@ const files = [
   [
     'http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.json',
     '.spec.json'
+  ],
+  [
+    'http://static.developer.riotgames.com/docs/lol/seasons.json',
+    '.seasons.json'
   ]
 ]
 
