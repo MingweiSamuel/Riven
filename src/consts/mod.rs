@@ -8,3 +8,6 @@ pub use champion::*;
 
 mod season;
 pub use season::*;
+
+mod queue;
+pub use queue::*;

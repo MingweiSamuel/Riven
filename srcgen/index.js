@@ -18,6 +18,10 @@ const files = [
   [
     'http://static.developer.riotgames.com/docs/lol/seasons.json',
     '.seasons.json'
+  ],
+  [
+    'http://static.developer.riotgames.com/docs/lol/queues.json',
+    '.queues.json'
   ]
 ]
 

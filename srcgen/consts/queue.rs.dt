@@ -1,0 +1,37 @@
+﻿{{
+    const dotUtils = require('./dotUtils.js');
+    const queues = require('./.queues.json');
+
+    const groupedQueues = queues.groupBy(({ map, description }) => {
+        const name = dotUtils.changeCase.pascalCase((map || '').replace("'", ''))
+            + dotUtils.changeCase.pascalCase((description || '').replace(/\s+(?=\d)/g, ''));
+        return name;
+    });
+}}{{= dotUtils.preamble() }}
+
+/// League of Legends matchmaking queue.
+pub enum Queue {
+{{
+    for (let [ groupName, colQueues ] of groupedQueues) {
+}}
+
+{{
+        for (let { queueId, map, description, notes } of colQueues) {
+            const name = groupName + (colQueues.length > 1 ? queueId : '');
+            const doc = (description ? description + ' games on ' : '') + map;
+            const deprecated = (notes || '').toUpperCase().indexOf('DEPRECATED') >= 0;
+}}
+    /// {{= doc }}.
+{{? notes }}
+    /// # Notes
+    /// {{= notes }}
+{{?}}
+{{? deprecated}}
+    #[deprecated(note="{{= notes }}")]
+{{?}}
+    {{= name }} = {{= queueId }},
+{{
+        }
+    }
+}}
+}
