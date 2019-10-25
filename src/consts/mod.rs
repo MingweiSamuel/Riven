@@ -12,5 +12,8 @@ pub use season::*;
 mod queue;
 pub use queue::*;
 
+mod queue_type;
+pub use queue_type::*;
+
 mod team;
 pub use team::*;
