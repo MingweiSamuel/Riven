@@ -10,16 +10,16 @@ pub enum Queue {
     /// 5v5 Blind Pick games games on Summoner's Rift.
     /// <br>Deprecated in patch 7.19 in favor of queueId 430
     #[deprecated(note="Deprecated in patch 7.19 in favor of queueId 430")]
-    SummonersRift5v5BlindPickGames2 = 2,
+    SummonersRift5v5BlindPickGamesDeprecated = 2,
     /// 5v5 Blind Pick games games on Summoner's Rift.
-    SummonersRift5v5BlindPickGames430 = 430,
+    SummonersRift5v5BlindPickGames = 430,
 
     /// 5v5 Ranked Solo games games on Summoner's Rift.
     /// <br>Deprecated in favor of queueId 420
     #[deprecated(note="Deprecated in favor of queueId 420")]
-    SummonersRift5v5RankedSoloGames4 = 4,
+    SummonersRift5v5RankedSoloGamesDeprecated = 4,
     /// 5v5 Ranked Solo games games on Summoner's Rift.
-    SummonersRift5v5RankedSoloGames420 = 420,
+    SummonersRift5v5RankedSoloGames = 420,
 
     /// 5v5 Ranked Premade games games on Summoner's Rift.
     /// <br>Game mode deprecated
@@ -39,16 +39,16 @@ pub enum Queue {
     /// 3v3 Ranked Flex games games on Twisted Treeline.
     /// <br>Deprecated in patch 7.19 in favor of queueId 470
     #[deprecated(note="Deprecated in patch 7.19 in favor of queueId 470")]
-    TwistedTreeline3v3RankedFlexGames9 = 9,
+    TwistedTreeline3v3RankedFlexGamesDeprecated = 9,
     /// 3v3 Ranked Flex games games on Twisted Treeline.
-    TwistedTreeline3v3RankedFlexGames470 = 470,
+    TwistedTreeline3v3RankedFlexGames = 470,
 
     /// 5v5 Draft Pick games games on Summoner's Rift.
     /// <br>Deprecated in favor of queueId 400
     #[deprecated(note="Deprecated in favor of queueId 400")]
-    SummonersRift5v5DraftPickGames14 = 14,
+    SummonersRift5v5DraftPickGamesDeprecated = 14,
     /// 5v5 Draft Pick games games on Summoner's Rift.
-    SummonersRift5v5DraftPickGames400 = 400,
+    SummonersRift5v5DraftPickGames = 400,
 
     /// 5v5 Dominion Blind Pick games games on Crystal Scar.
     /// <br>Game mode deprecated
@@ -68,23 +68,23 @@ pub enum Queue {
     /// Co-op vs AI Intro Bot games games on Summoner's Rift.
     /// <br>Deprecated in patch 7.19 in favor of queueId 830
     #[deprecated(note="Deprecated in patch 7.19 in favor of queueId 830")]
-    SummonersRiftCoOpVsAiIntroBotGames31 = 31,
+    SummonersRiftCoOpVsAiIntroBotGamesDeprecated = 31,
     /// Co-op vs. AI Intro Bot games games on Summoner's Rift.
-    SummonersRiftCoOpVsAiIntroBotGames830 = 830,
+    SummonersRiftCoOpVsAiIntroBotGames = 830,
 
     /// Co-op vs AI Beginner Bot games games on Summoner's Rift.
     /// <br>Deprecated in patch 7.19 in favor of queueId 840
     #[deprecated(note="Deprecated in patch 7.19 in favor of queueId 840")]
-    SummonersRiftCoOpVsAiBeginnerBotGames32 = 32,
+    SummonersRiftCoOpVsAiBeginnerBotGamesDeprecated = 32,
     /// Co-op vs. AI Beginner Bot games games on Summoner's Rift.
-    SummonersRiftCoOpVsAiBeginnerBotGames840 = 840,
+    SummonersRiftCoOpVsAiBeginnerBotGames = 840,
 
     /// Co-op vs AI Intermediate Bot games games on Summoner's Rift.
     /// <br>Deprecated in patch 7.19 in favor of queueId 850
     #[deprecated(note="Deprecated in patch 7.19 in favor of queueId 850")]
-    SummonersRiftCoOpVsAiIntermediateBotGames33 = 33,
+    SummonersRiftCoOpVsAiIntermediateBotGamesDeprecated = 33,
     /// Co-op vs. AI Intermediate Bot games games on Summoner's Rift.
-    SummonersRiftCoOpVsAiIntermediateBotGames850 = 850,
+    SummonersRiftCoOpVsAiIntermediateBotGames = 850,
 
     /// 3v3 Ranked Team games games on Twisted Treeline.
     /// <br>Game mode deprecated
@@ -109,9 +109,9 @@ pub enum Queue {
     /// 5v5 ARAM games games on Howling Abyss.
     /// <br>Deprecated in patch 7.19 in favor of queueId 450
     #[deprecated(note="Deprecated in patch 7.19 in favor of queueId 450")]
-    HowlingAbyss5v5AramGames65 = 65,
+    HowlingAbyss5v5AramGamesDeprecated = 65,
     /// 5v5 ARAM games games on Howling Abyss.
-    HowlingAbyss5v5AramGames450 = 450,
+    HowlingAbyss5v5AramGames = 450,
 
     /// ARAM Co-op vs AI games games on Howling Abyss.
     /// <br>Game mode deprecated
@@ -121,9 +121,9 @@ pub enum Queue {
     /// One for All games games on Summoner's Rift.
     /// <br>Deprecated in patch 8.6 in favor of queueId 1020
     #[deprecated(note="Deprecated in patch 8.6 in favor of queueId 1020")]
-    SummonersRiftOneForAllGames70 = 70,
+    SummonersRiftOneForAllGamesDeprecated = 70,
     /// One for All games games on Summoner's Rift.
-    SummonersRiftOneForAllGames1020 = 1020,
+    SummonersRiftOneForAllGames = 1020,
 
     /// 1v1 Snowdown Showdown games games on Howling Abyss.
     HowlingAbyss1v1SnowdownShowdownGames = 72,
@@ -161,9 +161,9 @@ pub enum Queue {
     /// Ascension games games on Crystal Scar.
     /// <br>Deprecated in patch 7.19 in favor of queueId 910
     #[deprecated(note="Deprecated in patch 7.19 in favor of queueId 910")]
-    CrystalScarAscensionGames96 = 96,
+    CrystalScarAscensionGamesDeprecated = 96,
     /// Ascension games games on Crystal Scar.
-    CrystalScarAscensionGames910 = 910,
+    CrystalScarAscensionGames = 910,
 
     /// 6v6 Hexakill games games on Twisted Treeline.
     TwistedTreeline6v6HexakillGames = 98,
@@ -174,9 +174,9 @@ pub enum Queue {
     /// Legend of the Poro King games games on Howling Abyss.
     /// <br>Deprecated in patch 7.19 in favor of queueId 920
     #[deprecated(note="Deprecated in patch 7.19 in favor of queueId 920")]
-    HowlingAbyssLegendOfThePoroKingGames300 = 300,
+    HowlingAbyssLegendOfThePoroKingGamesDeprecated = 300,
     /// Legend of the Poro King games games on Howling Abyss.
-    HowlingAbyssLegendOfThePoroKingGames920 = 920,
+    HowlingAbyssLegendOfThePoroKingGames = 920,
 
     /// Nemesis games games on Summoner's Rift.
     SummonersRiftNemesisGames = 310,
@@ -187,9 +187,9 @@ pub enum Queue {
     /// Nexus Siege games games on Summoner's Rift.
     /// <br>Deprecated in patch 7.19 in favor of queueId 940
     #[deprecated(note="Deprecated in patch 7.19 in favor of queueId 940")]
-    SummonersRiftNexusSiegeGames315 = 315,
+    SummonersRiftNexusSiegeGamesDeprecated = 315,
     /// Nexus Siege games games on Summoner's Rift.
-    SummonersRiftNexusSiegeGames940 = 940,
+    SummonersRiftNexusSiegeGames = 940,
 
     /// Definitely Not Dominion games games on Crystal Scar.
     CrystalScarDefinitelyNotDominionGames = 317,

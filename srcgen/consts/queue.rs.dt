@@ -17,9 +17,9 @@ pub enum Queue {
 
 {{
         for (let { queueId, map, description, notes } of colQueues) {
-            const name = groupName + (colQueues.length > 1 ? queueId : '');
             const doc = (description ? description + ' games on ' : '') + map;
             const deprecated = (notes || '').toUpperCase().indexOf('DEPRECATED') >= 0;
+            const name = groupName + ((colQueues.length > 1 && deprecated) ? 'Deprecated' : '');
 }}
     /// {{= doc }}.
 {{? notes }}
