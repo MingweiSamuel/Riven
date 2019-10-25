@@ -8,8 +8,15 @@
         return name;
     });
 }}{{= dotUtils.preamble() }}
+#![allow(deprecated)]
+
+use serde_repr::{ Serialize_repr, Deserialize_repr };
 
 /// League of Legends matchmaking queue.
+#[derive(Debug, Copy, Clone)]
+#[derive(Eq, PartialEq)]
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(u16)]
 pub enum Queue {
 {{
     for (let [ groupName, colQueues ] of groupedQueues) {
