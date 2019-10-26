@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 use std::fmt;
-use num_derive::{ FromPrimitive, ToPrimitive };
+use num_enum::{ IntoPrimitive, TryFromPrimitive };
 use serde_repr::{ Serialize_repr, Deserialize_repr };
 
 /// League of Legend's champions.
@@ -15,7 +15,7 @@ use serde_repr::{ Serialize_repr, Deserialize_repr };
 /// The documentation of each variant specifies:<br>
 /// NAME (`IDENTIFIER`, ID).
 #[derive(Debug, Copy, Clone)]
-#[derive(FromPrimitive, ToPrimitive)]
+#[derive(IntoPrimitive, TryFromPrimitive)]
 #[derive(Serialize_repr, Deserialize_repr)]
 #[repr(i16)]
 pub enum Champion {

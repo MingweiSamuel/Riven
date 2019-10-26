@@ -1,10 +1,12 @@
 #![allow(deprecated)]
 
 use strum_macros::{ EnumString, Display, AsRefStr };
+use num_enum::{ IntoPrimitive, TryFromPrimitive };
 
 #[derive(Debug, Copy, Clone)]
 #[derive(Eq, PartialEq, Hash, PartialOrd, Ord)]
 #[derive(EnumString, Display, AsRefStr)]
+#[derive(IntoPrimitive, TryFromPrimitive)]
 #[repr(u8)]
 pub enum Tier {
     #[strum(to_string="IRON")]        Iron        =  40,
@@ -13,9 +15,9 @@ pub enum Tier {
     #[strum(to_string="GOLD")]        Gold        = 100,
     #[strum(to_string="PLATINUM")]    Platinum    = 120,
     #[strum(to_string="DIAMOND")]     Diamond     = 140,
-    #[strum(to_string="MASTER")]      Master      = 200,
-    #[strum(to_string="GRANDMASTER")] Grandmaster = 220,
-    #[strum(to_string="CHALLENGER")]  Challenger  = 240,
+    #[strum(to_string="MASTER")]      Master      = 180,
+    #[strum(to_string="GRANDMASTER")] Grandmaster = 200,
+    #[strum(to_string="CHALLENGER")]  Challenger  = 220,
 }
 
 serde_string!(Tier);
