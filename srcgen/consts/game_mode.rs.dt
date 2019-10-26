@@ -1,0 +1,24 @@
+﻿{{
+    const dotUtils = require('./dotUtils.js');
+    const gameModes = require('./.gameModes.json');
+}}{{= dotUtils.preamble() }}
+
+use strum_macros::{ EnumString, Display, AsRefStr };
+
+/// League of Legends game mode, such as Classic,
+/// ARAM, URF, One For All, Ascension, etc.
+#[derive(Debug, Copy, Clone)]
+#[derive(Eq, PartialEq, Hash)]
+#[derive(EnumString, Display, AsRefStr)]
+#[repr(u8)]
+pub enum GameMode {
+{{
+    for (const { gameMode, description } of gameModes) {
+}}
+    /// {{= description }}
+    #[strum(to_string="{{= gameMode }}")]
+    {{= dotUtils.changeCase.pascalCase(gameMode) }},
+{{
+    }
+}}
+}

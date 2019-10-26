@@ -6,6 +6,9 @@ pub use champion::*;
 mod division;
 pub use division::*;
 
+mod game_mode;
+pub use game_mode::*;
+
 mod game_type;
 pub use game_type::*;
 

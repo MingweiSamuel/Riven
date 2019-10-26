@@ -26,6 +26,10 @@ const files = [
   [
     'http://static.developer.riotgames.com/docs/lol/gameTypes.json',
     '.gameTypes.json'
+  ],
+  [
+    'http://static.developer.riotgames.com/docs/lol/gameModes.json',
+    '.gameModes.json'
   ]
 ]
 
