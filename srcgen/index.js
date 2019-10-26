@@ -22,6 +22,10 @@ const files = [
   [
     'http://static.developer.riotgames.com/docs/lol/queues.json',
     '.queues.json'
+  ],
+  [
+    'http://static.developer.riotgames.com/docs/lol/gameTypes.json',
+    '.gameTypes.json'
   ]
 ]
 

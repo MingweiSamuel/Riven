@@ -1,0 +1,23 @@
+﻿{{
+    const dotUtils = require('./dotUtils.js');
+    const gameTypes = require('./.gameTypes.json');
+}}{{= dotUtils.preamble() }}
+
+use strum_macros::{ EnumString, Display, AsRefStr };
+
+/// League of Legends game type: matched game, custom game, or tutorial game.
+#[derive(Debug, Copy, Clone)]
+#[derive(Eq, PartialEq, Hash)]
+#[derive(EnumString, Display, AsRefStr)]
+#[repr(u8)]
+pub enum GameType {
+{{
+    for (const { gametype: gameType, description } of gameTypes) {
+}}
+    /// {{= description }}
+    #[strum(to_string="{{= gameType }}")]
+    {{= dotUtils.changeCase.pascalCase(gameType) }},
+{{
+    }
+}}
+}

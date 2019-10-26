@@ -20,7 +20,7 @@ use num_derive;
 ///
 /// The documentation of each variant specifies:<br>
 /// NAME (`IDENTIFIER`, ID).
-#[derive(fmt::Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone)]
 #[derive(num_derive::FromPrimitive, num_derive::ToPrimitive)]
 pub enum Champion {
 {{
