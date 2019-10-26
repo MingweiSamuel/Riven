@@ -2,6 +2,9 @@
 // Do not directly edit.
 
 /// League of Legends matchmaking seasons.
+#[derive(Debug, Copy, Clone)]
+#[derive(Eq, PartialEq, Hash, PartialOrd, Ord)]
+#[repr(u8)]
 pub enum Season {
     Preseason3    = 0,
     Season3       = 1,
