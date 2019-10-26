@@ -1,0 +1,30 @@
+﻿{{
+    const dotUtils = require('./dotUtils.js');
+    const maps = require('./.maps.json');
+    const groupedMaps = maps.groupBy(({ mapName }) =>
+        dotUtils.changeCase.pascalCase(mapName.replace(/[ ']+/, '')));
+}}{{= dotUtils.preamble() }}
+
+/// League of Legends maps.
+#[derive(Debug, Copy, Clone)]
+#[derive(Eq, PartialEq, Hash, PartialOrd, Ord)]
+#[repr(u8)]
+pub enum Map {
+{{
+    for (const [ groupName, colMaps ] of groupedMaps) {
+}}
+
+{{
+        for (const [ i, { mapId, mapName, notes } ] of colMaps.entries()) {
+            let name = groupName;
+            if (i != colMaps.length - 1)
+                name += dotUtils.changeCase.pascalCase(notes);
+}}
+    /// {{= mapName }}
+    /// <br>{{= notes }}
+    {{= name }} = {{= mapId }},
+{{
+        }
+    }
+}}
+}

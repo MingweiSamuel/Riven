@@ -12,6 +12,9 @@ pub use game_mode::*;
 mod game_type;
 pub use game_type::*;
 
+mod map;
+pub use map::*;
+
 mod queue_type;
 pub use queue_type::*;
 
