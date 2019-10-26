@@ -20,3 +20,6 @@ pub use season::*;
 
 mod team;
 pub use team::*;
+
+mod tier;
+pub use tier::*;
