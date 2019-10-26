@@ -1,5 +1,7 @@
 //! Constant data and Enums relevant to the Riot Games API.
 
+mod macro_serde_string;
+
 mod champion;
 pub use champion::*;
 

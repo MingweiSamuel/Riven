@@ -18,6 +18,8 @@ pub enum Tier {
     #[strum(to_string="CHALLENGER")]  Challenger  = 240,
 }
 
+serde_string!(Tier);
+
 impl Tier {
     /// If this tier is "standard".
     /// Standard means non-apex (not master+), and not unranked.

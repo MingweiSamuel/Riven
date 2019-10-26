@@ -1,10 +1,12 @@
 #![allow(deprecated)]
 
 use strum_macros::{ EnumString, Display, AsRefStr };
+use serde_repr::{ Serialize_repr, Deserialize_repr };
 
 #[derive(Debug, Copy, Clone)]
 #[derive(Eq, PartialEq, Hash, PartialOrd, Ord)]
 #[derive(EnumString, Display, AsRefStr)]
+#[derive(Serialize_repr, Deserialize_repr)]
 #[repr(u8)]
 pub enum Division {
     I   = 1,

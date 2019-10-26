@@ -5,9 +5,12 @@
         dotUtils.changeCase.pascalCase(mapName.replace(/[ ']+/, '')));
 }}{{= dotUtils.preamble() }}
 
+use serde_repr::{ Serialize_repr, Deserialize_repr };
+
 /// League of Legends maps.
 #[derive(Debug, Copy, Clone)]
 #[derive(Eq, PartialEq, Hash, PartialOrd, Ord)]
+#[derive(Serialize_repr, Deserialize_repr)]
 #[repr(u8)]
 pub enum Map {
 {{

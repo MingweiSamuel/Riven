@@ -14,15 +14,21 @@
 }}{{= require('./dotUtils.js').preamble() }}
 
 use std::fmt;
-use num_derive;
+use num_derive::{ FromPrimitive, ToPrimitive };
+use serde_repr::{ Serialize_repr, Deserialize_repr };
 
 /// League of Legend's champions.
 ///
 /// The documentation of each variant specifies:<br>
 /// NAME (`IDENTIFIER`, ID).
 #[derive(Debug, Copy, Clone)]
-#[derive(num_derive::FromPrimitive, num_derive::ToPrimitive)]
+#[derive(FromPrimitive, ToPrimitive)]
+#[derive(Serialize_repr, Deserialize_repr)]
+#[repr(i16)]
 pub enum Champion {
+    /// A champion that doesn't exist. Used in TeamBans when no ban occured.
+    None = -1,
+
 {{
     for (let { id, alias, name } of champions) {
         const comment = `${name.padEnd(14)} (\`${alias}\`, ${id}).`.padEnd(36);
@@ -37,6 +43,7 @@ pub enum Champion {
 impl Champion {
     pub fn name(self) -> &'static str {
         match self {
+            Self::None => "None",
 {{
     for (let { id, name } of champions) {
 }}
@@ -49,6 +56,7 @@ impl Champion {
 
     pub fn identifier(self) -> &'static str {
         match self {
+            Self::None => "None",
 {{
     for (let { name, alias } of champions) {
 }}

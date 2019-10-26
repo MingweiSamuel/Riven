@@ -22,3 +22,5 @@ pub enum GameMode {
     }
 }}
 }
+
+serde_string!(GameMode);

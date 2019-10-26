@@ -18,6 +18,8 @@ pub enum QueueType {
     RankedTft,
 }
 
+serde_string!(QueueType);
+
 #[cfg(test)]
 mod test {
     use super::*;

@@ -21,3 +21,5 @@ pub enum GameType {
     }
 }}
 }
+
+serde_string!(GameType);
