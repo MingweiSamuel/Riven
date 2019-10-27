@@ -1,5 +1,4 @@
 #![macro_use]
-#[macro_export]
 macro_rules! serde_string {
     ( $x:ty ) => {
         impl<'de> serde::de::Deserialize<'de> for $x
