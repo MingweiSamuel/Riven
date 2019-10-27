@@ -1,8 +1,12 @@
-use std::error::Error;
+use std::error::Error as StdError;
 use std::fmt;
 
-pub use reqwest::Error as ReqwestError;
-pub use reqwest::Response;
+/// Re-exported `reqwest` types.
+pub mod reqwest {
+    pub use reqwest::Error;
+    pub use reqwest::Response;
+}
+use ::reqwest::*;
 
 /// Result containing RiotApiError on failure.
 pub type Result<T> = std::result::Result<T, RiotApiError>;
@@ -10,23 +14,23 @@ pub type Result<T> = std::result::Result<T, RiotApiError>;
 /// An error that occurred while processing a Riot API request.
 ///
 /// Although Riven may make multiple requests due to retries, this will always
-/// contain exactly one ReqwestError for the final request which failed.
+/// contain exactly one reqwest::Error for the final request which failed.
 #[derive(Debug)]
 pub struct RiotApiError {
-    reqwest_error: ReqwestError,
+    reqwest_error: Error,
     retries: u8,
     response: Option<Response>,
 }
 impl RiotApiError {
-    pub fn new(reqwest_error: ReqwestError, retries: u8, response: Option<Response>) -> Self {
+    pub fn new(reqwest_error: Error, retries: u8, response: Option<Response>) -> Self {
         Self {
             reqwest_error: reqwest_error,
             retries: retries,
             response: response,
         }
     }
-    /// The ReqwestError for the final failed request.
-    pub fn source_reqwest_error(&self) -> &ReqwestError {
+    /// The reqwest::Error for the final failed request.
+    pub fn source_reqwest_error(&self) -> &Error {
         &self.reqwest_error
     }
     /// The number of retires attempted. Zero means exactly one request, zero retries.
@@ -43,8 +47,8 @@ impl fmt::Display for RiotApiError {
         write!(f, "{:#?}", self)
     }
 }
-impl Error for RiotApiError {
-    fn source(&self) -> Option<&(dyn Error + 'static)> {
+impl StdError for RiotApiError {
+    fn source(&self) -> Option<&(dyn StdError + 'static)> {
         Some(&self.reqwest_error)
     }
 }

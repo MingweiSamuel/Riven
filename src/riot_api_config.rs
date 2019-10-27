@@ -1,9 +1,8 @@
-pub mod riot_api_config {
-    pub const DEFAULT_BURST_PCT: f32 = 0.93;
-    pub const DEFAULT_BURST_FACTOR: u8 = ((BURST_FACTOR_DENOM * DEFAULT_BURST_PCT) as u16 - 1) as u8;
-    pub const BURST_FACTOR_DENOM: f32 = 256.0;
-}
-use riot_api_config::*;
+//! Configuration of RiotApi.
+
+pub const DEFAULT_BURST_PCT: f32 = 0.93;
+pub const DEFAULT_BURST_FACTOR: u8 = ((BURST_FACTOR_DENOM * DEFAULT_BURST_PCT) as u16 - 1) as u8;
+pub const BURST_FACTOR_DENOM: f32 = 256.0;
 
 /// Configuration for instantiating RiotApi.
 #[derive(Debug, PartialEq, Eq)]

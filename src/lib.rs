@@ -7,8 +7,8 @@ pub mod consts;
 
 pub mod endpoints;
 
-mod riot_api_config;
-pub use riot_api_config::*;
+pub mod riot_api_config;
+pub use riot_api_config::RiotApiConfig;
 
 mod riot_api;
 pub use riot_api::*;
