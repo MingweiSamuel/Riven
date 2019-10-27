@@ -38,7 +38,7 @@ pub mod {{= dotUtils.changeCase.snakeCase(endpoint) }} {
                 let name = dotUtils.normalizePropName(propKey, schemaName, prop);
 }}
 {{? prop.description }}
-        /// {{= prop.description.split('\n').map(x => x.trim()).join('  \r\n        /// ') }}
+        /// {{= prop.description.split('\n').map(x => x.trim()).join('<br>\r\n        /// ') }}
 {{?}}
         {{= dotUtils.formatJsonProperty(propKey) }}
         pub {{= name }}: {{= dotUtils.stringifyType(prop) }},

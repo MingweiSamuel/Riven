@@ -422,7 +422,7 @@ pub mod match_v4 {
         /// For Dominion matches, specifies the points the team had at game end.
         #[serde(rename = "dominionVictoryScore")]
         pub dominion_victory_score: i32,
-        /// String indicating whether or not the team won. There are only two values visibile in public match history.  
+        /// String indicating whether or not the team won. There are only two values visibile in public match history.<br>
         /// (Legal values:  Fail,  Win)
         #[serde(rename = "win")]
         pub win: String,
@@ -465,7 +465,7 @@ pub mod match_v4 {
         /// List of legacy Mastery information. Not included for matches played with Runes Reforged.
         #[serde(rename = "masteries")]
         pub masteries: std::vec::Vec<Mastery>,
-        /// Highest ranked tier achieved for the previous season in a specific subset of queueIds, if any, otherwise null. Used to display border in game loading screen. Please refer to the Ranked Info documentation.  
+        /// Highest ranked tier achieved for the previous season in a specific subset of queueIds, if any, otherwise null. Used to display border in game loading screen. Please refer to the Ranked Info documentation.<br>
         /// (Legal values:  CHALLENGER,  MASTER,  DIAMOND,  PLATINUM,  GOLD,  SILVER,  BRONZE,  UNRANKED)
         #[serde(rename = "highestAchievedSeasonTier")]
         pub highest_achieved_season_tier: crate::consts::Tier,
@@ -735,7 +735,7 @@ pub mod match_v4 {
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct ParticipantTimeline {
-        /// Participant's calculated lane. MID and BOT are legacy values.  
+        /// Participant's calculated lane. MID and BOT are legacy values.<br>
         /// (Legal values:  MID,  MIDDLE,  TOP,  JUNGLE,  BOT,  BOTTOM)
         #[serde(rename = "lane")]
         pub lane: String,
@@ -756,7 +756,7 @@ pub mod match_v4 {
         /// Experience change for a specified period.
         #[serde(rename = "xpPerMinDeltas")]
         pub xp_per_min_deltas: std::collections::HashMap<String, f64>,
-        /// Participant's calculated role.  
+        /// Participant's calculated role.<br>
         /// (Legal values:  DUO,  NONE,  SOLO,  DUO_CARRY,  DUO_SUPPORT)
         #[serde(rename = "role")]
         pub role: String,
@@ -1065,14 +1065,14 @@ pub mod spectator_v4 {
         /// The ID of the platform on which the game is being played
         #[serde(rename = "platformId")]
         pub platform_id: String,
-        /// The game mode  
+        /// The game mode<br>
         /// (Legal values:  CLASSIC,  ODIN,  ARAM,  TUTORIAL,  ONEFORALL,  ASCENSION,  FIRSTBLOOD,  KINGPORO)
         #[serde(rename = "gameMode")]
         pub game_mode: crate::consts::GameMode,
         /// The ID of the map
         #[serde(rename = "mapId")]
         pub map_id: crate::consts::Map,
-        /// The game type  
+        /// The game type<br>
         /// (Legal values:  CUSTOM_GAME,  MATCHED_GAME,  TUTORIAL_GAME)
         #[serde(rename = "gameType")]
         pub game_type: crate::consts::GameType,
@@ -1160,21 +1160,21 @@ pub mod tournament_stub_v4 {
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct TournamentCodeParameters {
-        /// The spectator type of the game.  
+        /// The spectator type of the game.<br>
         /// (Legal values:  NONE,  LOBBYONLY,  ALL)
         #[serde(rename = "spectatorType")]
         pub spectator_type: String,
         /// The team size of the game. Valid values are 1-5.
         #[serde(rename = "teamSize")]
         pub team_size: i32,
-        /// The pick type of the game.  
+        /// The pick type of the game.<br>
         /// (Legal values:  BLIND_PICK,  DRAFT_MODE,  ALL_RANDOM,  TOURNAMENT_DRAFT)
         #[serde(rename = "pickType")]
         pub pick_type: String,
         /// Optional list of encrypted summonerIds in order to validate the players eligible to join the lobby. NOTE: We currently do not enforce participants at the team level, but rather the aggregate of teamOne and teamTwo. We may add the ability to enforce at the team level in the future.
         #[serde(rename = "allowedSummonerIds")]
         pub allowed_summoner_ids: std::vec::Vec<String>,
-        /// The map type of the game.  
+        /// The map type of the game.<br>
         /// (Legal values:  SUMMONERS_RIFT,  TWISTED_TREELINE,  HOWLING_ABYSS)
         #[serde(rename = "mapType")]
         pub map_type: String,
@@ -1210,7 +1210,7 @@ pub mod tournament_stub_v4 {
         /// The provider's callback URL to which tournament game results in this region should be posted. The URL must be well-formed, use the http or https protocol, and use the default port for the protocol (http URLs must use port 80, https URLs must use port 443).
         #[serde(rename = "url")]
         pub url: String,
-        /// The region in which the provider will be running tournaments.  
+        /// The region in which the provider will be running tournaments.<br>
         /// (Legal values:  BR,  EUNE,  EUW,  JP,  LAN,  LAS,  NA,  OCE,  PBE,  RU,  TR)
         #[serde(rename = "region")]
         pub region: String,
@@ -1235,21 +1235,21 @@ pub mod tournament_v4 {
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct TournamentCodeParameters {
-        /// The spectator type of the game.  
+        /// The spectator type of the game.<br>
         /// (Legal values:  NONE,  LOBBYONLY,  ALL)
         #[serde(rename = "spectatorType")]
         pub spectator_type: String,
         /// The team size of the game. Valid values are 1-5.
         #[serde(rename = "teamSize")]
         pub team_size: i32,
-        /// The pick type of the game.  
+        /// The pick type of the game.<br>
         /// (Legal values:  BLIND_PICK,  DRAFT_MODE,  ALL_RANDOM,  TOURNAMENT_DRAFT)
         #[serde(rename = "pickType")]
         pub pick_type: String,
         /// Optional list of encrypted summonerIds in order to validate the players eligible to join the lobby. NOTE: We currently do not enforce participants at the team level, but rather the aggregate of teamOne and teamTwo. We may add the ability to enforce at the team level in the future.
         #[serde(rename = "allowedSummonerIds")]
         pub allowed_summoner_ids: std::vec::Vec<String>,
-        /// The map type of the game.  
+        /// The map type of the game.<br>
         /// (Legal values:  SUMMONERS_RIFT,  TWISTED_TREELINE,  HOWLING_ABYSS)
         #[serde(rename = "mapType")]
         pub map_type: String,
@@ -1270,7 +1270,7 @@ pub mod tournament_v4 {
         /// The spectator mode for the tournament code game.
         #[serde(rename = "spectators")]
         pub spectators: String,
-        /// The tournament code's region.  
+        /// The tournament code's region.<br>
         /// (Legal values:  BR,  EUNE,  EUW,  JP,  LAN,  LAS,  NA,  OCE,  PBE,  RU,  TR)
         #[serde(rename = "region")]
         pub region: String,
@@ -1306,18 +1306,18 @@ pub mod tournament_v4 {
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct TournamentCodeUpdateParameters {
-        /// The spectator type  
+        /// The spectator type<br>
         /// (Legal values:  NONE,  LOBBYONLY,  ALL)
         #[serde(rename = "spectatorType")]
         pub spectator_type: String,
-        /// The pick type  
+        /// The pick type<br>
         /// (Legal values:  BLIND_PICK,  DRAFT_MODE,  ALL_RANDOM,  TOURNAMENT_DRAFT)
         #[serde(rename = "pickType")]
         pub pick_type: String,
         /// Optional list of encrypted summonerIds in order to validate the players eligible to join the lobby. NOTE: We currently do not enforce participants at the team level, but rather the aggregate of teamOne and teamTwo. We may add the ability to enforce at the team level in the future.
         #[serde(rename = "allowedSummonerIds")]
         pub allowed_summoner_ids: std::vec::Vec<String>,
-        /// The map type  
+        /// The map type<br>
         /// (Legal values:  SUMMONERS_RIFT,  TWISTED_TREELINE,  HOWLING_ABYSS)
         #[serde(rename = "mapType")]
         pub map_type: String,
@@ -1350,7 +1350,7 @@ pub mod tournament_v4 {
         /// The provider's callback URL to which tournament game results in this region should be posted. The URL must be well-formed, use the http or https protocol, and use the default port for the protocol (http URLs must use port 80, https URLs must use port 443).
         #[serde(rename = "url")]
         pub url: String,
-        /// The region in which the provider will be running tournaments.  
+        /// The region in which the provider will be running tournaments.<br>
         /// (Legal values:  BR,  EUNE,  EUW,  JP,  LAN,  LAS,  NA,  OCE,  PBE,  RU,  TR)
         #[serde(rename = "region")]
         pub region: String,
