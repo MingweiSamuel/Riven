@@ -25,78 +25,78 @@ use crate::riot_api::RiotApi;
 
 impl RiotApi {
     /// Handle for ChampionMasteryV4 endpoints. This method is automatically generated.
-    /// # Official API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4">https://developer.riotgames.com/api-methods/#champion-mastery-v4</a>
+    ///
+    /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4">Official API Reference</a>
     #[inline]
     pub fn champion_mastery_v4(&self) -> ChampionMasteryV4 {
         ChampionMasteryV4 { base: self }
     }
     /// Handle for ChampionV3 endpoints. This method is automatically generated.
-    /// # Official API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#champion-v3">https://developer.riotgames.com/api-methods/#champion-v3</a>
+    ///
+    /// <a href="https://developer.riotgames.com/api-methods/#champion-v3">Official API Reference</a>
     #[inline]
     pub fn champion_v3(&self) -> ChampionV3 {
         ChampionV3 { base: self }
     }
     /// Handle for LeagueExpV4 endpoints. This method is automatically generated.
-    /// # Official API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#league-exp-v4">https://developer.riotgames.com/api-methods/#league-exp-v4</a>
+    ///
+    /// <a href="https://developer.riotgames.com/api-methods/#league-exp-v4">Official API Reference</a>
     #[inline]
     pub fn league_exp_v4(&self) -> LeagueExpV4 {
         LeagueExpV4 { base: self }
     }
     /// Handle for LeagueV4 endpoints. This method is automatically generated.
-    /// # Official API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#league-v4">https://developer.riotgames.com/api-methods/#league-v4</a>
+    ///
+    /// <a href="https://developer.riotgames.com/api-methods/#league-v4">Official API Reference</a>
     #[inline]
     pub fn league_v4(&self) -> LeagueV4 {
         LeagueV4 { base: self }
     }
     /// Handle for LolStatusV3 endpoints. This method is automatically generated.
-    /// # Official API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#lol-status-v3">https://developer.riotgames.com/api-methods/#lol-status-v3</a>
+    ///
+    /// <a href="https://developer.riotgames.com/api-methods/#lol-status-v3">Official API Reference</a>
     #[inline]
     pub fn lol_status_v3(&self) -> LolStatusV3 {
         LolStatusV3 { base: self }
     }
     /// Handle for MatchV4 endpoints. This method is automatically generated.
-    /// # Official API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#match-v4">https://developer.riotgames.com/api-methods/#match-v4</a>
+    ///
+    /// <a href="https://developer.riotgames.com/api-methods/#match-v4">Official API Reference</a>
     #[inline]
     pub fn match_v4(&self) -> MatchV4 {
         MatchV4 { base: self }
     }
     /// Handle for SpectatorV4 endpoints. This method is automatically generated.
-    /// # Official API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#spectator-v4">https://developer.riotgames.com/api-methods/#spectator-v4</a>
+    ///
+    /// <a href="https://developer.riotgames.com/api-methods/#spectator-v4">Official API Reference</a>
     #[inline]
     pub fn spectator_v4(&self) -> SpectatorV4 {
         SpectatorV4 { base: self }
     }
     /// Handle for SummonerV4 endpoints. This method is automatically generated.
-    /// # Official API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4">https://developer.riotgames.com/api-methods/#summoner-v4</a>
+    ///
+    /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4">Official API Reference</a>
     #[inline]
     pub fn summoner_v4(&self) -> SummonerV4 {
         SummonerV4 { base: self }
     }
     /// Handle for ThirdPartyCodeV4 endpoints. This method is automatically generated.
-    /// # Official API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#third-party-code-v4">https://developer.riotgames.com/api-methods/#third-party-code-v4</a>
+    ///
+    /// <a href="https://developer.riotgames.com/api-methods/#third-party-code-v4">Official API Reference</a>
     #[inline]
     pub fn third_party_code_v4(&self) -> ThirdPartyCodeV4 {
         ThirdPartyCodeV4 { base: self }
     }
     /// Handle for TournamentStubV4 endpoints. This method is automatically generated.
-    /// # Official API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#tournament-stub-v4">https://developer.riotgames.com/api-methods/#tournament-stub-v4</a>
+    ///
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-stub-v4">Official API Reference</a>
     #[inline]
     pub fn tournament_stub_v4(&self) -> TournamentStubV4 {
         TournamentStubV4 { base: self }
     }
     /// Handle for TournamentV4 endpoints. This method is automatically generated.
-    /// # Official API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#tournament-v4">https://developer.riotgames.com/api-methods/#tournament-v4</a>
+    ///
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-v4">Official API Reference</a>
     #[inline]
     pub fn tournament_v4(&self) -> TournamentV4 {
         TournamentV4 { base: self }
@@ -104,15 +104,15 @@ impl RiotApi {
 }
 
 /// ChampionMasteryV4 endpoints. This struct is automatically generated.
-/// # Official API Reference
-/// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4">https://developer.riotgames.com/api-methods/#champion-mastery-v4</a>
+///
+/// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4">Official API Reference</a>
 pub struct ChampionMasteryV4<'a> {
     base: &'a RiotApi,
 }
 impl<'a> ChampionMasteryV4<'a> {
         /// Get all champion mastery entries sorted by number of champion points descending,
-        /// # Official API Reference
-        /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getAllChampionMasteries">https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getAllChampionMasteries</a>
+        ///
+        /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getAllChampionMasteries">Official API Reference</a>
         /// # Parameters
         /// * `region` - Region to query.
         /// * `encryptedSummonerId` - Summoner ID associated with the player
@@ -124,8 +124,8 @@ impl<'a> ChampionMasteryV4<'a> {
         }
 
         /// Get a champion mastery by player ID and champion ID.
-        /// # Official API Reference
-        /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMastery">https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMastery</a>
+        ///
+        /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMastery">Official API Reference</a>
         /// # Parameters
         /// * `region` - Region to query.
         /// * `championId` - Champion ID to retrieve Champion Mastery for
@@ -138,8 +138,8 @@ impl<'a> ChampionMasteryV4<'a> {
         }
 
         /// Get a player's total champion mastery score, which is the sum of individual champion mastery levels.
-        /// # Official API Reference
-        /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMasteryScore">https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMasteryScore</a>
+        ///
+        /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMasteryScore">Official API Reference</a>
         /// # Parameters
         /// * `region` - Region to query.
         /// * `encryptedSummonerId` - Summoner ID associated with the player
@@ -153,15 +153,15 @@ impl<'a> ChampionMasteryV4<'a> {
 }
 
 /// ChampionV3 endpoints. This struct is automatically generated.
-/// # Official API Reference
-/// <a href="https://developer.riotgames.com/api-methods/#champion-v3">https://developer.riotgames.com/api-methods/#champion-v3</a>
+///
+/// <a href="https://developer.riotgames.com/api-methods/#champion-v3">Official API Reference</a>
 pub struct ChampionV3<'a> {
     base: &'a RiotApi,
 }
 impl<'a> ChampionV3<'a> {
         /// Returns champion rotations, including free-to-play and low-level free-to-play rotations (REST)
-        /// # Official API Reference
-        /// <a href="https://developer.riotgames.com/api-methods/#champion-v3/GET_getChampionInfo">https://developer.riotgames.com/api-methods/#champion-v3/GET_getChampionInfo</a>
+        ///
+        /// <a href="https://developer.riotgames.com/api-methods/#champion-v3/GET_getChampionInfo">Official API Reference</a>
         /// # Parameters
         /// * `region` - Region to query.
         pub fn get_champion_info(&self, region: Region)
@@ -174,15 +174,15 @@ impl<'a> ChampionV3<'a> {
 }
 
 /// LeagueExpV4 endpoints. This struct is automatically generated.
-/// # Official API Reference
-/// <a href="https://developer.riotgames.com/api-methods/#league-exp-v4">https://developer.riotgames.com/api-methods/#league-exp-v4</a>
+///
+/// <a href="https://developer.riotgames.com/api-methods/#league-exp-v4">Official API Reference</a>
 pub struct LeagueExpV4<'a> {
     base: &'a RiotApi,
 }
 impl<'a> LeagueExpV4<'a> {
         /// Get all the league entries.
-        /// # Official API Reference
-        /// <a href="https://developer.riotgames.com/api-methods/#league-exp-v4/GET_getLeagueEntries">https://developer.riotgames.com/api-methods/#league-exp-v4/GET_getLeagueEntries</a>
+        ///
+        /// <a href="https://developer.riotgames.com/api-methods/#league-exp-v4/GET_getLeagueEntries">Official API Reference</a>
         /// # Parameters
         /// * `region` - Region to query.
         /// * `queue` - Note that the queue value must be a valid ranked queue.
@@ -202,15 +202,15 @@ impl<'a> LeagueExpV4<'a> {
 }
 
 /// LeagueV4 endpoints. This struct is automatically generated.
-/// # Official API Reference
-/// <a href="https://developer.riotgames.com/api-methods/#league-v4">https://developer.riotgames.com/api-methods/#league-v4</a>
+///
+/// <a href="https://developer.riotgames.com/api-methods/#league-v4">Official API Reference</a>
 pub struct LeagueV4<'a> {
     base: &'a RiotApi,
 }
 impl<'a> LeagueV4<'a> {
         /// Get the challenger league for given queue.
-        /// # Official API Reference
-        /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getChallengerLeague">https://developer.riotgames.com/api-methods/#league-v4/GET_getChallengerLeague</a>
+        ///
+        /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getChallengerLeague">Official API Reference</a>
         /// # Parameters
         /// * `region` - Region to query.
         /// * `queue`
@@ -222,8 +222,8 @@ impl<'a> LeagueV4<'a> {
         }
 
         /// Get league entries in all queues for a given summoner ID.
-        /// # Official API Reference
-        /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntriesForSummoner">https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntriesForSummoner</a>
+        ///
+        /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntriesForSummoner">Official API Reference</a>
         /// # Parameters
         /// * `region` - Region to query.
         /// * `encryptedSummonerId`
@@ -235,8 +235,8 @@ impl<'a> LeagueV4<'a> {
         }
 
         /// Get all the league entries.
-        /// # Official API Reference
-        /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntries">https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntries</a>
+        ///
+        /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntries">Official API Reference</a>
         /// # Parameters
         /// * `region` - Region to query.
         /// * `division`
@@ -254,8 +254,8 @@ impl<'a> LeagueV4<'a> {
         }
 
         /// Get the grandmaster league of a specific queue.
-        /// # Official API Reference
-        /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getGrandmasterLeague">https://developer.riotgames.com/api-methods/#league-v4/GET_getGrandmasterLeague</a>
+        ///
+        /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getGrandmasterLeague">Official API Reference</a>
         /// # Parameters
         /// * `region` - Region to query.
         /// * `queue`
@@ -267,8 +267,8 @@ impl<'a> LeagueV4<'a> {
         }
 
         /// Get league with given ID, including inactive entries.
-        /// # Official API Reference
-        /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueById">https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueById</a>
+        ///
+        /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueById">Official API Reference</a>
         /// # Parameters
         /// * `region` - Region to query.
         /// * `leagueId` - The UUID of the league.
@@ -280,8 +280,8 @@ impl<'a> LeagueV4<'a> {
         }
 
         /// Get the master league for given queue.
-        /// # Official API Reference
-        /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getMasterLeague">https://developer.riotgames.com/api-methods/#league-v4/GET_getMasterLeague</a>
+        ///
+        /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getMasterLeague">Official API Reference</a>
         /// # Parameters
         /// * `region` - Region to query.
         /// * `queue`
@@ -295,8 +295,8 @@ impl<'a> LeagueV4<'a> {
 }
 
 /// LolStatusV3 endpoints. This struct is automatically generated.
-/// # Official API Reference
-/// <a href="https://developer.riotgames.com/api-methods/#lol-status-v3">https://developer.riotgames.com/api-methods/#lol-status-v3</a>
+///
+/// <a href="https://developer.riotgames.com/api-methods/#lol-status-v3">Official API Reference</a>
 pub struct LolStatusV3<'a> {
     base: &'a RiotApi,
 }
@@ -304,8 +304,8 @@ impl<'a> LolStatusV3<'a> {
         /// Get League of Legends status for the given shard.
         /// ## Rate Limit Notes
         /// Requests to this API are not counted against the application Rate Limits.
-        /// # Official API Reference
-        /// <a href="https://developer.riotgames.com/api-methods/#lol-status-v3/GET_getShardData">https://developer.riotgames.com/api-methods/#lol-status-v3/GET_getShardData</a>
+        ///
+        /// <a href="https://developer.riotgames.com/api-methods/#lol-status-v3/GET_getShardData">Official API Reference</a>
         /// # Parameters
         /// * `region` - Region to query.
         pub fn get_shard_data(&self, region: Region)
@@ -318,15 +318,15 @@ impl<'a> LolStatusV3<'a> {
 }
 
 /// MatchV4 endpoints. This struct is automatically generated.
-/// # Official API Reference
-/// <a href="https://developer.riotgames.com/api-methods/#match-v4">https://developer.riotgames.com/api-methods/#match-v4</a>
+///
+/// <a href="https://developer.riotgames.com/api-methods/#match-v4">Official API Reference</a>
 pub struct MatchV4<'a> {
     base: &'a RiotApi,
 }
 impl<'a> MatchV4<'a> {
         /// Get match IDs by tournament code.
-        /// # Official API Reference
-        /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchIdsByTournamentCode">https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchIdsByTournamentCode</a>
+        ///
+        /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchIdsByTournamentCode">Official API Reference</a>
         /// # Parameters
         /// * `region` - Region to query.
         /// * `tournamentCode` - The tournament code.
@@ -338,8 +338,8 @@ impl<'a> MatchV4<'a> {
         }
 
         /// Get match by match ID.
-        /// # Official API Reference
-        /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatch">https://developer.riotgames.com/api-methods/#match-v4/GET_getMatch</a>
+        ///
+        /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatch">Official API Reference</a>
         /// # Parameters
         /// * `region` - Region to query.
         /// * `matchId` - The match ID.
@@ -351,8 +351,8 @@ impl<'a> MatchV4<'a> {
         }
 
         /// Get match by match ID and tournament code.
-        /// # Official API Reference
-        /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchByTournamentCode">https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchByTournamentCode</a>
+        ///
+        /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchByTournamentCode">Official API Reference</a>
         /// # Parameters
         /// * `region` - Region to query.
         /// * `tournamentCode` - The tournament code.
@@ -371,8 +371,8 @@ impl<'a> MatchV4<'a> {
         /// If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned.
         ///
         /// If beginTime is specified, but not endTime, then endTime defaults to the the current unix timestamp in milliseconds (the maximum time range limitation is not observed in this specific case). If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history returning a 400 due to the maximum time range limitation. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
-        /// # Official API Reference
-        /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchlist">https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchlist</a>
+        ///
+        /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchlist">Official API Reference</a>
         /// # Parameters
         /// * `region` - Region to query.
         /// * `encryptedAccountId` - The account ID.
@@ -402,8 +402,8 @@ impl<'a> MatchV4<'a> {
         /// Get match timeline by match ID.
         /// ## Implementation Notes
         /// Not all matches have timeline data.
-        /// # Official API Reference
-        /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchTimeline">https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchTimeline</a>
+        ///
+        /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchTimeline">Official API Reference</a>
         /// # Parameters
         /// * `region` - Region to query.
         /// * `matchId` - The match ID.
@@ -417,15 +417,15 @@ impl<'a> MatchV4<'a> {
 }
 
 /// SpectatorV4 endpoints. This struct is automatically generated.
-/// # Official API Reference
-/// <a href="https://developer.riotgames.com/api-methods/#spectator-v4">https://developer.riotgames.com/api-methods/#spectator-v4</a>
+///
+/// <a href="https://developer.riotgames.com/api-methods/#spectator-v4">Official API Reference</a>
 pub struct SpectatorV4<'a> {
     base: &'a RiotApi,
 }
 impl<'a> SpectatorV4<'a> {
         /// Get current game information for the given summoner ID.
-        /// # Official API Reference
-        /// <a href="https://developer.riotgames.com/api-methods/#spectator-v4/GET_getCurrentGameInfoBySummoner">https://developer.riotgames.com/api-methods/#spectator-v4/GET_getCurrentGameInfoBySummoner</a>
+        ///
+        /// <a href="https://developer.riotgames.com/api-methods/#spectator-v4/GET_getCurrentGameInfoBySummoner">Official API Reference</a>
         /// # Parameters
         /// * `region` - Region to query.
         /// * `encryptedSummonerId` - The ID of the summoner.
@@ -437,8 +437,8 @@ impl<'a> SpectatorV4<'a> {
         }
 
         /// Get list of featured games.
-        /// # Official API Reference
-        /// <a href="https://developer.riotgames.com/api-methods/#spectator-v4/GET_getFeaturedGames">https://developer.riotgames.com/api-methods/#spectator-v4/GET_getFeaturedGames</a>
+        ///
+        /// <a href="https://developer.riotgames.com/api-methods/#spectator-v4/GET_getFeaturedGames">Official API Reference</a>
         /// # Parameters
         /// * `region` - Region to query.
         pub fn get_featured_games(&self, region: Region)
@@ -451,15 +451,15 @@ impl<'a> SpectatorV4<'a> {
 }
 
 /// SummonerV4 endpoints. This struct is automatically generated.
-/// # Official API Reference
-/// <a href="https://developer.riotgames.com/api-methods/#summoner-v4">https://developer.riotgames.com/api-methods/#summoner-v4</a>
+///
+/// <a href="https://developer.riotgames.com/api-methods/#summoner-v4">Official API Reference</a>
 pub struct SummonerV4<'a> {
     base: &'a RiotApi,
 }
 impl<'a> SummonerV4<'a> {
         /// Get a summoner by account ID.
-        /// # Official API Reference
-        /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByAccountId">https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByAccountId</a>
+        ///
+        /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByAccountId">Official API Reference</a>
         /// # Parameters
         /// * `region` - Region to query.
         /// * `encryptedAccountId`
@@ -471,8 +471,8 @@ impl<'a> SummonerV4<'a> {
         }
 
         /// Get a summoner by summoner name.
-        /// # Official API Reference
-        /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getBySummonerName">https://developer.riotgames.com/api-methods/#summoner-v4/GET_getBySummonerName</a>
+        ///
+        /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getBySummonerName">Official API Reference</a>
         /// # Parameters
         /// * `region` - Region to query.
         /// * `summonerName` - Summoner Name
@@ -484,8 +484,8 @@ impl<'a> SummonerV4<'a> {
         }
 
         /// Get a summoner by PUUID.
-        /// # Official API Reference
-        /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByPUUID">https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByPUUID</a>
+        ///
+        /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByPUUID">Official API Reference</a>
         /// # Parameters
         /// * `region` - Region to query.
         /// * `encryptedPUUID` - Summoner ID
@@ -497,8 +497,8 @@ impl<'a> SummonerV4<'a> {
         }
 
         /// Get a summoner by summoner ID.
-        /// # Official API Reference
-        /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getBySummonerId">https://developer.riotgames.com/api-methods/#summoner-v4/GET_getBySummonerId</a>
+        ///
+        /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getBySummonerId">Official API Reference</a>
         /// # Parameters
         /// * `region` - Region to query.
         /// * `encryptedSummonerId` - Summoner ID
@@ -512,15 +512,15 @@ impl<'a> SummonerV4<'a> {
 }
 
 /// ThirdPartyCodeV4 endpoints. This struct is automatically generated.
-/// # Official API Reference
-/// <a href="https://developer.riotgames.com/api-methods/#third-party-code-v4">https://developer.riotgames.com/api-methods/#third-party-code-v4</a>
+///
+/// <a href="https://developer.riotgames.com/api-methods/#third-party-code-v4">Official API Reference</a>
 pub struct ThirdPartyCodeV4<'a> {
     base: &'a RiotApi,
 }
 impl<'a> ThirdPartyCodeV4<'a> {
         /// Get third party code for a given summoner ID.
-        /// # Official API Reference
-        /// <a href="https://developer.riotgames.com/api-methods/#third-party-code-v4/GET_getThirdPartyCodeBySummonerId">https://developer.riotgames.com/api-methods/#third-party-code-v4/GET_getThirdPartyCodeBySummonerId</a>
+        ///
+        /// <a href="https://developer.riotgames.com/api-methods/#third-party-code-v4/GET_getThirdPartyCodeBySummonerId">Official API Reference</a>
         /// # Parameters
         /// * `region` - Region to query.
         /// * `encryptedSummonerId`
@@ -534,15 +534,15 @@ impl<'a> ThirdPartyCodeV4<'a> {
 }
 
 /// TournamentStubV4 endpoints. This struct is automatically generated.
-/// # Official API Reference
-/// <a href="https://developer.riotgames.com/api-methods/#tournament-stub-v4">https://developer.riotgames.com/api-methods/#tournament-stub-v4</a>
+///
+/// <a href="https://developer.riotgames.com/api-methods/#tournament-stub-v4">Official API Reference</a>
 pub struct TournamentStubV4<'a> {
     base: &'a RiotApi,
 }
 impl<'a> TournamentStubV4<'a> {
         /// Gets a mock list of lobby events by tournament code.
-        /// # Official API Reference
-        /// <a href="https://developer.riotgames.com/api-methods/#tournament-stub-v4/GET_getLobbyEventsByCode">https://developer.riotgames.com/api-methods/#tournament-stub-v4/GET_getLobbyEventsByCode</a>
+        ///
+        /// <a href="https://developer.riotgames.com/api-methods/#tournament-stub-v4/GET_getLobbyEventsByCode">Official API Reference</a>
         /// # Parameters
         /// * `region` - Region to query.
         /// * `tournamentCode` - The short code to look up lobby events for
@@ -556,15 +556,15 @@ impl<'a> TournamentStubV4<'a> {
 }
 
 /// TournamentV4 endpoints. This struct is automatically generated.
-/// # Official API Reference
-/// <a href="https://developer.riotgames.com/api-methods/#tournament-v4">https://developer.riotgames.com/api-methods/#tournament-v4</a>
+///
+/// <a href="https://developer.riotgames.com/api-methods/#tournament-v4">Official API Reference</a>
 pub struct TournamentV4<'a> {
     base: &'a RiotApi,
 }
 impl<'a> TournamentV4<'a> {
         /// Returns the tournament code DTO associated with a tournament code string.
-        /// # Official API Reference
-        /// <a href="https://developer.riotgames.com/api-methods/#tournament-v4/GET_getTournamentCode">https://developer.riotgames.com/api-methods/#tournament-v4/GET_getTournamentCode</a>
+        ///
+        /// <a href="https://developer.riotgames.com/api-methods/#tournament-v4/GET_getTournamentCode">Official API Reference</a>
         /// # Parameters
         /// * `region` - Region to query.
         /// * `tournamentCode` - The tournament code string.
@@ -576,8 +576,8 @@ impl<'a> TournamentV4<'a> {
         }
 
         /// Gets a list of lobby events by tournament code.
-        /// # Official API Reference
-        /// <a href="https://developer.riotgames.com/api-methods/#tournament-v4/GET_getLobbyEventsByCode">https://developer.riotgames.com/api-methods/#tournament-v4/GET_getLobbyEventsByCode</a>
+        ///
+        /// <a href="https://developer.riotgames.com/api-methods/#tournament-v4/GET_getLobbyEventsByCode">Official API Reference</a>
         /// # Parameters
         /// * `region` - Region to query.
         /// * `tournamentCode` - The short code to look up lobby events for

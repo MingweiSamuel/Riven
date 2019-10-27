@@ -35,8 +35,8 @@ impl RiotApi {
         const type = dotUtils.changeCase.pascalCase(endpointName);
 }}
     /// Handle for {{= type }} endpoints. This method is automatically generated.
-    /// # Official API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#{{= endpointName }}">https://developer.riotgames.com/api-methods/#{{= endpointName }}</a>
+    ///
+    /// <a href="https://developer.riotgames.com/api-methods/#{{= endpointName }}">Official API Reference</a>
     #[inline]
     pub fn {{= method }}(&self) -> {{= type }} {
         {{= type }} { base: self }
@@ -51,8 +51,8 @@ impl RiotApi {
 }}
 
 /// {{= endpoint }} endpoints. This struct is automatically generated.
-/// # Official API Reference
-/// <a href="https://developer.riotgames.com/api-methods/#{{= endpointName }}">https://developer.riotgames.com/api-methods/#{{= endpointName }}</a>
+///
+/// <a href="https://developer.riotgames.com/api-methods/#{{= endpointName }}">Official API Reference</a>
 pub struct {{= endpoint }}<'a> {
     base: &'a RiotApi,
 }
@@ -116,8 +116,8 @@ impl<'a> {{= endpoint }}<'a> {
 {{
             }
 }}
-        /// # {{= get.externalDocs.description }}
-        /// <a href="{{= get.externalDocs.url }}">{{= get.externalDocs.url }}</a>
+        ///
+        /// <a href="{{= get.externalDocs.url }}">{{= get.externalDocs.description }}</a>
         /// # Parameters
         /// * `region` - Region to query.
 {{
