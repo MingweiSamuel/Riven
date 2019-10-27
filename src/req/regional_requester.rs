@@ -68,8 +68,8 @@ impl RegionalRequester {
                     .map_err(|e| RiotApiError::new(e, retries, None))?;
 
                 // Maybe update rate limits (based on response headers).
-                self.app_rate_limit.on_response(&response);
-                method_rate_limit.on_response(&response);
+                self.app_rate_limit.on_response(&config, &response);
+                method_rate_limit.on_response(&config, &response);
 
                 // Handle response.
                 let status = response.status();

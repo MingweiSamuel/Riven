@@ -6,6 +6,7 @@ use parking_lot::{ RwLock, RwLockUpgradableReadGuard };
 use reqwest::{ StatusCode, Response };
 use scan_fmt::scan_fmt;
 
+use crate::RiotApiConfig;
 use super::{ TokenBucket, VectorTokenBucket };
 use super::RateLimitType;
 
@@ -26,7 +27,7 @@ impl RateLimit {
     const HEADER_RETRYAFTER: &'static str = "Retry-After";
 
     pub fn new(rate_limit_type: RateLimitType) -> Self {
-        let initial_bucket = VectorTokenBucket::new(Duration::from_secs(1), 1);
+        let initial_bucket = VectorTokenBucket::new(Duration::from_secs(1), 1, 1.0);
         RateLimit {
             rate_limit_type: rate_limit_type,
             // Rate limit before getting from response: 1/s.
@@ -64,9 +65,9 @@ impl RateLimit {
         self.retry_after.read().and_then(|i| Instant::now().checked_duration_since(i))
     }
 
-    pub fn on_response(&self, response: &Response) {
+    pub fn on_response(&self, config: &RiotApiConfig, response: &Response) {
         self.on_response_retry_after(response);
-        self.on_response_rate_limits(response);
+        self.on_response_rate_limits(config, response);
     }
 
     /// `on_response` helper for retry after check.
@@ -105,7 +106,7 @@ impl RateLimit {
     }
 
     #[inline]
-    fn on_response_rate_limits(&self, response: &Response) {
+    fn on_response_rate_limits(&self, config: &RiotApiConfig, response: &Response) {
         // Check if rate limits changed.
         let headers = response.headers();
         let limit_header_opt = headers.get(self.rate_limit_type.limit_header())
@@ -124,7 +125,7 @@ impl RateLimit {
 
             // Buckets require updating. Upgrade to write lock.
             let mut buckets = RwLockUpgradableReadGuard::upgrade(buckets);
-            *buckets = buckets_from_header(limit_header, count_header)
+            *buckets = buckets_from_header(config, limit_header, count_header)
         }}
     }
 }
@@ -143,7 +144,7 @@ fn buckets_require_updating(limit_header: &str, buckets: &Vec<VectorTokenBucket>
     false
 }
 
-fn buckets_from_header(limit_header: &str, count_header: &str) -> Vec<VectorTokenBucket> {
+fn buckets_from_header(config: &RiotApiConfig, limit_header: &str, count_header: &str) -> Vec<VectorTokenBucket> {
     // Limits: "20000:10,1200000:600"
     // Counts: "7:10,58:600"
     let size = limit_header.split(",").count();
@@ -157,7 +158,7 @@ fn buckets_from_header(limit_header: &str, count_header: &str) -> Vec<VectorToke
             .unwrap_or_else(|_| panic!("Failed to parse count entry \"{}\".", count_entry));
         debug_assert!(limit_secs == count_secs);
 
-        let bucket = VectorTokenBucket::new(Duration::from_secs(limit_secs), limit);
+        let bucket = VectorTokenBucket::new(Duration::from_secs(limit_secs), limit, config.get_burst_pct());
         bucket.get_tokens(count);
         out.push(bucket);
     }

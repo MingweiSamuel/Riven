@@ -1,10 +1,19 @@
 use std::collections::VecDeque;
-use std::time::{Duration, Instant};
+use std::time::Duration;
 
 use parking_lot::{Mutex, MutexGuard};
 
+use super::Instant; // Hack for token_bucket_test.rs.
+
+/// A `TokenBucket` keeps track of number of requests allowed per duration of
+/// time.
+///
+/// Respone headers contain descriptions of rate limits such as
+/// `"X-App-Rate-Limit": "20:1,100:120"`. Each `TokenBucket` corresponds to a
+/// single `"100:120"` (100 requests per 120 seconds).
 pub trait TokenBucket {
-    /// Get the duration til the next available token, or 0 duration if a token is available.
+    /// Get the duration til the next available token, or 0 duration if a token
+    /// is available.
     /// # Returns
     /// Duration or 0 duration.
     fn get_delay(&self) -> Option<Duration>;
@@ -13,7 +22,8 @@ pub trait TokenBucket {
     /// # Parameters
     /// * `n` - Number of tokens to take.
     /// # Returns
-    /// True if the tokens were obtained without violating limits, false otherwise.
+    /// True if the tokens were obtained without violating limits, false
+    /// otherwise.
     fn get_tokens(&self, n: usize) -> bool;
 
     /// Get the duration of this bucket.
@@ -33,15 +43,35 @@ pub struct VectorTokenBucket {
     duration: Duration,
     // Total tokens available from this TokenBucket.
     total_limit: usize,
-    // Record of timestamps (synchronized).
+
+    /// TODO USE THESE !!!!!!!
+    /// Duration considered for burst factor.
+    burst_duration: Duration,
+    /// Limit allowed per burst_duration, for burst factor.
+    burst_limit: usize,
+
+    /// Record of timestamps (synchronized).
     timestamps: Mutex<VecDeque<Instant>>,
 }
 
 impl VectorTokenBucket {
-    pub fn new(duration: Duration, total_limit: usize) -> Self {
+    pub fn new(duration: Duration, total_limit: usize, burst_pct: f32) -> Self {
+        debug_assert!(0.0 < burst_pct && burst_pct <= 1.0,
+            "BAD burst_pct {}.", burst_pct);
+        // Float ops may lose precision, but nothing should be that precise.
+        // API always uses round numbers, burst_pct is frac of 256.
+
+        let burst_duration = Duration::new(
+            (duration.as_secs()      as f32 * burst_pct) as u64,
+            (duration.subsec_nanos() as f32 * burst_pct) as u32);
+
         VectorTokenBucket {
             duration: duration,
             total_limit: total_limit,
+
+            burst_duration: burst_duration,
+            burst_limit: (total_limit as f32 * burst_pct) as usize,
+
             timestamps: Mutex::new(VecDeque::new()),
         }
     }
@@ -89,14 +119,4 @@ impl TokenBucket for VectorTokenBucket {
     fn get_total_limit(&self) -> usize {
         self.total_limit
     }
-}
-
-#[cfg(test)]
-mod tests {
-    // use super::*;
-    //
-    // #[test]
-    // fn it_works() {
-    //     assert_eq!(2 + 2, 4);
-    // }
 }
