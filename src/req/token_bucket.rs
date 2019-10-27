@@ -12,7 +12,7 @@ use super::Instant; // Hack for token_bucket_test.rs.
 /// `"X-App-Rate-Limit": "20:1,100:120"`. Each `TokenBucket` corresponds to a
 /// single `"100:120"` (100 requests per 120 seconds).
 pub trait TokenBucket {
-    /// Get the duration til the next available token, or 0 duration if a token
+    /// Get the duration til the next available token, or None if a token
     /// is available.
     /// # Returns
     /// Duration or 0 duration.
@@ -44,7 +44,6 @@ pub struct VectorTokenBucket {
     // Total tokens available from this TokenBucket.
     total_limit: usize,
 
-    /// TODO USE THESE !!!!!!!
     /// Duration considered for burst factor.
     burst_duration: Duration,
     /// Limit allowed per burst_duration, for burst factor.
@@ -62,23 +61,28 @@ impl VectorTokenBucket {
         // API always uses round numbers, burst_pct is frac of 256.
 
         let burst_duration = Duration::new(
-            (duration.as_secs()      as f32 * burst_pct) as u64,
-            (duration.subsec_nanos() as f32 * burst_pct) as u32);
+            (duration.as_secs()      as f32 * burst_pct).ceil() as u64,
+            (duration.subsec_nanos() as f32 * burst_pct).ceil() as u32);
+
+        let burst_limit = (total_limit as f32 * burst_pct).ceil() as usize;
+        debug_assert!(burst_limit > 0);
 
         VectorTokenBucket {
             duration: duration,
             total_limit: total_limit,
 
             burst_duration: burst_duration,
-            burst_limit: (total_limit as f32 * burst_pct) as usize,
+            burst_limit: burst_limit,
 
-            timestamps: Mutex::new(VecDeque::new()),
+            timestamps: Mutex::new(VecDeque::with_capacity(total_limit)),
         }
     }
 
     fn update_get_timestamps(&self) -> MutexGuard<VecDeque<Instant>> {
         let mut timestamps = self.timestamps.lock();
         let cutoff = Instant::now() - self.duration;
+        // We only need to trim the end of the queue to not leak memory.
+        // We could do it lazily somehow if we wanted to be really fancy.
         while timestamps.back().map_or(false, |ts| ts < &cutoff) {
             timestamps.pop_back();
         }
@@ -95,9 +99,23 @@ impl TokenBucket for VectorTokenBucket {
         // `if timestamps.len() < self.total_limit { return None }`
         // Timestamp that needs to be popped before
         // we can enter another timestamp.
-        let ts = *timestamps.get(self.total_limit - 1)?;
-        Instant::now().checked_duration_since(ts)
-            .and_then(|passed_dur| self.duration.checked_sub(passed_dur))
+
+        // Full rate limit.
+        if let Some(ts) = timestamps.get(self.total_limit - 1) {
+            // Return amount of time needed for timestamp `ts` to go away.
+            Instant::now().checked_duration_since(*ts)
+                .and_then(|passed_dur| self.duration.checked_sub(passed_dur))
+        }
+        // Otherwise burst rate limit.
+        else if let Some(ts) = timestamps.get(self.burst_limit - 1) {
+            // Return amount of time needed for timestamp `ts` to go away.
+            Instant::now().checked_duration_since(*ts)
+                .and_then(|passed_dur| self.burst_duration.checked_sub(passed_dur))
+        }
+        // No delay needed.
+        else {
+            None
+        }
     }
 
     fn get_tokens(&self, n: usize) -> bool {
