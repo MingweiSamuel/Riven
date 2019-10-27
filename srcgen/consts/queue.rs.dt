@@ -3,12 +3,11 @@
     const queues = require('./.queues.json');
 
     const groupedQueues = queues.groupBy(({ map, description }) => {
-        const name = dotUtils.changeCase.pascalCase((map || '').replace("'", ''))
-            + dotUtils.changeCase.pascalCase((description || '').replace(/\s+(?=\d)/g, ''));
+        const name = dotUtils.changeCase.constantCase((map || '').replace("'", ''))
+            + '_' + dotUtils.changeCase.constantCase((description || '').replace(/\s+(?=\d)/g, ''));
         return name;
     });
 }}{{= dotUtils.preamble() }}
-#![allow(deprecated)]
 
 use serde_repr::{ Serialize_repr, Deserialize_repr };
 use num_enum::{ IntoPrimitive, TryFromPrimitive };
@@ -28,7 +27,7 @@ pub enum Queue {
         for (let { queueId, map, description, notes } of colQueues) {
             const doc = (description ? description + ' games on ' : '') + map;
             const deprecated = (notes || '').toUpperCase().indexOf('DEPRECATED') >= 0;
-            const name = groupName + ((colQueues.length > 1 && deprecated) ? 'Deprecated' : '');
+            const name = groupName + ((colQueues.length > 1 && deprecated) ? '_DEPRECATED' : '');
 }}
     /// {{= doc }}.
 {{? notes }}

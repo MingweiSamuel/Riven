@@ -1,4 +1,10 @@
 //! Constant data and Enums relevant to the Riot Games API.
+//!
+//! This module uses SCREAMING_SNAKE_CASE for enum variants, as enums in this
+//! crate should be considered collections of constants.
+
+#![allow(deprecated)]
+#![allow(non_camel_case_types)]
 
 mod macro_serde_string;
 

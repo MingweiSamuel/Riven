@@ -1,5 +1,3 @@
-#![allow(deprecated)]
-
 use strum_macros::{ EnumString, Display, AsRefStr };
 use num_enum::{ IntoPrimitive, TryFromPrimitive };
 

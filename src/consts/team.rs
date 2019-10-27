@@ -9,7 +9,7 @@ use num_enum::{ IntoPrimitive, TryFromPrimitive };
 #[repr(u8)]
 pub enum Team {
     /// Blue team (bottom left on Summoner's Rift).
-    Blue = 100,
+    BLUE = 100,
     /// Red team (top right on Summoner's Rift).
-    Red = 200,
+    RED = 200,
 }

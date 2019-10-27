@@ -10,7 +10,7 @@ use std::fmt;
 use num_enum::{ IntoPrimitive, TryFromPrimitive };
 use serde_repr::{ Serialize_repr, Deserialize_repr };
 
-/// League of Legends champions.
+/// League of Legend's champions.
 ///
 /// The documentation of each variant specifies:<br>
 /// NAME (`IDENTIFIER`, ID).

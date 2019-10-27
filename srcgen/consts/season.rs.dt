@@ -15,8 +15,7 @@ use num_enum::{ IntoPrimitive, TryFromPrimitive };
 pub enum Season {
 {{
     for (const { id, season } of seasons) {
-        let name = season.replace(' ', '');
-        name = dotUtils.changeCase.pascalCase(name).padEnd(13);
+        const name = season.replace(' ', '_');
 }}
     {{= name }} = {{= id }},
 {{

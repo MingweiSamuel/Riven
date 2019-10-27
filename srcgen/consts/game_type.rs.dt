@@ -15,8 +15,7 @@ pub enum GameType {
     for (const { gametype: gameType, description } of gameTypes) {
 }}
     /// {{= description }}
-    #[strum(to_string="{{= gameType }}")]
-    {{= dotUtils.changeCase.pascalCase(gameType) }},
+    {{= gameType }},
 {{
     }
 }}

@@ -15,14 +15,11 @@ use strum_macros::{ EnumString, Display, AsRefStr };
 #[repr(u8)]
 pub enum GameType {
     /// Custom games
-    #[strum(to_string="CUSTOM_GAME")]
-    CustomGame,
+    CUSTOM_GAME,
     /// Tutorial games
-    #[strum(to_string="TUTORIAL_GAME")]
-    TutorialGame,
+    TUTORIAL_GAME,
     /// all other games
-    #[strum(to_string="MATCHED_GAME")]
-    MatchedGame,
+    MATCHED_GAME,
 }
 
 serde_string!(GameType);

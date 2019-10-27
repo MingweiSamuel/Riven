@@ -2,7 +2,7 @@
     const dotUtils = require('./dotUtils.js');
     const maps = require('./.maps.json');
     const groupedMaps = maps.groupBy(({ mapName }) =>
-        dotUtils.changeCase.pascalCase(mapName.replace(/[ ']+/, '')));
+        dotUtils.changeCase.constantCase(mapName.replace(/[ ']+/, '')));
 }}{{= dotUtils.preamble() }}
 
 use serde_repr::{ Serialize_repr, Deserialize_repr };
@@ -23,7 +23,7 @@ pub enum Map {
         for (const [ i, { mapId, mapName, notes } ] of colMaps.entries()) {
             let name = groupName;
             if (i != colMaps.length - 1)
-                name += dotUtils.changeCase.pascalCase(notes);
+                name += '_' + dotUtils.changeCase.constantCase(notes);
 }}
     /// {{= mapName }}
     /// <br>{{= notes }}

@@ -1,5 +1,3 @@
-#![allow(deprecated)]
-
 use std::cmp::Ordering;
 
 use strum_macros::{ EnumString, Display, AsRefStr };

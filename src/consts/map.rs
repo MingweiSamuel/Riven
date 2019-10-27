@@ -19,54 +19,54 @@ pub enum Map {
 
     /// Summoner's Rift
     /// <br>Original Summer variant
-    SummonersRiftOriginalSummerVariant = 1,
+    SUMMONERS_RIFT_ORIGINAL_SUMMER_VARIANT = 1,
     /// Summoner's Rift
     /// <br>Original Autumn variant
-    SummonersRiftOriginalAutumnVariant = 2,
+    SUMMONERS_RIFT_ORIGINAL_AUTUMN_VARIANT = 2,
     /// Summoner's Rift
     /// <br>Current Version
-    SummonersRift = 11,
+    SUMMONERS_RIFT = 11,
 
     /// The Proving Grounds
     /// <br>Tutorial Map
-    TheProvingGrounds = 3,
+    THE_PROVING_GROUNDS = 3,
 
     /// Twisted Treeline
     /// <br>Original Version
-    TwistedTreelineOriginalVersion = 4,
+    TWISTED_TREELINE_ORIGINAL_VERSION = 4,
     /// Twisted Treeline
     /// <br>Last TT map
-    TwistedTreeline = 10,
+    TWISTED_TREELINE = 10,
 
     /// The Crystal Scar
     /// <br>Dominion map
-    TheCrystalScar = 8,
+    THE_CRYSTAL_SCAR = 8,
 
     /// Howling Abyss
     /// <br>ARAM map
-    HowlingAbyss = 12,
+    HOWLING_ABYSS = 12,
 
     /// Butcher's Bridge
     /// <br>Alternate ARAM map
-    ButchersBridge = 14,
+    BUTCHERS_BRIDGE = 14,
 
     /// Cosmic Ruins
     /// <br>Dark Star: Singularity map
-    CosmicRuins = 16,
+    COSMIC_RUINS = 16,
 
     /// Valoran City Park
     /// <br>Star Guardian Invasion map
-    ValoranCityPark = 18,
+    VALORAN_CITY_PARK = 18,
 
     /// Substructure 43
     /// <br>PROJECT: Hunters map
-    Substructure43 = 19,
+    SUBSTRUCTURE43 = 19,
 
     /// Crash Site
     /// <br>Odyssey: Extraction map
-    CrashSite = 20,
+    CRASH_SITE = 20,
 
     /// Nexus Blitz
     /// <br>Nexus Blitz map
-    NexusBlitz = 21,
+    NEXUS_BLITZ = 21,
 }

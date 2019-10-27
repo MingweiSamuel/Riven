@@ -16,8 +16,7 @@ pub enum GameMode {
     for (const { gameMode, description } of gameModes) {
 }}
     /// {{= description }}
-    #[strum(to_string="{{= gameMode }}")]
-    {{= dotUtils.changeCase.pascalCase(gameMode) }},
+    {{= gameMode }},
 {{
     }
 }}

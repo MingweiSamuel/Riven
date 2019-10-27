@@ -16,59 +16,41 @@ use strum_macros::{ EnumString, Display, AsRefStr };
 #[repr(u8)]
 pub enum GameMode {
     /// Classic Summoner's Rift and Twisted Treeline games
-    #[strum(to_string="CLASSIC")]
-    Classic,
+    CLASSIC,
     /// Dominion/Crystal Scar games
-    #[strum(to_string="ODIN")]
-    Odin,
+    ODIN,
     /// ARAM games
-    #[strum(to_string="ARAM")]
-    Aram,
+    ARAM,
     /// Tutorial games
-    #[strum(to_string="TUTORIAL")]
-    Tutorial,
+    TUTORIAL,
     /// URF games
-    #[strum(to_string="URF")]
-    Urf,
+    URF,
     /// Doom Bot games
-    #[strum(to_string="DOOMBOTSTEEMO")]
-    Doombotsteemo,
+    DOOMBOTSTEEMO,
     /// One for All games
-    #[strum(to_string="ONEFORALL")]
-    Oneforall,
+    ONEFORALL,
     /// Ascension games
-    #[strum(to_string="ASCENSION")]
-    Ascension,
+    ASCENSION,
     /// Snowdown Showdown games
-    #[strum(to_string="FIRSTBLOOD")]
-    Firstblood,
+    FIRSTBLOOD,
     /// Legend of the Poro King games
-    #[strum(to_string="KINGPORO")]
-    Kingporo,
+    KINGPORO,
     /// Nexus Siege games
-    #[strum(to_string="SIEGE")]
-    Siege,
+    SIEGE,
     /// Blood Hunt Assassin games
-    #[strum(to_string="ASSASSINATE")]
-    Assassinate,
+    ASSASSINATE,
     /// All Random Summoner's Rift games
-    #[strum(to_string="ARSR")]
-    Arsr,
+    ARSR,
     /// Dark Star: Singularity games
-    #[strum(to_string="DARKSTAR")]
-    Darkstar,
+    DARKSTAR,
     /// Star Guardian Invasion games
-    #[strum(to_string="STARGUARDIAN")]
-    Starguardian,
+    STARGUARDIAN,
     /// PROJECT: Hunters games
-    #[strum(to_string="PROJECT")]
-    Project,
+    PROJECT,
     /// Nexus Blitz games
-    #[strum(to_string="GAMEMODEX")]
-    Gamemodex,
+    GAMEMODEX,
     /// Odyssey: Extraction games
-    #[strum(to_string="ODYSSEY")]
-    Odyssey,
+    ODYSSEY,
 }
 
 serde_string!(GameMode);
