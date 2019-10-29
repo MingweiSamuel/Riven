@@ -23,16 +23,16 @@ mod test {
 
     #[test]
     fn check_as_ref() {
-        assert_eq!("RANKED_SOLO_5x5", QueueType::RankedSolo5x5.as_ref());
+        assert_eq!("RANKED_SOLO_5x5", QueueType::RANKED_SOLO_5x5.as_ref());
     }
 
     #[test]
     fn check_to_string() {
-        assert_eq!("RANKED_SOLO_5x5", QueueType::RankedSolo5x5.to_string());
+        assert_eq!("RANKED_SOLO_5x5", QueueType::RANKED_SOLO_5x5.to_string());
     }
 
     #[test]
     fn check_from_string() {
-        assert_eq!(Some(QueueType::RankedSolo5x5), "RANKED_SOLO_5x5".parse().ok());
+        assert_eq!(Some(QueueType::RANKED_SOLO_5x5), "RANKED_SOLO_5x5".parse().ok());
     }
 }

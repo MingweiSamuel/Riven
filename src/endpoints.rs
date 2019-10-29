@@ -387,9 +387,9 @@ impl<'a> MatchV4<'a> {
         -> impl Future<Output = Result<Option<match_v4::Matchlist>>> + 'a
     {
         let mut query_params = Serializer::new(String::new());
-        if let Some(champion) = champion { query_params.extend_pairs(champion.iter().map(|w| ("champion", w.to_string()))); };
-        if let Some(queue) = queue { query_params.extend_pairs(queue.iter().map(|w| ("queue", w.to_string()))); };
-        if let Some(season) = season { query_params.extend_pairs(season.iter().map(|w| ("season", w.to_string()))); };
+        if let Some(champion) = champion { query_params.extend_pairs(champion.iter().map(|w| ("champion", Into::<i16>::into(*w).to_string()))); };
+        if let Some(queue) = queue { query_params.extend_pairs(queue.iter().map(|w| ("queue", Into::<u16>::into(*w).to_string()))); };
+        if let Some(season) = season { query_params.extend_pairs(season.iter().map(|w| ("season", Into::<u8>::into(*w).to_string()))); };
         if let Some(end_time) = end_time { query_params.append_pair("endTime", &*end_time.to_string()); };
         if let Some(begin_time) = begin_time { query_params.append_pair("beginTime", &*begin_time.to_string()); };
         if let Some(end_index) = end_index { query_params.append_pair("endIndex", &*end_index.to_string()); };

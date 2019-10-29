@@ -1,5 +1,14 @@
 const changeCase = require('change-case');
 
+const enumTypeLookup = {
+  champion: 'i16',
+  gameMode: 'u8',
+  gameType: 'u8',
+  map: 'u8',
+  queue: 'u16',
+  season: 'u8',
+};
+
 // flatMap: https://gist.github.com/samgiles/762ee337dff48623e729
 // [B](f: (A) ⇒ [B]): [B]  ; Although the types in the arrays aren't strict (:
 Array.prototype.flatMap = function(lambda) {
@@ -85,26 +94,35 @@ function formatJsonProperty(name) {
   return `#[serde(rename = "${name}")]`;
 }
 
-function formatQueryParamStringify(name, prop, ownedOk = false) {
+function formatQueryParamStringify(name, prop, useOwned = false) {
+  const own = useOwned ? '' : '&*';
+  if (prop['x-enum']) {
     switch (prop.type) {
-        case 'boolean': return `${name} ? "true" : "false"`;
-        case 'string': return name;
-        default: return (ownedOk ? '' : '&*') + `${name}.to_string()`;
+      case 'integer':
+        return `${own}Into::<${enumTypeLookup[prop['x-enum']]}>::into(*${name}).to_string()`;
+      default: throw new Error(`Enum not supported: ${JSON.stringify(prop)}.`)
     }
+  }
+  switch (prop.type) {
+    case 'array': throw new Error(`Cannot formart array: ${JSON.stringify(prop)}.`);
+    case 'boolean': return `${name} ? "true" : "false"`;
+    case 'string': return name;
+    default: return `${own}${name}.to_string()`;
+  }
 }
 
 function formatAddQueryParam(param) {
-    let k = `"${param.name}"`;
-    let name = changeCase.snakeCase(param.name);
-    let nc = param.required ? '' : `if let Some(${name}) = ${name} `;
-    let prop = param.schema;
-    switch (prop.type) {
-        case 'array': return `${nc}{ query_params.extend_pairs(${name}.iter()`
-            + `.map(|w| (${k}, ${formatQueryParamStringify("w", prop, true)}))); }`;
-        case 'object': throw 'unsupported';
-        default:
-            return `${nc}{ query_params.append_pair(${k}, ${formatQueryParamStringify(name, prop)}); }`;
-    }
+  let k = `"${param.name}"`;
+  let name = changeCase.snakeCase(param.name);
+  let nc = param.required ? '' : `if let Some(${name}) = ${name} `;
+  let prop = param.schema;
+  switch (prop.type) {
+    case 'array': return `${nc}{ query_params.extend_pairs(${name}.iter()`
+      + `.map(|w| (${k}, ${formatQueryParamStringify("w", prop.items, true)}))); }`;
+    case 'object': throw 'unsupported';
+    default:
+      return `${nc}{ query_params.append_pair(${k}, ${formatQueryParamStringify(name, prop)}); }`;
+  }
 }
 
 function formatRouteArgument(route, pathParams = []) {
