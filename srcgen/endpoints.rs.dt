@@ -112,43 +112,43 @@ impl<'a> {{= endpoint }}<'a> {
             for (var descLine of descArr)
             {
 }}
-        ///{{= descLine ? ' ' + descLine : '' }}
+    ///{{= descLine ? ' ' + descLine : '' }}
 {{
             }
 }}
-        ///
-        /// <a href="{{= get.externalDocs.url }}">{{= get.externalDocs.description }}</a>
-        /// # Parameters
-        /// * `region` - Region to query.
+    ///
+    /// <a href="{{= get.externalDocs.url }}">{{= get.externalDocs.description }}</a>
+    /// # Parameters
+    /// * `region` - Region to query.
 {{
             if (allParams)
             {
                 for (let param of allParams)
                 {
 }}
-        /// * `{{= param.name }}`{{= param.required ? '' : ' (optional)' }}{{= param.description ? ' - ' + param.description : ''}}
+    /// * `{{= param.name }}`{{= param.required ? '' : ' (optional)' }}{{= param.description ? ' - ' + param.description : ''}}
 {{
                 }
             }
 }}
-        pub fn {{= method }}(&self, region: Region{{= argBuilder.join('') }})
-            -> impl Future<Output = Result<Option<{{= returnType }}>>> + 'a
-        {
+    pub fn {{= method }}(&self, region: Region{{= argBuilder.join('') }})
+        -> impl Future<Output = Result<Option<{{= returnType }}>>> + 'a
+    {
 {{? queryParams.length }}
             let mut query_params = Serializer::new(String::new());
 {{
             for (let queryParam of queryParams)
             {
 }}
-            {{= dotUtils.formatAddQueryParam(queryParam) }};
+        {{= dotUtils.formatAddQueryParam(queryParam) }};
 {{
             }
 }}
-            let query_string = query_params.finish();
+        let query_string = query_params.finish();
 {{?}}
-            let path_string = {{= routeArgument }};
-            self.base.get::<{{= returnType }}>("{{= operationId }}", region, path_string, {{= queryParams.length ? 'Some(query_string)' : 'None' }})
-        }
+        let path_string = {{= routeArgument }};
+        self.base.get::<{{= returnType }}>("{{= operationId }}", region, path_string, {{= queryParams.length ? 'Some(query_string)' : 'None' }})
+    }
 
 {{
         }
