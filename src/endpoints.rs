@@ -192,7 +192,7 @@ impl<'a> LeagueExpV4<'a> {
     pub fn get_league_entries(&self, region: Region, division: crate::consts::Division, tier: crate::consts::Tier, queue: crate::consts::QueueType, page: Option<i32>)
         -> impl Future<Output = Result<Option<Vec<league_exp_v4::LeagueEntry>>>> + 'a
     {
-            let mut query_params = Serializer::new(String::new());
+        let mut query_params = Serializer::new(String::new());
         if let Some(page) = page { query_params.append_pair("page", &*page.to_string()); };
         let query_string = query_params.finish();
         let path_string = format!("/lol/league-exp/v4/entries/{}/{}/{}", division, tier, queue);
@@ -246,7 +246,7 @@ impl<'a> LeagueV4<'a> {
     pub fn get_league_entries(&self, region: Region, queue: crate::consts::QueueType, tier: crate::consts::Tier, division: crate::consts::Division, page: Option<i32>)
         -> impl Future<Output = Result<Option<Vec<league_v4::LeagueEntry>>>> + 'a
     {
-            let mut query_params = Serializer::new(String::new());
+        let mut query_params = Serializer::new(String::new());
         if let Some(page) = page { query_params.append_pair("page", &*page.to_string()); };
         let query_string = query_params.finish();
         let path_string = format!("/lol/league/v4/entries/{}/{}/{}", queue, tier, division);
@@ -386,7 +386,7 @@ impl<'a> MatchV4<'a> {
     pub fn get_matchlist(&self, region: Region, encrypted_account_id: &str, champion: Option<std::vec::Vec<crate::consts::Champion>>, queue: Option<std::vec::Vec<crate::consts::Queue>>, season: Option<std::vec::Vec<crate::consts::Season>>, end_time: Option<i64>, begin_time: Option<i64>, end_index: Option<i32>, begin_index: Option<i32>)
         -> impl Future<Output = Result<Option<match_v4::Matchlist>>> + 'a
     {
-            let mut query_params = Serializer::new(String::new());
+        let mut query_params = Serializer::new(String::new());
         if let Some(champion) = champion { query_params.extend_pairs(champion.iter().map(|w| ("champion", w.to_string()))); };
         if let Some(queue) = queue { query_params.extend_pairs(queue.iter().map(|w| ("queue", w.to_string()))); };
         if let Some(season) = season { query_params.extend_pairs(season.iter().map(|w| ("season", w.to_string()))); };

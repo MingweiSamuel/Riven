@@ -135,7 +135,7 @@ impl<'a> {{= endpoint }}<'a> {
         -> impl Future<Output = Result<Option<{{= returnType }}>>> + 'a
     {
 {{? queryParams.length }}
-            let mut query_params = Serializer::new(String::new());
+        let mut query_params = Serializer::new(String::new());
 {{
             for (let queryParam of queryParams)
             {
