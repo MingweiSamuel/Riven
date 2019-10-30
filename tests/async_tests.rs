@@ -69,4 +69,7 @@ macro_rules! rassert {
 #[macro_export]
 macro_rules! rassert_eq {
     ( $a:expr, $b:expr ) => { rassert!($a == $b) };
+    ( $a:expr, $b:expr, $format:expr $(, $arg:expr)* ) => {
+        rassert!($a == $b, $format, $( $arg )* )
+    };
 }

@@ -78,7 +78,7 @@ pub mod league_exp_v4 {
         #[serde(rename = "hotStreak")]
         pub hot_streak: bool,
         #[serde(rename = "miniSeries")]
-        pub mini_series: MiniSeries,
+        pub mini_series: Option<MiniSeries>,
         /// Winning team on Summoners Rift. First placement in Teamfight Tactics.
         #[serde(rename = "wins")]
         pub wins: i32,
@@ -145,7 +145,7 @@ pub mod league_v4 {
         #[serde(rename = "hotStreak")]
         pub hot_streak: bool,
         #[serde(rename = "miniSeries")]
-        pub mini_series: MiniSeries,
+        pub mini_series: Option<MiniSeries>,
         /// Winning team on Summoners Rift. First placement in Teamfight Tactics.
         #[serde(rename = "wins")]
         pub wins: i32,
@@ -190,7 +190,7 @@ pub mod league_v4 {
         #[serde(rename = "hotStreak")]
         pub hot_streak: bool,
         #[serde(rename = "miniSeries")]
-        pub mini_series: MiniSeries,
+        pub mini_series: Option<MiniSeries>,
         /// Winning team on Summoners Rift. First placement in Teamfight Tactics.
         #[serde(rename = "wins")]
         pub wins: i32,
@@ -452,7 +452,7 @@ pub mod match_v4 {
         pub participant_id: i32,
         /// List of legacy Rune information. Not included for matches played with Runes Reforged.
         #[serde(rename = "runes")]
-        pub runes: std::vec::Vec<Rune>,
+        pub runes: Option<std::vec::Vec<Rune>>,
         /// Participant timeline data.
         #[serde(rename = "timeline")]
         pub timeline: ParticipantTimeline,
@@ -464,11 +464,11 @@ pub mod match_v4 {
         pub spell2_id: i32,
         /// List of legacy Mastery information. Not included for matches played with Runes Reforged.
         #[serde(rename = "masteries")]
-        pub masteries: std::vec::Vec<Mastery>,
+        pub masteries: Option<std::vec::Vec<Mastery>>,
         /// Highest ranked tier achieved for the previous season in a specific subset of queueIds, if any, otherwise null. Used to display border in game loading screen. Please refer to the Ranked Info documentation.<br>
         /// (Legal values:  CHALLENGER,  MASTER,  DIAMOND,  PLATINUM,  GOLD,  SILVER,  BRONZE,  UNRANKED)
         #[serde(rename = "highestAchievedSeasonTier")]
-        pub highest_achieved_season_tier: crate::consts::Tier,
+        pub highest_achieved_season_tier: Option<crate::consts::Tier>,
         /// First Summoner Spell id.
         #[serde(rename = "spell1Id")]
         pub spell1_id: i32,
@@ -506,7 +506,7 @@ pub mod match_v4 {
         #[serde(rename = "perk3Var3")]
         pub perk3_var3: i32,
         #[serde(rename = "nodeNeutralizeAssist")]
-        pub node_neutralize_assist: i32,
+        pub node_neutralize_assist: Option<i32>,
         /// Post game rune stats.
         #[serde(rename = "perk3Var2")]
         pub perk3_var2: i32,
@@ -550,7 +550,7 @@ pub mod match_v4 {
         #[serde(rename = "physicalDamageDealtToChampions")]
         pub physical_damage_dealt_to_champions: i64,
         #[serde(rename = "nodeCapture")]
-        pub node_capture: i32,
+        pub node_capture: Option<i32>,
         #[serde(rename = "largestMultiKill")]
         pub largest_multi_kill: i32,
         /// Post game rune stats.
@@ -582,7 +582,7 @@ pub mod match_v4 {
         #[serde(rename = "quadraKills")]
         pub quadra_kills: i32,
         #[serde(rename = "teamObjective")]
-        pub team_objective: i32,
+        pub team_objective: Option<i32>,
         #[serde(rename = "magicDamageDealt")]
         pub magic_damage_dealt: i64,
         #[serde(rename = "item2")]
@@ -625,11 +625,11 @@ pub mod match_v4 {
         #[serde(rename = "magicalDamageTaken")]
         pub magical_damage_taken: i64,
         #[serde(rename = "firstInhibitorKill")]
-        pub first_inhibitor_kill: bool,
+        pub first_inhibitor_kill: Option<bool>,
         #[serde(rename = "trueDamageTaken")]
         pub true_damage_taken: i64,
         #[serde(rename = "nodeNeutralize")]
-        pub node_neutralize: i32,
+        pub node_neutralize: Option<i32>,
         #[serde(rename = "assists")]
         pub assists: i32,
         #[serde(rename = "combatPlayerScore")]
@@ -685,7 +685,7 @@ pub mod match_v4 {
         #[serde(rename = "unrealKills")]
         pub unreal_kills: i32,
         #[serde(rename = "altarsCaptured")]
-        pub altars_captured: i32,
+        pub altars_captured: Option<i32>,
         #[serde(rename = "firstTowerAssist")]
         pub first_tower_assist: bool,
         #[serde(rename = "firstTowerKill")]
@@ -695,11 +695,11 @@ pub mod match_v4 {
         #[serde(rename = "doubleKills")]
         pub double_kills: i32,
         #[serde(rename = "nodeCaptureAssist")]
-        pub node_capture_assist: i32,
+        pub node_capture_assist: Option<i32>,
         #[serde(rename = "inhibitorKills")]
         pub inhibitor_kills: i32,
         #[serde(rename = "firstInhibitorAssist")]
-        pub first_inhibitor_assist: bool,
+        pub first_inhibitor_assist: Option<bool>,
         /// Post game rune stats.
         #[serde(rename = "perk0Var1")]
         pub perk0_var1: i32,
@@ -712,7 +712,7 @@ pub mod match_v4 {
         #[serde(rename = "visionWardsBoughtInGame")]
         pub vision_wards_bought_in_game: i32,
         #[serde(rename = "altarsNeutralized")]
-        pub altars_neutralized: i32,
+        pub altars_neutralized: Option<i32>,
         #[serde(rename = "pentaKills")]
         pub penta_kills: i32,
         #[serde(rename = "totalHeal")]
@@ -743,13 +743,13 @@ pub mod match_v4 {
         pub participant_id: i32,
         /// Creep score difference versus the calculated lane opponent(s) for a specified period.
         #[serde(rename = "csDiffPerMinDeltas")]
-        pub cs_diff_per_min_deltas: std::collections::HashMap<String, f64>,
+        pub cs_diff_per_min_deltas: Option<std::collections::HashMap<String, f64>>,
         /// Gold for a specified period.
         #[serde(rename = "goldPerMinDeltas")]
         pub gold_per_min_deltas: std::collections::HashMap<String, f64>,
         /// Experience difference versus the calculated lane opponent(s) for a specified period.
         #[serde(rename = "xpDiffPerMinDeltas")]
-        pub xp_diff_per_min_deltas: std::collections::HashMap<String, f64>,
+        pub xp_diff_per_min_deltas: Option<std::collections::HashMap<String, f64>>,
         /// Creeps for a specified period.
         #[serde(rename = "creepsPerMinDeltas")]
         pub creeps_per_min_deltas: std::collections::HashMap<String, f64>,
@@ -762,7 +762,7 @@ pub mod match_v4 {
         pub role: String,
         /// Damage taken difference versus the calculated lane opponent(s) for a specified period.
         #[serde(rename = "damageTakenDiffPerMinDeltas")]
-        pub damage_taken_diff_per_min_deltas: std::collections::HashMap<String, f64>,
+        pub damage_taken_diff_per_min_deltas: Option<std::collections::HashMap<String, f64>>,
         /// Damage taken for a specified period.
         #[serde(rename = "damageTakenPerMinDeltas")]
         pub damage_taken_per_min_deltas: std::collections::HashMap<String, f64>,

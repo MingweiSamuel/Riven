@@ -33,11 +33,11 @@ mod token_bucket {
 
             Instant::set_time(50_000);
             assert!(bucket.get_tokens(100), "All tokens should be immediately available.");
-            assert!(None != bucket.get_delay(), "Bucket should have delay.");
+            assert_ne!(None, bucket.get_delay(), "Bucket should have delay.");
 
             Instant::advance_time(1001); // Extra buffer for Duration(0).
             assert!(bucket.get_tokens(100), "All tokens should be available after a bucket duration.");
-            assert!(None != bucket.get_delay(), "Bucket should have delay.");
+            assert_ne!(None, bucket.get_delay(), "Bucket should have delay.");
         }
 
         #[test]
@@ -46,22 +46,22 @@ mod token_bucket {
 
             Instant::set_time(50_000);
             assert!(bucket.get_tokens(95), "95 tokens should be immediately available.");
-            assert!(None != bucket.get_delay(), "Bucket should have delay.");
+            assert_ne!(None, bucket.get_delay(), "Bucket should have delay.");
 
             Instant::advance_time(475); // Total 951.
-            assert!(None != bucket.get_delay(), "Bucket should have delay.");
+            assert_ne!(None, bucket.get_delay(), "Bucket should have delay.");
 
             Instant::advance_time(476); // Extra buffer for Duration(0).
             assert!(bucket.get_tokens(5), "Last 5 tokens should be available.");
-            assert!(None != bucket.get_delay(), "Bucket should have delay.");
+            assert_ne!(None, bucket.get_delay(), "Bucket should have delay.");
 
             Instant::advance_time(51);
             assert!(bucket.get_tokens(95), "95 tokens should be available.");
-            assert!(None != bucket.get_delay(), "Bucket should have delay.");
+            assert_ne!(None, bucket.get_delay(), "Bucket should have delay.");
 
             Instant::advance_time(951);
-            assert!(bucket.get_tokens(5));
-            assert!(None != bucket.get_delay());
+            assert!(bucket.get_tokens(5), "Last 5 tokens should be available.");
+            assert_ne!(None, bucket.get_delay(), "Bucket should have delay.");
         }
 
         #[test]
@@ -70,19 +70,19 @@ mod token_bucket {
 
             Instant::set_time(50_000);
             assert!(bucket.get_tokens(50), "Half the tokens should be immediately available.");
-            assert!(None != bucket.get_delay(), "Bucket should have delay.");
+            assert_ne!(None, bucket.get_delay(), "Bucket should have delay.");
 
             Instant::advance_time(501); // Extra buffer for Duration(0).
             assert!(bucket.get_tokens(50), "Half the tokens should be available after a half bucket duration.");
-            assert!(None != bucket.get_delay(), "Bucket should have delay.");
+            assert_ne!(None, bucket.get_delay(), "Bucket should have delay.");
 
             Instant::advance_time(501);
             assert!(bucket.get_tokens(50), "Half the tokens should be available after a full bucket duration.");
-            assert!(None != bucket.get_delay(), "Bucket should have delay.");
+            assert_ne!(None, bucket.get_delay(), "Bucket should have delay.");
 
             Instant::advance_time(501);
             assert!(bucket.get_tokens(50));
-            assert!(None != bucket.get_delay());
+            assert_ne!(None, bucket.get_delay(), "Bucket should have delay.");
         }
 
         #[test]
@@ -94,11 +94,12 @@ mod token_bucket {
             for _ in 0..20_000 {
                 Instant::advance_time(501);
                 assert!(bucket.get_tokens(50), "Should have not violated limit.");
-                assert!(None != bucket.get_delay(), "Should be blocked.");
+                assert_ne!(None, bucket.get_delay(), "Bucket should have delay.");
                 Instant::advance_time(501);
                 assert!(bucket.get_tokens(50), "Should have not violated limit.");
-                assert!(None != bucket.get_delay(), "Should be blocked.");
+                assert_ne!(None, bucket.get_delay(), "Bucket should have delay.");
             }
+            assert!(bucket.timestamps.lock().len() < 110, "Check memory leak.");
         }
     }
 }

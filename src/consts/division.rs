@@ -1,7 +1,6 @@
 use std::cmp::Ordering;
 
 use strum_macros::{ EnumString, Display, AsRefStr };
-use serde_repr::{ Serialize_repr, Deserialize_repr };
 use num_enum::{ IntoPrimitive, TryFromPrimitive };
 
 /// LoL and TFT rank divisions, I, II, III, IV, and (deprecated) V.
@@ -12,7 +11,6 @@ use num_enum::{ IntoPrimitive, TryFromPrimitive };
 #[derive(Debug, Copy, Clone)]
 #[derive(Eq, PartialEq, Hash)]
 #[derive(EnumString, Display, AsRefStr)]
-#[derive(Serialize_repr, Deserialize_repr)]
 #[derive(IntoPrimitive, TryFromPrimitive)]
 #[repr(u8)]
 pub enum Division {
@@ -23,6 +21,8 @@ pub enum Division {
     #[deprecated(note="Removed for 2019.")]
     V   = 5,
 }
+
+serde_string!(Division);
 
 impl Ord for Division {
     fn cmp(&self, other: &Self) -> Ordering {
