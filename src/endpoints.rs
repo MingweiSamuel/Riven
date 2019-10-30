@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 85da12632b552f2033d1708c17b04306e90b935e
+// Version 6699beea97d4afea8ffa9310a554ec23a499e531
 
 //! Automatically generated endpoint handles and data transfer structs.
 

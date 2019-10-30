@@ -10,6 +10,7 @@ use serde_repr::{ Serialize_repr, Deserialize_repr };
 use num_enum::{ IntoPrimitive, TryFromPrimitive };
 
 /// League of Legends maps.
+#[non_exhaustive]
 #[derive(Debug, Copy, Clone)]
 #[derive(Eq, PartialEq, Hash, PartialOrd, Ord)]
 #[derive(Serialize_repr, Deserialize_repr)]

@@ -1,6 +1,7 @@
 use strum_macros::{ EnumString, Display, AsRefStr };
 
 /// LoL or TFT ranked queue types.
+#[non_exhaustive]
 #[derive(Debug, Copy, Clone)]
 #[derive(Eq, PartialEq, Hash)]
 #[derive(EnumString, Display, AsRefStr)]

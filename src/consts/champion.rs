@@ -14,6 +14,7 @@ use serde_repr::{ Serialize_repr, Deserialize_repr };
 ///
 /// The documentation of each variant specifies:<br>
 /// NAME (`IDENTIFIER`, ID).
+#[non_exhaustive]
 #[derive(Debug, Copy, Clone)]
 #[derive(IntoPrimitive, TryFromPrimitive)]
 #[derive(Serialize_repr, Deserialize_repr)]
@@ -120,6 +121,7 @@ pub enum Champion {
     /** Rumble         (`Rumble`, 68).       */ Rumble       = 68,
     /** Ryze           (`Ryze`, 13).         */ Ryze         = 13,
     /** Sejuani        (`Sejuani`, 113).     */ Sejuani      = 113,
+    /** Senna          (`Senna`, 235).       */ Senna        = 235,
     /** Shaco          (`Shaco`, 35).        */ Shaco        = 35,
     /** Shen           (`Shen`, 98).         */ Shen         = 98,
     /** Shyvana        (`Shyvana`, 102).     */ Shyvana      = 102,
@@ -271,6 +273,7 @@ impl Champion {
             Self::Rumble       => "Rumble",
             Self::Ryze         => "Ryze",
             Self::Sejuani      => "Sejuani",
+            Self::Senna        => "Senna",
             Self::Shaco        => "Shaco",
             Self::Shen         => "Shen",
             Self::Shyvana      => "Shyvana",
@@ -422,6 +425,7 @@ impl Champion {
             Self::Rumble       => "Rumble",
             Self::Ryze         => "Ryze",
             Self::Sejuani      => "Sejuani",
+            Self::Senna        => "Senna",
             Self::Shaco        => "Shaco",
             Self::Shen         => "Shen",
             Self::Shyvana      => "Shyvana",
@@ -589,6 +593,7 @@ impl std::str::FromStr for Champion {
             1381322050 /* RUMB */ => Ok(Self::Rumble),
             1381587525 /* RYZE */ => Ok(Self::Ryze),
             1397049941 /* SEJU */ => Ok(Self::Sejuani),
+            1397050958 /* SENN */ => Ok(Self::Senna),
             1397244227 /* SHAC */ => Ok(Self::Shaco),
             1397245262 /* SHEN */ => Ok(Self::Shen),
             1397250390 /* SHYV */ => Ok(Self::Shyvana),

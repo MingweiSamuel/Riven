@@ -21,6 +21,7 @@ use serde_repr::{ Serialize_repr, Deserialize_repr };
 ///
 /// The documentation of each variant specifies:<br>
 /// NAME (`IDENTIFIER`, ID).
+#[non_exhaustive]
 #[derive(Debug, Copy, Clone)]
 #[derive(IntoPrimitive, TryFromPrimitive)]
 #[derive(Serialize_repr, Deserialize_repr)]
