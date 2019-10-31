@@ -20,7 +20,20 @@ Array.prototype.groupBy = function(lambda) {
     (agg[k] = agg[k] || []).push(x);
     return agg;
   }, {}));
-}
+};
+Array.prototype.sortBy = function(lambda) {
+  return this.sort((a, b) => {
+    const va = lambda(a);
+    const vb = lambda(b);
+    if ((typeof va) !== (typeof vb))
+      throw Error(`Mismatched sort types: ${typeof va}, ${typeof vb}.`);
+    if (typeof va === 'number')
+      return va - vb;
+    if (typeof va === 'string')
+      return va.localeCompare(vb);
+    throw Error(`Unknown sort type: ${typeof va}.`);
+  });
+};
 
 function preamble() {
   return `\
@@ -51,16 +64,19 @@ function normalizeArgName(name) {
   return 'base' === argName ? 'Base' : argName;
 }
 
-function normalizePropName(propName, schemaName, value) {
+function normalizePropName(propName) {
   const out = changeCase.snakeCase(propName);
   if ('type' === out)
     return 'r#' + out;
   return out;
 }
 
-function stringifyType(prop, endpoint = null, optional = false, fullpath = true, owned = true) {
+function stringifyType(prop, { endpoint = null, optional = false, fullpath = true, owned = true }) {
   if (prop.anyOf) {
     prop = prop.anyOf[0];
+  }
+  if (optional) {
+    return `Option<${stringifyType(prop, { endpoint, fullpath })}>`;
   }
 
   let enumType = prop['x-enum'];
@@ -72,20 +88,17 @@ function stringifyType(prop, endpoint = null, optional = false, fullpath = true,
     return (!endpoint ? '' : changeCase.snakeCase(endpoint) + '::') +
       normalizeSchemaName(refType.slice(refType.indexOf('.') + 1));
   }
-  if (optional) {
-    return `Option<${stringifyType(prop, endpoint, false, fullpath)}>`;
-  }
   switch (prop.type) {
     case 'boolean': return 'bool';
     case 'integer': return ('int32' === prop.format ? 'i32' : 'i64');
     case 'number': return ('float' === prop.format ? 'f32' : 'f64');
     case 'array':
-      const subprop = stringifyType(prop.items, endpoint, optional, fullpath, owned);
+      const subprop = stringifyType(prop.items, { endpoint, optional, fullpath, owned });
       return (owned ? (fullpath ? 'std::vec::' : '') + `Vec<${subprop}>` : `&[${subprop}]`);
     case 'string': return (owned ? 'String' : '&str');
     case 'object':
-      return 'std::collections::HashMap<' + stringifyType(prop['x-key'], endpoint, optional, fullpath, owned) + ', ' +
-        stringifyType(prop.additionalProperties, endpoint, optional, fullpath, owned) + '>';
+      return 'std::collections::HashMap<' + stringifyType(prop['x-key'], { endpoint, optional, fullpath, owned }) + ', ' +
+        stringifyType(prop.additionalProperties, { endpoint, optional, fullpath, owned }) + '>';
     default: return prop.type;
   }
 }

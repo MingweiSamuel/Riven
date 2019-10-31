@@ -67,7 +67,7 @@ impl<'a> {{= endpoint }}<'a> {
             let method = dotUtils.changeCase.snakeCase(operationId.slice(operationId.indexOf('.') + 1));
 
             let jsonInfo = get.responses['200'].content['application/json'];
-            let returnType = dotUtils.stringifyType(jsonInfo.schema, endpoint, false, false);
+            let returnType = dotUtils.stringifyType(jsonInfo.schema, { endpoint, fullpath: false });
 
             /* Cases if not rate limited. */
             let rateLimitExcluded = get['x-app-rate-limit-excluded'] ? true : false;
@@ -88,11 +88,11 @@ impl<'a> {{= endpoint }}<'a> {
             if (allParams && allParams.length)
             {
                 let pathParams = allParams.filter(p => 'path' === p.in)
-                    .sort(p => route.indexOf(p.name));
+                    .sortBy(({ name }) => route.indexOf(name));
                 let reqParams = allParams.filter(p => 'path' !== p.in && p.required);
                 let optParams = allParams.filter(p => 'path' !== p.in && !p.required)
-                    .sort(p => {
-                        let match = /(^[a-z]+|[A-Z]+(?![a-z])|[A-Z][a-z]+)/.exec(p.name);
+                    .sortBy(({ name }) => {
+                        let match = /(^[a-z]+|[A-Z]+(?![a-z])|[A-Z][a-z]+)/.exec(name);
                         return match.slice(1).reverse().join('');
                     });
                 queryParams = reqParams.concat(optParams);
@@ -103,7 +103,7 @@ impl<'a> {{= endpoint }}<'a> {
                     for (let param of paramList)
                     {
                         argBuilder.push(', ', dotUtils.changeCase.snakeCase(param.name), ': ',
-                            dotUtils.stringifyType(param.schema, endpoint, !required, true, false));
+                            dotUtils.stringifyType(param.schema, { endpoint, optional: !required, owned: false }));
                     }
                 }
 

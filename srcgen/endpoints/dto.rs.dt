@@ -19,10 +19,11 @@
 pub mod {{= dotUtils.changeCase.snakeCase(endpoint) }} {
 {{
         for (let schemaKey of schemaKeyGroup) {
-            let [endpoint, rawSchemaName] = schemaKey.split('.');
-            let schemaName = dotUtils.normalizeSchemaName(rawSchemaName);
-            let schema = schemas[schemaKey];
-            let props = schema.properties;
+            const [endpoint, rawSchemaName] = schemaKey.split('.');
+            const schemaName = dotUtils.normalizeSchemaName(rawSchemaName);
+            const schema = schemas[schemaKey];
+            const props = schema.properties;
+            const requiredSet = new Set(schema.required);
 }}
     /// {{= schemaName }} data object. This struct is automatically generated.
 {{? schema.description }}
@@ -35,13 +36,14 @@ pub mod {{= dotUtils.changeCase.snakeCase(endpoint) }} {
 {{
             for (let [ propKey, prop ] of Object.entries(props))
             {
-                let name = dotUtils.normalizePropName(propKey, schemaName, prop);
+                const name = dotUtils.normalizePropName(propKey);
+                const required = requiredSet.has(propKey);
 }}
 {{? prop.description }}
         /// {{= prop.description.split('\n').map(x => x.trim()).join('<br>\r\n        /// ') }}
 {{?}}
         {{= dotUtils.formatJsonProperty(propKey) }}
-        pub {{= name }}: {{= dotUtils.stringifyType(prop) }},
+        pub {{= name }}: {{= dotUtils.stringifyType(prop, { optional: !required }) }},
 {{
             }
 }}

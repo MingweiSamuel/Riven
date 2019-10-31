@@ -45,7 +45,7 @@ async_tests!{
             Ok(())
         },
         leagueexp_get: async {
-            let p = RIOT_API.league_exp_v4().get_league_entries(Region::NA, Division::I, Tier::CHALLENGER, QueueType::RANKED_SOLO_5x5, None);
+            let p = RIOT_API.league_exp_v4().get_league_entries(Region::NA, QueueType::RANKED_SOLO_5x5, Tier::CHALLENGER, Division::I, None);
             let d = p.await.map_err(|e| e.to_string())?.ok_or("Failed to get challenger exp league entries.".to_owned())?;
             rassert!(!d.is_empty(), "Challenger shouldn't be empty.");
             Ok(())

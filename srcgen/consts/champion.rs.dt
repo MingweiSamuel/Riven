@@ -1,7 +1,8 @@
 ﻿{{
+    const dotUtils = require('./dotUtils.js');
     const champions = require('./.champion.json')
         .filter(({ id }) => id > 0)
-        .sort(({ name: a }, { name: b }) => a > b ? 1 : -1);
+        .sortBy(({ name }) => name);
     const hashFactor = 256;
     const enumName = name => name.replace(/[^a-z]+/i, '');
     const strHash = function(str) {
@@ -11,7 +12,7 @@
         return h;
     };
     const padId = function(id) { return ('' + id).padEnd(3); };
-}}{{= require('./dotUtils.js').preamble() }}
+}}{{= dotUtils.preamble() }}
 
 use std::fmt;
 use num_enum::{ IntoPrimitive, TryFromPrimitive };

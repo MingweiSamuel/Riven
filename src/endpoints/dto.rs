@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 85da12632b552f2033d1708c17b04306e90b935e
+// Version 3bd5ca30e5a7aa15963ca4366e3b6be89defe567
 
 // champion-mastery-v4
 #[allow(dead_code)]
@@ -56,9 +56,9 @@ pub mod champion_v3 {
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct ChampionInfo {
         #[serde(rename = "freeChampionIdsForNewPlayers")]
-        pub free_champion_ids_for_new_players: std::vec::Vec<i32>,
+        pub free_champion_ids_for_new_players: std::vec::Vec<crate::consts::Champion>,
         #[serde(rename = "freeChampionIds")]
-        pub free_champion_ids: std::vec::Vec<i32>,
+        pub free_champion_ids: std::vec::Vec<crate::consts::Champion>,
         #[serde(rename = "maxNewPlayerLevel")]
         pub max_new_player_level: i32,
     }
@@ -482,7 +482,7 @@ pub mod match_v4 {
         #[serde(rename = "firstBloodAssist")]
         pub first_blood_assist: bool,
         #[serde(rename = "visionScore")]
-        pub vision_score: i64,
+        pub vision_score: Option<i64>,
         #[serde(rename = "magicDamageDealtToChampions")]
         pub magic_damage_dealt_to_champions: i64,
         #[serde(rename = "damageDealtToObjectives")]
@@ -493,56 +493,56 @@ pub mod match_v4 {
         pub longest_time_spent_living: i32,
         /// Post game rune stats.
         #[serde(rename = "perk1Var1")]
-        pub perk1_var1: i32,
+        pub perk1_var1: Option<i32>,
         /// Post game rune stats.
         #[serde(rename = "perk1Var3")]
-        pub perk1_var3: i32,
+        pub perk1_var3: Option<i32>,
         /// Post game rune stats.
         #[serde(rename = "perk1Var2")]
-        pub perk1_var2: i32,
+        pub perk1_var2: Option<i32>,
         #[serde(rename = "tripleKills")]
         pub triple_kills: i32,
         /// Post game rune stats.
         #[serde(rename = "perk3Var3")]
-        pub perk3_var3: i32,
+        pub perk3_var3: Option<i32>,
         #[serde(rename = "nodeNeutralizeAssist")]
         pub node_neutralize_assist: Option<i32>,
         /// Post game rune stats.
         #[serde(rename = "perk3Var2")]
-        pub perk3_var2: i32,
+        pub perk3_var2: Option<i32>,
         #[serde(rename = "playerScore9")]
-        pub player_score9: i32,
+        pub player_score9: Option<i32>,
         #[serde(rename = "playerScore8")]
-        pub player_score8: i32,
+        pub player_score8: Option<i32>,
         #[serde(rename = "kills")]
         pub kills: i32,
         #[serde(rename = "playerScore1")]
-        pub player_score1: i32,
+        pub player_score1: Option<i32>,
         #[serde(rename = "playerScore0")]
-        pub player_score0: i32,
+        pub player_score0: Option<i32>,
         #[serde(rename = "playerScore3")]
-        pub player_score3: i32,
+        pub player_score3: Option<i32>,
         #[serde(rename = "playerScore2")]
-        pub player_score2: i32,
+        pub player_score2: Option<i32>,
         #[serde(rename = "playerScore5")]
-        pub player_score5: i32,
+        pub player_score5: Option<i32>,
         #[serde(rename = "playerScore4")]
-        pub player_score4: i32,
+        pub player_score4: Option<i32>,
         #[serde(rename = "playerScore7")]
-        pub player_score7: i32,
+        pub player_score7: Option<i32>,
         #[serde(rename = "playerScore6")]
-        pub player_score6: i32,
+        pub player_score6: Option<i32>,
         /// Post game rune stats.
         #[serde(rename = "perk5Var1")]
-        pub perk5_var1: i32,
+        pub perk5_var1: Option<i32>,
         /// Post game rune stats.
         #[serde(rename = "perk5Var3")]
-        pub perk5_var3: i32,
+        pub perk5_var3: Option<i32>,
         /// Post game rune stats.
         #[serde(rename = "perk5Var2")]
-        pub perk5_var2: i32,
+        pub perk5_var2: Option<i32>,
         #[serde(rename = "totalScoreRank")]
-        pub total_score_rank: i32,
+        pub total_score_rank: Option<i32>,
         #[serde(rename = "neutralMinionsKilled")]
         pub neutral_minions_killed: i32,
         #[serde(rename = "damageDealtToTurrets")]
@@ -555,24 +555,24 @@ pub mod match_v4 {
         pub largest_multi_kill: i32,
         /// Post game rune stats.
         #[serde(rename = "perk2Var2")]
-        pub perk2_var2: i32,
+        pub perk2_var2: Option<i32>,
         /// Post game rune stats.
         #[serde(rename = "perk2Var3")]
-        pub perk2_var3: i32,
+        pub perk2_var3: Option<i32>,
         #[serde(rename = "totalUnitsHealed")]
         pub total_units_healed: i32,
         /// Post game rune stats.
         #[serde(rename = "perk2Var1")]
-        pub perk2_var1: i32,
+        pub perk2_var1: Option<i32>,
         /// Post game rune stats.
         #[serde(rename = "perk4Var1")]
-        pub perk4_var1: i32,
+        pub perk4_var1: Option<i32>,
         /// Post game rune stats.
         #[serde(rename = "perk4Var2")]
-        pub perk4_var2: i32,
+        pub perk4_var2: Option<i32>,
         /// Post game rune stats.
         #[serde(rename = "perk4Var3")]
-        pub perk4_var3: i32,
+        pub perk4_var3: Option<i32>,
         #[serde(rename = "wardsKilled")]
         pub wards_killed: i32,
         #[serde(rename = "largestCriticalStrike")]
@@ -601,25 +601,25 @@ pub mod match_v4 {
         pub item5: i32,
         /// Primary path rune.
         #[serde(rename = "perk1")]
-        pub perk1: i32,
+        pub perk1: Option<i32>,
         /// Primary path keystone rune.
         #[serde(rename = "perk0")]
-        pub perk0: i32,
+        pub perk0: Option<i32>,
         /// Primary path rune.
         #[serde(rename = "perk3")]
-        pub perk3: i32,
+        pub perk3: Option<i32>,
         /// Primary path rune.
         #[serde(rename = "perk2")]
-        pub perk2: i32,
+        pub perk2: Option<i32>,
         /// Secondary path rune.
         #[serde(rename = "perk5")]
-        pub perk5: i32,
+        pub perk5: Option<i32>,
         /// Secondary path rune.
         #[serde(rename = "perk4")]
-        pub perk4: i32,
+        pub perk4: Option<i32>,
         /// Post game rune stats.
         #[serde(rename = "perk3Var1")]
-        pub perk3_var1: i32,
+        pub perk3_var1: Option<i32>,
         #[serde(rename = "damageSelfMitigated")]
         pub damage_self_mitigated: i64,
         #[serde(rename = "magicalDamageTaken")]
@@ -633,10 +633,10 @@ pub mod match_v4 {
         #[serde(rename = "assists")]
         pub assists: i32,
         #[serde(rename = "combatPlayerScore")]
-        pub combat_player_score: i32,
+        pub combat_player_score: Option<i32>,
         /// Primary rune path
         #[serde(rename = "perkPrimaryStyle")]
-        pub perk_primary_style: i32,
+        pub perk_primary_style: Option<i32>,
         #[serde(rename = "goldSpent")]
         pub gold_spent: i32,
         #[serde(rename = "trueDamageDealt")]
@@ -648,17 +648,17 @@ pub mod match_v4 {
         #[serde(rename = "physicalDamageDealt")]
         pub physical_damage_dealt: i64,
         #[serde(rename = "sightWardsBoughtInGame")]
-        pub sight_wards_bought_in_game: i32,
+        pub sight_wards_bought_in_game: Option<i32>,
         #[serde(rename = "totalDamageDealtToChampions")]
         pub total_damage_dealt_to_champions: i64,
         #[serde(rename = "physicalDamageTaken")]
         pub physical_damage_taken: i64,
         #[serde(rename = "totalPlayerScore")]
-        pub total_player_score: i32,
+        pub total_player_score: Option<i32>,
         #[serde(rename = "win")]
         pub win: bool,
         #[serde(rename = "objectivePlayerScore")]
-        pub objective_player_score: i32,
+        pub objective_player_score: Option<i32>,
         #[serde(rename = "totalDamageDealt")]
         pub total_damage_dealt: i64,
         #[serde(rename = "item1")]
@@ -668,12 +668,12 @@ pub mod match_v4 {
         #[serde(rename = "deaths")]
         pub deaths: i32,
         #[serde(rename = "wardsPlaced")]
-        pub wards_placed: i32,
+        pub wards_placed: Option<i32>,
         /// Secondary rune path
         #[serde(rename = "perkSubStyle")]
-        pub perk_sub_style: i32,
+        pub perk_sub_style: Option<i32>,
         #[serde(rename = "turretKills")]
-        pub turret_kills: i32,
+        pub turret_kills: Option<i32>,
         #[serde(rename = "firstBloodKill")]
         pub first_blood_kill: bool,
         #[serde(rename = "trueDamageDealtToChampions")]
@@ -687,9 +687,9 @@ pub mod match_v4 {
         #[serde(rename = "altarsCaptured")]
         pub altars_captured: Option<i32>,
         #[serde(rename = "firstTowerAssist")]
-        pub first_tower_assist: bool,
+        pub first_tower_assist: Option<bool>,
         #[serde(rename = "firstTowerKill")]
-        pub first_tower_kill: bool,
+        pub first_tower_kill: Option<bool>,
         #[serde(rename = "champLevel")]
         pub champ_level: i32,
         #[serde(rename = "doubleKills")]
@@ -697,18 +697,18 @@ pub mod match_v4 {
         #[serde(rename = "nodeCaptureAssist")]
         pub node_capture_assist: Option<i32>,
         #[serde(rename = "inhibitorKills")]
-        pub inhibitor_kills: i32,
+        pub inhibitor_kills: Option<i32>,
         #[serde(rename = "firstInhibitorAssist")]
         pub first_inhibitor_assist: Option<bool>,
         /// Post game rune stats.
         #[serde(rename = "perk0Var1")]
-        pub perk0_var1: i32,
+        pub perk0_var1: Option<i32>,
         /// Post game rune stats.
         #[serde(rename = "perk0Var2")]
-        pub perk0_var2: i32,
+        pub perk0_var2: Option<i32>,
         /// Post game rune stats.
         #[serde(rename = "perk0Var3")]
-        pub perk0_var3: i32,
+        pub perk0_var3: Option<i32>,
         #[serde(rename = "visionWardsBoughtInGame")]
         pub vision_wards_bought_in_game: i32,
         #[serde(rename = "altarsNeutralized")]
@@ -738,34 +738,34 @@ pub mod match_v4 {
         /// Participant's calculated lane. MID and BOT are legacy values.<br>
         /// (Legal values:  MID,  MIDDLE,  TOP,  JUNGLE,  BOT,  BOTTOM)
         #[serde(rename = "lane")]
-        pub lane: String,
+        pub lane: Option<String>,
         #[serde(rename = "participantId")]
-        pub participant_id: i32,
+        pub participant_id: Option<i32>,
         /// Creep score difference versus the calculated lane opponent(s) for a specified period.
         #[serde(rename = "csDiffPerMinDeltas")]
         pub cs_diff_per_min_deltas: Option<std::collections::HashMap<String, f64>>,
         /// Gold for a specified period.
         #[serde(rename = "goldPerMinDeltas")]
-        pub gold_per_min_deltas: std::collections::HashMap<String, f64>,
+        pub gold_per_min_deltas: Option<std::collections::HashMap<String, f64>>,
         /// Experience difference versus the calculated lane opponent(s) for a specified period.
         #[serde(rename = "xpDiffPerMinDeltas")]
         pub xp_diff_per_min_deltas: Option<std::collections::HashMap<String, f64>>,
         /// Creeps for a specified period.
         #[serde(rename = "creepsPerMinDeltas")]
-        pub creeps_per_min_deltas: std::collections::HashMap<String, f64>,
+        pub creeps_per_min_deltas: Option<std::collections::HashMap<String, f64>>,
         /// Experience change for a specified period.
         #[serde(rename = "xpPerMinDeltas")]
-        pub xp_per_min_deltas: std::collections::HashMap<String, f64>,
+        pub xp_per_min_deltas: Option<std::collections::HashMap<String, f64>>,
         /// Participant's calculated role.<br>
         /// (Legal values:  DUO,  NONE,  SOLO,  DUO_CARRY,  DUO_SUPPORT)
         #[serde(rename = "role")]
-        pub role: String,
+        pub role: Option<String>,
         /// Damage taken difference versus the calculated lane opponent(s) for a specified period.
         #[serde(rename = "damageTakenDiffPerMinDeltas")]
         pub damage_taken_diff_per_min_deltas: Option<std::collections::HashMap<String, f64>>,
         /// Damage taken for a specified period.
         #[serde(rename = "damageTakenPerMinDeltas")]
-        pub damage_taken_per_min_deltas: std::collections::HashMap<String, f64>,
+        pub damage_taken_per_min_deltas: Option<std::collections::HashMap<String, f64>>,
     }
     /// Mastery data object. This struct is automatically generated.
     #[derive(Debug)]
@@ -1153,6 +1153,277 @@ pub mod summoner_v4 {
     }
 }
 
+// tft-league-v1
+#[allow(dead_code)]
+pub mod tft_league_v1 {
+    /// LeagueList data object. This struct is automatically generated.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct LeagueList {
+        #[serde(rename = "leagueId")]
+        pub league_id: String,
+        #[serde(rename = "tier")]
+        pub tier: crate::consts::Tier,
+        #[serde(rename = "entries")]
+        pub entries: std::vec::Vec<LeagueItem>,
+        #[serde(rename = "queue")]
+        pub queue: crate::consts::QueueType,
+        #[serde(rename = "name")]
+        pub name: String,
+    }
+    /// LeagueItem data object. This struct is automatically generated.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct LeagueItem {
+        #[serde(rename = "summonerName")]
+        pub summoner_name: String,
+        #[serde(rename = "hotStreak")]
+        pub hot_streak: bool,
+        #[serde(rename = "miniSeries")]
+        pub mini_series: Option<MiniSeries>,
+        /// First placement.
+        #[serde(rename = "wins")]
+        pub wins: i32,
+        #[serde(rename = "veteran")]
+        pub veteran: bool,
+        /// Second through eighth placement.
+        #[serde(rename = "losses")]
+        pub losses: i32,
+        #[serde(rename = "freshBlood")]
+        pub fresh_blood: bool,
+        #[serde(rename = "inactive")]
+        pub inactive: bool,
+        #[serde(rename = "rank")]
+        pub rank: crate::consts::Division,
+        /// Player's encrypted summonerId.
+        #[serde(rename = "summonerId")]
+        pub summoner_id: String,
+        #[serde(rename = "leaguePoints")]
+        pub league_points: i32,
+    }
+    /// MiniSeries data object. This struct is automatically generated.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct MiniSeries {
+        #[serde(rename = "progress")]
+        pub progress: String,
+        #[serde(rename = "losses")]
+        pub losses: i32,
+        #[serde(rename = "target")]
+        pub target: i32,
+        #[serde(rename = "wins")]
+        pub wins: i32,
+    }
+    /// LeagueEntry data object. This struct is automatically generated.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct LeagueEntry {
+        #[serde(rename = "queueType")]
+        pub queue_type: crate::consts::QueueType,
+        #[serde(rename = "summonerName")]
+        pub summoner_name: String,
+        #[serde(rename = "hotStreak")]
+        pub hot_streak: bool,
+        #[serde(rename = "miniSeries")]
+        pub mini_series: Option<MiniSeries>,
+        /// First placement.
+        #[serde(rename = "wins")]
+        pub wins: i32,
+        #[serde(rename = "veteran")]
+        pub veteran: bool,
+        /// Second through eighth placement.
+        #[serde(rename = "losses")]
+        pub losses: i32,
+        #[serde(rename = "rank")]
+        pub rank: crate::consts::Division,
+        #[serde(rename = "leagueId")]
+        pub league_id: String,
+        #[serde(rename = "inactive")]
+        pub inactive: bool,
+        #[serde(rename = "freshBlood")]
+        pub fresh_blood: bool,
+        #[serde(rename = "tier")]
+        pub tier: crate::consts::Tier,
+        /// Player's encrypted summonerId.
+        #[serde(rename = "summonerId")]
+        pub summoner_id: String,
+        #[serde(rename = "leaguePoints")]
+        pub league_points: i32,
+    }
+}
+
+// tft-match-v1
+#[allow(dead_code)]
+pub mod tft_match_v1 {
+    /// Match data object. This struct is automatically generated.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Match {
+        /// Match info.
+        #[serde(rename = "info")]
+        pub info: Info,
+        /// Match metadata.
+        #[serde(rename = "metadata")]
+        pub metadata: Metadata,
+    }
+    /// Info data object. This struct is automatically generated.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Info {
+        /// Unix timestamp.
+        #[serde(rename = "game_datetime")]
+        pub game_datetime: i64,
+        /// Participants.
+        #[serde(rename = "participants")]
+        pub participants: std::vec::Vec<Participant>,
+        /// Teamfight Tactics set number.
+        #[serde(rename = "tft_set_number")]
+        pub tft_set_number: i32,
+        /// Game length in seconds.
+        #[serde(rename = "game_length")]
+        pub game_length: f32,
+        /// Please refer to the League of Legends documentation.
+        #[serde(rename = "queue_id")]
+        pub queue_id: i32,
+        /// Game client version.
+        #[serde(rename = "game_version")]
+        pub game_version: String,
+    }
+    /// Participant data object. This struct is automatically generated.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Participant {
+        /// Participant placement upon elimination.
+        #[serde(rename = "placement")]
+        pub placement: i32,
+        /// Participant Little Legend level. Note: This is not the number of active units.
+        #[serde(rename = "level")]
+        pub level: i32,
+        /// The round the participant was eliminated in. Note: If the player was eliminated in stage 2-1 their last_round would be 5.
+        #[serde(rename = "last_round")]
+        pub last_round: i32,
+        /// The number of seconds before the participant was eliminated.
+        #[serde(rename = "time_eliminated")]
+        pub time_eliminated: f32,
+        /// Participant's companion.
+        #[serde(rename = "companion")]
+        pub companion: Companion,
+        /// A complete list of traits for the participant's active units.
+        #[serde(rename = "traits")]
+        pub traits: std::vec::Vec<Trait>,
+        /// Number of players the participant eliminated.
+        #[serde(rename = "players_eliminated")]
+        pub players_eliminated: i32,
+        /// Encrypted PUUID.
+        #[serde(rename = "puuid")]
+        pub puuid: String,
+        /// Damage the participant dealt to other players.
+        #[serde(rename = "total_damage_to_players")]
+        pub total_damage_to_players: i32,
+        /// A list of active units for the participant.
+        #[serde(rename = "units")]
+        pub units: std::vec::Vec<Unit>,
+        /// Gold left after participant was eliminated.
+        #[serde(rename = "gold_left")]
+        pub gold_left: i32,
+    }
+    /// Trait data object. This struct is automatically generated.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Trait {
+        /// Total tiers for the trait.
+        #[serde(rename = "tier_total")]
+        pub tier_total: i32,
+        /// Trait name.
+        #[serde(rename = "name")]
+        pub name: String,
+        /// Current active tier for the trait.
+        #[serde(rename = "tier_current")]
+        pub tier_current: i32,
+        /// Number of units with this trait.
+        #[serde(rename = "num_units")]
+        pub num_units: i32,
+    }
+    /// Unit data object. This struct is automatically generated.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Unit {
+        /// Unit tier.
+        #[serde(rename = "tier")]
+        pub tier: i32,
+        /// A list of the unit's items. Please refer to the Teamfight Tactics documentation for item ids.
+        #[serde(rename = "items")]
+        pub items: std::vec::Vec<i32>,
+        /// This field was introduced in patch 9.22 with data_version 2.
+        #[serde(rename = "character_id")]
+        pub character_id: String,
+        /// Unit name.
+        #[serde(rename = "name")]
+        pub name: String,
+        /// Unit rarity. This doesn't equate to the unit cost.
+        #[serde(rename = "rarity")]
+        pub rarity: i32,
+    }
+    /// Metadata data object. This struct is automatically generated.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Metadata {
+        /// Match data version.
+        #[serde(rename = "data_version")]
+        pub data_version: String,
+        /// A list of encrypted participant PUUIDs.
+        #[serde(rename = "participants")]
+        pub participants: std::vec::Vec<String>,
+        /// Match id.
+        #[serde(rename = "match_id")]
+        pub match_id: String,
+    }
+    /// Companion data object. This struct is automatically generated.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Companion {
+        #[serde(rename = "skin_ID")]
+        pub skin_id: i32,
+        #[serde(rename = "content_ID")]
+        pub content_id: String,
+        #[serde(rename = "species")]
+        pub species: String,
+    }
+}
+
+// tft-summoner-v1
+#[allow(dead_code)]
+pub mod tft_summoner_v1 {
+    /// Summoner data object. This struct is automatically generated.
+    /// # Description
+    /// represents a summoner
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Summoner {
+        /// ID of the summoner icon associated with the summoner.
+        #[serde(rename = "profileIconId")]
+        pub profile_icon_id: Option<i32>,
+        /// Summoner name.
+        #[serde(rename = "name")]
+        pub name: Option<String>,
+        /// Encrypted PUUID. Exact length of 78 characters.
+        #[serde(rename = "puuid")]
+        pub puuid: Option<String>,
+        /// Summoner level associated with the summoner.
+        #[serde(rename = "summonerLevel")]
+        pub summoner_level: Option<i64>,
+        /// Date summoner was last modified specified as epoch milliseconds. The following events will update this timestamp: profile icon change, playing the tutorial or advanced tutorial, finishing a game, summoner name change
+        #[serde(rename = "revisionDate")]
+        pub revision_date: Option<i64>,
+        /// Encrypted summoner ID. Max length 63 characters.
+        #[serde(rename = "id")]
+        pub id: Option<String>,
+        /// Encrypted account ID. Max length 56 characters.
+        #[serde(rename = "accountId")]
+        pub account_id: Option<String>,
+    }
+}
+
 // tournament-stub-v4
 #[allow(dead_code)]
 pub mod tournament_stub_v4 {
@@ -1173,14 +1444,14 @@ pub mod tournament_stub_v4 {
         pub pick_type: String,
         /// Optional list of encrypted summonerIds in order to validate the players eligible to join the lobby. NOTE: We currently do not enforce participants at the team level, but rather the aggregate of teamOne and teamTwo. We may add the ability to enforce at the team level in the future.
         #[serde(rename = "allowedSummonerIds")]
-        pub allowed_summoner_ids: std::vec::Vec<String>,
+        pub allowed_summoner_ids: Option<std::vec::Vec<String>>,
         /// The map type of the game.<br>
         /// (Legal values:  SUMMONERS_RIFT,  TWISTED_TREELINE,  HOWLING_ABYSS)
         #[serde(rename = "mapType")]
         pub map_type: String,
         /// Optional string that may contain any data in any format, if specified at all. Used to denote any custom information about the game.
         #[serde(rename = "metadata")]
-        pub metadata: String,
+        pub metadata: Option<String>,
     }
     /// LobbyEventWrapper data object. This struct is automatically generated.
     #[derive(Debug)]
@@ -1224,7 +1495,7 @@ pub mod tournament_stub_v4 {
         pub provider_id: i32,
         /// The optional name of the tournament.
         #[serde(rename = "name")]
-        pub name: String,
+        pub name: Option<String>,
     }
 }
 
@@ -1248,14 +1519,14 @@ pub mod tournament_v4 {
         pub pick_type: String,
         /// Optional list of encrypted summonerIds in order to validate the players eligible to join the lobby. NOTE: We currently do not enforce participants at the team level, but rather the aggregate of teamOne and teamTwo. We may add the ability to enforce at the team level in the future.
         #[serde(rename = "allowedSummonerIds")]
-        pub allowed_summoner_ids: std::vec::Vec<String>,
+        pub allowed_summoner_ids: Option<std::vec::Vec<String>>,
         /// The map type of the game.<br>
         /// (Legal values:  SUMMONERS_RIFT,  TWISTED_TREELINE,  HOWLING_ABYSS)
         #[serde(rename = "mapType")]
         pub map_type: String,
         /// Optional string that may contain any data in any format, if specified at all. Used to denote any custom information about the game.
         #[serde(rename = "metadata")]
-        pub metadata: String,
+        pub metadata: Option<String>,
     }
     /// TournamentCode data object. This struct is automatically generated.
     #[derive(Debug)]
@@ -1316,7 +1587,7 @@ pub mod tournament_v4 {
         pub pick_type: String,
         /// Optional list of encrypted summonerIds in order to validate the players eligible to join the lobby. NOTE: We currently do not enforce participants at the team level, but rather the aggregate of teamOne and teamTwo. We may add the ability to enforce at the team level in the future.
         #[serde(rename = "allowedSummonerIds")]
-        pub allowed_summoner_ids: std::vec::Vec<String>,
+        pub allowed_summoner_ids: Option<std::vec::Vec<String>>,
         /// The map type<br>
         /// (Legal values:  SUMMONERS_RIFT,  TWISTED_TREELINE,  HOWLING_ABYSS)
         #[serde(rename = "mapType")]
@@ -1364,6 +1635,6 @@ pub mod tournament_v4 {
         pub provider_id: i32,
         /// The optional name of the tournament.
         #[serde(rename = "name")]
-        pub name: String,
+        pub name: Option<String>,
     }
 }

@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 6699beea97d4afea8ffa9310a554ec23a499e531
+// Version 3bd5ca30e5a7aa15963ca4366e3b6be89defe567
 
 //! Automatically generated endpoint handles and data transfer structs.
 
@@ -79,6 +79,27 @@ impl RiotApi {
     #[inline]
     pub fn summoner_v4(&self) -> SummonerV4 {
         SummonerV4 { base: self }
+    }
+    /// Handle for TftLeagueV1 endpoints. This method is automatically generated.
+    ///
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1">Official API Reference</a>
+    #[inline]
+    pub fn tft_league_v1(&self) -> TftLeagueV1 {
+        TftLeagueV1 { base: self }
+    }
+    /// Handle for TftMatchV1 endpoints. This method is automatically generated.
+    ///
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-match-v1">Official API Reference</a>
+    #[inline]
+    pub fn tft_match_v1(&self) -> TftMatchV1 {
+        TftMatchV1 { base: self }
+    }
+    /// Handle for TftSummonerV1 endpoints. This method is automatically generated.
+    ///
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1">Official API Reference</a>
+    #[inline]
+    pub fn tft_summoner_v1(&self) -> TftSummonerV1 {
+        TftSummonerV1 { base: self }
     }
     /// Handle for ThirdPartyCodeV4 endpoints. This method is automatically generated.
     ///
@@ -189,7 +210,7 @@ impl<'a> LeagueExpV4<'a> {
     /// * `tier`
     /// * `division`
     /// * `page` (optional) - Starts with page 1.
-    pub fn get_league_entries(&self, region: Region, division: crate::consts::Division, tier: crate::consts::Tier, queue: crate::consts::QueueType, page: Option<i32>)
+    pub fn get_league_entries(&self, region: Region, queue: crate::consts::QueueType, tier: crate::consts::Tier, division: crate::consts::Division, page: Option<i32>)
         -> impl Future<Output = Result<Option<Vec<league_exp_v4::LeagueEntry>>>> + 'a
     {
         let mut query_params = Serializer::new(String::new());
@@ -383,17 +404,17 @@ impl<'a> MatchV4<'a> {
     /// * `beginTime` (optional) - The begin time to use for filtering matchlist specified as epoch milliseconds. If beginTime is specified, but not endTime, then endTime defaults to the the current unix timestamp in milliseconds (the maximum time range limitation is not observed in this specific case). If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history returning a 400 due to the maximum time range limitation. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
     /// * `endIndex` (optional) - The end index to use for filtering matchlist. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned.
     /// * `beginIndex` (optional) - The begin index to use for filtering matchlist.  If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned.
-    pub fn get_matchlist(&self, region: Region, encrypted_account_id: &str, champion: Option<std::vec::Vec<crate::consts::Champion>>, queue: Option<std::vec::Vec<crate::consts::Queue>>, season: Option<std::vec::Vec<crate::consts::Season>>, end_time: Option<i64>, begin_time: Option<i64>, end_index: Option<i32>, begin_index: Option<i32>)
+    pub fn get_matchlist(&self, region: Region, encrypted_account_id: &str, begin_time: Option<i64>, begin_index: Option<i32>, champion: Option<std::vec::Vec<crate::consts::Champion>>, end_time: Option<i64>, end_index: Option<i32>, queue: Option<std::vec::Vec<crate::consts::Queue>>, season: Option<std::vec::Vec<crate::consts::Season>>)
         -> impl Future<Output = Result<Option<match_v4::Matchlist>>> + 'a
     {
         let mut query_params = Serializer::new(String::new());
+        if let Some(begin_time) = begin_time { query_params.append_pair("beginTime", &*begin_time.to_string()); };
+        if let Some(begin_index) = begin_index { query_params.append_pair("beginIndex", &*begin_index.to_string()); };
         if let Some(champion) = champion { query_params.extend_pairs(champion.iter().map(|w| ("champion", Into::<i16>::into(*w).to_string()))); };
+        if let Some(end_time) = end_time { query_params.append_pair("endTime", &*end_time.to_string()); };
+        if let Some(end_index) = end_index { query_params.append_pair("endIndex", &*end_index.to_string()); };
         if let Some(queue) = queue { query_params.extend_pairs(queue.iter().map(|w| ("queue", Into::<u16>::into(*w).to_string()))); };
         if let Some(season) = season { query_params.extend_pairs(season.iter().map(|w| ("season", Into::<u8>::into(*w).to_string()))); };
-        if let Some(end_time) = end_time { query_params.append_pair("endTime", &*end_time.to_string()); };
-        if let Some(begin_time) = begin_time { query_params.append_pair("beginTime", &*begin_time.to_string()); };
-        if let Some(end_index) = end_index { query_params.append_pair("endIndex", &*end_index.to_string()); };
-        if let Some(begin_index) = begin_index { query_params.append_pair("beginIndex", &*begin_index.to_string()); };
         let query_string = query_params.finish();
         let path_string = format!("/lol/match/v4/matchlists/by-account/{}", encrypted_account_id);
         self.base.get::<match_v4::Matchlist>("match-v4.getMatchlist", region, path_string, Some(query_string))
@@ -507,6 +528,191 @@ impl<'a> SummonerV4<'a> {
     {
         let path_string = format!("/lol/summoner/v4/summoners/{}", encrypted_summoner_id);
         self.base.get::<summoner_v4::Summoner>("summoner-v4.getBySummonerId", region, path_string, None)
+    }
+
+}
+
+/// TftLeagueV1 endpoints. This struct is automatically generated.
+///
+/// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1">Official API Reference</a>
+pub struct TftLeagueV1<'a> {
+    base: &'a RiotApi,
+}
+impl<'a> TftLeagueV1<'a> {
+    /// Get the challenger league.
+    ///
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getChallengerLeague">Official API Reference</a>
+    /// # Parameters
+    /// * `region` - Region to query.
+    pub fn get_challenger_league(&self, region: Region)
+        -> impl Future<Output = Result<Option<tft_league_v1::LeagueList>>> + 'a
+    {
+        let path_string = "/tft/league/v1/challenger".to_owned();
+        self.base.get::<tft_league_v1::LeagueList>("tft-league-v1.getChallengerLeague", region, path_string, None)
+    }
+
+    /// Get league entries for a given summoner ID.
+    ///
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getLeagueEntriesForSummoner">Official API Reference</a>
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// * `encryptedSummonerId`
+    pub fn get_league_entries_for_summoner(&self, region: Region, encrypted_summoner_id: &str)
+        -> impl Future<Output = Result<Option<Vec<tft_league_v1::LeagueEntry>>>> + 'a
+    {
+        let path_string = format!("/tft/league/v1/entries/by-summoner/{}", encrypted_summoner_id);
+        self.base.get::<Vec<tft_league_v1::LeagueEntry>>("tft-league-v1.getLeagueEntriesForSummoner", region, path_string, None)
+    }
+
+    /// Get all the league entries.
+    ///
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getLeagueEntries">Official API Reference</a>
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// * `tier`
+    /// * `division`
+    /// * `page` (optional) - Starts with page 1.
+    pub fn get_league_entries(&self, region: Region, tier: &str, division: &str, page: Option<i32>)
+        -> impl Future<Output = Result<Option<Vec<tft_league_v1::LeagueEntry>>>> + 'a
+    {
+        let mut query_params = Serializer::new(String::new());
+        if let Some(page) = page { query_params.append_pair("page", &*page.to_string()); };
+        let query_string = query_params.finish();
+        let path_string = format!("/tft/league/v1/entries/{}/{}", tier, division);
+        self.base.get::<Vec<tft_league_v1::LeagueEntry>>("tft-league-v1.getLeagueEntries", region, path_string, Some(query_string))
+    }
+
+    /// Get the grandmaster league.
+    ///
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getGrandmasterLeague">Official API Reference</a>
+    /// # Parameters
+    /// * `region` - Region to query.
+    pub fn get_grandmaster_league(&self, region: Region)
+        -> impl Future<Output = Result<Option<tft_league_v1::LeagueList>>> + 'a
+    {
+        let path_string = "/tft/league/v1/grandmaster".to_owned();
+        self.base.get::<tft_league_v1::LeagueList>("tft-league-v1.getGrandmasterLeague", region, path_string, None)
+    }
+
+    /// Get league with given ID, including inactive entries.
+    ///
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getLeagueById">Official API Reference</a>
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// * `leagueId` - The UUID of the league.
+    pub fn get_league_by_id(&self, region: Region, league_id: &str)
+        -> impl Future<Output = Result<Option<tft_league_v1::LeagueList>>> + 'a
+    {
+        let path_string = format!("/tft/league/v1/leagues/{}", league_id);
+        self.base.get::<tft_league_v1::LeagueList>("tft-league-v1.getLeagueById", region, path_string, None)
+    }
+
+    /// Get the master league.
+    ///
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getMasterLeague">Official API Reference</a>
+    /// # Parameters
+    /// * `region` - Region to query.
+    pub fn get_master_league(&self, region: Region)
+        -> impl Future<Output = Result<Option<tft_league_v1::LeagueList>>> + 'a
+    {
+        let path_string = "/tft/league/v1/master".to_owned();
+        self.base.get::<tft_league_v1::LeagueList>("tft-league-v1.getMasterLeague", region, path_string, None)
+    }
+
+}
+
+/// TftMatchV1 endpoints. This struct is automatically generated.
+///
+/// <a href="https://developer.riotgames.com/api-methods/#tft-match-v1">Official API Reference</a>
+pub struct TftMatchV1<'a> {
+    base: &'a RiotApi,
+}
+impl<'a> TftMatchV1<'a> {
+    /// Get a list of match ids by PUUID.
+    ///
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-match-v1/GET_getMatchIdsByPUUID">Official API Reference</a>
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// * `encryptedPUUID` (optional)
+    pub fn get_match_ids_by_puuid(&self, region: Region, encrypted_puuid: &str)
+        -> impl Future<Output = Result<Option<Vec<String>>>> + 'a
+    {
+        let path_string = format!("/tft/match/v1/matches/by-puuid/{}/ids", encrypted_puuid);
+        self.base.get::<Vec<String>>("tft-match-v1.getMatchIdsByPUUID", region, path_string, None)
+    }
+
+    /// Get a match by match id.
+    ///
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-match-v1/GET_getMatch">Official API Reference</a>
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// * `matchId`
+    pub fn get_match(&self, region: Region, match_id: &str)
+        -> impl Future<Output = Result<Option<tft_match_v1::Match>>> + 'a
+    {
+        let path_string = format!("/tft/match/v1/matches/{}", match_id);
+        self.base.get::<tft_match_v1::Match>("tft-match-v1.getMatch", region, path_string, None)
+    }
+
+}
+
+/// TftSummonerV1 endpoints. This struct is automatically generated.
+///
+/// <a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1">Official API Reference</a>
+pub struct TftSummonerV1<'a> {
+    base: &'a RiotApi,
+}
+impl<'a> TftSummonerV1<'a> {
+    /// Get a summoner by account ID.
+    ///
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getByAccountId">Official API Reference</a>
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// * `encryptedAccountId`
+    pub fn get_by_account_id(&self, region: Region, encrypted_account_id: &str)
+        -> impl Future<Output = Result<Option<tft_summoner_v1::Summoner>>> + 'a
+    {
+        let path_string = format!("/tft/summoner/v1/summoners/by-account/{}", encrypted_account_id);
+        self.base.get::<tft_summoner_v1::Summoner>("tft-summoner-v1.getByAccountId", region, path_string, None)
+    }
+
+    /// Get a summoner by summoner name.
+    ///
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getBySummonerName">Official API Reference</a>
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// * `summonerName` - Summoner Name
+    pub fn get_by_summoner_name(&self, region: Region, summoner_name: &str)
+        -> impl Future<Output = Result<Option<tft_summoner_v1::Summoner>>> + 'a
+    {
+        let path_string = format!("/tft/summoner/v1/summoners/by-name/{}", summoner_name);
+        self.base.get::<tft_summoner_v1::Summoner>("tft-summoner-v1.getBySummonerName", region, path_string, None)
+    }
+
+    /// Get a summoner by PUUID.
+    ///
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getByPUUID">Official API Reference</a>
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// * `encryptedPUUID` - Summoner ID
+    pub fn get_by_puuid(&self, region: Region, encrypted_puuid: &str)
+        -> impl Future<Output = Result<Option<tft_summoner_v1::Summoner>>> + 'a
+    {
+        let path_string = format!("/tft/summoner/v1/summoners/by-puuid/{}", encrypted_puuid);
+        self.base.get::<tft_summoner_v1::Summoner>("tft-summoner-v1.getByPUUID", region, path_string, None)
+    }
+
+    /// Get a summoner by summoner ID.
+    ///
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getBySummonerId">Official API Reference</a>
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// * `encryptedSummonerId` - Summoner ID
+    pub fn get_by_summoner_id(&self, region: Region, encrypted_summoner_id: &str)
+        -> impl Future<Output = Result<Option<tft_summoner_v1::Summoner>>> + 'a
+    {
+        let path_string = format!("/tft/summoner/v1/summoners/{}", encrypted_summoner_id);
+        self.base.get::<tft_summoner_v1::Summoner>("tft-summoner-v1.getBySummonerId", region, path_string, None)
     }
 
 }
