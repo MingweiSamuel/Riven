@@ -195,7 +195,7 @@ impl<'a> LeagueExpV4<'a> {
         let mut query_params = Serializer::new(String::new());
         if let Some(page) = page { query_params.append_pair("page", &*page.to_string()); };
         let query_string = query_params.finish();
-        let path_string = format!("/lol/league-exp/v4/entries/{}/{}/{}", division, tier, queue);
+        let path_string = format!("/lol/league-exp/v4/entries/{}/{}/{}", queue, tier, division);
         self.base.get::<Vec<league_exp_v4::LeagueEntry>>("league-exp-v4.getLeagueEntries", region, path_string, Some(query_string))
     }
 

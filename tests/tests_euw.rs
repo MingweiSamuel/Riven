@@ -2,22 +2,14 @@
 #![test_runner(my_runner)]
 
 mod async_tests;
-mod ids;
+mod testutils;
+use testutils::*;
 
 use colored::*;
-use lazy_static::lazy_static;
-use tokio::runtime::current_thread::Runtime;
 
 use riven::RiotApi;
 use riven::consts::*;
 
-
-lazy_static! {
-    static ref RIOT_API: RiotApi = {
-        let api_key = std::fs::read_to_string("apikey.txt").unwrap();
-        RiotApi::with_key(api_key.trim())
-    };
-}
 
 async_tests!{
     my_runner {

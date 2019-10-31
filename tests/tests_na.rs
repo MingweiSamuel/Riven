@@ -2,23 +2,14 @@
 #![test_runner(my_runner)]
 
 mod async_tests;
-mod ids;
+mod testutils;
+use testutils::*;
 
 use colored::*;
-use lazy_static::lazy_static;
-use tokio::runtime::current_thread::Runtime;
 
-use riven::RiotApi;
 use riven::consts::*;
 use riven::endpoints::summoner_v4::*;
 
-
-lazy_static! {
-    static ref RIOT_API: RiotApi = {
-        let api_key = std::fs::read_to_string("apikey.txt").unwrap();
-        RiotApi::with_key(api_key.trim())
-    };
-}
 
 fn validate_lugnutsk(s: Summoner, tag: &str) -> Result<(), String> {
     rassert_eq!("LugnutsK", s.name,
@@ -53,10 +44,16 @@ async_tests!{
             rassert_eq!(10, level, "New player level: {}", level);
             Ok(())
         },
+        leagueexp_get: async {
+            let p = RIOT_API.league_exp_v4().get_league_entries(Region::NA, Division::I, Tier::CHALLENGER, QueueType::RANKED_SOLO_5x5, None);
+            let d = p.await.map_err(|e| e.to_string())?.ok_or("Failed to get challenger exp league entries.".to_owned())?;
+            rassert!(!d.is_empty(), "Challenger shouldn't be empty.");
+            Ok(())
+        },
         match_get: async {
             let p = RIOT_API.match_v4().get_match(Region::NA, 3190191338);
             let m = p.await.map_err(|e| e.to_string())?.ok_or("Failed to get match.".to_owned())?;
-            // TODO.
+            rassert!(!m.participants.is_empty(), "Match should have participants.");
             Ok(())
         },
         // match_get_old: async {
@@ -68,13 +65,13 @@ async_tests!{
         match_get_aram: async {
             let p = RIOT_API.match_v4().get_match(Region::NA, 2961635718);
             let m = p.await.map_err(|e| e.to_string())?.ok_or("Failed to get match.".to_owned())?;
-            // TODO.
+            rassert!(!m.participants.is_empty(), "Match should have participants.");
             Ok(())
         },
         match_get_urf900: async {
             let p = RIOT_API.match_v4().get_match(Region::NA, 2963663381);
             let m = p.await.map_err(|e| e.to_string())?.ok_or("Failed to get match.".to_owned())?;
-            // TODO.
+            rassert!(!m.participants.is_empty(), "Match should have participants.");
             Ok(())
         },
     }

@@ -8,7 +8,8 @@ macro_rules! async_tests {
             const TUPLE_ERR: (u32, u32) = (0, 1);
 
             std::process::exit({
-                let mut rt = Runtime::new().expect("Failed to create runtime.");
+                let mut rt = tokio::runtime::current_thread::Runtime::new()
+                    .expect("Failed to create runtime.");
 
                 let (_, errs) = rt.block_on(async {
                     println!();
@@ -70,6 +71,14 @@ macro_rules! rassert {
 macro_rules! rassert_eq {
     ( $a:expr, $b:expr ) => { rassert!($a == $b) };
     ( $a:expr, $b:expr, $format:expr $(, $arg:expr)* ) => {
-        rassert!($a == $b, $format, $( $arg )* )
+        rassert!($a == $b, $format $(, $arg )* )
+    };
+}
+
+#[macro_export]
+macro_rules! rassert_ne {
+    ( $a:expr, $b:expr ) => { rassert!($a != $b) };
+    ( $a:expr, $b:expr, $format:expr $(, $arg:expr)* ) => {
+        rassert!($a != $b, $format $(, $arg )* )
     };
 }
