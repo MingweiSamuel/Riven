@@ -9,10 +9,9 @@
 // http://www.mingweisamuel.com/riotapi-schema/tool/
 // Version 3bd5ca30e5a7aa15963ca4366e3b6be89defe567
 
-//! Automatically generated endpoint handles and data transfer structs.
+//! Automatically generated endpoint handles.
 
-mod dto;
-pub use dto::*;
+use crate::models::*;
 
 use std::future::Future;
 use std::vec::Vec;

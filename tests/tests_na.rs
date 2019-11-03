@@ -8,7 +8,7 @@ use testutils::*;
 use colored::*;
 
 use riven::consts::*;
-use riven::endpoints::summoner_v4::*;
+use riven::models::summoner_v4::*;
 
 
 fn validate_lugnutsk(s: Summoner, tag: &str) -> Result<(), String> {

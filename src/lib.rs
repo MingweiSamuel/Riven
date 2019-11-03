@@ -11,6 +11,8 @@ pub mod endpoints;
 mod error;
 pub use error::*;
 
+pub mod models;
+
 mod req;
 
 mod riot_api;

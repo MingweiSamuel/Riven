@@ -6,6 +6,8 @@
 // http://www.mingweisamuel.com/riotapi-schema/tool/
 // Version {{= spec.info.version }}
 
+//! Automatically generated data transfer structs.
+
 {{
     let schemas = spec.components.schemas;
     let schemaKeyByEndpoint = Object.keys(schemas)

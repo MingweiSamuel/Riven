@@ -9,6 +9,8 @@
 // http://www.mingweisamuel.com/riotapi-schema/tool/
 // Version 3bd5ca30e5a7aa15963ca4366e3b6be89defe567
 
+//! Automatically generated data transfer structs.
+
 /// ChampionMasteryV4 data objects. This module is automatically generated.
 #[allow(dead_code)]
 pub mod champion_mastery_v4 {

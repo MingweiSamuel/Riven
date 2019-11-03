@@ -8,7 +8,7 @@ use testutils::{ RIOT_API, future_start };
 use colored::*;
 
 use riven::consts::*;
-use riven::endpoints::summoner_v4::Summoner;
+use riven::models::summoner_v4::Summoner;
 
 const REGION: Region = Region::TR;
 
