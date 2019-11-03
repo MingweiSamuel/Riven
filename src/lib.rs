@@ -1,5 +1,9 @@
-//! Module docs TODO.
 #![feature(non_exhaustive)]
+#![feature(external_doc)]
+
+#![forbid(unsafe_code)]
+
+#![doc(include = "../README.md")]
 
 mod config;
 pub use config::RiotApiConfig;
