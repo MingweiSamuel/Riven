@@ -6,12 +6,12 @@
 //                                           //
 ///////////////////////////////////////////////
 
-use strum_macros::{ EnumString, Display, AsRefStr };
+use strum_macros::{ EnumString, Display, AsRefStr, IntoStaticStr };
 
 /// League of Legends game type: matched game, custom game, or tutorial game.
 #[derive(Debug, Copy, Clone)]
 #[derive(Eq, PartialEq, Hash)]
-#[derive(EnumString, Display, AsRefStr)]
+#[derive(EnumString, Display, AsRefStr, IntoStaticStr)]
 #[repr(u8)]
 pub enum GameType {
     /// Custom games

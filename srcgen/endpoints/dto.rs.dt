@@ -14,12 +14,12 @@
 
     for (let [endpoint, schemaKeyGroup] of schemaKeyByEndpoint) {
 }}
-// {{= endpoint }}
+/// {{= dotUtils.changeCase.pascalCase(endpoint) }} data objects. This module is automatically generated.
 #[allow(dead_code)]
 pub mod {{= dotUtils.changeCase.snakeCase(endpoint) }} {
 {{
         for (let schemaKey of schemaKeyGroup) {
-            const [endpoint, rawSchemaName] = schemaKey.split('.');
+            const [, rawSchemaName] = schemaKey.split('.');
             const schemaName = dotUtils.normalizeSchemaName(rawSchemaName);
             const schema = schemas[schemaKey];
             const props = schema.properties;

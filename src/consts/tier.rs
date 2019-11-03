@@ -1,5 +1,5 @@
-use strum_macros::{ EnumString, Display, AsRefStr };
 use num_enum::{ IntoPrimitive, TryFromPrimitive };
+use strum_macros::{ EnumString, Display, AsRefStr, IntoStaticStr };
 
 /// LoL and TFT ranked tiers, such as gold, diamond, challenger, etc.
 ///
@@ -8,8 +8,8 @@ use num_enum::{ IntoPrimitive, TryFromPrimitive };
 /// Repr'd as arbitrary u8 values.
 #[derive(Debug, Copy, Clone)]
 #[derive(Eq, PartialEq, Hash, PartialOrd, Ord)]
-#[derive(EnumString, Display, AsRefStr)]
 #[derive(IntoPrimitive, TryFromPrimitive)]
+#[derive(EnumString, Display, AsRefStr, IntoStaticStr)]
 #[repr(u8)]
 pub enum Tier {
     IRON        =  40,

@@ -1,6 +1,6 @@
 use std::cmp::Ordering;
 
-use strum_macros::{ EnumString, Display, AsRefStr };
+use strum_macros::{ EnumString, Display, AsRefStr, IntoStaticStr };
 use num_enum::{ IntoPrimitive, TryFromPrimitive };
 
 /// LoL and TFT rank divisions, I, II, III, IV, and (deprecated) V.
@@ -10,7 +10,7 @@ use num_enum::{ IntoPrimitive, TryFromPrimitive };
 /// Repr'd as equivalent numeric values, (1, 2, 3, 4, 5).
 #[derive(Debug, Copy, Clone)]
 #[derive(Eq, PartialEq, Hash)]
-#[derive(EnumString, Display, AsRefStr)]
+#[derive(EnumString, Display, AsRefStr, IntoStaticStr)]
 #[derive(IntoPrimitive, TryFromPrimitive)]
 #[repr(u8)]
 pub enum Division {

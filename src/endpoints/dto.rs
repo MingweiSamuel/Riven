@@ -9,7 +9,7 @@
 // http://www.mingweisamuel.com/riotapi-schema/tool/
 // Version 3bd5ca30e5a7aa15963ca4366e3b6be89defe567
 
-// champion-mastery-v4
+/// ChampionMasteryV4 data objects. This module is automatically generated.
 #[allow(dead_code)]
 pub mod champion_mastery_v4 {
     /// ChampionMastery data object. This struct is automatically generated.
@@ -48,7 +48,7 @@ pub mod champion_mastery_v4 {
     }
 }
 
-// champion-v3
+/// ChampionV3 data objects. This module is automatically generated.
 #[allow(dead_code)]
 pub mod champion_v3 {
     /// ChampionInfo data object. This struct is automatically generated.
@@ -64,7 +64,7 @@ pub mod champion_v3 {
     }
 }
 
-// league-exp-v4
+/// LeagueExpV4 data objects. This module is automatically generated.
 #[allow(dead_code)]
 pub mod league_exp_v4 {
     /// LeagueEntry data object. This struct is automatically generated.
@@ -118,7 +118,7 @@ pub mod league_exp_v4 {
     }
 }
 
-// league-v4
+/// LeagueV4 data objects. This module is automatically generated.
 #[allow(dead_code)]
 pub mod league_v4 {
     /// LeagueList data object. This struct is automatically generated.
@@ -217,7 +217,7 @@ pub mod league_v4 {
     }
 }
 
-// lol-status-v3
+/// LolStatusV3 data objects. This module is automatically generated.
 #[allow(dead_code)]
 pub mod lol_status_v3 {
     /// ShardStatus data object. This struct is automatically generated.
@@ -295,7 +295,7 @@ pub mod lol_status_v3 {
     }
 }
 
-// match-v4
+/// MatchV4 data objects. This module is automatically generated.
 #[allow(dead_code)]
 pub mod match_v4 {
     /// Match data object. This struct is automatically generated.
@@ -918,7 +918,7 @@ pub mod match_v4 {
     }
 }
 
-// spectator-v4
+/// SpectatorV4 data objects. This module is automatically generated.
 #[allow(dead_code)]
 pub mod spectator_v4 {
     /// CurrentGameInfo data object. This struct is automatically generated.
@@ -1120,7 +1120,7 @@ pub mod spectator_v4 {
     }
 }
 
-// summoner-v4
+/// SummonerV4 data objects. This module is automatically generated.
 #[allow(dead_code)]
 pub mod summoner_v4 {
     /// Summoner data object. This struct is automatically generated.
@@ -1153,7 +1153,7 @@ pub mod summoner_v4 {
     }
 }
 
-// tft-league-v1
+/// TftLeagueV1 data objects. This module is automatically generated.
 #[allow(dead_code)]
 pub mod tft_league_v1 {
     /// LeagueList data object. This struct is automatically generated.
@@ -1252,7 +1252,7 @@ pub mod tft_league_v1 {
     }
 }
 
-// tft-match-v1
+/// TftMatchV1 data objects. This module is automatically generated.
 #[allow(dead_code)]
 pub mod tft_match_v1 {
     /// Match data object. This struct is automatically generated.
@@ -1391,7 +1391,7 @@ pub mod tft_match_v1 {
     }
 }
 
-// tft-summoner-v1
+/// TftSummonerV1 data objects. This module is automatically generated.
 #[allow(dead_code)]
 pub mod tft_summoner_v1 {
     /// Summoner data object. This struct is automatically generated.
@@ -1424,7 +1424,7 @@ pub mod tft_summoner_v1 {
     }
 }
 
-// tournament-stub-v4
+/// TournamentStubV4 data objects. This module is automatically generated.
 #[allow(dead_code)]
 pub mod tournament_stub_v4 {
     /// TournamentCodeParameters data object. This struct is automatically generated.
@@ -1499,7 +1499,7 @@ pub mod tournament_stub_v4 {
     }
 }
 
-// tournament-v4
+/// TournamentV4 data objects. This module is automatically generated.
 #[allow(dead_code)]
 pub mod tournament_v4 {
     /// TournamentCodeParameters data object. This struct is automatically generated.

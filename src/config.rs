@@ -16,14 +16,22 @@ pub struct RiotApiConfig {
 }
 
 impl RiotApiConfig {
-    /// `0.99` - `burst_pct` used by `preconfig_burst` (and default `with_key`).
+    /// `0.99`
+    ///
+    /// `burst_pct` used by `preconfig_burst` (and default `with_key`).
     pub const PRECONFIG_BURST_BURST_PCT: f32 = 0.99;
-    /// `989` ms - `duration_overhead` used by `preconfig_burst` (and default `with_key`).
+    /// `989` ms
+    ///
+    /// `duration_overhead` used by `preconfig_burst` (and default `with_key`).
     pub const PRECONFIG_BURST_DURATION_OVERHEAD_MILLIS: u64 = 989;
 
-    /// `0.47` - `burst_pct` used by `preconfig_throughput`.
+    /// `0.47`
+    ///
+    /// `burst_pct` used by `preconfig_throughput`.
     pub const PRECONFIG_THROUGHPUT_BURST_PCT: f32 = 0.47;
-    // `10` ms - `duration_overhead` used by `preconfig_throughput`.
+    /// `10` ms.
+    ///
+    /// `duration_overhead` used by `preconfig_throughput`.
     pub const PRECONFIG_THROUGHPUT_DURATION_OVERHEAD_MILLIS: u64 = 10;
 
     /// Creates a new `RiotApiConfig` with the given `api_key` with the following

@@ -6,14 +6,14 @@
 //                                           //
 ///////////////////////////////////////////////
 
-use strum_macros::{ EnumString, Display, AsRefStr };
+use strum_macros::{ EnumString, Display, AsRefStr, IntoStaticStr };
 
 /// League of Legends game mode, such as Classic,
 /// ARAM, URF, One For All, Ascension, etc.
 #[non_exhaustive]
 #[derive(Debug, Copy, Clone)]
 #[derive(Eq, PartialEq, Hash)]
-#[derive(EnumString, Display, AsRefStr)]
+#[derive(EnumString, Display, AsRefStr, IntoStaticStr)]
 #[repr(u8)]
 pub enum GameMode {
     /// Classic Summoner's Rift and Twisted Treeline games
