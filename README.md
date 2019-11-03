@@ -23,9 +23,13 @@ Riven currently uses nightly Rust.
 use riven::RiotApi;
 use riven::consts::Region;
 
-async {
+// Enter tokio async runtime.
+let rt = tokio::runtime::Runtime::new().unwrap();
+rt.block_on(async {
     // Create RiotApi instance from key.
-    let riot_api = RiotApi::with_key("RGAPI-01234567-89ab-cdef-0123-456789abcdef");
+    let api_key = "RGAPI-01234567-89ab-cdef-0123-456789abcdef";
+    # let api_key = std::env::var("RGAPI_KEY").ok().or_else(|| std::fs::read_to_string("apikey.txt").ok()).unwrap();
+    let riot_api = RiotApi::with_key(api_key);
 
     // Get summoner data.
     let summoner = riot_api.summoner_v4()
@@ -48,10 +52,8 @@ async {
             mastery.champion_id.to_string(),
             mastery.champion_points, mastery.champion_level);
     }
-}
+});
 ```
-Full code in [tests/readme.rs.ignored](./tests/readme.rs.ignored)
-
 Output:
 ```text
 잘 못 Champion Masteries:
