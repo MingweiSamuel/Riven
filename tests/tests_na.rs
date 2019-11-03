@@ -59,7 +59,6 @@ async_tests!{
         // match_get_old: async {
         //     let p = RIOT_API.match_v4().get_match(Region::NA, 2632789562);
         //     let m = p.await.map_err(|e| e.to_string())?.ok_or("Failed to get match.".to_owned())?;
-        //     // TODO.
         //     Ok(())
         // },
         match_get_aram: async {

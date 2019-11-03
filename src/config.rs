@@ -12,7 +12,7 @@ pub struct RiotApiConfig {
     pub(crate) retries: u8,
     pub(crate) burst_pct: f32,
     pub(crate) duration_overhead: Duration,
-    pub(crate) reqwest_client: ClientBuilder,
+    pub(crate) client_builder: Option<ClientBuilder>,
 }
 
 impl RiotApiConfig {
@@ -42,7 +42,7 @@ impl RiotApiConfig {
             retries: 3,
             burst_pct: Self::PRECONFIG_BURST_BURST_PCT,
             duration_overhead: Duration::from_millis(Self::PRECONFIG_BURST_DURATION_OVERHEAD_MILLIS),
-            reqwest_client: ClientBuilder::new(),
+            client_builder: Some(ClientBuilder::new()),
         }
     }
 
@@ -145,6 +145,15 @@ impl RiotApiConfig {
     /// `self`, for chaining.
     pub fn set_duration_overhead(mut self, duration_overhead: Duration) -> Self {
         self.duration_overhead = duration_overhead;
+        self
+    }
+
+    /// Sets the reqwest `ClientBuilder`.
+    ///
+    /// # Returns
+    /// `self`, for chaining.
+    pub fn set_client_builder(mut self, client_builder: ClientBuilder) -> Self {
+        self.client_builder = Some(client_builder);
         self
     }
 }

@@ -31,11 +31,12 @@ pub struct RiotApi {
 }
 
 impl RiotApi {
-    pub fn with_config(config: RiotApiConfig) -> Self {
-        log::trace!("Creating client (TODO: configuration).");
+    pub fn with_config(mut config: RiotApiConfig) -> Self {
+        let client_builder = config.client_builder.take()
+            .expect("!NONE CLIENT_BUILDER IN CONFIG.");
         Self {
             config: config,
-            client: Client::new(),
+            client: client_builder.build().expect("Failed to create client from builder."),
             regional_requesters: InsertOnlyCHashMap::new(),
         }
     }
