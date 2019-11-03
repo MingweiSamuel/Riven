@@ -1,18 +1,19 @@
 //! Module docs TODO.
 #![feature(non_exhaustive)]
 
-mod riot_api_error;
-pub use riot_api_error::*;
+mod config;
+pub use config::RiotApiConfig;
 
 pub mod consts;
 
 pub mod endpoints;
 
-pub mod riot_api_config;
-pub use riot_api_config::RiotApiConfig;
+mod error;
+pub use error::*;
+
+mod req;
 
 mod riot_api;
 pub use riot_api::*;
 
-mod req;
 mod util;

@@ -1,13 +1,30 @@
-use riven::RiotApi;
+#![allow(dead_code)]
+
+use std::future::Future;
+
+use futures_util::future::RemoteHandle;
 use lazy_static::lazy_static;
+use tokio::executor::{ DefaultExecutor, Executor };
+
+use riven::{ RiotApi, RiotApiConfig };
 
 lazy_static! {
     pub static ref RIOT_API: RiotApi = {
         let api_key = std::env::var("RGAPI_KEY").ok()
             .or_else(|| std::fs::read_to_string("apikey.txt").ok())
             .expect("Failed to find RGAPI_KEY env var or apikey.txt.");
-        RiotApi::with_key(api_key.trim())
+        RiotApi::with_config(RiotApiConfig::with_key(api_key.trim())
+            .preconfig_burst())
     };
+}
+
+pub fn future_start<Fut>(future: Fut) -> RemoteHandle<<Fut as Future>::Output>
+where
+    Fut: Future + Send + 'static,
+    <Fut as Future>::Output: Send,
+{
+    Executor::spawn_with_handle(&mut DefaultExecutor::current(), future)
+        .expect("Failed to spawn.")
 }
 
 pub mod ids {

@@ -1,3 +1,5 @@
+//! Module containing rate limiting and requesting types.
+
 mod rate_limit;
 pub use rate_limit::*;
 

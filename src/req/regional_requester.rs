@@ -7,7 +7,7 @@ use tokio::timer::delay_for;
 
 use crate::Result;
 use crate::RiotApiError;
-use crate::riot_api_config::RiotApiConfig;
+use crate::RiotApiConfig;
 use crate::consts::Region;
 use crate::util::InsertOnlyCHashMap;
 
@@ -73,15 +73,16 @@ impl RegionalRequester {
 
                 // Handle response.
                 let status = response.status();
-                log::trace!("Response {} (retried {} times).", status, retries);
                 // Special "none success" cases, return None.
                 if Self::is_none_status_code(&status) {
+                    log::trace!("Response {} (retried {} times), None result.", status, retries);
                     break Ok(None);
                 }
                 // Handle normal success / failure cases.
                 match response.error_for_status_ref() {
                     // Success.
                     Ok(_) => {
+                        log::trace!("Response {} (retried {} times), parsed result.", status, retries);
                         let value = response.json::<T>().await;
                         break value.map(|v| Some(v))
                             .map_err(|e| RiotApiError::new(e, retries, None));
@@ -94,8 +95,10 @@ impl RegionalRequester {
                             (StatusCode::TOO_MANY_REQUESTS != status
                             && !status.is_server_error())
                         {
+                            log::debug!("Response {} (retried {} times), returning error.", status, retries);
                             break Err(RiotApiError::new(err, retries, Some(response)));
                         }
+                        log::debug!("Response {} (retried {} times), retrying.", status, retries);
                     },
                 };
 

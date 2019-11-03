@@ -7,7 +7,6 @@ use testutils::*;
 
 use colored::*;
 
-use riven::RiotApi;
 use riven::consts::*;
 
 

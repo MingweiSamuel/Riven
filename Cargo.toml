@@ -29,3 +29,4 @@ env_logger = "0.7"
 fake_clock = { git = "https://github.com/MingweiSamuel/fake_clock", branch = "master" }
 lazy_static = "1.4"
 tokio = "0.2.0-alpha.6"
+futures-util-preview = "0.3.0-alpha.19"

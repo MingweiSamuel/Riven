@@ -1,3 +1,4 @@
+use std::fmt;
 use std::collections::VecDeque;
 use std::time::Duration;
 
@@ -37,39 +38,47 @@ pub trait TokenBucket {
     fn get_total_limit(&self) -> usize;
 }
 
-#[derive(Debug)]
 pub struct VectorTokenBucket {
     /// Duration of this TokenBucket.
     duration: Duration,
     // Total tokens available from this TokenBucket.
     total_limit: usize,
+    /// Extra duration to be considered on top of `duration`, to account for
+    /// varying network latency.
+    duration_overhead: Duration,
 
     /// Duration considered for burst factor.
     burst_duration: Duration,
     /// Limit allowed per burst_duration, for burst factor.
     burst_limit: usize,
 
+
     /// Record of timestamps (synchronized).
     timestamps: Mutex<VecDeque<Instant>>,
 }
 
 impl VectorTokenBucket {
-    pub fn new(duration: Duration, total_limit: usize, burst_pct: f32) -> Self {
+    pub fn new(duration: Duration, total_limit: usize,
+        duration_overhead: Duration, burst_pct: f32) -> Self
+    {
         debug_assert!(0.0 < burst_pct && burst_pct <= 1.0,
             "BAD burst_pct {}.", burst_pct);
         // Float ops may lose precision, but nothing should be that precise.
         // API always uses round numbers, burst_pct is frac of 256.
 
+        // Effective duration.
+        let d_eff = duration + duration_overhead;
         let burst_duration = Duration::new(
-            (duration.as_secs()      as f32 * burst_pct).ceil() as u64,
-            (duration.subsec_nanos() as f32 * burst_pct).ceil() as u32);
-
-        let burst_limit = (total_limit as f32 * burst_pct).ceil() as usize;
-        debug_assert!(burst_limit > 0);
+            (d_eff.as_secs()      as f32 * burst_pct).ceil()  as u64,
+            (d_eff.subsec_nanos() as f32 * burst_pct).ceil()  as u32);
+        let burst_limit = std::cmp::max(1,
+            (total_limit          as f32 * burst_pct).floor() as usize);
+        debug_assert!(burst_limit <= total_limit);
 
         VectorTokenBucket {
             duration: duration,
             total_limit: total_limit,
+            duration_overhead: duration_overhead,
 
             burst_duration: burst_duration,
             burst_limit: burst_limit,
@@ -80,10 +89,10 @@ impl VectorTokenBucket {
 
     fn update_get_timestamps(&self) -> MutexGuard<VecDeque<Instant>> {
         let mut timestamps = self.timestamps.lock();
-        let cutoff = Instant::now() - self.duration;
+        let cutoff = Instant::now() - self.duration - self.duration_overhead;
         // We only need to trim the end of the queue to not leak memory.
         // We could do it lazily somehow if we wanted to be really fancy.
-        while timestamps.back().map_or(false, |ts| ts < &cutoff) {
+        while timestamps.back().map_or(false, |ts| *ts < cutoff) {
             timestamps.pop_back();
         }
         return timestamps;
@@ -104,7 +113,8 @@ impl TokenBucket for VectorTokenBucket {
         if let Some(ts) = timestamps.get(self.total_limit - 1) {
             // Return amount of time needed for timestamp `ts` to go away.
             Instant::now().checked_duration_since(*ts)
-                .and_then(|passed_dur| self.duration.checked_sub(passed_dur))
+                .and_then(|passed_dur| (self.duration + self.duration_overhead)
+                    .checked_sub(passed_dur))
         }
         // Otherwise burst rate limit.
         else if let Some(ts) = timestamps.get(self.burst_limit - 1) {
@@ -136,5 +146,11 @@ impl TokenBucket for VectorTokenBucket {
 
     fn get_total_limit(&self) -> usize {
         self.total_limit
+    }
+}
+
+impl fmt::Debug for VectorTokenBucket {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "({}/{}:{})", self.timestamps.lock().len(), self.total_limit, self.duration.as_secs())
     }
 }

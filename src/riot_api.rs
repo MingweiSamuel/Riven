@@ -10,6 +10,16 @@ use crate::req::RegionalRequester;
 use crate::util::InsertOnlyCHashMap;
 
 /// For retrieving data from the Riot Games API.
+///
+/// # Rate Limiting
+///
+/// The Riot Game API does _dynamic_ rate limiting, meaning that rate limits are
+/// specified in response headers and (hypothetically) could change at any time.
+/// Riven keeps track of changing rate limits seamlessly, preventing you from
+/// getting blacklisted.
+///
+/// Riven's rate limiting is highly efficient, meaning that it can reach the limits
+/// of your rate limit without going over.
 pub struct RiotApi {
     /// Configuration settings.
     config: RiotApiConfig,
@@ -40,7 +50,10 @@ impl RiotApi {
     {
         // TODO: max concurrent requests? Or can configure client?
         self.regional_requesters
-            .get_or_insert_with(region, || RegionalRequester::new())
+            .get_or_insert_with(region, || {
+                log::debug!("Creating requester for region {}.", region.platform);
+                RegionalRequester::new()
+            })
             .get(&self.config, &self.client, method_id, region, path, query)
     }
 }

@@ -1,7 +1,7 @@
 use std::cmp;
 use std::time::{ Duration, Instant };
 
-use log::*;
+use log;
 use parking_lot::{ RwLock, RwLockUpgradableReadGuard };
 use reqwest::{ StatusCode, Response };
 use scan_fmt::scan_fmt;
@@ -27,7 +27,8 @@ impl RateLimit {
     const HEADER_RETRYAFTER: &'static str = "Retry-After";
 
     pub fn new(rate_limit_type: RateLimitType) -> Self {
-        let initial_bucket = VectorTokenBucket::new(Duration::from_secs(1), 1, 1.0);
+        let initial_bucket = VectorTokenBucket::new(
+            Duration::from_secs(1), 1, Duration::new(0, 0), 1.0);
         RateLimit {
             rate_limit_type: rate_limit_type,
             // Rate limit before getting from response: 1/s.
@@ -58,6 +59,8 @@ impl RateLimit {
         for bucket in app_buckets.iter().chain(method_buckets.iter()) {
             bucket.get_tokens(1);
         }
+
+        log::debug!("Tokens obtained, buckets: APP {:?} METHOD {:?}", app_buckets, method_buckets);
         None
     }
 
@@ -94,6 +97,9 @@ impl RateLimit {
             let retry_after_header = response.headers()
                 .get(RateLimit::HEADER_RETRYAFTER)?.to_str()
                 .expect("Failed to read retry-after header as string.");
+
+            log::debug!("Hit 429, retry-after {} secs.", retry_after_header);
+
             // Header currently only returns ints, but float is more general. Can be zero.
             let retry_after_secs: f32 = retry_after_header.parse()
                 .expect("Failed to parse retry-after header as f32.");
@@ -158,11 +164,15 @@ fn buckets_from_header(config: &RiotApiConfig, limit_header: &str, count_header:
             .unwrap_or_else(|_| panic!("Failed to parse count entry \"{}\".", count_entry));
         debug_assert!(limit_secs == count_secs);
 
-        let bucket = VectorTokenBucket::new(Duration::from_secs(limit_secs), limit, config.get_burst_pct());
+        let limit_f32 = limit as f32;
+        let scaled_burst_pct = config.burst_pct * limit_f32 / (limit_f32 + 1.0);
+
+        let bucket = VectorTokenBucket::new(Duration::from_secs(limit_secs), limit,
+            config.duration_overhead, scaled_burst_pct);
         bucket.get_tokens(count);
         out.push(bucket);
     }
-    debug!("Set buckets to {} limit, {} count.", limit_header, count_header);
+    log::debug!("Set buckets to {} limit, {} count.", limit_header, count_header);
     out
 }
 

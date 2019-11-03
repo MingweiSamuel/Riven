@@ -4,8 +4,7 @@
 macro_rules! async_tests {
     ( $runner:ident { $( $name:ident : async $eval:block, )* } ) => {
         fn $runner(_: &[()]) {
-            const TUPLE_OK: (u32, u32) = (1, 0);
-            const TUPLE_ERR: (u32, u32) = (0, 1);
+            env_logger::init();
 
             std::process::exit({
                 let mut rt = tokio::runtime::current_thread::Runtime::new()
@@ -19,26 +18,31 @@ macro_rules! async_tests {
                     let mut errs: u32 = 0;
                     $(
                         let $name = async {
-                            let result: Result<(), String> = async {
+                            let result: std::result::Result<(), String> = async {
                                 $eval
                             }.await;
-                            print!("test {} ... ", stringify!($name));
-                            match &result {
-                                Ok(_) => {
-                                    println!("{}", "ok".green());
-                                    TUPLE_OK
-                                }
-                                Err(msg) => {
-                                    println!("{}", "error".bright_red());
-                                    println!("{}", msg);
-                                    TUPLE_ERR
-                                }
-                            }
+                            result
                         };
+                        let $name = tokio::executor::Executor::spawn_with_handle(
+                            &mut tokio::executor::DefaultExecutor::current(), $name)
+                            .expect("Failed to spawn.");
                     )*
                     $(
                         let $name = $name.await;
-                        oks += $name.0; errs += $name.1;
+                    )*
+                    $(
+                        print!("test {} ... ", stringify!($name));
+                        match $name {
+                            Ok(_) => {
+                                println!("{}", "ok".green());
+                                oks += 1;
+                            }
+                            Err(msg) => {
+                                println!("{}", "error".bright_red());
+                                println!("{}", msg);
+                                errs += 1;
+                            }
+                        }
                     )*
                     println!();
                     print!("test result: {}. ", if errs > 0 { "error".bright_red() } else { "ok".green() });
