@@ -1,7 +1,8 @@
 # Riven
-[![Crates.io](https://img.shields.io/crates/v/riven?style=flat-square)](https://crates.io/crates/riven)
+[![Crates.io](https://img.shields.io/crates/v/riven?style=flat-square&logo=rust)](https://crates.io/crates/riven)
+[![Docs.rs](https://img.shields.io/badge/docs.rs-Riven-blue?style=flat-square&logo=read-the-docs&logoColor=white)](https://docs.rs/riven/)
 [![Travis CI](https://img.shields.io/travis/com/mingweisamuel/riven?style=flat-square)](https://travis-ci.com/MingweiSamuel/Riven)
-[![unsafe forbidden](https://img.shields.io/badge/unsafe-forbidden-success.svg?style=flat-square)](https://github.com/rust-secure-code/safety-dance/)
+[![unsafe forbidden](https://img.shields.io/badge/unsafe-forbidden-green.svg?style=flat-square)](https://github.com/rust-secure-code/safety-dance/)
 
 Rust Library for the [Riot Games API](https://developer.riotgames.com/).
 
@@ -28,7 +29,8 @@ let rt = tokio::runtime::Runtime::new().unwrap();
 rt.block_on(async {
     // Create RiotApi instance from key.
     let api_key = "RGAPI-01234567-89ab-cdef-0123-456789abcdef";
-    # let api_key = std::env::var("RGAPI_KEY").ok().or_else(|| std::fs::read_to_string("apikey.txt").ok()).unwrap();
+    let api_key = std::env::var("RGAPI_KEY").ok()
+        .or_else(|| std::fs::read_to_string("apikey.txt").ok()).unwrap();
     let riot_api = RiotApi::with_key(api_key);
 
     // Get summoner data.
@@ -68,3 +70,20 @@ Output:
  9) Irelia         46465 (5)
 10) Vladimir       37176 (5)
 ```
+
+## Docs
+
+[On docs.rs](https://docs.rs/riven/).
+
+## Error Handling
+
+Riven returns `Result<Option<T>>` within futures. If the `Result` is errored,
+this indicates that the API request failed to complete successfully, which may be
+due to bad user input, Riot server errors, incorrect API key, etc. If the `Option`
+is `None`, this indicates that the request completed successfully but no data was
+returned. This happens if a summoner (by name) or match (by id) doesn't exist.
+
+## Additional Info
+
+Feel free to [make an issue](https://github.com/MingweiSamuel/Riven/issues/new)
+if you are have any questions or trouble using Riven.
