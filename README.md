@@ -1,6 +1,6 @@
 <h1 align="center">
     Riven<br>
-    <img src="https://cdn.communitydragon.org/latest/champion/Riven/square" width="20" height="20" alt="Riven icon">
+    <a href="https://github.com/MingweiSamuel/Riven/"><img src="https://cdn.communitydragon.org/latest/champion/Riven/square" width="20" height="20" alt="Riven Github"></a>
     <a href="https://crates.io/crates/riven"><img src="https://img.shields.io/crates/v/riven?style=flat-square&logo=rust" alt="Crates.io"></a>
     <a href="https://docs.rs/riven/"><img src="https://img.shields.io/badge/docs.rs-Riven-blue?style=flat-square&logo=read-the-docs&logoColor=white" alt="Docs.rs"></a>
     <a href="https://travis-ci.com/MingweiSamuel/Riven"><img src="https://img.shields.io/travis/com/mingweisamuel/riven?style=flat-square" alt="Travis CI"></a>

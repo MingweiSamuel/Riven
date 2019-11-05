@@ -55,14 +55,15 @@ impl Champion {
     ///
     /// This is generally the `en_US` name with spaces and punctuation removed,
     /// but there are the following exceptions:
-    /// | Name | Identifier |
-    /// |------|------------|
-    /// | None | `"NONE"` (placeholder value) |
+    ///
+    /// Variant | Name | Identifier
+    /// --------|------|-----------
+    /// `None` | "NONE" | "NONE"
 {{
     for (let { name, alias } of champions) {
         if (name.replace(/[^a-zA-Z0-9]+/, '') !== alias) {
 }}
-    /// | {{= name }} | "{{= alias }}" |
+    /// `{{= enumName(name) }}` | "{{= name }}" | "{{= alias }}"
 {{
         }
     }

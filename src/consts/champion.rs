@@ -331,17 +331,18 @@ impl Champion {
     ///
     /// This is generally the `en_US` name with spaces and punctuation removed,
     /// but there are the following exceptions:
-    /// | Name | Identifier |
-    /// |------|------------|
-    /// | None | `"NONE"` (placeholder value) |
-    /// | Cho'Gath | "Chogath" |
-    /// | Fiddlesticks | "FiddleSticks" |
-    /// | Kai'Sa | "Kaisa" |
-    /// | Kha'Zix | "Khazix" |
-    /// | LeBlanc | "Leblanc" |
-    /// | Nunu & Willump | "Nunu" |
-    /// | Vel'Koz | "Velkoz" |
-    /// | Wukong | "MonkeyKing" |
+    ///
+    /// Variant | Name | Identifier
+    /// --------|------|-----------
+    /// `None` | "NONE" | "NONE"
+    /// `ChoGath` | "Cho'Gath" | "Chogath"
+    /// `Fiddlesticks` | "Fiddlesticks" | "FiddleSticks"
+    /// `KaiSa` | "Kai'Sa" | "Kaisa"
+    /// `KhaZix` | "Kha'Zix" | "Khazix"
+    /// `LeBlanc` | "LeBlanc" | "Leblanc"
+    /// `NunuWillump` | "Nunu & Willump" | "Nunu"
+    /// `VelKoz` | "Vel'Koz" | "Velkoz"
+    /// `Wukong` | "Wukong" | "MonkeyKing"
     pub fn identifier(self) -> &'static str {
         match self {
             Self::None         => "NONE",
