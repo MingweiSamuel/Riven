@@ -140,7 +140,7 @@ impl<'a> ChampionMasteryV4<'a> {
         -> impl Future<Output = Result<Option<Vec<champion_mastery_v4::ChampionMastery>>>> + 'a
     {
         let path_string = format!("/lol/champion-mastery/v4/champion-masteries/by-summoner/{}", encrypted_summoner_id);
-        self.base.get::<Vec<champion_mastery_v4::ChampionMastery>>("champion-mastery-v4.getAllChampionMasteries", region, path_string, None)
+        self.base.get::<Vec<champion_mastery_v4::ChampionMastery>>("champion-mastery-v4.getAllChampionMasteries", region.into(), path_string, None)
     }
 
     /// Get a champion mastery by player ID and champion ID.
@@ -154,7 +154,7 @@ impl<'a> ChampionMasteryV4<'a> {
         -> impl Future<Output = Result<Option<champion_mastery_v4::ChampionMastery>>> + 'a
     {
         let path_string = format!("/lol/champion-mastery/v4/champion-masteries/by-summoner/{}/by-champion/{}", encrypted_summoner_id, champion_id);
-        self.base.get::<champion_mastery_v4::ChampionMastery>("champion-mastery-v4.getChampionMastery", region, path_string, None)
+        self.base.get::<champion_mastery_v4::ChampionMastery>("champion-mastery-v4.getChampionMastery", region.into(), path_string, None)
     }
 
     /// Get a player's total champion mastery score, which is the sum of individual champion mastery levels.
@@ -167,7 +167,7 @@ impl<'a> ChampionMasteryV4<'a> {
         -> impl Future<Output = Result<Option<i32>>> + 'a
     {
         let path_string = format!("/lol/champion-mastery/v4/scores/by-summoner/{}", encrypted_summoner_id);
-        self.base.get::<i32>("champion-mastery-v4.getChampionMasteryScore", region, path_string, None)
+        self.base.get::<i32>("champion-mastery-v4.getChampionMasteryScore", region.into(), path_string, None)
     }
 
 }
@@ -188,7 +188,7 @@ impl<'a> ChampionV3<'a> {
         -> impl Future<Output = Result<Option<champion_v3::ChampionInfo>>> + 'a
     {
         let path_string = "/lol/platform/v3/champion-rotations".to_owned();
-        self.base.get::<champion_v3::ChampionInfo>("champion-v3.getChampionInfo", region, path_string, None)
+        self.base.get::<champion_v3::ChampionInfo>("champion-v3.getChampionInfo", region.into(), path_string, None)
     }
 
 }
@@ -216,7 +216,7 @@ impl<'a> LeagueExpV4<'a> {
         if let Some(page) = page { query_params.append_pair("page", &*page.to_string()); };
         let query_string = query_params.finish();
         let path_string = format!("/lol/league-exp/v4/entries/{}/{}/{}", queue, tier, division);
-        self.base.get::<Vec<league_exp_v4::LeagueEntry>>("league-exp-v4.getLeagueEntries", region, path_string, Some(query_string))
+        self.base.get::<Vec<league_exp_v4::LeagueEntry>>("league-exp-v4.getLeagueEntries", region.into(), path_string, Some(query_string))
     }
 
 }
@@ -238,7 +238,7 @@ impl<'a> LeagueV4<'a> {
         -> impl Future<Output = Result<Option<league_v4::LeagueList>>> + 'a
     {
         let path_string = format!("/lol/league/v4/challengerleagues/by-queue/{}", queue);
-        self.base.get::<league_v4::LeagueList>("league-v4.getChallengerLeague", region, path_string, None)
+        self.base.get::<league_v4::LeagueList>("league-v4.getChallengerLeague", region.into(), path_string, None)
     }
 
     /// Get league entries in all queues for a given summoner ID.
@@ -251,7 +251,7 @@ impl<'a> LeagueV4<'a> {
         -> impl Future<Output = Result<Option<Vec<league_v4::LeagueEntry>>>> + 'a
     {
         let path_string = format!("/lol/league/v4/entries/by-summoner/{}", encrypted_summoner_id);
-        self.base.get::<Vec<league_v4::LeagueEntry>>("league-v4.getLeagueEntriesForSummoner", region, path_string, None)
+        self.base.get::<Vec<league_v4::LeagueEntry>>("league-v4.getLeagueEntriesForSummoner", region.into(), path_string, None)
     }
 
     /// Get all the league entries.
@@ -270,7 +270,7 @@ impl<'a> LeagueV4<'a> {
         if let Some(page) = page { query_params.append_pair("page", &*page.to_string()); };
         let query_string = query_params.finish();
         let path_string = format!("/lol/league/v4/entries/{}/{}/{}", queue, tier, division);
-        self.base.get::<Vec<league_v4::LeagueEntry>>("league-v4.getLeagueEntries", region, path_string, Some(query_string))
+        self.base.get::<Vec<league_v4::LeagueEntry>>("league-v4.getLeagueEntries", region.into(), path_string, Some(query_string))
     }
 
     /// Get the grandmaster league of a specific queue.
@@ -283,7 +283,7 @@ impl<'a> LeagueV4<'a> {
         -> impl Future<Output = Result<Option<league_v4::LeagueList>>> + 'a
     {
         let path_string = format!("/lol/league/v4/grandmasterleagues/by-queue/{}", queue);
-        self.base.get::<league_v4::LeagueList>("league-v4.getGrandmasterLeague", region, path_string, None)
+        self.base.get::<league_v4::LeagueList>("league-v4.getGrandmasterLeague", region.into(), path_string, None)
     }
 
     /// Get league with given ID, including inactive entries.
@@ -296,7 +296,7 @@ impl<'a> LeagueV4<'a> {
         -> impl Future<Output = Result<Option<league_v4::LeagueList>>> + 'a
     {
         let path_string = format!("/lol/league/v4/leagues/{}", league_id);
-        self.base.get::<league_v4::LeagueList>("league-v4.getLeagueById", region, path_string, None)
+        self.base.get::<league_v4::LeagueList>("league-v4.getLeagueById", region.into(), path_string, None)
     }
 
     /// Get the master league for given queue.
@@ -309,7 +309,7 @@ impl<'a> LeagueV4<'a> {
         -> impl Future<Output = Result<Option<league_v4::LeagueList>>> + 'a
     {
         let path_string = format!("/lol/league/v4/masterleagues/by-queue/{}", queue);
-        self.base.get::<league_v4::LeagueList>("league-v4.getMasterLeague", region, path_string, None)
+        self.base.get::<league_v4::LeagueList>("league-v4.getMasterLeague", region.into(), path_string, None)
     }
 
 }
@@ -332,7 +332,7 @@ impl<'a> LolStatusV3<'a> {
         -> impl Future<Output = Result<Option<lol_status_v3::ShardStatus>>> + 'a
     {
         let path_string = "/lol/status/v3/shard-data".to_owned();
-        self.base.get::<lol_status_v3::ShardStatus>("lol-status-v3.getShardData", region, path_string, None)
+        self.base.get::<lol_status_v3::ShardStatus>("lol-status-v3.getShardData", region.into(), path_string, None)
     }
 
 }
@@ -354,7 +354,7 @@ impl<'a> MatchV4<'a> {
         -> impl Future<Output = Result<Option<Vec<i64>>>> + 'a
     {
         let path_string = format!("/lol/match/v4/matches/by-tournament-code/{}/ids", tournament_code);
-        self.base.get::<Vec<i64>>("match-v4.getMatchIdsByTournamentCode", region, path_string, None)
+        self.base.get::<Vec<i64>>("match-v4.getMatchIdsByTournamentCode", region.into(), path_string, None)
     }
 
     /// Get match by match ID.
@@ -367,7 +367,7 @@ impl<'a> MatchV4<'a> {
         -> impl Future<Output = Result<Option<match_v4::Match>>> + 'a
     {
         let path_string = format!("/lol/match/v4/matches/{}", match_id);
-        self.base.get::<match_v4::Match>("match-v4.getMatch", region, path_string, None)
+        self.base.get::<match_v4::Match>("match-v4.getMatch", region.into(), path_string, None)
     }
 
     /// Get match by match ID and tournament code.
@@ -381,7 +381,7 @@ impl<'a> MatchV4<'a> {
         -> impl Future<Output = Result<Option<match_v4::Match>>> + 'a
     {
         let path_string = format!("/lol/match/v4/matches/{}/by-tournament-code/{}", match_id, tournament_code);
-        self.base.get::<match_v4::Match>("match-v4.getMatchByTournamentCode", region, path_string, None)
+        self.base.get::<match_v4::Match>("match-v4.getMatchByTournamentCode", region.into(), path_string, None)
     }
 
     /// Get matchlist for games played on given account ID and platform ID and filtered using given filter parameters, if any.
@@ -416,7 +416,7 @@ impl<'a> MatchV4<'a> {
         if let Some(season) = season { query_params.extend_pairs(season.iter().map(|w| ("season", Into::<u8>::into(*w).to_string()))); };
         let query_string = query_params.finish();
         let path_string = format!("/lol/match/v4/matchlists/by-account/{}", encrypted_account_id);
-        self.base.get::<match_v4::Matchlist>("match-v4.getMatchlist", region, path_string, Some(query_string))
+        self.base.get::<match_v4::Matchlist>("match-v4.getMatchlist", region.into(), path_string, Some(query_string))
     }
 
     /// Get match timeline by match ID.
@@ -431,7 +431,7 @@ impl<'a> MatchV4<'a> {
         -> impl Future<Output = Result<Option<match_v4::MatchTimeline>>> + 'a
     {
         let path_string = format!("/lol/match/v4/timelines/by-match/{}", match_id);
-        self.base.get::<match_v4::MatchTimeline>("match-v4.getMatchTimeline", region, path_string, None)
+        self.base.get::<match_v4::MatchTimeline>("match-v4.getMatchTimeline", region.into(), path_string, None)
     }
 
 }
@@ -453,7 +453,7 @@ impl<'a> SpectatorV4<'a> {
         -> impl Future<Output = Result<Option<spectator_v4::CurrentGameInfo>>> + 'a
     {
         let path_string = format!("/lol/spectator/v4/active-games/by-summoner/{}", encrypted_summoner_id);
-        self.base.get::<spectator_v4::CurrentGameInfo>("spectator-v4.getCurrentGameInfoBySummoner", region, path_string, None)
+        self.base.get::<spectator_v4::CurrentGameInfo>("spectator-v4.getCurrentGameInfoBySummoner", region.into(), path_string, None)
     }
 
     /// Get list of featured games.
@@ -465,7 +465,7 @@ impl<'a> SpectatorV4<'a> {
         -> impl Future<Output = Result<Option<spectator_v4::FeaturedGames>>> + 'a
     {
         let path_string = "/lol/spectator/v4/featured-games".to_owned();
-        self.base.get::<spectator_v4::FeaturedGames>("spectator-v4.getFeaturedGames", region, path_string, None)
+        self.base.get::<spectator_v4::FeaturedGames>("spectator-v4.getFeaturedGames", region.into(), path_string, None)
     }
 
 }
@@ -487,7 +487,7 @@ impl<'a> SummonerV4<'a> {
         -> impl Future<Output = Result<Option<summoner_v4::Summoner>>> + 'a
     {
         let path_string = format!("/lol/summoner/v4/summoners/by-account/{}", encrypted_account_id);
-        self.base.get::<summoner_v4::Summoner>("summoner-v4.getByAccountId", region, path_string, None)
+        self.base.get::<summoner_v4::Summoner>("summoner-v4.getByAccountId", region.into(), path_string, None)
     }
 
     /// Get a summoner by summoner name.
@@ -500,7 +500,7 @@ impl<'a> SummonerV4<'a> {
         -> impl Future<Output = Result<Option<summoner_v4::Summoner>>> + 'a
     {
         let path_string = format!("/lol/summoner/v4/summoners/by-name/{}", summoner_name);
-        self.base.get::<summoner_v4::Summoner>("summoner-v4.getBySummonerName", region, path_string, None)
+        self.base.get::<summoner_v4::Summoner>("summoner-v4.getBySummonerName", region.into(), path_string, None)
     }
 
     /// Get a summoner by PUUID.
@@ -513,7 +513,7 @@ impl<'a> SummonerV4<'a> {
         -> impl Future<Output = Result<Option<summoner_v4::Summoner>>> + 'a
     {
         let path_string = format!("/lol/summoner/v4/summoners/by-puuid/{}", encrypted_puuid);
-        self.base.get::<summoner_v4::Summoner>("summoner-v4.getByPUUID", region, path_string, None)
+        self.base.get::<summoner_v4::Summoner>("summoner-v4.getByPUUID", region.into(), path_string, None)
     }
 
     /// Get a summoner by summoner ID.
@@ -526,7 +526,7 @@ impl<'a> SummonerV4<'a> {
         -> impl Future<Output = Result<Option<summoner_v4::Summoner>>> + 'a
     {
         let path_string = format!("/lol/summoner/v4/summoners/{}", encrypted_summoner_id);
-        self.base.get::<summoner_v4::Summoner>("summoner-v4.getBySummonerId", region, path_string, None)
+        self.base.get::<summoner_v4::Summoner>("summoner-v4.getBySummonerId", region.into(), path_string, None)
     }
 
 }
@@ -547,7 +547,7 @@ impl<'a> TftLeagueV1<'a> {
         -> impl Future<Output = Result<Option<tft_league_v1::LeagueList>>> + 'a
     {
         let path_string = "/tft/league/v1/challenger".to_owned();
-        self.base.get::<tft_league_v1::LeagueList>("tft-league-v1.getChallengerLeague", region, path_string, None)
+        self.base.get::<tft_league_v1::LeagueList>("tft-league-v1.getChallengerLeague", region.into(), path_string, None)
     }
 
     /// Get league entries for a given summoner ID.
@@ -560,7 +560,7 @@ impl<'a> TftLeagueV1<'a> {
         -> impl Future<Output = Result<Option<Vec<tft_league_v1::LeagueEntry>>>> + 'a
     {
         let path_string = format!("/tft/league/v1/entries/by-summoner/{}", encrypted_summoner_id);
-        self.base.get::<Vec<tft_league_v1::LeagueEntry>>("tft-league-v1.getLeagueEntriesForSummoner", region, path_string, None)
+        self.base.get::<Vec<tft_league_v1::LeagueEntry>>("tft-league-v1.getLeagueEntriesForSummoner", region.into(), path_string, None)
     }
 
     /// Get all the league entries.
@@ -578,7 +578,7 @@ impl<'a> TftLeagueV1<'a> {
         if let Some(page) = page { query_params.append_pair("page", &*page.to_string()); };
         let query_string = query_params.finish();
         let path_string = format!("/tft/league/v1/entries/{}/{}", tier, division);
-        self.base.get::<Vec<tft_league_v1::LeagueEntry>>("tft-league-v1.getLeagueEntries", region, path_string, Some(query_string))
+        self.base.get::<Vec<tft_league_v1::LeagueEntry>>("tft-league-v1.getLeagueEntries", region.into(), path_string, Some(query_string))
     }
 
     /// Get the grandmaster league.
@@ -590,7 +590,7 @@ impl<'a> TftLeagueV1<'a> {
         -> impl Future<Output = Result<Option<tft_league_v1::LeagueList>>> + 'a
     {
         let path_string = "/tft/league/v1/grandmaster".to_owned();
-        self.base.get::<tft_league_v1::LeagueList>("tft-league-v1.getGrandmasterLeague", region, path_string, None)
+        self.base.get::<tft_league_v1::LeagueList>("tft-league-v1.getGrandmasterLeague", region.into(), path_string, None)
     }
 
     /// Get league with given ID, including inactive entries.
@@ -603,7 +603,7 @@ impl<'a> TftLeagueV1<'a> {
         -> impl Future<Output = Result<Option<tft_league_v1::LeagueList>>> + 'a
     {
         let path_string = format!("/tft/league/v1/leagues/{}", league_id);
-        self.base.get::<tft_league_v1::LeagueList>("tft-league-v1.getLeagueById", region, path_string, None)
+        self.base.get::<tft_league_v1::LeagueList>("tft-league-v1.getLeagueById", region.into(), path_string, None)
     }
 
     /// Get the master league.
@@ -615,7 +615,7 @@ impl<'a> TftLeagueV1<'a> {
         -> impl Future<Output = Result<Option<tft_league_v1::LeagueList>>> + 'a
     {
         let path_string = "/tft/league/v1/master".to_owned();
-        self.base.get::<tft_league_v1::LeagueList>("tft-league-v1.getMasterLeague", region, path_string, None)
+        self.base.get::<tft_league_v1::LeagueList>("tft-league-v1.getMasterLeague", region.into(), path_string, None)
     }
 
 }
@@ -637,7 +637,7 @@ impl<'a> TftMatchV1<'a> {
         -> impl Future<Output = Result<Option<Vec<String>>>> + 'a
     {
         let path_string = format!("/tft/match/v1/matches/by-puuid/{}/ids", encrypted_puuid);
-        self.base.get::<Vec<String>>("tft-match-v1.getMatchIdsByPUUID", region, path_string, None)
+        self.base.get::<Vec<String>>("tft-match-v1.getMatchIdsByPUUID", region.into(), path_string, None)
     }
 
     /// Get a match by match id.
@@ -650,7 +650,7 @@ impl<'a> TftMatchV1<'a> {
         -> impl Future<Output = Result<Option<tft_match_v1::Match>>> + 'a
     {
         let path_string = format!("/tft/match/v1/matches/{}", match_id);
-        self.base.get::<tft_match_v1::Match>("tft-match-v1.getMatch", region, path_string, None)
+        self.base.get::<tft_match_v1::Match>("tft-match-v1.getMatch", region.into(), path_string, None)
     }
 
 }
@@ -672,7 +672,7 @@ impl<'a> TftSummonerV1<'a> {
         -> impl Future<Output = Result<Option<tft_summoner_v1::Summoner>>> + 'a
     {
         let path_string = format!("/tft/summoner/v1/summoners/by-account/{}", encrypted_account_id);
-        self.base.get::<tft_summoner_v1::Summoner>("tft-summoner-v1.getByAccountId", region, path_string, None)
+        self.base.get::<tft_summoner_v1::Summoner>("tft-summoner-v1.getByAccountId", region.into(), path_string, None)
     }
 
     /// Get a summoner by summoner name.
@@ -685,7 +685,7 @@ impl<'a> TftSummonerV1<'a> {
         -> impl Future<Output = Result<Option<tft_summoner_v1::Summoner>>> + 'a
     {
         let path_string = format!("/tft/summoner/v1/summoners/by-name/{}", summoner_name);
-        self.base.get::<tft_summoner_v1::Summoner>("tft-summoner-v1.getBySummonerName", region, path_string, None)
+        self.base.get::<tft_summoner_v1::Summoner>("tft-summoner-v1.getBySummonerName", region.into(), path_string, None)
     }
 
     /// Get a summoner by PUUID.
@@ -698,7 +698,7 @@ impl<'a> TftSummonerV1<'a> {
         -> impl Future<Output = Result<Option<tft_summoner_v1::Summoner>>> + 'a
     {
         let path_string = format!("/tft/summoner/v1/summoners/by-puuid/{}", encrypted_puuid);
-        self.base.get::<tft_summoner_v1::Summoner>("tft-summoner-v1.getByPUUID", region, path_string, None)
+        self.base.get::<tft_summoner_v1::Summoner>("tft-summoner-v1.getByPUUID", region.into(), path_string, None)
     }
 
     /// Get a summoner by summoner ID.
@@ -711,7 +711,7 @@ impl<'a> TftSummonerV1<'a> {
         -> impl Future<Output = Result<Option<tft_summoner_v1::Summoner>>> + 'a
     {
         let path_string = format!("/tft/summoner/v1/summoners/{}", encrypted_summoner_id);
-        self.base.get::<tft_summoner_v1::Summoner>("tft-summoner-v1.getBySummonerId", region, path_string, None)
+        self.base.get::<tft_summoner_v1::Summoner>("tft-summoner-v1.getBySummonerId", region.into(), path_string, None)
     }
 
 }
@@ -733,7 +733,7 @@ impl<'a> ThirdPartyCodeV4<'a> {
         -> impl Future<Output = Result<Option<String>>> + 'a
     {
         let path_string = format!("/lol/platform/v4/third-party-code/by-summoner/{}", encrypted_summoner_id);
-        self.base.get::<String>("third-party-code-v4.getThirdPartyCodeBySummonerId", region, path_string, None)
+        self.base.get::<String>("third-party-code-v4.getThirdPartyCodeBySummonerId", region.into(), path_string, None)
     }
 
 }
@@ -755,7 +755,7 @@ impl<'a> TournamentStubV4<'a> {
         -> impl Future<Output = Result<Option<tournament_stub_v4::LobbyEventWrapper>>> + 'a
     {
         let path_string = format!("/lol/tournament-stub/v4/lobby-events/by-code/{}", tournament_code);
-        self.base.get::<tournament_stub_v4::LobbyEventWrapper>("tournament-stub-v4.getLobbyEventsByCode", region, path_string, None)
+        self.base.get::<tournament_stub_v4::LobbyEventWrapper>("tournament-stub-v4.getLobbyEventsByCode", region.into(), path_string, None)
     }
 
 }
@@ -777,7 +777,7 @@ impl<'a> TournamentV4<'a> {
         -> impl Future<Output = Result<Option<tournament_v4::TournamentCode>>> + 'a
     {
         let path_string = format!("/lol/tournament/v4/codes/{}", tournament_code);
-        self.base.get::<tournament_v4::TournamentCode>("tournament-v4.getTournamentCode", region, path_string, None)
+        self.base.get::<tournament_v4::TournamentCode>("tournament-v4.getTournamentCode", region.into(), path_string, None)
     }
 
     /// Gets a list of lobby events by tournament code.
@@ -790,7 +790,7 @@ impl<'a> TournamentV4<'a> {
         -> impl Future<Output = Result<Option<tournament_v4::LobbyEventWrapper>>> + 'a
     {
         let path_string = format!("/lol/tournament/v4/lobby-events/by-code/{}", tournament_code);
-        self.base.get::<tournament_v4::LobbyEventWrapper>("tournament-v4.getLobbyEventsByCode", region, path_string, None)
+        self.base.get::<tournament_v4::LobbyEventWrapper>("tournament-v4.getLobbyEventsByCode", region.into(), path_string, None)
     }
 
 }

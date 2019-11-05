@@ -5,7 +5,6 @@ use reqwest::Client;
 
 use crate::Result;
 use crate::RiotApiConfig;
-use crate::consts::Region;
 use crate::req::RegionalRequester;
 use crate::util::InsertOnlyCHashMap;
 
@@ -27,7 +26,7 @@ pub struct RiotApi {
     client: Client,
 
     /// Per-region requesters.
-    regional_requesters: InsertOnlyCHashMap<Region, RegionalRequester>,
+    regional_requesters: InsertOnlyCHashMap<&'static str, RegionalRequester>,
 }
 
 impl RiotApi {
@@ -46,15 +45,14 @@ impl RiotApi {
     }
 
     pub fn get<'a, T: serde::de::DeserializeOwned + 'a>(&'a self,
-        method_id: &'static str, region: Region, path: String, query: Option<String>)
+        method_id: &'static str, region_platform: &'static str, path: String, query: Option<String>)
         -> impl Future<Output = Result<Option<T>>> + 'a
     {
-        // TODO: max concurrent requests? Or can configure client?
         self.regional_requesters
-            .get_or_insert_with(region, || {
-                log::debug!("Creating requester for region {}.", region.platform);
+            .get_or_insert_with(region_platform, || {
+                log::debug!("Creating requester for region platform {}.", region_platform);
                 RegionalRequester::new()
             })
-            .get(&self.config, &self.client, method_id, region, path, query)
+            .get(&self.config, &self.client, method_id, region_platform, path, query)
     }
 }

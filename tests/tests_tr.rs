@@ -20,7 +20,7 @@ async_tests!{
             // let p = future_start(p);
             let ll = p.await.map_err(|e| e.to_string())?.ok_or("Failed to get challenger league".to_owned())?;
 
-            println!("{} Challenger {} entries.", REGION.key, ll.entries.len());
+            println!("{:?} Challenger {} entries.", REGION, ll.entries.len());
 
             let sl = ll.entries[..50].iter()
                 .map(|entry| RIOT_API.summoner_v4().get_by_summoner_id(REGION, &entry.summoner_id))

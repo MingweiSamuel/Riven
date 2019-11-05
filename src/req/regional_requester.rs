@@ -8,7 +8,6 @@ use tokio::timer::delay_for;
 use crate::Result;
 use crate::RiotApiError;
 use crate::RiotApiConfig;
-use crate::consts::Region;
 use crate::util::InsertOnlyCHashMap;
 
 use super::RateLimit;
@@ -38,7 +37,7 @@ impl RegionalRequester {
 
     pub fn get<'a, T: serde::de::DeserializeOwned>(self: Arc<Self>,
         config: &'a RiotApiConfig, client: &'a Client,
-        method_id: &'static str, region: Region, path: String, query: Option<String>)
+        method_id: &'static str, region_platform: &'a str, path: String, query: Option<String>)
         -> impl Future<Output = Result<Option<T>>> + 'a
     {
         async move {
@@ -55,7 +54,7 @@ impl RegionalRequester {
                 }
 
                 // Send request.
-                let url_base = format!("https://{}.api.riotgames.com", region.platform);
+                let url_base = format!("https://{}.api.riotgames.com", region_platform);
                 let mut url = Url::parse(&*url_base)
                     .unwrap_or_else(|_| panic!("Failed to parse url_base: \"{}\".", url_base));
                 url.set_path(&*path);

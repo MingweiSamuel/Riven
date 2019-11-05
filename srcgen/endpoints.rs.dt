@@ -146,7 +146,7 @@ impl<'a> {{= endpoint }}<'a> {
         let query_string = query_params.finish();
 {{?}}
         let path_string = {{= routeArgument }};
-        self.base.get::<{{= returnType }}>("{{= operationId }}", region, path_string, {{= queryParams.length ? 'Some(query_string)' : 'None' }})
+        self.base.get::<{{= returnType }}>("{{= operationId }}", region.into(), path_string, {{= queryParams.length ? 'Some(query_string)' : 'None' }})
     }
 
 {{

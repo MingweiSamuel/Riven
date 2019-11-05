@@ -23,7 +23,7 @@ Riven currently uses nightly Rust.
 use riven::RiotApi;
 use riven::consts::Region;
 
-// Enter tokio async runtime.
+// Riven Enter tokio async runtime.
 let rt = tokio::runtime::Runtime::new().unwrap();
 rt.block_on(async {
     // Create RiotApi instance from key.

@@ -1,64 +1,43 @@
+use strum_macros::{ EnumString, Display, AsRefStr, IntoStaticStr };
+
 /// A region served by a single game server.
 /// Each Riot Games API request is directed at a particular region,
 /// with tournament API requests directed at the AMERICAS "global" region.
 #[derive(Debug)]
 #[derive(PartialEq, Eq, Hash, PartialOrd, Ord)]
+#[derive(EnumString, Display, AsRefStr, IntoStaticStr)]
 #[derive(Clone, Copy)]
-pub struct Region {
-    pub key: &'static str,
-    pub platform: &'static str,
-}
-
-macro_rules! regions {
-    (
-        $(
-            $key:ident => $plat:expr ;
-        )*
-    ) => {
-        $(
-            pub const $key: Region = Region {
-                key: stringify!($key),
-                platform: $plat,
-            };
-        )*
-
-        #[doc="Get region by name."]
-        #[doc="# Arguments"]
-        #[doc="* `name` - Case-insensitive ASCII string to match Regions' `key` or `playform`."]
-        #[doc="# Returns"]
-        #[doc="`Some(&Region)` if match found, `None` if no match found."]
-        #[allow(unreachable_patterns)]
-        pub fn get(name: &str) -> Option<Region> {
-            match &*name.to_ascii_uppercase() {
-                $(
-                    stringify!($key) | $plat => Some(Self::$key),
-                )*
-                _ => None
-            }
-        }
-    }
-}
-
-impl Region {
-    // Is this stupid?
-    regions! {
-        BR       => "BR1";
-        EUNE     => "EUN1";
-        EUW      => "EUW1";
-        NA       => "NA1";
-        KR       => "KR";
-        LAN      => "LA1";
-        LAS      => "LA2";
-        OCE      => "OC1";
-        RU       => "RU";
-        TR       => "TR1";
-        JP       => "JP1";
-        PBE      => "PBE1";
-        AMERICAS => "AMERICAS";
-        EUROPE   => "EUROPE";
-        ASIA     => "ASIA";
-
-    }
+pub enum Region {
+    #[strum(to_string="BR1", serialize="BR")]
+    BR,
+    #[strum(to_string="EUN1", serialize="EUNE")]
+    EUNE,
+    #[strum(to_string="EUW1", serialize="EUW")]
+    EUW,
+    #[strum(to_string="NA1", serialize="NA")]
+    NA,
+    #[strum(to_string="KR", serialize="KR")]
+    KR,
+    #[strum(to_string="LA1", serialize="LAN")]
+    LAN,
+    #[strum(to_string="LA2", serialize="LAS")]
+    LAS,
+    #[strum(to_string="OC1", serialize="OCE")]
+    OCE,
+    #[strum(to_string="RU", serialize="RU")]
+    RU,
+    #[strum(to_string="TR1", serialize="TR")]
+    TR,
+    #[strum(to_string="JP1", serialize="JP")]
+    JP,
+    #[strum(to_string="PBE1", serialize="PBE")]
+    PBE,
+    #[strum(to_string="AMERICAS", serialize="AMERICAS")]
+    AMERICAS,
+    #[strum(to_string="EUROPE", serialize="EUROPE")]
+    EUROPE,
+    #[strum(to_string="ASIA", serialize="ASIA")]
+    ASIA,
 }
 
 #[cfg(test)]
@@ -67,13 +46,13 @@ mod tests {
 
     #[test]
     fn test_basic() {
-        assert_eq!("BR1", Region::BR.platform);
+        assert_eq!("BR1", Region::BR.to_string());
     }
 
     #[test]
     fn test_get() {
-        assert_eq!(Some(Region::AMERICAS), Region::get("amEricAs"));
-        assert_eq!(Some(Region::NA), Region::get("na1"));
-        assert_eq!(None, Region::get("LA"));
+        assert_eq!(Ok(Region::JP), "JP".parse());
+        assert_eq!(Ok(Region::NA), "NA1".parse());
+        assert!("LA".parse::<Region>().is_err());
     }
 }
