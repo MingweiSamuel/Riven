@@ -1,6 +1,6 @@
 #![cfg(test)]
 
-use fake_clock::FakeClock as Instant;
+use fake_instant::FakeClock as Instant;
 
 /// This is a hack to test token bucket, substituting FakeClock for Instant.
 mod token_bucket {

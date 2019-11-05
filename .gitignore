@@ -3,3 +3,7 @@
 /doc
 Cargo.lock
 apikey.txt
+
+/srcgen/node_modules/
+/srcgen/.*.json
+
