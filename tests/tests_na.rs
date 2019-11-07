@@ -1,5 +1,5 @@
-#![feature(custom_test_frameworks)]
-#![test_runner(my_runner)]
+#![cfg_attr(feature = "nightly", feature(custom_test_frameworks))]
+#![cfg_attr(feature = "nightly", test_runner(my_runner))]
 
 mod async_tests;
 mod testutils;

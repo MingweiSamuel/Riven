@@ -10,7 +10,7 @@ use serde_repr::{ Serialize_repr, Deserialize_repr };
 use num_enum::{ IntoPrimitive, TryFromPrimitive };
 
 /// League of Legends matchmaking queue.
-#[non_exhaustive]
+#[cfg_attr(feature = "nightly", non_exhaustive)]
 #[derive(Debug, Copy, Clone)]
 #[derive(Eq, PartialEq)]
 #[derive(Serialize_repr, Deserialize_repr)]

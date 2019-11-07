@@ -1,9 +1,10 @@
-#![feature(non_exhaustive)]
-#![feature(external_doc)]
+#![cfg_attr(feature = "nightly", feature(non_exhaustive))]
+#![cfg_attr(feature = "nightly", feature(external_doc))]
 
 #![forbid(unsafe_code)]
 
-#![doc(include = "../README.md")]
+#![cfg_attr(feature = "nightly", doc(include = "../README.md"))]
+#![cfg_attr(not(feature = "nightly"), doc("See [README.md](https://github.com/MingweiSamuel/Riven#----riven--------------------)."))]
 
 mod config;
 pub use config::RiotApiConfig;

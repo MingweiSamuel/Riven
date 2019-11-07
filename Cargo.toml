@@ -14,10 +14,13 @@ travis-ci = { repository = "MingweiSamuel/Riven" }
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[features]
+nightly = [ "parking_lot/nightly" ]
+
 [dependencies]
 log = "0.4"
 num_enum = "0.4"
-parking_lot = { version = "0.9", features = [ "nightly" ] }
+parking_lot = "0.9"
 reqwest = { version = "0.10.0-alpha.1", features = [ "gzip", "json" ] }
 scan_fmt = { version = "0.2", default-features = false }
 serde = { version = "1.0", features = [ "derive" ] }

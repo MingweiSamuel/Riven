@@ -14,7 +14,7 @@ use strum_macros::{ EnumString, Display, AsRefStr, IntoStaticStr };
 ///
 /// The documentation of each variant specifies:<br>
 /// NAME (`IDENTIFIER`, ID).
-#[non_exhaustive]
+#[cfg_attr(feature = "nightly", non_exhaustive)]
 #[derive(Debug, Copy, Clone)]
 #[derive(IntoPrimitive, TryFromPrimitive)]
 #[derive(Serialize_repr, Deserialize_repr)]

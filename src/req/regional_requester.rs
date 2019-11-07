@@ -41,7 +41,8 @@ impl RegionalRequester {
         -> impl Future<Output = Result<Option<T>>> + 'a
     {
         async move {
-            let query = query.as_deref();
+            #[cfg(feature = "nightly")] let query = query.as_deref();
+            #[cfg(not(feature = "nightly"))] let query = query.as_ref().map(|s| s.as_ref());
 
             let mut retries: u8 = 0;
             loop {
