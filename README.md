@@ -13,9 +13,7 @@ Rivens's goals are _speed_, _reliability_, and _maintainability_. Riven handles 
 Data structs and endpoints are automatically generated from the
 [Riot API Reference](https://developer.riotgames.com/api-methods/) ([Swagger](http://www.mingweisamuel.com/riotapi-schema/tool/)).
 
-Riven currently uses nightly Rust.
-
-## Features
+## Design
 
 * Fast, asynchronous, thread-safe.
 * Automatically retries failed requests.
@@ -74,11 +72,17 @@ Output:
 10) Vladimir       37176 (5)
 ```
 
-## Docs
+### Nightly vs Stable
+
+Enable the `nightly` feature to use nightly-only functionality. Mainly enables
+[nightly optimizations in the `parking_lot` crate](https://github.com/Amanieu/parking_lot#nightly-vs-stable).
+Also required for running async integration tests.
+
+### Docs
 
 [On docs.rs](https://docs.rs/riven/).
 
-## Error Handling
+### Error Handling
 
 Riven returns `Result<Option<T>>` within futures. If the `Result` is errored,
 this indicates that the API request failed to complete successfully, which may be
@@ -86,7 +90,7 @@ due to bad user input, Riot server errors, incorrect API key, etc. If the `Optio
 is `None`, this indicates that the request completed successfully but no data was
 returned. This happens if a summoner (by name) or match (by id) doesn't exist.
 
-## Additional Info
+### Additional Info
 
 Feel free to [make an issue](https://github.com/MingweiSamuel/Riven/issues/new)
 if you are have any questions or trouble using Riven.
