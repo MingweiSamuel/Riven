@@ -4,7 +4,7 @@
 #![forbid(unsafe_code)]
 
 #![cfg_attr(feature = "nightly", doc(include = "../README.md"))]
-#![cfg_attr(not(feature = "nightly"), doc("See [README.md](https://github.com/MingweiSamuel/Riven#----riven--------------------)."))]
+#![cfg_attr(not(feature = "nightly"), doc = "See [README.md](https://github.com/MingweiSamuel/Riven#readme).")]
 
 mod config;
 pub use config::RiotApiConfig;

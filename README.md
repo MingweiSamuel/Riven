@@ -28,10 +28,9 @@ use riven::consts::Region;
 // Riven Enter tokio async runtime.
 let rt = tokio::runtime::Runtime::new().unwrap();
 rt.block_on(async {
-    // Create RiotApi instance from key.
+    // Create RiotApi instance from key string.
     let api_key = "RGAPI-01234567-89ab-cdef-0123-456789abcdef";
-    let api_key = std::env::var("RGAPI_KEY").ok()
-        .or_else(|| std::fs::read_to_string("apikey.txt").ok()).unwrap();
+    # /* (doc testing) */ let api_key = std::env!("RGAPI_KEY");
     let riot_api = RiotApi::with_key(api_key);
 
     // Get summoner data.

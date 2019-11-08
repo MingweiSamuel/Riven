@@ -16,6 +16,9 @@ travis-ci = { repository = "MingweiSamuel/Riven" }
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[package.metadata.docs.rs]
+features = [ "nightly" ]
+
 [features]
 nightly = [ "parking_lot/nightly" ]
 

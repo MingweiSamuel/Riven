@@ -2,7 +2,7 @@ language: rust
 matrix:
   fast_finish: true
   include:
-    - rust: beta
+    - rust: stable
     - rust: nightly
       env: FEATURES="--features nightly"
 env:
