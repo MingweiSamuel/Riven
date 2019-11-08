@@ -37,7 +37,8 @@ impl RiotApiError {
     pub fn retries(&self) -> u8 {
         self.retries
     }
-    /// The failed response, if the request sent.
+    /// The failed response, if the request was sent and failed.
+    /// Will be `None` if JSON parsing failed.
     pub fn response<'a>(&self) -> Option<&Response> {
         self.response.as_ref()
     }

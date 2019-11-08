@@ -38,7 +38,7 @@ rt.block_on(async {
     let summoner = riot_api.summoner_v4()
         .get_by_summoner_name(Region::NA, "잘못").await
         .expect("Get summoner failed.")
-        .expect("Summoner not found.");
+        .expect("There is no summoner with that name.");
 
     // Print summoner name.
     println!("{} Champion Masteries:", summoner.name);
@@ -46,8 +46,7 @@ rt.block_on(async {
     // Get champion mastery data.
     let masteries = riot_api.champion_mastery_v4()
         .get_all_champion_masteries(Region::NA, &summoner.id).await
-        .expect("Get champion masteries failed.")
-        .unwrap();
+        .expect("Get champion masteries failed.");
 
     // Print champioon masteries.
     for (i, mastery) in masteries[..10].iter().enumerate() {

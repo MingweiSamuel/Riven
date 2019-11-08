@@ -66,7 +66,10 @@ impl<'a> {{= endpoint }}<'a> {
             let method = dotUtils.changeCase.snakeCase(operationId.slice(operationId.indexOf('.') + 1));
 
             let jsonInfo = get.responses['200'].content['application/json'];
-            let returnType = dotUtils.stringifyType(jsonInfo.schema, { endpoint, fullpath: false });
+            let returnOptional = !!get['x-nullable-404'];
+            let parseType = dotUtils.stringifyType(jsonInfo.schema, { endpoint, fullpath: false });
+            let returnType = returnOptional ? `Option<${parseType}>` : parseType;
+
 
             /* Cases if not rate limited. */
             let rateLimitExcluded = get['x-app-rate-limit-excluded'] ? true : false;
@@ -131,7 +134,7 @@ impl<'a> {{= endpoint }}<'a> {
             }
 }}
     pub fn {{= method }}(&self, region: Region{{= argBuilder.join('') }})
-        -> impl Future<Output = Result<Option<{{= returnType }}>>> + 'a
+        -> impl Future<Output = Result<{{= returnType }}>> + 'a
     {
 {{? queryParams.length }}
         let mut query_params = Serializer::new(String::new());
@@ -146,7 +149,7 @@ impl<'a> {{= endpoint }}<'a> {
         let query_string = query_params.finish();
 {{?}}
         let path_string = {{= routeArgument }};
-        self.base.get::<{{= returnType }}>("{{= operationId }}", region.into(), path_string, {{= queryParams.length ? 'Some(query_string)' : 'None' }})
+        self.base.get{{= returnOptional ? '_optional' : '' }}::<{{= parseType }}>("{{= operationId }}", region.into(), path_string, {{= queryParams.length ? 'Some(query_string)' : 'None' }})
     }
 
 {{

@@ -18,7 +18,7 @@ async_tests!{
         league_summoner_bulk_test: async {
             let p = RIOT_API.league_v4().get_challenger_league(REGION, QueueType::RANKED_SOLO_5x5);
             // let p = future_start(p);
-            let ll = p.await.map_err(|e| e.to_string())?.ok_or("Failed to get challenger league".to_owned())?;
+            let ll = p.await.map_err(|e| e.to_string())?;
 
             println!("{:?} Challenger {} entries.", REGION, ll.entries.len());
 
@@ -28,8 +28,7 @@ async_tests!{
                 .collect::<Vec<_>>();
 
             for (i, s) in sl.into_iter().enumerate() {
-                let summoner_opt: Option<Summoner> = s.await.map_err(|e| e.to_string())?;
-                let summoner = summoner_opt.ok_or("Failed to get summoner.".to_owned())?;
+                let summoner: Summoner = s.await.map_err(|e| e.to_string())?;
                 println!("{}: {}", i + 1, summoner.name);
             }
 

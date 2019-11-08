@@ -1,4 +1,5 @@
 use std::future::Future;
+use std::sync::Arc;
 
 use log;
 use reqwest::Client;
@@ -12,7 +13,7 @@ use crate::util::InsertOnlyCHashMap;
 ///
 /// # Rate Limiting
 ///
-/// The Riot Game API does _dynamic_ rate limiting, meaning that rate limits are
+/// The Riot Game API enforces _dynamic_ rate limiting, meaning that rate limits are
 /// specified in response headers and (hypothetically) could change at any time.
 /// Riven keeps track of changing rate limits seamlessly, preventing you from
 /// getting blacklisted.
@@ -44,15 +45,26 @@ impl RiotApi {
         Self::with_config(RiotApiConfig::with_key(api_key))
     }
 
-    pub fn get<'a, T: serde::de::DeserializeOwned + 'a>(&'a self,
+    pub fn get_optional<'a, T: serde::de::DeserializeOwned + 'a>(&'a self,
         method_id: &'static str, region_platform: &'static str, path: String, query: Option<String>)
         -> impl Future<Output = Result<Option<T>>> + 'a
     {
-        self.regional_requesters
-            .get_or_insert_with(region_platform, || {
-                log::debug!("Creating requester for region platform {}.", region_platform);
-                RegionalRequester::new()
-            })
+        self.regional_requester(region_platform)
+            .get_optional(&self.config, &self.client, method_id, region_platform, path, query)
+    }
+
+    pub fn get<'a, T: serde::de::DeserializeOwned + 'a>(&'a self,
+        method_id: &'static str, region_platform: &'static str, path: String, query: Option<String>)
+        -> impl Future<Output = Result<T>> + 'a
+    {
+        self.regional_requester(region_platform)
             .get(&self.config, &self.client, method_id, region_platform, path, query)
+    }
+
+    fn regional_requester(&self, region_platform: &'static str) -> Arc<RegionalRequester> {
+        self.regional_requesters.get_or_insert_with(region_platform, || {
+            log::debug!("Creating requester for region platform {}.", region_platform);
+            RegionalRequester::new()
+        })
     }
 }

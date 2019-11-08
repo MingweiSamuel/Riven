@@ -24,8 +24,8 @@ impl RegionalRequester {
     /// Request header name for the Riot API key.
     const RIOT_KEY_HEADER: &'static str = "X-Riot-Token";
 
-    /// HttpStatus codes that are considered a success, but will return None.
-    const NONE_STATUS_CODES: [u16; 3] = [ 204, 404, 422 ];
+    /// Http status code 404, considered a success but will return None.
+    const NONE_STATUS_CODE: StatusCode = StatusCode::NOT_FOUND;
 
 
     pub fn new() -> Self {
@@ -35,10 +35,29 @@ impl RegionalRequester {
         }
     }
 
-    pub fn get<'a, T: serde::de::DeserializeOwned>(self: Arc<Self>,
+    pub fn get_optional<'a, T: serde::de::DeserializeOwned>(self: Arc<Self>,
         config: &'a RiotApiConfig, client: &'a Client,
         method_id: &'static str, region_platform: &'a str, path: String, query: Option<String>)
         -> impl Future<Output = Result<Option<T>>> + 'a
+    {
+        async move {
+            let response_result = self.get(config, client,
+                method_id, region_platform, path, query).await;
+            response_result.map(|value| Some(value))
+                .or_else(|e| {
+                    if let Some(response) = e.response() {
+                    if Self::NONE_STATUS_CODE == response.status() {
+                        return Ok(None);
+                    }}
+                    Err(e)
+                })
+        }
+    }
+
+    pub fn get<'a, T: serde::de::DeserializeOwned>(self: Arc<Self>,
+        config: &'a RiotApiConfig, client: &'a Client,
+        method_id: &'static str, region_platform: &'a str, path: String, query: Option<String>)
+        -> impl Future<Output = Result<T>> + 'a
     {
         async move {
             #[cfg(feature = "nightly")] let query = query.as_deref();
@@ -71,21 +90,14 @@ impl RegionalRequester {
                 self.app_rate_limit.on_response(&config, &response);
                 method_rate_limit.on_response(&config, &response);
 
-                // Handle response.
                 let status = response.status();
-                // Special "none success" cases, return None.
-                if Self::is_none_status_code(&status) {
-                    log::trace!("Response {} (retried {} times), None result.", status, retries);
-                    break Ok(None);
-                }
                 // Handle normal success / failure cases.
                 match response.error_for_status_ref() {
                     // Success.
-                    Ok(_) => {
+                    Ok(_response) => {
                         log::trace!("Response {} (retried {} times), parsed result.", status, retries);
                         let value = response.json::<T>().await;
-                        break value.map(|v| Some(v))
-                            .map_err(|e| RiotApiError::new(e, retries, None));
+                        break value.map_err(|e| RiotApiError::new(e, retries, None));
                     },
                     // Failure, may or may not be retryable.
                     Err(err) => {
@@ -95,7 +107,7 @@ impl RegionalRequester {
                             (StatusCode::TOO_MANY_REQUESTS != status
                             && !status.is_server_error())
                         {
-                            log::debug!("Response {} (retried {} times), returning error.", status, retries);
+                            log::debug!("Response {} (retried {} times), returning.", status, retries);
                             break Err(RiotApiError::new(err, retries, Some(response)));
                         }
                         log::debug!("Response {} (retried {} times), retrying.", status, retries);
@@ -105,10 +117,6 @@ impl RegionalRequester {
                 retries += 1;
             }
         }
-    }
-
-    fn is_none_status_code(status: &StatusCode) -> bool {
-        Self::NONE_STATUS_CODES.contains(&status.as_u16())
     }
 }
 
