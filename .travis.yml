@@ -1,4 +1,10 @@
 language: rust
-rust:
-  - stable
-  - nightly
+matrix:
+  fast_finish: true
+  include:
+    - rust: beta
+    - rust: nightly
+      env: FEATURES="--features nightly"
+env:
+  global:
+    - RUST_BACKTRACE=1
