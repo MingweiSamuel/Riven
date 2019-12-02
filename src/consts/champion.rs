@@ -40,6 +40,8 @@ pub enum Champion {
     #[strum(to_string="Anivia", serialize="Anivia")] Anivia = 34,
     /// Annie (`Annie`, 1).
     #[strum(to_string="Annie", serialize="Annie")] Annie = 1,
+    /// Aphelios (`Aphelios`, 523).
+    #[strum(to_string="Aphelios", serialize="Aphelios")] Aphelios = 523,
     /// Ashe (`Ashe`, 22).
     #[strum(to_string="Ashe", serialize="Ashe")] Ashe = 22,
     /// Aurelion Sol (`AurelionSol`, 136).
@@ -353,6 +355,7 @@ impl Champion {
             Self::Amumu        => "Amumu",
             Self::Anivia       => "Anivia",
             Self::Annie        => "Annie",
+            Self::Aphelios     => "Aphelios",
             Self::Ashe         => "Ashe",
             Self::AurelionSol  => "AurelionSol",
             Self::Azir         => "Azir",

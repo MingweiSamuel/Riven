@@ -291,4 +291,13 @@ pub enum Queue {
     /// <br>Deprecated in patch 9.2
     #[deprecated(note="Deprecated in patch 9.2")]
     NEXUS_BLITZ_NEXUS_BLITZ_GAMES = 1200,
+
+    /// Tutorial 1 games on Summoner's Rift.
+    SUMMONERS_RIFT_TUTORIAL1 = 2000,
+
+    /// Tutorial 2 games on Summoner's Rift.
+    SUMMONERS_RIFT_TUTORIAL2 = 2010,
+
+    /// Tutorial 3 games on Summoner's Rift.
+    SUMMONERS_RIFT_TUTORIAL3 = 2020,
 }

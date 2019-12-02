@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 3bd5ca30e5a7aa15963ca4366e3b6be89defe567
+// Version 8de91254196abf157d29b578bfe2d3d49b29ba8a
 
 //! Automatically generated data transfer structs.
 
@@ -959,7 +959,7 @@ pub mod spectator_v4 {
         pub game_length: i64,
         /// The queue type (queue types are documented on the Game Constants page)
         #[serde(rename = "gameQueueConfigId")]
-        pub game_queue_config_id: crate::consts::Queue,
+        pub game_queue_config_id: Option<crate::consts::Queue>,
     }
     /// BannedChampion data object. This struct is automatically generated.
     #[derive(Debug)]
