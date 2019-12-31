@@ -7,7 +7,7 @@ macro_rules! async_tests {
             env_logger::init();
 
             std::process::exit({
-                let rt = tokio::runtime::Runtime::new()
+                let mut rt = tokio::runtime::Runtime::new()
                     .expect("Failed to create runtime.");
 
                 let (_, errs) = rt.block_on(async {
@@ -23,9 +23,10 @@ macro_rules! async_tests {
                             }.await;
                             result
                         };
-                        let $name = tokio::executor::Executor::spawn_with_handle(
-                            &mut tokio::executor::DefaultExecutor::current(), $name)
-                            .expect("Failed to spawn.");
+                        // let $name = tokio_executor::Executor::spawn_with_handle(
+                        //     &mut tokio_executor::DefaultExecutor::current(), $name)
+                        //     .expect("Failed to spawn.");
+                        let $name = tokio::spawn($name);
                     )*
                     $(
                         let $name = $name.await;

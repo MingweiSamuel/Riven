@@ -3,7 +3,7 @@
 
 mod async_tests;
 mod testutils;
-use testutils::{ RIOT_API, future_start };
+use testutils::RIOT_API;
 
 use colored::*;
 
@@ -24,11 +24,13 @@ async_tests!{
 
             let sl = ll.entries[..50].iter()
                 .map(|entry| RIOT_API.summoner_v4().get_by_summoner_id(REGION, &entry.summoner_id))
-                .map(future_start)
+                .map(tokio::spawn)
                 .collect::<Vec<_>>();
 
             for (i, s) in sl.into_iter().enumerate() {
-                let summoner: Summoner = s.await.map_err(|e| e.to_string())?;
+                let summoner: Summoner = s.await
+                    .expect("tokio::spawn join error")
+                    .map_err(|e| e.to_string())?;
                 println!("{}: {}", i + 1, summoner.name);
             }
 

@@ -3,7 +3,7 @@ use std::sync::Arc;
 
 use log;
 use reqwest::{ Client, StatusCode, Url };
-use tokio::timer::delay_for;
+use tokio::time::delay_for;
 
 use crate::Result;
 use crate::RiotApiError;

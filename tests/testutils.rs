@@ -1,10 +1,6 @@
 #![allow(dead_code)]
 
-use std::future::Future;
-
-use futures_util::future::RemoteHandle;
 use lazy_static::lazy_static;
-use tokio::executor::{ DefaultExecutor, Executor };
 
 use riven::{ RiotApi, RiotApiConfig };
 
@@ -16,15 +12,6 @@ lazy_static! {
         RiotApi::with_config(RiotApiConfig::with_key(api_key.trim())
             .preconfig_burst())
     };
-}
-
-pub fn future_start<Fut>(future: Fut) -> RemoteHandle<<Fut as Future>::Output>
-where
-    Fut: Future + Send + 'static,
-    <Fut as Future>::Output: Send,
-{
-    Executor::spawn_with_handle(&mut DefaultExecutor::current(), future)
-        .expect("Failed to spawn.")
 }
 
 pub mod ids {

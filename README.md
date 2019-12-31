@@ -27,8 +27,8 @@ Data structs and endpoints are automatically generated from the
 use riven::RiotApi;
 use riven::consts::Region;
 
-// Riven Enter tokio async runtime.
-let rt = tokio::runtime::Runtime::new().unwrap();
+// Enter tokio async runtime.
+let mut rt = tokio::runtime::Runtime::new().unwrap();
 rt.block_on(async {
     // Create RiotApi instance from key string.
     let api_key = "RGAPI-01234567-89ab-cdef-0123-456789abcdef";
