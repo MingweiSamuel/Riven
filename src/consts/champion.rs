@@ -226,6 +226,8 @@ pub enum Champion {
     #[strum(to_string="Sejuani", serialize="Sejuani")] Sejuani = 113,
     /// Senna (`Senna`, 235).
     #[strum(to_string="Senna", serialize="Senna")] Senna = 235,
+    /// Sett (`Sett`, 875).
+    #[strum(to_string="Sett", serialize="Sett")] Sett = 875,
     /// Shaco (`Shaco`, 35).
     #[strum(to_string="Shaco", serialize="Shaco")] Shaco = 35,
     /// Shen (`Shen`, 98).
@@ -448,6 +450,7 @@ impl Champion {
             Self::Ryze         => "Ryze",
             Self::Sejuani      => "Sejuani",
             Self::Senna        => "Senna",
+            Self::Sett         => "Sett",
             Self::Shaco        => "Shaco",
             Self::Shen         => "Shen",
             Self::Shyvana      => "Shyvana",

@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 8de91254196abf157d29b578bfe2d3d49b29ba8a
+// Version 66d2fb48666dc3be590d1860a2a57a53ffd70d0c
 
 //! Automatically generated data transfer structs.
 
@@ -148,12 +148,12 @@ pub mod league_v4 {
         pub hot_streak: bool,
         #[serde(rename = "miniSeries")]
         pub mini_series: Option<MiniSeries>,
-        /// Winning team on Summoners Rift. First placement in Teamfight Tactics.
+        /// Winning team on Summoners Rift.
         #[serde(rename = "wins")]
         pub wins: i32,
         #[serde(rename = "veteran")]
         pub veteran: bool,
-        /// Losing team on Summoners Rift. Second through eighth placement in Teamfight Tactics.
+        /// Losing team on Summoners Rift.
         #[serde(rename = "losses")]
         pub losses: i32,
         #[serde(rename = "freshBlood")]
@@ -162,7 +162,7 @@ pub mod league_v4 {
         pub inactive: bool,
         #[serde(rename = "rank")]
         pub rank: crate::consts::Division,
-        /// Player's summonerId (Encrypted)
+        /// Player's encrypted summonerId.
         #[serde(rename = "summonerId")]
         pub summoner_id: String,
         #[serde(rename = "leaguePoints")]
@@ -193,12 +193,12 @@ pub mod league_v4 {
         pub hot_streak: bool,
         #[serde(rename = "miniSeries")]
         pub mini_series: Option<MiniSeries>,
-        /// Winning team on Summoners Rift. First placement in Teamfight Tactics.
+        /// Winning team on Summoners Rift.
         #[serde(rename = "wins")]
         pub wins: i32,
         #[serde(rename = "veteran")]
         pub veteran: bool,
-        /// Losing team on Summoners Rift. Second through eighth placement in Teamfight Tactics.
+        /// Losing team on Summoners Rift.
         #[serde(rename = "losses")]
         pub losses: i32,
         #[serde(rename = "rank")]
@@ -211,7 +211,7 @@ pub mod league_v4 {
         pub fresh_blood: bool,
         #[serde(rename = "tier")]
         pub tier: crate::consts::Tier,
-        /// Player's summonerId (Encrypted)
+        /// Player's encrypted summonerId.
         #[serde(rename = "summonerId")]
         pub summoner_id: String,
         #[serde(rename = "leaguePoints")]
@@ -294,6 +294,28 @@ pub mod lol_status_v3 {
         pub content: String,
         #[serde(rename = "heading")]
         pub heading: String,
+    }
+}
+
+/// LorRankedV1 data objects. This module is automatically generated.
+#[allow(dead_code)]
+pub mod lor_ranked_v1 {
+    /// Leaderboard data object. This struct is automatically generated.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Leaderboard {
+        /// A list of players in Master tier.
+        #[serde(rename = "players")]
+        pub players: std::vec::Vec<Player>,
+    }
+    /// Player data object. This struct is automatically generated.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Player {
+        #[serde(rename = "name")]
+        pub name: String,
+        #[serde(rename = "rank")]
+        pub rank: i32,
     }
 }
 
