@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 66d2fb48666dc3be590d1860a2a57a53ffd70d0c
+// Version e22fa894666bc6e13ce9daac7c0c9272c1ff3aaa
 
 //! Automatically generated data transfer structs.
 
@@ -504,7 +504,7 @@ pub mod match_v4 {
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct ParticipantStats {
         #[serde(rename = "firstBloodAssist")]
-        pub first_blood_assist: bool,
+        pub first_blood_assist: Option<bool>,
         #[serde(rename = "visionScore")]
         pub vision_score: Option<i64>,
         #[serde(rename = "magicDamageDealtToChampions")]
@@ -699,7 +699,7 @@ pub mod match_v4 {
         #[serde(rename = "turretKills")]
         pub turret_kills: Option<i32>,
         #[serde(rename = "firstBloodKill")]
-        pub first_blood_kill: bool,
+        pub first_blood_kill: Option<bool>,
         #[serde(rename = "trueDamageDealtToChampions")]
         pub true_damage_dealt_to_champions: i64,
         #[serde(rename = "goldEarned")]
