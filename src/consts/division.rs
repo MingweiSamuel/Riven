@@ -1,13 +1,16 @@
 use std::cmp::Ordering;
 
+use strum::IntoEnumIterator;
 use strum_macros::{ EnumString, Display, AsRefStr, IntoStaticStr };
 use num_enum::{ IntoPrimitive, TryFromPrimitive };
 
 /// LoL and TFT rank divisions, I, II, III, IV, and (deprecated) V.
 ///
-/// Sorts in reverse numeric order, from low to high rank.
+/// Ordered such that "higher" divisions are greater than "lower" ones: `Division::I > Division::IV`.
 ///
 /// Repr'd as equivalent numeric values, (1, 2, 3, 4, 5).
+///
+/// Implements [IntoEnumIterator](super::IntoEnumIterator). Iterator excludes deprecated `Division::V`.
 #[derive(Debug, Copy, Clone)]
 #[derive(Eq, PartialEq, Hash)]
 #[derive(EnumString, Display, AsRefStr, IntoStaticStr)]
@@ -23,6 +26,16 @@ pub enum Division {
 }
 
 serde_string!(Division);
+
+/// Returns a DoubleEndedIterator of I, II, III, IV.
+/// Ordered from high rank (I) to low (IV).
+/// Excludes V, which is deprecated.
+impl IntoEnumIterator for Division {
+    type Iterator = std::slice::Iter<'static, Self>;
+    fn iter() -> Self::Iterator {
+        [ Self::I, Self::II, Self::III, Self::IV ].iter()
+    }
+}
 
 impl Ord for Division {
     fn cmp(&self, other: &Self) -> Ordering {

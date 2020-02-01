@@ -33,9 +33,11 @@ impl RiotApi {
         const method = dotUtils.changeCase.snakeCase(endpointName);
         const type = dotUtils.changeCase.pascalCase(endpointName);
 }}
-    /// Handle for {{= type }} endpoints. This method is automatically generated.
+    /// Returns a handle for accessing [{{= type }}](crate::endpoints::{{= type }}) endpoints.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/apis#{{= endpointName }}" target="_blank">`{{= endpointName }}`</a>
     ///
-    /// <a href="https://developer.riotgames.com/api-methods/#{{= endpointName }}">Official API Reference</a>
+    /// Note: this method is automatically generated.
     #[inline]
     pub fn {{= method }}(&self) -> {{= type }} {
         {{= type }} { base: self }
@@ -47,11 +49,14 @@ impl RiotApi {
 {{
     for (let [ endpointName, endpointMethods ] of Object.entries(endpointGroups)) {
         let endpoint = dotUtils.changeCase.pascalCase(endpointName);
+        const endpoint_snake_case = dotUtils.changeCase.snakeCase(endpointName);
 }}
 
-/// {{= endpoint }} endpoints. This struct is automatically generated.
+/// {{= endpoint }} endpoints handle, accessed by calling [`{{= endpoint_snake_case }}()`](crate::RiotApi::{{= endpoint_snake_case }}) on a [`RiotApi`](crate::RiotApi) instance.
+/// # Riot Developer API Reference
+/// <a href="https://developer.riotgames.com/apis#{{= endpointName }}" target="_blank">`{{= endpointName }}`</a>
 ///
-/// <a href="https://developer.riotgames.com/api-methods/#{{= endpointName }}">Official API Reference</a>
+/// Note: this struct is automatically generated.
 pub struct {{= endpoint }}<'a> {
     base: &'a RiotApi,
 }
@@ -118,8 +123,6 @@ impl<'a> {{= endpoint }}<'a> {
 {{
             }
 }}
-    ///
-    /// <a href="{{= get.externalDocs.url }}">{{= get.externalDocs.description }}</a>
     /// # Parameters
     /// * `region` - Region to query.
 {{
@@ -133,6 +136,10 @@ impl<'a> {{= endpoint }}<'a> {
                 }
             }
 }}
+    /// # Riot Developer API Reference
+    /// <a href="{{= get.externalDocs.url }}" target="_blank">`{{= operationId }}`</a>
+    ///
+    /// Note: this method is automatically generated.
     pub fn {{= method }}(&self, region: Region{{= argBuilder.join('') }})
         -> impl Future<Output = Result<{{= returnType }}>> + 'a
     {

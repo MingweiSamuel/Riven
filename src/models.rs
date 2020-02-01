@@ -9,14 +9,23 @@
 // http://www.mingweisamuel.com/riotapi-schema/tool/
 // Version e22fa894666bc6e13ce9daac7c0c9272c1ff3aaa
 
-//! Automatically generated data transfer structs.
+//! Data transfer structs.
+//!
+//! Separated into separate modules for each endpoint.
+//! Several modules contain structs with the same name, so be sure to use the right ones.
+//!
+//! Note: these modules are automatically generated.
 
-/// ChampionMasteryV4 data objects. This module is automatically generated.
+/// Data structs used by [`ChampionMasteryV4`](crate::endpoints::ChampionMasteryV4).
+/// 
+/// Note: this module is automatically generated.
 #[allow(dead_code)]
 pub mod champion_mastery_v4 {
-    /// ChampionMastery data object. This struct is automatically generated.
+    /// ChampionMastery data object.
     /// # Description
     /// This object contains single Champion Mastery information for player and champion combination.
+    ///
+    /// Note: This struct is automatically generated
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct ChampionMastery {
@@ -50,10 +59,12 @@ pub mod champion_mastery_v4 {
     }
 }
 
-/// ChampionV3 data objects. This module is automatically generated.
+/// Data structs used by [`ChampionV3`](crate::endpoints::ChampionV3).
+/// 
+/// Note: this module is automatically generated.
 #[allow(dead_code)]
 pub mod champion_v3 {
-    /// ChampionInfo data object. This struct is automatically generated.
+    /// ChampionInfo data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct ChampionInfo {
@@ -66,10 +77,12 @@ pub mod champion_v3 {
     }
 }
 
-/// LeagueExpV4 data objects. This module is automatically generated.
+/// Data structs used by [`LeagueExpV4`](crate::endpoints::LeagueExpV4).
+/// 
+/// Note: this module is automatically generated.
 #[allow(dead_code)]
 pub mod league_exp_v4 {
-    /// LeagueEntry data object. This struct is automatically generated.
+    /// LeagueEntry data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct LeagueEntry {
@@ -105,7 +118,7 @@ pub mod league_exp_v4 {
         #[serde(rename = "leaguePoints")]
         pub league_points: i32,
     }
-    /// MiniSeries data object. This struct is automatically generated.
+    /// MiniSeries data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MiniSeries {
@@ -120,10 +133,12 @@ pub mod league_exp_v4 {
     }
 }
 
-/// LeagueV4 data objects. This module is automatically generated.
+/// Data structs used by [`LeagueV4`](crate::endpoints::LeagueV4).
+/// 
+/// Note: this module is automatically generated.
 #[allow(dead_code)]
 pub mod league_v4 {
-    /// LeagueList data object. This struct is automatically generated.
+    /// LeagueList data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct LeagueList {
@@ -138,7 +153,7 @@ pub mod league_v4 {
         #[serde(rename = "name")]
         pub name: String,
     }
-    /// LeagueItem data object. This struct is automatically generated.
+    /// LeagueItem data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct LeagueItem {
@@ -168,7 +183,7 @@ pub mod league_v4 {
         #[serde(rename = "leaguePoints")]
         pub league_points: i32,
     }
-    /// MiniSeries data object. This struct is automatically generated.
+    /// MiniSeries data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MiniSeries {
@@ -181,7 +196,7 @@ pub mod league_v4 {
         #[serde(rename = "wins")]
         pub wins: i32,
     }
-    /// LeagueEntry data object. This struct is automatically generated.
+    /// LeagueEntry data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct LeagueEntry {
@@ -219,10 +234,12 @@ pub mod league_v4 {
     }
 }
 
-/// LolStatusV3 data objects. This module is automatically generated.
+/// Data structs used by [`LolStatusV3`](crate::endpoints::LolStatusV3).
+/// 
+/// Note: this module is automatically generated.
 #[allow(dead_code)]
 pub mod lol_status_v3 {
-    /// ShardStatus data object. This struct is automatically generated.
+    /// ShardStatus data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct ShardStatus {
@@ -239,7 +256,7 @@ pub mod lol_status_v3 {
         #[serde(rename = "locales")]
         pub locales: std::vec::Vec<String>,
     }
-    /// Service data object. This struct is automatically generated.
+    /// Service data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Service {
@@ -252,7 +269,7 @@ pub mod lol_status_v3 {
         #[serde(rename = "slug")]
         pub slug: String,
     }
-    /// Incident data object. This struct is automatically generated.
+    /// Incident data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Incident {
@@ -265,7 +282,7 @@ pub mod lol_status_v3 {
         #[serde(rename = "updates")]
         pub updates: std::vec::Vec<Message>,
     }
-    /// Message data object. This struct is automatically generated.
+    /// Message data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Message {
@@ -284,7 +301,7 @@ pub mod lol_status_v3 {
         #[serde(rename = "id")]
         pub id: String,
     }
-    /// Translation data object. This struct is automatically generated.
+    /// Translation data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Translation {
@@ -297,10 +314,12 @@ pub mod lol_status_v3 {
     }
 }
 
-/// LorRankedV1 data objects. This module is automatically generated.
+/// Data structs used by [`LorRankedV1`](crate::endpoints::LorRankedV1).
+/// 
+/// Note: this module is automatically generated.
 #[allow(dead_code)]
 pub mod lor_ranked_v1 {
-    /// Leaderboard data object. This struct is automatically generated.
+    /// Leaderboard data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Leaderboard {
@@ -308,7 +327,7 @@ pub mod lor_ranked_v1 {
         #[serde(rename = "players")]
         pub players: std::vec::Vec<Player>,
     }
-    /// Player data object. This struct is automatically generated.
+    /// Player data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Player {
@@ -319,10 +338,12 @@ pub mod lor_ranked_v1 {
     }
 }
 
-/// MatchV4 data objects. This module is automatically generated.
+/// Data structs used by [`MatchV4`](crate::endpoints::MatchV4).
+/// 
+/// Note: this module is automatically generated.
 #[allow(dead_code)]
 pub mod match_v4 {
-    /// Match data object. This struct is automatically generated.
+    /// Match data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Match {
@@ -365,7 +386,7 @@ pub mod match_v4 {
         #[serde(rename = "gameCreation")]
         pub game_creation: i64,
     }
-    /// ParticipantIdentity data object. This struct is automatically generated.
+    /// ParticipantIdentity data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct ParticipantIdentity {
@@ -375,7 +396,7 @@ pub mod match_v4 {
         #[serde(rename = "participantId")]
         pub participant_id: i32,
     }
-    /// Player data object. This struct is automatically generated.
+    /// Player data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Player {
@@ -400,7 +421,7 @@ pub mod match_v4 {
         #[serde(rename = "accountId")]
         pub account_id: String,
     }
-    /// TeamStats data object. This struct is automatically generated.
+    /// TeamStats data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct TeamStats {
@@ -454,7 +475,7 @@ pub mod match_v4 {
         #[serde(rename = "dragonKills")]
         pub dragon_kills: i32,
     }
-    /// TeamBans data object. This struct is automatically generated.
+    /// TeamBans data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct TeamBans {
@@ -465,7 +486,7 @@ pub mod match_v4 {
         #[serde(rename = "championId")]
         pub champion_id: crate::consts::Champion,
     }
-    /// Participant data object. This struct is automatically generated.
+    /// Participant data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Participant {
@@ -499,7 +520,7 @@ pub mod match_v4 {
         #[serde(rename = "championId")]
         pub champion_id: crate::consts::Champion,
     }
-    /// ParticipantStats data object. This struct is automatically generated.
+    /// ParticipantStats data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct ParticipantStats {
@@ -746,7 +767,7 @@ pub mod match_v4 {
         #[serde(rename = "timeCCingOthers")]
         pub time_c_cing_others: i64,
     }
-    /// Rune data object. This struct is automatically generated.
+    /// Rune data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Rune {
@@ -755,7 +776,7 @@ pub mod match_v4 {
         #[serde(rename = "rank")]
         pub rank: i32,
     }
-    /// ParticipantTimeline data object. This struct is automatically generated.
+    /// ParticipantTimeline data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct ParticipantTimeline {
@@ -791,7 +812,7 @@ pub mod match_v4 {
         #[serde(rename = "damageTakenPerMinDeltas")]
         pub damage_taken_per_min_deltas: Option<std::collections::HashMap<String, f64>>,
     }
-    /// Mastery data object. This struct is automatically generated.
+    /// Mastery data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Mastery {
@@ -800,7 +821,7 @@ pub mod match_v4 {
         #[serde(rename = "rank")]
         pub rank: i32,
     }
-    /// Matchlist data object. This struct is automatically generated.
+    /// Matchlist data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Matchlist {
@@ -813,7 +834,7 @@ pub mod match_v4 {
         #[serde(rename = "endIndex")]
         pub end_index: i32,
     }
-    /// MatchReference data object. This struct is automatically generated.
+    /// MatchReference data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MatchReference {
@@ -834,7 +855,7 @@ pub mod match_v4 {
         #[serde(rename = "timestamp")]
         pub timestamp: i64,
     }
-    /// MatchTimeline data object. This struct is automatically generated.
+    /// MatchTimeline data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MatchTimeline {
@@ -843,7 +864,7 @@ pub mod match_v4 {
         #[serde(rename = "frameInterval")]
         pub frame_interval: i64,
     }
-    /// MatchFrame data object. This struct is automatically generated.
+    /// MatchFrame data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MatchFrame {
@@ -854,7 +875,7 @@ pub mod match_v4 {
         #[serde(rename = "events")]
         pub events: std::vec::Vec<MatchEvent>,
     }
-    /// MatchParticipantFrame data object. This struct is automatically generated.
+    /// MatchParticipantFrame data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MatchParticipantFrame {
@@ -879,7 +900,7 @@ pub mod match_v4 {
         #[serde(rename = "jungleMinionsKilled")]
         pub jungle_minions_killed: i32,
     }
-    /// MatchPosition data object. This struct is automatically generated.
+    /// MatchPosition data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MatchPosition {
@@ -888,7 +909,7 @@ pub mod match_v4 {
         #[serde(rename = "x")]
         pub x: i32,
     }
-    /// MatchEvent data object. This struct is automatically generated.
+    /// MatchEvent data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MatchEvent {
@@ -942,10 +963,12 @@ pub mod match_v4 {
     }
 }
 
-/// SpectatorV4 data objects. This module is automatically generated.
+/// Data structs used by [`SpectatorV4`](crate::endpoints::SpectatorV4).
+/// 
+/// Note: this module is automatically generated.
 #[allow(dead_code)]
 pub mod spectator_v4 {
-    /// CurrentGameInfo data object. This struct is automatically generated.
+    /// CurrentGameInfo data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct CurrentGameInfo {
@@ -983,7 +1006,7 @@ pub mod spectator_v4 {
         #[serde(rename = "gameQueueConfigId")]
         pub game_queue_config_id: Option<crate::consts::Queue>,
     }
-    /// BannedChampion data object. This struct is automatically generated.
+    /// BannedChampion data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct BannedChampion {
@@ -997,7 +1020,7 @@ pub mod spectator_v4 {
         #[serde(rename = "teamId")]
         pub team_id: crate::consts::Team,
     }
-    /// Observer data object. This struct is automatically generated.
+    /// Observer data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Observer {
@@ -1005,7 +1028,7 @@ pub mod spectator_v4 {
         #[serde(rename = "encryptionKey")]
         pub encryption_key: String,
     }
-    /// CurrentGameParticipant data object. This struct is automatically generated.
+    /// CurrentGameParticipant data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct CurrentGameParticipant {
@@ -1040,7 +1063,7 @@ pub mod spectator_v4 {
         #[serde(rename = "summonerId")]
         pub summoner_id: String,
     }
-    /// GameCustomizationObject data object. This struct is automatically generated.
+    /// GameCustomizationObject data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct GameCustomizationObject {
@@ -1051,7 +1074,7 @@ pub mod spectator_v4 {
         #[serde(rename = "content")]
         pub content: String,
     }
-    /// Perks data object. This struct is automatically generated.
+    /// Perks data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Perks {
@@ -1065,7 +1088,7 @@ pub mod spectator_v4 {
         #[serde(rename = "perkSubStyle")]
         pub perk_sub_style: i64,
     }
-    /// FeaturedGames data object. This struct is automatically generated.
+    /// FeaturedGames data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct FeaturedGames {
@@ -1076,7 +1099,7 @@ pub mod spectator_v4 {
         #[serde(rename = "gameList")]
         pub game_list: std::vec::Vec<FeaturedGameInfo>,
     }
-    /// FeaturedGameInfo data object. This struct is automatically generated.
+    /// FeaturedGameInfo data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct FeaturedGameInfo {
@@ -1116,7 +1139,7 @@ pub mod spectator_v4 {
         #[serde(rename = "gameQueueConfigId")]
         pub game_queue_config_id: crate::consts::Queue,
     }
-    /// Participant data object. This struct is automatically generated.
+    /// Participant data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Participant {
@@ -1144,12 +1167,16 @@ pub mod spectator_v4 {
     }
 }
 
-/// SummonerV4 data objects. This module is automatically generated.
+/// Data structs used by [`SummonerV4`](crate::endpoints::SummonerV4).
+/// 
+/// Note: this module is automatically generated.
 #[allow(dead_code)]
 pub mod summoner_v4 {
-    /// Summoner data object. This struct is automatically generated.
+    /// Summoner data object.
     /// # Description
     /// represents a summoner
+    ///
+    /// Note: This struct is automatically generated
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Summoner {
@@ -1177,10 +1204,12 @@ pub mod summoner_v4 {
     }
 }
 
-/// TftLeagueV1 data objects. This module is automatically generated.
+/// Data structs used by [`TftLeagueV1`](crate::endpoints::TftLeagueV1).
+/// 
+/// Note: this module is automatically generated.
 #[allow(dead_code)]
 pub mod tft_league_v1 {
-    /// LeagueList data object. This struct is automatically generated.
+    /// LeagueList data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct LeagueList {
@@ -1195,7 +1224,7 @@ pub mod tft_league_v1 {
         #[serde(rename = "name")]
         pub name: String,
     }
-    /// LeagueItem data object. This struct is automatically generated.
+    /// LeagueItem data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct LeagueItem {
@@ -1225,7 +1254,7 @@ pub mod tft_league_v1 {
         #[serde(rename = "leaguePoints")]
         pub league_points: i32,
     }
-    /// MiniSeries data object. This struct is automatically generated.
+    /// MiniSeries data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MiniSeries {
@@ -1238,7 +1267,7 @@ pub mod tft_league_v1 {
         #[serde(rename = "wins")]
         pub wins: i32,
     }
-    /// LeagueEntry data object. This struct is automatically generated.
+    /// LeagueEntry data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct LeagueEntry {
@@ -1276,10 +1305,12 @@ pub mod tft_league_v1 {
     }
 }
 
-/// TftMatchV1 data objects. This module is automatically generated.
+/// Data structs used by [`TftMatchV1`](crate::endpoints::TftMatchV1).
+/// 
+/// Note: this module is automatically generated.
 #[allow(dead_code)]
 pub mod tft_match_v1 {
-    /// Match data object. This struct is automatically generated.
+    /// Match data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Match {
@@ -1290,7 +1321,7 @@ pub mod tft_match_v1 {
         #[serde(rename = "metadata")]
         pub metadata: Metadata,
     }
-    /// Info data object. This struct is automatically generated.
+    /// Info data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Info {
@@ -1313,7 +1344,7 @@ pub mod tft_match_v1 {
         #[serde(rename = "game_version")]
         pub game_version: String,
     }
-    /// Participant data object. This struct is automatically generated.
+    /// Participant data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Participant {
@@ -1351,7 +1382,7 @@ pub mod tft_match_v1 {
         #[serde(rename = "gold_left")]
         pub gold_left: i32,
     }
-    /// Trait data object. This struct is automatically generated.
+    /// Trait data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Trait {
@@ -1368,7 +1399,7 @@ pub mod tft_match_v1 {
         #[serde(rename = "num_units")]
         pub num_units: i32,
     }
-    /// Unit data object. This struct is automatically generated.
+    /// Unit data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Unit {
@@ -1388,7 +1419,7 @@ pub mod tft_match_v1 {
         #[serde(rename = "rarity")]
         pub rarity: i32,
     }
-    /// Metadata data object. This struct is automatically generated.
+    /// Metadata data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Metadata {
@@ -1402,7 +1433,7 @@ pub mod tft_match_v1 {
         #[serde(rename = "match_id")]
         pub match_id: String,
     }
-    /// Companion data object. This struct is automatically generated.
+    /// Companion data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Companion {
@@ -1415,12 +1446,16 @@ pub mod tft_match_v1 {
     }
 }
 
-/// TftSummonerV1 data objects. This module is automatically generated.
+/// Data structs used by [`TftSummonerV1`](crate::endpoints::TftSummonerV1).
+/// 
+/// Note: this module is automatically generated.
 #[allow(dead_code)]
 pub mod tft_summoner_v1 {
-    /// Summoner data object. This struct is automatically generated.
+    /// Summoner data object.
     /// # Description
     /// represents a summoner
+    ///
+    /// Note: This struct is automatically generated
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Summoner {
@@ -1448,10 +1483,12 @@ pub mod tft_summoner_v1 {
     }
 }
 
-/// TournamentStubV4 data objects. This module is automatically generated.
+/// Data structs used by [`TournamentStubV4`](crate::endpoints::TournamentStubV4).
+/// 
+/// Note: this module is automatically generated.
 #[allow(dead_code)]
 pub mod tournament_stub_v4 {
-    /// TournamentCodeParameters data object. This struct is automatically generated.
+    /// TournamentCodeParameters data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct TournamentCodeParameters {
@@ -1477,14 +1514,14 @@ pub mod tournament_stub_v4 {
         #[serde(rename = "metadata")]
         pub metadata: Option<String>,
     }
-    /// LobbyEventWrapper data object. This struct is automatically generated.
+    /// LobbyEventWrapper data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct LobbyEventWrapper {
         #[serde(rename = "eventList")]
         pub event_list: std::vec::Vec<LobbyEvent>,
     }
-    /// LobbyEvent data object. This struct is automatically generated.
+    /// LobbyEvent data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct LobbyEvent {
@@ -1498,7 +1535,7 @@ pub mod tournament_stub_v4 {
         #[serde(rename = "timestamp")]
         pub timestamp: String,
     }
-    /// ProviderRegistrationParameters data object. This struct is automatically generated.
+    /// ProviderRegistrationParameters data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct ProviderRegistrationParameters {
@@ -1510,7 +1547,7 @@ pub mod tournament_stub_v4 {
         #[serde(rename = "region")]
         pub region: String,
     }
-    /// TournamentRegistrationParameters data object. This struct is automatically generated.
+    /// TournamentRegistrationParameters data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct TournamentRegistrationParameters {
@@ -1523,10 +1560,12 @@ pub mod tournament_stub_v4 {
     }
 }
 
-/// TournamentV4 data objects. This module is automatically generated.
+/// Data structs used by [`TournamentV4`](crate::endpoints::TournamentV4).
+/// 
+/// Note: this module is automatically generated.
 #[allow(dead_code)]
 pub mod tournament_v4 {
-    /// TournamentCodeParameters data object. This struct is automatically generated.
+    /// TournamentCodeParameters data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct TournamentCodeParameters {
@@ -1552,7 +1591,7 @@ pub mod tournament_v4 {
         #[serde(rename = "metadata")]
         pub metadata: Option<String>,
     }
-    /// TournamentCode data object. This struct is automatically generated.
+    /// TournamentCode data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct TournamentCode {
@@ -1597,7 +1636,7 @@ pub mod tournament_v4 {
         #[serde(rename = "metaData")]
         pub meta_data: String,
     }
-    /// TournamentCodeUpdateParameters data object. This struct is automatically generated.
+    /// TournamentCodeUpdateParameters data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct TournamentCodeUpdateParameters {
@@ -1617,14 +1656,14 @@ pub mod tournament_v4 {
         #[serde(rename = "mapType")]
         pub map_type: String,
     }
-    /// LobbyEventWrapper data object. This struct is automatically generated.
+    /// LobbyEventWrapper data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct LobbyEventWrapper {
         #[serde(rename = "eventList")]
         pub event_list: std::vec::Vec<LobbyEvent>,
     }
-    /// LobbyEvent data object. This struct is automatically generated.
+    /// LobbyEvent data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct LobbyEvent {
@@ -1638,7 +1677,7 @@ pub mod tournament_v4 {
         #[serde(rename = "eventType")]
         pub event_type: String,
     }
-    /// ProviderRegistrationParameters data object. This struct is automatically generated.
+    /// ProviderRegistrationParameters data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct ProviderRegistrationParameters {
@@ -1650,7 +1689,7 @@ pub mod tournament_v4 {
         #[serde(rename = "region")]
         pub region: String,
     }
-    /// TournamentRegistrationParameters data object. This struct is automatically generated.
+    /// TournamentRegistrationParameters data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct TournamentRegistrationParameters {

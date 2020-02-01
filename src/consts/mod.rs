@@ -1,4 +1,4 @@
-//! Constant data and Enums relevant to the Riot Games API.
+//! Constant data and Enums used with the Riot Games API.
 //!
 //! This module uses SCREAMING_SNAKE_CASE for enum variants, as enums in this
 //! crate should be considered collections of constants.
@@ -29,11 +29,19 @@ pub use queue_type::*;
 mod queue;
 pub use queue::*;
 
+pub mod ranks;
+
 mod region;
 pub use region::*;
 
 mod season;
 pub use season::*;
+
+/// Trait allowing iteration of enum types, implemented by several enums in this module.
+/// Re-exported from strum.
+///
+///
+pub use strum::IntoEnumIterator;
 
 mod team;
 pub use team::*;

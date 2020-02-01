@@ -16,17 +16,19 @@
 
 use num_enum::{ IntoPrimitive, TryFromPrimitive };
 use serde_repr::{ Serialize_repr, Deserialize_repr };
-use strum_macros::{ EnumString, Display, AsRefStr, IntoStaticStr };
+use strum_macros::{ EnumString, EnumIter, Display, AsRefStr, IntoStaticStr };
 
 /// League of Legend's champions.
 ///
 /// The documentation of each variant specifies:<br>
 /// NAME (`IDENTIFIER`, ID).
+///
+/// Implements [IntoEnumIterator](super::IntoEnumIterator).
 #[cfg_attr(feature = "nightly", non_exhaustive)]
 #[derive(Debug, Copy, Clone)]
 #[derive(IntoPrimitive, TryFromPrimitive)]
 #[derive(Serialize_repr, Deserialize_repr)]
-#[derive(EnumString, Display, AsRefStr, IntoStaticStr)]
+#[derive(EnumString, EnumIter, Display, AsRefStr, IntoStaticStr)]
 #[repr(i16)]
 pub enum Champion {
     /// A champion that doesn't exist. Used in TeamBans when no champion was banned.

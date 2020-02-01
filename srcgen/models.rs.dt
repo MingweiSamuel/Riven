@@ -6,7 +6,12 @@
 // http://www.mingweisamuel.com/riotapi-schema/tool/
 // Version {{= spec.info.version }}
 
-//! Automatically generated data transfer structs.
+//! Data transfer structs.
+//!
+//! Separated into separate modules for each endpoint.
+//! Several modules contain structs with the same name, so be sure to use the right ones.
+//!
+//! Note: these modules are automatically generated.
 
 {{
     let schemas = spec.components.schemas;
@@ -15,8 +20,11 @@
         .groupBy(schemaKey => schemaKey.split('.')[0]);
 
     for (let [endpoint, schemaKeyGroup] of schemaKeyByEndpoint) {
+        const endpoint_pascal_case = dotUtils.changeCase.pascalCase(endpoint);
 }}
-/// {{= dotUtils.changeCase.pascalCase(endpoint) }} data objects. This module is automatically generated.
+/// Data structs used by [`{{= endpoint_pascal_case }}`](crate::endpoints::{{= endpoint_pascal_case }}).
+/// 
+/// Note: this module is automatically generated.
 #[allow(dead_code)]
 pub mod {{= dotUtils.changeCase.snakeCase(endpoint) }} {
 {{
@@ -27,10 +35,12 @@ pub mod {{= dotUtils.changeCase.snakeCase(endpoint) }} {
             const props = schema.properties;
             const requiredSet = new Set(schema.required);
 }}
-    /// {{= schemaName }} data object. This struct is automatically generated.
+    /// {{= schemaName }} data object.
 {{? schema.description }}
     /// # Description
     /// {{= schema.description }}
+    ///
+    /// Note: This struct is automatically generated
 {{?}}
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
