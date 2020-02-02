@@ -25,13 +25,13 @@ nightly = [ "parking_lot/nightly" ]
 [dependencies]
 log = "0.4"
 num_enum = "0.4"
-parking_lot = "0.9"
+parking_lot = "0.10"
 reqwest = { version = "0.10", features = [ "gzip", "json" ] }
 scan_fmt = { version = "0.2", default-features = false }
 serde = { version = "1.0", features = [ "derive" ] }
 serde_repr = "0.1"
-strum = "0.16"
-strum_macros = "0.16"
+strum = "0.17"
+strum_macros = "0.17"
 tokio = { version = "0.2", default-features = false, features = [ "time" ] }
 url = "2.1"
 
