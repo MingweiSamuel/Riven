@@ -84,25 +84,43 @@ Also required for running async integration tests.
 
 ### Error Handling
 
-Riven returns `Result<Option<T>>` within futures. If the `Result` is errored,
-this indicates that the API request failed to complete successfully, which may be
-due to bad user input, Riot server errors, incorrect API key, etc. If the `Option`
-is `None`, this indicates that the request completed successfully but no data was
-returned. This happens if a summoner (by name) or match (by id) doesn't exist.
+Riven returns either `Result<T>` or `Result<Option<T>>` within futures.
+
+If the `Result` is errored, this indicates that the API request failed to
+complete successfully, which may be due to bad user input, Riot server errors,
+incorrect API key, etc.
+
+If the `Option` is `None`, this indicates that the request completed
+successfully but no data was returned. This happens in several situations, such
+as getting a summoner (by name) or match (by id) that doesn't exist, or getting
+spectator data for a summoner who is not in-game.
+Specifically, the API returned a 404 HTTP status code in this situation.
+
+The error type used by Riven is `riven::RiotApiError`. It provides some basic
+diagnostic information, such as the source Reqwest error, the number of retries
+attempted, and the Reqwest `Response` object.
+
+You can configure the number of time Riven retries using
+`RiotApiConfig::set_retries(...)` and the `RiotApi::with_config(config)`
+constructor. By default, Riven retries up to 3 times (4 requests total).
+Some errors, such as 400 client errors, are not retried as they would
+inevitably fail again.
 
 ### Semantic Versioning
 
 This package follows semantic versioning to an extent. However, the Riot API
-itself changes often and does not follow semantic versioning, which makes things
-difficult. Out-of-date versions will slowly partially cease to work due to this.
+itself changes often and does not follow semantic versioning, which makes
+things difficult. Out-of-date versions will slowly partially cease to work due
+to this.
 
-When the API changes, this may result in breaking changes in the `models` module,
-`endpoints` module, and some of the `consts` module.
-"Handle accessors" may be removed from `RiotApi` if the corresponding endpoint is
-removed from the Riot API.
-These changes will increment the **MINOR** version.
+When the API changes, this may result in breaking changes in the `models`
+module, `endpoints` module, and some of the `consts` module. "Handle accessor"
+methods may be removed from `RiotApi` if the corresponding endpoint is removed
+from the Riot API. These breaking changes will increment the **MINOR** version,
+not the major version.
 
-Parts of Riven that do not depend on Riot API changes do follow semantic versioning.
+Parts of Riven that do not depend on Riot API changes do follow semantic
+versioning.
 
 ### Additional Info
 
