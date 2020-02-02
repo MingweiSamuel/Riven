@@ -90,6 +90,20 @@ due to bad user input, Riot server errors, incorrect API key, etc. If the `Optio
 is `None`, this indicates that the request completed successfully but no data was
 returned. This happens if a summoner (by name) or match (by id) doesn't exist.
 
+### Semantic Versioning
+
+This package follows semantic versioning to an extent. However, the Riot API
+itself changes often and does not follow semantic versioning, which makes things
+difficult. Out-of-date versions will slowly partially cease to work due to this.
+
+When the API changes, this may result in breaking changes in the `models` module,
+`endpoints` module, and some of the `consts` module.
+"Handle accessors" may be removed from `RiotApi` if the corresponding endpoint is
+removed from the Riot API.
+These changes will increment the **MINOR** version.
+
+Parts of Riven that do not depend on Riot API changes do follow semantic versioning.
+
 ### Additional Info
 
 Feel free to [make an issue](https://github.com/MingweiSamuel/Riven/issues/new)
