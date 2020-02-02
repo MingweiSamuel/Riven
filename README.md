@@ -11,7 +11,7 @@
 
 Rust Library for the [Riot Games API](https://developer.riotgames.com/).
 
-Rivens's goals are _speed_, _reliability_, and _maintainability_. Riven handles rate limits and large requests with ease.
+Riven's goals are _speed_, _reliability_, and _maintainability_. Riven handles rate limits and large requests with ease.
 Data structs and endpoints are automatically generated from the
 [Riot API Reference](https://developer.riotgames.com/api-methods/) ([Swagger](http://www.mingweisamuel.com/riotapi-schema/tool/)).
 
@@ -122,7 +122,21 @@ not the major version.
 Parts of Riven that do not depend on Riot API changes do follow semantic
 versioning.
 
-### Additional Info
+### Additional Help
 
 Feel free to [make an issue](https://github.com/MingweiSamuel/Riven/issues/new)
-if you are have any questions or trouble using Riven.
+if you are have any questions or trouble with Riven.
+
+## Development
+
+NodeJS is used to generate code for Riven. The
+[`srcgen/`](https://github.com/MingweiSamuel/Riven/tree/master/srcgen)
+folder contains the code and [doT.js](https://olado.github.io/doT/index.html)
+templates. `index.js` lists the JSON files downloaded and used to generate the
+code.
+
+To set up the srcgen, you will first need to install NodeJS. Then enter the
+srcgen folder and run `npm ci` (or `npm install`) to install dependencies.
+
+To run the srcgen use `node srcgen` from the main folder.
+
