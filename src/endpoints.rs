@@ -177,6 +177,7 @@ impl<'a> ChampionMasteryV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getAllChampionMasteries" target="_blank">`champion-mastery-v4.getAllChampionMasteries`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_all_champion_masteries(&self, region: Region, encrypted_summoner_id: &str)
         -> impl Future<Output = Result<Vec<champion_mastery_v4::ChampionMastery>>> + 'a
     {
@@ -193,6 +194,7 @@ impl<'a> ChampionMasteryV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMastery" target="_blank">`champion-mastery-v4.getChampionMastery`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_champion_mastery(&self, region: Region, encrypted_summoner_id: &str, champion_id: crate::consts::Champion)
         -> impl Future<Output = Result<Option<champion_mastery_v4::ChampionMastery>>> + 'a
     {
@@ -208,6 +210,7 @@ impl<'a> ChampionMasteryV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMasteryScore" target="_blank">`champion-mastery-v4.getChampionMasteryScore`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_champion_mastery_score(&self, region: Region, encrypted_summoner_id: &str)
         -> impl Future<Output = Result<i32>> + 'a
     {
@@ -233,6 +236,7 @@ impl<'a> ChampionV3<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#champion-v3/GET_getChampionInfo" target="_blank">`champion-v3.getChampionInfo`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_champion_info(&self, region: Region)
         -> impl Future<Output = Result<champion_v3::ChampionInfo>> + 'a
     {
@@ -262,6 +266,7 @@ impl<'a> LeagueExpV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#league-exp-v4/GET_getLeagueEntries" target="_blank">`league-exp-v4.getLeagueEntries`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_league_entries(&self, region: Region, queue: crate::consts::QueueType, tier: crate::consts::Tier, division: crate::consts::Division, page: Option<i32>)
         -> impl Future<Output = Result<Vec<league_exp_v4::LeagueEntry>>> + 'a
     {
@@ -291,6 +296,7 @@ impl<'a> LeagueV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getChallengerLeague" target="_blank">`league-v4.getChallengerLeague`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_challenger_league(&self, region: Region, queue: crate::consts::QueueType)
         -> impl Future<Output = Result<league_v4::LeagueList>> + 'a
     {
@@ -306,6 +312,7 @@ impl<'a> LeagueV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntriesForSummoner" target="_blank">`league-v4.getLeagueEntriesForSummoner`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_league_entries_for_summoner(&self, region: Region, encrypted_summoner_id: &str)
         -> impl Future<Output = Result<Vec<league_v4::LeagueEntry>>> + 'a
     {
@@ -324,6 +331,7 @@ impl<'a> LeagueV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntries" target="_blank">`league-v4.getLeagueEntries`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_league_entries(&self, region: Region, queue: crate::consts::QueueType, tier: crate::consts::Tier, division: crate::consts::Division, page: Option<i32>)
         -> impl Future<Output = Result<Vec<league_v4::LeagueEntry>>> + 'a
     {
@@ -342,6 +350,7 @@ impl<'a> LeagueV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getGrandmasterLeague" target="_blank">`league-v4.getGrandmasterLeague`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_grandmaster_league(&self, region: Region, queue: crate::consts::QueueType)
         -> impl Future<Output = Result<league_v4::LeagueList>> + 'a
     {
@@ -357,6 +366,7 @@ impl<'a> LeagueV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueById" target="_blank">`league-v4.getLeagueById`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_league_by_id(&self, region: Region, league_id: &str)
         -> impl Future<Output = Result<Option<league_v4::LeagueList>>> + 'a
     {
@@ -372,6 +382,7 @@ impl<'a> LeagueV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getMasterLeague" target="_blank">`league-v4.getMasterLeague`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_master_league(&self, region: Region, queue: crate::consts::QueueType)
         -> impl Future<Output = Result<league_v4::LeagueList>> + 'a
     {
@@ -399,6 +410,7 @@ impl<'a> LolStatusV3<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#lol-status-v3/GET_getShardData" target="_blank">`lol-status-v3.getShardData`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_shard_data(&self, region: Region)
         -> impl Future<Output = Result<lol_status_v3::ShardStatus>> + 'a
     {
@@ -424,6 +436,7 @@ impl<'a> LorRankedV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#lor-ranked-v1/GET_getLeaderboards" target="_blank">`lor-ranked-v1.getLeaderboards`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_leaderboards(&self, region: Region)
         -> impl Future<Output = Result<lor_ranked_v1::Leaderboard>> + 'a
     {
@@ -450,6 +463,7 @@ impl<'a> MatchV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchIdsByTournamentCode" target="_blank">`match-v4.getMatchIdsByTournamentCode`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_match_ids_by_tournament_code(&self, region: Region, tournament_code: &str)
         -> impl Future<Output = Result<Vec<i64>>> + 'a
     {
@@ -465,6 +479,7 @@ impl<'a> MatchV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatch" target="_blank">`match-v4.getMatch`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_match(&self, region: Region, match_id: i64)
         -> impl Future<Output = Result<Option<match_v4::Match>>> + 'a
     {
@@ -481,6 +496,7 @@ impl<'a> MatchV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchByTournamentCode" target="_blank">`match-v4.getMatchByTournamentCode`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_match_by_tournament_code(&self, region: Region, match_id: i64, tournament_code: &str)
         -> impl Future<Output = Result<match_v4::Match>> + 'a
     {
@@ -509,6 +525,7 @@ impl<'a> MatchV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchlist" target="_blank">`match-v4.getMatchlist`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_matchlist(&self, region: Region, encrypted_account_id: &str, begin_time: Option<i64>, begin_index: Option<i32>, champion: Option<std::vec::Vec<crate::consts::Champion>>, end_time: Option<i64>, end_index: Option<i32>, queue: Option<std::vec::Vec<crate::consts::Queue>>, season: Option<std::vec::Vec<crate::consts::Season>>)
         -> impl Future<Output = Result<Option<match_v4::Matchlist>>> + 'a
     {
@@ -535,6 +552,7 @@ impl<'a> MatchV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchTimeline" target="_blank">`match-v4.getMatchTimeline`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_match_timeline(&self, region: Region, match_id: i64)
         -> impl Future<Output = Result<Option<match_v4::MatchTimeline>>> + 'a
     {
@@ -561,6 +579,7 @@ impl<'a> SpectatorV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#spectator-v4/GET_getCurrentGameInfoBySummoner" target="_blank">`spectator-v4.getCurrentGameInfoBySummoner`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_current_game_info_by_summoner(&self, region: Region, encrypted_summoner_id: &str)
         -> impl Future<Output = Result<Option<spectator_v4::CurrentGameInfo>>> + 'a
     {
@@ -575,6 +594,7 @@ impl<'a> SpectatorV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#spectator-v4/GET_getFeaturedGames" target="_blank">`spectator-v4.getFeaturedGames`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_featured_games(&self, region: Region)
         -> impl Future<Output = Result<spectator_v4::FeaturedGames>> + 'a
     {
@@ -601,6 +621,7 @@ impl<'a> SummonerV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByAccountId" target="_blank">`summoner-v4.getByAccountId`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_by_account_id(&self, region: Region, encrypted_account_id: &str)
         -> impl Future<Output = Result<summoner_v4::Summoner>> + 'a
     {
@@ -616,6 +637,7 @@ impl<'a> SummonerV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getBySummonerName" target="_blank">`summoner-v4.getBySummonerName`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_by_summoner_name(&self, region: Region, summoner_name: &str)
         -> impl Future<Output = Result<Option<summoner_v4::Summoner>>> + 'a
     {
@@ -631,6 +653,7 @@ impl<'a> SummonerV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByPUUID" target="_blank">`summoner-v4.getByPUUID`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_by_puuid(&self, region: Region, encrypted_puuid: &str)
         -> impl Future<Output = Result<summoner_v4::Summoner>> + 'a
     {
@@ -646,6 +669,7 @@ impl<'a> SummonerV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getBySummonerId" target="_blank">`summoner-v4.getBySummonerId`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_by_summoner_id(&self, region: Region, encrypted_summoner_id: &str)
         -> impl Future<Output = Result<summoner_v4::Summoner>> + 'a
     {
@@ -671,6 +695,7 @@ impl<'a> TftLeagueV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getChallengerLeague" target="_blank">`tft-league-v1.getChallengerLeague`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_challenger_league(&self, region: Region)
         -> impl Future<Output = Result<tft_league_v1::LeagueList>> + 'a
     {
@@ -686,6 +711,7 @@ impl<'a> TftLeagueV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getLeagueEntriesForSummoner" target="_blank">`tft-league-v1.getLeagueEntriesForSummoner`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_league_entries_for_summoner(&self, region: Region, encrypted_summoner_id: &str)
         -> impl Future<Output = Result<Vec<tft_league_v1::LeagueEntry>>> + 'a
     {
@@ -703,6 +729,7 @@ impl<'a> TftLeagueV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getLeagueEntries" target="_blank">`tft-league-v1.getLeagueEntries`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_league_entries(&self, region: Region, tier: &str, division: &str, page: Option<i32>)
         -> impl Future<Output = Result<Vec<tft_league_v1::LeagueEntry>>> + 'a
     {
@@ -720,6 +747,7 @@ impl<'a> TftLeagueV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getGrandmasterLeague" target="_blank">`tft-league-v1.getGrandmasterLeague`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_grandmaster_league(&self, region: Region)
         -> impl Future<Output = Result<tft_league_v1::LeagueList>> + 'a
     {
@@ -735,6 +763,7 @@ impl<'a> TftLeagueV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getLeagueById" target="_blank">`tft-league-v1.getLeagueById`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_league_by_id(&self, region: Region, league_id: &str)
         -> impl Future<Output = Result<tft_league_v1::LeagueList>> + 'a
     {
@@ -749,6 +778,7 @@ impl<'a> TftLeagueV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getMasterLeague" target="_blank">`tft-league-v1.getMasterLeague`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_master_league(&self, region: Region)
         -> impl Future<Output = Result<tft_league_v1::LeagueList>> + 'a
     {
@@ -776,6 +806,7 @@ impl<'a> TftMatchV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tft-match-v1/GET_getMatchIdsByPUUID" target="_blank">`tft-match-v1.getMatchIdsByPUUID`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_match_ids_by_puuid(&self, region: Region, puuid: &str, count: Option<i32>)
         -> impl Future<Output = Result<Vec<String>>> + 'a
     {
@@ -794,6 +825,7 @@ impl<'a> TftMatchV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tft-match-v1/GET_getMatch" target="_blank">`tft-match-v1.getMatch`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_match(&self, region: Region, match_id: &str)
         -> impl Future<Output = Result<tft_match_v1::Match>> + 'a
     {
@@ -820,6 +852,7 @@ impl<'a> TftSummonerV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getByAccountId" target="_blank">`tft-summoner-v1.getByAccountId`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_by_account_id(&self, region: Region, encrypted_account_id: &str)
         -> impl Future<Output = Result<tft_summoner_v1::Summoner>> + 'a
     {
@@ -835,6 +868,7 @@ impl<'a> TftSummonerV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getBySummonerName" target="_blank">`tft-summoner-v1.getBySummonerName`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_by_summoner_name(&self, region: Region, summoner_name: &str)
         -> impl Future<Output = Result<tft_summoner_v1::Summoner>> + 'a
     {
@@ -850,6 +884,7 @@ impl<'a> TftSummonerV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getByPUUID" target="_blank">`tft-summoner-v1.getByPUUID`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_by_puuid(&self, region: Region, encrypted_puuid: &str)
         -> impl Future<Output = Result<tft_summoner_v1::Summoner>> + 'a
     {
@@ -865,6 +900,7 @@ impl<'a> TftSummonerV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getBySummonerId" target="_blank">`tft-summoner-v1.getBySummonerId`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_by_summoner_id(&self, region: Region, encrypted_summoner_id: &str)
         -> impl Future<Output = Result<tft_summoner_v1::Summoner>> + 'a
     {
@@ -891,6 +927,7 @@ impl<'a> ThirdPartyCodeV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#third-party-code-v4/GET_getThirdPartyCodeBySummonerId" target="_blank">`third-party-code-v4.getThirdPartyCodeBySummonerId`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_third_party_code_by_summoner_id(&self, region: Region, encrypted_summoner_id: &str)
         -> impl Future<Output = Result<String>> + 'a
     {
@@ -917,6 +954,7 @@ impl<'a> TournamentStubV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tournament-stub-v4/GET_getLobbyEventsByCode" target="_blank">`tournament-stub-v4.getLobbyEventsByCode`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_lobby_events_by_code(&self, region: Region, tournament_code: &str)
         -> impl Future<Output = Result<tournament_stub_v4::LobbyEventWrapper>> + 'a
     {
@@ -943,6 +981,7 @@ impl<'a> TournamentV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tournament-v4/GET_getTournamentCode" target="_blank">`tournament-v4.getTournamentCode`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_tournament_code(&self, region: Region, tournament_code: &str)
         -> impl Future<Output = Result<tournament_v4::TournamentCode>> + 'a
     {
@@ -958,6 +997,7 @@ impl<'a> TournamentV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tournament-v4/GET_getLobbyEventsByCode" target="_blank">`tournament-v4.getLobbyEventsByCode`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn get_lobby_events_by_code(&self, region: Region, tournament_code: &str)
         -> impl Future<Output = Result<tournament_v4::LobbyEventWrapper>> + 'a
     {

@@ -53,9 +53,11 @@ pub enum Queue {
     /// 3v3 Ranked Flex games games on Twisted Treeline.
     /// <br>Deprecated in patch 7.19 in favor of queueId 470
     #[deprecated(note="Deprecated in patch 7.19 in favor of queueId 470")]
-    TWISTED_TREELINE_3V3_RANKED_FLEX_GAMES_DEPRECATED = 9,
+    TWISTED_TREELINE_3V3_RANKED_FLEX_GAMES_DEPRECATED2 = 9,
     /// 3v3 Ranked Flex games games on Twisted Treeline.
-    TWISTED_TREELINE_3V3_RANKED_FLEX_GAMES = 470,
+    /// <br>Deprecated in patch 9.23
+    #[deprecated(note="Deprecated in patch 9.23")]
+    TWISTED_TREELINE_3V3_RANKED_FLEX_GAMES_DEPRECATED = 470,
 
     /// 5v5 Draft Pick games games on Summoner's Rift.
     /// <br>Deprecated in favor of queueId 400
@@ -225,6 +227,8 @@ pub enum Queue {
     SUMMONERS_RIFT_5V5_RANKED_FLEX_GAMES = 440,
 
     /// 3v3 Blind Pick games games on Twisted Treeline.
+    /// <br>Deprecated in patch 9.23
+    #[deprecated(note="Deprecated in patch 9.23")]
     TWISTED_TREELINE_3V3_BLIND_PICK_GAMES = 460,
 
     /// Blood Hunt Assassin games games on Summoner's Rift.
@@ -237,9 +241,13 @@ pub enum Queue {
     SUMMONERS_RIFT_CLASH_GAMES = 700,
 
     /// Co-op vs. AI Intermediate Bot games games on Twisted Treeline.
+    /// <br>Deprecated in patch 9.23
+    #[deprecated(note="Deprecated in patch 9.23")]
     TWISTED_TREELINE_CO_OP_VS_AI_INTERMEDIATE_BOT_GAMES = 800,
 
     /// Co-op vs. AI Intro Bot games games on Twisted Treeline.
+    /// <br>Deprecated in patch 9.23
+    #[deprecated(note="Deprecated in patch 9.23")]
     TWISTED_TREELINE_CO_OP_VS_AI_INTRO_BOT_GAMES = 810,
 
     /// Co-op vs. AI Beginner Bot games games on Twisted Treeline.
@@ -286,6 +294,9 @@ pub enum Queue {
 
     /// Ranked Teamfight Tactics games games on Convergence.
     CONVERGENCE_RANKED_TEAMFIGHT_TACTICS_GAMES = 1100,
+
+    /// Teamfight Tactics Tutorial games games on Convergence.
+    CONVERGENCE_TEAMFIGHT_TACTICS_TUTORIAL_GAMES = 1110,
 
     /// Nexus Blitz games games on Nexus Blitz.
     /// <br>Deprecated in patch 9.2

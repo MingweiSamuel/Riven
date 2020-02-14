@@ -140,6 +140,7 @@ impl<'a> {{= endpoint }}<'a> {
     /// <a href="{{= get.externalDocs.url }}" target="_blank">`{{= operationId }}`</a>
     ///
     /// Note: this method is automatically generated.
+    #[cfg_attr(trace, tracing::instrument(skip(self)))]
     pub fn {{= method }}(&self, region: Region{{= argBuilder.join('') }})
         -> impl Future<Output = Result<{{= returnType }}>> + 'a
     {
