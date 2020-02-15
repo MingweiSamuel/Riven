@@ -7,6 +7,9 @@ use tokio::time::delay_for;
 #[cfg(feature = "trace")]
 use tracing::{debug, trace};
 
+#[cfg(feature = "trace")]
+use tracing_futures::Instrument;
+
 #[cfg(not(feature = "trace"))]
 use log::{debug, trace};
 
@@ -85,9 +88,17 @@ impl RegionalRequester {
                 url.set_path(&*path);
                 url.set_query(query);
 
-                let response = client.get(url)
+                #[cfg(feature = "trace")]
+                let span = tracing::trace_span!("Start query to rioat API", ?region_platform, ?path, ?query, ?url);
+
+                let query_future = client.get(url)
                     .header(Self::RIOT_KEY_HEADER, &*config.api_key)
-                    .send()
+                    .send();
+
+                #[cfg(feature = "trace")]
+                let query_future = query_future.instrument(span);
+
+                let response = query_future
                     .await
                     .map_err(|e| RiotApiError::new(e, retries, None))?;
 

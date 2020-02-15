@@ -21,7 +21,7 @@ features = [ "nightly", "trace" ]
 
 [features]
 nightly = [ "parking_lot/nightly" ]
-trace = [ "tracing" ]
+trace = [ "tracing", "tracing-futures" ]
 
 [dependencies]
 log = "0.4"
@@ -35,6 +35,7 @@ strum = "0.17"
 strum_macros = "0.17"
 tokio = { version = "0.2", default-features = false, features = [ "time" ] }
 tracing = { version = "0.1", optional = true }
+tracing-futures = { version = "0.2", optional = true }
 url = "2.1"
 
 [dev-dependencies]
