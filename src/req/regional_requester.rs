@@ -1,9 +1,14 @@
 use std::future::Future;
 use std::sync::Arc;
 
-use log;
 use reqwest::{ Client, StatusCode, Url };
 use tokio::time::delay_for;
+
+#[cfg(feature = "trace")]
+use tracing::{debug, trace};
+
+#[cfg(not(feature = "trace"))]
+use log::{debug, trace};
 
 use crate::Result;
 use crate::RiotApiError;
@@ -95,7 +100,7 @@ impl RegionalRequester {
                 match response.error_for_status_ref() {
                     // Success.
                     Ok(_response) => {
-                        log::trace!("Response {} (retried {} times), parsed result.", status, retries);
+                        trace!("Response {} (retried {} times), parsed result.", status, retries);
                         let value = response.json::<T>().await;
                         break value.map_err(|e| RiotApiError::new(e, retries, None));
                     },
@@ -107,10 +112,10 @@ impl RegionalRequester {
                             (StatusCode::TOO_MANY_REQUESTS != status
                             && !status.is_server_error())
                         {
-                            log::debug!("Response {} (retried {} times), returning.", status, retries);
+                            debug!("Response {} (retried {} times), returning.", status, retries);
                             break Err(RiotApiError::new(err, retries, Some(response)));
                         }
-                        log::debug!("Response {} (retried {} times), retrying.", status, retries);
+                        debug!("Response {} (retried {} times), retrying.", status, retries);
                     },
                 };
 

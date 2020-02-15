@@ -1,7 +1,12 @@
 use std::future::Future;
 use std::sync::Arc;
 
-use log;
+#[cfg(feature = "trace")]
+use tracing::debug;
+
+#[cfg(not(feature = "trace"))]
+use log::debug;
+
 use reqwest::Client;
 
 use crate::Result;
@@ -102,7 +107,7 @@ impl RiotApi {
     /// Get or create the RegionalRequester for the given region.
     fn regional_requester(&self, region_platform: &'static str) -> Arc<RegionalRequester> {
         self.regional_requesters.get_or_insert_with(region_platform, || {
-            log::debug!("Creating requester for region platform {}.", region_platform);
+            debug!("Creating requester for region platform {}.", region_platform);
             RegionalRequester::new()
         })
     }

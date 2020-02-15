@@ -1,7 +1,12 @@
 use std::cmp;
 use std::time::{ Duration, Instant };
 
-use log;
+#[cfg(feature = "trace")]
+use tracing::debug;
+
+#[cfg(not(feature = "trace"))]
+use log::debug;
+
 use parking_lot::{ RwLock, RwLockUpgradableReadGuard };
 use reqwest::{ StatusCode, Response };
 use scan_fmt::scan_fmt;
@@ -60,7 +65,7 @@ impl RateLimit {
             bucket.get_tokens(1);
         }
 
-        log::debug!("Tokens obtained, buckets: APP {:?} METHOD {:?}", app_buckets, method_buckets);
+        debug!("Tokens obtained, buckets: APP {:?} METHOD {:?}", app_buckets, method_buckets);
         None
     }
 
@@ -98,7 +103,7 @@ impl RateLimit {
                 .get(RateLimit::HEADER_RETRYAFTER)?.to_str()
                 .expect("Failed to read retry-after header as string.");
 
-            log::debug!("Hit 429, retry-after {} secs.", retry_after_header);
+            debug!("Hit 429, retry-after {} secs.", retry_after_header);
 
             // Header currently only returns ints, but float is more general. Can be zero.
             let retry_after_secs: f32 = retry_after_header.parse()
@@ -172,7 +177,7 @@ fn buckets_from_header(config: &RiotApiConfig, limit_header: &str, count_header:
         bucket.get_tokens(count);
         out.push(bucket);
     }
-    log::debug!("Set buckets to {} limit, {} count.", limit_header, count_header);
+    debug!("Set buckets to {} limit, {} count.", limit_header, count_header);
     out
 }
 
