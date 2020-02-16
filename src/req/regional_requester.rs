@@ -89,7 +89,7 @@ impl RegionalRequester {
                 url.set_query(query);
 
                 #[cfg(feature = "trace")]
-                let span = tracing::trace_span!("Start query to rioat API", ?region_platform, ?path, ?query, ?url);
+                let span = tracing::trace_span!("Start query to riot API", ?region_platform, ?path, ?query, ?url);
 
                 let query_future = client.get(url)
                     .header(Self::RIOT_KEY_HEADER, &*config.api_key)
