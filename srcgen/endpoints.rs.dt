@@ -140,9 +140,9 @@ impl<'a> {{= endpoint }}<'a> {
     /// <a href="{{= get.externalDocs.url }}" target="_blank">`{{= operationId }}`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn {{= method }}(&self, region: Region{{= argBuilder.join('') }})
-        -> impl Future<Output = Result<{{= returnType }}>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn {{= method }}(&self, region: Region{{= argBuilder.join('') }})
+        -> Result<{{= returnType }}>
     {
 {{? queryParams.length }}
         let mut query_params = Serializer::new(String::new());
@@ -157,7 +157,7 @@ impl<'a> {{= endpoint }}<'a> {
         let query_string = query_params.finish();
 {{?}}
         let path_string = {{= routeArgument }};
-        self.base.get{{= returnOptional ? '_optional' : '' }}::<{{= parseType }}>("{{= operationId }}", region.into(), path_string, {{= queryParams.length ? 'Some(query_string)' : 'None' }})
+        self.base.get{{= returnOptional ? '_optional' : '' }}::<{{= parseType }}>("{{= operationId }}", region.into(), path_string, {{= queryParams.length ? 'Some(query_string)' : 'None' }}).await
     }
 
 {{

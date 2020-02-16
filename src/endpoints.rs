@@ -177,12 +177,12 @@ impl<'a> ChampionMasteryV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getAllChampionMasteries" target="_blank">`champion-mastery-v4.getAllChampionMasteries`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_all_champion_masteries(&self, region: Region, encrypted_summoner_id: &str)
-        -> impl Future<Output = Result<Vec<champion_mastery_v4::ChampionMastery>>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_all_champion_masteries(&self, region: Region, encrypted_summoner_id: &str)
+        -> Result<Vec<champion_mastery_v4::ChampionMastery>>
     {
         let path_string = format!("/lol/champion-mastery/v4/champion-masteries/by-summoner/{}", encrypted_summoner_id);
-        self.base.get::<Vec<champion_mastery_v4::ChampionMastery>>("champion-mastery-v4.getAllChampionMasteries", region.into(), path_string, None)
+        self.base.get::<Vec<champion_mastery_v4::ChampionMastery>>("champion-mastery-v4.getAllChampionMasteries", region.into(), path_string, None).await
     }
 
     /// Get a champion mastery by player ID and champion ID.
@@ -194,12 +194,12 @@ impl<'a> ChampionMasteryV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMastery" target="_blank">`champion-mastery-v4.getChampionMastery`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_champion_mastery(&self, region: Region, encrypted_summoner_id: &str, champion_id: crate::consts::Champion)
-        -> impl Future<Output = Result<Option<champion_mastery_v4::ChampionMastery>>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_champion_mastery(&self, region: Region, encrypted_summoner_id: &str, champion_id: crate::consts::Champion)
+        -> Result<Option<champion_mastery_v4::ChampionMastery>>
     {
         let path_string = format!("/lol/champion-mastery/v4/champion-masteries/by-summoner/{}/by-champion/{}", encrypted_summoner_id, champion_id);
-        self.base.get_optional::<champion_mastery_v4::ChampionMastery>("champion-mastery-v4.getChampionMastery", region.into(), path_string, None)
+        self.base.get_optional::<champion_mastery_v4::ChampionMastery>("champion-mastery-v4.getChampionMastery", region.into(), path_string, None).await
     }
 
     /// Get a player's total champion mastery score, which is the sum of individual champion mastery levels.
@@ -210,12 +210,12 @@ impl<'a> ChampionMasteryV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMasteryScore" target="_blank">`champion-mastery-v4.getChampionMasteryScore`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_champion_mastery_score(&self, region: Region, encrypted_summoner_id: &str)
-        -> impl Future<Output = Result<i32>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_champion_mastery_score(&self, region: Region, encrypted_summoner_id: &str)
+        -> Result<i32>
     {
         let path_string = format!("/lol/champion-mastery/v4/scores/by-summoner/{}", encrypted_summoner_id);
-        self.base.get::<i32>("champion-mastery-v4.getChampionMasteryScore", region.into(), path_string, None)
+        self.base.get::<i32>("champion-mastery-v4.getChampionMasteryScore", region.into(), path_string, None).await
     }
 
 }
@@ -236,12 +236,12 @@ impl<'a> ChampionV3<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#champion-v3/GET_getChampionInfo" target="_blank">`champion-v3.getChampionInfo`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_champion_info(&self, region: Region)
-        -> impl Future<Output = Result<champion_v3::ChampionInfo>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_champion_info(&self, region: Region)
+        -> Result<champion_v3::ChampionInfo>
     {
         let path_string = "/lol/platform/v3/champion-rotations".to_owned();
-        self.base.get::<champion_v3::ChampionInfo>("champion-v3.getChampionInfo", region.into(), path_string, None)
+        self.base.get::<champion_v3::ChampionInfo>("champion-v3.getChampionInfo", region.into(), path_string, None).await
     }
 
 }
@@ -266,15 +266,15 @@ impl<'a> LeagueExpV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#league-exp-v4/GET_getLeagueEntries" target="_blank">`league-exp-v4.getLeagueEntries`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_league_entries(&self, region: Region, queue: crate::consts::QueueType, tier: crate::consts::Tier, division: crate::consts::Division, page: Option<i32>)
-        -> impl Future<Output = Result<Vec<league_exp_v4::LeagueEntry>>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_league_entries(&self, region: Region, queue: crate::consts::QueueType, tier: crate::consts::Tier, division: crate::consts::Division, page: Option<i32>)
+        -> Result<Vec<league_exp_v4::LeagueEntry>>
     {
         let mut query_params = Serializer::new(String::new());
         if let Some(page) = page { query_params.append_pair("page", &*page.to_string()); };
         let query_string = query_params.finish();
         let path_string = format!("/lol/league-exp/v4/entries/{}/{}/{}", queue, tier, division);
-        self.base.get::<Vec<league_exp_v4::LeagueEntry>>("league-exp-v4.getLeagueEntries", region.into(), path_string, Some(query_string))
+        self.base.get::<Vec<league_exp_v4::LeagueEntry>>("league-exp-v4.getLeagueEntries", region.into(), path_string, Some(query_string)).await
     }
 
 }
@@ -296,12 +296,12 @@ impl<'a> LeagueV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getChallengerLeague" target="_blank">`league-v4.getChallengerLeague`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_challenger_league(&self, region: Region, queue: crate::consts::QueueType)
-        -> impl Future<Output = Result<league_v4::LeagueList>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_challenger_league(&self, region: Region, queue: crate::consts::QueueType)
+        -> Result<league_v4::LeagueList>
     {
         let path_string = format!("/lol/league/v4/challengerleagues/by-queue/{}", queue);
-        self.base.get::<league_v4::LeagueList>("league-v4.getChallengerLeague", region.into(), path_string, None)
+        self.base.get::<league_v4::LeagueList>("league-v4.getChallengerLeague", region.into(), path_string, None).await
     }
 
     /// Get league entries in all queues for a given summoner ID.
@@ -312,12 +312,12 @@ impl<'a> LeagueV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntriesForSummoner" target="_blank">`league-v4.getLeagueEntriesForSummoner`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_league_entries_for_summoner(&self, region: Region, encrypted_summoner_id: &str)
-        -> impl Future<Output = Result<Vec<league_v4::LeagueEntry>>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_league_entries_for_summoner(&self, region: Region, encrypted_summoner_id: &str)
+        -> Result<Vec<league_v4::LeagueEntry>>
     {
         let path_string = format!("/lol/league/v4/entries/by-summoner/{}", encrypted_summoner_id);
-        self.base.get::<Vec<league_v4::LeagueEntry>>("league-v4.getLeagueEntriesForSummoner", region.into(), path_string, None)
+        self.base.get::<Vec<league_v4::LeagueEntry>>("league-v4.getLeagueEntriesForSummoner", region.into(), path_string, None).await
     }
 
     /// Get all the league entries.
@@ -331,15 +331,15 @@ impl<'a> LeagueV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntries" target="_blank">`league-v4.getLeagueEntries`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_league_entries(&self, region: Region, queue: crate::consts::QueueType, tier: crate::consts::Tier, division: crate::consts::Division, page: Option<i32>)
-        -> impl Future<Output = Result<Vec<league_v4::LeagueEntry>>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_league_entries(&self, region: Region, queue: crate::consts::QueueType, tier: crate::consts::Tier, division: crate::consts::Division, page: Option<i32>)
+        -> Result<Vec<league_v4::LeagueEntry>>
     {
         let mut query_params = Serializer::new(String::new());
         if let Some(page) = page { query_params.append_pair("page", &*page.to_string()); };
         let query_string = query_params.finish();
         let path_string = format!("/lol/league/v4/entries/{}/{}/{}", queue, tier, division);
-        self.base.get::<Vec<league_v4::LeagueEntry>>("league-v4.getLeagueEntries", region.into(), path_string, Some(query_string))
+        self.base.get::<Vec<league_v4::LeagueEntry>>("league-v4.getLeagueEntries", region.into(), path_string, Some(query_string)).await
     }
 
     /// Get the grandmaster league of a specific queue.
@@ -350,12 +350,12 @@ impl<'a> LeagueV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getGrandmasterLeague" target="_blank">`league-v4.getGrandmasterLeague`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_grandmaster_league(&self, region: Region, queue: crate::consts::QueueType)
-        -> impl Future<Output = Result<league_v4::LeagueList>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_grandmaster_league(&self, region: Region, queue: crate::consts::QueueType)
+        -> Result<league_v4::LeagueList>
     {
         let path_string = format!("/lol/league/v4/grandmasterleagues/by-queue/{}", queue);
-        self.base.get::<league_v4::LeagueList>("league-v4.getGrandmasterLeague", region.into(), path_string, None)
+        self.base.get::<league_v4::LeagueList>("league-v4.getGrandmasterLeague", region.into(), path_string, None).await
     }
 
     /// Get league with given ID, including inactive entries.
@@ -366,12 +366,12 @@ impl<'a> LeagueV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueById" target="_blank">`league-v4.getLeagueById`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_league_by_id(&self, region: Region, league_id: &str)
-        -> impl Future<Output = Result<Option<league_v4::LeagueList>>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_league_by_id(&self, region: Region, league_id: &str)
+        -> Result<Option<league_v4::LeagueList>>
     {
         let path_string = format!("/lol/league/v4/leagues/{}", league_id);
-        self.base.get_optional::<league_v4::LeagueList>("league-v4.getLeagueById", region.into(), path_string, None)
+        self.base.get_optional::<league_v4::LeagueList>("league-v4.getLeagueById", region.into(), path_string, None).await
     }
 
     /// Get the master league for given queue.
@@ -382,12 +382,12 @@ impl<'a> LeagueV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getMasterLeague" target="_blank">`league-v4.getMasterLeague`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_master_league(&self, region: Region, queue: crate::consts::QueueType)
-        -> impl Future<Output = Result<league_v4::LeagueList>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_master_league(&self, region: Region, queue: crate::consts::QueueType)
+        -> Result<league_v4::LeagueList>
     {
         let path_string = format!("/lol/league/v4/masterleagues/by-queue/{}", queue);
-        self.base.get::<league_v4::LeagueList>("league-v4.getMasterLeague", region.into(), path_string, None)
+        self.base.get::<league_v4::LeagueList>("league-v4.getMasterLeague", region.into(), path_string, None).await
     }
 
 }
@@ -410,12 +410,12 @@ impl<'a> LolStatusV3<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#lol-status-v3/GET_getShardData" target="_blank">`lol-status-v3.getShardData`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_shard_data(&self, region: Region)
-        -> impl Future<Output = Result<lol_status_v3::ShardStatus>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_shard_data(&self, region: Region)
+        -> Result<lol_status_v3::ShardStatus>
     {
         let path_string = "/lol/status/v3/shard-data".to_owned();
-        self.base.get::<lol_status_v3::ShardStatus>("lol-status-v3.getShardData", region.into(), path_string, None)
+        self.base.get::<lol_status_v3::ShardStatus>("lol-status-v3.getShardData", region.into(), path_string, None).await
     }
 
 }
@@ -436,12 +436,12 @@ impl<'a> LorRankedV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#lor-ranked-v1/GET_getLeaderboards" target="_blank">`lor-ranked-v1.getLeaderboards`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_leaderboards(&self, region: Region)
-        -> impl Future<Output = Result<lor_ranked_v1::Leaderboard>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_leaderboards(&self, region: Region)
+        -> Result<lor_ranked_v1::Leaderboard>
     {
         let path_string = "/lor/ranked/v1/leaderboards".to_owned();
-        self.base.get::<lor_ranked_v1::Leaderboard>("lor-ranked-v1.getLeaderboards", region.into(), path_string, None)
+        self.base.get::<lor_ranked_v1::Leaderboard>("lor-ranked-v1.getLeaderboards", region.into(), path_string, None).await
     }
 
 }
@@ -463,12 +463,12 @@ impl<'a> MatchV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchIdsByTournamentCode" target="_blank">`match-v4.getMatchIdsByTournamentCode`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_match_ids_by_tournament_code(&self, region: Region, tournament_code: &str)
-        -> impl Future<Output = Result<Vec<i64>>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_match_ids_by_tournament_code(&self, region: Region, tournament_code: &str)
+        -> Result<Vec<i64>>
     {
         let path_string = format!("/lol/match/v4/matches/by-tournament-code/{}/ids", tournament_code);
-        self.base.get::<Vec<i64>>("match-v4.getMatchIdsByTournamentCode", region.into(), path_string, None)
+        self.base.get::<Vec<i64>>("match-v4.getMatchIdsByTournamentCode", region.into(), path_string, None).await
     }
 
     /// Get match by match ID.
@@ -479,12 +479,12 @@ impl<'a> MatchV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatch" target="_blank">`match-v4.getMatch`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_match(&self, region: Region, match_id: i64)
-        -> impl Future<Output = Result<Option<match_v4::Match>>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_match(&self, region: Region, match_id: i64)
+        -> Result<Option<match_v4::Match>>
     {
         let path_string = format!("/lol/match/v4/matches/{}", match_id);
-        self.base.get_optional::<match_v4::Match>("match-v4.getMatch", region.into(), path_string, None)
+        self.base.get_optional::<match_v4::Match>("match-v4.getMatch", region.into(), path_string, None).await
     }
 
     /// Get match by match ID and tournament code.
@@ -496,12 +496,12 @@ impl<'a> MatchV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchByTournamentCode" target="_blank">`match-v4.getMatchByTournamentCode`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_match_by_tournament_code(&self, region: Region, match_id: i64, tournament_code: &str)
-        -> impl Future<Output = Result<match_v4::Match>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_match_by_tournament_code(&self, region: Region, match_id: i64, tournament_code: &str)
+        -> Result<match_v4::Match>
     {
         let path_string = format!("/lol/match/v4/matches/{}/by-tournament-code/{}", match_id, tournament_code);
-        self.base.get::<match_v4::Match>("match-v4.getMatchByTournamentCode", region.into(), path_string, None)
+        self.base.get::<match_v4::Match>("match-v4.getMatchByTournamentCode", region.into(), path_string, None).await
     }
 
     /// Get matchlist for games played on given account ID and platform ID and filtered using given filter parameters, if any.
@@ -525,9 +525,9 @@ impl<'a> MatchV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchlist" target="_blank">`match-v4.getMatchlist`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_matchlist(&self, region: Region, encrypted_account_id: &str, begin_time: Option<i64>, begin_index: Option<i32>, champion: Option<std::vec::Vec<crate::consts::Champion>>, end_time: Option<i64>, end_index: Option<i32>, queue: Option<std::vec::Vec<crate::consts::Queue>>, season: Option<std::vec::Vec<crate::consts::Season>>)
-        -> impl Future<Output = Result<Option<match_v4::Matchlist>>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_matchlist(&self, region: Region, encrypted_account_id: &str, begin_time: Option<i64>, begin_index: Option<i32>, champion: Option<std::vec::Vec<crate::consts::Champion>>, end_time: Option<i64>, end_index: Option<i32>, queue: Option<std::vec::Vec<crate::consts::Queue>>, season: Option<std::vec::Vec<crate::consts::Season>>)
+        -> Result<Option<match_v4::Matchlist>>
     {
         let mut query_params = Serializer::new(String::new());
         if let Some(begin_time) = begin_time { query_params.append_pair("beginTime", &*begin_time.to_string()); };
@@ -539,7 +539,7 @@ impl<'a> MatchV4<'a> {
         if let Some(season) = season { query_params.extend_pairs(season.iter().map(|w| ("season", Into::<u8>::into(*w).to_string()))); };
         let query_string = query_params.finish();
         let path_string = format!("/lol/match/v4/matchlists/by-account/{}", encrypted_account_id);
-        self.base.get_optional::<match_v4::Matchlist>("match-v4.getMatchlist", region.into(), path_string, Some(query_string))
+        self.base.get_optional::<match_v4::Matchlist>("match-v4.getMatchlist", region.into(), path_string, Some(query_string)).await
     }
 
     /// Get match timeline by match ID.
@@ -552,12 +552,12 @@ impl<'a> MatchV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchTimeline" target="_blank">`match-v4.getMatchTimeline`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_match_timeline(&self, region: Region, match_id: i64)
-        -> impl Future<Output = Result<Option<match_v4::MatchTimeline>>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_match_timeline(&self, region: Region, match_id: i64)
+        -> Result<Option<match_v4::MatchTimeline>>
     {
         let path_string = format!("/lol/match/v4/timelines/by-match/{}", match_id);
-        self.base.get_optional::<match_v4::MatchTimeline>("match-v4.getMatchTimeline", region.into(), path_string, None)
+        self.base.get_optional::<match_v4::MatchTimeline>("match-v4.getMatchTimeline", region.into(), path_string, None).await
     }
 
 }
@@ -579,12 +579,12 @@ impl<'a> SpectatorV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#spectator-v4/GET_getCurrentGameInfoBySummoner" target="_blank">`spectator-v4.getCurrentGameInfoBySummoner`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_current_game_info_by_summoner(&self, region: Region, encrypted_summoner_id: &str)
-        -> impl Future<Output = Result<Option<spectator_v4::CurrentGameInfo>>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_current_game_info_by_summoner(&self, region: Region, encrypted_summoner_id: &str)
+        -> Result<Option<spectator_v4::CurrentGameInfo>>
     {
         let path_string = format!("/lol/spectator/v4/active-games/by-summoner/{}", encrypted_summoner_id);
-        self.base.get_optional::<spectator_v4::CurrentGameInfo>("spectator-v4.getCurrentGameInfoBySummoner", region.into(), path_string, None)
+        self.base.get_optional::<spectator_v4::CurrentGameInfo>("spectator-v4.getCurrentGameInfoBySummoner", region.into(), path_string, None).await
     }
 
     /// Get list of featured games.
@@ -594,12 +594,12 @@ impl<'a> SpectatorV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#spectator-v4/GET_getFeaturedGames" target="_blank">`spectator-v4.getFeaturedGames`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_featured_games(&self, region: Region)
-        -> impl Future<Output = Result<spectator_v4::FeaturedGames>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_featured_games(&self, region: Region)
+        -> Result<spectator_v4::FeaturedGames>
     {
         let path_string = "/lol/spectator/v4/featured-games".to_owned();
-        self.base.get::<spectator_v4::FeaturedGames>("spectator-v4.getFeaturedGames", region.into(), path_string, None)
+        self.base.get::<spectator_v4::FeaturedGames>("spectator-v4.getFeaturedGames", region.into(), path_string, None).await
     }
 
 }
@@ -621,12 +621,12 @@ impl<'a> SummonerV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByAccountId" target="_blank">`summoner-v4.getByAccountId`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_by_account_id(&self, region: Region, encrypted_account_id: &str)
-        -> impl Future<Output = Result<summoner_v4::Summoner>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_by_account_id(&self, region: Region, encrypted_account_id: &str)
+        -> Result<summoner_v4::Summoner>
     {
         let path_string = format!("/lol/summoner/v4/summoners/by-account/{}", encrypted_account_id);
-        self.base.get::<summoner_v4::Summoner>("summoner-v4.getByAccountId", region.into(), path_string, None)
+        self.base.get::<summoner_v4::Summoner>("summoner-v4.getByAccountId", region.into(), path_string, None).await
     }
 
     /// Get a summoner by summoner name.
@@ -637,12 +637,12 @@ impl<'a> SummonerV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getBySummonerName" target="_blank">`summoner-v4.getBySummonerName`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_by_summoner_name(&self, region: Region, summoner_name: &str)
-        -> impl Future<Output = Result<Option<summoner_v4::Summoner>>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_by_summoner_name(&self, region: Region, summoner_name: &str)
+        -> Result<Option<summoner_v4::Summoner>>
     {
         let path_string = format!("/lol/summoner/v4/summoners/by-name/{}", summoner_name);
-        self.base.get_optional::<summoner_v4::Summoner>("summoner-v4.getBySummonerName", region.into(), path_string, None)
+        self.base.get_optional::<summoner_v4::Summoner>("summoner-v4.getBySummonerName", region.into(), path_string, None).await
     }
 
     /// Get a summoner by PUUID.
@@ -653,12 +653,12 @@ impl<'a> SummonerV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByPUUID" target="_blank">`summoner-v4.getByPUUID`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_by_puuid(&self, region: Region, encrypted_puuid: &str)
-        -> impl Future<Output = Result<summoner_v4::Summoner>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_by_puuid(&self, region: Region, encrypted_puuid: &str)
+        -> Result<summoner_v4::Summoner>
     {
         let path_string = format!("/lol/summoner/v4/summoners/by-puuid/{}", encrypted_puuid);
-        self.base.get::<summoner_v4::Summoner>("summoner-v4.getByPUUID", region.into(), path_string, None)
+        self.base.get::<summoner_v4::Summoner>("summoner-v4.getByPUUID", region.into(), path_string, None).await
     }
 
     /// Get a summoner by summoner ID.
@@ -669,12 +669,12 @@ impl<'a> SummonerV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getBySummonerId" target="_blank">`summoner-v4.getBySummonerId`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_by_summoner_id(&self, region: Region, encrypted_summoner_id: &str)
-        -> impl Future<Output = Result<summoner_v4::Summoner>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_by_summoner_id(&self, region: Region, encrypted_summoner_id: &str)
+        -> Result<summoner_v4::Summoner>
     {
         let path_string = format!("/lol/summoner/v4/summoners/{}", encrypted_summoner_id);
-        self.base.get::<summoner_v4::Summoner>("summoner-v4.getBySummonerId", region.into(), path_string, None)
+        self.base.get::<summoner_v4::Summoner>("summoner-v4.getBySummonerId", region.into(), path_string, None).await
     }
 
 }
@@ -695,12 +695,12 @@ impl<'a> TftLeagueV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getChallengerLeague" target="_blank">`tft-league-v1.getChallengerLeague`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_challenger_league(&self, region: Region)
-        -> impl Future<Output = Result<tft_league_v1::LeagueList>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_challenger_league(&self, region: Region)
+        -> Result<tft_league_v1::LeagueList>
     {
         let path_string = "/tft/league/v1/challenger".to_owned();
-        self.base.get::<tft_league_v1::LeagueList>("tft-league-v1.getChallengerLeague", region.into(), path_string, None)
+        self.base.get::<tft_league_v1::LeagueList>("tft-league-v1.getChallengerLeague", region.into(), path_string, None).await
     }
 
     /// Get league entries for a given summoner ID.
@@ -711,12 +711,12 @@ impl<'a> TftLeagueV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getLeagueEntriesForSummoner" target="_blank">`tft-league-v1.getLeagueEntriesForSummoner`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_league_entries_for_summoner(&self, region: Region, encrypted_summoner_id: &str)
-        -> impl Future<Output = Result<Vec<tft_league_v1::LeagueEntry>>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_league_entries_for_summoner(&self, region: Region, encrypted_summoner_id: &str)
+        -> Result<Vec<tft_league_v1::LeagueEntry>>
     {
         let path_string = format!("/tft/league/v1/entries/by-summoner/{}", encrypted_summoner_id);
-        self.base.get::<Vec<tft_league_v1::LeagueEntry>>("tft-league-v1.getLeagueEntriesForSummoner", region.into(), path_string, None)
+        self.base.get::<Vec<tft_league_v1::LeagueEntry>>("tft-league-v1.getLeagueEntriesForSummoner", region.into(), path_string, None).await
     }
 
     /// Get all the league entries.
@@ -729,15 +729,15 @@ impl<'a> TftLeagueV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getLeagueEntries" target="_blank">`tft-league-v1.getLeagueEntries`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_league_entries(&self, region: Region, tier: &str, division: &str, page: Option<i32>)
-        -> impl Future<Output = Result<Vec<tft_league_v1::LeagueEntry>>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_league_entries(&self, region: Region, tier: &str, division: &str, page: Option<i32>)
+        -> Result<Vec<tft_league_v1::LeagueEntry>>
     {
         let mut query_params = Serializer::new(String::new());
         if let Some(page) = page { query_params.append_pair("page", &*page.to_string()); };
         let query_string = query_params.finish();
         let path_string = format!("/tft/league/v1/entries/{}/{}", tier, division);
-        self.base.get::<Vec<tft_league_v1::LeagueEntry>>("tft-league-v1.getLeagueEntries", region.into(), path_string, Some(query_string))
+        self.base.get::<Vec<tft_league_v1::LeagueEntry>>("tft-league-v1.getLeagueEntries", region.into(), path_string, Some(query_string)).await
     }
 
     /// Get the grandmaster league.
@@ -747,12 +747,12 @@ impl<'a> TftLeagueV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getGrandmasterLeague" target="_blank">`tft-league-v1.getGrandmasterLeague`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_grandmaster_league(&self, region: Region)
-        -> impl Future<Output = Result<tft_league_v1::LeagueList>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_grandmaster_league(&self, region: Region)
+        -> Result<tft_league_v1::LeagueList>
     {
         let path_string = "/tft/league/v1/grandmaster".to_owned();
-        self.base.get::<tft_league_v1::LeagueList>("tft-league-v1.getGrandmasterLeague", region.into(), path_string, None)
+        self.base.get::<tft_league_v1::LeagueList>("tft-league-v1.getGrandmasterLeague", region.into(), path_string, None).await
     }
 
     /// Get league with given ID, including inactive entries.
@@ -763,12 +763,12 @@ impl<'a> TftLeagueV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getLeagueById" target="_blank">`tft-league-v1.getLeagueById`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_league_by_id(&self, region: Region, league_id: &str)
-        -> impl Future<Output = Result<tft_league_v1::LeagueList>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_league_by_id(&self, region: Region, league_id: &str)
+        -> Result<tft_league_v1::LeagueList>
     {
         let path_string = format!("/tft/league/v1/leagues/{}", league_id);
-        self.base.get::<tft_league_v1::LeagueList>("tft-league-v1.getLeagueById", region.into(), path_string, None)
+        self.base.get::<tft_league_v1::LeagueList>("tft-league-v1.getLeagueById", region.into(), path_string, None).await
     }
 
     /// Get the master league.
@@ -778,12 +778,12 @@ impl<'a> TftLeagueV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getMasterLeague" target="_blank">`tft-league-v1.getMasterLeague`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_master_league(&self, region: Region)
-        -> impl Future<Output = Result<tft_league_v1::LeagueList>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_master_league(&self, region: Region)
+        -> Result<tft_league_v1::LeagueList>
     {
         let path_string = "/tft/league/v1/master".to_owned();
-        self.base.get::<tft_league_v1::LeagueList>("tft-league-v1.getMasterLeague", region.into(), path_string, None)
+        self.base.get::<tft_league_v1::LeagueList>("tft-league-v1.getMasterLeague", region.into(), path_string, None).await
     }
 
 }
@@ -806,15 +806,15 @@ impl<'a> TftMatchV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tft-match-v1/GET_getMatchIdsByPUUID" target="_blank">`tft-match-v1.getMatchIdsByPUUID`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_match_ids_by_puuid(&self, region: Region, puuid: &str, count: Option<i32>)
-        -> impl Future<Output = Result<Vec<String>>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_match_ids_by_puuid(&self, region: Region, puuid: &str, count: Option<i32>)
+        -> Result<Vec<String>>
     {
         let mut query_params = Serializer::new(String::new());
         if let Some(count) = count { query_params.append_pair("count", &*count.to_string()); };
         let query_string = query_params.finish();
         let path_string = format!("/tft/match/v1/matches/by-puuid/{}/ids", puuid);
-        self.base.get::<Vec<String>>("tft-match-v1.getMatchIdsByPUUID", region.into(), path_string, Some(query_string))
+        self.base.get::<Vec<String>>("tft-match-v1.getMatchIdsByPUUID", region.into(), path_string, Some(query_string)).await
     }
 
     /// Get a match by match id.
@@ -825,12 +825,12 @@ impl<'a> TftMatchV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tft-match-v1/GET_getMatch" target="_blank">`tft-match-v1.getMatch`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_match(&self, region: Region, match_id: &str)
-        -> impl Future<Output = Result<tft_match_v1::Match>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_match(&self, region: Region, match_id: &str)
+        -> Result<tft_match_v1::Match>
     {
         let path_string = format!("/tft/match/v1/matches/{}", match_id);
-        self.base.get::<tft_match_v1::Match>("tft-match-v1.getMatch", region.into(), path_string, None)
+        self.base.get::<tft_match_v1::Match>("tft-match-v1.getMatch", region.into(), path_string, None).await
     }
 
 }
@@ -852,12 +852,12 @@ impl<'a> TftSummonerV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getByAccountId" target="_blank">`tft-summoner-v1.getByAccountId`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_by_account_id(&self, region: Region, encrypted_account_id: &str)
-        -> impl Future<Output = Result<tft_summoner_v1::Summoner>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_by_account_id(&self, region: Region, encrypted_account_id: &str)
+        -> Result<tft_summoner_v1::Summoner>
     {
         let path_string = format!("/tft/summoner/v1/summoners/by-account/{}", encrypted_account_id);
-        self.base.get::<tft_summoner_v1::Summoner>("tft-summoner-v1.getByAccountId", region.into(), path_string, None)
+        self.base.get::<tft_summoner_v1::Summoner>("tft-summoner-v1.getByAccountId", region.into(), path_string, None).await
     }
 
     /// Get a summoner by summoner name.
@@ -868,12 +868,12 @@ impl<'a> TftSummonerV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getBySummonerName" target="_blank">`tft-summoner-v1.getBySummonerName`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_by_summoner_name(&self, region: Region, summoner_name: &str)
-        -> impl Future<Output = Result<tft_summoner_v1::Summoner>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_by_summoner_name(&self, region: Region, summoner_name: &str)
+        -> Result<tft_summoner_v1::Summoner>
     {
         let path_string = format!("/tft/summoner/v1/summoners/by-name/{}", summoner_name);
-        self.base.get::<tft_summoner_v1::Summoner>("tft-summoner-v1.getBySummonerName", region.into(), path_string, None)
+        self.base.get::<tft_summoner_v1::Summoner>("tft-summoner-v1.getBySummonerName", region.into(), path_string, None).await
     }
 
     /// Get a summoner by PUUID.
@@ -884,12 +884,12 @@ impl<'a> TftSummonerV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getByPUUID" target="_blank">`tft-summoner-v1.getByPUUID`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_by_puuid(&self, region: Region, encrypted_puuid: &str)
-        -> impl Future<Output = Result<tft_summoner_v1::Summoner>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_by_puuid(&self, region: Region, encrypted_puuid: &str)
+        -> Result<tft_summoner_v1::Summoner>
     {
         let path_string = format!("/tft/summoner/v1/summoners/by-puuid/{}", encrypted_puuid);
-        self.base.get::<tft_summoner_v1::Summoner>("tft-summoner-v1.getByPUUID", region.into(), path_string, None)
+        self.base.get::<tft_summoner_v1::Summoner>("tft-summoner-v1.getByPUUID", region.into(), path_string, None).await
     }
 
     /// Get a summoner by summoner ID.
@@ -900,12 +900,12 @@ impl<'a> TftSummonerV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getBySummonerId" target="_blank">`tft-summoner-v1.getBySummonerId`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_by_summoner_id(&self, region: Region, encrypted_summoner_id: &str)
-        -> impl Future<Output = Result<tft_summoner_v1::Summoner>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_by_summoner_id(&self, region: Region, encrypted_summoner_id: &str)
+        -> Result<tft_summoner_v1::Summoner>
     {
         let path_string = format!("/tft/summoner/v1/summoners/{}", encrypted_summoner_id);
-        self.base.get::<tft_summoner_v1::Summoner>("tft-summoner-v1.getBySummonerId", region.into(), path_string, None)
+        self.base.get::<tft_summoner_v1::Summoner>("tft-summoner-v1.getBySummonerId", region.into(), path_string, None).await
     }
 
 }
@@ -927,12 +927,12 @@ impl<'a> ThirdPartyCodeV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#third-party-code-v4/GET_getThirdPartyCodeBySummonerId" target="_blank">`third-party-code-v4.getThirdPartyCodeBySummonerId`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_third_party_code_by_summoner_id(&self, region: Region, encrypted_summoner_id: &str)
-        -> impl Future<Output = Result<String>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_third_party_code_by_summoner_id(&self, region: Region, encrypted_summoner_id: &str)
+        -> Result<String>
     {
         let path_string = format!("/lol/platform/v4/third-party-code/by-summoner/{}", encrypted_summoner_id);
-        self.base.get::<String>("third-party-code-v4.getThirdPartyCodeBySummonerId", region.into(), path_string, None)
+        self.base.get::<String>("third-party-code-v4.getThirdPartyCodeBySummonerId", region.into(), path_string, None).await
     }
 
 }
@@ -954,12 +954,12 @@ impl<'a> TournamentStubV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tournament-stub-v4/GET_getLobbyEventsByCode" target="_blank">`tournament-stub-v4.getLobbyEventsByCode`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_lobby_events_by_code(&self, region: Region, tournament_code: &str)
-        -> impl Future<Output = Result<tournament_stub_v4::LobbyEventWrapper>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_lobby_events_by_code(&self, region: Region, tournament_code: &str)
+        -> Result<tournament_stub_v4::LobbyEventWrapper>
     {
         let path_string = format!("/lol/tournament-stub/v4/lobby-events/by-code/{}", tournament_code);
-        self.base.get::<tournament_stub_v4::LobbyEventWrapper>("tournament-stub-v4.getLobbyEventsByCode", region.into(), path_string, None)
+        self.base.get::<tournament_stub_v4::LobbyEventWrapper>("tournament-stub-v4.getLobbyEventsByCode", region.into(), path_string, None).await
     }
 
 }
@@ -981,12 +981,12 @@ impl<'a> TournamentV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tournament-v4/GET_getTournamentCode" target="_blank">`tournament-v4.getTournamentCode`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_tournament_code(&self, region: Region, tournament_code: &str)
-        -> impl Future<Output = Result<tournament_v4::TournamentCode>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_tournament_code(&self, region: Region, tournament_code: &str)
+        -> Result<tournament_v4::TournamentCode>
     {
         let path_string = format!("/lol/tournament/v4/codes/{}", tournament_code);
-        self.base.get::<tournament_v4::TournamentCode>("tournament-v4.getTournamentCode", region.into(), path_string, None)
+        self.base.get::<tournament_v4::TournamentCode>("tournament-v4.getTournamentCode", region.into(), path_string, None).await
     }
 
     /// Gets a list of lobby events by tournament code.
@@ -997,12 +997,12 @@ impl<'a> TournamentV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tournament-v4/GET_getLobbyEventsByCode" target="_blank">`tournament-v4.getLobbyEventsByCode`</a>
     ///
     /// Note: this method is automatically generated.
-    #[cfg_attr(trace, tracing::instrument(skip(self)))]
-    pub fn get_lobby_events_by_code(&self, region: Region, tournament_code: &str)
-        -> impl Future<Output = Result<tournament_v4::LobbyEventWrapper>> + 'a
+    #[cfg_attr(feature = "trace", tracing::instrument(skip(self)))]
+    pub async fn get_lobby_events_by_code(&self, region: Region, tournament_code: &str)
+        -> Result<tournament_v4::LobbyEventWrapper>
     {
         let path_string = format!("/lol/tournament/v4/lobby-events/by-code/{}", tournament_code);
-        self.base.get::<tournament_v4::LobbyEventWrapper>("tournament-v4.getLobbyEventsByCode", region.into(), path_string, None)
+        self.base.get::<tournament_v4::LobbyEventWrapper>("tournament-v4.getLobbyEventsByCode", region.into(), path_string, None).await
     }
 
 }
