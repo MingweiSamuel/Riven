@@ -23,13 +23,10 @@ macro_rules! async_tests {
                             }.await;
                             result
                         };
-                        // let $name = tokio_executor::Executor::spawn_with_handle(
-                        //     &mut tokio_executor::DefaultExecutor::current(), $name)
-                        //     .expect("Failed to spawn.");
                         let $name = tokio::spawn($name);
                     )*
                     $(
-                        let $name = $name.await;
+                        let $name = $name.await.expect("Failed to spawn.");
                     )*
                     $(
                         print!("test {} ... ", stringify!($name));
