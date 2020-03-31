@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version e22fa894666bc6e13ce9daac7c0c9272c1ff3aaa
+// Version 71bb788ab92c0b03d5dd284402d9514b625fe2a4
 
 //! Automatically generated endpoint handles.
 
@@ -40,6 +40,15 @@ impl RiotApi {
     #[inline]
     pub fn champion_v3(&self) -> ChampionV3 {
         ChampionV3 { base: self }
+    }
+    /// Returns a handle for accessing [ClashV1](crate::endpoints::ClashV1) endpoints.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/apis#clash-v1" target="_blank">`clash-v1`</a>
+    ///
+    /// Note: this method is automatically generated.
+    #[inline]
+    pub fn clash_v1(&self) -> ClashV1 {
+        ClashV1 { base: self }
     }
     /// Returns a handle for accessing [LeagueExpV4](crate::endpoints::LeagueExpV4) endpoints.
     /// # Riot Developer API Reference
@@ -238,6 +247,91 @@ impl<'a> ChampionV3<'a> {
     {
         let path_string = "/lol/platform/v3/champion-rotations".to_owned();
         self.base.get::<champion_v3::ChampionInfo>("champion-v3.getChampionInfo", region.into(), path_string, None)
+    }
+
+}
+
+/// ClashV1 endpoints handle, accessed by calling [`clash_v1()`](crate::RiotApi::clash_v1) on a [`RiotApi`](crate::RiotApi) instance.
+/// # Riot Developer API Reference
+/// <a href="https://developer.riotgames.com/apis#clash-v1" target="_blank">`clash-v1`</a>
+///
+/// Note: this struct is automatically generated.
+pub struct ClashV1<'a> {
+    base: &'a RiotApi,
+}
+impl<'a> ClashV1<'a> {
+    /// Get players by summoner ID.
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// * `summonerId`
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#clash-v1/GET_getPlayersBySummoner" target="_blank">`clash-v1.getPlayersBySummoner`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_players_by_summoner(&self, region: Region, summoner_id: &str)
+        -> impl Future<Output = Result<Vec<clash_v1::Player>>> + 'a
+    {
+        let path_string = format!("/lol/clash/v1/players/by-summoner/{}", summoner_id);
+        self.base.get::<Vec<clash_v1::Player>>("clash-v1.getPlayersBySummoner", region.into(), path_string, None)
+    }
+
+    /// Get team by ID.
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// * `teamId`
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#clash-v1/GET_getTeamById" target="_blank">`clash-v1.getTeamById`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_team_by_id(&self, region: Region, team_id: &str)
+        -> impl Future<Output = Result<Option<clash_v1::Team>>> + 'a
+    {
+        let path_string = format!("/lol/clash/v1/teams/{}", team_id);
+        self.base.get_optional::<clash_v1::Team>("clash-v1.getTeamById", region.into(), path_string, None)
+    }
+
+    /// Get all active or upcoming tournaments.
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#clash-v1/GET_getTournaments" target="_blank">`clash-v1.getTournaments`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_tournaments(&self, region: Region)
+        -> impl Future<Output = Result<Vec<clash_v1::Tournament>>> + 'a
+    {
+        let path_string = "/lol/clash/v1/tournaments".to_owned();
+        self.base.get::<Vec<clash_v1::Tournament>>("clash-v1.getTournaments", region.into(), path_string, None)
+    }
+
+    /// Get tournament by team ID.
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// * `teamId`
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#clash-v1/GET_getTournamentByTeam" target="_blank">`clash-v1.getTournamentByTeam`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_tournament_by_team(&self, region: Region, team_id: &str)
+        -> impl Future<Output = Result<Option<clash_v1::Tournament>>> + 'a
+    {
+        let path_string = format!("/lol/clash/v1/tournaments/by-team/{}", team_id);
+        self.base.get_optional::<clash_v1::Tournament>("clash-v1.getTournamentByTeam", region.into(), path_string, None)
+    }
+
+    /// Get tournament by ID.
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// * `tournamentId`
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#clash-v1/GET_getTournamentById" target="_blank">`clash-v1.getTournamentById`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_tournament_by_id(&self, region: Region, tournament_id: i32)
+        -> impl Future<Output = Result<Option<clash_v1::Tournament>>> + 'a
+    {
+        let path_string = format!("/lol/clash/v1/tournaments/{}", tournament_id);
+        self.base.get_optional::<clash_v1::Tournament>("clash-v1.getTournamentById", region.into(), path_string, None)
     }
 
 }
@@ -770,7 +864,7 @@ impl<'a> TftMatchV1<'a> {
     /// Get a list of match ids by PUUID.
     /// # Parameters
     /// * `region` - Region to query.
-    /// * `puuid` (optional)
+    /// * `puuid`
     /// * `count` (optional)
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-match-v1/GET_getMatchIdsByPUUID" target="_blank">`tft-match-v1.getMatchIdsByPUUID`</a>
