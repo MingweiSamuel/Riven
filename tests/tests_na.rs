@@ -80,5 +80,22 @@ async_tests!{
         //     let _leaderboard = future.await.map_err(|e| e.to_string())?;
         //     Ok(())
         // },
+        // CLASH
+        clash_get_tournaments: async {
+            let p = RIOT_API.clash_v1().get_tournaments(Region::NA);
+            let tours = p.await.map_err(|e| e.to_string())?;
+            if let Some(tour0) = tours.first() {
+                let p = RIOT_API.clash_v1().get_tournament_by_id(Region::NA, tour0.id);
+                let tour1 = p.await.map_err(|e| e.to_string())?;
+                assert_eq!(Some(tour0.id), tour1.map(|t| t.id));
+            }
+            Ok(())
+        },
+        clash_get_team_by_id: async {
+            let p = RIOT_API.clash_v1().get_team_by_id(Region::NA, "00000000-0000-0000-0000-000000000000");
+            let team = p.await.map_err(|e| e.to_string())?;
+            assert!(team.is_none());
+            Ok(())
+        },
     }
 }
