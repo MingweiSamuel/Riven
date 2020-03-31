@@ -24,9 +24,11 @@ impl RegionalRequester {
     /// Request header name for the Riot API key.
     const RIOT_KEY_HEADER: &'static str = "X-Riot-Token";
 
-    /// Http status code 404, considered a success but will return None.
-    const NONE_STATUS_CODE: StatusCode = StatusCode::NOT_FOUND;
-
+    /// HTTP status codes which are considered a success but will results in `None`.
+    const NONE_STATUS_CODES: [StatusCode; 2] = [
+        StatusCode::NO_CONTENT, // 204
+        StatusCode::NOT_FOUND,  // 404
+    ];
 
     pub fn new() -> Self {
         Self {
@@ -45,8 +47,8 @@ impl RegionalRequester {
                 method_id, region_platform, path, query).await;
             response_result.map(|value| Some(value))
                 .or_else(|e| {
-                    if let Some(response) = e.response() {
-                    if Self::NONE_STATUS_CODE == response.status() {
+                    if let Some(status) = e.status_code() {
+                    if Self::NONE_STATUS_CODES.contains(&status) {
                         return Ok(None);
                     }}
                     Err(e)
@@ -84,7 +86,7 @@ impl RegionalRequester {
                     .header(Self::RIOT_KEY_HEADER, &*config.api_key)
                     .send()
                     .await
-                    .map_err(|e| RiotApiError::new(e, retries, None))?;
+                    .map_err(|e| RiotApiError::new(e, retries, None, None))?;
 
                 // Maybe update rate limits (based on response headers).
                 self.app_rate_limit.on_response(&config, &response);
@@ -97,7 +99,7 @@ impl RegionalRequester {
                     Ok(_response) => {
                         log::trace!("Response {} (retried {} times), parsed result.", status, retries);
                         let value = response.json::<T>().await;
-                        break value.map_err(|e| RiotApiError::new(e, retries, None));
+                        break value.map_err(|e| RiotApiError::new(e, retries, None, Some(status)));
                     },
                     // Failure, may or may not be retryable.
                     Err(err) => {
@@ -108,7 +110,7 @@ impl RegionalRequester {
                             && !status.is_server_error())
                         {
                             log::debug!("Response {} (retried {} times), returning.", status, retries);
-                            break Err(RiotApiError::new(err, retries, Some(response)));
+                            break Err(RiotApiError::new(err, retries, Some(response), Some(status)));
                         }
                         log::debug!("Response {} (retried {} times), retrying.", status, retries);
                     },

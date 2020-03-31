@@ -3,8 +3,9 @@ use std::fmt;
 
 /// Re-exported `reqwest` types.
 pub mod reqwest {
-    pub use reqwest::Error;
-    pub use reqwest::Response;
+    pub use reqwest::{
+        Error, Response, StatusCode, Url
+    };
 }
 use ::reqwest::*;
 
@@ -20,13 +21,15 @@ pub struct RiotApiError {
     reqwest_error: Error,
     retries: u8,
     response: Option<Response>,
+    status_code: Option<StatusCode>,
 }
 impl RiotApiError {
-    pub fn new(reqwest_error: Error, retries: u8, response: Option<Response>) -> Self {
+    pub(crate) fn new(reqwest_error: Error, retries: u8, response: Option<Response>, status_code: Option<StatusCode>) -> Self {
         Self {
             reqwest_error: reqwest_error,
             retries: retries,
             response: response,
+            status_code: status_code,
         }
     }
     /// The reqwest::Error for the final failed request.
@@ -37,10 +40,17 @@ impl RiotApiError {
     pub fn retries(&self) -> u8 {
         self.retries
     }
-    /// The failed response, if the request was sent and failed.
-    /// Will be `None` if JSON parsing failed.
-    pub fn response<'a>(&self) -> Option<&Response> {
+    /// The failed response.
+    /// `Some(reqwest::Response)` if the request was sent and failed.
+    /// `None` if the request was not sent, OR if parsing the response JSON failed.
+    pub fn response(&self) -> Option<&Response> {
         self.response.as_ref()
+    }
+    /// The failed response's HTTP status code.
+    /// `Some(reqwest::StatusCode)` if the request was sent and failed, OR if parsing the response JSON failed.
+    /// `None` if the request was not sent.
+    pub fn status_code(&self) -> Option<StatusCode> {
+        self.status_code
     }
 }
 impl fmt::Display for RiotApiError {
