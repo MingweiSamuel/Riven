@@ -73,11 +73,12 @@ async_tests!{
             rassert!(!m.participants.is_empty(), "Match should have participants.");
             Ok(())
         },
-        // LOR
-        lor_ranked_get_leaderboards: async {
-            let future = RIOT_API.lor_ranked_v1().get_leaderboards(Region::AMERICAS);
-            let _leaderboard = future.await.map_err(|e| e.to_string())?;
-            Ok(())
-        },
+        // Commented out, requires special API key.
+        // // LOR
+        // lor_ranked_get_leaderboards: async {
+        //     let future = RIOT_API.lor_ranked_v1().get_leaderboards(Region::AMERICAS);
+        //     let _leaderboard = future.await.map_err(|e| e.to_string())?;
+        //     Ok(())
+        // },
     }
 }
