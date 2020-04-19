@@ -86,20 +86,22 @@ impl RegionalRequester {
                     .header(Self::RIOT_KEY_HEADER, &*config.api_key)
                     .send()
                     .await
-                    .map_err(|e| RiotApiError::new(e, retries, None, None))?;
+                    .map_err(|e| RiotApiError::new(e, retries, None, None, None))?;
 
                 // Maybe update rate limits (based on response headers).
                 self.app_rate_limit.on_response(&config, &response);
                 method_rate_limit.on_response(&config, &response);
 
                 let status = response.status();
+                let headers = response.headers().clone();
+
                 // Handle normal success / failure cases.
                 match response.error_for_status_ref() {
                     // Success.
                     Ok(_response) => {
                         log::trace!("Response {} (retried {} times), parsed result.", status, retries);
                         let value = response.json::<T>().await;
-                        break value.map_err(|e| RiotApiError::new(e, retries, None, Some(status)));
+                        break value.map_err(|e| RiotApiError::new(e, retries, Some(headers), Some(status), None));
                     },
                     // Failure, may or may not be retryable.
                     Err(err) => {
@@ -110,7 +112,23 @@ impl RegionalRequester {
                             && !status.is_server_error())
                         {
                             log::debug!("Response {} (retried {} times), returning.", status, retries);
-                            break Err(RiotApiError::new(err, retries, Some(response), Some(status)));
+
+                            // Extract the response body from bytes into a String,
+                            // accounting for potentially non-utf-8 characters.
+                            let content = response.bytes().await;
+
+                            break match content {
+                                Ok(bytes) => {
+                                    let body = String::from_utf8_lossy(&bytes).into_owned();
+
+                                    Err(RiotApiError::new(err, retries, Some(headers), Some(status), Some(body)))
+                                }
+                                Err(_inner_err) => {
+                                    // Throw the inner error away and ignore response body parsing
+
+                                    Err(RiotApiError::new(err, retries, Some(headers), Some(status), None))
+                                }
+                            }
                         }
                         log::debug!("Response {} (retried {} times), retrying.", status, retries);
                     },
