@@ -49,6 +49,31 @@ async_tests!{
             }
             Ok(())
         },
+        inspecting_response_and_headers_on_error: async {
+            let sum = RIOT_API.summoner_v4().get_by_puuid(Region::EUW, "clearly not a puuid").await;
+
+            match sum {
+                Ok(_summoner) => rassert!(false, "Should not have succeeded"),
+                Err(error) => {
+                    match error.headers() {
+                        Some(headers) => {
+                            rassert!(headers.len() > 0, "Invalid headers received: {:?}", error);
+                            rassert!(headers.contains_key("x-app-rate-limit"), "Invalid headers received: {:?}", error);
+                            rassert!(headers.contains_key("x-method-rate-limit"), "Invalid headers received: {:?}", error);
+                        },
+                        None => rassert!(false, "Headers shouldn't be empty"),
+                    }
+                    match error.response_body() {
+                        Some(body) => {
+                            rassert!(body.len() > 0, "Invalid body received: {:?}", error);
+                        },
+                        None => rassert!(false, "The response body shouldn't be empty"),
+                    }
+                }
+            };
+
+            Ok(())
+        },
         // // TFT tests.
         // tftleaguev1_getchallengerleague: async {
         //     let p = RIOT_API.tft_league_v1().get_challenger_league(Region::EUW);
