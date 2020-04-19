@@ -4,7 +4,7 @@ use std::fmt;
 /// Re-exported `reqwest` types.
 pub mod reqwest {
     pub use reqwest::{
-        Error, Response, StatusCode, Url
+        Error, Response, StatusCode, Url, header::HeaderMap
     };
 }
 use ::reqwest::*;
@@ -20,16 +20,24 @@ pub type Result<T> = std::result::Result<T, RiotApiError>;
 pub struct RiotApiError {
     reqwest_error: Error,
     retries: u8,
-    response: Option<Response>,
+    headers: Option<header::HeaderMap>,
     status_code: Option<StatusCode>,
+    response_body: Option<String>,
 }
 impl RiotApiError {
-    pub(crate) fn new(reqwest_error: Error, retries: u8, response: Option<Response>, status_code: Option<StatusCode>) -> Self {
+    pub(crate) fn new(
+        reqwest_error: Error,
+        retries: u8,
+        headers: Option<header::HeaderMap>,
+        status_code: Option<StatusCode>,
+        response_body: Option<String>
+    ) -> Self {
         Self {
             reqwest_error: reqwest_error,
             retries: retries,
-            response: response,
+            headers: headers,
             status_code: status_code,
+            response_body: response_body,
         }
     }
     /// The reqwest::Error for the final failed request.
@@ -40,17 +48,23 @@ impl RiotApiError {
     pub fn retries(&self) -> u8 {
         self.retries
     }
-    /// The failed response.
-    /// `Some(reqwest::Response)` if the request was sent and failed.
-    /// `None` if the request was not sent, OR if parsing the response JSON failed.
-    pub fn response(&self) -> Option<&Response> {
-        self.response.as_ref()
-    }
     /// The failed response's HTTP status code.
     /// `Some(reqwest::StatusCode)` if the request was sent and failed, OR if parsing the response JSON failed.
     /// `None` if the request was not sent.
     pub fn status_code(&self) -> Option<StatusCode> {
         self.status_code
+    }
+    /// The failed response's headers.
+    /// `Some(reqwest::header::HeaderMap)` if the request was sent and failed.
+    /// `None` if the request was not sent.
+    pub fn headers(&self) -> Option<header::HeaderMap> {
+        self.headers.clone()
+    }
+    /// The failed response's body (as a copy).
+    /// `Some(String)` if the request was sent and failed.
+    /// `None` if the request was not sent.
+    pub fn response_body(&self) -> Option<String> {
+        self.response_body.clone()
     }
 }
 impl fmt::Display for RiotApiError {
