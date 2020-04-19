@@ -113,15 +113,12 @@ impl RegionalRequester {
                         {
                             log::debug!("Response {} (retried {} times), returning.", status, retries);
 
-                            // Extract the response body from bytes into a String,
-                            // accounting for potentially non-utf-8 characters.
-                            let content = response.bytes().await;
+                            // Extract the response body as a String
+                            let content = response.text().await;
 
                             break match content {
-                                Ok(bytes) => {
-                                    let body = String::from_utf8_lossy(&bytes).into_owned();
-
-                                    Err(RiotApiError::new(err, retries, Some(headers), Some(status), Some(body)))
+                                Ok(str) => {
+                                    Err(RiotApiError::new(err, retries, Some(headers), Some(status), Some(str)))
                                 }
                                 Err(_inner_err) => {
                                     // Throw the inner error away and ignore response body parsing
