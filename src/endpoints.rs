@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 71bb788ab92c0b03d5dd284402d9514b625fe2a4
+// Version 64f3c82d132f12808d8eb8f483d1d2182386c432
 
 //! Automatically generated endpoint handles.
 
@@ -261,6 +261,8 @@ pub struct ClashV1<'a> {
 }
 impl<'a> ClashV1<'a> {
     /// Get players by summoner ID.
+    /// ## Implementation Notes
+    /// This endpoint returns a list of active Clash players for a given summoner ID. If a summoner registers for multiple tournaments at the same time (e.g., Saturday and Sunday) then both registrations would appear in this list.
     /// # Parameters
     /// * `region` - Region to query.
     /// * `summonerId`
