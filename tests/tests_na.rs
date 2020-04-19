@@ -10,14 +10,10 @@ use colored::*;
 use riven::consts::*;
 use riven::models::summoner_v4::*;
 
-
-fn validate_lugnutsk(s: Summoner, tag: &str) -> Result<(), String> {
-    rassert_eq!("LugnutsK", s.name,
-        "LugnutsK name didn't match {}.", tag);
-    rassert_eq!(ids::SUMMONER_ID_LUGNUTSK, s.id,
-        "LugnutsK summonerId didn't match {}.", tag);
-    rassert_eq!(ids::ACCOUNT_ID_LUGNUTSK, s.account_id,
-        "LugnutsK accountId didn't match {}.", tag);
+fn validate_summoners(s1: Summoner, s2: Summoner) -> Result<(), String> {
+    rassert_eq!(s1.name, s2.name, "Names didn't match {}.", "");
+    rassert_eq!(s1.id, s2.id, "SummonerId didn't match {}.", "");
+    rassert_eq!(s1.account_id, s2.account_id, "AccountId didn't match {}.", "");
     Ok(())
 }
 
@@ -29,8 +25,7 @@ async_tests!{
             let l2p = RIOT_API.summoner_v4().get_by_summoner_name(Region::NA, "lugnuts k");
             let l1 = l1p.await.map_err(|e| e.to_string())?.ok_or("Failed to get l1".to_owned())?;
             let l2 = l2p.await.map_err(|e| e.to_string())?.ok_or("Failed to get l2".to_owned())?;
-            validate_lugnutsk(l1, "l1")?;
-            validate_lugnutsk(l2, "l2")?;
+            validate_summoners(l1, l2)?;
             Ok(())
         },
         champion_getrotation: async {

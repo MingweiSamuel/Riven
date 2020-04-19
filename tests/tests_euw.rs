@@ -14,13 +14,19 @@ async_tests!{
     my_runner {
         // Champion Mastery tests.
         championmastery_getscore_ma5tery: async {
-            let p = RIOT_API.champion_mastery_v4().get_champion_mastery_score(Region::EUW, ids::SUMMONER_ID_MA5TERY);
+            let sum = RIOT_API.summoner_v4().get_by_summoner_name(Region::EUW, "ma5tery");
+            let sum = sum.await.map_err(|e| e.to_string())?.ok_or("Failed to get summoner".to_owned())?;
+
+            let p = RIOT_API.champion_mastery_v4().get_champion_mastery_score(Region::EUW, &*sum.id);
             let s = p.await.map_err(|e| e.to_string())?;
             rassert!(969 <= s && s <= 1000, "Unexpected ma5tery score: {}.", s);
             Ok(())
         },
         championmastery_getall_ma5tery: async {
-            let p = RIOT_API.champion_mastery_v4().get_all_champion_masteries(Region::EUW, ids::SUMMONER_ID_MA5TERY);
+            let sum = RIOT_API.summoner_v4().get_by_summoner_name(Region::EUW, "ma5tery");
+            let sum = sum.await.map_err(|e| e.to_string())?.ok_or("Failed to get summoner".to_owned())?;
+
+            let p = RIOT_API.champion_mastery_v4().get_all_champion_masteries(Region::EUW, &*sum.id);
             let s = p.await.map_err(|e| e.to_string())?;
             rassert!(s.len() >= 142, "Expected masteries: {}.", s.len());
             Ok(())
