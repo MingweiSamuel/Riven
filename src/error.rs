@@ -1,13 +1,7 @@
 use std::error::Error as StdError;
 use std::fmt;
 
-/// Re-exported `reqwest` types.
-pub mod reqwest {
-    pub use reqwest::{
-        Error, Response, StatusCode, Url
-    };
-}
-use ::reqwest::*;
+use crate::reqwest::*;
 
 /// Result containing RiotApiError on failure.
 pub type Result<T> = std::result::Result<T, RiotApiError>;

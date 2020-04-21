@@ -6,6 +6,9 @@
 #![cfg_attr(feature = "nightly", doc(include = "../README.md"))]
 #![cfg_attr(not(feature = "nightly"), doc = "See [README.md](https://github.com/MingweiSamuel/Riven#readme).")]
 
+/// Re-exported `reqwest` types.
+pub use reqwest;
+
 mod config;
 pub use config::RiotApiConfig;
 
