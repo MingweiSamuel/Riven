@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 71bb788ab92c0b03d5dd284402d9514b625fe2a4
+// Version 64f3c82d132f12808d8eb8f483d1d2182386c432
 
 //! Automatically generated endpoint handles.
 
@@ -19,17 +19,18 @@ use std::vec::Vec;
 use url::form_urlencoded::Serializer;
 
 use crate::Result;
+use crate::client::Client;
 use crate::consts::Region;
 use crate::riot_api::RiotApi;
 
-impl RiotApi {
+impl<C: Client> RiotApi<C> {
     /// Returns a handle for accessing [ChampionMasteryV4](crate::endpoints::ChampionMasteryV4) endpoints.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/apis#champion-mastery-v4" target="_blank">`champion-mastery-v4`</a>
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn champion_mastery_v4(&self) -> ChampionMasteryV4 {
+    pub fn champion_mastery_v4(&self) -> ChampionMasteryV4<C> {
         ChampionMasteryV4 { base: self }
     }
     /// Returns a handle for accessing [ChampionV3](crate::endpoints::ChampionV3) endpoints.
@@ -38,7 +39,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn champion_v3(&self) -> ChampionV3 {
+    pub fn champion_v3(&self) -> ChampionV3<C> {
         ChampionV3 { base: self }
     }
     /// Returns a handle for accessing [ClashV1](crate::endpoints::ClashV1) endpoints.
@@ -47,7 +48,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn clash_v1(&self) -> ClashV1 {
+    pub fn clash_v1(&self) -> ClashV1<C> {
         ClashV1 { base: self }
     }
     /// Returns a handle for accessing [LeagueExpV4](crate::endpoints::LeagueExpV4) endpoints.
@@ -56,7 +57,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn league_exp_v4(&self) -> LeagueExpV4 {
+    pub fn league_exp_v4(&self) -> LeagueExpV4<C> {
         LeagueExpV4 { base: self }
     }
     /// Returns a handle for accessing [LeagueV4](crate::endpoints::LeagueV4) endpoints.
@@ -65,7 +66,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn league_v4(&self) -> LeagueV4 {
+    pub fn league_v4(&self) -> LeagueV4<C> {
         LeagueV4 { base: self }
     }
     /// Returns a handle for accessing [LolStatusV3](crate::endpoints::LolStatusV3) endpoints.
@@ -74,7 +75,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn lol_status_v3(&self) -> LolStatusV3 {
+    pub fn lol_status_v3(&self) -> LolStatusV3<C> {
         LolStatusV3 { base: self }
     }
     /// Returns a handle for accessing [LorRankedV1](crate::endpoints::LorRankedV1) endpoints.
@@ -83,7 +84,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn lor_ranked_v1(&self) -> LorRankedV1 {
+    pub fn lor_ranked_v1(&self) -> LorRankedV1<C> {
         LorRankedV1 { base: self }
     }
     /// Returns a handle for accessing [MatchV4](crate::endpoints::MatchV4) endpoints.
@@ -92,7 +93,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn match_v4(&self) -> MatchV4 {
+    pub fn match_v4(&self) -> MatchV4<C> {
         MatchV4 { base: self }
     }
     /// Returns a handle for accessing [SpectatorV4](crate::endpoints::SpectatorV4) endpoints.
@@ -101,7 +102,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn spectator_v4(&self) -> SpectatorV4 {
+    pub fn spectator_v4(&self) -> SpectatorV4<C> {
         SpectatorV4 { base: self }
     }
     /// Returns a handle for accessing [SummonerV4](crate::endpoints::SummonerV4) endpoints.
@@ -110,7 +111,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn summoner_v4(&self) -> SummonerV4 {
+    pub fn summoner_v4(&self) -> SummonerV4<C> {
         SummonerV4 { base: self }
     }
     /// Returns a handle for accessing [TftLeagueV1](crate::endpoints::TftLeagueV1) endpoints.
@@ -119,7 +120,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn tft_league_v1(&self) -> TftLeagueV1 {
+    pub fn tft_league_v1(&self) -> TftLeagueV1<C> {
         TftLeagueV1 { base: self }
     }
     /// Returns a handle for accessing [TftMatchV1](crate::endpoints::TftMatchV1) endpoints.
@@ -128,7 +129,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn tft_match_v1(&self) -> TftMatchV1 {
+    pub fn tft_match_v1(&self) -> TftMatchV1<C> {
         TftMatchV1 { base: self }
     }
     /// Returns a handle for accessing [TftSummonerV1](crate::endpoints::TftSummonerV1) endpoints.
@@ -137,7 +138,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn tft_summoner_v1(&self) -> TftSummonerV1 {
+    pub fn tft_summoner_v1(&self) -> TftSummonerV1<C> {
         TftSummonerV1 { base: self }
     }
     /// Returns a handle for accessing [ThirdPartyCodeV4](crate::endpoints::ThirdPartyCodeV4) endpoints.
@@ -146,7 +147,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn third_party_code_v4(&self) -> ThirdPartyCodeV4 {
+    pub fn third_party_code_v4(&self) -> ThirdPartyCodeV4<C> {
         ThirdPartyCodeV4 { base: self }
     }
     /// Returns a handle for accessing [TournamentStubV4](crate::endpoints::TournamentStubV4) endpoints.
@@ -155,7 +156,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn tournament_stub_v4(&self) -> TournamentStubV4 {
+    pub fn tournament_stub_v4(&self) -> TournamentStubV4<C> {
         TournamentStubV4 { base: self }
     }
     /// Returns a handle for accessing [TournamentV4](crate::endpoints::TournamentV4) endpoints.
@@ -164,7 +165,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn tournament_v4(&self) -> TournamentV4 {
+    pub fn tournament_v4(&self) -> TournamentV4<C> {
         TournamentV4 { base: self }
     }
 }
@@ -174,10 +175,10 @@ impl RiotApi {
 /// <a href="https://developer.riotgames.com/apis#champion-mastery-v4" target="_blank">`champion-mastery-v4`</a>
 ///
 /// Note: this struct is automatically generated.
-pub struct ChampionMasteryV4<'a> {
-    base: &'a RiotApi,
+pub struct ChampionMasteryV4<'a, C: Client> {
+    base: &'a RiotApi<C>,
 }
-impl<'a> ChampionMasteryV4<'a> {
+impl<'a, C: Client> ChampionMasteryV4<'a, C> {
     /// Get all champion mastery entries sorted by number of champion points descending,
     /// # Parameters
     /// * `region` - Region to query.
@@ -231,10 +232,10 @@ impl<'a> ChampionMasteryV4<'a> {
 /// <a href="https://developer.riotgames.com/apis#champion-v3" target="_blank">`champion-v3`</a>
 ///
 /// Note: this struct is automatically generated.
-pub struct ChampionV3<'a> {
-    base: &'a RiotApi,
+pub struct ChampionV3<'a, C: Client> {
+    base: &'a RiotApi<C>,
 }
-impl<'a> ChampionV3<'a> {
+impl<'a, C: Client> ChampionV3<'a, C> {
     /// Returns champion rotations, including free-to-play and low-level free-to-play rotations (REST)
     /// # Parameters
     /// * `region` - Region to query.
@@ -256,11 +257,13 @@ impl<'a> ChampionV3<'a> {
 /// <a href="https://developer.riotgames.com/apis#clash-v1" target="_blank">`clash-v1`</a>
 ///
 /// Note: this struct is automatically generated.
-pub struct ClashV1<'a> {
-    base: &'a RiotApi,
+pub struct ClashV1<'a, C: Client> {
+    base: &'a RiotApi<C>,
 }
-impl<'a> ClashV1<'a> {
+impl<'a, C: Client> ClashV1<'a, C> {
     /// Get players by summoner ID.
+    /// ## Implementation Notes
+    /// This endpoint returns a list of active Clash players for a given summoner ID. If a summoner registers for multiple tournaments at the same time (e.g., Saturday and Sunday) then both registrations would appear in this list.
     /// # Parameters
     /// * `region` - Region to query.
     /// * `summonerId`
@@ -341,10 +344,10 @@ impl<'a> ClashV1<'a> {
 /// <a href="https://developer.riotgames.com/apis#league-exp-v4" target="_blank">`league-exp-v4`</a>
 ///
 /// Note: this struct is automatically generated.
-pub struct LeagueExpV4<'a> {
-    base: &'a RiotApi,
+pub struct LeagueExpV4<'a, C: Client> {
+    base: &'a RiotApi<C>,
 }
-impl<'a> LeagueExpV4<'a> {
+impl<'a, C: Client> LeagueExpV4<'a, C> {
     /// Get all the league entries.
     /// # Parameters
     /// * `region` - Region to query.
@@ -373,10 +376,10 @@ impl<'a> LeagueExpV4<'a> {
 /// <a href="https://developer.riotgames.com/apis#league-v4" target="_blank">`league-v4`</a>
 ///
 /// Note: this struct is automatically generated.
-pub struct LeagueV4<'a> {
-    base: &'a RiotApi,
+pub struct LeagueV4<'a, C: Client> {
+    base: &'a RiotApi<C>,
 }
-impl<'a> LeagueV4<'a> {
+impl<'a, C: Client> LeagueV4<'a, C> {
     /// Get the challenger league for given queue.
     /// # Parameters
     /// * `region` - Region to query.
@@ -480,10 +483,10 @@ impl<'a> LeagueV4<'a> {
 /// <a href="https://developer.riotgames.com/apis#lol-status-v3" target="_blank">`lol-status-v3`</a>
 ///
 /// Note: this struct is automatically generated.
-pub struct LolStatusV3<'a> {
-    base: &'a RiotApi,
+pub struct LolStatusV3<'a, C: Client> {
+    base: &'a RiotApi<C>,
 }
-impl<'a> LolStatusV3<'a> {
+impl<'a, C: Client> LolStatusV3<'a, C> {
     /// Get League of Legends status for the given shard.
     /// ## Rate Limit Notes
     /// Requests to this API are not counted against the application Rate Limits.
@@ -507,10 +510,10 @@ impl<'a> LolStatusV3<'a> {
 /// <a href="https://developer.riotgames.com/apis#lor-ranked-v1" target="_blank">`lor-ranked-v1`</a>
 ///
 /// Note: this struct is automatically generated.
-pub struct LorRankedV1<'a> {
-    base: &'a RiotApi,
+pub struct LorRankedV1<'a, C: Client> {
+    base: &'a RiotApi<C>,
 }
-impl<'a> LorRankedV1<'a> {
+impl<'a, C: Client> LorRankedV1<'a, C> {
     /// Get the players in Master tier.
     /// # Parameters
     /// * `region` - Region to query.
@@ -532,10 +535,10 @@ impl<'a> LorRankedV1<'a> {
 /// <a href="https://developer.riotgames.com/apis#match-v4" target="_blank">`match-v4`</a>
 ///
 /// Note: this struct is automatically generated.
-pub struct MatchV4<'a> {
-    base: &'a RiotApi,
+pub struct MatchV4<'a, C: Client> {
+    base: &'a RiotApi<C>,
 }
-impl<'a> MatchV4<'a> {
+impl<'a, C: Client> MatchV4<'a, C> {
     /// Get match IDs by tournament code.
     /// # Parameters
     /// * `region` - Region to query.
@@ -643,10 +646,10 @@ impl<'a> MatchV4<'a> {
 /// <a href="https://developer.riotgames.com/apis#spectator-v4" target="_blank">`spectator-v4`</a>
 ///
 /// Note: this struct is automatically generated.
-pub struct SpectatorV4<'a> {
-    base: &'a RiotApi,
+pub struct SpectatorV4<'a, C: Client> {
+    base: &'a RiotApi<C>,
 }
-impl<'a> SpectatorV4<'a> {
+impl<'a, C: Client> SpectatorV4<'a, C> {
     /// Get current game information for the given summoner ID.
     /// # Parameters
     /// * `region` - Region to query.
@@ -683,10 +686,10 @@ impl<'a> SpectatorV4<'a> {
 /// <a href="https://developer.riotgames.com/apis#summoner-v4" target="_blank">`summoner-v4`</a>
 ///
 /// Note: this struct is automatically generated.
-pub struct SummonerV4<'a> {
-    base: &'a RiotApi,
+pub struct SummonerV4<'a, C: Client> {
+    base: &'a RiotApi<C>,
 }
-impl<'a> SummonerV4<'a> {
+impl<'a, C: Client> SummonerV4<'a, C> {
     /// Get a summoner by account ID.
     /// # Parameters
     /// * `region` - Region to query.
@@ -754,10 +757,10 @@ impl<'a> SummonerV4<'a> {
 /// <a href="https://developer.riotgames.com/apis#tft-league-v1" target="_blank">`tft-league-v1`</a>
 ///
 /// Note: this struct is automatically generated.
-pub struct TftLeagueV1<'a> {
-    base: &'a RiotApi,
+pub struct TftLeagueV1<'a, C: Client> {
+    base: &'a RiotApi<C>,
 }
-impl<'a> TftLeagueV1<'a> {
+impl<'a, C: Client> TftLeagueV1<'a, C> {
     /// Get the challenger league.
     /// # Parameters
     /// * `region` - Region to query.
@@ -857,10 +860,10 @@ impl<'a> TftLeagueV1<'a> {
 /// <a href="https://developer.riotgames.com/apis#tft-match-v1" target="_blank">`tft-match-v1`</a>
 ///
 /// Note: this struct is automatically generated.
-pub struct TftMatchV1<'a> {
-    base: &'a RiotApi,
+pub struct TftMatchV1<'a, C: Client> {
+    base: &'a RiotApi<C>,
 }
-impl<'a> TftMatchV1<'a> {
+impl<'a, C: Client> TftMatchV1<'a, C> {
     /// Get a list of match ids by PUUID.
     /// # Parameters
     /// * `region` - Region to query.
@@ -902,10 +905,10 @@ impl<'a> TftMatchV1<'a> {
 /// <a href="https://developer.riotgames.com/apis#tft-summoner-v1" target="_blank">`tft-summoner-v1`</a>
 ///
 /// Note: this struct is automatically generated.
-pub struct TftSummonerV1<'a> {
-    base: &'a RiotApi,
+pub struct TftSummonerV1<'a, C: Client> {
+    base: &'a RiotApi<C>,
 }
-impl<'a> TftSummonerV1<'a> {
+impl<'a, C: Client> TftSummonerV1<'a, C> {
     /// Get a summoner by account ID.
     /// # Parameters
     /// * `region` - Region to query.
@@ -973,10 +976,10 @@ impl<'a> TftSummonerV1<'a> {
 /// <a href="https://developer.riotgames.com/apis#third-party-code-v4" target="_blank">`third-party-code-v4`</a>
 ///
 /// Note: this struct is automatically generated.
-pub struct ThirdPartyCodeV4<'a> {
-    base: &'a RiotApi,
+pub struct ThirdPartyCodeV4<'a, C: Client> {
+    base: &'a RiotApi<C>,
 }
-impl<'a> ThirdPartyCodeV4<'a> {
+impl<'a, C: Client> ThirdPartyCodeV4<'a, C> {
     /// Get third party code for a given summoner ID.
     /// # Parameters
     /// * `region` - Region to query.
@@ -999,10 +1002,10 @@ impl<'a> ThirdPartyCodeV4<'a> {
 /// <a href="https://developer.riotgames.com/apis#tournament-stub-v4" target="_blank">`tournament-stub-v4`</a>
 ///
 /// Note: this struct is automatically generated.
-pub struct TournamentStubV4<'a> {
-    base: &'a RiotApi,
+pub struct TournamentStubV4<'a, C: Client> {
+    base: &'a RiotApi<C>,
 }
-impl<'a> TournamentStubV4<'a> {
+impl<'a, C: Client> TournamentStubV4<'a, C> {
     /// Gets a mock list of lobby events by tournament code.
     /// # Parameters
     /// * `region` - Region to query.
@@ -1025,10 +1028,10 @@ impl<'a> TournamentStubV4<'a> {
 /// <a href="https://developer.riotgames.com/apis#tournament-v4" target="_blank">`tournament-v4`</a>
 ///
 /// Note: this struct is automatically generated.
-pub struct TournamentV4<'a> {
-    base: &'a RiotApi,
+pub struct TournamentV4<'a, C: Client> {
+    base: &'a RiotApi<C>,
 }
-impl<'a> TournamentV4<'a> {
+impl<'a, C: Client> TournamentV4<'a, C> {
     /// Returns the tournament code DTO associated with a tournament code string.
     /// # Parameters
     /// * `region` - Region to query.

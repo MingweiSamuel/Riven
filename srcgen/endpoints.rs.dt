@@ -16,6 +16,7 @@ use std::vec::Vec;
 use url::form_urlencoded::Serializer;
 
 use crate::Result;
+use crate::client::Client;
 use crate::consts::Region;
 use crate::riot_api::RiotApi;
 
@@ -27,7 +28,7 @@ use crate::riot_api::RiotApi;
         endpointGroups[ep].push(path);
     }
 }}
-impl RiotApi {
+impl<C: Client> RiotApi<C> {
 {{
     for (const endpointName of Object.keys(endpointGroups)) {
         const method = dotUtils.changeCase.snakeCase(endpointName);
@@ -39,7 +40,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn {{= method }}(&self) -> {{= type }} {
+    pub fn {{= method }}(&self) -> {{= type }}<C> {
         {{= type }} { base: self }
     }
 {{
@@ -57,10 +58,10 @@ impl RiotApi {
 /// <a href="https://developer.riotgames.com/apis#{{= endpointName }}" target="_blank">`{{= endpointName }}`</a>
 ///
 /// Note: this struct is automatically generated.
-pub struct {{= endpoint }}<'a> {
-    base: &'a RiotApi,
+pub struct {{= endpoint }}<'a, C: Client> {
+    base: &'a RiotApi<C>,
 }
-impl<'a> {{= endpoint }}<'a> {
+impl<'a, C: Client> {{= endpoint }}<'a, C> {
 {{
         for (let [ route, path ] of endpointMethods)
         {

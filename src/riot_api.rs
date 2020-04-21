@@ -2,9 +2,9 @@ use std::future::Future;
 use std::sync::Arc;
 
 use log;
-use reqwest::Client;
 
 use crate::Result;
+use crate::client::Client;
 use crate::RiotApiConfig;
 use crate::req::RegionalRequester;
 use crate::util::InsertOnlyCHashMap;
@@ -34,24 +34,30 @@ use crate::util::InsertOnlyCHashMap;
 ///
 /// To adjust rate limiting, see [RiotApiConfig](crate::RiotApiConfig) and use
 /// [`with_config(config)`](RiotApi::with_config) to construct an instance.
-pub struct RiotApi {
+pub struct RiotApi<C: Client> {
     /// Configuration settings.
     config: RiotApiConfig,
     /// Client for making requests.
-    client: Client,
+    client: C,
 
     /// Per-region requesters.
     regional_requesters: InsertOnlyCHashMap<&'static str, RegionalRequester>,
 }
 
-impl RiotApi {
+impl<C: Client> RiotApi<C> {
     /// Constructs a new instance from the given [RiotApiConfig](crate::RiotApiConfig), consuming it.
     pub fn with_config(mut config: RiotApiConfig) -> Self {
-        let client_builder = config.client_builder.take()
-            .expect("!NONE CLIENT_BUILDER IN CONFIG.");
+        //FIXME
+        // let client_builder = config.client_builder.take()
+        //     .expect("!NONE CLIENT_BUILDER IN CONFIG.");
+        // Self {
+        //     config: config,
+        //     client: client_builder.build().expect("Failed to create client from builder."),
+        //     regional_requesters: InsertOnlyCHashMap::new(),
+        // }
         Self {
             config: config,
-            client: client_builder.build().expect("Failed to create client from builder."),
+            client: C::new(),
             regional_requesters: InsertOnlyCHashMap::new(),
         }
     }
@@ -74,7 +80,7 @@ impl RiotApi {
     /// * `region_platform` - The stringified platform, prepended to `.api.riotgames.com` to create the hostname.
     /// * `path` - The path relative to the hostname.
     /// * `query` - An optional query string.
-    pub fn get_optional<'a, T: serde::de::DeserializeOwned + 'a>(&'a self,
+    pub fn get_optional<'a, T: serde::de::DeserializeOwned + 'static>(&'a self,
         method_id: &'static str, region_platform: &'static str, path: String, query: Option<String>)
         -> impl Future<Output = Result<Option<T>>> + 'a
     {
@@ -91,7 +97,7 @@ impl RiotApi {
     /// * `region_platform` - The stringified platform, prepended to `.api.riotgames.com` to create the hostname.
     /// * `path` - The path relative to the hostname.
     /// * `query` - An optional query string.
-    pub fn get<'a, T: serde::de::DeserializeOwned + 'a>(&'a self,
+    pub fn get<'a, T: serde::de::DeserializeOwned + 'static>(&'a self,
         method_id: &'static str, region_platform: &'static str, path: String, query: Option<String>)
         -> impl Future<Output = Result<T>> + 'a
     {

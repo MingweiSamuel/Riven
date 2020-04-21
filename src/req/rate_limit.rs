@@ -3,10 +3,10 @@ use std::time::{ Duration, Instant };
 
 use log;
 use parking_lot::{ RwLock, RwLockUpgradableReadGuard };
-use reqwest::{ StatusCode, Response };
 use scan_fmt::scan_fmt;
 
 use crate::RiotApiConfig;
+use crate::client::Response;
 use super::{ TokenBucket, VectorTokenBucket };
 use super::RateLimitType;
 
@@ -68,25 +68,25 @@ impl RateLimit {
         self.retry_after.read().and_then(|i| Instant::now().checked_duration_since(i))
     }
 
-    pub fn on_response(&self, config: &RiotApiConfig, response: &Response) {
+    pub fn on_response<R: Response>(&self, config: &RiotApiConfig, response: &R) {
         self.on_response_retry_after(response);
         self.on_response_rate_limits(config, response);
     }
 
     /// `on_response` helper for retry after check.
     #[inline]
-    fn on_response_retry_after(&self, response: &Response) {
+    fn on_response_retry_after<R: Response>(&self, response: &R) {
         if let Some(retry_after) = || -> Option<Instant> {
-            // Only care about 429s.
-            if StatusCode::TOO_MANY_REQUESTS != response.status() {
+            // Only care about 429 Too Many Requests.
+            if 429 != response.status() {
                 return None;
             }
 
             {
                 // Only care if the header that indicates the relevant RateLimit is present.
-                let type_name_header = response.headers()
-                    .get(RateLimit::HEADER_XRATELIMITTYPE)?.to_str()
-                    .expect("Failed to read x-rate-limit-type header as string.");
+                let type_name_header = response
+                    .header(RateLimit::HEADER_XRATELIMITTYPE)?;
+                    // .expect("Failed to read x-rate-limit-type header as string.");
                 // Only care if that header's value matches us.
                 if self.rate_limit_type.type_name() != type_name_header.to_lowercase() {
                     return None;
@@ -94,9 +94,9 @@ impl RateLimit {
             }
 
             // Get retry after header. Only care if it exists.
-            let retry_after_header = response.headers()
-                .get(RateLimit::HEADER_RETRYAFTER)?.to_str()
-                .expect("Failed to read retry-after header as string.");
+            let retry_after_header = response
+                .header(RateLimit::HEADER_RETRYAFTER)?;
+                // .expect("Failed to read retry-after header as string.");
 
             log::debug!("Hit 429, retry-after {} secs.", retry_after_header);
 
@@ -112,26 +112,26 @@ impl RateLimit {
     }
 
     #[inline]
-    fn on_response_rate_limits(&self, config: &RiotApiConfig, response: &Response) {
+    fn on_response_rate_limits<R: Response>(&self, config: &RiotApiConfig, response: &R) {
         // Check if rate limits changed.
-        let headers = response.headers();
-        let limit_header_opt = headers.get(self.rate_limit_type.limit_header())
-            .map(|h| h.to_str().expect("Failed to read limit header as string."));
-        let count_header_opt = headers.get(self.rate_limit_type.count_header())
-            .map(|h| h.to_str().expect("Failed to read count header as string."));
+        // let headers = response.headers();
+        let limit_header_opt = response.header(self.rate_limit_type.limit_header());
+            // .map(|h| h.to_str().expect("Failed to read limit header as string."));
+        let count_header_opt = response.header(self.rate_limit_type.count_header());
+            // .map(|h| h.to_str().expect("Failed to read count header as string."));
 
         // https://github.com/rust-lang/rust/issues/53667
         if let Some(limit_header) = limit_header_opt {
         if let Some(count_header) = count_header_opt {
 
             let buckets = self.buckets.upgradable_read();
-            if !buckets_require_updating(limit_header, &*buckets) {
+            if !buckets_require_updating(&limit_header, &*buckets) {
                 return;
             }
 
             // Buckets require updating. Upgrade to write lock.
             let mut buckets = RwLockUpgradableReadGuard::upgrade(buckets);
-            *buckets = buckets_from_header(config, limit_header, count_header)
+            *buckets = buckets_from_header(config, &limit_header, &count_header)
         }}
     }
 }

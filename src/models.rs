@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 71bb788ab92c0b03d5dd284402d9514b625fe2a4
+// Version 64f3c82d132f12808d8eb8f483d1d2182386c432
 
 //! Data transfer structs.
 //!
@@ -466,7 +466,7 @@ pub mod match_v4 {
     pub struct ParticipantIdentity {
         #[serde(rename = "participantId")]
         pub participant_id: i32,
-        /// Player information.
+        /// Player information not included in the response for custom matches. Custom matches are considered private unless a tournament code was used to create the match.
         #[serde(rename = "player")]
         pub player: Player,
     }

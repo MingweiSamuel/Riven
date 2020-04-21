@@ -5,26 +5,24 @@ use serde::de::DeserializeOwned;
 
 use super::{ Client, Response, BoxFut };
 
-impl Client<reqwest::Response, reqwest::Error, reqwest::Error> for reqwest::Client {
+impl Client for reqwest::Client {
+    type Resp = reqwest::Response;
+    type Err = reqwest::Error;
     fn new() -> Self {
         Self::new()
     }
-    fn get(&self, url_base: String, url_path: String, url_query: Option<String>,
-        headers: Vec<(&'static str, String)>) -> BoxFut<Result<reqwest::Response, reqwest::Error>>
+    fn get(&self, url_base: String, url_path: &str, url_query: Option<&str>,
+        headers: Vec<(&'static str, &str)>) -> BoxFut<Result<reqwest::Response, reqwest::Error>>
     {
-        #[cfg(feature = "nightly")] let url_query = url_query.as_deref();
-        #[cfg(not(feature = "nightly"))] let url_query = url_query.as_ref().map(|s| s.as_ref());
-
         let mut url = reqwest::Url::parse(&*url_base)
             .unwrap_or_else(|_| panic!("Failed to parse url_base: \"{}\".", url_base));
-        url.set_path(&*url_path);
+        url.set_path(url_path);
         url.set_query(url_query);
 
         let header_iter = headers.into_iter()
             .map(|(key, value)| (
-                key.try_into().unwrap_or_else(|_| panic!("Invalid header key: \"{}\".", &key)),
-                // Makes a copy.
-                (&value).try_into().unwrap_or_else(|_| panic!("Invalid header value: \"{}\".", &value)),
+                key.try_into().unwrap_or_else(|_| panic!("Invalid header key: \"{}\".", key)),
+                value.try_into().unwrap_or_else(|_| panic!("Invalid header value: \"{}\".", value)),
             ));
         let header_map = reqwest::header::HeaderMap::from_iter(header_iter);
 
@@ -35,19 +33,20 @@ impl Client<reqwest::Response, reqwest::Error, reqwest::Error> for reqwest::Clie
     }
 }
 
-impl Response<reqwest::Error> for reqwest::Response {
-    fn status_code(&self) -> u16 {
+impl Response for reqwest::Response {
+    type Err = reqwest::Error;
+    fn status(&self) -> u16 {
         self.status().as_u16()
     }
     fn verison(&self) -> String {
         format!("{:?}", self.version())
     }
-    fn header(&self, key: String) -> Option<String> {
+    fn header(&self, key: &str) -> Option<String> {
         self.headers().get(key)
             .and_then(|value| value.to_str().ok())
             .map(|value| value.to_owned())
     }
-    fn headers_all(&self, key: String) -> Vec<String> {
+    fn headers_all(&self, key: &str) -> Vec<String> {
         self.headers().get_all(key).iter()
             .filter_map(|value| value.to_str().ok())
             .map(|value| value.to_owned())
