@@ -9,6 +9,8 @@
 /// Re-exported `reqwest` types.
 pub use reqwest;
 
+pub mod client;
+
 mod config;
 pub use config::RiotApiConfig;
 
