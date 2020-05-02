@@ -57,13 +57,18 @@ async_tests!{
         //     Ok(())
         // },
         // tftmatchv1_getmatch: async {
-        //     let p = RIOT_API.tft_match_v1().get_match(Region::AMERICAS, "PBE1_4328907912");
+        //     let p = RIOT_API.tft_match_v1().get_match(Region::EUROPE, "EUW1_4568680990");
         //     let _m = p.await.map_err(|e| e.to_string())?.ok_or("Failed to get TFT match.".to_owned())?;
         //     Ok(())
         // },
         // tftsummonerv1_getbyname: async {
         //     let p = RIOT_API.tft_summoner_v1().get_by_summoner_name(Region::EUW, "相当猥琐");
         //     let _s = p.await.map_err(|e| e.to_string())?.ok_or("Failed to get TFT summoner.".to_owned())?;
+        //     Ok(())
+        // },
+        // tftsummonerv1_getbyname_none: async {
+        //     let p = RIOT_API.tft_summoner_v1().get_by_summoner_name(Region::EUW, "this summoner does not exist");
+        //     rassert!(p.await.map_err(|e| e.to_string())?.is_none());
         //     Ok(())
         // },
     }

@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 71bb788ab92c0b03d5dd284402d9514b625fe2a4
+// Version e558dafc98b78c830aadeca509f18285e4d11a7a
 
 //! Data transfer structs.
 //!
@@ -466,7 +466,7 @@ pub mod match_v4 {
     pub struct ParticipantIdentity {
         #[serde(rename = "participantId")]
         pub participant_id: i32,
-        /// Player information.
+        /// Player information not included in the response for custom matches. Custom matches are considered private unless a tournament code was used to create the match.
         #[serde(rename = "player")]
         pub player: Player,
     }
@@ -1485,7 +1485,7 @@ pub mod tft_match_v1 {
         pub tier_current: i32,
         /// Total tiers for the trait.
         #[serde(rename = "tier_total")]
-        pub tier_total: i32,
+        pub tier_total: Option<i32>,
     }
     /// Unit data object.
     #[derive(Debug)]
@@ -1535,25 +1535,25 @@ pub mod tft_summoner_v1 {
     pub struct Summoner {
         /// ID of the summoner icon associated with the summoner.
         #[serde(rename = "profileIconId")]
-        pub profile_icon_id: Option<i32>,
+        pub profile_icon_id: i32,
         /// Summoner name.
         #[serde(rename = "name")]
-        pub name: Option<String>,
+        pub name: String,
         /// Encrypted PUUID. Exact length of 78 characters.
         #[serde(rename = "puuid")]
-        pub puuid: Option<String>,
+        pub puuid: String,
         /// Summoner level associated with the summoner.
         #[serde(rename = "summonerLevel")]
-        pub summoner_level: Option<i64>,
+        pub summoner_level: i64,
         /// Date summoner was last modified specified as epoch milliseconds. The following events will update this timestamp: profile icon change, playing the tutorial or advanced tutorial, finishing a game, summoner name change
         #[serde(rename = "revisionDate")]
-        pub revision_date: Option<i64>,
+        pub revision_date: i64,
         /// Encrypted summoner ID. Max length 63 characters.
         #[serde(rename = "id")]
-        pub id: Option<String>,
+        pub id: String,
         /// Encrypted account ID. Max length 56 characters.
         #[serde(rename = "accountId")]
-        pub account_id: Option<String>,
+        pub account_id: String,
     }
 }
 

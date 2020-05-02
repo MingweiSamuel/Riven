@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 71bb788ab92c0b03d5dd284402d9514b625fe2a4
+// Version e558dafc98b78c830aadeca509f18285e4d11a7a
 
 //! Automatically generated endpoint handles.
 
@@ -261,6 +261,8 @@ pub struct ClashV1<'a> {
 }
 impl<'a> ClashV1<'a> {
     /// Get players by summoner ID.
+    /// ## Implementation Notes
+    /// This endpoint returns a list of active Clash players for a given summoner ID. If a summoner registers for multiple tournaments at the same time (e.g., Saturday and Sunday) then both registrations would appear in this list.
     /// # Parameters
     /// * `region` - Region to query.
     /// * `summonerId`
@@ -830,10 +832,10 @@ impl<'a> TftLeagueV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_league_by_id(&self, region: Region, league_id: &str)
-        -> impl Future<Output = Result<tft_league_v1::LeagueList>> + 'a
+        -> impl Future<Output = Result<Option<tft_league_v1::LeagueList>>> + 'a
     {
         let path_string = format!("/tft/league/v1/leagues/{}", league_id);
-        self.base.get::<tft_league_v1::LeagueList>("tft-league-v1.getLeagueById", region.into(), path_string, None)
+        self.base.get_optional::<tft_league_v1::LeagueList>("tft-league-v1.getLeagueById", region.into(), path_string, None)
     }
 
     /// Get the master league.
@@ -889,10 +891,10 @@ impl<'a> TftMatchV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_match(&self, region: Region, match_id: &str)
-        -> impl Future<Output = Result<tft_match_v1::Match>> + 'a
+        -> impl Future<Output = Result<Option<tft_match_v1::Match>>> + 'a
     {
         let path_string = format!("/tft/match/v1/matches/{}", match_id);
-        self.base.get::<tft_match_v1::Match>("tft-match-v1.getMatch", region.into(), path_string, None)
+        self.base.get_optional::<tft_match_v1::Match>("tft-match-v1.getMatch", region.into(), path_string, None)
     }
 
 }
@@ -930,10 +932,10 @@ impl<'a> TftSummonerV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_by_summoner_name(&self, region: Region, summoner_name: &str)
-        -> impl Future<Output = Result<tft_summoner_v1::Summoner>> + 'a
+        -> impl Future<Output = Result<Option<tft_summoner_v1::Summoner>>> + 'a
     {
         let path_string = format!("/tft/summoner/v1/summoners/by-name/{}", summoner_name);
-        self.base.get::<tft_summoner_v1::Summoner>("tft-summoner-v1.getBySummonerName", region.into(), path_string, None)
+        self.base.get_optional::<tft_summoner_v1::Summoner>("tft-summoner-v1.getBySummonerName", region.into(), path_string, None)
     }
 
     /// Get a summoner by PUUID.
