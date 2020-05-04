@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version e558dafc98b78c830aadeca509f18285e4d11a7a
+// Version a873e2d3718fc721ef188159557699ab8f6ae7da
 
 //! Data transfer structs.
 //!
@@ -1419,6 +1419,9 @@ pub mod tft_match_v1 {
         /// Game length in seconds.
         #[serde(rename = "game_length")]
         pub game_length: f32,
+        /// Game variation enum, i.e. "TFT3_GameVariation_BigLittleLegends", missing from official Riot API docs.
+        #[serde(rename = "game_variation")]
+        pub game_variation: Option<String>,
         /// Game client version.
         #[serde(rename = "game_version")]
         pub game_version: String,
