@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version a873e2d3718fc721ef188159557699ab8f6ae7da
+// Version 909460d67267a0122544094d93120b50f8d0f5de
 
 //! Data transfer structs.
 //!
@@ -958,9 +958,9 @@ pub mod match_v4 {
         #[serde(rename = "minionsKilled")]
         pub minions_killed: i32,
         #[serde(rename = "teamScore")]
-        pub team_score: i32,
+        pub team_score: Option<i32>,
         #[serde(rename = "dominionScore")]
-        pub dominion_score: i32,
+        pub dominion_score: Option<i32>,
         #[serde(rename = "totalGold")]
         pub total_gold: i32,
         #[serde(rename = "level")]
@@ -970,7 +970,7 @@ pub mod match_v4 {
         #[serde(rename = "currentGold")]
         pub current_gold: i32,
         #[serde(rename = "position")]
-        pub position: MatchPosition,
+        pub position: Option<MatchPosition>,
         #[serde(rename = "jungleMinionsKilled")]
         pub jungle_minions_killed: i32,
     }
@@ -988,52 +988,52 @@ pub mod match_v4 {
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MatchEvent {
         #[serde(rename = "laneType")]
-        pub lane_type: String,
+        pub lane_type: Option<String>,
         #[serde(rename = "skillSlot")]
-        pub skill_slot: i32,
+        pub skill_slot: Option<i32>,
         #[serde(rename = "ascendedType")]
-        pub ascended_type: String,
+        pub ascended_type: Option<String>,
         #[serde(rename = "creatorId")]
-        pub creator_id: i32,
+        pub creator_id: Option<i32>,
         #[serde(rename = "afterId")]
-        pub after_id: i32,
+        pub after_id: Option<i32>,
         #[serde(rename = "eventType")]
-        pub event_type: String,
+        pub event_type: Option<String>,
         /// (Legal values:  CHAMPION_KILL,  WARD_PLACED,  WARD_KILL,  BUILDING_KILL,  ELITE_MONSTER_KILL,  ITEM_PURCHASED,  ITEM_SOLD,  ITEM_DESTROYED,  ITEM_UNDO,  SKILL_LEVEL_UP,  ASCENDED_EVENT,  CAPTURE_POINT,  PORO_KING_SUMMON)
         #[serde(rename = "type")]
         pub r#type: String,
         #[serde(rename = "levelUpType")]
-        pub level_up_type: String,
+        pub level_up_type: Option<String>,
         #[serde(rename = "wardType")]
-        pub ward_type: String,
+        pub ward_type: Option<String>,
         #[serde(rename = "participantId")]
-        pub participant_id: i32,
+        pub participant_id: Option<i32>,
         #[serde(rename = "towerType")]
-        pub tower_type: String,
+        pub tower_type: Option<String>,
         #[serde(rename = "itemId")]
-        pub item_id: i32,
+        pub item_id: Option<i32>,
         #[serde(rename = "beforeId")]
-        pub before_id: i32,
+        pub before_id: Option<i32>,
         #[serde(rename = "pointCaptured")]
-        pub point_captured: String,
+        pub point_captured: Option<String>,
         #[serde(rename = "monsterType")]
-        pub monster_type: String,
+        pub monster_type: Option<String>,
         #[serde(rename = "monsterSubType")]
-        pub monster_sub_type: String,
+        pub monster_sub_type: Option<String>,
         #[serde(rename = "teamId")]
-        pub team_id: crate::consts::Team,
+        pub team_id: Option<crate::consts::Team>,
         #[serde(rename = "position")]
-        pub position: MatchPosition,
+        pub position: Option<MatchPosition>,
         #[serde(rename = "killerId")]
-        pub killer_id: i32,
+        pub killer_id: Option<i32>,
         #[serde(rename = "timestamp")]
         pub timestamp: i64,
         #[serde(rename = "assistingParticipantIds")]
-        pub assisting_participant_ids: std::vec::Vec<i32>,
+        pub assisting_participant_ids: Option<std::vec::Vec<i32>>,
         #[serde(rename = "buildingType")]
-        pub building_type: String,
+        pub building_type: Option<String>,
         #[serde(rename = "victimId")]
-        pub victim_id: i32,
+        pub victim_id: Option<i32>,
     }
 }
 
