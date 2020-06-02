@@ -1,5 +1,6 @@
+use strum::IntoEnumIterator;
 use num_enum::{ IntoPrimitive, TryFromPrimitive };
-use strum_macros::{ EnumString, EnumIter, Display, AsRefStr, IntoStaticStr };
+use strum_macros::{ EnumString, Display, AsRefStr, IntoStaticStr };
 
 /// LoL and TFT ranked tiers, such as gold, diamond, challenger, etc.
 ///
@@ -11,7 +12,7 @@ use strum_macros::{ EnumString, EnumIter, Display, AsRefStr, IntoStaticStr };
 #[derive(Debug, Copy, Clone)]
 #[derive(Eq, PartialEq, Hash, PartialOrd, Ord)]
 #[derive(IntoPrimitive, TryFromPrimitive)]
-#[derive(EnumString, EnumIter, Display, AsRefStr, IntoStaticStr)]
+#[derive(EnumString, Display, AsRefStr, IntoStaticStr)]
 #[repr(u8)]
 pub enum Tier {
     /// Challenger, the highest tier, an apex tier. Repr: `220_u8`.
@@ -32,18 +33,63 @@ pub enum Tier {
     BRONZE      =  60,
     /// Iron, the lowest tier. Repr: `40_u8`.
     IRON        =  40,
+
+    /// Unranked, no tier. Repr: `0_u8`.
+    UNRANKED    =   0,
 }
 
 serde_string!(Tier);
 
 impl Tier {
-    /// If this tier is an apex tier: master and above.
-    ///
-    /// Inverse of is_standard().
+    /// If this tier is an apex tier: master, grandmaster, or challenger.
+    /// Returns false for unranked.
     ///
     /// These tiers are NOT queryable by LeagueV4Endpoints::get_league_entries(...).
     pub const fn is_apex(self) -> bool {
+        // Casts needed for const.
         (Self::MASTER as u8) <= (self as u8)
+    }
+
+    /// If this tier is a "standard" tier: iron through diamond.
+    /// Returns false for unranked.
+    ///
+    /// ONLY these tiers are queryable by LeagueV4Endpoints::get_league_entries(...).
+    pub fn is_standard(self) -> bool {
+        // Casts needed for const.
+        ((Self::UNRANKED as u8) < (self as u8)) && ((self as u8) < (Self::MASTER as u8))
+    }
+
+    /// If this tier is ranked. Returns true for iron through challenger, false for unranked.
+    pub const fn is_ranked(self) -> bool {
+         // Casts needed for const.
+        (Self::UNRANKED as u8) < (self as u8)
+    }
+
+    /// If this tier is unranked (`Tier::UNRANKED`).
+    ///
+    /// UNRANKED is returned by `Participant.highest_achieved_season_tier`.
+    pub const fn is_unranked(self) -> bool {
+        // Casts needed for const.
+        (self as u8) <= (Self::UNRANKED as u8)
+    }
+
+    /// Converts UNRANKED to None and all ranked tiers to Some(...).
+    pub fn to_ranked(self) -> Option<Self> {
+        if self.is_unranked() { None } else { Some(self) }
+    }
+}
+
+/// Returns a DoubleEndedIterator of I, II, III, IV.
+/// Ordered from high rank (I) to low (IV).
+/// Excludes V, which is deprecated.
+impl IntoEnumIterator for Tier {
+    type Iterator = std::iter::Copied<std::slice::Iter<'static, Self>>;
+    fn iter() -> Self::Iterator {
+        [
+            Self::CHALLENGER, Self::GRANDMASTER, Self::MASTER,
+            Self::DIAMOND, Self::PLATINUM, Self::GOLD,
+            Self::SILVER, Self::BRONZE, Self::IRON
+        ].iter().copied()
     }
 }
 
@@ -52,30 +98,64 @@ mod tests {
     use super::*;
 
     #[test]
-    fn sort() {
+    fn ord() {
         assert!(Tier::GOLD < Tier::DIAMOND);
+        assert!(Tier::UNRANKED < Tier::IRON);
     }
 
     #[test]
-    fn apex_check() {
-        assert!( Tier::GRANDMASTER.is_apex());
+    fn is_apex() {
+        assert!(Tier::GRANDMASTER.is_apex());
         assert!(!Tier::DIAMOND.is_apex());
+        assert!(!Tier::UNRANKED.is_apex());
+    }
+
+    #[test]
+    fn is_ranked() {
+        assert!(Tier::GRANDMASTER.is_ranked());
+        assert!(Tier::DIAMOND.is_ranked());
+        assert!(!Tier::UNRANKED.is_ranked());
+    }
+
+    #[test]
+    fn is_unranked() {
+        assert!(!Tier::GRANDMASTER.is_unranked());
+        assert!(!Tier::DIAMOND.is_unranked());
+        assert!(Tier::UNRANKED.is_unranked());
+    }
+
+    #[test]
+    fn to_ranked() {
+        assert_eq!(Some(Tier::GRANDMASTER), Tier::GRANDMASTER.to_ranked());
+        assert_eq!(Some(Tier::DIAMOND), Tier::DIAMOND.to_ranked());
+        assert_eq!(None, Tier::UNRANKED.to_ranked());
+    }
+
+    #[test]
+    fn is_standard() {
+        assert!(!Tier::GRANDMASTER.is_standard());
+        assert!(Tier::DIAMOND.is_standard());
+        assert!(!Tier::UNRANKED.is_standard());
     }
 
     #[test]
     fn to_string() {
         assert_eq!("GRANDMASTER", Tier::GRANDMASTER.as_ref());
         assert_eq!("GRANDMASTER", Tier::GRANDMASTER.to_string());
+        assert_eq!("UNRANKED", Tier::UNRANKED.as_ref());
+        assert_eq!("UNRANKED", Tier::UNRANKED.to_string());
     }
 
     #[test]
     fn from_string() {
         assert_eq!(Ok(Tier::GRANDMASTER), "GRANDMASTER".parse());
+        assert_eq!(Ok(Tier::UNRANKED), "UNRANKED".parse());
     }
 
     #[test]
     fn iter() {
         use strum::IntoEnumIterator;
+
         let mut iter = Tier::iter();
         assert_eq!(Some(Tier::CHALLENGER), iter.next());
         iter.next();
@@ -87,5 +167,23 @@ mod tests {
         iter.next();
         assert_eq!(Some(Tier::IRON), iter.next());
         assert_eq!(None, iter.next());
+        assert_eq!(None, iter.next_back());
+
+        let mut iter = Tier::iter().rev();
+        assert_eq!(Some(Tier::IRON), iter.next());
+        iter.next();
+        iter.next();
+        iter.next();
+        iter.next();
+        assert_eq!(Some(Tier::DIAMOND), iter.next());
+        iter.next();
+        iter.next();
+        assert_eq!(Some(Tier::CHALLENGER), iter.next());
+        assert_eq!(None, iter.next());
+        assert_eq!(None, iter.next_back());
+
+        let mut iter = Tier::iter();
+        assert_eq!(Some(Tier::CHALLENGER), iter.next());
+        assert_eq!(Some(Tier::IRON), iter.next_back());
     }
 }

@@ -1,8 +1,8 @@
 use std::cmp::Ordering;
 
+use num_enum::{ IntoPrimitive, TryFromPrimitive };
 use strum::IntoEnumIterator;
 use strum_macros::{ EnumString, Display, AsRefStr, IntoStaticStr };
-use num_enum::{ IntoPrimitive, TryFromPrimitive };
 
 /// LoL and TFT rank divisions, I, II, III, IV, and (deprecated) V.
 ///
@@ -31,9 +31,9 @@ serde_string!(Division);
 /// Ordered from high rank (I) to low (IV).
 /// Excludes V, which is deprecated.
 impl IntoEnumIterator for Division {
-    type Iterator = std::slice::Iter<'static, Self>;
+    type Iterator = std::iter::Copied<std::slice::Iter<'static, Self>>;
     fn iter() -> Self::Iterator {
-        [ Self::I, Self::II, Self::III, Self::IV ].iter()
+        [ Self::I, Self::II, Self::III, Self::IV ].iter().copied()
     }
 }
 
