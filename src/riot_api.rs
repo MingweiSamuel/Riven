@@ -5,7 +5,9 @@ use log;
 use reqwest::Client;
 
 use crate::Result;
+use crate::ResponseInfo;
 use crate::RiotApiConfig;
+use crate::RiotApiError;
 use crate::req::RegionalRequester;
 use crate::util::InsertOnlyCHashMap;
 
@@ -74,12 +76,22 @@ impl RiotApi {
     /// * `region_platform` - The stringified platform, prepended to `.api.riotgames.com` to create the hostname.
     /// * `path` - The path relative to the hostname.
     /// * `query` - An optional query string.
-    pub fn get_optional<'a, T: serde::de::DeserializeOwned + 'a>(&'a self,
+    ///
+    /// # Returns
+    /// A future resolving to a `Result` containg either a `Option<T>` (success) or a `RiotApiError` (failure).
+    pub async fn get_optional<'a, T: serde::de::DeserializeOwned + 'a>(&'a self,
         method_id: &'static str, region_platform: &'static str, path: String, query: Option<String>)
-        -> impl Future<Output = Result<Option<T>>> + 'a
+        -> Result<Option<T>>
     {
-        self.regional_requester(region_platform)
-            .get_optional(&self.config, &self.client, method_id, region_platform, path, query)
+        let rinfo = self.get_raw_response(method_id, region_platform, path, query).await?;
+        if rinfo.status_none {
+            return Ok(None);
+        }
+        let retries = rinfo.retries;
+        let status = rinfo.response.status();
+        let value = rinfo.response.json::<T>().await;
+        value.map(|v| Some(v))
+            .map_err(|e| RiotApiError::new(e, retries, None, Some(status)))
     }
 
     /// This method is not meant to be used directly.
@@ -91,9 +103,37 @@ impl RiotApi {
     /// * `region_platform` - The stringified platform, prepended to `.api.riotgames.com` to create the hostname.
     /// * `path` - The path relative to the hostname.
     /// * `query` - An optional query string.
-    pub fn get<'a, T: serde::de::DeserializeOwned + 'a>(&'a self,
+    ///
+    /// # Returns
+    /// A future resolving to a `Result` containg either a `T` (success) or a `RiotApiError` (failure).
+    pub async fn get<'a, T: serde::de::DeserializeOwned + 'a>(&'a self,
         method_id: &'static str, region_platform: &'static str, path: String, query: Option<String>)
-        -> impl Future<Output = Result<T>> + 'a
+        -> Result<T>
+    {
+        let rinfo = self.get_raw_response(method_id, region_platform, path, query).await?;
+        let retries = rinfo.retries;
+        let status = rinfo.response.status();
+        let value = rinfo.response.json::<T>().await;
+        value.map_err(|e| RiotApiError::new(e, retries, None, Some(status)))
+    }
+
+    /// This method is not meant to be used directly.
+    ///
+    /// This sends a GET request based on the given parameters and returns a raw `ResponseInfo`.
+    ///
+    /// This can be used to implement a Riot API proxy without needing to deserialize and reserialize JSON responses.
+    ///
+    /// # Parameters
+    /// * `method_id` - A unique string id representing the endpoint method for per-method rate limiting.
+    /// * `region_platform` - The stringified platform, prepended to `.api.riotgames.com` to create the hostname.
+    /// * `path` - The path relative to the hostname.
+    /// * `query` - An optional query string.
+    ///
+    /// # Returns
+    /// A future resolving to a `Result` containg either a `ResponseInfo` (success) or a `RiotApiError` (failure).
+    pub fn get_raw_response<'a>(&'a self,
+        method_id: &'static str, region_platform: &'static str, path: String, query: Option<String>)
+        -> impl Future<Output = Result<ResponseInfo>> + 'a
     {
         self.regional_requester(region_platform)
             .get(&self.config, &self.client, method_id, region_platform, path, query)

@@ -24,6 +24,9 @@ pub mod models;
 
 mod req;
 
+mod response_info;
+pub use response_info::*;
+
 mod riot_api;
 pub use riot_api::*;
 
