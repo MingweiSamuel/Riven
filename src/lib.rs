@@ -20,6 +20,8 @@ pub mod endpoints;
 mod error;
 pub use error::*;
 
+pub mod meta;
+
 pub mod models;
 
 mod req;

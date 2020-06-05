@@ -1,0 +1,33 @@
+{{
+    const spec = require('./.spec.json');
+    const dotUtils = require('./dotUtils.js');
+}}{{= dotUtils.preamble() }}
+
+// http://www.mingweisamuel.com/riotapi-schema/tool/
+// Version {{= spec.info.version }}
+
+//! Metadata about the Riot API and Riven.
+//!
+//! Note: this modules is automatically generated.
+
+use std::collections::HashMap;
+
+use lazy_static::lazy_static;
+
+lazy_static! {
+    pub static ref ENDPOINT_PATH_METHODID: HashMap<&'static str, &'static str> = {
+        let mut map = HashMap::new();
+{{
+    for (const [ route, path ] of Object.entries(spec.paths)) {
+        const get = path.get;
+        if (!get)
+            continue;
+        const operationId = get.operationId;
+}}
+        map.insert("{{= route }}", "{{= operationId }}");
+{{
+    }
+}}
+        map
+    };
+}
