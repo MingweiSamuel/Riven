@@ -89,9 +89,8 @@ impl RiotApi {
         }
         let retries = rinfo.retries;
         let status = rinfo.response.status();
-        let value = rinfo.response.json::<T>().await;
-        value.map(|v| Some(v))
-            .map_err(|e| RiotApiError::new(e, retries, None, Some(status)))
+        let value = rinfo.response.json::<Option<T>>().await;
+        value.map_err(|e| RiotApiError::new(e, retries, None, Some(status)))
     }
 
     /// This method is not meant to be used directly.
