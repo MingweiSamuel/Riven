@@ -80,11 +80,7 @@ impl<'a> {{= endpoint }}<'a> {
             let rateLimitExcluded = get['x-app-rate-limit-excluded'] ? true : false;
 
             /* Description processing. */
-            let desc = get.description;
-            let descArr = desc
-                .replace(/(#+)\s*([^\\]+)\\n(.*?)([\\n$])/g,
-                    (m, g1, g2, g3, g4) => `<h${g1.length}>${g2}</h${g1.length}>\\n${g3}${g4}`)
-                .split('\n');
+            let descArr = get.description.split('\n');
 
             /* Build argument comment & string. */
             let argBuilder = [];
