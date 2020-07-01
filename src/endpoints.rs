@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 909460d67267a0122544094d93120b50f8d0f5de
+// Version ef6be1735b0bc180c8f32dd2ba538793fdbe8ce6
 
 //! Automatically generated endpoint handles.
 
@@ -596,7 +596,7 @@ impl<'a> MatchV4<'a> {
     /// * `encryptedAccountId` - The account ID.
     /// * `champion` (optional) - Set of champion IDs for filtering the matchlist.
     /// * `queue` (optional) - Set of queue IDs for filtering the matchlist.
-    /// * `season` (optional) - Set of season IDs for filtering the matchlist.
+    /// * `season` (optional) - [DEPRECATED] This field should not be considered reliable for the purposes of filtering matches by season.
     /// * `endTime` (optional) - The end time to use for filtering matchlist specified as epoch milliseconds. If beginTime is specified, but not endTime, then endTime defaults to the the current unix timestamp in milliseconds (the maximum time range limitation is not observed in this specific case). If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history returning a 400 due to the maximum time range limitation. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
     /// * `beginTime` (optional) - The begin time to use for filtering matchlist specified as epoch milliseconds. If beginTime is specified, but not endTime, then endTime defaults to the the current unix timestamp in milliseconds (the maximum time range limitation is not observed in this specific case). If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history returning a 400 due to the maximum time range limitation. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
     /// * `endIndex` (optional) - The end index to use for filtering matchlist. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned.

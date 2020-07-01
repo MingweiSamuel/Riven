@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 909460d67267a0122544094d93120b50f8d0f5de
+// Version ef6be1735b0bc180c8f32dd2ba538793fdbe8ce6
 
 //! Data transfer structs.
 //!
@@ -409,6 +409,9 @@ pub mod lor_ranked_v1 {
         pub name: String,
         #[serde(rename = "rank")]
         pub rank: i32,
+        /// League points.
+        #[serde(rename = "lp")]
+        pub lp: i32,
     }
 }
 
@@ -423,7 +426,7 @@ pub mod match_v4 {
     pub struct Match {
         #[serde(rename = "gameId")]
         pub game_id: i64,
-        /// Participant identity information.
+        /// Participant identity information. Participant identity information is purposefully excluded for custom games.
         #[serde(rename = "participantIdentities")]
         pub participant_identities: std::vec::Vec<ParticipantIdentity>,
         /// Please refer to the Game Constants documentation.
@@ -476,14 +479,15 @@ pub mod match_v4 {
     pub struct Player {
         #[serde(rename = "profileIcon")]
         pub profile_icon: i32,
-        /// Player's original accountId (Encrypted)
+        /// Player's original accountId.
         #[serde(rename = "accountId")]
         pub account_id: String,
         #[serde(rename = "matchHistoryUri")]
         pub match_history_uri: String,
-        /// Player's current accountId (Encrypted)
+        /// Player's current accountId when the match was played.
         #[serde(rename = "currentAccountId")]
         pub current_account_id: String,
+        /// Player's current platformId when the match was played.
         #[serde(rename = "currentPlatformId")]
         pub current_platform_id: String,
         #[serde(rename = "summonerName")]
@@ -491,7 +495,7 @@ pub mod match_v4 {
         /// Player's summonerId (Encrypted)
         #[serde(rename = "summonerId")]
         pub summoner_id: String,
-        /// Original platformId.
+        /// Player's original platformId.
         #[serde(rename = "platformId")]
         pub platform_id: String,
     }
@@ -901,6 +905,7 @@ pub mod match_v4 {
     pub struct Matchlist {
         #[serde(rename = "startIndex")]
         pub start_index: i32,
+        /// There is a known issue that this field doesn't correctly return the total number of games that match the parameters of the request. Please paginate using beginIndex until you reach the end of a player's matchlist.
         #[serde(rename = "totalGames")]
         pub total_games: i32,
         #[serde(rename = "endIndex")]
@@ -1260,7 +1265,7 @@ pub mod summoner_v4 {
         /// ID of the summoner icon associated with the summoner.
         #[serde(rename = "profileIconId")]
         pub profile_icon_id: i32,
-        /// Date summoner was last modified specified as epoch milliseconds. The following events will update this timestamp: profile icon change, playing the tutorial or advanced tutorial, finishing a game, summoner name change
+        /// Date summoner was last modified specified as epoch milliseconds. The following events will update this timestamp: summoner name change, summoner level change, or profile icon change.
         #[serde(rename = "revisionDate")]
         pub revision_date: i64,
         /// Summoner name.
@@ -1419,7 +1424,7 @@ pub mod tft_match_v1 {
         /// Game length in seconds.
         #[serde(rename = "game_length")]
         pub game_length: f32,
-        /// Game variation enum, i.e. "TFT3_GameVariation_BigLittleLegends", missing from official Riot API docs.
+        /// Game variation key. Game variations documented in TFT static data.
         #[serde(rename = "game_variation")]
         pub game_variation: Option<String>,
         /// Game client version.
@@ -1536,27 +1541,27 @@ pub mod tft_summoner_v1 {
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Summoner {
+        /// Encrypted account ID. Max length 56 characters.
+        #[serde(rename = "accountId")]
+        pub account_id: String,
         /// ID of the summoner icon associated with the summoner.
         #[serde(rename = "profileIconId")]
         pub profile_icon_id: i32,
+        /// Date summoner was last modified specified as epoch milliseconds. The following events will update this timestamp: summoner name change, summoner level change, or profile icon change.
+        #[serde(rename = "revisionDate")]
+        pub revision_date: i64,
         /// Summoner name.
         #[serde(rename = "name")]
         pub name: String,
+        /// Encrypted summoner ID. Max length 63 characters.
+        #[serde(rename = "id")]
+        pub id: String,
         /// Encrypted PUUID. Exact length of 78 characters.
         #[serde(rename = "puuid")]
         pub puuid: String,
         /// Summoner level associated with the summoner.
         #[serde(rename = "summonerLevel")]
         pub summoner_level: i64,
-        /// Date summoner was last modified specified as epoch milliseconds. The following events will update this timestamp: profile icon change, playing the tutorial or advanced tutorial, finishing a game, summoner name change
-        #[serde(rename = "revisionDate")]
-        pub revision_date: i64,
-        /// Encrypted summoner ID. Max length 63 characters.
-        #[serde(rename = "id")]
-        pub id: String,
-        /// Encrypted account ID. Max length 56 characters.
-        #[serde(rename = "accountId")]
-        pub account_id: String,
     }
 }
 
