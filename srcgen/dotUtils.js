@@ -76,7 +76,7 @@ function stringifyType(prop, { endpoint = null, optional = false, fullpath = tru
     prop = prop.anyOf[0];
   }
   if (optional) {
-    return `Option<${stringifyType(prop, { endpoint, fullpath })}>`;
+    return `Option<${stringifyType(prop, { endpoint, fullpath, owned })}>`;
   }
 
   let enumType = prop['x-enum'];
