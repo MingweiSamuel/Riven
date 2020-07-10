@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version ef6be1735b0bc180c8f32dd2ba538793fdbe8ce6
+// Version af29e140a03aabbd77664b926746eecaae877d2b
 
 //! Automatically generated endpoint handles.
 
@@ -166,6 +166,24 @@ impl RiotApi {
     #[inline]
     pub fn tournament_v4(&self) -> TournamentV4 {
         TournamentV4 { base: self }
+    }
+    /// Returns a handle for accessing [ValContentV1](crate::endpoints::ValContentV1) endpoints.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/apis#val-content-v1" target="_blank">`val-content-v1`</a>
+    ///
+    /// Note: this method is automatically generated.
+    #[inline]
+    pub fn val_content_v1(&self) -> ValContentV1 {
+        ValContentV1 { base: self }
+    }
+    /// Returns a handle for accessing [ValMatchV1](crate::endpoints::ValMatchV1) endpoints.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/apis#val-match-v1" target="_blank">`val-match-v1`</a>
+    ///
+    /// Note: this method is automatically generated.
+    #[inline]
+    pub fn val_match_v1(&self) -> ValMatchV1 {
+        ValMatchV1 { base: self }
     }
 }
 
@@ -605,7 +623,7 @@ impl<'a> MatchV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchlist" target="_blank">`match-v4.getMatchlist`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_matchlist(&self, region: Region, encrypted_account_id: &str, begin_time: Option<i64>, begin_index: Option<i32>, champion: Option<std::vec::Vec<crate::consts::Champion>>, end_time: Option<i64>, end_index: Option<i32>, queue: Option<std::vec::Vec<crate::consts::Queue>>, season: Option<std::vec::Vec<crate::consts::Season>>)
+    pub fn get_matchlist(&self, region: Region, encrypted_account_id: &str, begin_time: Option<i64>, begin_index: Option<i32>, champion: Option<&[crate::consts::Champion]>, end_time: Option<i64>, end_index: Option<i32>, queue: Option<&[crate::consts::Queue]>, season: Option<&[crate::consts::Season]>)
         -> impl Future<Output = Result<Option<match_v4::Matchlist>>> + 'a
     {
         let mut query_params = Serializer::new(String::new());
@@ -1059,6 +1077,76 @@ impl<'a> TournamentV4<'a> {
     {
         let path_string = format!("/lol/tournament/v4/lobby-events/by-code/{}", tournament_code);
         self.base.get::<tournament_v4::LobbyEventWrapper>("tournament-v4.getLobbyEventsByCode", region.into(), path_string, None)
+    }
+
+}
+
+/// ValContentV1 endpoints handle, accessed by calling [`val_content_v1()`](crate::RiotApi::val_content_v1) on a [`RiotApi`](crate::RiotApi) instance.
+/// # Riot Developer API Reference
+/// <a href="https://developer.riotgames.com/apis#val-content-v1" target="_blank">`val-content-v1`</a>
+///
+/// Note: this struct is automatically generated.
+pub struct ValContentV1<'a> {
+    base: &'a RiotApi,
+}
+impl<'a> ValContentV1<'a> {
+    /// Get content optionally filtered by locale
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// * `locale` (optional)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#val-content-v1/GET_getContent" target="_blank">`val-content-v1.getContent`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_content(&self, region: Region, locale: Option<&str>)
+        -> impl Future<Output = Result<val_content_v1::Content>> + 'a
+    {
+        let mut query_params = Serializer::new(String::new());
+        if let Some(locale) = locale { query_params.append_pair("locale", locale); };
+        let query_string = query_params.finish();
+        let path_string = "/val/content/v1/contents".to_owned();
+        self.base.get::<val_content_v1::Content>("val-content-v1.getContent", region.into(), path_string, Some(query_string))
+    }
+
+}
+
+/// ValMatchV1 endpoints handle, accessed by calling [`val_match_v1()`](crate::RiotApi::val_match_v1) on a [`RiotApi`](crate::RiotApi) instance.
+/// # Riot Developer API Reference
+/// <a href="https://developer.riotgames.com/apis#val-match-v1" target="_blank">`val-match-v1`</a>
+///
+/// Note: this struct is automatically generated.
+pub struct ValMatchV1<'a> {
+    base: &'a RiotApi,
+}
+impl<'a> ValMatchV1<'a> {
+    /// Get match by id
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// * `matchId`
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#val-match-v1/GET_getMatch" target="_blank">`val-match-v1.getMatch`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_match(&self, region: Region, match_id: &str)
+        -> impl Future<Output = Result<val_match_v1::Match>> + 'a
+    {
+        let path_string = format!("/val/match/v1/matches/{}", match_id);
+        self.base.get::<val_match_v1::Match>("val-match-v1.getMatch", region.into(), path_string, None)
+    }
+
+    /// Get matchlist for games played by puuid
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// * `puuid`
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#val-match-v1/GET_getMatchlist" target="_blank">`val-match-v1.getMatchlist`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_matchlist(&self, region: Region, puuid: &str)
+        -> impl Future<Output = Result<val_match_v1::Matchlist>> + 'a
+    {
+        let path_string = format!("/val/match/v1/matchlists/by-puuid/{}", puuid);
+        self.base.get::<val_match_v1::Matchlist>("val-match-v1.getMatchlist", region.into(), path_string, None)
     }
 
 }

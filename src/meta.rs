@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version ef6be1735b0bc180c8f32dd2ba538793fdbe8ce6
+// Version af29e140a03aabbd77664b926746eecaae877d2b
 
 //! Metadata about the Riot API and Riven.
 //!
@@ -65,6 +65,9 @@ lazy_static! {
         map.insert("/lol/tournament-stub/v4/lobby-events/by-code/{tournamentCode}", "tournament-stub-v4.getLobbyEventsByCode");
         map.insert("/lol/tournament/v4/codes/{tournamentCode}", "tournament-v4.getTournamentCode");
         map.insert("/lol/tournament/v4/lobby-events/by-code/{tournamentCode}", "tournament-v4.getLobbyEventsByCode");
+        map.insert("/val/content/v1/contents", "val-content-v1.getContent");
+        map.insert("/val/match/v1/matches/{matchId}", "val-match-v1.getMatch");
+        map.insert("/val/match/v1/matchlists/by-puuid/{puuid}", "val-match-v1.getMatchlist");
         map
     };
 }
