@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version af29e140a03aabbd77664b926746eecaae877d2b
+// Version d1d3a7a4176fd7b1ca98b43811dbe6ac3951b9b6
 
 //! Data transfer structs.
 //!
@@ -15,6 +15,35 @@
 //! Several modules contain structs with the same name, so be sure to use the right ones.
 //!
 //! Note: these modules are automatically generated.
+
+/// Data structs used by [`AccountV1`](crate::endpoints::AccountV1).
+/// 
+/// Note: this module is automatically generated.
+#[allow(dead_code)]
+pub mod account_v1 {
+    /// Account data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Account {
+        #[serde(rename = "puuid")]
+        pub puuid: String,
+        #[serde(rename = "gameName")]
+        pub game_name: String,
+        #[serde(rename = "tagLine")]
+        pub tag_line: String,
+    }
+    /// ActiveShard data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct ActiveShard {
+        #[serde(rename = "puuid")]
+        pub puuid: String,
+        #[serde(rename = "game")]
+        pub game: String,
+        #[serde(rename = "activeShard")]
+        pub active_shard: String,
+    }
+}
 
 /// Data structs used by [`ChampionMasteryV4`](crate::endpoints::ChampionMasteryV4).
 /// 
@@ -494,7 +523,7 @@ pub mod match_v4 {
         pub summoner_name: String,
         /// Player's summonerId (Encrypted)
         #[serde(rename = "summonerId")]
-        pub summoner_id: String,
+        pub summoner_id: Option<String>,
         /// Player's original platformId.
         #[serde(rename = "platformId")]
         pub platform_id: String,

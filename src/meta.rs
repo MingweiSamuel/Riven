@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version af29e140a03aabbd77664b926746eecaae877d2b
+// Version d1d3a7a4176fd7b1ca98b43811dbe6ac3951b9b6
 
 //! Metadata about the Riot API and Riven.
 //!
@@ -20,6 +20,9 @@ use lazy_static::lazy_static;
 lazy_static! {
     pub static ref ENDPOINT_PATH_METHODID: HashMap<&'static str, &'static str> = {
         let mut map = HashMap::new();
+        map.insert("/riot/account/v1/accounts/by-puuid/{puuid}", "account-v1.getByPuuid");
+        map.insert("/riot/account/v1/accounts/by-riot-id/{gameName}/{tagLine}", "account-v1.getByRiotId");
+        map.insert("/riot/account/v1/active-shards/by-game/{game}/by-puuid/{puuid}", "account-v1.getActiveShard");
         map.insert("/lol/champion-mastery/v4/champion-masteries/by-summoner/{encryptedSummonerId}", "champion-mastery-v4.getAllChampionMasteries");
         map.insert("/lol/champion-mastery/v4/champion-masteries/by-summoner/{encryptedSummonerId}/by-champion/{championId}", "champion-mastery-v4.getChampionMastery");
         map.insert("/lol/champion-mastery/v4/scores/by-summoner/{encryptedSummonerId}", "champion-mastery-v4.getChampionMasteryScore");

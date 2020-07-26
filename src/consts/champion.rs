@@ -310,6 +310,8 @@ pub enum Champion {
     #[strum(to_string="Xin Zhao", serialize="XinZhao")] XinZhao = 5,
     /// Yasuo (`Yasuo`, 157).
     #[strum(to_string="Yasuo", serialize="Yasuo")] Yasuo = 157,
+    /// Yone (`Yone`, 777).
+    #[strum(to_string="Yone", serialize="Yone")] Yone = 777,
     /// Yorick (`Yorick`, 83).
     #[strum(to_string="Yorick", serialize="Yorick")] Yorick = 83,
     /// Yuumi (`Yuumi`, 350).
@@ -495,6 +497,7 @@ impl Champion {
             Self::Xerath       => "Xerath",
             Self::XinZhao      => "XinZhao",
             Self::Yasuo        => "Yasuo",
+            Self::Yone         => "Yone",
             Self::Yorick       => "Yorick",
             Self::Yuumi        => "Yuumi",
             Self::Zac          => "Zac",

@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version af29e140a03aabbd77664b926746eecaae877d2b
+// Version d1d3a7a4176fd7b1ca98b43811dbe6ac3951b9b6
 
 //! Automatically generated endpoint handles.
 
@@ -23,6 +23,15 @@ use crate::consts::Region;
 use crate::riot_api::RiotApi;
 
 impl RiotApi {
+    /// Returns a handle for accessing [AccountV1](crate::endpoints::AccountV1) endpoints.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/apis#account-v1" target="_blank">`account-v1`</a>
+    ///
+    /// Note: this method is automatically generated.
+    #[inline]
+    pub fn account_v1(&self) -> AccountV1 {
+        AccountV1 { base: self }
+    }
     /// Returns a handle for accessing [ChampionMasteryV4](crate::endpoints::ChampionMasteryV4) endpoints.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/apis#champion-mastery-v4" target="_blank">`champion-mastery-v4`</a>
@@ -185,6 +194,64 @@ impl RiotApi {
     pub fn val_match_v1(&self) -> ValMatchV1 {
         ValMatchV1 { base: self }
     }
+}
+
+/// AccountV1 endpoints handle, accessed by calling [`account_v1()`](crate::RiotApi::account_v1) on a [`RiotApi`](crate::RiotApi) instance.
+/// # Riot Developer API Reference
+/// <a href="https://developer.riotgames.com/apis#account-v1" target="_blank">`account-v1`</a>
+///
+/// Note: this struct is automatically generated.
+pub struct AccountV1<'a> {
+    base: &'a RiotApi,
+}
+impl<'a> AccountV1<'a> {
+    /// Get account by puuid
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// * `puuid`
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#account-v1/GET_getByPuuid" target="_blank">`account-v1.getByPuuid`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_by_puuid(&self, region: Region, puuid: &str)
+        -> impl Future<Output = Result<account_v1::Account>> + 'a
+    {
+        let path_string = format!("/riot/account/v1/accounts/by-puuid/{}", puuid);
+        self.base.get::<account_v1::Account>("account-v1.getByPuuid", region.into(), path_string, None)
+    }
+
+    /// Get account by riot id
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// * `tagLine`
+    /// * `gameName`
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#account-v1/GET_getByRiotId" target="_blank">`account-v1.getByRiotId`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_by_riot_id(&self, region: Region, game_name: &str, tag_line: &str)
+        -> impl Future<Output = Result<Option<account_v1::Account>>> + 'a
+    {
+        let path_string = format!("/riot/account/v1/accounts/by-riot-id/{}/{}", game_name, tag_line);
+        self.base.get_optional::<account_v1::Account>("account-v1.getByRiotId", region.into(), path_string, None)
+    }
+
+    /// Get active shard for a player
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// * `puuid`
+    /// * `game`
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#account-v1/GET_getActiveShard" target="_blank">`account-v1.getActiveShard`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_active_shard(&self, region: Region, game: &str, puuid: &str)
+        -> impl Future<Output = Result<Option<account_v1::ActiveShard>>> + 'a
+    {
+        let path_string = format!("/riot/account/v1/active-shards/by-game/{}/by-puuid/{}", game, puuid);
+        self.base.get_optional::<account_v1::ActiveShard>("account-v1.getActiveShard", region.into(), path_string, None)
+    }
+
 }
 
 /// ChampionMasteryV4 endpoints handle, accessed by calling [`champion_mastery_v4()`](crate::RiotApi::champion_mastery_v4) on a [`RiotApi`](crate::RiotApi) instance.

@@ -51,6 +51,12 @@ async_tests!{
             rassert!(!m.participants.is_empty(), "Match should have participants.");
             Ok(())
         },
+        match_get_bots: async {
+            let p = RIOT_API.match_v4().get_match(Region::NA, 3251803350);
+            let m = p.await.map_err(|e| e.to_string())?.ok_or("Match not found.".to_owned())?;
+            rassert!(!m.participants.is_empty(), "Match should have participants.");
+            Ok(())
+        },
         match_gettimeline: async {
             let p = RIOT_API.match_v4().get_match_timeline(Region::NA, 3190191338);
             let m = p.await.map_err(|e| e.to_string())?.ok_or("Match timeline not found.".to_owned())?;
