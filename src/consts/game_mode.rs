@@ -16,42 +16,44 @@ use strum_macros::{ EnumString, Display, AsRefStr, IntoStaticStr };
 #[derive(EnumString, Display, AsRefStr, IntoStaticStr)]
 #[repr(u8)]
 pub enum GameMode {
-    /// Classic Summoner's Rift and Twisted Treeline games
-    CLASSIC,
-    /// Dominion/Crystal Scar games
-    ODIN,
     /// ARAM games
     ARAM,
+    /// All Random Summoner's Rift games
+    ARSR,
+    /// Ascension games
+    ASCENSION,
+    /// Blood Hunt Assassin games
+    ASSASSINATE,
+    /// Classic Summoner's Rift and Twisted Treeline games
+    CLASSIC,
+    /// Dark Star: Singularity games
+    DARKSTAR,
+    /// Doom Bot games
+    DOOMBOTSTEEMO,
+    /// Snowdown Showdown games
+    FIRSTBLOOD,
+    /// Nexus Blitz games, deprecated in patch 9.2 in favor of gameMode NEXUSBLITZ.
+    GAMEMODEX,
+    /// Legend of the Poro King games
+    KINGPORO,
+    /// Nexus Blitz games.
+    NEXUSBLITZ,
+    /// Dominion/Crystal Scar games
+    ODIN,
+    /// Odyssey: Extraction games
+    ODYSSEY,
+    /// One for All games
+    ONEFORALL,
+    /// PROJECT: Hunters games
+    PROJECT,
+    /// Nexus Siege games
+    SIEGE,
+    /// Star Guardian Invasion games
+    STARGUARDIAN,
     /// Tutorial games
     TUTORIAL,
     /// URF games
     URF,
-    /// Doom Bot games
-    DOOMBOTSTEEMO,
-    /// One for All games
-    ONEFORALL,
-    /// Ascension games
-    ASCENSION,
-    /// Snowdown Showdown games
-    FIRSTBLOOD,
-    /// Legend of the Poro King games
-    KINGPORO,
-    /// Nexus Siege games
-    SIEGE,
-    /// Blood Hunt Assassin games
-    ASSASSINATE,
-    /// All Random Summoner's Rift games
-    ARSR,
-    /// Dark Star: Singularity games
-    DARKSTAR,
-    /// Star Guardian Invasion games
-    STARGUARDIAN,
-    /// PROJECT: Hunters games
-    PROJECT,
-    /// Nexus Blitz games
-    GAMEMODEX,
-    /// Odyssey: Extraction games
-    ODYSSEY,
 }
 
 serde_string!(GameMode);

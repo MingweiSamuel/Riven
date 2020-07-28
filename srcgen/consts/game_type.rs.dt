@@ -12,10 +12,13 @@ use strum_macros::{ EnumString, Display, AsRefStr, IntoStaticStr };
 #[repr(u8)]
 pub enum GameType {
 {{
-    for (const { gametype: gameType, description } of gameTypes) {
+    for (const e of gameTypes) {
+        const desc = e['x-desc'] ? e['x-desc'].split('\n') : [];
 }}
-    /// {{= description }}
-    {{= gameType }},
+{{~ desc :line }}
+    /// {{= line }}
+{{~}}
+    {{= e['x-name'] }},
 {{
     }
 }}

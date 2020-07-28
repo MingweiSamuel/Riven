@@ -17,57 +17,49 @@ use num_enum::{ IntoPrimitive, TryFromPrimitive };
 #[derive(IntoPrimitive, TryFromPrimitive)]
 #[repr(u8)]
 pub enum Map {
-
     /// Summoner's Rift
-    /// <br>Original Summer variant
+    /// Original Summer variant
     SUMMONERS_RIFT_ORIGINAL_SUMMER_VARIANT = 1,
     /// Summoner's Rift
-    /// <br>Original Autumn variant
+    /// Original Autumn variant
     SUMMONERS_RIFT_ORIGINAL_AUTUMN_VARIANT = 2,
-    /// Summoner's Rift
-    /// <br>Current Version
-    SUMMONERS_RIFT = 11,
-
     /// The Proving Grounds
-    /// <br>Tutorial Map
+    /// Tutorial Map
     THE_PROVING_GROUNDS = 3,
-
     /// Twisted Treeline
-    /// <br>Original Version
+    /// Original Version
     TWISTED_TREELINE_ORIGINAL_VERSION = 4,
-    /// Twisted Treeline
-    /// <br>Last TT map
-    TWISTED_TREELINE = 10,
-
     /// The Crystal Scar
-    /// <br>Dominion map
+    /// Dominion map
     THE_CRYSTAL_SCAR = 8,
-
+    /// Twisted Treeline
+    /// Last TT map
+    TWISTED_TREELINE = 10,
+    /// Summoner's Rift
+    /// Current Version
+    SUMMONERS_RIFT = 11,
     /// Howling Abyss
-    /// <br>ARAM map
+    /// ARAM map
     HOWLING_ABYSS = 12,
-
     /// Butcher's Bridge
-    /// <br>Alternate ARAM map
+    /// Alternate ARAM map
     BUTCHERS_BRIDGE = 14,
-
     /// Cosmic Ruins
-    /// <br>Dark Star: Singularity map
+    /// Dark Star: Singularity map
     COSMIC_RUINS = 16,
-
     /// Valoran City Park
-    /// <br>Star Guardian Invasion map
+    /// Star Guardian Invasion map
     VALORAN_CITY_PARK = 18,
-
     /// Substructure 43
-    /// <br>PROJECT: Hunters map
-    SUBSTRUCTURE43 = 19,
-
+    /// PROJECT: Hunters map
+    SUBSTRUCTURE_43 = 19,
     /// Crash Site
-    /// <br>Odyssey: Extraction map
+    /// Odyssey: Extraction map
     CRASH_SITE = 20,
-
     /// Nexus Blitz
-    /// <br>Nexus Blitz map
+    /// Nexus Blitz map
     NEXUS_BLITZ = 21,
+    /// Convergence
+    /// Teamfight Tactics map
+    CONVERGENCE = 22,
 }

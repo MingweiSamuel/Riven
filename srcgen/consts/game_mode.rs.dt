@@ -14,10 +14,13 @@ use strum_macros::{ EnumString, Display, AsRefStr, IntoStaticStr };
 #[repr(u8)]
 pub enum GameMode {
 {{
-    for (const { gameMode, description } of gameModes) {
+    for (const e of gameModes) {
+        const desc = e['x-desc'] ? e['x-desc'].split('\n') : [];
 }}
-    /// {{= description }}
-    {{= gameMode }},
+{{~ desc :line }}
+    /// {{= line }}
+{{~}}
+    {{= e['x-name'] }},
 {{
     }
 }}

@@ -16,23 +16,23 @@ const files = [
     '.spec.json'
   ],
   [
-    'http://static.developer.riotgames.com/docs/lol/seasons.json',
+    'http://www.mingweisamuel.com/riotapi-schema/enums/seasons.json',
     '.seasons.json'
   ],
   [
-    'http://static.developer.riotgames.com/docs/lol/queues.json',
+    'http://www.mingweisamuel.com/riotapi-schema/enums/queues.json',
     '.queues.json'
   ],
   [
-    'http://static.developer.riotgames.com/docs/lol/gameTypes.json',
+    'http://www.mingweisamuel.com/riotapi-schema/enums/gameTypes.json',
     '.gameTypes.json'
   ],
   [
-    'http://static.developer.riotgames.com/docs/lol/gameModes.json',
+    'http://www.mingweisamuel.com/riotapi-schema/enums/gameModes.json',
     '.gameModes.json'
   ],
   [
-    'http://static.developer.riotgames.com/docs/lol/maps.json',
+    'http://www.mingweisamuel.com/riotapi-schema/enums/maps.json',
     '.maps.json'
   ]
 ]

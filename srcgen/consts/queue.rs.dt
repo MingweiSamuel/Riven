@@ -1,12 +1,6 @@
 ﻿{{
     const dotUtils = require('./dotUtils.js');
     const queues = require('./.queues.json');
-
-    const groupedQueues = queues.groupBy(({ map, description }) => {
-        const name = dotUtils.changeCase.constantCase((map || '').replace("'", ''))
-            + '_' + dotUtils.changeCase.constantCase((description || '').replace(/\s+(?=\d)/g, ''));
-        return name;
-    });
 }}{{= dotUtils.preamble() }}
 
 use serde_repr::{ Serialize_repr, Deserialize_repr };
@@ -21,25 +15,18 @@ use num_enum::{ IntoPrimitive, TryFromPrimitive };
 #[repr(u16)]
 pub enum Queue {
 {{
-    for (let [ groupName, colQueues ] of groupedQueues) {
+    for (const e of queues) {
+        const desc = e['x-desc'] ? e['x-desc'].split('\n') : [];
 }}
-
-{{
-        for (let { queueId, map, description, notes } of colQueues) {
-            const doc = (description ? description + ' games on ' : '') + map;
-            const deprecated = (notes || '').toUpperCase().indexOf('DEPRECATED') >= 0;
-            const name = groupName + ((colQueues.length > 1 && deprecated) ? `_DEPRECATED_${queueId}` : '');
-}}
-    /// {{= doc }}.
-{{? notes }}
-    /// <br>{{= notes }}
+{{~ desc :line }}
+    /// {{= line }}
+{{~}}
+{{? e['x-deprecated'] }}
+    /// {{= e.notes }}
+    #[deprecated(note="{{= e.notes }}")]
 {{?}}
-{{? deprecated}}
-    #[deprecated(note="{{= notes }}")]
-{{?}}
-    {{= name }} = {{= queueId }},
+    {{= e['x-name'] }} = {{= e['x-value'] }},
 {{
-        }
     }
 }}
 }

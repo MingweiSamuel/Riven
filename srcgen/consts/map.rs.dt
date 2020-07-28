@@ -1,8 +1,6 @@
 ﻿{{
     const dotUtils = require('./dotUtils.js');
     const maps = require('./.maps.json');
-    const groupedMaps = maps.groupBy(({ mapName }) =>
-        dotUtils.changeCase.constantCase(mapName.replace(/[ ']+/, '')));
 }}{{= dotUtils.preamble() }}
 
 use serde_repr::{ Serialize_repr, Deserialize_repr };
@@ -17,20 +15,14 @@ use num_enum::{ IntoPrimitive, TryFromPrimitive };
 #[repr(u8)]
 pub enum Map {
 {{
-    for (const [ groupName, colMaps ] of groupedMaps) {
+    for (const e of maps) {
+        const desc = e['x-desc'] ? e['x-desc'].split('\n') : [];
 }}
-
+{{~ desc :line }}
+    /// {{= line }}
+{{~}}
+    {{= e['x-name'] }} = {{= e['x-value'] }},
 {{
-        for (const [ i, { mapId, mapName, notes } ] of colMaps.entries()) {
-            let name = groupName;
-            if (i != colMaps.length - 1)
-                name += '_' + dotUtils.changeCase.constantCase(notes);
-}}
-    /// {{= mapName }}
-    /// <br>{{= notes }}
-    {{= name }} = {{= mapId }},
-{{
-        }
     }
 }}
 }

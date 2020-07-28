@@ -16,10 +16,10 @@ use strum_macros::{ EnumString, Display, AsRefStr, IntoStaticStr };
 pub enum GameType {
     /// Custom games
     CUSTOM_GAME,
-    /// Tutorial games
-    TUTORIAL_GAME,
     /// all other games
     MATCHED_GAME,
+    /// Tutorial games
+    TUTORIAL_GAME,
 }
 
 serde_string!(GameType);

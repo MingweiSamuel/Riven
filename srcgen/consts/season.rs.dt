@@ -15,10 +15,13 @@ use num_enum::{ IntoPrimitive, TryFromPrimitive };
 #[repr(u8)]
 pub enum Season {
 {{
-    for (const { id, season } of seasons) {
-        const name = season.replace(' ', '_');
+    for (const e of seasons) {
+        const desc = e['x-desc'] ? e['x-desc'].split('\n') : [];
 }}
-    {{= name }} = {{= id }},
+{{~ desc :line }}
+    /// {{= line }}
+{{~}}
+    {{= e['x-name'] }} = {{= e['x-value'] }},
 {{
     }
 }}

@@ -31,4 +31,6 @@ pub enum Season {
     SEASON_2018 = 11,
     PRESEASON_2019 = 12,
     SEASON_2019 = 13,
+    PRESEASON_2020 = 14,
+    SEASON_2020 = 15,
 }
