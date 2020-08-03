@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version ae788d19c63d356f53849f87be4d4b49b01c11de
+// Version 36871d82bfc1f861d45c3941b4b5fddd3ab20ea0
 
 //! Data transfer structs.
 //!
@@ -580,7 +580,7 @@ pub mod match_v4 {
         /// String indicating whether or not the team won. There are only two values visibile in public match history.<br>
         /// (Legal values:  Fail,  Win)
         #[serde(rename = "win")]
-        pub win: String,
+        pub win: Option<String>,
     }
     /// TeamBans data object.
     #[derive(Debug)]

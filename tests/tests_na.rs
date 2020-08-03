@@ -80,6 +80,24 @@ async_tests!{
             rassert!(!m.participants.is_empty(), "Match should have participants.");
             Ok(())
         },
+        match_get_tutorial1: async {
+            let p = RIOT_API.match_v4().get_match(Region::NA, 3432145099);
+            let m = p.await.map_err(|e| e.to_string())?.ok_or("Failed to get match.".to_owned())?;
+            rassert!(!m.participants.is_empty(), "Match should have participants.");
+            Ok(())
+        },
+        match_get_tutorial2: async {
+            let p = RIOT_API.match_v4().get_match(Region::NA, 3432116214);
+            let m = p.await.map_err(|e| e.to_string())?.ok_or("Failed to get match.".to_owned())?;
+            rassert!(!m.participants.is_empty(), "Match should have participants.");
+            Ok(())
+        },
+        match_get_tutorial3: async {
+            let p = RIOT_API.match_v4().get_match(Region::NA, 3432156790);
+            let m = p.await.map_err(|e| e.to_string())?.ok_or("Failed to get match.".to_owned())?;
+            rassert!(!m.participants.is_empty(), "Match should have participants.");
+            Ok(())
+        },
         // Commented out, requires special API key.
         // // LOR
         // lor_ranked_get_leaderboards: async {
