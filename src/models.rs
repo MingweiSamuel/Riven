@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version d1d3a7a4176fd7b1ca98b43811dbe6ac3951b9b6
+// Version ae788d19c63d356f53849f87be4d4b49b01c11de
 
 //! Data transfer structs.
 //!
@@ -1978,6 +1978,108 @@ pub mod val_match_v1 {
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct PlayerStats {
+        #[serde(rename = "score")]
+        pub score: i32,
+        #[serde(rename = "roundsPlayed")]
+        pub rounds_played: i32,
+        #[serde(rename = "kills")]
+        pub kills: i32,
+        #[serde(rename = "deaths")]
+        pub deaths: i32,
+        #[serde(rename = "assists")]
+        pub assists: i32,
+        #[serde(rename = "playtimeMillis")]
+        pub playtime_millis: i32,
+        #[serde(rename = "abilityCasts")]
+        pub ability_casts: AbilityCasts,
+    }
+    /// AbilityCasts data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct AbilityCasts {
+        #[serde(rename = "grenadeCasts")]
+        pub grenade_casts: i32,
+        #[serde(rename = "ability1Casts")]
+        pub ability1_casts: i32,
+        #[serde(rename = "ability2Casts")]
+        pub ability2_casts: i32,
+        #[serde(rename = "ultimateCasts")]
+        pub ultimate_casts: i32,
+    }
+    /// Team data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Team {
+        #[serde(rename = "teamId")]
+        pub team_id: String,
+        #[serde(rename = "won")]
+        pub won: bool,
+        #[serde(rename = "roundsPlayed")]
+        pub rounds_played: i32,
+        #[serde(rename = "roundsWon")]
+        pub rounds_won: i32,
+    }
+    /// RoundResult data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct RoundResult {
+        #[serde(rename = "roundNum")]
+        pub round_num: i32,
+        #[serde(rename = "roundResult")]
+        pub round_result: String,
+        #[serde(rename = "roundCeremony")]
+        pub round_ceremony: String,
+        #[serde(rename = "winningTeam")]
+        pub winning_team: String,
+        /// PUUID of player
+        #[serde(rename = "bombPlanter")]
+        pub bomb_planter: String,
+        /// PUUID of player
+        #[serde(rename = "bombDefuser")]
+        pub bomb_defuser: String,
+        #[serde(rename = "plantRoundTime")]
+        pub plant_round_time: i32,
+        #[serde(rename = "plantPlayerLocations")]
+        pub plant_player_locations: std::vec::Vec<PlayerLocations>,
+        #[serde(rename = "plantLocation")]
+        pub plant_location: Location,
+        #[serde(rename = "plantSite")]
+        pub plant_site: String,
+        #[serde(rename = "defuseRoundTime")]
+        pub defuse_round_time: i32,
+        #[serde(rename = "defusePlayerLocations")]
+        pub defuse_player_locations: std::vec::Vec<PlayerLocations>,
+        #[serde(rename = "defuseLocation")]
+        pub defuse_location: Location,
+        #[serde(rename = "playerStats")]
+        pub player_stats: std::vec::Vec<PlayerRoundStats>,
+        #[serde(rename = "roundResultCode")]
+        pub round_result_code: String,
+    }
+    /// PlayerLocations data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct PlayerLocations {
+        #[serde(rename = "puuid")]
+        pub puuid: String,
+        #[serde(rename = "viewRadians")]
+        pub view_radians: f32,
+        #[serde(rename = "location")]
+        pub location: Location,
+    }
+    /// Location data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Location {
+        #[serde(rename = "x")]
+        pub x: i32,
+        #[serde(rename = "y")]
+        pub y: i32,
+    }
+    /// PlayerRoundStats data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct PlayerRoundStats {
         #[serde(rename = "puuid")]
         pub puuid: String,
         #[serde(rename = "kills")]
@@ -2014,26 +2116,6 @@ pub mod val_match_v1 {
         pub player_locations: std::vec::Vec<PlayerLocations>,
         #[serde(rename = "finishingDamage")]
         pub finishing_damage: FinishingDamage,
-    }
-    /// Location data object.
-    #[derive(Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
-    pub struct Location {
-        #[serde(rename = "x")]
-        pub x: i32,
-        #[serde(rename = "y")]
-        pub y: i32,
-    }
-    /// PlayerLocations data object.
-    #[derive(Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
-    pub struct PlayerLocations {
-        #[serde(rename = "puuid")]
-        pub puuid: String,
-        #[serde(rename = "viewRadians")]
-        pub view_radians: f32,
-        #[serde(rename = "location")]
-        pub location: Location,
     }
     /// FinishingDamage data object.
     #[derive(Debug)]
@@ -2090,56 +2172,6 @@ pub mod val_match_v1 {
         #[serde(rename = "ultimateEffects")]
         pub ultimate_effects: String,
     }
-    /// Team data object.
-    #[derive(Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
-    pub struct Team {
-        #[serde(rename = "teamId")]
-        pub team_id: String,
-        #[serde(rename = "won")]
-        pub won: bool,
-        #[serde(rename = "roundsPlayed")]
-        pub rounds_played: i32,
-        #[serde(rename = "roundsWon")]
-        pub rounds_won: i32,
-    }
-    /// RoundResult data object.
-    #[derive(Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
-    pub struct RoundResult {
-        #[serde(rename = "roundNum")]
-        pub round_num: i32,
-        #[serde(rename = "roundResult")]
-        pub round_result: String,
-        #[serde(rename = "roundCeremony")]
-        pub round_ceremony: String,
-        #[serde(rename = "winningTeam")]
-        pub winning_team: String,
-        /// PUUID of player
-        #[serde(rename = "bombPlanter")]
-        pub bomb_planter: String,
-        /// PUUID of player
-        #[serde(rename = "bombDefuser")]
-        pub bomb_defuser: String,
-        #[serde(rename = "plantRoundTime")]
-        pub plant_round_time: i32,
-        #[serde(rename = "plantPlayerLocations")]
-        pub plant_player_locations: std::vec::Vec<PlayerLocations>,
-        #[serde(rename = "plantLocation")]
-        pub plant_location: Location,
-        #[serde(rename = "plantSite")]
-        pub plant_site: String,
-        #[serde(rename = "defuseRoundTime")]
-        pub defuse_round_time: i32,
-        #[serde(rename = "defusePlayerLocations")]
-        pub defuse_player_locations: std::vec::Vec<PlayerLocations>,
-        #[serde(rename = "defuseLocation")]
-        pub defuse_location: Location,
-        #[serde(rename = "playerStats")]
-        pub player_stats: std::vec::Vec<PlayerStats>,
-        #[serde(rename = "roundResultCode")]
-        pub round_result_code: String,
-    }
     /// Matchlist data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
@@ -2155,8 +2187,8 @@ pub mod val_match_v1 {
     pub struct MatchReference {
         #[serde(rename = "matchId")]
         pub match_id: String,
-        #[serde(rename = "gameStartTime")]
-        pub game_start_time: i64,
+        #[serde(rename = "gameStartTimeMillis")]
+        pub game_start_time_millis: i64,
         #[serde(rename = "teamId")]
         pub team_id: String,
     }

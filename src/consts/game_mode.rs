@@ -52,6 +52,12 @@ pub enum GameMode {
     STARGUARDIAN,
     /// Tutorial games
     TUTORIAL,
+    /// Tutorial: Welcome to League.
+    TUTORIAL_MODULE_1,
+    /// Tutorial: Power Up.
+    TUTORIAL_MODULE_2,
+    /// Tutorial: Shop for Gear.
+    TUTORIAL_MODULE_3,
     /// URF games
     URF,
 }
