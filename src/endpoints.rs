@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 36871d82bfc1f861d45c3941b4b5fddd3ab20ea0
+// Version e9fad555098e217edc088cc4b1ecc6fe095ba6cb
 
 //! Automatically generated endpoint handles.
 
@@ -1195,10 +1195,10 @@ impl<'a> ValMatchV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_match(&self, region: Region, match_id: &str)
-        -> impl Future<Output = Result<val_match_v1::Match>> + 'a
+        -> impl Future<Output = Result<Option<val_match_v1::Match>>> + 'a
     {
         let path_string = format!("/val/match/v1/matches/{}", match_id);
-        self.base.get::<val_match_v1::Match>("val-match-v1.getMatch", region.into(), path_string, None)
+        self.base.get_optional::<val_match_v1::Match>("val-match-v1.getMatch", region.into(), path_string, None)
     }
 
     /// Get matchlist for games played by puuid

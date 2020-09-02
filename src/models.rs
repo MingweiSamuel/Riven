@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 36871d82bfc1f861d45c3941b4b5fddd3ab20ea0
+// Version e9fad555098e217edc088cc4b1ecc6fe095ba6cb
 
 //! Data transfer structs.
 //!
@@ -27,10 +27,12 @@ pub mod account_v1 {
     pub struct Account {
         #[serde(rename = "puuid")]
         pub puuid: String,
+        /// This field may be excluded if the account doesn't have a gameName
         #[serde(rename = "gameName")]
-        pub game_name: String,
+        pub game_name: Option<String>,
+        /// This field may be excluded if the account doesn't have a tagLine
         #[serde(rename = "tagLine")]
-        pub tag_line: String,
+        pub tag_line: Option<String>,
     }
     /// ActiveShard data object.
     #[derive(Debug)]
@@ -882,6 +884,15 @@ pub mod match_v4 {
         /// Secondary rune path
         #[serde(rename = "perkSubStyle")]
         pub perk_sub_style: Option<i32>,
+        /// First stat rune.
+        #[serde(rename = "statPerk0")]
+        pub stat_perk0: Option<i32>,
+        /// Second stat rune.
+        #[serde(rename = "statPerk1")]
+        pub stat_perk1: Option<i32>,
+        /// Third stat rune.
+        #[serde(rename = "statPerk2")]
+        pub stat_perk2: Option<i32>,
     }
     /// ParticipantTimeline data object.
     #[derive(Debug)]
@@ -1517,6 +1528,9 @@ pub mod tft_match_v1 {
         /// Number of units with this trait.
         #[serde(rename = "num_units")]
         pub num_units: i32,
+        /// Current style for this trait. (0 = No style, 1 = Bronze, 2 = Silver, 3 = Gold, 4 = Chromatic)
+        #[serde(rename = "style")]
+        pub style: Option<i32>,
         /// Current active tier for the trait.
         #[serde(rename = "tier_current")]
         pub tier_current: i32,
@@ -1918,7 +1932,7 @@ pub mod val_match_v1 {
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Match {
         #[serde(rename = "matchInfo")]
-        pub match_info: std::vec::Vec<MatchInfo>,
+        pub match_info: MatchInfo,
         #[serde(rename = "players")]
         pub players: std::vec::Vec<Player>,
         #[serde(rename = "teams")]
@@ -2010,6 +2024,7 @@ pub mod val_match_v1 {
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Team {
+        /// This is an arbitrary string. Red and Blue in bomb modes. The puuid of the player in deathmatch.
         #[serde(rename = "teamId")]
         pub team_id: String,
         #[serde(rename = "won")]
@@ -2018,6 +2033,9 @@ pub mod val_match_v1 {
         pub rounds_played: i32,
         #[serde(rename = "roundsWon")]
         pub rounds_won: i32,
+        /// Team points scored. Number of kills in deathmatch.
+        #[serde(rename = "numPoints")]
+        pub num_points: i32,
     }
     /// RoundResult data object.
     #[derive(Debug)]
@@ -2098,9 +2116,13 @@ pub mod val_match_v1 {
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Kill {
         #[serde(rename = "gameTime")]
-        pub game_time: i32,
+        pub game_time: Option<i32>,
         #[serde(rename = "roundTime")]
-        pub round_time: i32,
+        pub round_time: Option<i32>,
+        #[serde(rename = "timeSinceGameStartMillis")]
+        pub time_since_game_start_millis: Option<i32>,
+        #[serde(rename = "timeSinceRoundStartMillis")]
+        pub time_since_round_start_millis: Option<i32>,
         /// PUUID
         #[serde(rename = "killer")]
         pub killer: String,
@@ -2179,12 +2201,12 @@ pub mod val_match_v1 {
         #[serde(rename = "puuid")]
         pub puuid: String,
         #[serde(rename = "history")]
-        pub history: std::vec::Vec<MatchReference>,
+        pub history: std::vec::Vec<MatchlistEntry>,
     }
-    /// MatchReference data object.
+    /// MatchlistEntry data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
-    pub struct MatchReference {
+    pub struct MatchlistEntry {
         #[serde(rename = "matchId")]
         pub match_id: String,
         #[serde(rename = "gameStartTimeMillis")]
