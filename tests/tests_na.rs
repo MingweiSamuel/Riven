@@ -45,6 +45,17 @@ async_tests!{
             rassert!(!d.is_empty(), "Challenger shouldn't be empty.");
             Ok(())
         },
+
+        matchlist_get: async {
+
+            let sp = RIOT_API.summoner_v4().get_by_summoner_name(Region::NA, "haha yes");
+            let s = sp.await.map_err(|e| e.to_string())?.ok_or("Failed to get \"haha yes\"".to_owned())?;
+            let mp = RIOT_API.match_v4().get_matchlist(Region::NA, &s.account_id, None, Some(2500), None, None, Some(2600), None, None);
+            let m = mp.await.map_err(|e| e.to_string())?.ok_or("Failed to get matchlist".to_owned())?;
+            rassert!(m.matches.len() > 0, "Matchlist should not be empty");
+            Ok(())
+        },
+
         match_get: async {
             let p = RIOT_API.match_v4().get_match(Region::NA, 3190191338);
             let m = p.await.map_err(|e| e.to_string())?.ok_or("Match not found.".to_owned())?;
@@ -57,20 +68,21 @@ async_tests!{
             rassert!(!m.participants.is_empty(), "Match should have participants.");
             Ok(())
         },
-        match_gettimeline: async {
-            let p = RIOT_API.match_v4().get_match_timeline(Region::NA, 3190191338);
-            let m = p.await.map_err(|e| e.to_string())?.ok_or("Match timeline not found.".to_owned())?;
-            rassert!(!m.frames.is_empty(), "Match timeline should have frames.");
+        match_get_odyssey: async {
+            let p = RIOT_API.match_v4().get_match(Region::NA, 2881976826);
+            let m = p.await.map_err(|e| e.to_string())?.ok_or("Match not found.".to_owned())?;
+            rassert!(!m.participants.is_empty(), "Match should have participants.");
             Ok(())
         },
-        // match_get_old: async {
-        //     let p = RIOT_API.match_v4().get_match(Region::NA, 2632789562);
-        //     let m = p.await.map_err(|e| e.to_string())?.ok_or("Failed to get match.".to_owned())?;
-        //     Ok(())
-        // },
         match_get_aram: async {
             let p = RIOT_API.match_v4().get_match(Region::NA, 2961635718);
             let m = p.await.map_err(|e| e.to_string())?.ok_or("Failed to get match.".to_owned())?;
+            rassert!(!m.participants.is_empty(), "Match should have participants.");
+            Ok(())
+        },
+        match_get_aram2: async {
+            let p = RIOT_API.match_v4().get_match(Region::NA, 3596184782);
+            let m = p.await.map_err(|e| e.to_string())?.ok_or("Match not found.".to_owned())?;
             rassert!(!m.participants.is_empty(), "Match should have participants.");
             Ok(())
         },
@@ -96,6 +108,13 @@ async_tests!{
             let p = RIOT_API.match_v4().get_match(Region::NA, 3432156790);
             let m = p.await.map_err(|e| e.to_string())?.ok_or("Failed to get match.".to_owned())?;
             rassert!(!m.participants.is_empty(), "Match should have participants.");
+            Ok(())
+        },
+
+        match_gettimeline: async {
+            let p = RIOT_API.match_v4().get_match_timeline(Region::NA, 3190191338);
+            let m = p.await.map_err(|e| e.to_string())?.ok_or("Match timeline not found.".to_owned())?;
+            rassert!(!m.frames.is_empty(), "Match timeline should have frames.");
             Ok(())
         },
         // Commented out, requires special API key.

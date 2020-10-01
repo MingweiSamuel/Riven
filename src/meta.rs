@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version e9fad555098e217edc088cc4b1ecc6fe095ba6cb
+// Version c3b3f5733c36c6f30546aa9ed598c05d39c670be
 
 //! Metadata about the Riot API and Riven.
 //!
@@ -71,6 +71,7 @@ lazy_static! {
         map.insert("/val/content/v1/contents", "val-content-v1.getContent");
         map.insert("/val/match/v1/matches/{matchId}", "val-match-v1.getMatch");
         map.insert("/val/match/v1/matchlists/by-puuid/{puuid}", "val-match-v1.getMatchlist");
+        map.insert("/val/match/v1/recent-matches/by-queue/{queue}", "val-match-v1.getRecent");
         map
     };
 }

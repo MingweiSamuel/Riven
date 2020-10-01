@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version e9fad555098e217edc088cc4b1ecc6fe095ba6cb
+// Version c3b3f5733c36c6f30546aa9ed598c05d39c670be
 
 //! Automatically generated endpoint handles.
 
@@ -1214,6 +1214,23 @@ impl<'a> ValMatchV1<'a> {
     {
         let path_string = format!("/val/match/v1/matchlists/by-puuid/{}", puuid);
         self.base.get::<val_match_v1::Matchlist>("val-match-v1.getMatchlist", region.into(), path_string, None)
+    }
+
+    /// Get recent matches
+    /// ## Implementation Notes
+    /// Returns a list of match ids that have completed in the last 10 minutes. NA/LATAM/BR share a match history deployment. As such, recent matches will return a combined list of matches from those three regions. Requests are load balanced so you may see some inconsistencies as matches are added/removed from the list.
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// * `queue`
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#val-match-v1/GET_getRecent" target="_blank">`val-match-v1.getRecent`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_recent(&self, region: Region, queue: &str)
+        -> impl Future<Output = Result<val_match_v1::RecentMatches>> + 'a
+    {
+        let path_string = format!("/val/match/v1/recent-matches/by-queue/{}", queue);
+        self.base.get::<val_match_v1::RecentMatches>("val-match-v1.getRecent", region.into(), path_string, None)
     }
 
 }

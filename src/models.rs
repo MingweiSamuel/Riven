@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version e9fad555098e217edc088cc4b1ecc6fe095ba6cb
+// Version c3b3f5733c36c6f30546aa9ed598c05d39c670be
 
 //! Data transfer structs.
 //!
@@ -365,25 +365,25 @@ pub mod lol_status_v3 {
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Service {
-        #[serde(rename = "incidents")]
-        pub incidents: std::vec::Vec<Incident>,
         #[serde(rename = "name")]
         pub name: String,
         #[serde(rename = "slug")]
         pub slug: String,
         #[serde(rename = "status")]
         pub status: String,
+        #[serde(rename = "incidents")]
+        pub incidents: std::vec::Vec<Incident>,
     }
     /// Incident data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Incident {
+        #[serde(rename = "id")]
+        pub id: i64,
         #[serde(rename = "active")]
         pub active: bool,
         #[serde(rename = "created_at")]
         pub created_at: String,
-        #[serde(rename = "id")]
-        pub id: i64,
         #[serde(rename = "updates")]
         pub updates: std::vec::Vec<Message>,
     }
@@ -391,31 +391,33 @@ pub mod lol_status_v3 {
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Message {
-        #[serde(rename = "severity")]
-        pub severity: String,
-        #[serde(rename = "updated_at")]
-        pub updated_at: String,
-        #[serde(rename = "author")]
-        pub author: String,
-        #[serde(rename = "translations")]
-        pub translations: std::vec::Vec<Translation>,
-        #[serde(rename = "created_at")]
-        pub created_at: String,
         #[serde(rename = "id")]
         pub id: String,
+        #[serde(rename = "author")]
+        pub author: String,
+        #[serde(rename = "heading")]
+        pub heading: String,
         #[serde(rename = "content")]
         pub content: String,
+        #[serde(rename = "severity")]
+        pub severity: String,
+        #[serde(rename = "created_at")]
+        pub created_at: String,
+        #[serde(rename = "updated_at")]
+        pub updated_at: String,
+        #[serde(rename = "translations")]
+        pub translations: std::vec::Vec<Translation>,
     }
     /// Translation data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Translation {
+        #[serde(rename = "updated_at")]
+        pub updated_at: String,
         #[serde(rename = "locale")]
         pub locale: String,
         #[serde(rename = "content")]
         pub content: String,
-        #[serde(rename = "heading")]
-        pub heading: String,
     }
 }
 
@@ -614,7 +616,7 @@ pub mod match_v4 {
         pub team_id: crate::consts::Team,
         /// Participant timeline data.
         #[serde(rename = "timeline")]
-        pub timeline: ParticipantTimeline,
+        pub timeline: Option<ParticipantTimeline>,
         /// First Summoner Spell id.
         #[serde(rename = "spell1Id")]
         pub spell1_id: i32,
@@ -677,7 +679,7 @@ pub mod match_v4 {
         #[serde(rename = "magicDamageDealtToChampions")]
         pub magic_damage_dealt_to_champions: i64,
         #[serde(rename = "wardsKilled")]
-        pub wards_killed: i32,
+        pub wards_killed: Option<i32>,
         #[serde(rename = "pentaKills")]
         pub penta_kills: i32,
         #[serde(rename = "damageSelfMitigated")]
@@ -711,7 +713,7 @@ pub mod match_v4 {
         #[serde(rename = "physicalDamageDealtToChampions")]
         pub physical_damage_dealt_to_champions: i64,
         #[serde(rename = "neutralMinionsKilledTeamJungle")]
-        pub neutral_minions_killed_team_jungle: i32,
+        pub neutral_minions_killed_team_jungle: Option<i32>,
         #[serde(rename = "totalMinionsKilled")]
         pub total_minions_killed: i32,
         #[serde(rename = "firstInhibitorAssist")]
@@ -771,7 +773,7 @@ pub mod match_v4 {
         #[serde(rename = "trueDamageDealtToChampions")]
         pub true_damage_dealt_to_champions: i64,
         #[serde(rename = "neutralMinionsKilledEnemyJungle")]
-        pub neutral_minions_killed_enemy_jungle: i32,
+        pub neutral_minions_killed_enemy_jungle: Option<i32>,
         #[serde(rename = "doubleKills")]
         pub double_kills: i32,
         #[serde(rename = "trueDamageDealt")]
@@ -884,13 +886,13 @@ pub mod match_v4 {
         /// Secondary rune path
         #[serde(rename = "perkSubStyle")]
         pub perk_sub_style: Option<i32>,
-        /// First stat rune.
+        /// Stat rune
         #[serde(rename = "statPerk0")]
         pub stat_perk0: Option<i32>,
-        /// Second stat rune.
+        /// Stat rune
         #[serde(rename = "statPerk1")]
         pub stat_perk1: Option<i32>,
-        /// Third stat rune.
+        /// Stat rune
         #[serde(rename = "statPerk2")]
         pub stat_perk2: Option<i32>,
     }
@@ -960,7 +962,7 @@ pub mod match_v4 {
         #[serde(rename = "gameId")]
         pub game_id: i64,
         #[serde(rename = "role")]
-        pub role: String,
+        pub role: Option<String>,
         #[serde(rename = "season")]
         pub season: i32,
         #[serde(rename = "platformId")]
@@ -970,7 +972,7 @@ pub mod match_v4 {
         #[serde(rename = "queue")]
         pub queue: crate::consts::Queue,
         #[serde(rename = "lane")]
-        pub lane: String,
+        pub lane: Option<String>,
         #[serde(rename = "timestamp")]
         pub timestamp: i64,
     }
@@ -1874,8 +1876,13 @@ pub mod val_content_v1 {
         /// This field is excluded from the response when a locale is set
         #[serde(rename = "localizedNames")]
         pub localized_names: Option<LocalizedNames>,
+        #[serde(rename = "id")]
+        pub id: String,
         #[serde(rename = "assetName")]
         pub asset_name: String,
+        /// This field is only included for maps and game modes. These values are used in the match response.
+        #[serde(rename = "assetPath")]
+        pub asset_path: String,
     }
     /// LocalizedNames data object.
     #[derive(Debug)]
@@ -2115,14 +2122,10 @@ pub mod val_match_v1 {
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Kill {
-        #[serde(rename = "gameTime")]
-        pub game_time: Option<i32>,
-        #[serde(rename = "roundTime")]
-        pub round_time: Option<i32>,
         #[serde(rename = "timeSinceGameStartMillis")]
-        pub time_since_game_start_millis: Option<i32>,
+        pub time_since_game_start_millis: i32,
         #[serde(rename = "timeSinceRoundStartMillis")]
-        pub time_since_round_start_millis: Option<i32>,
+        pub time_since_round_start_millis: i32,
         /// PUUID
         #[serde(rename = "killer")]
         pub killer: String,
@@ -2213,5 +2216,15 @@ pub mod val_match_v1 {
         pub game_start_time_millis: i64,
         #[serde(rename = "teamId")]
         pub team_id: String,
+    }
+    /// RecentMatches data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct RecentMatches {
+        #[serde(rename = "currentTime")]
+        pub current_time: i64,
+        /// A list of recent match ids.
+        #[serde(rename = "matchIds")]
+        pub match_ids: std::vec::Vec<String>,
     }
 }
