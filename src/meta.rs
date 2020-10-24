@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version c3b3f5733c36c6f30546aa9ed598c05d39c670be
+// Version 5aeaf3fd13c4a91f0fc65318334dd1247b8376cd
 
 //! Metadata about the Riot API and Riven.
 //!
@@ -40,6 +40,8 @@ lazy_static! {
         map.insert("/lol/league/v4/leagues/{leagueId}", "league-v4.getLeagueById");
         map.insert("/lol/league/v4/masterleagues/by-queue/{queue}", "league-v4.getMasterLeague");
         map.insert("/lol/status/v3/shard-data", "lol-status-v3.getShardData");
+        map.insert("/lor/match/v1/matches/by-puuid/{puuid}/ids", "lor-match-v1.getMatchIdsByPUUID");
+        map.insert("/lor/match/v1/matches/{matchId}", "lor-match-v1.getMatch");
         map.insert("/lor/ranked/v1/leaderboards", "lor-ranked-v1.getLeaderboards");
         map.insert("/lol/match/v4/matches/by-tournament-code/{tournamentCode}/ids", "match-v4.getMatchIdsByTournamentCode");
         map.insert("/lol/match/v4/matches/{matchId}", "match-v4.getMatch");

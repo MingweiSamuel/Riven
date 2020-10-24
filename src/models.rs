@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version c3b3f5733c36c6f30546aa9ed598c05d39c670be
+// Version 5aeaf3fd13c4a91f0fc65318334dd1247b8376cd
 
 //! Data transfer structs.
 //!
@@ -418,6 +418,77 @@ pub mod lol_status_v3 {
         pub locale: String,
         #[serde(rename = "content")]
         pub content: String,
+    }
+}
+
+/// Data structs used by [`LorMatchV1`](crate::endpoints::LorMatchV1).
+/// 
+/// Note: this module is automatically generated.
+#[allow(dead_code)]
+pub mod lor_match_v1 {
+    /// Match data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Match {
+        /// Match metadata.
+        #[serde(rename = "metadata")]
+        pub metadata: Metadata,
+        /// Match info.
+        #[serde(rename = "info")]
+        pub info: Info,
+    }
+    /// Metadata data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Metadata {
+        /// Match data version.
+        #[serde(rename = "data_version")]
+        pub data_version: String,
+        /// Match id.
+        #[serde(rename = "match_id")]
+        pub match_id: String,
+        /// A list of encrypted participant PUUIDs.
+        #[serde(rename = "participants")]
+        pub participants: std::vec::Vec<String>,
+    }
+    /// Info data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Info {
+        /// (Legal values:  Constructed,  Expeditions,  Tutorial)
+        #[serde(rename = "game_mode")]
+        pub game_mode: String,
+        /// (Legal values:  Ranked,  Normal,  AI,  Tutorial,  VanillaTrial,  Singleton,  StandardGauntlet)
+        #[serde(rename = "game_type")]
+        pub game_type: String,
+        #[serde(rename = "game_start_time_utc")]
+        pub game_start_time_utc: String,
+        #[serde(rename = "game_version")]
+        pub game_version: String,
+        #[serde(rename = "players")]
+        pub players: std::vec::Vec<Player>,
+        /// Total turns taken by both players.
+        #[serde(rename = "total_turn_count")]
+        pub total_turn_count: i32,
+    }
+    /// Player data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Player {
+        #[serde(rename = "puuid")]
+        pub puuid: String,
+        #[serde(rename = "deck_id")]
+        pub deck_id: String,
+        /// Code for the deck played. Refer to LOR documentation for details on deck codes.
+        #[serde(rename = "deck_code")]
+        pub deck_code: String,
+        #[serde(rename = "factions")]
+        pub factions: std::vec::Vec<String>,
+        #[serde(rename = "game_outcome")]
+        pub game_outcome: String,
+        /// The order in which the players took turns.
+        #[serde(rename = "order_of_play")]
+        pub order_of_play: i32,
     }
 }
 
@@ -1452,7 +1523,7 @@ pub mod tft_match_v1 {
         /// Match id.
         #[serde(rename = "match_id")]
         pub match_id: String,
-        /// A list of encrypted participant PUUIDs.
+        /// A list of participant PUUIDs.
         #[serde(rename = "participants")]
         pub participants: std::vec::Vec<String>,
     }
@@ -1472,7 +1543,6 @@ pub mod tft_match_v1 {
         /// Game client version.
         #[serde(rename = "game_version")]
         pub game_version: String,
-        /// Participants.
         #[serde(rename = "participants")]
         pub participants: std::vec::Vec<Participant>,
         /// Please refer to the League of Legends documentation.
@@ -1504,7 +1574,6 @@ pub mod tft_match_v1 {
         /// Number of players the participant eliminated.
         #[serde(rename = "players_eliminated")]
         pub players_eliminated: i32,
-        /// Encrypted PUUID.
         #[serde(rename = "puuid")]
         pub puuid: String,
         /// The number of seconds before the participant was eliminated.

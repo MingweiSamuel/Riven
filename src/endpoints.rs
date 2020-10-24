@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version c3b3f5733c36c6f30546aa9ed598c05d39c670be
+// Version 5aeaf3fd13c4a91f0fc65318334dd1247b8376cd
 
 //! Automatically generated endpoint handles.
 
@@ -85,6 +85,15 @@ impl RiotApi {
     #[inline]
     pub fn lol_status_v3(&self) -> LolStatusV3 {
         LolStatusV3 { base: self }
+    }
+    /// Returns a handle for accessing [LorMatchV1](crate::endpoints::LorMatchV1) endpoints.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/apis#lor-match-v1" target="_blank">`lor-match-v1`</a>
+    ///
+    /// Note: this method is automatically generated.
+    #[inline]
+    pub fn lor_match_v1(&self) -> LorMatchV1 {
+        LorMatchV1 { base: self }
     }
     /// Returns a handle for accessing [LorRankedV1](crate::endpoints::LorRankedV1) endpoints.
     /// # Riot Developer API Reference
@@ -585,6 +594,47 @@ impl<'a> LolStatusV3<'a> {
     {
         let path_string = "/lol/status/v3/shard-data".to_owned();
         self.base.get::<lol_status_v3::ShardStatus>("lol-status-v3.getShardData", region.into(), path_string, None)
+    }
+
+}
+
+/// LorMatchV1 endpoints handle, accessed by calling [`lor_match_v1()`](crate::RiotApi::lor_match_v1) on a [`RiotApi`](crate::RiotApi) instance.
+/// # Riot Developer API Reference
+/// <a href="https://developer.riotgames.com/apis#lor-match-v1" target="_blank">`lor-match-v1`</a>
+///
+/// Note: this struct is automatically generated.
+pub struct LorMatchV1<'a> {
+    base: &'a RiotApi,
+}
+impl<'a> LorMatchV1<'a> {
+    /// Get a list of match ids by PUUID
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// * `puuid`
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#lor-match-v1/GET_getMatchIdsByPUUID" target="_blank">`lor-match-v1.getMatchIdsByPUUID`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_match_ids_by_puuid(&self, region: Region, puuid: &str)
+        -> impl Future<Output = Result<Vec<String>>> + 'a
+    {
+        let path_string = format!("/lor/match/v1/matches/by-puuid/{}/ids", puuid);
+        self.base.get::<Vec<String>>("lor-match-v1.getMatchIdsByPUUID", region.into(), path_string, None)
+    }
+
+    /// Get match by id
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// * `matchId`
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#lor-match-v1/GET_getMatch" target="_blank">`lor-match-v1.getMatch`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_match(&self, region: Region, match_id: &str)
+        -> impl Future<Output = Result<lor_match_v1::Match>> + 'a
+    {
+        let path_string = format!("/lor/match/v1/matches/{}", match_id);
+        self.base.get::<lor_match_v1::Match>("lor-match-v1.getMatch", region.into(), path_string, None)
     }
 
 }
