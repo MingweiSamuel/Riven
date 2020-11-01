@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 5aeaf3fd13c4a91f0fc65318334dd1247b8376cd
+// Version 46d6543508faf7f5f800259caddca32c99565c64
 
 //! Data transfer structs.
 //!
@@ -1628,6 +1628,8 @@ pub mod tft_match_v1 {
         /// Unit tier.
         #[serde(rename = "tier")]
         pub tier: i32,
+        #[serde(rename = "chosen")]
+        pub chosen: Option<String>,
     }
     /// Companion data object.
     #[derive(Debug)]
