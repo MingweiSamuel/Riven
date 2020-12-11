@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 46d6543508faf7f5f800259caddca32c99565c64
+// Version ece6f45a4d6232f4e9940219258f1bd3ae1fee6d
 
 //! Automatically generated endpoint handles.
 
@@ -86,6 +86,15 @@ impl RiotApi {
     pub fn lol_status_v3(&self) -> LolStatusV3 {
         LolStatusV3 { base: self }
     }
+    /// Returns a handle for accessing [LolStatusV4](crate::endpoints::LolStatusV4) endpoints.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/apis#lol-status-v4" target="_blank">`lol-status-v4`</a>
+    ///
+    /// Note: this method is automatically generated.
+    #[inline]
+    pub fn lol_status_v4(&self) -> LolStatusV4 {
+        LolStatusV4 { base: self }
+    }
     /// Returns a handle for accessing [LorMatchV1](crate::endpoints::LorMatchV1) endpoints.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/apis#lor-match-v1" target="_blank">`lor-match-v1`</a>
@@ -103,6 +112,15 @@ impl RiotApi {
     #[inline]
     pub fn lor_ranked_v1(&self) -> LorRankedV1 {
         LorRankedV1 { base: self }
+    }
+    /// Returns a handle for accessing [LorStatusV1](crate::endpoints::LorStatusV1) endpoints.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/apis#lor-status-v1" target="_blank">`lor-status-v1`</a>
+    ///
+    /// Note: this method is automatically generated.
+    #[inline]
+    pub fn lor_status_v1(&self) -> LorStatusV1 {
+        LorStatusV1 { base: self }
     }
     /// Returns a handle for accessing [MatchV4](crate::endpoints::MatchV4) endpoints.
     /// # Riot Developer API Reference
@@ -202,6 +220,15 @@ impl RiotApi {
     #[inline]
     pub fn val_match_v1(&self) -> ValMatchV1 {
         ValMatchV1 { base: self }
+    }
+    /// Returns a handle for accessing [ValStatusV1](crate::endpoints::ValStatusV1) endpoints.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/apis#val-status-v1" target="_blank">`val-status-v1`</a>
+    ///
+    /// Note: this method is automatically generated.
+    #[inline]
+    pub fn val_status_v1(&self) -> ValStatusV1 {
+        ValStatusV1 { base: self }
     }
 }
 
@@ -598,6 +625,31 @@ impl<'a> LolStatusV3<'a> {
 
 }
 
+/// LolStatusV4 endpoints handle, accessed by calling [`lol_status_v4()`](crate::RiotApi::lol_status_v4) on a [`RiotApi`](crate::RiotApi) instance.
+/// # Riot Developer API Reference
+/// <a href="https://developer.riotgames.com/apis#lol-status-v4" target="_blank">`lol-status-v4`</a>
+///
+/// Note: this struct is automatically generated.
+pub struct LolStatusV4<'a> {
+    base: &'a RiotApi,
+}
+impl<'a> LolStatusV4<'a> {
+    /// Get League of Legends status for the given platform.
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#lol-status-v4/GET_getPlatformData" target="_blank">`lol-status-v4.getPlatformData`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_platform_data(&self, region: Region)
+        -> impl Future<Output = Result<lol_status_v4::PlatformData>> + 'a
+    {
+        let path_string = "/lol/status/v4/platform-data".to_owned();
+        self.base.get::<lol_status_v4::PlatformData>("lol-status-v4.getPlatformData", region.into(), path_string, None)
+    }
+
+}
+
 /// LorMatchV1 endpoints handle, accessed by calling [`lor_match_v1()`](crate::RiotApi::lor_match_v1) on a [`RiotApi`](crate::RiotApi) instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#lor-match-v1" target="_blank">`lor-match-v1`</a>
@@ -660,6 +712,31 @@ impl<'a> LorRankedV1<'a> {
     {
         let path_string = "/lor/ranked/v1/leaderboards".to_owned();
         self.base.get::<lor_ranked_v1::Leaderboard>("lor-ranked-v1.getLeaderboards", region.into(), path_string, None)
+    }
+
+}
+
+/// LorStatusV1 endpoints handle, accessed by calling [`lor_status_v1()`](crate::RiotApi::lor_status_v1) on a [`RiotApi`](crate::RiotApi) instance.
+/// # Riot Developer API Reference
+/// <a href="https://developer.riotgames.com/apis#lor-status-v1" target="_blank">`lor-status-v1`</a>
+///
+/// Note: this struct is automatically generated.
+pub struct LorStatusV1<'a> {
+    base: &'a RiotApi,
+}
+impl<'a> LorStatusV1<'a> {
+    /// Get Legends of Runeterra status for the given platform.
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#lor-status-v1/GET_getPlatformData" target="_blank">`lor-status-v1.getPlatformData`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_platform_data(&self, region: Region)
+        -> impl Future<Output = Result<lor_status_v1::PlatformData>> + 'a
+    {
+        let path_string = "/lor/status/v1/platform-data".to_owned();
+        self.base.get::<lor_status_v1::PlatformData>("lor-status-v1.getPlatformData", region.into(), path_string, None)
     }
 
 }
@@ -1281,6 +1358,31 @@ impl<'a> ValMatchV1<'a> {
     {
         let path_string = format!("/val/match/v1/recent-matches/by-queue/{}", queue);
         self.base.get::<val_match_v1::RecentMatches>("val-match-v1.getRecent", region.into(), path_string, None)
+    }
+
+}
+
+/// ValStatusV1 endpoints handle, accessed by calling [`val_status_v1()`](crate::RiotApi::val_status_v1) on a [`RiotApi`](crate::RiotApi) instance.
+/// # Riot Developer API Reference
+/// <a href="https://developer.riotgames.com/apis#val-status-v1" target="_blank">`val-status-v1`</a>
+///
+/// Note: this struct is automatically generated.
+pub struct ValStatusV1<'a> {
+    base: &'a RiotApi,
+}
+impl<'a> ValStatusV1<'a> {
+    /// Get VALORANT status for the given platform.
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#val-status-v1/GET_getPlatformData" target="_blank">`val-status-v1.getPlatformData`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_platform_data(&self, region: Region)
+        -> impl Future<Output = Result<val_status_v1::PlatformData>> + 'a
+    {
+        let path_string = "/val/status/v1/platform-data".to_owned();
+        self.base.get::<val_status_v1::PlatformData>("val-status-v1.getPlatformData", region.into(), path_string, None)
     }
 
 }

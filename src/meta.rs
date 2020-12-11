@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 46d6543508faf7f5f800259caddca32c99565c64
+// Version ece6f45a4d6232f4e9940219258f1bd3ae1fee6d
 
 //! Metadata about the Riot API and Riven.
 //!
@@ -40,9 +40,11 @@ lazy_static! {
         map.insert("/lol/league/v4/leagues/{leagueId}", "league-v4.getLeagueById");
         map.insert("/lol/league/v4/masterleagues/by-queue/{queue}", "league-v4.getMasterLeague");
         map.insert("/lol/status/v3/shard-data", "lol-status-v3.getShardData");
+        map.insert("/lol/status/v4/platform-data", "lol-status-v4.getPlatformData");
         map.insert("/lor/match/v1/matches/by-puuid/{puuid}/ids", "lor-match-v1.getMatchIdsByPUUID");
         map.insert("/lor/match/v1/matches/{matchId}", "lor-match-v1.getMatch");
         map.insert("/lor/ranked/v1/leaderboards", "lor-ranked-v1.getLeaderboards");
+        map.insert("/lor/status/v1/platform-data", "lor-status-v1.getPlatformData");
         map.insert("/lol/match/v4/matches/by-tournament-code/{tournamentCode}/ids", "match-v4.getMatchIdsByTournamentCode");
         map.insert("/lol/match/v4/matches/{matchId}", "match-v4.getMatch");
         map.insert("/lol/match/v4/matches/{matchId}/by-tournament-code/{tournamentCode}", "match-v4.getMatchByTournamentCode");
@@ -74,6 +76,7 @@ lazy_static! {
         map.insert("/val/match/v1/matches/{matchId}", "val-match-v1.getMatch");
         map.insert("/val/match/v1/matchlists/by-puuid/{puuid}", "val-match-v1.getMatchlist");
         map.insert("/val/match/v1/recent-matches/by-queue/{queue}", "val-match-v1.getRecent");
+        map.insert("/val/status/v1/platform-data", "val-status-v1.getPlatformData");
         map
     };
 }

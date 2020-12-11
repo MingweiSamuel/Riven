@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 46d6543508faf7f5f800259caddca32c99565c64
+// Version ece6f45a4d6232f4e9940219258f1bd3ae1fee6d
 
 //! Data transfer structs.
 //!
@@ -421,6 +421,83 @@ pub mod lol_status_v3 {
     }
 }
 
+/// Data structs used by [`LolStatusV4`](crate::endpoints::LolStatusV4).
+/// 
+/// Note: this module is automatically generated.
+#[allow(dead_code)]
+pub mod lol_status_v4 {
+    /// PlatformData data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct PlatformData {
+        #[serde(rename = "id")]
+        pub id: String,
+        #[serde(rename = "name")]
+        pub name: String,
+        #[serde(rename = "locales")]
+        pub locales: std::vec::Vec<String>,
+        #[serde(rename = "maintenances")]
+        pub maintenances: std::vec::Vec<Status>,
+        #[serde(rename = "incidents")]
+        pub incidents: std::vec::Vec<Status>,
+    }
+    /// Status data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Status {
+        #[serde(rename = "id")]
+        pub id: i32,
+        /// (Legal values:  scheduled,  in_progress,  complete)
+        #[serde(rename = "maintenance_status")]
+        pub maintenance_status: String,
+        /// (Legal values:  info,  warning,  critical)
+        #[serde(rename = "incident_severity")]
+        pub incident_severity: String,
+        #[serde(rename = "titles")]
+        pub titles: std::vec::Vec<Content>,
+        #[serde(rename = "updates")]
+        pub updates: std::vec::Vec<Update>,
+        #[serde(rename = "created_at")]
+        pub created_at: String,
+        #[serde(rename = "archive_at")]
+        pub archive_at: String,
+        #[serde(rename = "updated_at")]
+        pub updated_at: String,
+        /// (Legal values: windows, macos, android, ios, ps4, xbone, switch)
+        #[serde(rename = "platforms")]
+        pub platforms: std::vec::Vec<String>,
+    }
+    /// Content data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Content {
+        #[serde(rename = "locale")]
+        pub locale: String,
+        #[serde(rename = "content")]
+        pub content: String,
+    }
+    /// Update data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Update {
+        #[serde(rename = "id")]
+        pub id: i32,
+        #[serde(rename = "author")]
+        pub author: String,
+        #[serde(rename = "publish")]
+        pub publish: bool,
+        /// (Legal values: riotclient, riotstatus, game)
+        #[serde(rename = "publish_locations")]
+        pub publish_locations: std::vec::Vec<String>,
+        #[serde(rename = "translations")]
+        pub translations: std::vec::Vec<Content>,
+        #[serde(rename = "created_at")]
+        pub created_at: String,
+        #[serde(rename = "updated_at")]
+        pub updated_at: String,
+    }
+}
+
 /// Data structs used by [`LorMatchV1`](crate::endpoints::LorMatchV1).
 /// 
 /// Note: this module is automatically generated.
@@ -516,6 +593,83 @@ pub mod lor_ranked_v1 {
         /// League points.
         #[serde(rename = "lp")]
         pub lp: i32,
+    }
+}
+
+/// Data structs used by [`LorStatusV1`](crate::endpoints::LorStatusV1).
+/// 
+/// Note: this module is automatically generated.
+#[allow(dead_code)]
+pub mod lor_status_v1 {
+    /// PlatformData data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct PlatformData {
+        #[serde(rename = "id")]
+        pub id: String,
+        #[serde(rename = "name")]
+        pub name: String,
+        #[serde(rename = "locales")]
+        pub locales: std::vec::Vec<String>,
+        #[serde(rename = "maintenances")]
+        pub maintenances: std::vec::Vec<Status>,
+        #[serde(rename = "incidents")]
+        pub incidents: std::vec::Vec<Status>,
+    }
+    /// Status data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Status {
+        #[serde(rename = "id")]
+        pub id: i32,
+        /// (Legal values:  scheduled,  in_progress,  complete)
+        #[serde(rename = "maintenance_status")]
+        pub maintenance_status: String,
+        /// (Legal values:  info,  warning,  critical)
+        #[serde(rename = "incident_severity")]
+        pub incident_severity: String,
+        #[serde(rename = "titles")]
+        pub titles: std::vec::Vec<Content>,
+        #[serde(rename = "updates")]
+        pub updates: std::vec::Vec<Update>,
+        #[serde(rename = "created_at")]
+        pub created_at: String,
+        #[serde(rename = "archive_at")]
+        pub archive_at: String,
+        #[serde(rename = "updated_at")]
+        pub updated_at: String,
+        /// (Legal values: windows, macos, android, ios, ps4, xbone, switch)
+        #[serde(rename = "platforms")]
+        pub platforms: std::vec::Vec<String>,
+    }
+    /// Content data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Content {
+        #[serde(rename = "locale")]
+        pub locale: String,
+        #[serde(rename = "content")]
+        pub content: String,
+    }
+    /// Update data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Update {
+        #[serde(rename = "id")]
+        pub id: i32,
+        #[serde(rename = "author")]
+        pub author: String,
+        #[serde(rename = "publish")]
+        pub publish: bool,
+        /// (Legal values: riotclient, riotstatus, game)
+        #[serde(rename = "publish_locations")]
+        pub publish_locations: std::vec::Vec<String>,
+        #[serde(rename = "translations")]
+        pub translations: std::vec::Vec<Content>,
+        #[serde(rename = "created_at")]
+        pub created_at: String,
+        #[serde(rename = "updated_at")]
+        pub updated_at: String,
     }
 }
 
@@ -1619,7 +1773,10 @@ pub mod tft_match_v1 {
         /// This field was introduced in patch 9.22 with data_version 2.
         #[serde(rename = "character_id")]
         pub character_id: String,
-        /// Unit name.
+        /// If a unit is chosen as part of the Fates set mechanic, the chosen trait will be indicated by this field. Otherwise this field is excluded from the response.
+        #[serde(rename = "chosen")]
+        pub chosen: Option<String>,
+        /// Unit name. This field is often left blank.
         #[serde(rename = "name")]
         pub name: String,
         /// Unit rarity. This doesn't equate to the unit cost.
@@ -1628,8 +1785,6 @@ pub mod tft_match_v1 {
         /// Unit tier.
         #[serde(rename = "tier")]
         pub tier: i32,
-        #[serde(rename = "chosen")]
-        pub chosen: Option<String>,
     }
     /// Companion data object.
     #[derive(Debug)]
@@ -1937,6 +2092,8 @@ pub mod val_content_v1 {
         pub player_cards: std::vec::Vec<ContentItem>,
         #[serde(rename = "playerTitles")]
         pub player_titles: std::vec::Vec<ContentItem>,
+        #[serde(rename = "acts")]
+        pub acts: std::vec::Vec<Act>,
     }
     /// ContentItem data object.
     #[derive(Debug)]
@@ -1997,6 +2154,20 @@ pub mod val_content_v1 {
         pub zh_cn: String,
         #[serde(rename = "zh-TW")]
         pub zh_tw: String,
+    }
+    /// Act data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Act {
+        #[serde(rename = "name")]
+        pub name: String,
+        /// This field is excluded from the response when a locale is set
+        #[serde(rename = "localizedNames")]
+        pub localized_names: LocalizedNames,
+        #[serde(rename = "id")]
+        pub id: String,
+        #[serde(rename = "isActive")]
+        pub is_active: bool,
     }
 }
 
@@ -2297,5 +2468,82 @@ pub mod val_match_v1 {
         /// A list of recent match ids.
         #[serde(rename = "matchIds")]
         pub match_ids: std::vec::Vec<String>,
+    }
+}
+
+/// Data structs used by [`ValStatusV1`](crate::endpoints::ValStatusV1).
+/// 
+/// Note: this module is automatically generated.
+#[allow(dead_code)]
+pub mod val_status_v1 {
+    /// PlatformData data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct PlatformData {
+        #[serde(rename = "id")]
+        pub id: String,
+        #[serde(rename = "name")]
+        pub name: String,
+        #[serde(rename = "locales")]
+        pub locales: std::vec::Vec<String>,
+        #[serde(rename = "maintenances")]
+        pub maintenances: std::vec::Vec<Status>,
+        #[serde(rename = "incidents")]
+        pub incidents: std::vec::Vec<Status>,
+    }
+    /// Status data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Status {
+        #[serde(rename = "id")]
+        pub id: i32,
+        /// (Legal values:  scheduled,  in_progress,  complete)
+        #[serde(rename = "maintenance_status")]
+        pub maintenance_status: String,
+        /// (Legal values:  info,  warning,  critical)
+        #[serde(rename = "incident_severity")]
+        pub incident_severity: String,
+        #[serde(rename = "titles")]
+        pub titles: std::vec::Vec<Content>,
+        #[serde(rename = "updates")]
+        pub updates: std::vec::Vec<Update>,
+        #[serde(rename = "created_at")]
+        pub created_at: String,
+        #[serde(rename = "archive_at")]
+        pub archive_at: String,
+        #[serde(rename = "updated_at")]
+        pub updated_at: String,
+        /// (Legal values: windows, macos, android, ios, ps4, xbone, switch)
+        #[serde(rename = "platforms")]
+        pub platforms: std::vec::Vec<String>,
+    }
+    /// Content data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Content {
+        #[serde(rename = "locale")]
+        pub locale: String,
+        #[serde(rename = "content")]
+        pub content: String,
+    }
+    /// Update data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Update {
+        #[serde(rename = "id")]
+        pub id: i32,
+        #[serde(rename = "author")]
+        pub author: String,
+        #[serde(rename = "publish")]
+        pub publish: bool,
+        /// (Legal values: riotclient, riotstatus, game)
+        #[serde(rename = "publish_locations")]
+        pub publish_locations: std::vec::Vec<String>,
+        #[serde(rename = "translations")]
+        pub translations: std::vec::Vec<Content>,
+        #[serde(rename = "created_at")]
+        pub created_at: String,
+        #[serde(rename = "updated_at")]
+        pub updated_at: String,
     }
 }
