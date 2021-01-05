@@ -25,19 +25,19 @@ nightly = [ "parking_lot/nightly" ]
 [dependencies]
 lazy_static = "1.4"
 log = "0.4"
-num_enum = "0.4"
-parking_lot = "0.10"
-reqwest = { version = "0.10", features = [ "gzip", "json" ] }
+num_enum = "0.5"
+parking_lot = "0.11"
+reqwest = { version = "0.11", features = [ "gzip", "json" ] }
 scan_fmt = { version = "0.2", default-features = false }
 serde = { version = "1.0", features = [ "derive" ] }
 serde_repr = "0.1"
-strum = "0.17"
-strum_macros = "0.17"
-tokio = { version = "0.2", default-features = false, features = [ "time" ] }
-url = "2.1"
+strum = "0.20"
+strum_macros = "0.20"
+tokio = { version = "1", default-features = false, features = [ "time" ] }
+url = "2"
 
 [dev-dependencies]
-colored = "1.8"
-env_logger = "0.7"
+colored = "2"
+env_logger = "0.8"
 fake_instant = "0.4"
-tokio = "0.2"
+tokio = { version = "1", default-features = false, features = [ "rt-multi-thread" ] }

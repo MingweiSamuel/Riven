@@ -7,7 +7,7 @@ macro_rules! async_tests {
             env_logger::init();
 
             std::process::exit({
-                let mut rt = tokio::runtime::Runtime::new()
+                let rt = tokio::runtime::Runtime::new()
                     .expect("Failed to create runtime.");
 
                 let (_, errs) = rt.block_on(async {

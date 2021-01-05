@@ -3,7 +3,6 @@ use std::sync::Arc;
 
 use log;
 use reqwest::{ Client, StatusCode, Url };
-use tokio::time::delay_for;
 
 use crate::Result;
 use crate::ResponseInfo;
@@ -54,7 +53,7 @@ impl RegionalRequester {
 
                 // Rate limiting.
                 while let Some(delay) = RateLimit::get_both_or_delay(&self.app_rate_limit, &*method_rate_limit) {
-                    delay_for(delay).await;
+                    tokio::time::sleep(delay).await;
                 }
 
                 // Send request.
