@@ -40,7 +40,7 @@ pub enum Champion {
     for (let { id, alias, name } of champions) {
 }}
     /// {{= name }} (`{{= alias }}`, {{= id }}).
-    #[strum(to_string="{{= name }}", serialize="{{= alias }}")] {{= enumName(name) }} = {{= id }},
+    #[strum(to_string="{{= name }}"{{? name !== alias }}, serialize="{{= alias }}"{{?}})] {{= enumName(name) }} = {{= id }},
 {{
     }
 }}

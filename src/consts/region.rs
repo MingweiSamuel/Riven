@@ -19,7 +19,7 @@ pub enum Region {
     EUW,
     #[strum(to_string="NA1", serialize="NA")]
     NA,
-    #[strum(to_string="KR", serialize="KR")]
+    #[strum(to_string="KR")]
     KR,
     #[strum(to_string="LA1", serialize="LAN")]
     LAN,
@@ -27,7 +27,7 @@ pub enum Region {
     LAS,
     #[strum(to_string="OC1", serialize="OCE")]
     OCE,
-    #[strum(to_string="RU", serialize="RU")]
+    #[strum(to_string="RU")]
     RU,
     #[strum(to_string="TR1", serialize="TR")]
     TR,
@@ -35,24 +35,26 @@ pub enum Region {
     JP,
     #[strum(to_string="PBE1", serialize="PBE")]
     PBE,
-    #[strum(to_string="AMERICAS", serialize="AMERICAS")]
+    #[strum(to_string="AMERICAS")]
     AMERICAS,
-    #[strum(to_string="EUROPE", serialize="EUROPE")]
+    #[strum(to_string="EUROPE")]
     EUROPE,
-    #[strum(to_string="ASIA", serialize="ASIA")]
+    #[strum(to_string="ASIA")]
     ASIA,
 
-    #[strum(to_string="AP", serialize="AP")]
+    // Problem: serializing and deserializing these will result in a different
+    // enum picked, due to naming collision.
+    #[strum(to_string="AP")]
     VAL_AP,
-    #[strum(to_string="BR", serialize="BR")]
+    #[strum(to_string="BR")]
     VAL_BR,
-    #[strum(to_string="EU", serialize="EU")]
+    #[strum(to_string="EU")]
     VAL_EU,
-    #[strum(to_string="KR", serialize="KR")]
+    #[strum(to_string="KR")]
     VAL_KR,
-    #[strum(to_string="LATAM", serialize="LATAM")]
+    #[strum(to_string="LATAM")]
     VAL_LATAM,
-    #[strum(to_string="NA", serialize="NA")]
+    #[strum(to_string="NA")]
     VAL_NA,
 }
 

@@ -29,125 +29,125 @@ pub enum Champion {
     None = -1,
 
     /// Aatrox (`Aatrox`, 266).
-    #[strum(to_string="Aatrox", serialize="Aatrox")] Aatrox = 266,
+    #[strum(to_string="Aatrox")] Aatrox = 266,
     /// Ahri (`Ahri`, 103).
-    #[strum(to_string="Ahri", serialize="Ahri")] Ahri = 103,
+    #[strum(to_string="Ahri")] Ahri = 103,
     /// Akali (`Akali`, 84).
-    #[strum(to_string="Akali", serialize="Akali")] Akali = 84,
+    #[strum(to_string="Akali")] Akali = 84,
     /// Alistar (`Alistar`, 12).
-    #[strum(to_string="Alistar", serialize="Alistar")] Alistar = 12,
+    #[strum(to_string="Alistar")] Alistar = 12,
     /// Amumu (`Amumu`, 32).
-    #[strum(to_string="Amumu", serialize="Amumu")] Amumu = 32,
+    #[strum(to_string="Amumu")] Amumu = 32,
     /// Anivia (`Anivia`, 34).
-    #[strum(to_string="Anivia", serialize="Anivia")] Anivia = 34,
+    #[strum(to_string="Anivia")] Anivia = 34,
     /// Annie (`Annie`, 1).
-    #[strum(to_string="Annie", serialize="Annie")] Annie = 1,
+    #[strum(to_string="Annie")] Annie = 1,
     /// Aphelios (`Aphelios`, 523).
-    #[strum(to_string="Aphelios", serialize="Aphelios")] Aphelios = 523,
+    #[strum(to_string="Aphelios")] Aphelios = 523,
     /// Ashe (`Ashe`, 22).
-    #[strum(to_string="Ashe", serialize="Ashe")] Ashe = 22,
+    #[strum(to_string="Ashe")] Ashe = 22,
     /// Aurelion Sol (`AurelionSol`, 136).
     #[strum(to_string="Aurelion Sol", serialize="AurelionSol")] AurelionSol = 136,
     /// Azir (`Azir`, 268).
-    #[strum(to_string="Azir", serialize="Azir")] Azir = 268,
+    #[strum(to_string="Azir")] Azir = 268,
     /// Bard (`Bard`, 432).
-    #[strum(to_string="Bard", serialize="Bard")] Bard = 432,
+    #[strum(to_string="Bard")] Bard = 432,
     /// Blitzcrank (`Blitzcrank`, 53).
-    #[strum(to_string="Blitzcrank", serialize="Blitzcrank")] Blitzcrank = 53,
+    #[strum(to_string="Blitzcrank")] Blitzcrank = 53,
     /// Brand (`Brand`, 63).
-    #[strum(to_string="Brand", serialize="Brand")] Brand = 63,
+    #[strum(to_string="Brand")] Brand = 63,
     /// Braum (`Braum`, 201).
-    #[strum(to_string="Braum", serialize="Braum")] Braum = 201,
+    #[strum(to_string="Braum")] Braum = 201,
     /// Caitlyn (`Caitlyn`, 51).
-    #[strum(to_string="Caitlyn", serialize="Caitlyn")] Caitlyn = 51,
+    #[strum(to_string="Caitlyn")] Caitlyn = 51,
     /// Camille (`Camille`, 164).
-    #[strum(to_string="Camille", serialize="Camille")] Camille = 164,
+    #[strum(to_string="Camille")] Camille = 164,
     /// Cassiopeia (`Cassiopeia`, 69).
-    #[strum(to_string="Cassiopeia", serialize="Cassiopeia")] Cassiopeia = 69,
+    #[strum(to_string="Cassiopeia")] Cassiopeia = 69,
     /// Cho'Gath (`Chogath`, 31).
     #[strum(to_string="Cho'Gath", serialize="Chogath")] ChoGath = 31,
     /// Corki (`Corki`, 42).
-    #[strum(to_string="Corki", serialize="Corki")] Corki = 42,
+    #[strum(to_string="Corki")] Corki = 42,
     /// Darius (`Darius`, 122).
-    #[strum(to_string="Darius", serialize="Darius")] Darius = 122,
+    #[strum(to_string="Darius")] Darius = 122,
     /// Diana (`Diana`, 131).
-    #[strum(to_string="Diana", serialize="Diana")] Diana = 131,
+    #[strum(to_string="Diana")] Diana = 131,
     /// Dr. Mundo (`DrMundo`, 36).
     #[strum(to_string="Dr. Mundo", serialize="DrMundo")] DrMundo = 36,
     /// Draven (`Draven`, 119).
-    #[strum(to_string="Draven", serialize="Draven")] Draven = 119,
+    #[strum(to_string="Draven")] Draven = 119,
     /// Ekko (`Ekko`, 245).
-    #[strum(to_string="Ekko", serialize="Ekko")] Ekko = 245,
+    #[strum(to_string="Ekko")] Ekko = 245,
     /// Elise (`Elise`, 60).
-    #[strum(to_string="Elise", serialize="Elise")] Elise = 60,
+    #[strum(to_string="Elise")] Elise = 60,
     /// Evelynn (`Evelynn`, 28).
-    #[strum(to_string="Evelynn", serialize="Evelynn")] Evelynn = 28,
+    #[strum(to_string="Evelynn")] Evelynn = 28,
     /// Ezreal (`Ezreal`, 81).
-    #[strum(to_string="Ezreal", serialize="Ezreal")] Ezreal = 81,
+    #[strum(to_string="Ezreal")] Ezreal = 81,
     /// Fiddlesticks (`FiddleSticks`, 9).
     #[strum(to_string="Fiddlesticks", serialize="FiddleSticks")] Fiddlesticks = 9,
     /// Fiora (`Fiora`, 114).
-    #[strum(to_string="Fiora", serialize="Fiora")] Fiora = 114,
+    #[strum(to_string="Fiora")] Fiora = 114,
     /// Fizz (`Fizz`, 105).
-    #[strum(to_string="Fizz", serialize="Fizz")] Fizz = 105,
+    #[strum(to_string="Fizz")] Fizz = 105,
     /// Galio (`Galio`, 3).
-    #[strum(to_string="Galio", serialize="Galio")] Galio = 3,
+    #[strum(to_string="Galio")] Galio = 3,
     /// Gangplank (`Gangplank`, 41).
-    #[strum(to_string="Gangplank", serialize="Gangplank")] Gangplank = 41,
+    #[strum(to_string="Gangplank")] Gangplank = 41,
     /// Garen (`Garen`, 86).
-    #[strum(to_string="Garen", serialize="Garen")] Garen = 86,
+    #[strum(to_string="Garen")] Garen = 86,
     /// Gnar (`Gnar`, 150).
-    #[strum(to_string="Gnar", serialize="Gnar")] Gnar = 150,
+    #[strum(to_string="Gnar")] Gnar = 150,
     /// Gragas (`Gragas`, 79).
-    #[strum(to_string="Gragas", serialize="Gragas")] Gragas = 79,
+    #[strum(to_string="Gragas")] Gragas = 79,
     /// Graves (`Graves`, 104).
-    #[strum(to_string="Graves", serialize="Graves")] Graves = 104,
+    #[strum(to_string="Graves")] Graves = 104,
     /// Hecarim (`Hecarim`, 120).
-    #[strum(to_string="Hecarim", serialize="Hecarim")] Hecarim = 120,
+    #[strum(to_string="Hecarim")] Hecarim = 120,
     /// Heimerdinger (`Heimerdinger`, 74).
-    #[strum(to_string="Heimerdinger", serialize="Heimerdinger")] Heimerdinger = 74,
+    #[strum(to_string="Heimerdinger")] Heimerdinger = 74,
     /// Illaoi (`Illaoi`, 420).
-    #[strum(to_string="Illaoi", serialize="Illaoi")] Illaoi = 420,
+    #[strum(to_string="Illaoi")] Illaoi = 420,
     /// Irelia (`Irelia`, 39).
-    #[strum(to_string="Irelia", serialize="Irelia")] Irelia = 39,
+    #[strum(to_string="Irelia")] Irelia = 39,
     /// Ivern (`Ivern`, 427).
-    #[strum(to_string="Ivern", serialize="Ivern")] Ivern = 427,
+    #[strum(to_string="Ivern")] Ivern = 427,
     /// Janna (`Janna`, 40).
-    #[strum(to_string="Janna", serialize="Janna")] Janna = 40,
+    #[strum(to_string="Janna")] Janna = 40,
     /// Jarvan IV (`JarvanIV`, 59).
     #[strum(to_string="Jarvan IV", serialize="JarvanIV")] JarvanIV = 59,
     /// Jax (`Jax`, 24).
-    #[strum(to_string="Jax", serialize="Jax")] Jax = 24,
+    #[strum(to_string="Jax")] Jax = 24,
     /// Jayce (`Jayce`, 126).
-    #[strum(to_string="Jayce", serialize="Jayce")] Jayce = 126,
+    #[strum(to_string="Jayce")] Jayce = 126,
     /// Jhin (`Jhin`, 202).
-    #[strum(to_string="Jhin", serialize="Jhin")] Jhin = 202,
+    #[strum(to_string="Jhin")] Jhin = 202,
     /// Jinx (`Jinx`, 222).
-    #[strum(to_string="Jinx", serialize="Jinx")] Jinx = 222,
+    #[strum(to_string="Jinx")] Jinx = 222,
     /// Kai'Sa (`Kaisa`, 145).
     #[strum(to_string="Kai'Sa", serialize="Kaisa")] KaiSa = 145,
     /// Kalista (`Kalista`, 429).
-    #[strum(to_string="Kalista", serialize="Kalista")] Kalista = 429,
+    #[strum(to_string="Kalista")] Kalista = 429,
     /// Karma (`Karma`, 43).
-    #[strum(to_string="Karma", serialize="Karma")] Karma = 43,
+    #[strum(to_string="Karma")] Karma = 43,
     /// Karthus (`Karthus`, 30).
-    #[strum(to_string="Karthus", serialize="Karthus")] Karthus = 30,
+    #[strum(to_string="Karthus")] Karthus = 30,
     /// Kassadin (`Kassadin`, 38).
-    #[strum(to_string="Kassadin", serialize="Kassadin")] Kassadin = 38,
+    #[strum(to_string="Kassadin")] Kassadin = 38,
     /// Katarina (`Katarina`, 55).
-    #[strum(to_string="Katarina", serialize="Katarina")] Katarina = 55,
+    #[strum(to_string="Katarina")] Katarina = 55,
     /// Kayle (`Kayle`, 10).
-    #[strum(to_string="Kayle", serialize="Kayle")] Kayle = 10,
+    #[strum(to_string="Kayle")] Kayle = 10,
     /// Kayn (`Kayn`, 141).
-    #[strum(to_string="Kayn", serialize="Kayn")] Kayn = 141,
+    #[strum(to_string="Kayn")] Kayn = 141,
     /// Kennen (`Kennen`, 85).
-    #[strum(to_string="Kennen", serialize="Kennen")] Kennen = 85,
+    #[strum(to_string="Kennen")] Kennen = 85,
     /// Kha'Zix (`Khazix`, 121).
     #[strum(to_string="Kha'Zix", serialize="Khazix")] KhaZix = 121,
     /// Kindred (`Kindred`, 203).
-    #[strum(to_string="Kindred", serialize="Kindred")] Kindred = 203,
+    #[strum(to_string="Kindred")] Kindred = 203,
     /// Kled (`Kled`, 240).
-    #[strum(to_string="Kled", serialize="Kled")] Kled = 240,
+    #[strum(to_string="Kled")] Kled = 240,
     /// Kog'Maw (`KogMaw`, 96).
     #[strum(to_string="Kog'Maw", serialize="KogMaw")] KogMaw = 96,
     /// LeBlanc (`Leblanc`, 7).
@@ -155,185 +155,185 @@ pub enum Champion {
     /// Lee Sin (`LeeSin`, 64).
     #[strum(to_string="Lee Sin", serialize="LeeSin")] LeeSin = 64,
     /// Leona (`Leona`, 89).
-    #[strum(to_string="Leona", serialize="Leona")] Leona = 89,
+    #[strum(to_string="Leona")] Leona = 89,
     /// Lillia (`Lillia`, 876).
-    #[strum(to_string="Lillia", serialize="Lillia")] Lillia = 876,
+    #[strum(to_string="Lillia")] Lillia = 876,
     /// Lissandra (`Lissandra`, 127).
-    #[strum(to_string="Lissandra", serialize="Lissandra")] Lissandra = 127,
+    #[strum(to_string="Lissandra")] Lissandra = 127,
     /// Lucian (`Lucian`, 236).
-    #[strum(to_string="Lucian", serialize="Lucian")] Lucian = 236,
+    #[strum(to_string="Lucian")] Lucian = 236,
     /// Lulu (`Lulu`, 117).
-    #[strum(to_string="Lulu", serialize="Lulu")] Lulu = 117,
+    #[strum(to_string="Lulu")] Lulu = 117,
     /// Lux (`Lux`, 99).
-    #[strum(to_string="Lux", serialize="Lux")] Lux = 99,
+    #[strum(to_string="Lux")] Lux = 99,
     /// Malphite (`Malphite`, 54).
-    #[strum(to_string="Malphite", serialize="Malphite")] Malphite = 54,
+    #[strum(to_string="Malphite")] Malphite = 54,
     /// Malzahar (`Malzahar`, 90).
-    #[strum(to_string="Malzahar", serialize="Malzahar")] Malzahar = 90,
+    #[strum(to_string="Malzahar")] Malzahar = 90,
     /// Maokai (`Maokai`, 57).
-    #[strum(to_string="Maokai", serialize="Maokai")] Maokai = 57,
+    #[strum(to_string="Maokai")] Maokai = 57,
     /// Master Yi (`MasterYi`, 11).
     #[strum(to_string="Master Yi", serialize="MasterYi")] MasterYi = 11,
     /// Miss Fortune (`MissFortune`, 21).
     #[strum(to_string="Miss Fortune", serialize="MissFortune")] MissFortune = 21,
     /// Mordekaiser (`Mordekaiser`, 82).
-    #[strum(to_string="Mordekaiser", serialize="Mordekaiser")] Mordekaiser = 82,
+    #[strum(to_string="Mordekaiser")] Mordekaiser = 82,
     /// Morgana (`Morgana`, 25).
-    #[strum(to_string="Morgana", serialize="Morgana")] Morgana = 25,
+    #[strum(to_string="Morgana")] Morgana = 25,
     /// Nami (`Nami`, 267).
-    #[strum(to_string="Nami", serialize="Nami")] Nami = 267,
+    #[strum(to_string="Nami")] Nami = 267,
     /// Nasus (`Nasus`, 75).
-    #[strum(to_string="Nasus", serialize="Nasus")] Nasus = 75,
+    #[strum(to_string="Nasus")] Nasus = 75,
     /// Nautilus (`Nautilus`, 111).
-    #[strum(to_string="Nautilus", serialize="Nautilus")] Nautilus = 111,
+    #[strum(to_string="Nautilus")] Nautilus = 111,
     /// Neeko (`Neeko`, 518).
-    #[strum(to_string="Neeko", serialize="Neeko")] Neeko = 518,
+    #[strum(to_string="Neeko")] Neeko = 518,
     /// Nidalee (`Nidalee`, 76).
-    #[strum(to_string="Nidalee", serialize="Nidalee")] Nidalee = 76,
+    #[strum(to_string="Nidalee")] Nidalee = 76,
     /// Nocturne (`Nocturne`, 56).
-    #[strum(to_string="Nocturne", serialize="Nocturne")] Nocturne = 56,
+    #[strum(to_string="Nocturne")] Nocturne = 56,
     /// Nunu & Willump (`Nunu`, 20).
     #[strum(to_string="Nunu & Willump", serialize="Nunu")] NunuWillump = 20,
     /// Olaf (`Olaf`, 2).
-    #[strum(to_string="Olaf", serialize="Olaf")] Olaf = 2,
+    #[strum(to_string="Olaf")] Olaf = 2,
     /// Orianna (`Orianna`, 61).
-    #[strum(to_string="Orianna", serialize="Orianna")] Orianna = 61,
+    #[strum(to_string="Orianna")] Orianna = 61,
     /// Ornn (`Ornn`, 516).
-    #[strum(to_string="Ornn", serialize="Ornn")] Ornn = 516,
+    #[strum(to_string="Ornn")] Ornn = 516,
     /// Pantheon (`Pantheon`, 80).
-    #[strum(to_string="Pantheon", serialize="Pantheon")] Pantheon = 80,
+    #[strum(to_string="Pantheon")] Pantheon = 80,
     /// Poppy (`Poppy`, 78).
-    #[strum(to_string="Poppy", serialize="Poppy")] Poppy = 78,
+    #[strum(to_string="Poppy")] Poppy = 78,
     /// Pyke (`Pyke`, 555).
-    #[strum(to_string="Pyke", serialize="Pyke")] Pyke = 555,
+    #[strum(to_string="Pyke")] Pyke = 555,
     /// Qiyana (`Qiyana`, 246).
-    #[strum(to_string="Qiyana", serialize="Qiyana")] Qiyana = 246,
+    #[strum(to_string="Qiyana")] Qiyana = 246,
     /// Quinn (`Quinn`, 133).
-    #[strum(to_string="Quinn", serialize="Quinn")] Quinn = 133,
+    #[strum(to_string="Quinn")] Quinn = 133,
     /// Rakan (`Rakan`, 497).
-    #[strum(to_string="Rakan", serialize="Rakan")] Rakan = 497,
+    #[strum(to_string="Rakan")] Rakan = 497,
     /// Rammus (`Rammus`, 33).
-    #[strum(to_string="Rammus", serialize="Rammus")] Rammus = 33,
+    #[strum(to_string="Rammus")] Rammus = 33,
     /// Rek'Sai (`RekSai`, 421).
     #[strum(to_string="Rek'Sai", serialize="RekSai")] RekSai = 421,
     /// Rell (`Rell`, 526).
-    #[strum(to_string="Rell", serialize="Rell")] Rell = 526,
+    #[strum(to_string="Rell")] Rell = 526,
     /// Renekton (`Renekton`, 58).
-    #[strum(to_string="Renekton", serialize="Renekton")] Renekton = 58,
+    #[strum(to_string="Renekton")] Renekton = 58,
     /// Rengar (`Rengar`, 107).
-    #[strum(to_string="Rengar", serialize="Rengar")] Rengar = 107,
+    #[strum(to_string="Rengar")] Rengar = 107,
     /// Riven (`Riven`, 92).
-    #[strum(to_string="Riven", serialize="Riven")] Riven = 92,
+    #[strum(to_string="Riven")] Riven = 92,
     /// Rumble (`Rumble`, 68).
-    #[strum(to_string="Rumble", serialize="Rumble")] Rumble = 68,
+    #[strum(to_string="Rumble")] Rumble = 68,
     /// Ryze (`Ryze`, 13).
-    #[strum(to_string="Ryze", serialize="Ryze")] Ryze = 13,
+    #[strum(to_string="Ryze")] Ryze = 13,
     /// Samira (`Samira`, 360).
-    #[strum(to_string="Samira", serialize="Samira")] Samira = 360,
+    #[strum(to_string="Samira")] Samira = 360,
     /// Sejuani (`Sejuani`, 113).
-    #[strum(to_string="Sejuani", serialize="Sejuani")] Sejuani = 113,
+    #[strum(to_string="Sejuani")] Sejuani = 113,
     /// Senna (`Senna`, 235).
-    #[strum(to_string="Senna", serialize="Senna")] Senna = 235,
+    #[strum(to_string="Senna")] Senna = 235,
     /// Seraphine (`Seraphine`, 147).
-    #[strum(to_string="Seraphine", serialize="Seraphine")] Seraphine = 147,
+    #[strum(to_string="Seraphine")] Seraphine = 147,
     /// Sett (`Sett`, 875).
-    #[strum(to_string="Sett", serialize="Sett")] Sett = 875,
+    #[strum(to_string="Sett")] Sett = 875,
     /// Shaco (`Shaco`, 35).
-    #[strum(to_string="Shaco", serialize="Shaco")] Shaco = 35,
+    #[strum(to_string="Shaco")] Shaco = 35,
     /// Shen (`Shen`, 98).
-    #[strum(to_string="Shen", serialize="Shen")] Shen = 98,
+    #[strum(to_string="Shen")] Shen = 98,
     /// Shyvana (`Shyvana`, 102).
-    #[strum(to_string="Shyvana", serialize="Shyvana")] Shyvana = 102,
+    #[strum(to_string="Shyvana")] Shyvana = 102,
     /// Singed (`Singed`, 27).
-    #[strum(to_string="Singed", serialize="Singed")] Singed = 27,
+    #[strum(to_string="Singed")] Singed = 27,
     /// Sion (`Sion`, 14).
-    #[strum(to_string="Sion", serialize="Sion")] Sion = 14,
+    #[strum(to_string="Sion")] Sion = 14,
     /// Sivir (`Sivir`, 15).
-    #[strum(to_string="Sivir", serialize="Sivir")] Sivir = 15,
+    #[strum(to_string="Sivir")] Sivir = 15,
     /// Skarner (`Skarner`, 72).
-    #[strum(to_string="Skarner", serialize="Skarner")] Skarner = 72,
+    #[strum(to_string="Skarner")] Skarner = 72,
     /// Sona (`Sona`, 37).
-    #[strum(to_string="Sona", serialize="Sona")] Sona = 37,
+    #[strum(to_string="Sona")] Sona = 37,
     /// Soraka (`Soraka`, 16).
-    #[strum(to_string="Soraka", serialize="Soraka")] Soraka = 16,
+    #[strum(to_string="Soraka")] Soraka = 16,
     /// Swain (`Swain`, 50).
-    #[strum(to_string="Swain", serialize="Swain")] Swain = 50,
+    #[strum(to_string="Swain")] Swain = 50,
     /// Sylas (`Sylas`, 517).
-    #[strum(to_string="Sylas", serialize="Sylas")] Sylas = 517,
+    #[strum(to_string="Sylas")] Sylas = 517,
     /// Syndra (`Syndra`, 134).
-    #[strum(to_string="Syndra", serialize="Syndra")] Syndra = 134,
+    #[strum(to_string="Syndra")] Syndra = 134,
     /// Tahm Kench (`TahmKench`, 223).
     #[strum(to_string="Tahm Kench", serialize="TahmKench")] TahmKench = 223,
     /// Taliyah (`Taliyah`, 163).
-    #[strum(to_string="Taliyah", serialize="Taliyah")] Taliyah = 163,
+    #[strum(to_string="Taliyah")] Taliyah = 163,
     /// Talon (`Talon`, 91).
-    #[strum(to_string="Talon", serialize="Talon")] Talon = 91,
+    #[strum(to_string="Talon")] Talon = 91,
     /// Taric (`Taric`, 44).
-    #[strum(to_string="Taric", serialize="Taric")] Taric = 44,
+    #[strum(to_string="Taric")] Taric = 44,
     /// Teemo (`Teemo`, 17).
-    #[strum(to_string="Teemo", serialize="Teemo")] Teemo = 17,
+    #[strum(to_string="Teemo")] Teemo = 17,
     /// Thresh (`Thresh`, 412).
-    #[strum(to_string="Thresh", serialize="Thresh")] Thresh = 412,
+    #[strum(to_string="Thresh")] Thresh = 412,
     /// Tristana (`Tristana`, 18).
-    #[strum(to_string="Tristana", serialize="Tristana")] Tristana = 18,
+    #[strum(to_string="Tristana")] Tristana = 18,
     /// Trundle (`Trundle`, 48).
-    #[strum(to_string="Trundle", serialize="Trundle")] Trundle = 48,
+    #[strum(to_string="Trundle")] Trundle = 48,
     /// Tryndamere (`Tryndamere`, 23).
-    #[strum(to_string="Tryndamere", serialize="Tryndamere")] Tryndamere = 23,
+    #[strum(to_string="Tryndamere")] Tryndamere = 23,
     /// Twisted Fate (`TwistedFate`, 4).
     #[strum(to_string="Twisted Fate", serialize="TwistedFate")] TwistedFate = 4,
     /// Twitch (`Twitch`, 29).
-    #[strum(to_string="Twitch", serialize="Twitch")] Twitch = 29,
+    #[strum(to_string="Twitch")] Twitch = 29,
     /// Udyr (`Udyr`, 77).
-    #[strum(to_string="Udyr", serialize="Udyr")] Udyr = 77,
+    #[strum(to_string="Udyr")] Udyr = 77,
     /// Urgot (`Urgot`, 6).
-    #[strum(to_string="Urgot", serialize="Urgot")] Urgot = 6,
+    #[strum(to_string="Urgot")] Urgot = 6,
     /// Varus (`Varus`, 110).
-    #[strum(to_string="Varus", serialize="Varus")] Varus = 110,
+    #[strum(to_string="Varus")] Varus = 110,
     /// Vayne (`Vayne`, 67).
-    #[strum(to_string="Vayne", serialize="Vayne")] Vayne = 67,
+    #[strum(to_string="Vayne")] Vayne = 67,
     /// Veigar (`Veigar`, 45).
-    #[strum(to_string="Veigar", serialize="Veigar")] Veigar = 45,
+    #[strum(to_string="Veigar")] Veigar = 45,
     /// Vel'Koz (`Velkoz`, 161).
     #[strum(to_string="Vel'Koz", serialize="Velkoz")] VelKoz = 161,
     /// Vi (`Vi`, 254).
-    #[strum(to_string="Vi", serialize="Vi")] Vi = 254,
+    #[strum(to_string="Vi")] Vi = 254,
     /// Viktor (`Viktor`, 112).
-    #[strum(to_string="Viktor", serialize="Viktor")] Viktor = 112,
+    #[strum(to_string="Viktor")] Viktor = 112,
     /// Vladimir (`Vladimir`, 8).
-    #[strum(to_string="Vladimir", serialize="Vladimir")] Vladimir = 8,
+    #[strum(to_string="Vladimir")] Vladimir = 8,
     /// Volibear (`Volibear`, 106).
-    #[strum(to_string="Volibear", serialize="Volibear")] Volibear = 106,
+    #[strum(to_string="Volibear")] Volibear = 106,
     /// Warwick (`Warwick`, 19).
-    #[strum(to_string="Warwick", serialize="Warwick")] Warwick = 19,
+    #[strum(to_string="Warwick")] Warwick = 19,
     /// Wukong (`MonkeyKing`, 62).
     #[strum(to_string="Wukong", serialize="MonkeyKing")] Wukong = 62,
     /// Xayah (`Xayah`, 498).
-    #[strum(to_string="Xayah", serialize="Xayah")] Xayah = 498,
+    #[strum(to_string="Xayah")] Xayah = 498,
     /// Xerath (`Xerath`, 101).
-    #[strum(to_string="Xerath", serialize="Xerath")] Xerath = 101,
+    #[strum(to_string="Xerath")] Xerath = 101,
     /// Xin Zhao (`XinZhao`, 5).
     #[strum(to_string="Xin Zhao", serialize="XinZhao")] XinZhao = 5,
     /// Yasuo (`Yasuo`, 157).
-    #[strum(to_string="Yasuo", serialize="Yasuo")] Yasuo = 157,
+    #[strum(to_string="Yasuo")] Yasuo = 157,
     /// Yone (`Yone`, 777).
-    #[strum(to_string="Yone", serialize="Yone")] Yone = 777,
+    #[strum(to_string="Yone")] Yone = 777,
     /// Yorick (`Yorick`, 83).
-    #[strum(to_string="Yorick", serialize="Yorick")] Yorick = 83,
+    #[strum(to_string="Yorick")] Yorick = 83,
     /// Yuumi (`Yuumi`, 350).
-    #[strum(to_string="Yuumi", serialize="Yuumi")] Yuumi = 350,
+    #[strum(to_string="Yuumi")] Yuumi = 350,
     /// Zac (`Zac`, 154).
-    #[strum(to_string="Zac", serialize="Zac")] Zac = 154,
+    #[strum(to_string="Zac")] Zac = 154,
     /// Zed (`Zed`, 238).
-    #[strum(to_string="Zed", serialize="Zed")] Zed = 238,
+    #[strum(to_string="Zed")] Zed = 238,
     /// Ziggs (`Ziggs`, 115).
-    #[strum(to_string="Ziggs", serialize="Ziggs")] Ziggs = 115,
+    #[strum(to_string="Ziggs")] Ziggs = 115,
     /// Zilean (`Zilean`, 26).
-    #[strum(to_string="Zilean", serialize="Zilean")] Zilean = 26,
+    #[strum(to_string="Zilean")] Zilean = 26,
     /// Zoe (`Zoe`, 142).
-    #[strum(to_string="Zoe", serialize="Zoe")] Zoe = 142,
+    #[strum(to_string="Zoe")] Zoe = 142,
     /// Zyra (`Zyra`, 143).
-    #[strum(to_string="Zyra", serialize="Zyra")] Zyra = 143,
+    #[strum(to_string="Zyra")] Zyra = 143,
 }
 
 impl Champion {
