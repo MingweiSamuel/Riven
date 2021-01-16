@@ -22,7 +22,7 @@ async_tests!{
 
             println!("{:?} Challenger {} entries.", REGION, ll.entries.len());
 
-            let sl = ll.entries[..50].iter()
+            let sl = ll.entries.iter().take(50)
                 .map(|entry| RIOT_API.summoner_v4().get_by_summoner_id(REGION, &entry.summoner_id))
                 .map(tokio::spawn)
                 .collect::<Vec<_>>();
