@@ -298,6 +298,8 @@ pub enum Champion {
     #[strum(to_string="Vel'Koz", serialize="Velkoz")] VelKoz = 161,
     /// Vi (`Vi`, 254).
     #[strum(to_string="Vi")] Vi = 254,
+    /// Viego (`Viego`, 234).
+    #[strum(to_string="Viego")] Viego = 234,
     /// Viktor (`Viktor`, 112).
     #[strum(to_string="Viktor")] Viktor = 112,
     /// Vladimir (`Vladimir`, 8).
@@ -497,6 +499,7 @@ impl Champion {
             Self::Veigar       => "Veigar",
             Self::VelKoz       => "Velkoz",
             Self::Vi           => "Vi",
+            Self::Viego        => "Viego",
             Self::Viktor       => "Viktor",
             Self::Vladimir     => "Vladimir",
             Self::Volibear     => "Volibear",

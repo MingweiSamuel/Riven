@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version ece6f45a4d6232f4e9940219258f1bd3ae1fee6d
+// Version 0c5382b0f4b74c9e27cee3043c02faa4acef0f25
 
 //! Data transfer structs.
 //!
@@ -84,7 +84,7 @@ pub mod champion_mastery_v4 {
         /// Number of points earned since current level has been achieved.
         #[serde(rename = "championPointsSinceLastLevel")]
         pub champion_points_since_last_level: i64,
-        /// The token earned for this champion to levelup.
+        /// The token earned for this champion at the current championLevel. When the championLevel is advanced the tokensEarned resets to 0.
         #[serde(rename = "tokensEarned")]
         pub tokens_earned: i32,
     }
@@ -1383,7 +1383,7 @@ pub mod spectator_v4 {
         pub champion_id: crate::consts::Champion,
         /// Perks/Runes Reforged Information
         #[serde(rename = "perks")]
-        pub perks: Perks,
+        pub perks: Option<Perks>,
         /// The ID of the profile icon used by this participant
         #[serde(rename = "profileIconId")]
         pub profile_icon_id: i64,
@@ -2110,7 +2110,7 @@ pub mod val_content_v1 {
         pub asset_name: String,
         /// This field is only included for maps and game modes. These values are used in the match response.
         #[serde(rename = "assetPath")]
-        pub asset_path: String,
+        pub asset_path: Option<String>,
     }
     /// LocalizedNames data object.
     #[derive(Debug)]
@@ -2163,7 +2163,7 @@ pub mod val_content_v1 {
         pub name: String,
         /// This field is excluded from the response when a locale is set
         #[serde(rename = "localizedNames")]
-        pub localized_names: LocalizedNames,
+        pub localized_names: Option<LocalizedNames>,
         #[serde(rename = "id")]
         pub id: String,
         #[serde(rename = "isActive")]
@@ -2468,6 +2468,46 @@ pub mod val_match_v1 {
         /// A list of recent match ids.
         #[serde(rename = "matchIds")]
         pub match_ids: std::vec::Vec<String>,
+    }
+}
+
+/// Data structs used by [`ValRankedV1`](crate::endpoints::ValRankedV1).
+/// 
+/// Note: this module is automatically generated.
+#[allow(dead_code)]
+pub mod val_ranked_v1 {
+    /// Leaderboard data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Leaderboard {
+        /// The shard for the given leaderboard.
+        #[serde(rename = "shard")]
+        pub shard: String,
+        /// The act id for the given leaderboard. Act ids can be found using the val-content API.
+        #[serde(rename = "actId")]
+        pub act_id: String,
+        /// The total number of players in the leaderboard.
+        #[serde(rename = "totalPlayers")]
+        pub total_players: i64,
+        #[serde(rename = "players")]
+        pub players: std::vec::Vec<Player>,
+    }
+    /// Player data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Player {
+        #[serde(rename = "puuid")]
+        pub puuid: String,
+        #[serde(rename = "gameName")]
+        pub game_name: String,
+        #[serde(rename = "tagLine")]
+        pub tag_line: String,
+        #[serde(rename = "leaderboardRank")]
+        pub leaderboard_rank: i64,
+        #[serde(rename = "rankedRating")]
+        pub ranked_rating: i64,
+        #[serde(rename = "numberOfWins")]
+        pub number_of_wins: i64,
     }
 }
 

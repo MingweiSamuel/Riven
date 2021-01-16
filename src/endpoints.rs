@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version ece6f45a4d6232f4e9940219258f1bd3ae1fee6d
+// Version 0c5382b0f4b74c9e27cee3043c02faa4acef0f25
 
 //! Automatically generated endpoint handles.
 
@@ -220,6 +220,15 @@ impl RiotApi {
     #[inline]
     pub fn val_match_v1(&self) -> ValMatchV1 {
         ValMatchV1 { base: self }
+    }
+    /// Returns a handle for accessing [ValRankedV1](crate::endpoints::ValRankedV1) endpoints.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/apis#val-ranked-v1" target="_blank">`val-ranked-v1`</a>
+    ///
+    /// Note: this method is automatically generated.
+    #[inline]
+    pub fn val_ranked_v1(&self) -> ValRankedV1 {
+        ValRankedV1 { base: self }
     }
     /// Returns a handle for accessing [ValStatusV1](crate::endpoints::ValStatusV1) endpoints.
     /// # Riot Developer API Reference
@@ -1358,6 +1367,38 @@ impl<'a> ValMatchV1<'a> {
     {
         let path_string = format!("/val/match/v1/recent-matches/by-queue/{}", queue);
         self.base.get::<val_match_v1::RecentMatches>("val-match-v1.getRecent", region.into(), path_string, None)
+    }
+
+}
+
+/// ValRankedV1 endpoints handle, accessed by calling [`val_ranked_v1()`](crate::RiotApi::val_ranked_v1) on a [`RiotApi`](crate::RiotApi) instance.
+/// # Riot Developer API Reference
+/// <a href="https://developer.riotgames.com/apis#val-ranked-v1" target="_blank">`val-ranked-v1`</a>
+///
+/// Note: this struct is automatically generated.
+pub struct ValRankedV1<'a> {
+    base: &'a RiotApi,
+}
+impl<'a> ValRankedV1<'a> {
+    /// Get leaderboard for the competitive queue
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// * `actId` - Act ids can be found using the val-content API.
+    /// * `size` (optional)
+    /// * `startIndex` (optional)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#val-ranked-v1/GET_getLeaderboard" target="_blank">`val-ranked-v1.getLeaderboard`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_leaderboard(&self, region: Region, act_id: &str, size: Option<i32>, start_index: Option<i32>)
+        -> impl Future<Output = Result<Option<val_ranked_v1::Leaderboard>>> + 'a
+    {
+        let mut query_params = Serializer::new(String::new());
+        if let Some(size) = size { query_params.append_pair("size", &*size.to_string()); };
+        if let Some(start_index) = start_index { query_params.append_pair("startIndex", &*start_index.to_string()); };
+        let query_string = query_params.finish();
+        let path_string = format!("/val/ranked/v1/leaderboards/by-act/{}", act_id);
+        self.base.get_optional::<val_ranked_v1::Leaderboard>("val-ranked-v1.getLeaderboard", region.into(), path_string, Some(query_string))
     }
 
 }
