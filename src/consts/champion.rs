@@ -102,6 +102,8 @@ pub enum Champion {
     #[strum(to_string="Gragas")] Gragas = 79,
     /// Graves (`Graves`, 104).
     #[strum(to_string="Graves")] Graves = 104,
+    /// Gwen (`Gwen`, 887).
+    #[strum(to_string="Gwen")] Gwen = 887,
     /// Hecarim (`Hecarim`, 120).
     #[strum(to_string="Hecarim")] Hecarim = 120,
     /// Heimerdinger (`Heimerdinger`, 74).
@@ -401,6 +403,7 @@ impl Champion {
             Self::Gnar         => "Gnar",
             Self::Gragas       => "Gragas",
             Self::Graves       => "Graves",
+            Self::Gwen         => "Gwen",
             Self::Hecarim      => "Hecarim",
             Self::Heimerdinger => "Heimerdinger",
             Self::Illaoi       => "Illaoi",

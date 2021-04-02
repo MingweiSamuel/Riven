@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 0c5382b0f4b74c9e27cee3043c02faa4acef0f25
+// Version 7bea623175b27bdc53a046c4e0d09b0f0d638aa7
 
 //! Automatically generated endpoint handles.
 
@@ -268,8 +268,8 @@ impl<'a> AccountV1<'a> {
     /// Get account by riot id
     /// # Parameters
     /// * `region` - Region to query.
-    /// * `tagLine`
-    /// * `gameName`
+    /// * `tagLine` - When querying for a player by their riot id, the gameName and tagLine query params are required. However not all accounts have a gameName and tagLine associated so these fields may not be included in the response.
+    /// * `gameName` - When querying for a player by their riot id, the gameName and tagLine query params are required. However not all accounts have a gameName and tagLine associated so these fields may not be included in the response.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#account-v1/GET_getByRiotId" target="_blank">`account-v1.getByRiotId`</a>
     ///
@@ -1084,7 +1084,7 @@ pub struct TftMatchV1<'a> {
     base: &'a RiotApi,
 }
 impl<'a> TftMatchV1<'a> {
-    /// Get a list of match ids by PUUID.
+    /// Get a list of match ids by PUUID
     /// # Parameters
     /// * `region` - Region to query.
     /// * `puuid`
@@ -1103,7 +1103,7 @@ impl<'a> TftMatchV1<'a> {
         self.base.get::<Vec<String>>("tft-match-v1.getMatchIdsByPUUID", region.into(), path_string, Some(query_string))
     }
 
-    /// Get a match by match id.
+    /// Get a match by match id
     /// # Parameters
     /// * `region` - Region to query.
     /// * `matchId`

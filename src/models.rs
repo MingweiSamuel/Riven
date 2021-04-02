@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 0c5382b0f4b74c9e27cee3043c02faa4acef0f25
+// Version 7bea623175b27bdc53a046c4e0d09b0f0d638aa7
 
 //! Data transfer structs.
 //!
@@ -27,10 +27,10 @@ pub mod account_v1 {
     pub struct Account {
         #[serde(rename = "puuid")]
         pub puuid: String,
-        /// This field may be excluded if the account doesn't have a gameName
+        /// This field may be excluded from the response if the account doesn't have a gameName.
         #[serde(rename = "gameName")]
         pub game_name: Option<String>,
-        /// This field may be excluded if the account doesn't have a tagLine
+        /// This field may be excluded from the response if the account doesn't have a tagLine.
         #[serde(rename = "tagLine")]
         pub tag_line: Option<String>,
     }
@@ -524,7 +524,7 @@ pub mod lor_match_v1 {
         /// Match id.
         #[serde(rename = "match_id")]
         pub match_id: String,
-        /// A list of encrypted participant PUUIDs.
+        /// A list of participant PUUIDs.
         #[serde(rename = "participants")]
         pub participants: std::vec::Vec<String>,
     }
@@ -2222,6 +2222,10 @@ pub mod val_match_v1 {
     pub struct Player {
         #[serde(rename = "puuid")]
         pub puuid: String,
+        #[serde(rename = "gameName")]
+        pub game_name: String,
+        #[serde(rename = "tagLine")]
+        pub tag_line: String,
         #[serde(rename = "teamId")]
         pub team_id: String,
         #[serde(rename = "partyId")]
@@ -2496,12 +2500,15 @@ pub mod val_ranked_v1 {
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Player {
+        /// This field may be omitted if the player has been anonymized.
         #[serde(rename = "puuid")]
-        pub puuid: String,
+        pub puuid: Option<String>,
+        /// This field may be omitted if the player has been anonymized.
         #[serde(rename = "gameName")]
-        pub game_name: String,
+        pub game_name: Option<String>,
+        /// This field may be omitted if the player has been anonymized.
         #[serde(rename = "tagLine")]
-        pub tag_line: String,
+        pub tag_line: Option<String>,
         #[serde(rename = "leaderboardRank")]
         pub leaderboard_rank: i64,
         #[serde(rename = "rankedRating")]
