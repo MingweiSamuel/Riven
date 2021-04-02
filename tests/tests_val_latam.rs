@@ -29,7 +29,13 @@ async_tests!{
 
             for (i, p) in leaderboard.players.iter().take(10).enumerate() {
                 rassert_eq!(i + 1, p.leaderboard_rank as usize);
-                println!("{:>2}: {:>4}   {:<22} ({} wins)", p.leaderboard_rank, p.ranked_rating, format!("{}#{}", p.game_name, p.tag_line), p.number_of_wins);
+                println!("{:>2}: {:>4}   {:<22} ({} wins)",
+                    p.leaderboard_rank,
+                    p.ranked_rating,
+                    format!("{}#{}",
+                        p.game_name.as_deref().unwrap_or("<NONE>"),
+                        p.tag_line.as_deref().unwrap_or("<NONE>")),
+                        p.number_of_wins);
             }
 
             Ok(())
