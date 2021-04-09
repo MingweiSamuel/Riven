@@ -50,7 +50,7 @@ rt.block_on(async {
         .expect("Get champion masteries failed.");
 
     // Print champioon masteries.
-    for (i, mastery) in masteries[..10].iter().enumerate() {
+    for (i, mastery) in masteries.iter().take(10).enumerate() {
         println!("{: >2}) {: <9}    {: >7} ({})", i + 1,
             mastery.champion_id.to_string(),
             mastery.champion_points, mastery.champion_level);
