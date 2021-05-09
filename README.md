@@ -37,7 +37,7 @@ rt.block_on(async {
 
     // Get summoner data.
     let summoner = riot_api.summoner_v4()
-        .get_by_summoner_name(Region::NA, "잘못").await
+        .get_by_summoner_name(Region::NA, "잘 못").await
         .expect("Get summoner failed.")
         .expect("There is no summoner with that name.");
 

@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 7bea623175b27bdc53a046c4e0d09b0f0d638aa7
+// Version d958cb912f35a3eb9091337de469633e228a7aa2
 
 //! Data transfer structs.
 //!
@@ -202,6 +202,7 @@ pub mod league_exp_v4 {
         pub queue_type: crate::consts::QueueType,
         #[serde(rename = "tier")]
         pub tier: crate::consts::Tier,
+        /// The player's division within a tier.
         #[serde(rename = "rank")]
         pub rank: crate::consts::Division,
         #[serde(rename = "leaguePoints")]
@@ -316,6 +317,7 @@ pub mod league_v4 {
         pub queue_type: crate::consts::QueueType,
         #[serde(rename = "tier")]
         pub tier: crate::consts::Tier,
+        /// The player's division within a tier.
         #[serde(rename = "rank")]
         pub rank: crate::consts::Division,
         #[serde(rename = "leaguePoints")]
@@ -1309,6 +1311,31 @@ pub mod match_v4 {
     }
 }
 
+/// Data structs used by [`MatchV5`](crate::endpoints::MatchV5).
+/// 
+/// Note: this module is automatically generated.
+#[allow(dead_code)]
+pub mod match_v5 {
+    /// Match data object.
+    /// # Description
+    /// UNKNOWN TYPE.
+    ///
+    /// Note: This struct is automatically generated
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Match {
+    }
+    /// MatchTimeline data object.
+    /// # Description
+    /// UNKNOWN TYPE.
+    ///
+    /// Note: This struct is automatically generated
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct MatchTimeline {
+    }
+}
+
 /// Data structs used by [`SpectatorV4`](crate::endpoints::SpectatorV4).
 /// 
 /// Note: this module is automatically generated.
@@ -1617,8 +1644,9 @@ pub mod tft_league_v1 {
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct LeagueEntry {
+        /// Not included for the RANKED_TFT_TURBO queueType.
         #[serde(rename = "leagueId")]
-        pub league_id: String,
+        pub league_id: Option<String>,
         /// Player's encrypted summonerId.
         #[serde(rename = "summonerId")]
         pub summoner_id: String,
@@ -1626,28 +1654,62 @@ pub mod tft_league_v1 {
         pub summoner_name: String,
         #[serde(rename = "queueType")]
         pub queue_type: crate::consts::QueueType,
+        /// Only included for the RANKED_TFT_TURBO queueType.<br>
+        /// (Legal values:  ORANGE,  PURPLE,  BLUE,  GREEN,  GRAY)
+        #[serde(rename = "ratedTier")]
+        pub rated_tier: Option<String>,
+        /// Only included for the RANKED_TFT_TURBO queueType.
+        #[serde(rename = "ratedRating")]
+        pub rated_rating: Option<i32>,
+        /// Not included for the RANKED_TFT_TURBO queueType.
         #[serde(rename = "tier")]
-        pub tier: crate::consts::Tier,
+        pub tier: Option<crate::consts::Tier>,
+        /// A player's division within a tier. Not included for the RANKED_TFT_TURBO queueType.
         #[serde(rename = "rank")]
-        pub rank: crate::consts::Division,
+        pub rank: Option<crate::consts::Division>,
+        /// Not included for the RANKED_TFT_TURBO queueType.
         #[serde(rename = "leaguePoints")]
-        pub league_points: i32,
+        pub league_points: Option<i32>,
         /// First placement.
         #[serde(rename = "wins")]
         pub wins: i32,
         /// Second through eighth placement.
         #[serde(rename = "losses")]
         pub losses: i32,
+        /// Not included for the RANKED_TFT_TURBO queueType.
         #[serde(rename = "hotStreak")]
-        pub hot_streak: bool,
+        pub hot_streak: Option<bool>,
+        /// Not included for the RANKED_TFT_TURBO queueType.
         #[serde(rename = "veteran")]
-        pub veteran: bool,
+        pub veteran: Option<bool>,
+        /// Not included for the RANKED_TFT_TURBO queueType.
         #[serde(rename = "freshBlood")]
-        pub fresh_blood: bool,
+        pub fresh_blood: Option<bool>,
+        /// Not included for the RANKED_TFT_TURBO queueType.
         #[serde(rename = "inactive")]
-        pub inactive: bool,
+        pub inactive: Option<bool>,
+        /// Not included for the RANKED_TFT_TURBO queueType.
         #[serde(rename = "miniSeries")]
         pub mini_series: Option<MiniSeries>,
+    }
+    /// TopRatedLadderEntry data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct TopRatedLadderEntry {
+        #[serde(rename = "summonerId")]
+        pub summoner_id: String,
+        #[serde(rename = "summonerName")]
+        pub summoner_name: String,
+        /// (Legal values:  ORANGE,  PURPLE,  BLUE,  GREEN,  GRAY)
+        #[serde(rename = "ratedTier")]
+        pub rated_tier: String,
+        #[serde(rename = "ratedRating")]
+        pub rated_rating: i32,
+        /// First placement.
+        #[serde(rename = "wins")]
+        pub wins: i32,
+        #[serde(rename = "previousUpdateLadderPosition")]
+        pub previous_update_ladder_position: i32,
     }
 }
 
@@ -2184,6 +2246,8 @@ pub mod val_match_v1 {
         pub match_info: MatchInfo,
         #[serde(rename = "players")]
         pub players: std::vec::Vec<Player>,
+        #[serde(rename = "coaches")]
+        pub coaches: std::vec::Vec<Coach>,
         #[serde(rename = "teams")]
         pub teams: std::vec::Vec<Team>,
         #[serde(rename = "roundResults")]
@@ -2272,6 +2336,15 @@ pub mod val_match_v1 {
         pub ability2_casts: i32,
         #[serde(rename = "ultimateCasts")]
         pub ultimate_casts: i32,
+    }
+    /// Coach data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Coach {
+        #[serde(rename = "puuid")]
+        pub puuid: String,
+        #[serde(rename = "teamId")]
+        pub team_id: String,
     }
     /// Team data object.
     #[derive(Debug)]

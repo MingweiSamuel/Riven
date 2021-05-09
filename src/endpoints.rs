@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 7bea623175b27bdc53a046c4e0d09b0f0d638aa7
+// Version d958cb912f35a3eb9091337de469633e228a7aa2
 
 //! Automatically generated endpoint handles.
 
@@ -130,6 +130,15 @@ impl RiotApi {
     #[inline]
     pub fn match_v4(&self) -> MatchV4 {
         MatchV4 { base: self }
+    }
+    /// Returns a handle for accessing [MatchV5](crate::endpoints::MatchV5) endpoints.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/apis#match-v5" target="_blank">`match-v5`</a>
+    ///
+    /// Note: this method is automatically generated.
+    #[inline]
+    pub fn match_v5(&self) -> MatchV5 {
+        MatchV5 { base: self }
     }
     /// Returns a handle for accessing [SpectatorV4](crate::endpoints::SpectatorV4) endpoints.
     /// # Riot Developer API Reference
@@ -284,8 +293,8 @@ impl<'a> AccountV1<'a> {
     /// Get active shard for a player
     /// # Parameters
     /// * `region` - Region to query.
-    /// * `puuid`
     /// * `game`
+    /// * `puuid`
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#account-v1/GET_getActiveShard" target="_blank">`account-v1.getActiveShard`</a>
     ///
@@ -483,7 +492,7 @@ impl<'a> LeagueExpV4<'a> {
     /// * `queue` - Note that the queue value must be a valid ranked queue.
     /// * `tier`
     /// * `division`
-    /// * `page` (optional) - Starts with page 1.
+    /// * `page` (optional) - Defaults to 1. Starts with page 1.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#league-exp-v4/GET_getLeagueEntries" target="_blank">`league-exp-v4.getLeagueEntries`</a>
     ///
@@ -545,7 +554,7 @@ impl<'a> LeagueV4<'a> {
     /// * `division`
     /// * `tier`
     /// * `queue` - Note that the queue value must be a valid ranked queue.
-    /// * `page` (optional) - Starts with page 1.
+    /// * `page` (optional) - Defaults to 1. Starts with page 1.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntries" target="_blank">`league-v4.getLeagueEntries`</a>
     ///
@@ -861,6 +870,68 @@ impl<'a> MatchV4<'a> {
 
 }
 
+/// MatchV5 endpoints handle, accessed by calling [`match_v5()`](crate::RiotApi::match_v5) on a [`RiotApi`](crate::RiotApi) instance.
+/// # Riot Developer API Reference
+/// <a href="https://developer.riotgames.com/apis#match-v5" target="_blank">`match-v5`</a>
+///
+/// Note: this struct is automatically generated.
+pub struct MatchV5<'a> {
+    base: &'a RiotApi,
+}
+impl<'a> MatchV5<'a> {
+    /// Get a list of match ids by puuid
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// * `puuid`
+    /// * `start` (optional) - Defaults to 0. Start index.
+    /// * `count` (optional) - Defaults to 20. Valid values: 0 to 100. Match id count.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#match-v5/GET_getMatchIdsByPUUID" target="_blank">`match-v5.getMatchIdsByPUUID`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_match_ids_by_puuid(&self, region: Region, puuid: &str, count: Option<i32>, start: Option<i32>)
+        -> impl Future<Output = Result<Vec<String>>> + 'a
+    {
+        let mut query_params = Serializer::new(String::new());
+        if let Some(count) = count { query_params.append_pair("count", &*count.to_string()); };
+        if let Some(start) = start { query_params.append_pair("start", &*start.to_string()); };
+        let query_string = query_params.finish();
+        let path_string = format!("/lol/match/v5/matches/by-puuid/{}/ids", puuid);
+        self.base.get::<Vec<String>>("match-v5.getMatchIdsByPUUID", region.into(), path_string, Some(query_string))
+    }
+
+    /// Get a match by match id
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// * `matchId`
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#match-v5/GET_getMatch" target="_blank">`match-v5.getMatch`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_match(&self, region: Region, match_id: &str)
+        -> impl Future<Output = Result<match_v5::Match>> + 'a
+    {
+        let path_string = format!("/lol/match/v5/matches/{}", match_id);
+        self.base.get::<match_v5::Match>("match-v5.getMatch", region.into(), path_string, None)
+    }
+
+    /// Get a match timeline by match id
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// * `matchId`
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#match-v5/GET_getTimeline" target="_blank">`match-v5.getTimeline`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_timeline(&self, region: Region, match_id: &str)
+        -> impl Future<Output = Result<match_v5::MatchTimeline>> + 'a
+    {
+        let path_string = format!("/lol/match/v5/matches/{}/timeline", match_id);
+        self.base.get::<match_v5::MatchTimeline>("match-v5.getTimeline", region.into(), path_string, None)
+    }
+
+}
+
 /// SpectatorV4 endpoints handle, accessed by calling [`spectator_v4()`](crate::RiotApi::spectator_v4) on a [`RiotApi`](crate::RiotApi) instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#spectator-v4" target="_blank">`spectator-v4`</a>
@@ -998,15 +1069,15 @@ impl<'a> TftLeagueV1<'a> {
     /// Get league entries for a given summoner ID.
     /// # Parameters
     /// * `region` - Region to query.
-    /// * `encryptedSummonerId`
+    /// * `summonerId`
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getLeagueEntriesForSummoner" target="_blank">`tft-league-v1.getLeagueEntriesForSummoner`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_league_entries_for_summoner(&self, region: Region, encrypted_summoner_id: &str)
+    pub fn get_league_entries_for_summoner(&self, region: Region, summoner_id: &str)
         -> impl Future<Output = Result<Vec<tft_league_v1::LeagueEntry>>> + 'a
     {
-        let path_string = format!("/tft/league/v1/entries/by-summoner/{}", encrypted_summoner_id);
+        let path_string = format!("/tft/league/v1/entries/by-summoner/{}", summoner_id);
         self.base.get::<Vec<tft_league_v1::LeagueEntry>>("tft-league-v1.getLeagueEntriesForSummoner", region.into(), path_string, None)
     }
 
@@ -1015,7 +1086,7 @@ impl<'a> TftLeagueV1<'a> {
     /// * `region` - Region to query.
     /// * `tier`
     /// * `division`
-    /// * `page` (optional) - Starts with page 1.
+    /// * `page` (optional) - Defaults to 1. Starts with page 1.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getLeagueEntries" target="_blank">`tft-league-v1.getLeagueEntries`</a>
     ///
@@ -1073,6 +1144,21 @@ impl<'a> TftLeagueV1<'a> {
         self.base.get::<tft_league_v1::LeagueList>("tft-league-v1.getMasterLeague", region.into(), path_string, None)
     }
 
+    /// Get the top rated ladder for given queue
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// * `queue`
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getTopRatedLadder" target="_blank">`tft-league-v1.getTopRatedLadder`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_top_rated_ladder(&self, region: Region, queue: &str)
+        -> impl Future<Output = Result<Vec<tft_league_v1::TopRatedLadderEntry>>> + 'a
+    {
+        let path_string = format!("/tft/league/v1/rated-ladders/{}/top", queue);
+        self.base.get::<Vec<tft_league_v1::TopRatedLadderEntry>>("tft-league-v1.getTopRatedLadder", region.into(), path_string, None)
+    }
+
 }
 
 /// TftMatchV1 endpoints handle, accessed by calling [`tft_match_v1()`](crate::RiotApi::tft_match_v1) on a [`RiotApi`](crate::RiotApi) instance.
@@ -1088,7 +1174,7 @@ impl<'a> TftMatchV1<'a> {
     /// # Parameters
     /// * `region` - Region to query.
     /// * `puuid`
-    /// * `count` (optional)
+    /// * `count` (optional) - Defaults to 20.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-match-v1/GET_getMatchIdsByPUUID" target="_blank">`tft-match-v1.getMatchIdsByPUUID`</a>
     ///
@@ -1384,8 +1470,8 @@ impl<'a> ValRankedV1<'a> {
     /// # Parameters
     /// * `region` - Region to query.
     /// * `actId` - Act ids can be found using the val-content API.
-    /// * `size` (optional)
-    /// * `startIndex` (optional)
+    /// * `size` (optional) - Defaults to 200. Valid values: 1 to 200.
+    /// * `startIndex` (optional) - Defaults to 0.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#val-ranked-v1/GET_getLeaderboard" target="_blank">`val-ranked-v1.getLeaderboard`</a>
     ///

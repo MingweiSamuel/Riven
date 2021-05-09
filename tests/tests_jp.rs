@@ -46,5 +46,15 @@ async_tests!{
             rassert_eq!(Some(reqwest::StatusCode::FORBIDDEN), r.unwrap_err().status_code());
             Ok(())
         },
+
+        // https://github.com/MingweiSamuel/Riven/issues/25
+        tft_league_getbysummoner: async {
+            let sp = RIOT_API.summoner_v4().get_by_summoner_name(Region::JP, "Caihonbbt");
+            let sr = sp.await.map_err(|e| e.to_string())?.ok_or("Failed to get \"Caihonbbt\"".to_owned())?;
+            let lp = RIOT_API.tft_league_v1().get_league_entries_for_summoner(Region::JP, &sr.id);
+            let lr = lp.await.map_err(|e| e.to_string())?;
+            rassert!(0 < lr.len());
+            Ok(())
+        },
     }
 }

@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 7bea623175b27bdc53a046c4e0d09b0f0d638aa7
+// Version d958cb912f35a3eb9091337de469633e228a7aa2
 
 //! Metadata about the Riot API and Riven.
 //!
@@ -50,6 +50,9 @@ lazy_static! {
         map.insert("/lol/match/v4/matches/{matchId}/by-tournament-code/{tournamentCode}", "match-v4.getMatchByTournamentCode");
         map.insert("/lol/match/v4/matchlists/by-account/{encryptedAccountId}", "match-v4.getMatchlist");
         map.insert("/lol/match/v4/timelines/by-match/{matchId}", "match-v4.getMatchTimeline");
+        map.insert("/lol/match/v5/matches/by-puuid/{puuid}/ids", "match-v5.getMatchIdsByPUUID");
+        map.insert("/lol/match/v5/matches/{matchId}", "match-v5.getMatch");
+        map.insert("/lol/match/v5/matches/{matchId}/timeline", "match-v5.getTimeline");
         map.insert("/lol/spectator/v4/active-games/by-summoner/{encryptedSummonerId}", "spectator-v4.getCurrentGameInfoBySummoner");
         map.insert("/lol/spectator/v4/featured-games", "spectator-v4.getFeaturedGames");
         map.insert("/lol/summoner/v4/summoners/by-account/{encryptedAccountId}", "summoner-v4.getByAccountId");
@@ -57,11 +60,12 @@ lazy_static! {
         map.insert("/lol/summoner/v4/summoners/by-puuid/{encryptedPUUID}", "summoner-v4.getByPUUID");
         map.insert("/lol/summoner/v4/summoners/{encryptedSummonerId}", "summoner-v4.getBySummonerId");
         map.insert("/tft/league/v1/challenger", "tft-league-v1.getChallengerLeague");
-        map.insert("/tft/league/v1/entries/by-summoner/{encryptedSummonerId}", "tft-league-v1.getLeagueEntriesForSummoner");
+        map.insert("/tft/league/v1/entries/by-summoner/{summonerId}", "tft-league-v1.getLeagueEntriesForSummoner");
         map.insert("/tft/league/v1/entries/{tier}/{division}", "tft-league-v1.getLeagueEntries");
         map.insert("/tft/league/v1/grandmaster", "tft-league-v1.getGrandmasterLeague");
         map.insert("/tft/league/v1/leagues/{leagueId}", "tft-league-v1.getLeagueById");
         map.insert("/tft/league/v1/master", "tft-league-v1.getMasterLeague");
+        map.insert("/tft/league/v1/rated-ladders/{queue}/top", "tft-league-v1.getTopRatedLadder");
         map.insert("/tft/match/v1/matches/by-puuid/{puuid}/ids", "tft-match-v1.getMatchIdsByPUUID");
         map.insert("/tft/match/v1/matches/{matchId}", "tft-match-v1.getMatch");
         map.insert("/tft/summoner/v1/summoners/by-account/{encryptedAccountId}", "tft-summoner-v1.getByAccountId");

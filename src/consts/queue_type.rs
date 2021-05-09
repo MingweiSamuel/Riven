@@ -13,8 +13,9 @@ pub enum QueueType {
     // League of Legends, Twisted Treeline (3v3), Flex Queue.
     RANKED_FLEX_TT,
     // Ranked Teamfight Tactics.
-    #[deprecated(note = "Teamfight Tactics ranks should be acquired using `TftLeagueV1::get_league_entries`.")]
     RANKED_TFT,
+    // Ranked Teamfight Tactics, Turbo gamemode.
+    RANKED_TFT_TURBO,
 }
 
 serde_string!(QueueType);
