@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version d958cb912f35a3eb9091337de469633e228a7aa2
+// Version e3a10221e77395e8b757d85cecf4413902b9ef10
 
 //! Automatically generated endpoint handles.
 
@@ -1152,7 +1152,7 @@ impl<'a> TftLeagueV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getTopRatedLadder" target="_blank">`tft-league-v1.getTopRatedLadder`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_top_rated_ladder(&self, region: Region, queue: &str)
+    pub fn get_top_rated_ladder(&self, region: Region, queue: crate::consts::QueueType)
         -> impl Future<Output = Result<Vec<tft_league_v1::TopRatedLadderEntry>>> + 'a
     {
         let path_string = format!("/tft/league/v1/rated-ladders/{}/top", queue);
