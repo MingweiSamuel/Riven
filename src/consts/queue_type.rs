@@ -14,7 +14,7 @@ pub enum QueueType {
     RANKED_FLEX_TT,
     // Ranked Teamfight Tactics.
     RANKED_TFT,
-    // Ranked Teamfight Tactics, Turbo gamemode.
+    // Ranked Teamfight Tactics, Hyper Roll gamemode.
     RANKED_TFT_TURBO,
 }
 
