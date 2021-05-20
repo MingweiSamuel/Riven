@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version e3a10221e77395e8b757d85cecf4413902b9ef10
+// Version bbfb64a2ef9111c6610a823da800b0335587831d
 
 //! Data transfer structs.
 //!
@@ -120,7 +120,7 @@ pub mod clash_v1 {
         #[serde(rename = "summonerId")]
         pub summoner_id: String,
         #[serde(rename = "teamId")]
-        pub team_id: String,
+        pub team_id: Option<String>,
         /// (Legal values:  UNSELECTED,  FILL,  TOP,  JUNGLE,  MIDDLE,  BOTTOM,  UTILITY)
         #[serde(rename = "position")]
         pub position: String,
@@ -497,6 +497,49 @@ pub mod lol_status_v4 {
         pub created_at: String,
         #[serde(rename = "updated_at")]
         pub updated_at: String,
+    }
+}
+
+/// Data structs used by [`LorDeckV1`](crate::endpoints::LorDeckV1).
+/// 
+/// Note: this module is automatically generated.
+#[allow(dead_code)]
+pub mod lor_deck_v1 {
+    /// Deck data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Deck {
+        #[serde(rename = "id")]
+        pub id: String,
+        #[serde(rename = "name")]
+        pub name: String,
+        #[serde(rename = "code")]
+        pub code: String,
+    }
+    /// NewDeck data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct NewDeck {
+        #[serde(rename = "name")]
+        pub name: String,
+        #[serde(rename = "code")]
+        pub code: String,
+    }
+}
+
+/// Data structs used by [`LorInventoryV1`](crate::endpoints::LorInventoryV1).
+/// 
+/// Note: this module is automatically generated.
+#[allow(dead_code)]
+pub mod lor_inventory_v1 {
+    /// Card data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Card {
+        #[serde(rename = "code")]
+        pub code: String,
+        #[serde(rename = "count")]
+        pub count: String,
     }
 }
 
@@ -1559,7 +1602,7 @@ pub mod summoner_v4 {
         /// ID of the summoner icon associated with the summoner.
         #[serde(rename = "profileIconId")]
         pub profile_icon_id: i32,
-        /// Date summoner was last modified specified as epoch milliseconds. The following events will update this timestamp: summoner name change, summoner level change, or profile icon change.
+        /// Date summoner was last modified specified as epoch milliseconds. The following events will update this timestamp: profile icon change, playing the tutorial or advanced tutorial, finishing a game, summoner name change
         #[serde(rename = "revisionDate")]
         pub revision_date: i64,
         /// Summoner name.

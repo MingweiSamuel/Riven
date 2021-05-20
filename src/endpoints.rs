@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version e3a10221e77395e8b757d85cecf4413902b9ef10
+// Version bbfb64a2ef9111c6610a823da800b0335587831d
 
 //! Automatically generated endpoint handles.
 
@@ -94,6 +94,24 @@ impl RiotApi {
     #[inline]
     pub fn lol_status_v4(&self) -> LolStatusV4 {
         LolStatusV4 { base: self }
+    }
+    /// Returns a handle for accessing [LorDeckV1](crate::endpoints::LorDeckV1) endpoints.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/apis#lor-deck-v1" target="_blank">`lor-deck-v1`</a>
+    ///
+    /// Note: this method is automatically generated.
+    #[inline]
+    pub fn lor_deck_v1(&self) -> LorDeckV1 {
+        LorDeckV1 { base: self }
+    }
+    /// Returns a handle for accessing [LorInventoryV1](crate::endpoints::LorInventoryV1) endpoints.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/apis#lor-inventory-v1" target="_blank">`lor-inventory-v1`</a>
+    ///
+    /// Note: this method is automatically generated.
+    #[inline]
+    pub fn lor_inventory_v1(&self) -> LorInventoryV1 {
+        LorInventoryV1 { base: self }
     }
     /// Returns a handle for accessing [LorMatchV1](crate::endpoints::LorMatchV1) endpoints.
     /// # Riot Developer API Reference
@@ -666,6 +684,28 @@ impl<'a> LolStatusV4<'a> {
         self.base.get::<lol_status_v4::PlatformData>("lol-status-v4.getPlatformData", region.into(), path_string, None)
     }
 
+}
+
+/// LorDeckV1 endpoints handle, accessed by calling [`lor_deck_v1()`](crate::RiotApi::lor_deck_v1) on a [`RiotApi`](crate::RiotApi) instance.
+/// # Riot Developer API Reference
+/// <a href="https://developer.riotgames.com/apis#lor-deck-v1" target="_blank">`lor-deck-v1`</a>
+///
+/// Note: this struct is automatically generated.
+pub struct LorDeckV1<'a> {
+    base: &'a RiotApi,
+}
+impl<'a> LorDeckV1<'a> {
+}
+
+/// LorInventoryV1 endpoints handle, accessed by calling [`lor_inventory_v1()`](crate::RiotApi::lor_inventory_v1) on a [`RiotApi`](crate::RiotApi) instance.
+/// # Riot Developer API Reference
+/// <a href="https://developer.riotgames.com/apis#lor-inventory-v1" target="_blank">`lor-inventory-v1`</a>
+///
+/// Note: this struct is automatically generated.
+pub struct LorInventoryV1<'a> {
+    base: &'a RiotApi,
+}
+impl<'a> LorInventoryV1<'a> {
 }
 
 /// LorMatchV1 endpoints handle, accessed by calling [`lor_match_v1()`](crate::RiotApi::lor_match_v1) on a [`RiotApi`](crate::RiotApi) instance.
@@ -1440,7 +1480,7 @@ impl<'a> ValMatchV1<'a> {
 
     /// Get recent matches
     /// ## Implementation Notes
-    /// Returns a list of match ids that have completed in the last 10 minutes. NA/LATAM/BR share a match history deployment. As such, recent matches will return a combined list of matches from those three regions. Requests are load balanced so you may see some inconsistencies as matches are added/removed from the list.
+    /// Returns a list of match ids that have completed in the last 10 minutes for live regions and 12 hours for the esports routing value. NA/LATAM/BR share a match history deployment. As such, recent matches will return a combined list of matches from those three regions. Requests are load balanced so you may see some inconsistencies as matches are added/removed from the list.
     /// # Parameters
     /// * `region` - Region to query.
     /// * `queue`
