@@ -3,6 +3,7 @@
 #[macro_export]
 macro_rules! async_tests {
     ( $runner:ident { $( $name:ident : async $eval:block, )* } ) => {
+        #[allow(dead_code)]
         fn $runner(_: &[()]) {
             env_logger::init();
 
