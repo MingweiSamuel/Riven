@@ -2,13 +2,13 @@
 use std::time::Duration;
 
 use reqwest::ClientBuilder;
+use reqwest::header::{HeaderMap, HeaderValue};
 
 /// Configuration for instantiating RiotApi.
 ///
 ///
 #[derive(Debug)]
 pub struct RiotApiConfig {
-    pub(crate) api_key: String,
     pub(crate) retries: u8,
     pub(crate) burst_pct: f32,
     pub(crate) duration_overhead: Duration,
@@ -16,14 +16,25 @@ pub struct RiotApiConfig {
 }
 
 impl RiotApiConfig {
+    /// Request header name for the Riot API key.
+    ///
+    /// When using `set_client_builder`, the supplied builder should include
+    /// this default header with the Riot API key as the value.
+    const RIOT_KEY_HEADER: &'static str = "X-Riot-Token";
+
+    /// `3`
+    ///
+    /// Default number of retries.
+    pub const PRECONFIG_RETRIES: u8 = 3;
+
     /// `0.99`
     ///
-    /// `burst_pct` used by `preconfig_burst` (and default `with_key`).
+    /// Default `burst_pct`, also used by `preconfig_burst`.
     pub const PRECONFIG_BURST_BURST_PCT: f32 = 0.99;
     /// `989` ms
     ///
-    /// `duration_overhead` used by `preconfig_burst` (and default `with_key`).
-    pub const PRECONFIG_BURST_DURATION_OVERHEAD_MILLIS: u64 = 989;
+    /// Default `duration_overhead`, also used by `preconfig_burst`.
+    pub const PRECONFIG_BURST_DURATION_OVERHEAD: Duration = Duration::from_millis(989);
 
     /// `0.47`
     ///
@@ -32,25 +43,50 @@ impl RiotApiConfig {
     /// `10` ms.
     ///
     /// `duration_overhead` used by `preconfig_throughput`.
-    pub const PRECONFIG_THROUGHPUT_DURATION_OVERHEAD_MILLIS: u64 = 10;
+    pub const PRECONFIG_THROUGHPUT_DURATION_OVERHEAD: Duration = Duration::from_millis(10);
 
     /// Creates a new `RiotApiConfig` with the given `api_key` with the following
     /// configuration:
     ///
-    /// * `retries = 3`.
+    /// * `retries = 3` (`RiotApiConfig::PRECONFIG_RETRIES`).
     /// * `purst_pct = 0.99` (`preconfig_burst`).
     /// * `duration_overhead = 989 ms` (`preconfig_burst`).
     ///
     /// `api_key` should be a Riot Games API key from
     /// [https://developer.riotgames.com/](https://developer.riotgames.com/),
     /// and should look like `"RGAPI-01234567-89ab-cdef-0123-456789abcdef"`.
-    pub fn with_key<T: Into<String>>(api_key: T) -> Self {
+    pub fn with_key<T: AsRef<[u8]>>(api_key: T) -> Self {
+        let mut default_headers = HeaderMap::new();
+        default_headers.insert(
+            Self::RIOT_KEY_HEADER,
+            HeaderValue::from_bytes(api_key.as_ref()).unwrap()
+        );
+
         Self {
-            api_key: api_key.into(),
-            retries: 3,
+            retries: Self::PRECONFIG_RETRIES,
             burst_pct: Self::PRECONFIG_BURST_BURST_PCT,
-            duration_overhead: Duration::from_millis(Self::PRECONFIG_BURST_DURATION_OVERHEAD_MILLIS),
-            client_builder: Some(ClientBuilder::new()),
+            duration_overhead: Self::PRECONFIG_BURST_DURATION_OVERHEAD,
+            client_builder: Some(
+                ClientBuilder::new()
+                    .default_headers(default_headers)
+            ),
+        }
+    }
+
+    /// Creates a new `RiotApiConfig` with the given client builder.
+    ///
+    /// The client builder default headers should include a value for
+    /// `RiotApiConfig::RIOT_KEY_HEADER`, otherwise authentication will fail.
+    ///
+    /// * `retries = 3` (`RiotApiConfig::PRECONFIG_RETRIES`).
+    /// * `purst_pct = 0.99` (`preconfig_burst`).
+    /// * `duration_overhead = 989 ms` (`preconfig_burst`).
+    pub fn with_client_builder(client_builder: ClientBuilder) -> Self {
+        Self {
+            retries: Self::PRECONFIG_RETRIES,
+            burst_pct: Self::PRECONFIG_BURST_BURST_PCT,
+            duration_overhead: Self::PRECONFIG_BURST_DURATION_OVERHEAD,
+            client_builder: Some(client_builder),
         }
     }
 
@@ -64,7 +100,7 @@ impl RiotApiConfig {
     /// `self`, for chaining.
     pub fn preconfig_burst(mut self) -> Self {
         self.burst_pct = Self::PRECONFIG_BURST_BURST_PCT;
-        self.duration_overhead = Duration::from_millis(Self::PRECONFIG_BURST_DURATION_OVERHEAD_MILLIS);
+        self.duration_overhead = Self::PRECONFIG_BURST_DURATION_OVERHEAD;
         self
     }
 
@@ -78,7 +114,7 @@ impl RiotApiConfig {
     /// `self`, for chaining.
     pub fn preconfig_throughput(mut self) -> Self {
         self.burst_pct = Self::PRECONFIG_THROUGHPUT_BURST_PCT;
-        self.duration_overhead = Duration::from_millis(Self::PRECONFIG_THROUGHPUT_DURATION_OVERHEAD_MILLIS);
+        self.duration_overhead = Self::PRECONFIG_THROUGHPUT_DURATION_OVERHEAD;
         self
     }
 
@@ -153,15 +189,6 @@ impl RiotApiConfig {
     /// `self`, for chaining.
     pub fn set_duration_overhead(mut self, duration_overhead: Duration) -> Self {
         self.duration_overhead = duration_overhead;
-        self
-    }
-
-    /// Sets the reqwest `ClientBuilder`.
-    ///
-    /// # Returns
-    /// `self`, for chaining.
-    pub fn set_client_builder(mut self, client_builder: ClientBuilder) -> Self {
-        self.client_builder = Some(client_builder);
         self
     }
 }

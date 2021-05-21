@@ -2,7 +2,7 @@ use std::future::Future;
 use std::sync::Arc;
 
 use log;
-use reqwest::{ Client, StatusCode, Url };
+use reqwest::{Client, StatusCode, Request};
 
 use crate::Result;
 use crate::ResponseInfo;
@@ -21,9 +21,6 @@ pub struct RegionalRequester {
 }
 
 impl RegionalRequester {
-    /// Request header name for the Riot API key.
-    const RIOT_KEY_HEADER: &'static str = "X-Riot-Token";
-
     /// HTTP status codes which are considered a success but will results in `None`.
     const NONE_STATUS_CODES: [StatusCode; 2] = [
         StatusCode::NO_CONTENT, // 204
@@ -37,15 +34,12 @@ impl RegionalRequester {
         }
     }
 
-    pub fn get<'a>(self: Arc<Self>,
+    pub fn execute_raw<'a>(self: Arc<Self>,
         config: &'a RiotApiConfig, client: &'a Client,
-        method_id: &'static str, region_platform: &'a str, path: String, query: Option<String>)
+        method_id: &'static str, request: Request)
         -> impl Future<Output = Result<ResponseInfo>> + 'a
     {
         async move {
-            #[cfg(feature = "nightly")] let query = query.as_deref();
-            #[cfg(not(feature = "nightly"))] let query = query.as_ref().map(|s| s.as_ref());
-
             let mut retries: u8 = 0;
             loop {
                 let method_rate_limit: Arc<RateLimit> = self.method_rate_limits
@@ -57,16 +51,8 @@ impl RegionalRequester {
                 }
 
                 // Send request.
-                let url_base = format!("https://{}.api.riotgames.com", region_platform);
-                let mut url = Url::parse(&*url_base)
-                    .unwrap_or_else(|_| panic!("Failed to parse url_base: \"{}\".", url_base));
-                url.set_path(&*path);
-                url.set_query(query);
-
-                let response = client.get(url)
-                    .header(Self::RIOT_KEY_HEADER, &*config.api_key)
-                    .send()
-                    .await
+                let request_clone = request.try_clone().expect("Failed to clone request.");
+                let response = client.execute(request_clone).await
                     .map_err(|e| RiotApiError::new(e, retries, None, None))?;
 
                 // Maybe update rate limits (based on response headers).

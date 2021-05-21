@@ -2,7 +2,7 @@ use std::future::Future;
 use std::sync::Arc;
 
 use log;
-use reqwest::Client;
+use reqwest::{Client, Request, Method, Url};
 
 use crate::Result;
 use crate::ResponseInfo;
@@ -63,7 +63,7 @@ impl RiotApi {
     /// `api_key` should be a Riot Games API key from
     /// [https://developer.riotgames.com/](https://developer.riotgames.com/),
     /// and should look like `"RGAPI-01234567-89ab-cdef-0123-456789abcdef"`.
-    pub fn with_key<T: Into<String>>(api_key: T) -> Self {
+    pub fn with_key<T: AsRef<[u8]>>(api_key: T) -> Self {
         Self::with_config(RiotApiConfig::with_key(api_key))
     }
 
@@ -130,12 +130,54 @@ impl RiotApi {
     ///
     /// # Returns
     /// A future resolving to a `Result` containg either a `ResponseInfo` (success) or a `RiotApiError` (failure).
-    pub fn get_raw_response<'a>(&'a self,
+    pub fn get_raw_response(&self,
         method_id: &'static str, region_platform: &'static str, path: String, query: Option<String>)
-        -> impl Future<Output = Result<ResponseInfo>> + 'a
+        -> impl Future<Output = Result<ResponseInfo>> + '_
+    {
+        let url_base = format!("https://{}.api.riotgames.com", region_platform);
+        let mut url = Url::parse(&*url_base)
+            .unwrap_or_else(|_| panic!("Failed to parse url_base: \"{}\".", url_base));
+        url.set_path(&*path);
+        url.set_query(query.as_deref());
+
+        let request = Request::new(Method::GET, url);
+        self.execute_raw(method_id, region_platform, request)
+    }
+
+
+
+
+
+    pub async fn execute_optional<'a, T: serde::de::DeserializeOwned + 'a>(&'a self,
+        method_id: &'static str, region_platform: &'static str, request: Request)
+        -> Result<Option<T>>
+    {
+        let rinfo = self.execute_raw(method_id, region_platform, request).await?;
+        if rinfo.status_none {
+            return Ok(None);
+        }
+        let retries = rinfo.retries;
+        let status = rinfo.response.status();
+        let value = rinfo.response.json::<Option<T>>().await;
+        value.map_err(|e| RiotApiError::new(e, retries, None, Some(status)))
+    }
+
+    pub async fn execute<'a, T: serde::de::DeserializeOwned + 'a>(&'a self,
+        method_id: &'static str, region_platform: &'static str, request: Request)
+        -> Result<T>
+    {
+        let rinfo = self.execute_raw(method_id, region_platform, request).await?;
+        let retries = rinfo.retries;
+        let status = rinfo.response.status();
+        let value = rinfo.response.json::<T>().await;
+        value.map_err(|e| RiotApiError::new(e, retries, None, Some(status)))
+    }
+
+    pub fn execute_raw(&self, method_id: &'static str, region_platform: &'static str, request: Request)
+        -> impl Future<Output = Result<ResponseInfo>> + '_
     {
         self.regional_requester(region_platform)
-            .get(&self.config, &self.client, method_id, region_platform, path, query)
+            .execute_raw(&self.config, &self.client, method_id, request)
     }
 
     /// Get or create the RegionalRequester for the given region.
