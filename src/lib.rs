@@ -1,4 +1,3 @@
-#![cfg_attr(feature = "nightly", feature(non_exhaustive))]
 #![cfg_attr(feature = "nightly", feature(external_doc))]
 
 #![forbid(unsafe_code)]
