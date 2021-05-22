@@ -47,7 +47,8 @@ impl RiotApi {
 }}
 }
 {{
-    for (let [ endpointName, endpointMethods ] of Object.entries(endpointGroups)) {
+    for (let [ endpointName, endpointMethods ] of Object.entries(endpointGroups))
+    {
         let endpoint = dotUtils.changeCase.pascalCase(endpointName);
         const endpoint_snake_case = dotUtils.changeCase.snakeCase(endpointName);
 }}
@@ -68,9 +69,6 @@ impl<'a> {{= endpoint }}<'a> {
             for (const [ verb, operation ] of Object.entries(path))
             {
                 if (verb.startsWith('x-')) continue;
-
-                if ((operation.parameters || []).some(p => 'header' === p.in)) /* Do not support header parameter methods. */
-                    continue;
 
                 const operationId = operation.operationId;
                 const method = dotUtils.changeCase.snakeCase(operationId.slice(operationId.indexOf('.') + 1));
@@ -115,26 +113,30 @@ impl<'a> {{= endpoint }}<'a> {
                 /* Path and query params. */
                 const allParams = operation.parameters;
                 let queryParams = [];
+                let headerParams = [];
                 let routeArgument;
                 if (allParams && allParams.length)
                 {
-                    let pathParams = allParams.filter(p => 'path' === p.in)
+                    const pathParams = allParams.filter(p => 'path' === p.in)
                         .sortBy(({ name }) => route.indexOf(name));
-                    let reqParams = allParams.filter(p => 'path' !== p.in && p.required);
-                    let optParams = allParams.filter(p => 'path' !== p.in && !p.required)
+
+                    const reqQueryParams = allParams.filter(p => 'query' === p.in && p.required);
+                    const optQueryParams = allParams.filter(p => 'query' === p.in && !p.required)
                         .sortBy(({ name }) => {
                             let match = /(^[a-z]+|[A-Z]+(?![a-z])|[A-Z][a-z]+)/.exec(name);
                             return match.slice(1).reverse().join('');
                         });
-                    queryParams = reqParams.concat(optParams);
+                    queryParams = reqQueryParams.concat(optQueryParams);
 
-                    for (let paramList of [ pathParams, reqParams, optParams ])
+                    headerParams = allParams.filter(p => 'header' === p.in);
+
+                    for (let paramList of [ pathParams, reqQueryParams, optQueryParams, headerParams ])
                     {
-                        let required = paramList === pathParams;
-                        for (let param of paramList)
+                        const required = paramList === pathParams;
+                        for (const param of paramList)
                         {
                             argBuilder.push(', ', dotUtils.changeCase.snakeCase(param.name), ': ',
-                                dotUtils.stringifyType(param.schema, { endpoint, optional: !required, owned: false }));
+                                dotUtils.stringifyType(param.schema, { endpoint, optional: !(required || param.required), owned: false }));
                         }
                     }
 
@@ -172,13 +174,20 @@ impl<'a> {{= endpoint }}<'a> {
     pub fn {{= method }}(&self, region: Region{{= argBuilder.join('') }})
         -> impl Future<Output = Result<{{= returnType }}>> + 'a
     {
-        #[allow(unused_mut)]
-        let mut request = self.base.request(Method::{{= verb.toUpperCase() }}, region.into(), {{= routeArgument }});
+        let request = self.base.request(Method::{{= verb.toUpperCase() }}, region.into(), {{= routeArgument }});
 {{
                 for (let queryParam of queryParams)
                 {
 }}
-        {{= dotUtils.formatAddQueryParam(queryParam) }};
+        {{= dotUtils.formatAddQueryParam(queryParam) }}
+{{
+                }
+}}
+{{
+                for (const headerParam of headerParams)
+                {
+}}
+        {{= dotUtils.formatAddHeaderParam(headerParam) }}
 {{
                 }
 }}

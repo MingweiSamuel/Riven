@@ -108,16 +108,34 @@ function formatJsonProperty(name) {
 }
 
 function formatAddQueryParam(param) {
-  let k = `"${param.name}"`;
-  let name = changeCase.snakeCase(param.name);
-  let nc = param.required ? '' : `if let Some(${name}) = ${name} `;
-  let prop = param.schema;
+  const k = `"${param.name}"`;
+  const name = changeCase.snakeCase(param.name);
+  const condStart = param.required ? '' : `mut request = request; if let Some(${name}) = ${name} { `;
+  const condEnd = param.required ? '' : ' }'
+  const prop = param.schema;
   switch (prop.type) {
-    case 'array': return `${nc}{ request = request.query(&*${name}.iter()`
-      + `.map(|w| ( ${k}, w )).collect::<Vec<_>>()); }`;
-    case 'object': throw 'unsupported';
+    case 'array': return `let ${condStart}request = request.query(&*${name}.iter()`
+      + `.map(|w| ( ${k}, w )).collect::<Vec<_>>());${condEnd}`;
+    case 'object':
+      throw 'unsupported';
     default:
-      return `${nc}{ request = request.query(&[ (${k}, ${name}) ]); }`;
+      return `let ${condStart}request = request.query(&[ (${k}, ${name}) ]);${condEnd}`;
+  }
+}
+
+function formatAddHeaderParam(param) {
+  const k = `"${param.name}"`;
+  const name = changeCase.snakeCase(param.name);
+  const condStart = param.required ? '' : `mut request = request; if let Some(${name}) = ${name} { `;
+  const condEnd = param.required ? '' : ' }'
+  const prop = param.schema;
+  switch (prop.type) {
+    case 'string':
+      return `let ${condStart}request = request.header(${k}, ${name});${condEnd}`;
+    case 'object':
+      throw 'unsupported';
+    default:
+      return `let ${condStart}request = request.header(${k}, ${name}.to_string());${condEnd}`;
   }
 }
 
@@ -144,5 +162,6 @@ module.exports = {
   stringifyType,
   formatJsonProperty,
   formatAddQueryParam,
+  formatAddHeaderParam,
   formatRouteArgument,
 };
