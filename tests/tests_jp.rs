@@ -21,19 +21,20 @@ async_tests!{
         },
 
         // Failure cases.
-        // Make sure get_raw_response(...) with invalid path fails as expected.
-        raw_response_invalid: async {
-            let p = RIOT_API.get_raw_response("summoner-v4.getBySummonerName", Region::JP.into(), "INVALID/PATH".to_owned(), None);
-            let r = p.await;
-            rassert!(r.is_err());
-            Ok(())
-        },
+        // // Make sure get_raw_response(...) with invalid path fails as expected.
+        // raw_response_invalid: async {
+        //     let p = RIOT_API.get_raw_response("summoner-v4.getBySummonerName", Region::JP.into(), "INVALID/PATH".to_owned(), None);
+        //     let r = p.await;
+        //     rassert!(r.is_err());
+        //     Ok(())
+        // },
         // summoner_v4().get_by_summoner_name(...) normally returns an option.
         // If we use `get` (instead of `get_optional`) make sure it errors.
         get_nonoptional_invalid: async {
             let path_string = format!("/lol/summoner/v4/summoners/by-name/{}", "SUMMONER THAT DOES NOT EXIST");
-            let p = RIOT_API.get::<riven::models::summoner_v4::Summoner>(
-                "summoner-v4.getBySummonerName", Region::JP.into(), path_string, None);
+            let request = RIOT_API.request(reqwest::Method::GET, Region::JP.into(), &path_string);
+            let p = RIOT_API.execute_val::<riven::models::summoner_v4::Summoner>(
+                "summoner-v4.getBySummonerName", Region::JP.into(), request);
             let r = p.await;
             rassert!(r.is_err());
             Ok(())
