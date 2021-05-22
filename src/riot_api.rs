@@ -82,6 +82,28 @@ impl RiotApi {
 
     /// This method should generally not be used directly. Consider using endpoint wrappers instead.
     ///
+    /// This sends a request based on the given parameters and returns a parsed result.
+    ///
+    /// # Parameters
+    /// * `method_id` - A unique string id representing the endpoint method for per-method rate limiting.
+    /// * `region_platform` - The stringified platform, used in rate limiting.
+    /// * `request` - The request information. Use `request()` to obtain a `RequestBuilder` instance.
+    ///
+    /// # Returns
+    /// A future resolving to a `Result` containg either a `T` (success) or a `RiotApiError` (failure).
+    pub async fn execute_val<'a, T: serde::de::DeserializeOwned + 'a>(&'a self,
+        method_id: &'static str, region_platform: &'static str, request: RequestBuilder)
+        -> Result<T>
+    {
+        let rinfo = self.execute_raw(method_id, region_platform, request).await?;
+        let retries = rinfo.retries;
+        let status = rinfo.response.status();
+        let value = rinfo.response.json::<T>().await;
+        value.map_err(|e| RiotApiError::new(e, retries, None, Some(status)))
+    }
+
+    /// This method should generally not be used directly. Consider using endpoint wrappers instead.
+    ///
     /// This sends a request based on the given parameters and returns an optional parsed result.
     ///
     /// # Parameters
@@ -91,7 +113,7 @@ impl RiotApi {
     ///
     /// # Returns
     /// A future resolving to a `Result` containg either a `Option<T>` (success) or a `RiotApiError` (failure).
-    pub async fn execute_optional<'a, T: serde::de::DeserializeOwned + 'a>(&'a self,
+    pub async fn execute_opt<'a, T: serde::de::DeserializeOwned + 'a>(&'a self,
         method_id: &'static str, region_platform: &'static str, request: RequestBuilder)
         -> Result<Option<T>>
     {
@@ -107,7 +129,7 @@ impl RiotApi {
 
     /// This method should generally not be used directly. Consider using endpoint wrappers instead.
     ///
-    /// This sends a request based on the given parameters and returns a parsed result.
+    /// This sends a request based on the given parameters but does not deserialize any response body.
     ///
     /// # Parameters
     /// * `method_id` - A unique string id representing the endpoint method for per-method rate limiting.
@@ -115,16 +137,17 @@ impl RiotApi {
     /// * `request` - The request information. Use `request()` to obtain a `RequestBuilder` instance.
     ///
     /// # Returns
-    /// A future resolving to a `Result` containg either a `T` (success) or a `RiotApiError` (failure).
-    pub async fn execute<'a, T: serde::de::DeserializeOwned + 'a>(&'a self,
+    /// A future resolving to a `Result` containg either `()` (success) or a `RiotApiError` (failure).
+    pub async fn execute(&self,
         method_id: &'static str, region_platform: &'static str, request: RequestBuilder)
-        -> Result<T>
+        -> Result<()>
     {
         let rinfo = self.execute_raw(method_id, region_platform, request).await?;
         let retries = rinfo.retries;
         let status = rinfo.response.status();
-        let value = rinfo.response.json::<T>().await;
-        value.map_err(|e| RiotApiError::new(e, retries, None, Some(status)))
+        rinfo.response.error_for_status()
+            .map(|_| ())
+            .map_err(|e| RiotApiError::new(e, retries, None, Some(status)))
     }
 
     /// This method should generally not be used directly. Consider using endpoint wrappers instead.

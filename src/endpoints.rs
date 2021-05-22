@@ -291,7 +291,7 @@ impl<'a> AccountV1<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/riot/account/v1/accounts/by-puuid/{}", puuid));
-        self.base.execute::<account_v1::Account>("account-v1.getByPuuid", region.into(), request)
+        self.base.execute_val::<account_v1::Account>("account-v1.getByPuuid", region.into(), request)
     }
 
     /// Get account by riot id
@@ -308,7 +308,7 @@ impl<'a> AccountV1<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/riot/account/v1/accounts/by-riot-id/{}/{}", game_name, tag_line));
-        self.base.execute_optional::<account_v1::Account>("account-v1.getByRiotId", region.into(), request)
+        self.base.execute_opt::<account_v1::Account>("account-v1.getByRiotId", region.into(), request)
     }
 
     /// Get active shard for a player
@@ -325,7 +325,7 @@ impl<'a> AccountV1<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/riot/account/v1/active-shards/by-game/{}/by-puuid/{}", game, puuid));
-        self.base.execute_optional::<account_v1::ActiveShard>("account-v1.getActiveShard", region.into(), request)
+        self.base.execute_opt::<account_v1::ActiveShard>("account-v1.getActiveShard", region.into(), request)
     }
 
 }
@@ -353,7 +353,7 @@ impl<'a> ChampionMasteryV4<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/lol/champion-mastery/v4/champion-masteries/by-summoner/{}", encrypted_summoner_id));
-        self.base.execute::<Vec<champion_mastery_v4::ChampionMastery>>("champion-mastery-v4.getAllChampionMasteries", region.into(), request)
+        self.base.execute_val::<Vec<champion_mastery_v4::ChampionMastery>>("champion-mastery-v4.getAllChampionMasteries", region.into(), request)
     }
 
     /// Get a champion mastery by player ID and champion ID.
@@ -370,7 +370,7 @@ impl<'a> ChampionMasteryV4<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/lol/champion-mastery/v4/champion-masteries/by-summoner/{}/by-champion/{}", encrypted_summoner_id, champion_id));
-        self.base.execute_optional::<champion_mastery_v4::ChampionMastery>("champion-mastery-v4.getChampionMastery", region.into(), request)
+        self.base.execute_opt::<champion_mastery_v4::ChampionMastery>("champion-mastery-v4.getChampionMastery", region.into(), request)
     }
 
     /// Get a player's total champion mastery score, which is the sum of individual champion mastery levels.
@@ -386,7 +386,7 @@ impl<'a> ChampionMasteryV4<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/lol/champion-mastery/v4/scores/by-summoner/{}", encrypted_summoner_id));
-        self.base.execute::<i32>("champion-mastery-v4.getChampionMasteryScore", region.into(), request)
+        self.base.execute_val::<i32>("champion-mastery-v4.getChampionMasteryScore", region.into(), request)
     }
 
 }
@@ -413,7 +413,7 @@ impl<'a> ChampionV3<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), "/lol/platform/v3/champion-rotations");
-        self.base.execute::<champion_v3::ChampionInfo>("champion-v3.getChampionInfo", region.into(), request)
+        self.base.execute_val::<champion_v3::ChampionInfo>("champion-v3.getChampionInfo", region.into(), request)
     }
 
 }
@@ -443,7 +443,7 @@ impl<'a> ClashV1<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/lol/clash/v1/players/by-summoner/{}", summoner_id));
-        self.base.execute::<Vec<clash_v1::Player>>("clash-v1.getPlayersBySummoner", region.into(), request)
+        self.base.execute_val::<Vec<clash_v1::Player>>("clash-v1.getPlayersBySummoner", region.into(), request)
     }
 
     /// Get team by ID.
@@ -459,7 +459,7 @@ impl<'a> ClashV1<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/lol/clash/v1/teams/{}", team_id));
-        self.base.execute_optional::<clash_v1::Team>("clash-v1.getTeamById", region.into(), request)
+        self.base.execute_opt::<clash_v1::Team>("clash-v1.getTeamById", region.into(), request)
     }
 
     /// Get all active or upcoming tournaments.
@@ -474,7 +474,7 @@ impl<'a> ClashV1<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), "/lol/clash/v1/tournaments");
-        self.base.execute::<Vec<clash_v1::Tournament>>("clash-v1.getTournaments", region.into(), request)
+        self.base.execute_val::<Vec<clash_v1::Tournament>>("clash-v1.getTournaments", region.into(), request)
     }
 
     /// Get tournament by team ID.
@@ -490,7 +490,7 @@ impl<'a> ClashV1<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/lol/clash/v1/tournaments/by-team/{}", team_id));
-        self.base.execute_optional::<clash_v1::Tournament>("clash-v1.getTournamentByTeam", region.into(), request)
+        self.base.execute_opt::<clash_v1::Tournament>("clash-v1.getTournamentByTeam", region.into(), request)
     }
 
     /// Get tournament by ID.
@@ -506,7 +506,7 @@ impl<'a> ClashV1<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/lol/clash/v1/tournaments/{}", tournament_id));
-        self.base.execute_optional::<clash_v1::Tournament>("clash-v1.getTournamentById", region.into(), request)
+        self.base.execute_opt::<clash_v1::Tournament>("clash-v1.getTournamentById", region.into(), request)
     }
 
 }
@@ -538,7 +538,7 @@ impl<'a> LeagueExpV4<'a> {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/lol/league-exp/v4/entries/{}/{}/{}", queue, tier, division));
         if let Some(page) = page { request = request.query(&[ ("page", page) ]); };
-        self.base.execute::<Vec<league_exp_v4::LeagueEntry>>("league-exp-v4.getLeagueEntries", region.into(), request)
+        self.base.execute_val::<Vec<league_exp_v4::LeagueEntry>>("league-exp-v4.getLeagueEntries", region.into(), request)
     }
 
 }
@@ -566,7 +566,7 @@ impl<'a> LeagueV4<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/lol/league/v4/challengerleagues/by-queue/{}", queue));
-        self.base.execute::<league_v4::LeagueList>("league-v4.getChallengerLeague", region.into(), request)
+        self.base.execute_val::<league_v4::LeagueList>("league-v4.getChallengerLeague", region.into(), request)
     }
 
     /// Get league entries in all queues for a given summoner ID.
@@ -582,7 +582,7 @@ impl<'a> LeagueV4<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/lol/league/v4/entries/by-summoner/{}", encrypted_summoner_id));
-        self.base.execute::<Vec<league_v4::LeagueEntry>>("league-v4.getLeagueEntriesForSummoner", region.into(), request)
+        self.base.execute_val::<Vec<league_v4::LeagueEntry>>("league-v4.getLeagueEntriesForSummoner", region.into(), request)
     }
 
     /// Get all the league entries.
@@ -602,7 +602,7 @@ impl<'a> LeagueV4<'a> {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/lol/league/v4/entries/{}/{}/{}", queue, tier, division));
         if let Some(page) = page { request = request.query(&[ ("page", page) ]); };
-        self.base.execute::<Vec<league_v4::LeagueEntry>>("league-v4.getLeagueEntries", region.into(), request)
+        self.base.execute_val::<Vec<league_v4::LeagueEntry>>("league-v4.getLeagueEntries", region.into(), request)
     }
 
     /// Get the grandmaster league of a specific queue.
@@ -618,7 +618,7 @@ impl<'a> LeagueV4<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/lol/league/v4/grandmasterleagues/by-queue/{}", queue));
-        self.base.execute::<league_v4::LeagueList>("league-v4.getGrandmasterLeague", region.into(), request)
+        self.base.execute_val::<league_v4::LeagueList>("league-v4.getGrandmasterLeague", region.into(), request)
     }
 
     /// Get league with given ID, including inactive entries.
@@ -634,7 +634,7 @@ impl<'a> LeagueV4<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/lol/league/v4/leagues/{}", league_id));
-        self.base.execute_optional::<league_v4::LeagueList>("league-v4.getLeagueById", region.into(), request)
+        self.base.execute_opt::<league_v4::LeagueList>("league-v4.getLeagueById", region.into(), request)
     }
 
     /// Get the master league for given queue.
@@ -650,7 +650,7 @@ impl<'a> LeagueV4<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/lol/league/v4/masterleagues/by-queue/{}", queue));
-        self.base.execute::<league_v4::LeagueList>("league-v4.getMasterLeague", region.into(), request)
+        self.base.execute_val::<league_v4::LeagueList>("league-v4.getMasterLeague", region.into(), request)
     }
 
 }
@@ -679,7 +679,7 @@ impl<'a> LolStatusV3<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), "/lol/status/v3/shard-data");
-        self.base.execute::<lol_status_v3::ShardStatus>("lol-status-v3.getShardData", region.into(), request)
+        self.base.execute_val::<lol_status_v3::ShardStatus>("lol-status-v3.getShardData", region.into(), request)
     }
 
 }
@@ -706,7 +706,7 @@ impl<'a> LolStatusV4<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), "/lol/status/v4/platform-data");
-        self.base.execute::<lol_status_v4::PlatformData>("lol-status-v4.getPlatformData", region.into(), request)
+        self.base.execute_val::<lol_status_v4::PlatformData>("lol-status-v4.getPlatformData", region.into(), request)
     }
 
 }
@@ -758,7 +758,7 @@ impl<'a> LorMatchV1<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/lor/match/v1/matches/by-puuid/{}/ids", puuid));
-        self.base.execute::<Vec<String>>("lor-match-v1.getMatchIdsByPUUID", region.into(), request)
+        self.base.execute_val::<Vec<String>>("lor-match-v1.getMatchIdsByPUUID", region.into(), request)
     }
 
     /// Get match by id
@@ -774,7 +774,7 @@ impl<'a> LorMatchV1<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/lor/match/v1/matches/{}", match_id));
-        self.base.execute::<lor_match_v1::Match>("lor-match-v1.getMatch", region.into(), request)
+        self.base.execute_val::<lor_match_v1::Match>("lor-match-v1.getMatch", region.into(), request)
     }
 
 }
@@ -801,7 +801,7 @@ impl<'a> LorRankedV1<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), "/lor/ranked/v1/leaderboards");
-        self.base.execute::<lor_ranked_v1::Leaderboard>("lor-ranked-v1.getLeaderboards", region.into(), request)
+        self.base.execute_val::<lor_ranked_v1::Leaderboard>("lor-ranked-v1.getLeaderboards", region.into(), request)
     }
 
 }
@@ -828,7 +828,7 @@ impl<'a> LorStatusV1<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), "/lor/status/v1/platform-data");
-        self.base.execute::<lor_status_v1::PlatformData>("lor-status-v1.getPlatformData", region.into(), request)
+        self.base.execute_val::<lor_status_v1::PlatformData>("lor-status-v1.getPlatformData", region.into(), request)
     }
 
 }
@@ -856,7 +856,7 @@ impl<'a> MatchV4<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/lol/match/v4/matches/by-tournament-code/{}/ids", tournament_code));
-        self.base.execute::<Vec<i64>>("match-v4.getMatchIdsByTournamentCode", region.into(), request)
+        self.base.execute_val::<Vec<i64>>("match-v4.getMatchIdsByTournamentCode", region.into(), request)
     }
 
     /// Get match by match ID.
@@ -872,7 +872,7 @@ impl<'a> MatchV4<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/lol/match/v4/matches/{}", match_id));
-        self.base.execute_optional::<match_v4::Match>("match-v4.getMatch", region.into(), request)
+        self.base.execute_opt::<match_v4::Match>("match-v4.getMatch", region.into(), request)
     }
 
     /// Get match by match ID and tournament code.
@@ -889,7 +889,7 @@ impl<'a> MatchV4<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/lol/match/v4/matches/{}/by-tournament-code/{}", match_id, tournament_code));
-        self.base.execute::<match_v4::Match>("match-v4.getMatchByTournamentCode", region.into(), request)
+        self.base.execute_val::<match_v4::Match>("match-v4.getMatchByTournamentCode", region.into(), request)
     }
 
     /// Get matchlist for games played on given account ID and platform ID and filtered using given filter parameters, if any.
@@ -925,7 +925,7 @@ impl<'a> MatchV4<'a> {
         if let Some(end_index) = end_index { request = request.query(&[ ("endIndex", end_index) ]); };
         if let Some(queue) = queue { request = request.query(&*queue.iter().map(|w| ( "queue", w )).collect::<Vec<_>>()); };
         if let Some(season) = season { request = request.query(&*season.iter().map(|w| ( "season", w )).collect::<Vec<_>>()); };
-        self.base.execute_optional::<match_v4::Matchlist>("match-v4.getMatchlist", region.into(), request)
+        self.base.execute_opt::<match_v4::Matchlist>("match-v4.getMatchlist", region.into(), request)
     }
 
     /// Get match timeline by match ID.
@@ -943,7 +943,7 @@ impl<'a> MatchV4<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/lol/match/v4/timelines/by-match/{}", match_id));
-        self.base.execute_optional::<match_v4::MatchTimeline>("match-v4.getMatchTimeline", region.into(), request)
+        self.base.execute_opt::<match_v4::MatchTimeline>("match-v4.getMatchTimeline", region.into(), request)
     }
 
 }
@@ -975,7 +975,7 @@ impl<'a> MatchV5<'a> {
         let mut request = self.base.request(Method::GET, region.into(), &format!("/lol/match/v5/matches/by-puuid/{}/ids", puuid));
         if let Some(count) = count { request = request.query(&[ ("count", count) ]); };
         if let Some(start) = start { request = request.query(&[ ("start", start) ]); };
-        self.base.execute::<Vec<String>>("match-v5.getMatchIdsByPUUID", region.into(), request)
+        self.base.execute_val::<Vec<String>>("match-v5.getMatchIdsByPUUID", region.into(), request)
     }
 
     /// Get a match by match id
@@ -991,7 +991,7 @@ impl<'a> MatchV5<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/lol/match/v5/matches/{}", match_id));
-        self.base.execute::<match_v5::Match>("match-v5.getMatch", region.into(), request)
+        self.base.execute_val::<match_v5::Match>("match-v5.getMatch", region.into(), request)
     }
 
     /// Get a match timeline by match id
@@ -1007,7 +1007,7 @@ impl<'a> MatchV5<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/lol/match/v5/matches/{}/timeline", match_id));
-        self.base.execute::<match_v5::MatchTimeline>("match-v5.getTimeline", region.into(), request)
+        self.base.execute_val::<match_v5::MatchTimeline>("match-v5.getTimeline", region.into(), request)
     }
 
 }
@@ -1035,7 +1035,7 @@ impl<'a> SpectatorV4<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/lol/spectator/v4/active-games/by-summoner/{}", encrypted_summoner_id));
-        self.base.execute_optional::<spectator_v4::CurrentGameInfo>("spectator-v4.getCurrentGameInfoBySummoner", region.into(), request)
+        self.base.execute_opt::<spectator_v4::CurrentGameInfo>("spectator-v4.getCurrentGameInfoBySummoner", region.into(), request)
     }
 
     /// Get list of featured games.
@@ -1050,7 +1050,7 @@ impl<'a> SpectatorV4<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), "/lol/spectator/v4/featured-games");
-        self.base.execute::<spectator_v4::FeaturedGames>("spectator-v4.getFeaturedGames", region.into(), request)
+        self.base.execute_val::<spectator_v4::FeaturedGames>("spectator-v4.getFeaturedGames", region.into(), request)
     }
 
 }
@@ -1078,7 +1078,7 @@ impl<'a> SummonerV4<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/lol/summoner/v4/summoners/by-account/{}", encrypted_account_id));
-        self.base.execute::<summoner_v4::Summoner>("summoner-v4.getByAccountId", region.into(), request)
+        self.base.execute_val::<summoner_v4::Summoner>("summoner-v4.getByAccountId", region.into(), request)
     }
 
     /// Get a summoner by summoner name.
@@ -1094,7 +1094,7 @@ impl<'a> SummonerV4<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/lol/summoner/v4/summoners/by-name/{}", summoner_name));
-        self.base.execute_optional::<summoner_v4::Summoner>("summoner-v4.getBySummonerName", region.into(), request)
+        self.base.execute_opt::<summoner_v4::Summoner>("summoner-v4.getBySummonerName", region.into(), request)
     }
 
     /// Get a summoner by PUUID.
@@ -1110,7 +1110,7 @@ impl<'a> SummonerV4<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/lol/summoner/v4/summoners/by-puuid/{}", encrypted_puuid));
-        self.base.execute::<summoner_v4::Summoner>("summoner-v4.getByPUUID", region.into(), request)
+        self.base.execute_val::<summoner_v4::Summoner>("summoner-v4.getByPUUID", region.into(), request)
     }
 
     /// Get a summoner by summoner ID.
@@ -1126,7 +1126,7 @@ impl<'a> SummonerV4<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/lol/summoner/v4/summoners/{}", encrypted_summoner_id));
-        self.base.execute::<summoner_v4::Summoner>("summoner-v4.getBySummonerId", region.into(), request)
+        self.base.execute_val::<summoner_v4::Summoner>("summoner-v4.getBySummonerId", region.into(), request)
     }
 
 }
@@ -1153,7 +1153,7 @@ impl<'a> TftLeagueV1<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), "/tft/league/v1/challenger");
-        self.base.execute::<tft_league_v1::LeagueList>("tft-league-v1.getChallengerLeague", region.into(), request)
+        self.base.execute_val::<tft_league_v1::LeagueList>("tft-league-v1.getChallengerLeague", region.into(), request)
     }
 
     /// Get league entries for a given summoner ID.
@@ -1169,7 +1169,7 @@ impl<'a> TftLeagueV1<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/tft/league/v1/entries/by-summoner/{}", summoner_id));
-        self.base.execute::<Vec<tft_league_v1::LeagueEntry>>("tft-league-v1.getLeagueEntriesForSummoner", region.into(), request)
+        self.base.execute_val::<Vec<tft_league_v1::LeagueEntry>>("tft-league-v1.getLeagueEntriesForSummoner", region.into(), request)
     }
 
     /// Get all the league entries.
@@ -1188,7 +1188,7 @@ impl<'a> TftLeagueV1<'a> {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/tft/league/v1/entries/{}/{}", tier, division));
         if let Some(page) = page { request = request.query(&[ ("page", page) ]); };
-        self.base.execute::<Vec<tft_league_v1::LeagueEntry>>("tft-league-v1.getLeagueEntries", region.into(), request)
+        self.base.execute_val::<Vec<tft_league_v1::LeagueEntry>>("tft-league-v1.getLeagueEntries", region.into(), request)
     }
 
     /// Get the grandmaster league.
@@ -1203,7 +1203,7 @@ impl<'a> TftLeagueV1<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), "/tft/league/v1/grandmaster");
-        self.base.execute::<tft_league_v1::LeagueList>("tft-league-v1.getGrandmasterLeague", region.into(), request)
+        self.base.execute_val::<tft_league_v1::LeagueList>("tft-league-v1.getGrandmasterLeague", region.into(), request)
     }
 
     /// Get league with given ID, including inactive entries.
@@ -1219,7 +1219,7 @@ impl<'a> TftLeagueV1<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/tft/league/v1/leagues/{}", league_id));
-        self.base.execute_optional::<tft_league_v1::LeagueList>("tft-league-v1.getLeagueById", region.into(), request)
+        self.base.execute_opt::<tft_league_v1::LeagueList>("tft-league-v1.getLeagueById", region.into(), request)
     }
 
     /// Get the master league.
@@ -1234,7 +1234,7 @@ impl<'a> TftLeagueV1<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), "/tft/league/v1/master");
-        self.base.execute::<tft_league_v1::LeagueList>("tft-league-v1.getMasterLeague", region.into(), request)
+        self.base.execute_val::<tft_league_v1::LeagueList>("tft-league-v1.getMasterLeague", region.into(), request)
     }
 
     /// Get the top rated ladder for given queue
@@ -1250,7 +1250,7 @@ impl<'a> TftLeagueV1<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/tft/league/v1/rated-ladders/{}/top", queue));
-        self.base.execute::<Vec<tft_league_v1::TopRatedLadderEntry>>("tft-league-v1.getTopRatedLadder", region.into(), request)
+        self.base.execute_val::<Vec<tft_league_v1::TopRatedLadderEntry>>("tft-league-v1.getTopRatedLadder", region.into(), request)
     }
 
 }
@@ -1280,7 +1280,7 @@ impl<'a> TftMatchV1<'a> {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/tft/match/v1/matches/by-puuid/{}/ids", puuid));
         if let Some(count) = count { request = request.query(&[ ("count", count) ]); };
-        self.base.execute::<Vec<String>>("tft-match-v1.getMatchIdsByPUUID", region.into(), request)
+        self.base.execute_val::<Vec<String>>("tft-match-v1.getMatchIdsByPUUID", region.into(), request)
     }
 
     /// Get a match by match id
@@ -1296,7 +1296,7 @@ impl<'a> TftMatchV1<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/tft/match/v1/matches/{}", match_id));
-        self.base.execute_optional::<tft_match_v1::Match>("tft-match-v1.getMatch", region.into(), request)
+        self.base.execute_opt::<tft_match_v1::Match>("tft-match-v1.getMatch", region.into(), request)
     }
 
 }
@@ -1324,7 +1324,7 @@ impl<'a> TftSummonerV1<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/tft/summoner/v1/summoners/by-account/{}", encrypted_account_id));
-        self.base.execute::<tft_summoner_v1::Summoner>("tft-summoner-v1.getByAccountId", region.into(), request)
+        self.base.execute_val::<tft_summoner_v1::Summoner>("tft-summoner-v1.getByAccountId", region.into(), request)
     }
 
     /// Get a summoner by summoner name.
@@ -1340,7 +1340,7 @@ impl<'a> TftSummonerV1<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/tft/summoner/v1/summoners/by-name/{}", summoner_name));
-        self.base.execute_optional::<tft_summoner_v1::Summoner>("tft-summoner-v1.getBySummonerName", region.into(), request)
+        self.base.execute_opt::<tft_summoner_v1::Summoner>("tft-summoner-v1.getBySummonerName", region.into(), request)
     }
 
     /// Get a summoner by PUUID.
@@ -1356,7 +1356,7 @@ impl<'a> TftSummonerV1<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/tft/summoner/v1/summoners/by-puuid/{}", encrypted_puuid));
-        self.base.execute::<tft_summoner_v1::Summoner>("tft-summoner-v1.getByPUUID", region.into(), request)
+        self.base.execute_val::<tft_summoner_v1::Summoner>("tft-summoner-v1.getByPUUID", region.into(), request)
     }
 
     /// Get a summoner by summoner ID.
@@ -1372,7 +1372,7 @@ impl<'a> TftSummonerV1<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/tft/summoner/v1/summoners/{}", encrypted_summoner_id));
-        self.base.execute::<tft_summoner_v1::Summoner>("tft-summoner-v1.getBySummonerId", region.into(), request)
+        self.base.execute_val::<tft_summoner_v1::Summoner>("tft-summoner-v1.getBySummonerId", region.into(), request)
     }
 
 }
@@ -1400,7 +1400,7 @@ impl<'a> ThirdPartyCodeV4<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/lol/platform/v4/third-party-code/by-summoner/{}", encrypted_summoner_id));
-        self.base.execute::<String>("third-party-code-v4.getThirdPartyCodeBySummonerId", region.into(), request)
+        self.base.execute_val::<String>("third-party-code-v4.getThirdPartyCodeBySummonerId", region.into(), request)
     }
 
 }
@@ -1415,6 +1415,26 @@ pub struct TournamentStubV4<'a> {
     base: &'a RiotApi,
 }
 impl<'a> TournamentStubV4<'a> {
+    /// Create a mock tournament code for the given tournament.
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// * `count` (optional) - The number of codes to create (max 1000)
+    /// * `tournamentId` - The tournament ID
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-stub-v4/POST_createTournamentCode" target="_blank">`tournament-stub-v4.createTournamentCode`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn create_tournament_code(&self, region: Region, body: &tournament_stub_v4::TournamentCodeParameters, tournament_id: Option<i64>, count: Option<i32>)
+        -> impl Future<Output = Result<Vec<String>>> + 'a
+    {
+        #[allow(unused_mut)]
+        let mut request = self.base.request(Method::POST, region.into(), "/lol/tournament-stub/v4/codes");
+        { request = request.query(&[ ("tournamentId", tournament_id) ]); };
+        if let Some(count) = count { request = request.query(&[ ("count", count) ]); };
+        let request = request.body(serde_json::ser::to_vec(body).unwrap());
+        self.base.execute_val::<Vec<String>>("tournament-stub-v4.createTournamentCode", region.into(), request)
+    }
+
     /// Gets a mock list of lobby events by tournament code.
     /// # Parameters
     /// * `region` - Region to query.
@@ -1428,7 +1448,41 @@ impl<'a> TournamentStubV4<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/lol/tournament-stub/v4/lobby-events/by-code/{}", tournament_code));
-        self.base.execute::<tournament_stub_v4::LobbyEventWrapper>("tournament-stub-v4.getLobbyEventsByCode", region.into(), request)
+        self.base.execute_val::<tournament_stub_v4::LobbyEventWrapper>("tournament-stub-v4.getLobbyEventsByCode", region.into(), request)
+    }
+
+    /// Creates a mock tournament provider and returns its ID.
+    /// ## Implementation Notes
+    /// Providers will need to call this endpoint first to register their callback URL and their API key with the tournament system before any other tournament provider endpoints will work.
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-stub-v4/POST_registerProviderData" target="_blank">`tournament-stub-v4.registerProviderData`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn register_provider_data(&self, region: Region, body: &tournament_stub_v4::ProviderRegistrationParameters)
+        -> impl Future<Output = Result<i32>> + 'a
+    {
+        #[allow(unused_mut)]
+        let mut request = self.base.request(Method::POST, region.into(), "/lol/tournament-stub/v4/providers");
+        let request = request.body(serde_json::ser::to_vec(body).unwrap());
+        self.base.execute_val::<i32>("tournament-stub-v4.registerProviderData", region.into(), request)
+    }
+
+    /// Creates a mock tournament and returns its ID.
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-stub-v4/POST_registerTournament" target="_blank">`tournament-stub-v4.registerTournament`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn register_tournament(&self, region: Region, body: &tournament_stub_v4::TournamentRegistrationParameters)
+        -> impl Future<Output = Result<i32>> + 'a
+    {
+        #[allow(unused_mut)]
+        let mut request = self.base.request(Method::POST, region.into(), "/lol/tournament-stub/v4/tournaments");
+        let request = request.body(serde_json::ser::to_vec(body).unwrap());
+        self.base.execute_val::<i32>("tournament-stub-v4.registerTournament", region.into(), request)
     }
 
 }
@@ -1443,6 +1497,26 @@ pub struct TournamentV4<'a> {
     base: &'a RiotApi,
 }
 impl<'a> TournamentV4<'a> {
+    /// Create a tournament code for the given tournament.
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// * `count` (optional) - The number of codes to create (max 1000)
+    /// * `tournamentId` - The tournament ID
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-v4/POST_createTournamentCode" target="_blank">`tournament-v4.createTournamentCode`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn create_tournament_code(&self, region: Region, body: &tournament_v4::TournamentCodeParameters, tournament_id: Option<i64>, count: Option<i32>)
+        -> impl Future<Output = Result<Vec<String>>> + 'a
+    {
+        #[allow(unused_mut)]
+        let mut request = self.base.request(Method::POST, region.into(), "/lol/tournament/v4/codes");
+        { request = request.query(&[ ("tournamentId", tournament_id) ]); };
+        if let Some(count) = count { request = request.query(&[ ("count", count) ]); };
+        let request = request.body(serde_json::ser::to_vec(body).unwrap());
+        self.base.execute_val::<Vec<String>>("tournament-v4.createTournamentCode", region.into(), request)
+    }
+
     /// Returns the tournament code DTO associated with a tournament code string.
     /// # Parameters
     /// * `region` - Region to query.
@@ -1456,7 +1530,24 @@ impl<'a> TournamentV4<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/lol/tournament/v4/codes/{}", tournament_code));
-        self.base.execute::<tournament_v4::TournamentCode>("tournament-v4.getTournamentCode", region.into(), request)
+        self.base.execute_val::<tournament_v4::TournamentCode>("tournament-v4.getTournamentCode", region.into(), request)
+    }
+
+    /// Update the pick type, map, spectator type, or allowed summoners for a code.
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// * `tournamentCode` - The tournament code to update
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-v4/PUT_updateCode" target="_blank">`tournament-v4.updateCode`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn update_code(&self, region: Region, body: &tournament_v4::TournamentCodeUpdateParameters, tournament_code: &str)
+        -> impl Future<Output = Result<()>> + 'a
+    {
+        #[allow(unused_mut)]
+        let mut request = self.base.request(Method::PUT, region.into(), &format!("/lol/tournament/v4/codes/{}", tournament_code));
+        let request = request.body(serde_json::ser::to_vec(body).unwrap());
+        self.base.execute("tournament-v4.updateCode", region.into(), request)
     }
 
     /// Gets a list of lobby events by tournament code.
@@ -1472,7 +1563,41 @@ impl<'a> TournamentV4<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/lol/tournament/v4/lobby-events/by-code/{}", tournament_code));
-        self.base.execute::<tournament_v4::LobbyEventWrapper>("tournament-v4.getLobbyEventsByCode", region.into(), request)
+        self.base.execute_val::<tournament_v4::LobbyEventWrapper>("tournament-v4.getLobbyEventsByCode", region.into(), request)
+    }
+
+    /// Creates a tournament provider and returns its ID.
+    /// ## Implementation Notes
+    /// Providers will need to call this endpoint first to register their callback URL and their API key with the tournament system before any other tournament provider endpoints will work.
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-v4/POST_registerProviderData" target="_blank">`tournament-v4.registerProviderData`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn register_provider_data(&self, region: Region, body: &tournament_v4::ProviderRegistrationParameters)
+        -> impl Future<Output = Result<i32>> + 'a
+    {
+        #[allow(unused_mut)]
+        let mut request = self.base.request(Method::POST, region.into(), "/lol/tournament/v4/providers");
+        let request = request.body(serde_json::ser::to_vec(body).unwrap());
+        self.base.execute_val::<i32>("tournament-v4.registerProviderData", region.into(), request)
+    }
+
+    /// Creates a tournament and returns its ID.
+    /// # Parameters
+    /// * `region` - Region to query.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-v4/POST_registerTournament" target="_blank">`tournament-v4.registerTournament`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn register_tournament(&self, region: Region, body: &tournament_v4::TournamentRegistrationParameters)
+        -> impl Future<Output = Result<i32>> + 'a
+    {
+        #[allow(unused_mut)]
+        let mut request = self.base.request(Method::POST, region.into(), "/lol/tournament/v4/tournaments");
+        let request = request.body(serde_json::ser::to_vec(body).unwrap());
+        self.base.execute_val::<i32>("tournament-v4.registerTournament", region.into(), request)
     }
 
 }
@@ -1501,7 +1626,7 @@ impl<'a> ValContentV1<'a> {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), "/val/content/v1/contents");
         if let Some(locale) = locale { request = request.query(&[ ("locale", locale) ]); };
-        self.base.execute::<val_content_v1::Content>("val-content-v1.getContent", region.into(), request)
+        self.base.execute_val::<val_content_v1::Content>("val-content-v1.getContent", region.into(), request)
     }
 
 }
@@ -1529,7 +1654,7 @@ impl<'a> ValMatchV1<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/val/match/v1/matches/{}", match_id));
-        self.base.execute_optional::<val_match_v1::Match>("val-match-v1.getMatch", region.into(), request)
+        self.base.execute_opt::<val_match_v1::Match>("val-match-v1.getMatch", region.into(), request)
     }
 
     /// Get matchlist for games played by puuid
@@ -1545,7 +1670,7 @@ impl<'a> ValMatchV1<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/val/match/v1/matchlists/by-puuid/{}", puuid));
-        self.base.execute::<val_match_v1::Matchlist>("val-match-v1.getMatchlist", region.into(), request)
+        self.base.execute_val::<val_match_v1::Matchlist>("val-match-v1.getMatchlist", region.into(), request)
     }
 
     /// Get recent matches
@@ -1563,7 +1688,7 @@ impl<'a> ValMatchV1<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), &format!("/val/match/v1/recent-matches/by-queue/{}", queue));
-        self.base.execute::<val_match_v1::RecentMatches>("val-match-v1.getRecent", region.into(), request)
+        self.base.execute_val::<val_match_v1::RecentMatches>("val-match-v1.getRecent", region.into(), request)
     }
 
 }
@@ -1595,7 +1720,7 @@ impl<'a> ValRankedV1<'a> {
         let mut request = self.base.request(Method::GET, region.into(), &format!("/val/ranked/v1/leaderboards/by-act/{}", act_id));
         if let Some(size) = size { request = request.query(&[ ("size", size) ]); };
         if let Some(start_index) = start_index { request = request.query(&[ ("startIndex", start_index) ]); };
-        self.base.execute_optional::<val_ranked_v1::Leaderboard>("val-ranked-v1.getLeaderboard", region.into(), request)
+        self.base.execute_opt::<val_ranked_v1::Leaderboard>("val-ranked-v1.getLeaderboard", region.into(), request)
     }
 
 }
@@ -1622,7 +1747,7 @@ impl<'a> ValStatusV1<'a> {
     {
         #[allow(unused_mut)]
         let mut request = self.base.request(Method::GET, region.into(), "/val/status/v1/platform-data");
-        self.base.execute::<val_status_v1::PlatformData>("val-status-v1.getPlatformData", region.into(), request)
+        self.base.execute_val::<val_status_v1::PlatformData>("val-status-v1.getPlatformData", region.into(), request)
     }
 
 }

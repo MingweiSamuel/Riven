@@ -63,104 +63,133 @@ pub struct {{= endpoint }}<'a> {
 }
 impl<'a> {{= endpoint }}<'a> {
 {{
-        for (let [ route, path ] of endpointMethods)
+        for (const [ route, path ] of endpointMethods)
         {
-            let get = path.get;
-            if (!get) /* Only support GET parameters. */
-                continue;
-            if ((get.parameters || []).some(p => 'header' === p.in)) /* Do not support header parameter methods. */
-                continue;
-
-            let operationId = get.operationId;
-            let method = dotUtils.changeCase.snakeCase(operationId.slice(operationId.indexOf('.') + 1));
-
-            let jsonInfo = get.responses['200'].content['application/json'];
-            let returnOptional = !!get['x-nullable-404'];
-            let parseType = dotUtils.stringifyType(jsonInfo.schema, { endpoint, fullpath: false });
-            let returnType = returnOptional ? `Option<${parseType}>` : parseType;
-
-
-            /* Cases if not rate limited. */
-            let rateLimitExcluded = get['x-app-rate-limit-excluded'] ? true : false;
-
-            /* Description processing. */
-            let descArr = get.description.split('\n');
-
-            /* Build argument comment & string. */
-            let argBuilder = [];
-            let makeParamCode = '';
-            let allParams = get.parameters;
-            let queryParams = [];
-            let routeArgument;
-            if (allParams && allParams.length)
+            for (const [ verb, operation ] of Object.entries(path))
             {
-                let pathParams = allParams.filter(p => 'path' === p.in)
-                    .sortBy(({ name }) => route.indexOf(name));
-                let reqParams = allParams.filter(p => 'path' !== p.in && p.required);
-                let optParams = allParams.filter(p => 'path' !== p.in && !p.required)
-                    .sortBy(({ name }) => {
-                        let match = /(^[a-z]+|[A-Z]+(?![a-z])|[A-Z][a-z]+)/.exec(name);
-                        return match.slice(1).reverse().join('');
-                    });
-                queryParams = reqParams.concat(optParams);
+                if (verb.startsWith('x-')) continue;
 
-                for (let paramList of [ pathParams, reqParams, optParams ])
+                if ((operation.parameters || []).some(p => 'header' === p.in)) /* Do not support header parameter methods. */
+                    continue;
+
+                const operationId = operation.operationId;
+                const method = dotUtils.changeCase.snakeCase(operationId.slice(operationId.indexOf('.') + 1));
+
+                const resp200 = operation.responses['200'];
+
+                /* Return type checks. */
+                let hasReturn = false;
+                let returnType = '()';
+                let returnTypeTurbofish = '';
+                let returnOptional = false;
+                if (resp200 && resp200.content)
                 {
-                    let required = paramList === pathParams;
-                    for (let param of paramList)
-                    {
-                        argBuilder.push(', ', dotUtils.changeCase.snakeCase(param.name), ': ',
-                            dotUtils.stringifyType(param.schema, { endpoint, optional: !required, owned: false }));
-                    }
+                    hasReturn = true;
+                    const jsonInfo = resp200.content['application/json'];
+
+                    const parseType = dotUtils.stringifyType(jsonInfo.schema, { endpoint, fullpath: false });
+                    returnTypeTurbofish = `::<${parseType}>`;
+                    returnOptional = !!operation['x-nullable-404'];
+                    returnType = returnOptional ? `Option<${parseType}>` : parseType;
                 }
 
-                routeArgument = dotUtils.formatRouteArgument(route, pathParams);
-            }
-            else
-            {
-                routeArgument = dotUtils.formatRouteArgument(route);
-            }
-            for (var descLine of descArr)
-            {
+                /* Body content checks. */
+                let bodyType = null;
+                if (operation.requestBody)
+                {
+                    const jsonInfo = operation.requestBody.content['application/json'];
+                    bodyType = dotUtils.stringifyType(jsonInfo.schema, { endpoint, fullpath: false });
+                }
+
+                /* Description processing. */
+                let descArr = operation.description.split('\n');
+
+                /* Build argument comment & string. */
+                const argBuilder = [];
+
+                /* Add body params before path/query. */
+                if (bodyType) {
+                    argBuilder.push(', body: &', bodyType);
+                }
+
+                /* Path and query params. */
+                const allParams = operation.parameters;
+                let queryParams = [];
+                let routeArgument;
+                if (allParams && allParams.length)
+                {
+                    let pathParams = allParams.filter(p => 'path' === p.in)
+                        .sortBy(({ name }) => route.indexOf(name));
+                    let reqParams = allParams.filter(p => 'path' !== p.in && p.required);
+                    let optParams = allParams.filter(p => 'path' !== p.in && !p.required)
+                        .sortBy(({ name }) => {
+                            let match = /(^[a-z]+|[A-Z]+(?![a-z])|[A-Z][a-z]+)/.exec(name);
+                            return match.slice(1).reverse().join('');
+                        });
+                    queryParams = reqParams.concat(optParams);
+
+                    for (let paramList of [ pathParams, reqParams, optParams ])
+                    {
+                        let required = paramList === pathParams;
+                        for (let param of paramList)
+                        {
+                            argBuilder.push(', ', dotUtils.changeCase.snakeCase(param.name), ': ',
+                                dotUtils.stringifyType(param.schema, { endpoint, optional: !required, owned: false }));
+                        }
+                    }
+
+                    routeArgument = dotUtils.formatRouteArgument(route, pathParams);
+                }
+                else
+                {
+                    routeArgument = dotUtils.formatRouteArgument(route);
+                }
+
+                for (var descLine of descArr)
+                {
 }}
     ///{{= descLine ? ' ' + descLine : '' }}
 {{
-            }
+                }
 }}
     /// # Parameters
     /// * `region` - Region to query.
 {{
-            if (allParams)
-            {
-                for (let param of allParams)
+                if (allParams)
                 {
+                    for (let param of allParams)
+                    {
 }}
     /// * `{{= param.name }}`{{= param.required ? '' : ' (optional)' }}{{= param.description ? ' - ' + param.description : ''}}
 {{
+                    }
                 }
-            }
 }}
     /// # Riot Developer API Reference
-    /// <a href="{{= get.externalDocs.url }}" target="_blank">`{{= operationId }}`</a>
+    /// <a href="{{= operation.externalDocs.url }}" target="_blank">`{{= operationId }}`</a>
     ///
     /// Note: this method is automatically generated.
     pub fn {{= method }}(&self, region: Region{{= argBuilder.join('') }})
         -> impl Future<Output = Result<{{= returnType }}>> + 'a
     {
         #[allow(unused_mut)]
-        let mut request = self.base.request(Method::GET, region.into(), {{= routeArgument }});
+        let mut request = self.base.request(Method::{{= verb.toUpperCase() }}, region.into(), {{= routeArgument }});
 {{
-            for (let queryParam of queryParams)
-            {
+                for (let queryParam of queryParams)
+                {
 }}
         {{= dotUtils.formatAddQueryParam(queryParam) }};
 {{
-            }
+                }
 }}
-        self.base.execute{{= returnOptional ? '_optional' : '' }}::<{{= parseType }}>("{{= operationId }}", region.into(), request)
+{{? bodyType }}
+        let request = request.body(serde_json::ser::to_vec(body).unwrap());
+{{?}}
+        self.base.execute{{= hasReturn ? (returnOptional ? '_opt' : '_val') : '' }}{{= returnTypeTurbofish }}("{{= operationId }}", region.into(), request)
     }
 
 {{
+            }
         }
 }}
 }
