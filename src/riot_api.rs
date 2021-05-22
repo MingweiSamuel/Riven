@@ -2,7 +2,7 @@ use std::future::Future;
 use std::sync::Arc;
 
 use log;
-use reqwest::{Client, Request, Method, Url};
+use reqwest::{ Client, RequestBuilder, Method, Url };
 
 use crate::Result;
 use crate::ResponseInfo;
@@ -63,7 +63,7 @@ impl RiotApi {
     /// `api_key` should be a Riot Games API key from
     /// [https://developer.riotgames.com/](https://developer.riotgames.com/),
     /// and should look like `"RGAPI-01234567-89ab-cdef-0123-456789abcdef"`.
-    pub fn with_key<T: AsRef<[u8]>>(api_key: T) -> Self {
+    pub fn with_key(api_key: impl AsRef<[u8]>) -> Self {
         Self::with_config(RiotApiConfig::with_key(api_key))
     }
 
@@ -140,16 +140,17 @@ impl RiotApi {
         url.set_path(&*path);
         url.set_query(query.as_deref());
 
-        let request = Request::new(Method::GET, url);
+        let request = self.client.get(url);
         self.execute_raw(method_id, region_platform, request)
     }
 
-
-
-
+    pub fn request(&self, method: Method, region_platform: &str, path: &str) -> RequestBuilder {
+        let base_url_platform = self.config.base_url.replace("{}", region_platform);
+        self.client.request(method, format!("{}/{}", base_url_platform, path))
+    }
 
     pub async fn execute_optional<'a, T: serde::de::DeserializeOwned + 'a>(&'a self,
-        method_id: &'static str, region_platform: &'static str, request: Request)
+        method_id: &'static str, region_platform: &'static str, request: RequestBuilder)
         -> Result<Option<T>>
     {
         let rinfo = self.execute_raw(method_id, region_platform, request).await?;
@@ -163,7 +164,7 @@ impl RiotApi {
     }
 
     pub async fn execute<'a, T: serde::de::DeserializeOwned + 'a>(&'a self,
-        method_id: &'static str, region_platform: &'static str, request: Request)
+        method_id: &'static str, region_platform: &'static str, request: RequestBuilder)
         -> Result<T>
     {
         let rinfo = self.execute_raw(method_id, region_platform, request).await?;
@@ -173,11 +174,11 @@ impl RiotApi {
         value.map_err(|e| RiotApiError::new(e, retries, None, Some(status)))
     }
 
-    pub fn execute_raw(&self, method_id: &'static str, region_platform: &'static str, request: Request)
+    pub fn execute_raw(&self, method_id: &'static str, region_platform: &'static str, request: RequestBuilder)
         -> impl Future<Output = Result<ResponseInfo>> + '_
     {
         self.regional_requester(region_platform)
-            .execute_raw(&self.config, &self.client, method_id, request)
+            .execute(&self.config, method_id, request)
     }
 
     /// Get or create the RegionalRequester for the given region.

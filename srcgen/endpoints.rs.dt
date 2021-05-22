@@ -13,7 +13,7 @@ use crate::models::*;
 use std::future::Future;
 use std::vec::Vec;
 
-use url::form_urlencoded::Serializer;
+use reqwest::Method;
 
 use crate::Result;
 use crate::consts::Region;
@@ -57,6 +57,7 @@ impl RiotApi {
 /// <a href="https://developer.riotgames.com/apis#{{= endpointName }}" target="_blank">`{{= endpointName }}`</a>
 ///
 /// Note: this struct is automatically generated.
+#[repr(transparent)]
 pub struct {{= endpoint }}<'a> {
     base: &'a RiotApi,
 }
@@ -90,7 +91,7 @@ impl<'a> {{= endpoint }}<'a> {
             let makeParamCode = '';
             let allParams = get.parameters;
             let queryParams = [];
-            let routeArgument = dotUtils.formatRouteArgument(route);
+            let routeArgument;
             if (allParams && allParams.length)
             {
                 let pathParams = allParams.filter(p => 'path' === p.in)
@@ -114,6 +115,10 @@ impl<'a> {{= endpoint }}<'a> {
                 }
 
                 routeArgument = dotUtils.formatRouteArgument(route, pathParams);
+            }
+            else
+            {
+                routeArgument = dotUtils.formatRouteArgument(route);
             }
             for (var descLine of descArr)
             {
@@ -142,8 +147,8 @@ impl<'a> {{= endpoint }}<'a> {
     pub fn {{= method }}(&self, region: Region{{= argBuilder.join('') }})
         -> impl Future<Output = Result<{{= returnType }}>> + 'a
     {
-{{? queryParams.length }}
-        let mut query_params = Serializer::new(String::new());
+        #[allow(unused_mut)]
+        let mut request = self.base.request(Method::GET, region.into(), {{= routeArgument }});
 {{
             for (let queryParam of queryParams)
             {
@@ -152,10 +157,7 @@ impl<'a> {{= endpoint }}<'a> {
 {{
             }
 }}
-        let query_string = query_params.finish();
-{{?}}
-        let path_string = {{= routeArgument }};
-        self.base.get{{= returnOptional ? '_optional' : '' }}::<{{= parseType }}>("{{= operationId }}", region.into(), path_string, {{= queryParams.length ? 'Some(query_string)' : 'None' }})
+        self.base.execute{{= returnOptional ? '_optional' : '' }}::<{{= parseType }}>("{{= operationId }}", region.into(), request)
     }
 
 {{

@@ -107,47 +107,30 @@ function formatJsonProperty(name) {
   return `#[serde(rename = "${name}")]`;
 }
 
-function formatQueryParamStringify(name, prop, useOwned = false) {
-  const own = useOwned ? '' : '&*';
-  if (prop['x-enum']) {
-    switch (prop.type) {
-      case 'integer':
-        return `${own}Into::<${enumTypeLookup[prop['x-enum']]}>::into(*${name}).to_string()`;
-      default: throw new Error(`Enum not supported: ${JSON.stringify(prop)}.`)
-    }
-  }
-  switch (prop.type) {
-    case 'array': throw new Error(`Cannot formart array: ${JSON.stringify(prop)}.`);
-    case 'boolean': return `${name} ? "true" : "false"`;
-    case 'string': return name;
-    default: return `${own}${name}.to_string()`;
-  }
-}
-
 function formatAddQueryParam(param) {
   let k = `"${param.name}"`;
   let name = changeCase.snakeCase(param.name);
   let nc = param.required ? '' : `if let Some(${name}) = ${name} `;
   let prop = param.schema;
   switch (prop.type) {
-    case 'array': return `${nc}{ query_params.extend_pairs(${name}.iter()`
-      + `.map(|w| (${k}, ${formatQueryParamStringify("w", prop.items, true)}))); }`;
+    case 'array': return `${nc}{ request = request.query(&*${name}.iter()`
+      + `.map(|w| ( ${k}, w )).collect::<Vec<_>>()); }`;
     case 'object': throw 'unsupported';
     default:
-      return `${nc}{ query_params.append_pair(${k}, ${formatQueryParamStringify(name, prop)}); }`;
+      return `${nc}{ request = request.query(&[ (${k}, ${name}) ]); }`;
   }
 }
 
 function formatRouteArgument(route, pathParams = []) {
   if (!pathParams.length)
-    return `"${route}".to_owned()`;
+    return `"${route}"`;
 
   route = route.replace(/\{\S+?\}/g, '{}');
   const args = pathParams
     .map(({name}) => name)
     .map(changeCase.snakeCase)
     .join(', ');
-  return `format!("${route}", ${args})`;
+  return `&format!("${route}", ${args})`;
 }
 
 module.exports = {

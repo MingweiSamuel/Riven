@@ -2,7 +2,7 @@ use std::future::Future;
 use std::sync::Arc;
 
 use log;
-use reqwest::{Client, StatusCode, Request};
+use reqwest::{ StatusCode, RequestBuilder };
 
 use crate::Result;
 use crate::ResponseInfo;
@@ -34,9 +34,9 @@ impl RegionalRequester {
         }
     }
 
-    pub fn execute_raw<'a>(self: Arc<Self>,
-        config: &'a RiotApiConfig, client: &'a Client,
-        method_id: &'static str, request: Request)
+    pub fn execute<'a>(self: Arc<Self>,
+        config: &'a RiotApiConfig,
+        method_id: &'static str, request: RequestBuilder)
         -> impl Future<Output = Result<ResponseInfo>> + 'a
     {
         async move {
@@ -52,7 +52,7 @@ impl RegionalRequester {
 
                 // Send request.
                 let request_clone = request.try_clone().expect("Failed to clone request.");
-                let response = client.execute(request_clone).await
+                let response = request_clone.send().await
                     .map_err(|e| RiotApiError::new(e, retries, None, None))?;
 
                 // Maybe update rate limits (based on response headers).

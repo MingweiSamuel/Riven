@@ -2,13 +2,14 @@
 use std::time::Duration;
 
 use reqwest::ClientBuilder;
-use reqwest::header::{HeaderMap, HeaderValue};
+use reqwest::header::{ HeaderMap, HeaderValue };
 
 /// Configuration for instantiating RiotApi.
 ///
 ///
 #[derive(Debug)]
 pub struct RiotApiConfig {
+    pub(crate) base_url: String,
     pub(crate) retries: u8,
     pub(crate) burst_pct: f32,
     pub(crate) duration_overhead: Duration,
@@ -22,10 +23,15 @@ impl RiotApiConfig {
     /// this default header with the Riot API key as the value.
     const RIOT_KEY_HEADER: &'static str = "X-Riot-Token";
 
+    /// `"https://{}.api.riotgames.com"`
+    ///
+    /// Default base URL, including `{}` placeholder for region platform.
+    pub const DEFAULT_BASE_URL: &'static str = "https://{}.api.riotgames.com";
+
     /// `3`
     ///
     /// Default number of retries.
-    pub const PRECONFIG_RETRIES: u8 = 3;
+    pub const DEFAULT_RETRIES: u8 = 3;
 
     /// `0.99`
     ///
@@ -48,14 +54,14 @@ impl RiotApiConfig {
     /// Creates a new `RiotApiConfig` with the given `api_key` with the following
     /// configuration:
     ///
-    /// * `retries = 3` (`RiotApiConfig::PRECONFIG_RETRIES`).
+    /// * `retries = 3` (`RiotApiConfig::DEFAULT_RETRIES`).
     /// * `purst_pct = 0.99` (`preconfig_burst`).
     /// * `duration_overhead = 989 ms` (`preconfig_burst`).
     ///
     /// `api_key` should be a Riot Games API key from
     /// [https://developer.riotgames.com/](https://developer.riotgames.com/),
     /// and should look like `"RGAPI-01234567-89ab-cdef-0123-456789abcdef"`.
-    pub fn with_key<T: AsRef<[u8]>>(api_key: T) -> Self {
+    pub fn with_key(api_key: impl AsRef<[u8]>) -> Self {
         let mut default_headers = HeaderMap::new();
         default_headers.insert(
             Self::RIOT_KEY_HEADER,
@@ -63,7 +69,8 @@ impl RiotApiConfig {
         );
 
         Self {
-            retries: Self::PRECONFIG_RETRIES,
+            base_url: Self::DEFAULT_BASE_URL.into(),
+            retries: Self::DEFAULT_RETRIES,
             burst_pct: Self::PRECONFIG_BURST_BURST_PCT,
             duration_overhead: Self::PRECONFIG_BURST_DURATION_OVERHEAD,
             client_builder: Some(
@@ -78,12 +85,13 @@ impl RiotApiConfig {
     /// The client builder default headers should include a value for
     /// `RiotApiConfig::RIOT_KEY_HEADER`, otherwise authentication will fail.
     ///
-    /// * `retries = 3` (`RiotApiConfig::PRECONFIG_RETRIES`).
+    /// * `retries = 3` (`RiotApiConfig::DEFAULT_RETRIES`).
     /// * `purst_pct = 0.99` (`preconfig_burst`).
     /// * `duration_overhead = 989 ms` (`preconfig_burst`).
     pub fn with_client_builder(client_builder: ClientBuilder) -> Self {
         Self {
-            retries: Self::PRECONFIG_RETRIES,
+            base_url: Self::DEFAULT_BASE_URL.to_owned(),
+            retries: Self::DEFAULT_RETRIES,
             burst_pct: Self::PRECONFIG_BURST_BURST_PCT,
             duration_overhead: Self::PRECONFIG_BURST_DURATION_OVERHEAD,
             client_builder: Some(client_builder),
@@ -115,6 +123,17 @@ impl RiotApiConfig {
     pub fn preconfig_throughput(mut self) -> Self {
         self.burst_pct = Self::PRECONFIG_THROUGHPUT_BURST_PCT;
         self.duration_overhead = Self::PRECONFIG_THROUGHPUT_DURATION_OVERHEAD;
+        self
+    }
+
+    /// Set the base url for requests. The string should contain a `"{}"`
+    /// literal which will be replaced with the region platform name. (However
+    /// multiple or zero `"{}"`s may be included if needed).
+    ///
+    /// # Returns
+    /// `self`, for chaining.
+    pub fn set_base_url(mut self, base_url: impl Into<String>) -> Self {
+        self.base_url = base_url.into();
         self
     }
 

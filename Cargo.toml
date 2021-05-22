@@ -34,7 +34,6 @@ serde_repr = "0.1"
 strum = "0.20"
 strum_macros = "0.20"
 tokio = { version = "1", default-features = false, features = [ "time" ] }
-url = "2"
 
 [dev-dependencies]
 colored = "2"
