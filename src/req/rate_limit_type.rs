@@ -25,4 +25,13 @@ impl RateLimitType {
             Self::Method => "X-Method-Rate-Limit-Count",
         }
     }
+
+    /// Return if this RateLimitType should take responsibility for responses
+    /// which are lacking a "X-Rate-Limit-Type" header.
+    pub fn default_responsibility(self) -> bool {
+        match self {
+            Self::Application => true,
+            Self::Method => false,
+        }
+    }
 }
