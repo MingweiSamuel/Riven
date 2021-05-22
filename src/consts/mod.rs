@@ -31,9 +31,6 @@ pub use queue::*;
 
 pub mod ranks;
 
-mod region; // REMOVEME!
-pub use region::*;
-
 mod route;
 pub use route::*;
 

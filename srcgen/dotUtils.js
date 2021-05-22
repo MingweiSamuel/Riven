@@ -1,14 +1,5 @@
 const changeCase = require('change-case');
 
-const enumTypeLookup = {
-  champion: 'i16',
-  gameMode: 'u8',
-  gameType: 'u8',
-  map: 'u8',
-  queue: 'u16',
-  season: 'u8',
-};
-
 // flatMap: https://gist.github.com/samgiles/762ee337dff48623e729
 // [B](f: (A) ⇒ [B]): [B]  ; Although the types in the arrays aren't strict (:
 Array.prototype.flatMap = function(lambda) {

@@ -25,7 +25,7 @@ Data structs and endpoints are automatically generated from the
 
 ```rust
 use riven::RiotApi;
-use riven::consts::Region;
+use riven::consts::PlatformRoute;
 
 // Enter tokio async runtime.
 let mut rt = tokio::runtime::Runtime::new().unwrap();
@@ -37,7 +37,7 @@ rt.block_on(async {
 
     // Get summoner data.
     let summoner = riot_api.summoner_v4()
-        .get_by_summoner_name(Region::NA, "잘 못").await
+        .get_by_summoner_name(PlatformRoute::NA1, "잘 못").await
         .expect("Get summoner failed.")
         .expect("There is no summoner with that name.");
 
@@ -46,7 +46,7 @@ rt.block_on(async {
 
     // Get champion mastery data.
     let masteries = riot_api.champion_mastery_v4()
-        .get_all_champion_masteries(Region::NA, &summoner.id).await
+        .get_all_champion_masteries(PlatformRoute::NA1, &summoner.id).await
         .expect("Get champion masteries failed.");
 
     // Print champioon masteries.

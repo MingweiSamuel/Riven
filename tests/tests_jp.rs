@@ -9,12 +9,13 @@ use colored::*;
 
 use riven::consts::*;
 
+const ROUTE: PlatformRoute = PlatformRoute::JP1;
 
 async_tests!{
     my_runner {
         // Summoner tests.
         summoner_get_kanjikana: async {
-            let p = RIOT_API.summoner_v4().get_by_summoner_name(Region::JP, "私の 頭が かたい");
+            let p = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, "私の 頭が かたい");
             let s = p.await.map_err(|e| e.to_string())?.ok_or("Failed to get myheadhard".to_owned())?;
             rassert_eq!("私の頭がかたい", s.name);
             Ok(())
@@ -32,16 +33,16 @@ async_tests!{
         // If we use `get` (instead of `get_optional`) make sure it errors.
         get_nonoptional_invalid: async {
             let path_string = format!("/lol/summoner/v4/summoners/by-name/{}", "SUMMONER THAT DOES NOT EXIST");
-            let request = RIOT_API.request(reqwest::Method::GET, Region::JP.into(), &path_string);
+            let request = RIOT_API.request(reqwest::Method::GET, ROUTE.into(), &path_string);
             let p = RIOT_API.execute_val::<riven::models::summoner_v4::Summoner>(
-                "summoner-v4.getBySummonerName", Region::JP.into(), request);
+                "summoner-v4.getBySummonerName", ROUTE.into(), request);
             let r = p.await;
             rassert!(r.is_err());
             Ok(())
         },
         // Make sure 403 is handled as expected.
         tournament_forbidden: async {
-            let p = RIOT_API.tournament_v4().get_tournament_code(Region::JP, "INVALID_CODE");
+            let p = RIOT_API.tournament_v4().get_tournament_code(ROUTE.to_regional(), "INVALID_CODE");
             let r = p.await;
             rassert!(r.is_err());
             rassert_eq!(Some(reqwest::StatusCode::FORBIDDEN), r.unwrap_err().status_code());
@@ -51,9 +52,9 @@ async_tests!{
         // tft-league-v1.getLeagueEntriesForSummoner
         // https://github.com/MingweiSamuel/Riven/issues/25
         tft_league_getleagueentriesforsummoner: async {
-            let sp = RIOT_API.summoner_v4().get_by_summoner_name(Region::JP, "Caihonbbt");
+            let sp = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, "Caihonbbt");
             let sr = sp.await.map_err(|e| e.to_string())?.ok_or("Failed to get \"Caihonbbt\"".to_owned())?;
-            let lp = RIOT_API.tft_league_v1().get_league_entries_for_summoner(Region::JP, &sr.id);
+            let lp = RIOT_API.tft_league_v1().get_league_entries_for_summoner(ROUTE, &sr.id);
             let lr = lp.await.map_err(|e| e.to_string())?;
             rassert!(0 < lr.len());
             Ok(())
@@ -61,7 +62,7 @@ async_tests!{
         // tft-league-v1.getTopRatedLadder
         // https://github.com/MingweiSamuel/Riven/issues/24
         tft_league_gettopratedladder: async {
-            let lp = RIOT_API.tft_league_v1().get_top_rated_ladder(Region::JP, QueueType::RANKED_TFT_TURBO);
+            let lp = RIOT_API.tft_league_v1().get_top_rated_ladder(ROUTE, QueueType::RANKED_TFT_TURBO);
             let lr = lp.await.map_err(|e| e.to_string())?;
             rassert!(0 < lr.len());
             Ok(())

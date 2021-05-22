@@ -19,7 +19,7 @@ use std::vec::Vec;
 use reqwest::Method;
 
 use crate::Result;
-use crate::consts::Region;
+use crate::consts::{ RegionalRoute, PlatformRoute, ValPlatformRoute };
 use crate::riot_api::RiotApi;
 
 impl RiotApi {
@@ -280,65 +280,69 @@ pub struct AccountV1<'a> {
 impl<'a> AccountV1<'a> {
     /// Get account by puuid
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `puuid`
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#account-v1/GET_getByPuuid" target="_blank">`account-v1.getByPuuid`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_by_puuid(&self, region: Region, puuid: &str)
+    pub fn get_by_puuid(&self, route: RegionalRoute, puuid: &str)
         -> impl Future<Output = Result<account_v1::Account>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/riot/account/v1/accounts/by-puuid/{}", puuid));
-        self.base.execute_val::<account_v1::Account>("account-v1.getByPuuid", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/riot/account/v1/accounts/by-puuid/{}", puuid));
+        self.base.execute_val::<account_v1::Account>("account-v1.getByPuuid", route_str, request)
     }
 
     /// Get account by riot id
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `tagLine` - When querying for a player by their riot id, the gameName and tagLine query params are required. However not all accounts have a gameName and tagLine associated so these fields may not be included in the response.
     /// * `gameName` - When querying for a player by their riot id, the gameName and tagLine query params are required. However not all accounts have a gameName and tagLine associated so these fields may not be included in the response.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#account-v1/GET_getByRiotId" target="_blank">`account-v1.getByRiotId`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_by_riot_id(&self, region: Region, game_name: &str, tag_line: &str)
+    pub fn get_by_riot_id(&self, route: RegionalRoute, game_name: &str, tag_line: &str)
         -> impl Future<Output = Result<Option<account_v1::Account>>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/riot/account/v1/accounts/by-riot-id/{}/{}", game_name, tag_line));
-        self.base.execute_opt::<account_v1::Account>("account-v1.getByRiotId", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/riot/account/v1/accounts/by-riot-id/{}/{}", game_name, tag_line));
+        self.base.execute_opt::<account_v1::Account>("account-v1.getByRiotId", route_str, request)
     }
 
     /// Get account by access token
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `Authorization`
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#account-v1/GET_getByAccessToken" target="_blank">`account-v1.getByAccessToken`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_by_access_token(&self, region: Region, authorization: &str)
+    pub fn get_by_access_token(&self, route: RegionalRoute, authorization: &str)
         -> impl Future<Output = Result<account_v1::Account>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), "/riot/account/v1/accounts/me");
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/riot/account/v1/accounts/me");
         let request = request.header("Authorization", authorization);
-        self.base.execute_val::<account_v1::Account>("account-v1.getByAccessToken", region.into(), request)
+        self.base.execute_val::<account_v1::Account>("account-v1.getByAccessToken", route_str, request)
     }
 
     /// Get active shard for a player
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `game`
     /// * `puuid`
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#account-v1/GET_getActiveShard" target="_blank">`account-v1.getActiveShard`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_active_shard(&self, region: Region, game: &str, puuid: &str)
+    pub fn get_active_shard(&self, route: RegionalRoute, game: &str, puuid: &str)
         -> impl Future<Output = Result<Option<account_v1::ActiveShard>>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/riot/account/v1/active-shards/by-game/{}/by-puuid/{}", game, puuid));
-        self.base.execute_opt::<account_v1::ActiveShard>("account-v1.getActiveShard", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/riot/account/v1/active-shards/by-game/{}/by-puuid/{}", game, puuid));
+        self.base.execute_opt::<account_v1::ActiveShard>("account-v1.getActiveShard", route_str, request)
     }
 
 }
@@ -355,48 +359,51 @@ pub struct ChampionMasteryV4<'a> {
 impl<'a> ChampionMasteryV4<'a> {
     /// Get all champion mastery entries sorted by number of champion points descending,
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `encryptedSummonerId` - Summoner ID associated with the player
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getAllChampionMasteries" target="_blank">`champion-mastery-v4.getAllChampionMasteries`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_all_champion_masteries(&self, region: Region, encrypted_summoner_id: &str)
+    pub fn get_all_champion_masteries(&self, route: PlatformRoute, encrypted_summoner_id: &str)
         -> impl Future<Output = Result<Vec<champion_mastery_v4::ChampionMastery>>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lol/champion-mastery/v4/champion-masteries/by-summoner/{}", encrypted_summoner_id));
-        self.base.execute_val::<Vec<champion_mastery_v4::ChampionMastery>>("champion-mastery-v4.getAllChampionMasteries", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/champion-mastery/v4/champion-masteries/by-summoner/{}", encrypted_summoner_id));
+        self.base.execute_val::<Vec<champion_mastery_v4::ChampionMastery>>("champion-mastery-v4.getAllChampionMasteries", route_str, request)
     }
 
     /// Get a champion mastery by player ID and champion ID.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `championId` - Champion ID to retrieve Champion Mastery for
     /// * `encryptedSummonerId` - Summoner ID associated with the player
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMastery" target="_blank">`champion-mastery-v4.getChampionMastery`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_champion_mastery(&self, region: Region, encrypted_summoner_id: &str, champion_id: crate::consts::Champion)
+    pub fn get_champion_mastery(&self, route: PlatformRoute, encrypted_summoner_id: &str, champion_id: crate::consts::Champion)
         -> impl Future<Output = Result<Option<champion_mastery_v4::ChampionMastery>>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lol/champion-mastery/v4/champion-masteries/by-summoner/{}/by-champion/{}", encrypted_summoner_id, champion_id));
-        self.base.execute_opt::<champion_mastery_v4::ChampionMastery>("champion-mastery-v4.getChampionMastery", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/champion-mastery/v4/champion-masteries/by-summoner/{}/by-champion/{}", encrypted_summoner_id, champion_id));
+        self.base.execute_opt::<champion_mastery_v4::ChampionMastery>("champion-mastery-v4.getChampionMastery", route_str, request)
     }
 
     /// Get a player's total champion mastery score, which is the sum of individual champion mastery levels.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `encryptedSummonerId` - Summoner ID associated with the player
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMasteryScore" target="_blank">`champion-mastery-v4.getChampionMasteryScore`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_champion_mastery_score(&self, region: Region, encrypted_summoner_id: &str)
+    pub fn get_champion_mastery_score(&self, route: PlatformRoute, encrypted_summoner_id: &str)
         -> impl Future<Output = Result<i32>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lol/champion-mastery/v4/scores/by-summoner/{}", encrypted_summoner_id));
-        self.base.execute_val::<i32>("champion-mastery-v4.getChampionMasteryScore", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/champion-mastery/v4/scores/by-summoner/{}", encrypted_summoner_id));
+        self.base.execute_val::<i32>("champion-mastery-v4.getChampionMasteryScore", route_str, request)
     }
 
 }
@@ -413,16 +420,17 @@ pub struct ChampionV3<'a> {
 impl<'a> ChampionV3<'a> {
     /// Returns champion rotations, including free-to-play and low-level free-to-play rotations (REST)
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#champion-v3/GET_getChampionInfo" target="_blank">`champion-v3.getChampionInfo`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_champion_info(&self, region: Region)
+    pub fn get_champion_info(&self, route: PlatformRoute)
         -> impl Future<Output = Result<champion_v3::ChampionInfo>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), "/lol/platform/v3/champion-rotations");
-        self.base.execute_val::<champion_v3::ChampionInfo>("champion-v3.getChampionInfo", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/lol/platform/v3/champion-rotations");
+        self.base.execute_val::<champion_v3::ChampionInfo>("champion-v3.getChampionInfo", route_str, request)
     }
 
 }
@@ -441,76 +449,81 @@ impl<'a> ClashV1<'a> {
     /// ## Implementation Notes
     /// This endpoint returns a list of active Clash players for a given summoner ID. If a summoner registers for multiple tournaments at the same time (e.g., Saturday and Sunday) then both registrations would appear in this list.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `summonerId`
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#clash-v1/GET_getPlayersBySummoner" target="_blank">`clash-v1.getPlayersBySummoner`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_players_by_summoner(&self, region: Region, summoner_id: &str)
+    pub fn get_players_by_summoner(&self, route: PlatformRoute, summoner_id: &str)
         -> impl Future<Output = Result<Vec<clash_v1::Player>>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lol/clash/v1/players/by-summoner/{}", summoner_id));
-        self.base.execute_val::<Vec<clash_v1::Player>>("clash-v1.getPlayersBySummoner", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/clash/v1/players/by-summoner/{}", summoner_id));
+        self.base.execute_val::<Vec<clash_v1::Player>>("clash-v1.getPlayersBySummoner", route_str, request)
     }
 
     /// Get team by ID.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `teamId`
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#clash-v1/GET_getTeamById" target="_blank">`clash-v1.getTeamById`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_team_by_id(&self, region: Region, team_id: &str)
+    pub fn get_team_by_id(&self, route: PlatformRoute, team_id: &str)
         -> impl Future<Output = Result<Option<clash_v1::Team>>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lol/clash/v1/teams/{}", team_id));
-        self.base.execute_opt::<clash_v1::Team>("clash-v1.getTeamById", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/clash/v1/teams/{}", team_id));
+        self.base.execute_opt::<clash_v1::Team>("clash-v1.getTeamById", route_str, request)
     }
 
     /// Get all active or upcoming tournaments.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#clash-v1/GET_getTournaments" target="_blank">`clash-v1.getTournaments`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_tournaments(&self, region: Region)
+    pub fn get_tournaments(&self, route: PlatformRoute)
         -> impl Future<Output = Result<Vec<clash_v1::Tournament>>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), "/lol/clash/v1/tournaments");
-        self.base.execute_val::<Vec<clash_v1::Tournament>>("clash-v1.getTournaments", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/lol/clash/v1/tournaments");
+        self.base.execute_val::<Vec<clash_v1::Tournament>>("clash-v1.getTournaments", route_str, request)
     }
 
     /// Get tournament by team ID.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `teamId`
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#clash-v1/GET_getTournamentByTeam" target="_blank">`clash-v1.getTournamentByTeam`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_tournament_by_team(&self, region: Region, team_id: &str)
+    pub fn get_tournament_by_team(&self, route: PlatformRoute, team_id: &str)
         -> impl Future<Output = Result<Option<clash_v1::Tournament>>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lol/clash/v1/tournaments/by-team/{}", team_id));
-        self.base.execute_opt::<clash_v1::Tournament>("clash-v1.getTournamentByTeam", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/clash/v1/tournaments/by-team/{}", team_id));
+        self.base.execute_opt::<clash_v1::Tournament>("clash-v1.getTournamentByTeam", route_str, request)
     }
 
     /// Get tournament by ID.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `tournamentId`
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#clash-v1/GET_getTournamentById" target="_blank">`clash-v1.getTournamentById`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_tournament_by_id(&self, region: Region, tournament_id: i32)
+    pub fn get_tournament_by_id(&self, route: PlatformRoute, tournament_id: i32)
         -> impl Future<Output = Result<Option<clash_v1::Tournament>>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lol/clash/v1/tournaments/{}", tournament_id));
-        self.base.execute_opt::<clash_v1::Tournament>("clash-v1.getTournamentById", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/clash/v1/tournaments/{}", tournament_id));
+        self.base.execute_opt::<clash_v1::Tournament>("clash-v1.getTournamentById", route_str, request)
     }
 
 }
@@ -527,7 +540,7 @@ pub struct LeagueExpV4<'a> {
 impl<'a> LeagueExpV4<'a> {
     /// Get all the league entries.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `queue` - Note that the queue value must be a valid ranked queue.
     /// * `tier`
     /// * `division`
@@ -536,12 +549,13 @@ impl<'a> LeagueExpV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#league-exp-v4/GET_getLeagueEntries" target="_blank">`league-exp-v4.getLeagueEntries`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_league_entries(&self, region: Region, queue: crate::consts::QueueType, tier: crate::consts::Tier, division: crate::consts::Division, page: Option<i32>)
+    pub fn get_league_entries(&self, route: PlatformRoute, queue: crate::consts::QueueType, tier: crate::consts::Tier, division: crate::consts::Division, page: Option<i32>)
         -> impl Future<Output = Result<Vec<league_exp_v4::LeagueEntry>>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lol/league-exp/v4/entries/{}/{}/{}", queue, tier, division));
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/league-exp/v4/entries/{}/{}/{}", queue, tier, division));
         let mut request = request; if let Some(page) = page { request = request.query(&[ ("page", page) ]); }
-        self.base.execute_val::<Vec<league_exp_v4::LeagueEntry>>("league-exp-v4.getLeagueEntries", region.into(), request)
+        self.base.execute_val::<Vec<league_exp_v4::LeagueEntry>>("league-exp-v4.getLeagueEntries", route_str, request)
     }
 
 }
@@ -558,37 +572,39 @@ pub struct LeagueV4<'a> {
 impl<'a> LeagueV4<'a> {
     /// Get the challenger league for given queue.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `queue`
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getChallengerLeague" target="_blank">`league-v4.getChallengerLeague`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_challenger_league(&self, region: Region, queue: crate::consts::QueueType)
+    pub fn get_challenger_league(&self, route: PlatformRoute, queue: crate::consts::QueueType)
         -> impl Future<Output = Result<league_v4::LeagueList>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lol/league/v4/challengerleagues/by-queue/{}", queue));
-        self.base.execute_val::<league_v4::LeagueList>("league-v4.getChallengerLeague", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/challengerleagues/by-queue/{}", queue));
+        self.base.execute_val::<league_v4::LeagueList>("league-v4.getChallengerLeague", route_str, request)
     }
 
     /// Get league entries in all queues for a given summoner ID.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `encryptedSummonerId`
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntriesForSummoner" target="_blank">`league-v4.getLeagueEntriesForSummoner`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_league_entries_for_summoner(&self, region: Region, encrypted_summoner_id: &str)
+    pub fn get_league_entries_for_summoner(&self, route: PlatformRoute, encrypted_summoner_id: &str)
         -> impl Future<Output = Result<Vec<league_v4::LeagueEntry>>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lol/league/v4/entries/by-summoner/{}", encrypted_summoner_id));
-        self.base.execute_val::<Vec<league_v4::LeagueEntry>>("league-v4.getLeagueEntriesForSummoner", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/entries/by-summoner/{}", encrypted_summoner_id));
+        self.base.execute_val::<Vec<league_v4::LeagueEntry>>("league-v4.getLeagueEntriesForSummoner", route_str, request)
     }
 
     /// Get all the league entries.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `division`
     /// * `tier`
     /// * `queue` - Note that the queue value must be a valid ranked queue.
@@ -597,57 +613,61 @@ impl<'a> LeagueV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntries" target="_blank">`league-v4.getLeagueEntries`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_league_entries(&self, region: Region, queue: crate::consts::QueueType, tier: crate::consts::Tier, division: crate::consts::Division, page: Option<i32>)
+    pub fn get_league_entries(&self, route: PlatformRoute, queue: crate::consts::QueueType, tier: crate::consts::Tier, division: crate::consts::Division, page: Option<i32>)
         -> impl Future<Output = Result<Vec<league_v4::LeagueEntry>>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lol/league/v4/entries/{}/{}/{}", queue, tier, division));
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/entries/{}/{}/{}", queue, tier, division));
         let mut request = request; if let Some(page) = page { request = request.query(&[ ("page", page) ]); }
-        self.base.execute_val::<Vec<league_v4::LeagueEntry>>("league-v4.getLeagueEntries", region.into(), request)
+        self.base.execute_val::<Vec<league_v4::LeagueEntry>>("league-v4.getLeagueEntries", route_str, request)
     }
 
     /// Get the grandmaster league of a specific queue.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `queue`
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getGrandmasterLeague" target="_blank">`league-v4.getGrandmasterLeague`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_grandmaster_league(&self, region: Region, queue: crate::consts::QueueType)
+    pub fn get_grandmaster_league(&self, route: PlatformRoute, queue: crate::consts::QueueType)
         -> impl Future<Output = Result<league_v4::LeagueList>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lol/league/v4/grandmasterleagues/by-queue/{}", queue));
-        self.base.execute_val::<league_v4::LeagueList>("league-v4.getGrandmasterLeague", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/grandmasterleagues/by-queue/{}", queue));
+        self.base.execute_val::<league_v4::LeagueList>("league-v4.getGrandmasterLeague", route_str, request)
     }
 
     /// Get league with given ID, including inactive entries.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `leagueId` - The UUID of the league.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueById" target="_blank">`league-v4.getLeagueById`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_league_by_id(&self, region: Region, league_id: &str)
+    pub fn get_league_by_id(&self, route: PlatformRoute, league_id: &str)
         -> impl Future<Output = Result<Option<league_v4::LeagueList>>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lol/league/v4/leagues/{}", league_id));
-        self.base.execute_opt::<league_v4::LeagueList>("league-v4.getLeagueById", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/leagues/{}", league_id));
+        self.base.execute_opt::<league_v4::LeagueList>("league-v4.getLeagueById", route_str, request)
     }
 
     /// Get the master league for given queue.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `queue`
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getMasterLeague" target="_blank">`league-v4.getMasterLeague`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_master_league(&self, region: Region, queue: crate::consts::QueueType)
+    pub fn get_master_league(&self, route: PlatformRoute, queue: crate::consts::QueueType)
         -> impl Future<Output = Result<league_v4::LeagueList>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lol/league/v4/masterleagues/by-queue/{}", queue));
-        self.base.execute_val::<league_v4::LeagueList>("league-v4.getMasterLeague", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/masterleagues/by-queue/{}", queue));
+        self.base.execute_val::<league_v4::LeagueList>("league-v4.getMasterLeague", route_str, request)
     }
 
 }
@@ -666,16 +686,17 @@ impl<'a> LolStatusV3<'a> {
     /// ## Rate Limit Notes
     /// Requests to this API are not counted against the application Rate Limits.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#lol-status-v3/GET_getShardData" target="_blank">`lol-status-v3.getShardData`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_shard_data(&self, region: Region)
+    pub fn get_shard_data(&self, route: PlatformRoute)
         -> impl Future<Output = Result<lol_status_v3::ShardStatus>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), "/lol/status/v3/shard-data");
-        self.base.execute_val::<lol_status_v3::ShardStatus>("lol-status-v3.getShardData", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/lol/status/v3/shard-data");
+        self.base.execute_val::<lol_status_v3::ShardStatus>("lol-status-v3.getShardData", route_str, request)
     }
 
 }
@@ -692,16 +713,17 @@ pub struct LolStatusV4<'a> {
 impl<'a> LolStatusV4<'a> {
     /// Get League of Legends status for the given platform.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#lol-status-v4/GET_getPlatformData" target="_blank">`lol-status-v4.getPlatformData`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_platform_data(&self, region: Region)
+    pub fn get_platform_data(&self, route: PlatformRoute)
         -> impl Future<Output = Result<lol_status_v4::PlatformData>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), "/lol/status/v4/platform-data");
-        self.base.execute_val::<lol_status_v4::PlatformData>("lol-status-v4.getPlatformData", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/lol/status/v4/platform-data");
+        self.base.execute_val::<lol_status_v4::PlatformData>("lol-status-v4.getPlatformData", route_str, request)
     }
 
 }
@@ -718,35 +740,37 @@ pub struct LorDeckV1<'a> {
 impl<'a> LorDeckV1<'a> {
     /// Get a list of the calling user's decks.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `Authorization`
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#lor-deck-v1/GET_getDecks" target="_blank">`lor-deck-v1.getDecks`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_decks(&self, region: Region, authorization: &str)
+    pub fn get_decks(&self, route: RegionalRoute, authorization: &str)
         -> impl Future<Output = Result<Vec<lor_deck_v1::Deck>>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), "/lor/deck/v1/decks/me");
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/lor/deck/v1/decks/me");
         let request = request.header("Authorization", authorization);
-        self.base.execute_val::<Vec<lor_deck_v1::Deck>>("lor-deck-v1.getDecks", region.into(), request)
+        self.base.execute_val::<Vec<lor_deck_v1::Deck>>("lor-deck-v1.getDecks", route_str, request)
     }
 
     /// Create a new deck for the calling user.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `Authorization`
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#lor-deck-v1/POST_createDeck" target="_blank">`lor-deck-v1.createDeck`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn create_deck(&self, region: Region, body: &lor_deck_v1::NewDeck, authorization: &str)
+    pub fn create_deck(&self, route: RegionalRoute, body: &lor_deck_v1::NewDeck, authorization: &str)
         -> impl Future<Output = Result<String>> + 'a
     {
-        let request = self.base.request(Method::POST, region.into(), "/lor/deck/v1/decks/me");
+        let route_str = route.into();
+        let request = self.base.request(Method::POST, route_str, "/lor/deck/v1/decks/me");
         let request = request.header("Authorization", authorization);
         let request = request.body(serde_json::ser::to_vec(body).unwrap());
-        self.base.execute_val::<String>("lor-deck-v1.createDeck", region.into(), request)
+        self.base.execute_val::<String>("lor-deck-v1.createDeck", route_str, request)
     }
 
 }
@@ -763,18 +787,19 @@ pub struct LorInventoryV1<'a> {
 impl<'a> LorInventoryV1<'a> {
     /// Return a list of cards owned by the calling user.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `Authorization`
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#lor-inventory-v1/GET_getCards" target="_blank">`lor-inventory-v1.getCards`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_cards(&self, region: Region, authorization: &str)
+    pub fn get_cards(&self, route: RegionalRoute, authorization: &str)
         -> impl Future<Output = Result<Vec<lor_inventory_v1::Card>>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), "/lor/inventory/v1/cards/me");
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/lor/inventory/v1/cards/me");
         let request = request.header("Authorization", authorization);
-        self.base.execute_val::<Vec<lor_inventory_v1::Card>>("lor-inventory-v1.getCards", region.into(), request)
+        self.base.execute_val::<Vec<lor_inventory_v1::Card>>("lor-inventory-v1.getCards", route_str, request)
     }
 
 }
@@ -791,32 +816,34 @@ pub struct LorMatchV1<'a> {
 impl<'a> LorMatchV1<'a> {
     /// Get a list of match ids by PUUID
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `puuid`
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#lor-match-v1/GET_getMatchIdsByPUUID" target="_blank">`lor-match-v1.getMatchIdsByPUUID`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_match_ids_by_puuid(&self, region: Region, puuid: &str)
+    pub fn get_match_ids_by_puuid(&self, route: RegionalRoute, puuid: &str)
         -> impl Future<Output = Result<Vec<String>>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lor/match/v1/matches/by-puuid/{}/ids", puuid));
-        self.base.execute_val::<Vec<String>>("lor-match-v1.getMatchIdsByPUUID", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lor/match/v1/matches/by-puuid/{}/ids", puuid));
+        self.base.execute_val::<Vec<String>>("lor-match-v1.getMatchIdsByPUUID", route_str, request)
     }
 
     /// Get match by id
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `matchId`
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#lor-match-v1/GET_getMatch" target="_blank">`lor-match-v1.getMatch`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_match(&self, region: Region, match_id: &str)
+    pub fn get_match(&self, route: RegionalRoute, match_id: &str)
         -> impl Future<Output = Result<lor_match_v1::Match>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lor/match/v1/matches/{}", match_id));
-        self.base.execute_val::<lor_match_v1::Match>("lor-match-v1.getMatch", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lor/match/v1/matches/{}", match_id));
+        self.base.execute_val::<lor_match_v1::Match>("lor-match-v1.getMatch", route_str, request)
     }
 
 }
@@ -833,16 +860,17 @@ pub struct LorRankedV1<'a> {
 impl<'a> LorRankedV1<'a> {
     /// Get the players in Master tier.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#lor-ranked-v1/GET_getLeaderboards" target="_blank">`lor-ranked-v1.getLeaderboards`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_leaderboards(&self, region: Region)
+    pub fn get_leaderboards(&self, route: RegionalRoute)
         -> impl Future<Output = Result<lor_ranked_v1::Leaderboard>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), "/lor/ranked/v1/leaderboards");
-        self.base.execute_val::<lor_ranked_v1::Leaderboard>("lor-ranked-v1.getLeaderboards", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/lor/ranked/v1/leaderboards");
+        self.base.execute_val::<lor_ranked_v1::Leaderboard>("lor-ranked-v1.getLeaderboards", route_str, request)
     }
 
 }
@@ -859,16 +887,17 @@ pub struct LorStatusV1<'a> {
 impl<'a> LorStatusV1<'a> {
     /// Get Legends of Runeterra status for the given platform.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#lor-status-v1/GET_getPlatformData" target="_blank">`lor-status-v1.getPlatformData`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_platform_data(&self, region: Region)
+    pub fn get_platform_data(&self, route: RegionalRoute)
         -> impl Future<Output = Result<lor_status_v1::PlatformData>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), "/lor/status/v1/platform-data");
-        self.base.execute_val::<lor_status_v1::PlatformData>("lor-status-v1.getPlatformData", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/lor/status/v1/platform-data");
+        self.base.execute_val::<lor_status_v1::PlatformData>("lor-status-v1.getPlatformData", route_str, request)
     }
 
 }
@@ -885,48 +914,51 @@ pub struct MatchV4<'a> {
 impl<'a> MatchV4<'a> {
     /// Get match IDs by tournament code.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `tournamentCode` - The tournament code.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchIdsByTournamentCode" target="_blank">`match-v4.getMatchIdsByTournamentCode`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_match_ids_by_tournament_code(&self, region: Region, tournament_code: &str)
+    pub fn get_match_ids_by_tournament_code(&self, route: PlatformRoute, tournament_code: &str)
         -> impl Future<Output = Result<Vec<i64>>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lol/match/v4/matches/by-tournament-code/{}/ids", tournament_code));
-        self.base.execute_val::<Vec<i64>>("match-v4.getMatchIdsByTournamentCode", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/match/v4/matches/by-tournament-code/{}/ids", tournament_code));
+        self.base.execute_val::<Vec<i64>>("match-v4.getMatchIdsByTournamentCode", route_str, request)
     }
 
     /// Get match by match ID.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `matchId` - The match ID.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatch" target="_blank">`match-v4.getMatch`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_match(&self, region: Region, match_id: i64)
+    pub fn get_match(&self, route: PlatformRoute, match_id: i64)
         -> impl Future<Output = Result<Option<match_v4::Match>>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lol/match/v4/matches/{}", match_id));
-        self.base.execute_opt::<match_v4::Match>("match-v4.getMatch", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/match/v4/matches/{}", match_id));
+        self.base.execute_opt::<match_v4::Match>("match-v4.getMatch", route_str, request)
     }
 
     /// Get match by match ID and tournament code.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `tournamentCode` - The tournament code.
     /// * `matchId` - The match ID.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchByTournamentCode" target="_blank">`match-v4.getMatchByTournamentCode`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_match_by_tournament_code(&self, region: Region, match_id: i64, tournament_code: &str)
+    pub fn get_match_by_tournament_code(&self, route: PlatformRoute, match_id: i64, tournament_code: &str)
         -> impl Future<Output = Result<match_v4::Match>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lol/match/v4/matches/{}/by-tournament-code/{}", match_id, tournament_code));
-        self.base.execute_val::<match_v4::Match>("match-v4.getMatchByTournamentCode", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/match/v4/matches/{}/by-tournament-code/{}", match_id, tournament_code));
+        self.base.execute_val::<match_v4::Match>("match-v4.getMatchByTournamentCode", route_str, request)
     }
 
     /// Get matchlist for games played on given account ID and platform ID and filtered using given filter parameters, if any.
@@ -937,7 +969,7 @@ impl<'a> MatchV4<'a> {
     ///
     /// If beginTime is specified, but not endTime, then endTime defaults to the the current unix timestamp in milliseconds (the maximum time range limitation is not observed in this specific case). If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history returning a 400 due to the maximum time range limitation. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `encryptedAccountId` - The account ID.
     /// * `champion` (optional) - Set of champion IDs for filtering the matchlist.
     /// * `queue` (optional) - Set of queue IDs for filtering the matchlist.
@@ -950,10 +982,11 @@ impl<'a> MatchV4<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchlist" target="_blank">`match-v4.getMatchlist`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_matchlist(&self, region: Region, encrypted_account_id: &str, begin_time: Option<i64>, begin_index: Option<i32>, champion: Option<&[crate::consts::Champion]>, end_time: Option<i64>, end_index: Option<i32>, queue: Option<&[crate::consts::Queue]>, season: Option<&[crate::consts::Season]>)
+    pub fn get_matchlist(&self, route: PlatformRoute, encrypted_account_id: &str, begin_time: Option<i64>, begin_index: Option<i32>, champion: Option<&[crate::consts::Champion]>, end_time: Option<i64>, end_index: Option<i32>, queue: Option<&[crate::consts::Queue]>, season: Option<&[crate::consts::Season]>)
         -> impl Future<Output = Result<Option<match_v4::Matchlist>>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lol/match/v4/matchlists/by-account/{}", encrypted_account_id));
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/match/v4/matchlists/by-account/{}", encrypted_account_id));
         let mut request = request; if let Some(begin_time) = begin_time { request = request.query(&[ ("beginTime", begin_time) ]); }
         let mut request = request; if let Some(begin_index) = begin_index { request = request.query(&[ ("beginIndex", begin_index) ]); }
         let mut request = request; if let Some(champion) = champion { request = request.query(&*champion.iter().map(|w| ( "champion", w )).collect::<Vec<_>>()); }
@@ -961,24 +994,25 @@ impl<'a> MatchV4<'a> {
         let mut request = request; if let Some(end_index) = end_index { request = request.query(&[ ("endIndex", end_index) ]); }
         let mut request = request; if let Some(queue) = queue { request = request.query(&*queue.iter().map(|w| ( "queue", w )).collect::<Vec<_>>()); }
         let mut request = request; if let Some(season) = season { request = request.query(&*season.iter().map(|w| ( "season", w )).collect::<Vec<_>>()); }
-        self.base.execute_opt::<match_v4::Matchlist>("match-v4.getMatchlist", region.into(), request)
+        self.base.execute_opt::<match_v4::Matchlist>("match-v4.getMatchlist", route_str, request)
     }
 
     /// Get match timeline by match ID.
     /// ## Implementation Notes
     /// Not all matches have timeline data.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `matchId` - The match ID.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchTimeline" target="_blank">`match-v4.getMatchTimeline`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_match_timeline(&self, region: Region, match_id: i64)
+    pub fn get_match_timeline(&self, route: PlatformRoute, match_id: i64)
         -> impl Future<Output = Result<Option<match_v4::MatchTimeline>>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lol/match/v4/timelines/by-match/{}", match_id));
-        self.base.execute_opt::<match_v4::MatchTimeline>("match-v4.getMatchTimeline", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/match/v4/timelines/by-match/{}", match_id));
+        self.base.execute_opt::<match_v4::MatchTimeline>("match-v4.getMatchTimeline", route_str, request)
     }
 
 }
@@ -995,7 +1029,7 @@ pub struct MatchV5<'a> {
 impl<'a> MatchV5<'a> {
     /// Get a list of match ids by puuid
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `puuid`
     /// * `start` (optional) - Defaults to 0. Start index.
     /// * `count` (optional) - Defaults to 20. Valid values: 0 to 100. Match id count.
@@ -1003,43 +1037,46 @@ impl<'a> MatchV5<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#match-v5/GET_getMatchIdsByPUUID" target="_blank">`match-v5.getMatchIdsByPUUID`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_match_ids_by_puuid(&self, region: Region, puuid: &str, count: Option<i32>, start: Option<i32>)
+    pub fn get_match_ids_by_puuid(&self, route: RegionalRoute, puuid: &str, count: Option<i32>, start: Option<i32>)
         -> impl Future<Output = Result<Vec<String>>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lol/match/v5/matches/by-puuid/{}/ids", puuid));
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/match/v5/matches/by-puuid/{}/ids", puuid));
         let mut request = request; if let Some(count) = count { request = request.query(&[ ("count", count) ]); }
         let mut request = request; if let Some(start) = start { request = request.query(&[ ("start", start) ]); }
-        self.base.execute_val::<Vec<String>>("match-v5.getMatchIdsByPUUID", region.into(), request)
+        self.base.execute_val::<Vec<String>>("match-v5.getMatchIdsByPUUID", route_str, request)
     }
 
     /// Get a match by match id
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `matchId`
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#match-v5/GET_getMatch" target="_blank">`match-v5.getMatch`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_match(&self, region: Region, match_id: &str)
+    pub fn get_match(&self, route: RegionalRoute, match_id: &str)
         -> impl Future<Output = Result<match_v5::Match>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lol/match/v5/matches/{}", match_id));
-        self.base.execute_val::<match_v5::Match>("match-v5.getMatch", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/match/v5/matches/{}", match_id));
+        self.base.execute_val::<match_v5::Match>("match-v5.getMatch", route_str, request)
     }
 
     /// Get a match timeline by match id
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `matchId`
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#match-v5/GET_getTimeline" target="_blank">`match-v5.getTimeline`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_timeline(&self, region: Region, match_id: &str)
+    pub fn get_timeline(&self, route: RegionalRoute, match_id: &str)
         -> impl Future<Output = Result<match_v5::MatchTimeline>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lol/match/v5/matches/{}/timeline", match_id));
-        self.base.execute_val::<match_v5::MatchTimeline>("match-v5.getTimeline", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/match/v5/matches/{}/timeline", match_id));
+        self.base.execute_val::<match_v5::MatchTimeline>("match-v5.getTimeline", route_str, request)
     }
 
 }
@@ -1056,31 +1093,33 @@ pub struct SpectatorV4<'a> {
 impl<'a> SpectatorV4<'a> {
     /// Get current game information for the given summoner ID.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `encryptedSummonerId` - The ID of the summoner.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#spectator-v4/GET_getCurrentGameInfoBySummoner" target="_blank">`spectator-v4.getCurrentGameInfoBySummoner`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_current_game_info_by_summoner(&self, region: Region, encrypted_summoner_id: &str)
+    pub fn get_current_game_info_by_summoner(&self, route: PlatformRoute, encrypted_summoner_id: &str)
         -> impl Future<Output = Result<Option<spectator_v4::CurrentGameInfo>>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lol/spectator/v4/active-games/by-summoner/{}", encrypted_summoner_id));
-        self.base.execute_opt::<spectator_v4::CurrentGameInfo>("spectator-v4.getCurrentGameInfoBySummoner", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/spectator/v4/active-games/by-summoner/{}", encrypted_summoner_id));
+        self.base.execute_opt::<spectator_v4::CurrentGameInfo>("spectator-v4.getCurrentGameInfoBySummoner", route_str, request)
     }
 
     /// Get list of featured games.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#spectator-v4/GET_getFeaturedGames" target="_blank">`spectator-v4.getFeaturedGames`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_featured_games(&self, region: Region)
+    pub fn get_featured_games(&self, route: PlatformRoute)
         -> impl Future<Output = Result<spectator_v4::FeaturedGames>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), "/lol/spectator/v4/featured-games");
-        self.base.execute_val::<spectator_v4::FeaturedGames>("spectator-v4.getFeaturedGames", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/lol/spectator/v4/featured-games");
+        self.base.execute_val::<spectator_v4::FeaturedGames>("spectator-v4.getFeaturedGames", route_str, request)
     }
 
 }
@@ -1097,78 +1136,83 @@ pub struct SummonerV4<'a> {
 impl<'a> SummonerV4<'a> {
     /// Get a summoner by account ID.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `encryptedAccountId`
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByAccountId" target="_blank">`summoner-v4.getByAccountId`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_by_account_id(&self, region: Region, encrypted_account_id: &str)
+    pub fn get_by_account_id(&self, route: PlatformRoute, encrypted_account_id: &str)
         -> impl Future<Output = Result<summoner_v4::Summoner>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lol/summoner/v4/summoners/by-account/{}", encrypted_account_id));
-        self.base.execute_val::<summoner_v4::Summoner>("summoner-v4.getByAccountId", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/summoner/v4/summoners/by-account/{}", encrypted_account_id));
+        self.base.execute_val::<summoner_v4::Summoner>("summoner-v4.getByAccountId", route_str, request)
     }
 
     /// Get a summoner by summoner name.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `summonerName` - Summoner Name
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getBySummonerName" target="_blank">`summoner-v4.getBySummonerName`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_by_summoner_name(&self, region: Region, summoner_name: &str)
+    pub fn get_by_summoner_name(&self, route: PlatformRoute, summoner_name: &str)
         -> impl Future<Output = Result<Option<summoner_v4::Summoner>>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lol/summoner/v4/summoners/by-name/{}", summoner_name));
-        self.base.execute_opt::<summoner_v4::Summoner>("summoner-v4.getBySummonerName", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/summoner/v4/summoners/by-name/{}", summoner_name));
+        self.base.execute_opt::<summoner_v4::Summoner>("summoner-v4.getBySummonerName", route_str, request)
     }
 
     /// Get a summoner by PUUID.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `encryptedPUUID` - Summoner ID
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByPUUID" target="_blank">`summoner-v4.getByPUUID`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_by_puuid(&self, region: Region, encrypted_puuid: &str)
+    pub fn get_by_puuid(&self, route: PlatformRoute, encrypted_puuid: &str)
         -> impl Future<Output = Result<summoner_v4::Summoner>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lol/summoner/v4/summoners/by-puuid/{}", encrypted_puuid));
-        self.base.execute_val::<summoner_v4::Summoner>("summoner-v4.getByPUUID", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/summoner/v4/summoners/by-puuid/{}", encrypted_puuid));
+        self.base.execute_val::<summoner_v4::Summoner>("summoner-v4.getByPUUID", route_str, request)
     }
 
     /// Get a summoner by access token.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `Authorization` (optional) - Bearer token
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByAccessToken" target="_blank">`summoner-v4.getByAccessToken`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_by_access_token(&self, region: Region, authorization: Option<&str>)
+    pub fn get_by_access_token(&self, route: PlatformRoute, authorization: Option<&str>)
         -> impl Future<Output = Result<summoner_v4::Summoner>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), "/lol/summoner/v4/summoners/me");
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/lol/summoner/v4/summoners/me");
         let mut request = request; if let Some(authorization) = authorization { request = request.header("Authorization", authorization); }
-        self.base.execute_val::<summoner_v4::Summoner>("summoner-v4.getByAccessToken", region.into(), request)
+        self.base.execute_val::<summoner_v4::Summoner>("summoner-v4.getByAccessToken", route_str, request)
     }
 
     /// Get a summoner by summoner ID.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `encryptedSummonerId` - Summoner ID
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getBySummonerId" target="_blank">`summoner-v4.getBySummonerId`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_by_summoner_id(&self, region: Region, encrypted_summoner_id: &str)
+    pub fn get_by_summoner_id(&self, route: PlatformRoute, encrypted_summoner_id: &str)
         -> impl Future<Output = Result<summoner_v4::Summoner>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lol/summoner/v4/summoners/{}", encrypted_summoner_id));
-        self.base.execute_val::<summoner_v4::Summoner>("summoner-v4.getBySummonerId", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/summoner/v4/summoners/{}", encrypted_summoner_id));
+        self.base.execute_val::<summoner_v4::Summoner>("summoner-v4.getBySummonerId", route_str, request)
     }
 
 }
@@ -1185,36 +1229,38 @@ pub struct TftLeagueV1<'a> {
 impl<'a> TftLeagueV1<'a> {
     /// Get the challenger league.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getChallengerLeague" target="_blank">`tft-league-v1.getChallengerLeague`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_challenger_league(&self, region: Region)
+    pub fn get_challenger_league(&self, route: PlatformRoute)
         -> impl Future<Output = Result<tft_league_v1::LeagueList>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), "/tft/league/v1/challenger");
-        self.base.execute_val::<tft_league_v1::LeagueList>("tft-league-v1.getChallengerLeague", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/tft/league/v1/challenger");
+        self.base.execute_val::<tft_league_v1::LeagueList>("tft-league-v1.getChallengerLeague", route_str, request)
     }
 
     /// Get league entries for a given summoner ID.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `summonerId`
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getLeagueEntriesForSummoner" target="_blank">`tft-league-v1.getLeagueEntriesForSummoner`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_league_entries_for_summoner(&self, region: Region, summoner_id: &str)
+    pub fn get_league_entries_for_summoner(&self, route: PlatformRoute, summoner_id: &str)
         -> impl Future<Output = Result<Vec<tft_league_v1::LeagueEntry>>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/tft/league/v1/entries/by-summoner/{}", summoner_id));
-        self.base.execute_val::<Vec<tft_league_v1::LeagueEntry>>("tft-league-v1.getLeagueEntriesForSummoner", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/tft/league/v1/entries/by-summoner/{}", summoner_id));
+        self.base.execute_val::<Vec<tft_league_v1::LeagueEntry>>("tft-league-v1.getLeagueEntriesForSummoner", route_str, request)
     }
 
     /// Get all the league entries.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `tier`
     /// * `division`
     /// * `page` (optional) - Defaults to 1. Starts with page 1.
@@ -1222,70 +1268,75 @@ impl<'a> TftLeagueV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getLeagueEntries" target="_blank">`tft-league-v1.getLeagueEntries`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_league_entries(&self, region: Region, tier: &str, division: &str, page: Option<i32>)
+    pub fn get_league_entries(&self, route: PlatformRoute, tier: &str, division: &str, page: Option<i32>)
         -> impl Future<Output = Result<Vec<tft_league_v1::LeagueEntry>>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/tft/league/v1/entries/{}/{}", tier, division));
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/tft/league/v1/entries/{}/{}", tier, division));
         let mut request = request; if let Some(page) = page { request = request.query(&[ ("page", page) ]); }
-        self.base.execute_val::<Vec<tft_league_v1::LeagueEntry>>("tft-league-v1.getLeagueEntries", region.into(), request)
+        self.base.execute_val::<Vec<tft_league_v1::LeagueEntry>>("tft-league-v1.getLeagueEntries", route_str, request)
     }
 
     /// Get the grandmaster league.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getGrandmasterLeague" target="_blank">`tft-league-v1.getGrandmasterLeague`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_grandmaster_league(&self, region: Region)
+    pub fn get_grandmaster_league(&self, route: PlatformRoute)
         -> impl Future<Output = Result<tft_league_v1::LeagueList>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), "/tft/league/v1/grandmaster");
-        self.base.execute_val::<tft_league_v1::LeagueList>("tft-league-v1.getGrandmasterLeague", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/tft/league/v1/grandmaster");
+        self.base.execute_val::<tft_league_v1::LeagueList>("tft-league-v1.getGrandmasterLeague", route_str, request)
     }
 
     /// Get league with given ID, including inactive entries.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `leagueId` - The UUID of the league.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getLeagueById" target="_blank">`tft-league-v1.getLeagueById`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_league_by_id(&self, region: Region, league_id: &str)
+    pub fn get_league_by_id(&self, route: PlatformRoute, league_id: &str)
         -> impl Future<Output = Result<Option<tft_league_v1::LeagueList>>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/tft/league/v1/leagues/{}", league_id));
-        self.base.execute_opt::<tft_league_v1::LeagueList>("tft-league-v1.getLeagueById", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/tft/league/v1/leagues/{}", league_id));
+        self.base.execute_opt::<tft_league_v1::LeagueList>("tft-league-v1.getLeagueById", route_str, request)
     }
 
     /// Get the master league.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getMasterLeague" target="_blank">`tft-league-v1.getMasterLeague`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_master_league(&self, region: Region)
+    pub fn get_master_league(&self, route: PlatformRoute)
         -> impl Future<Output = Result<tft_league_v1::LeagueList>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), "/tft/league/v1/master");
-        self.base.execute_val::<tft_league_v1::LeagueList>("tft-league-v1.getMasterLeague", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/tft/league/v1/master");
+        self.base.execute_val::<tft_league_v1::LeagueList>("tft-league-v1.getMasterLeague", route_str, request)
     }
 
     /// Get the top rated ladder for given queue
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `queue`
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getTopRatedLadder" target="_blank">`tft-league-v1.getTopRatedLadder`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_top_rated_ladder(&self, region: Region, queue: crate::consts::QueueType)
+    pub fn get_top_rated_ladder(&self, route: PlatformRoute, queue: crate::consts::QueueType)
         -> impl Future<Output = Result<Vec<tft_league_v1::TopRatedLadderEntry>>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/tft/league/v1/rated-ladders/{}/top", queue));
-        self.base.execute_val::<Vec<tft_league_v1::TopRatedLadderEntry>>("tft-league-v1.getTopRatedLadder", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/tft/league/v1/rated-ladders/{}/top", queue));
+        self.base.execute_val::<Vec<tft_league_v1::TopRatedLadderEntry>>("tft-league-v1.getTopRatedLadder", route_str, request)
     }
 
 }
@@ -1302,34 +1353,36 @@ pub struct TftMatchV1<'a> {
 impl<'a> TftMatchV1<'a> {
     /// Get a list of match ids by PUUID
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `puuid`
     /// * `count` (optional) - Defaults to 20.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-match-v1/GET_getMatchIdsByPUUID" target="_blank">`tft-match-v1.getMatchIdsByPUUID`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_match_ids_by_puuid(&self, region: Region, puuid: &str, count: Option<i32>)
+    pub fn get_match_ids_by_puuid(&self, route: RegionalRoute, puuid: &str, count: Option<i32>)
         -> impl Future<Output = Result<Vec<String>>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/tft/match/v1/matches/by-puuid/{}/ids", puuid));
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/tft/match/v1/matches/by-puuid/{}/ids", puuid));
         let mut request = request; if let Some(count) = count { request = request.query(&[ ("count", count) ]); }
-        self.base.execute_val::<Vec<String>>("tft-match-v1.getMatchIdsByPUUID", region.into(), request)
+        self.base.execute_val::<Vec<String>>("tft-match-v1.getMatchIdsByPUUID", route_str, request)
     }
 
     /// Get a match by match id
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `matchId`
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-match-v1/GET_getMatch" target="_blank">`tft-match-v1.getMatch`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_match(&self, region: Region, match_id: &str)
+    pub fn get_match(&self, route: RegionalRoute, match_id: &str)
         -> impl Future<Output = Result<Option<tft_match_v1::Match>>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/tft/match/v1/matches/{}", match_id));
-        self.base.execute_opt::<tft_match_v1::Match>("tft-match-v1.getMatch", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/tft/match/v1/matches/{}", match_id));
+        self.base.execute_opt::<tft_match_v1::Match>("tft-match-v1.getMatch", route_str, request)
     }
 
 }
@@ -1346,78 +1399,83 @@ pub struct TftSummonerV1<'a> {
 impl<'a> TftSummonerV1<'a> {
     /// Get a summoner by account ID.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `encryptedAccountId`
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getByAccountId" target="_blank">`tft-summoner-v1.getByAccountId`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_by_account_id(&self, region: Region, encrypted_account_id: &str)
+    pub fn get_by_account_id(&self, route: PlatformRoute, encrypted_account_id: &str)
         -> impl Future<Output = Result<tft_summoner_v1::Summoner>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/tft/summoner/v1/summoners/by-account/{}", encrypted_account_id));
-        self.base.execute_val::<tft_summoner_v1::Summoner>("tft-summoner-v1.getByAccountId", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/tft/summoner/v1/summoners/by-account/{}", encrypted_account_id));
+        self.base.execute_val::<tft_summoner_v1::Summoner>("tft-summoner-v1.getByAccountId", route_str, request)
     }
 
     /// Get a summoner by summoner name.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `summonerName` - Summoner Name
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getBySummonerName" target="_blank">`tft-summoner-v1.getBySummonerName`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_by_summoner_name(&self, region: Region, summoner_name: &str)
+    pub fn get_by_summoner_name(&self, route: PlatformRoute, summoner_name: &str)
         -> impl Future<Output = Result<Option<tft_summoner_v1::Summoner>>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/tft/summoner/v1/summoners/by-name/{}", summoner_name));
-        self.base.execute_opt::<tft_summoner_v1::Summoner>("tft-summoner-v1.getBySummonerName", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/tft/summoner/v1/summoners/by-name/{}", summoner_name));
+        self.base.execute_opt::<tft_summoner_v1::Summoner>("tft-summoner-v1.getBySummonerName", route_str, request)
     }
 
     /// Get a summoner by PUUID.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `encryptedPUUID` - Summoner ID
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getByPUUID" target="_blank">`tft-summoner-v1.getByPUUID`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_by_puuid(&self, region: Region, encrypted_puuid: &str)
+    pub fn get_by_puuid(&self, route: PlatformRoute, encrypted_puuid: &str)
         -> impl Future<Output = Result<tft_summoner_v1::Summoner>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/tft/summoner/v1/summoners/by-puuid/{}", encrypted_puuid));
-        self.base.execute_val::<tft_summoner_v1::Summoner>("tft-summoner-v1.getByPUUID", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/tft/summoner/v1/summoners/by-puuid/{}", encrypted_puuid));
+        self.base.execute_val::<tft_summoner_v1::Summoner>("tft-summoner-v1.getByPUUID", route_str, request)
     }
 
     /// Get a summoner by access token.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `Authorization` (optional) - Bearer token.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getByAccessToken" target="_blank">`tft-summoner-v1.getByAccessToken`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_by_access_token(&self, region: Region, authorization: Option<&str>)
+    pub fn get_by_access_token(&self, route: PlatformRoute, authorization: Option<&str>)
         -> impl Future<Output = Result<tft_summoner_v1::Summoner>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), "/tft/summoner/v1/summoners/me");
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/tft/summoner/v1/summoners/me");
         let mut request = request; if let Some(authorization) = authorization { request = request.header("Authorization", authorization); }
-        self.base.execute_val::<tft_summoner_v1::Summoner>("tft-summoner-v1.getByAccessToken", region.into(), request)
+        self.base.execute_val::<tft_summoner_v1::Summoner>("tft-summoner-v1.getByAccessToken", route_str, request)
     }
 
     /// Get a summoner by summoner ID.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `encryptedSummonerId` - Summoner ID
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getBySummonerId" target="_blank">`tft-summoner-v1.getBySummonerId`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_by_summoner_id(&self, region: Region, encrypted_summoner_id: &str)
+    pub fn get_by_summoner_id(&self, route: PlatformRoute, encrypted_summoner_id: &str)
         -> impl Future<Output = Result<tft_summoner_v1::Summoner>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/tft/summoner/v1/summoners/{}", encrypted_summoner_id));
-        self.base.execute_val::<tft_summoner_v1::Summoner>("tft-summoner-v1.getBySummonerId", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/tft/summoner/v1/summoners/{}", encrypted_summoner_id));
+        self.base.execute_val::<tft_summoner_v1::Summoner>("tft-summoner-v1.getBySummonerId", route_str, request)
     }
 
 }
@@ -1434,17 +1492,18 @@ pub struct ThirdPartyCodeV4<'a> {
 impl<'a> ThirdPartyCodeV4<'a> {
     /// Get third party code for a given summoner ID.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `encryptedSummonerId`
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#third-party-code-v4/GET_getThirdPartyCodeBySummonerId" target="_blank">`third-party-code-v4.getThirdPartyCodeBySummonerId`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_third_party_code_by_summoner_id(&self, region: Region, encrypted_summoner_id: &str)
+    pub fn get_third_party_code_by_summoner_id(&self, route: PlatformRoute, encrypted_summoner_id: &str)
         -> impl Future<Output = Result<String>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lol/platform/v4/third-party-code/by-summoner/{}", encrypted_summoner_id));
-        self.base.execute_val::<String>("third-party-code-v4.getThirdPartyCodeBySummonerId", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/platform/v4/third-party-code/by-summoner/{}", encrypted_summoner_id));
+        self.base.execute_val::<String>("third-party-code-v4.getThirdPartyCodeBySummonerId", route_str, request)
     }
 
 }
@@ -1461,68 +1520,72 @@ pub struct TournamentStubV4<'a> {
 impl<'a> TournamentStubV4<'a> {
     /// Create a mock tournament code for the given tournament.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `count` (optional) - The number of codes to create (max 1000)
     /// * `tournamentId` - The tournament ID
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tournament-stub-v4/POST_createTournamentCode" target="_blank">`tournament-stub-v4.createTournamentCode`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn create_tournament_code(&self, region: Region, body: &tournament_stub_v4::TournamentCodeParameters, tournament_id: i64, count: Option<i32>)
+    pub fn create_tournament_code(&self, route: RegionalRoute, body: &tournament_stub_v4::TournamentCodeParameters, tournament_id: i64, count: Option<i32>)
         -> impl Future<Output = Result<Vec<String>>> + 'a
     {
-        let request = self.base.request(Method::POST, region.into(), "/lol/tournament-stub/v4/codes");
+        let route_str = route.into();
+        let request = self.base.request(Method::POST, route_str, "/lol/tournament-stub/v4/codes");
         let request = request.query(&[ ("tournamentId", tournament_id) ]);
         let mut request = request; if let Some(count) = count { request = request.query(&[ ("count", count) ]); }
         let request = request.body(serde_json::ser::to_vec(body).unwrap());
-        self.base.execute_val::<Vec<String>>("tournament-stub-v4.createTournamentCode", region.into(), request)
+        self.base.execute_val::<Vec<String>>("tournament-stub-v4.createTournamentCode", route_str, request)
     }
 
     /// Gets a mock list of lobby events by tournament code.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `tournamentCode` - The short code to look up lobby events for
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tournament-stub-v4/GET_getLobbyEventsByCode" target="_blank">`tournament-stub-v4.getLobbyEventsByCode`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_lobby_events_by_code(&self, region: Region, tournament_code: &str)
+    pub fn get_lobby_events_by_code(&self, route: RegionalRoute, tournament_code: &str)
         -> impl Future<Output = Result<tournament_stub_v4::LobbyEventWrapper>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lol/tournament-stub/v4/lobby-events/by-code/{}", tournament_code));
-        self.base.execute_val::<tournament_stub_v4::LobbyEventWrapper>("tournament-stub-v4.getLobbyEventsByCode", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/tournament-stub/v4/lobby-events/by-code/{}", tournament_code));
+        self.base.execute_val::<tournament_stub_v4::LobbyEventWrapper>("tournament-stub-v4.getLobbyEventsByCode", route_str, request)
     }
 
     /// Creates a mock tournament provider and returns its ID.
     /// ## Implementation Notes
     /// Providers will need to call this endpoint first to register their callback URL and their API key with the tournament system before any other tournament provider endpoints will work.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tournament-stub-v4/POST_registerProviderData" target="_blank">`tournament-stub-v4.registerProviderData`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn register_provider_data(&self, region: Region, body: &tournament_stub_v4::ProviderRegistrationParameters)
+    pub fn register_provider_data(&self, route: RegionalRoute, body: &tournament_stub_v4::ProviderRegistrationParameters)
         -> impl Future<Output = Result<i32>> + 'a
     {
-        let request = self.base.request(Method::POST, region.into(), "/lol/tournament-stub/v4/providers");
+        let route_str = route.into();
+        let request = self.base.request(Method::POST, route_str, "/lol/tournament-stub/v4/providers");
         let request = request.body(serde_json::ser::to_vec(body).unwrap());
-        self.base.execute_val::<i32>("tournament-stub-v4.registerProviderData", region.into(), request)
+        self.base.execute_val::<i32>("tournament-stub-v4.registerProviderData", route_str, request)
     }
 
     /// Creates a mock tournament and returns its ID.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tournament-stub-v4/POST_registerTournament" target="_blank">`tournament-stub-v4.registerTournament`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn register_tournament(&self, region: Region, body: &tournament_stub_v4::TournamentRegistrationParameters)
+    pub fn register_tournament(&self, route: RegionalRoute, body: &tournament_stub_v4::TournamentRegistrationParameters)
         -> impl Future<Output = Result<i32>> + 'a
     {
-        let request = self.base.request(Method::POST, region.into(), "/lol/tournament-stub/v4/tournaments");
+        let route_str = route.into();
+        let request = self.base.request(Method::POST, route_str, "/lol/tournament-stub/v4/tournaments");
         let request = request.body(serde_json::ser::to_vec(body).unwrap());
-        self.base.execute_val::<i32>("tournament-stub-v4.registerTournament", region.into(), request)
+        self.base.execute_val::<i32>("tournament-stub-v4.registerTournament", route_str, request)
     }
 
 }
@@ -1539,99 +1602,105 @@ pub struct TournamentV4<'a> {
 impl<'a> TournamentV4<'a> {
     /// Create a tournament code for the given tournament.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `count` (optional) - The number of codes to create (max 1000)
     /// * `tournamentId` - The tournament ID
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tournament-v4/POST_createTournamentCode" target="_blank">`tournament-v4.createTournamentCode`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn create_tournament_code(&self, region: Region, body: &tournament_v4::TournamentCodeParameters, tournament_id: i64, count: Option<i32>)
+    pub fn create_tournament_code(&self, route: RegionalRoute, body: &tournament_v4::TournamentCodeParameters, tournament_id: i64, count: Option<i32>)
         -> impl Future<Output = Result<Vec<String>>> + 'a
     {
-        let request = self.base.request(Method::POST, region.into(), "/lol/tournament/v4/codes");
+        let route_str = route.into();
+        let request = self.base.request(Method::POST, route_str, "/lol/tournament/v4/codes");
         let request = request.query(&[ ("tournamentId", tournament_id) ]);
         let mut request = request; if let Some(count) = count { request = request.query(&[ ("count", count) ]); }
         let request = request.body(serde_json::ser::to_vec(body).unwrap());
-        self.base.execute_val::<Vec<String>>("tournament-v4.createTournamentCode", region.into(), request)
+        self.base.execute_val::<Vec<String>>("tournament-v4.createTournamentCode", route_str, request)
     }
 
     /// Returns the tournament code DTO associated with a tournament code string.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `tournamentCode` - The tournament code string.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tournament-v4/GET_getTournamentCode" target="_blank">`tournament-v4.getTournamentCode`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_tournament_code(&self, region: Region, tournament_code: &str)
+    pub fn get_tournament_code(&self, route: RegionalRoute, tournament_code: &str)
         -> impl Future<Output = Result<tournament_v4::TournamentCode>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lol/tournament/v4/codes/{}", tournament_code));
-        self.base.execute_val::<tournament_v4::TournamentCode>("tournament-v4.getTournamentCode", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/tournament/v4/codes/{}", tournament_code));
+        self.base.execute_val::<tournament_v4::TournamentCode>("tournament-v4.getTournamentCode", route_str, request)
     }
 
     /// Update the pick type, map, spectator type, or allowed summoners for a code.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `tournamentCode` - The tournament code to update
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tournament-v4/PUT_updateCode" target="_blank">`tournament-v4.updateCode`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn update_code(&self, region: Region, body: &tournament_v4::TournamentCodeUpdateParameters, tournament_code: &str)
+    pub fn update_code(&self, route: RegionalRoute, body: &tournament_v4::TournamentCodeUpdateParameters, tournament_code: &str)
         -> impl Future<Output = Result<()>> + 'a
     {
-        let request = self.base.request(Method::PUT, region.into(), &format!("/lol/tournament/v4/codes/{}", tournament_code));
+        let route_str = route.into();
+        let request = self.base.request(Method::PUT, route_str, &format!("/lol/tournament/v4/codes/{}", tournament_code));
         let request = request.body(serde_json::ser::to_vec(body).unwrap());
-        self.base.execute("tournament-v4.updateCode", region.into(), request)
+        self.base.execute("tournament-v4.updateCode", route_str, request)
     }
 
     /// Gets a list of lobby events by tournament code.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `tournamentCode` - The short code to look up lobby events for
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tournament-v4/GET_getLobbyEventsByCode" target="_blank">`tournament-v4.getLobbyEventsByCode`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_lobby_events_by_code(&self, region: Region, tournament_code: &str)
+    pub fn get_lobby_events_by_code(&self, route: RegionalRoute, tournament_code: &str)
         -> impl Future<Output = Result<tournament_v4::LobbyEventWrapper>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/lol/tournament/v4/lobby-events/by-code/{}", tournament_code));
-        self.base.execute_val::<tournament_v4::LobbyEventWrapper>("tournament-v4.getLobbyEventsByCode", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/tournament/v4/lobby-events/by-code/{}", tournament_code));
+        self.base.execute_val::<tournament_v4::LobbyEventWrapper>("tournament-v4.getLobbyEventsByCode", route_str, request)
     }
 
     /// Creates a tournament provider and returns its ID.
     /// ## Implementation Notes
     /// Providers will need to call this endpoint first to register their callback URL and their API key with the tournament system before any other tournament provider endpoints will work.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tournament-v4/POST_registerProviderData" target="_blank">`tournament-v4.registerProviderData`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn register_provider_data(&self, region: Region, body: &tournament_v4::ProviderRegistrationParameters)
+    pub fn register_provider_data(&self, route: RegionalRoute, body: &tournament_v4::ProviderRegistrationParameters)
         -> impl Future<Output = Result<i32>> + 'a
     {
-        let request = self.base.request(Method::POST, region.into(), "/lol/tournament/v4/providers");
+        let route_str = route.into();
+        let request = self.base.request(Method::POST, route_str, "/lol/tournament/v4/providers");
         let request = request.body(serde_json::ser::to_vec(body).unwrap());
-        self.base.execute_val::<i32>("tournament-v4.registerProviderData", region.into(), request)
+        self.base.execute_val::<i32>("tournament-v4.registerProviderData", route_str, request)
     }
 
     /// Creates a tournament and returns its ID.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tournament-v4/POST_registerTournament" target="_blank">`tournament-v4.registerTournament`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn register_tournament(&self, region: Region, body: &tournament_v4::TournamentRegistrationParameters)
+    pub fn register_tournament(&self, route: RegionalRoute, body: &tournament_v4::TournamentRegistrationParameters)
         -> impl Future<Output = Result<i32>> + 'a
     {
-        let request = self.base.request(Method::POST, region.into(), "/lol/tournament/v4/tournaments");
+        let route_str = route.into();
+        let request = self.base.request(Method::POST, route_str, "/lol/tournament/v4/tournaments");
         let request = request.body(serde_json::ser::to_vec(body).unwrap());
-        self.base.execute_val::<i32>("tournament-v4.registerTournament", region.into(), request)
+        self.base.execute_val::<i32>("tournament-v4.registerTournament", route_str, request)
     }
 
 }
@@ -1648,18 +1717,19 @@ pub struct ValContentV1<'a> {
 impl<'a> ValContentV1<'a> {
     /// Get content optionally filtered by locale
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `locale` (optional)
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#val-content-v1/GET_getContent" target="_blank">`val-content-v1.getContent`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_content(&self, region: Region, locale: Option<&str>)
+    pub fn get_content(&self, route: ValPlatformRoute, locale: Option<&str>)
         -> impl Future<Output = Result<val_content_v1::Content>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), "/val/content/v1/contents");
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/val/content/v1/contents");
         let mut request = request; if let Some(locale) = locale { request = request.query(&[ ("locale", locale) ]); }
-        self.base.execute_val::<val_content_v1::Content>("val-content-v1.getContent", region.into(), request)
+        self.base.execute_val::<val_content_v1::Content>("val-content-v1.getContent", route_str, request)
     }
 
 }
@@ -1676,49 +1746,52 @@ pub struct ValMatchV1<'a> {
 impl<'a> ValMatchV1<'a> {
     /// Get match by id
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `matchId`
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#val-match-v1/GET_getMatch" target="_blank">`val-match-v1.getMatch`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_match(&self, region: Region, match_id: &str)
+    pub fn get_match(&self, route: ValPlatformRoute, match_id: &str)
         -> impl Future<Output = Result<Option<val_match_v1::Match>>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/val/match/v1/matches/{}", match_id));
-        self.base.execute_opt::<val_match_v1::Match>("val-match-v1.getMatch", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/val/match/v1/matches/{}", match_id));
+        self.base.execute_opt::<val_match_v1::Match>("val-match-v1.getMatch", route_str, request)
     }
 
     /// Get matchlist for games played by puuid
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `puuid`
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#val-match-v1/GET_getMatchlist" target="_blank">`val-match-v1.getMatchlist`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_matchlist(&self, region: Region, puuid: &str)
+    pub fn get_matchlist(&self, route: ValPlatformRoute, puuid: &str)
         -> impl Future<Output = Result<val_match_v1::Matchlist>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/val/match/v1/matchlists/by-puuid/{}", puuid));
-        self.base.execute_val::<val_match_v1::Matchlist>("val-match-v1.getMatchlist", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/val/match/v1/matchlists/by-puuid/{}", puuid));
+        self.base.execute_val::<val_match_v1::Matchlist>("val-match-v1.getMatchlist", route_str, request)
     }
 
     /// Get recent matches
     /// ## Implementation Notes
     /// Returns a list of match ids that have completed in the last 10 minutes for live regions and 12 hours for the esports routing value. NA/LATAM/BR share a match history deployment. As such, recent matches will return a combined list of matches from those three regions. Requests are load balanced so you may see some inconsistencies as matches are added/removed from the list.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `queue`
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#val-match-v1/GET_getRecent" target="_blank">`val-match-v1.getRecent`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_recent(&self, region: Region, queue: &str)
+    pub fn get_recent(&self, route: ValPlatformRoute, queue: &str)
         -> impl Future<Output = Result<val_match_v1::RecentMatches>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/val/match/v1/recent-matches/by-queue/{}", queue));
-        self.base.execute_val::<val_match_v1::RecentMatches>("val-match-v1.getRecent", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/val/match/v1/recent-matches/by-queue/{}", queue));
+        self.base.execute_val::<val_match_v1::RecentMatches>("val-match-v1.getRecent", route_str, request)
     }
 
 }
@@ -1735,7 +1808,7 @@ pub struct ValRankedV1<'a> {
 impl<'a> ValRankedV1<'a> {
     /// Get leaderboard for the competitive queue
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// * `actId` - Act ids can be found using the val-content API.
     /// * `size` (optional) - Defaults to 200. Valid values: 1 to 200.
     /// * `startIndex` (optional) - Defaults to 0.
@@ -1743,13 +1816,14 @@ impl<'a> ValRankedV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#val-ranked-v1/GET_getLeaderboard" target="_blank">`val-ranked-v1.getLeaderboard`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_leaderboard(&self, region: Region, act_id: &str, size: Option<i32>, start_index: Option<i32>)
+    pub fn get_leaderboard(&self, route: ValPlatformRoute, act_id: &str, size: Option<i32>, start_index: Option<i32>)
         -> impl Future<Output = Result<Option<val_ranked_v1::Leaderboard>>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), &format!("/val/ranked/v1/leaderboards/by-act/{}", act_id));
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/val/ranked/v1/leaderboards/by-act/{}", act_id));
         let mut request = request; if let Some(size) = size { request = request.query(&[ ("size", size) ]); }
         let mut request = request; if let Some(start_index) = start_index { request = request.query(&[ ("startIndex", start_index) ]); }
-        self.base.execute_opt::<val_ranked_v1::Leaderboard>("val-ranked-v1.getLeaderboard", region.into(), request)
+        self.base.execute_opt::<val_ranked_v1::Leaderboard>("val-ranked-v1.getLeaderboard", route_str, request)
     }
 
 }
@@ -1766,16 +1840,17 @@ pub struct ValStatusV1<'a> {
 impl<'a> ValStatusV1<'a> {
     /// Get VALORANT status for the given platform.
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#val-status-v1/GET_getPlatformData" target="_blank">`val-status-v1.getPlatformData`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_platform_data(&self, region: Region)
+    pub fn get_platform_data(&self, route: ValPlatformRoute)
         -> impl Future<Output = Result<val_status_v1::PlatformData>> + 'a
     {
-        let request = self.base.request(Method::GET, region.into(), "/val/status/v1/platform-data");
-        self.base.execute_val::<val_status_v1::PlatformData>("val-status-v1.getPlatformData", region.into(), request)
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/val/status/v1/platform-data");
+        self.base.execute_val::<val_status_v1::PlatformData>("val-status-v1.getPlatformData", route_str, request)
     }
 
 }

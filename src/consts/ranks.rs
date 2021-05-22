@@ -27,7 +27,7 @@ impl Iterator for Iter {
                 self.div_iter = Division::iter();
                 self.div_iter.next().unwrap()
             });
-        
+
         // Then find the tier.
         let tier = *self.tier_iter.peek()?;
         // If its an apex tier go to next tier and reset the divisions.

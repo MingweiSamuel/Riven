@@ -16,7 +16,7 @@ use std::vec::Vec;
 use reqwest::Method;
 
 use crate::Result;
-use crate::consts::Region;
+use crate::consts::{ RegionalRoute, PlatformRoute, ValPlatformRoute };
 use crate::riot_api::RiotApi;
 
 {{
@@ -103,7 +103,9 @@ impl<'a> {{= endpoint }}<'a> {
                 let descArr = operation.description.split('\n');
 
                 /* Build argument comment & string. */
-                const argBuilder = [];
+                const argBuilder = [
+                    'route: ', dotUtils.changeCase.pascalCase(operation['x-route-enum']), 'Route'
+                ];
 
                 /* Add body params before path/query. */
                 if (bodyType) {
@@ -155,7 +157,7 @@ impl<'a> {{= endpoint }}<'a> {
                 }
 }}
     /// # Parameters
-    /// * `region` - Region to query.
+    /// * `route` - Route to query.
 {{
                 if (allParams)
                 {
@@ -171,10 +173,11 @@ impl<'a> {{= endpoint }}<'a> {
     /// <a href="{{= operation.externalDocs.url }}" target="_blank">`{{= operationId }}`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn {{= method }}(&self, region: Region{{= argBuilder.join('') }})
+    pub fn {{= method }}(&self, {{= argBuilder.join('') }})
         -> impl Future<Output = Result<{{= returnType }}>> + 'a
     {
-        let request = self.base.request(Method::{{= verb.toUpperCase() }}, region.into(), {{= routeArgument }});
+        let route_str = route.into();
+        let request = self.base.request(Method::{{= verb.toUpperCase() }}, route_str, {{= routeArgument }});
 {{
                 for (let queryParam of queryParams)
                 {
@@ -194,7 +197,7 @@ impl<'a> {{= endpoint }}<'a> {
 {{? bodyType }}
         let request = request.body(serde_json::ser::to_vec(body).unwrap());
 {{?}}
-        self.base.execute{{= hasReturn ? (returnOptional ? '_opt' : '_val') : '' }}{{= returnTypeTurbofish }}("{{= operationId }}", region.into(), request)
+        self.base.execute{{= hasReturn ? (returnOptional ? '_opt' : '_val') : '' }}{{= returnTypeTurbofish }}("{{= operationId }}", route_str, request)
     }
 
 {{

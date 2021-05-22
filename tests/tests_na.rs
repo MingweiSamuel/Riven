@@ -17,19 +17,21 @@ fn validate_summoners(s1: Summoner, s2: Summoner) -> Result<(), String> {
     Ok(())
 }
 
+const ROUTE: PlatformRoute = PlatformRoute::NA1;
+
 async_tests!{
     my_runner {
         // Summoner tests.
         summoner_double: async {
-            let l1p = RIOT_API.summoner_v4().get_by_summoner_name(Region::NA, "lug nuts k");
-            let l2p = RIOT_API.summoner_v4().get_by_summoner_name(Region::NA, "lugnuts k");
+            let l1p = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, "lug nuts k");
+            let l2p = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, "lugnuts k");
             let l1 = l1p.await.map_err(|e| e.to_string())?.ok_or("Failed to get l1".to_owned())?;
             let l2 = l2p.await.map_err(|e| e.to_string())?.ok_or("Failed to get l2".to_owned())?;
             validate_summoners(l1, l2)?;
             Ok(())
         },
         champion_getrotation: async {
-            let p = RIOT_API.champion_v3().get_champion_info(Region::NA);
+            let p = RIOT_API.champion_v3().get_champion_info(ROUTE);
             let d = p.await.map_err(|e| e.to_string())?;
             let new_len = d.free_champion_ids_for_new_players.len();
             let free_len = d.free_champion_ids.len();
@@ -40,7 +42,7 @@ async_tests!{
             Ok(())
         },
         leagueexp_get: async {
-            let p = RIOT_API.league_exp_v4().get_league_entries(Region::NA, QueueType::RANKED_SOLO_5x5, Tier::CHALLENGER, Division::I, None);
+            let p = RIOT_API.league_exp_v4().get_league_entries(ROUTE, QueueType::RANKED_SOLO_5x5, Tier::CHALLENGER, Division::I, None);
             let d = p.await.map_err(|e| e.to_string())?;
             rassert!(!d.is_empty(), "Challenger shouldn't be empty.");
             Ok(())
@@ -48,71 +50,71 @@ async_tests!{
 
         matchlist_get: async {
 
-            let sp = RIOT_API.summoner_v4().get_by_summoner_name(Region::NA, "haha yes");
+            let sp = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, "haha yes");
             let s = sp.await.map_err(|e| e.to_string())?.ok_or("Failed to get \"haha yes\"".to_owned())?;
-            let mp = RIOT_API.match_v4().get_matchlist(Region::NA, &s.account_id, None, Some(2500), None, None, Some(2600), None, None);
+            let mp = RIOT_API.match_v4().get_matchlist(ROUTE, &s.account_id, None, Some(2500), None, None, Some(2600), None, None);
             let m = mp.await.map_err(|e| e.to_string())?.ok_or("Failed to get matchlist".to_owned())?;
             rassert!(m.matches.len() > 0, "Matchlist should not be empty");
             Ok(())
         },
 
         match_get: async {
-            let p = RIOT_API.match_v4().get_match(Region::NA, 3190191338);
+            let p = RIOT_API.match_v4().get_match(ROUTE, 3190191338);
             let m = p.await.map_err(|e| e.to_string())?.ok_or("Match not found.".to_owned())?;
             rassert!(!m.participants.is_empty(), "Match should have participants.");
             Ok(())
         },
         match_get_bots: async {
-            let p = RIOT_API.match_v4().get_match(Region::NA, 3251803350);
+            let p = RIOT_API.match_v4().get_match(ROUTE, 3251803350);
             let m = p.await.map_err(|e| e.to_string())?.ok_or("Match not found.".to_owned())?;
             rassert!(!m.participants.is_empty(), "Match should have participants.");
             Ok(())
         },
         match_get_odyssey: async {
-            let p = RIOT_API.match_v4().get_match(Region::NA, 2881976826);
+            let p = RIOT_API.match_v4().get_match(ROUTE, 2881976826);
             let m = p.await.map_err(|e| e.to_string())?.ok_or("Match not found.".to_owned())?;
             rassert!(!m.participants.is_empty(), "Match should have participants.");
             Ok(())
         },
         match_get_aram: async {
-            let p = RIOT_API.match_v4().get_match(Region::NA, 2961635718);
+            let p = RIOT_API.match_v4().get_match(ROUTE, 2961635718);
             let m = p.await.map_err(|e| e.to_string())?.ok_or("Failed to get match.".to_owned())?;
             rassert!(!m.participants.is_empty(), "Match should have participants.");
             Ok(())
         },
         match_get_aram2: async {
-            let p = RIOT_API.match_v4().get_match(Region::NA, 3596184782);
+            let p = RIOT_API.match_v4().get_match(ROUTE, 3596184782);
             let m = p.await.map_err(|e| e.to_string())?.ok_or("Match not found.".to_owned())?;
             rassert!(!m.participants.is_empty(), "Match should have participants.");
             Ok(())
         },
         match_get_urf900: async {
-            let p = RIOT_API.match_v4().get_match(Region::NA, 2963663381);
+            let p = RIOT_API.match_v4().get_match(ROUTE, 2963663381);
             let m = p.await.map_err(|e| e.to_string())?.ok_or("Failed to get match.".to_owned())?;
             rassert!(!m.participants.is_empty(), "Match should have participants.");
             Ok(())
         },
         match_get_tutorial1: async {
-            let p = RIOT_API.match_v4().get_match(Region::NA, 3432145099);
+            let p = RIOT_API.match_v4().get_match(ROUTE, 3432145099);
             let m = p.await.map_err(|e| e.to_string())?.ok_or("Failed to get match.".to_owned())?;
             rassert!(!m.participants.is_empty(), "Match should have participants.");
             Ok(())
         },
         match_get_tutorial2: async {
-            let p = RIOT_API.match_v4().get_match(Region::NA, 3432116214);
+            let p = RIOT_API.match_v4().get_match(ROUTE, 3432116214);
             let m = p.await.map_err(|e| e.to_string())?.ok_or("Failed to get match.".to_owned())?;
             rassert!(!m.participants.is_empty(), "Match should have participants.");
             Ok(())
         },
         match_get_tutorial3: async {
-            let p = RIOT_API.match_v4().get_match(Region::NA, 3432156790);
+            let p = RIOT_API.match_v4().get_match(ROUTE, 3432156790);
             let m = p.await.map_err(|e| e.to_string())?.ok_or("Failed to get match.".to_owned())?;
             rassert!(!m.participants.is_empty(), "Match should have participants.");
             Ok(())
         },
 
         match_gettimeline: async {
-            let p = RIOT_API.match_v4().get_match_timeline(Region::NA, 3190191338);
+            let p = RIOT_API.match_v4().get_match_timeline(ROUTE, 3190191338);
             let m = p.await.map_err(|e| e.to_string())?.ok_or("Match timeline not found.".to_owned())?;
             rassert!(!m.frames.is_empty(), "Match timeline should have frames.");
             Ok(())
@@ -126,17 +128,17 @@ async_tests!{
         // },
         // CLASH
         clash_get_tournaments: async {
-            let p = RIOT_API.clash_v1().get_tournaments(Region::NA);
+            let p = RIOT_API.clash_v1().get_tournaments(ROUTE);
             let tours = p.await.map_err(|e| e.to_string())?;
             if let Some(tour0) = tours.first() {
-                let p = RIOT_API.clash_v1().get_tournament_by_id(Region::NA, tour0.id);
+                let p = RIOT_API.clash_v1().get_tournament_by_id(ROUTE, tour0.id);
                 let tour1 = p.await.map_err(|e| e.to_string())?;
                 assert_eq!(Some(tour0.id), tour1.map(|t| t.id));
             }
             Ok(())
         },
         clash_get_team_by_id: async {
-            let p = RIOT_API.clash_v1().get_team_by_id(Region::NA, "00000000-0000-0000-0000-000000000000");
+            let p = RIOT_API.clash_v1().get_team_by_id(ROUTE, "00000000-0000-0000-0000-000000000000");
             let team = p.await.map_err(|e| e.to_string())?;
             assert!(team.is_none());
             Ok(())

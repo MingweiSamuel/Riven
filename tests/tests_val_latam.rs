@@ -9,19 +9,19 @@ use colored::*;
 
 use riven::consts::*;
 
-const REGION: Region = Region::VAL_LATAM;
+const ROUTE: ValPlatformRoute = ValPlatformRoute::LATAM;
 
 
 async_tests!{
     my_runner {
         val_content_ranked_test: async {
-            let p = RIOT_API.val_content_v1().get_content(REGION, Some("zh-CN"));
+            let p = RIOT_API.val_content_v1().get_content(ROUTE, Some("zh-CN"));
             let contents = p.await.map_err(|e| e.to_string())?;
 
             let act = contents.acts.iter().find(|act| act.is_active)
                 .ok_or(format!("No active acts of {} found.", contents.acts.len()))?;
 
-            let p = RIOT_API.val_ranked_v1().get_leaderboard(REGION, &act.id, None, None);
+            let p = RIOT_API.val_ranked_v1().get_leaderboard(ROUTE, &act.id, None, None);
             let leaderboard = p.await.map_err(|e| e.to_string())?
                 .ok_or(format!("Failed to get act leaderboard {} {}.", act.id, act.name))?;
 
