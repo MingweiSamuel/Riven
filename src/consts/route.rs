@@ -38,7 +38,7 @@ pub enum PlatformRoute {
     BR1 = 16,
 
     /// North-east Europe.
-    #[strum(to_string="EUN1", serialize="EUN")]
+    #[strum(to_string="EUN1", serialize="EUNE")]
     EUN1 = 17,
 
     /// West Europe.
@@ -98,6 +98,25 @@ impl PlatformRoute {
             Self::EUW1 => RegionalRoute::EUROPE,
             Self::RU   => RegionalRoute::EUROPE,
             Self::TR1  => RegionalRoute::EUROPE,
+        }
+    }
+
+    /// Used in Tournament API.
+    pub fn as_region_str(self) -> &'static str {
+        match self {
+            Self::BR1  => "BR",
+            Self::EUN1 => "EUNE",
+            Self::EUW1 => "EUW",
+            Self::JP1  => "JP",
+            Self::LA1  => "LAN",
+            Self::LA2  => "LAS",
+            Self::NA1  => "NA",
+            Self::OC1  => "OCE",
+            Self::PBE1 => "PBE",
+            Self::RU   => "RU",
+            Self::TR1  => "TR",
+
+            Self::KR   => "KR",
         }
     }
 }

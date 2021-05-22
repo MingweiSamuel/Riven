@@ -77,7 +77,7 @@ impl RiotApi {
     /// * `path` - The URL path, appended to the base URL.
     pub fn request(&self, method: Method, region_platform: &str, path: &str) -> RequestBuilder {
         let base_url_platform = self.config.base_url.replace("{}", region_platform);
-        self.client.request(method, format!("{}/{}", base_url_platform, path))
+        self.client.request(method, format!("{}{}", base_url_platform, path))
     }
 
     /// This method should generally not be used directly. Consider using endpoint wrappers instead.

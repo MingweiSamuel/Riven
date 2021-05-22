@@ -35,10 +35,16 @@ impl RiotApiError {
         self.retries
     }
     /// The failed response.
-    /// `Some(reqwest::Response)` if the request was sent and failed.
+    /// `Some(&reqwest::Response)` if the request was sent and failed.
     /// `None` if the request was not sent, OR if parsing the response JSON failed.
     pub fn response(&self) -> Option<&Response> {
         self.response.as_ref()
+    }
+    /// The failed response.
+    /// `Some(reqwest::Response)` if the request was sent and failed.
+    /// `None` if the request was not sent, OR if parsing the response JSON failed.
+    pub fn take_response(&mut self) -> Option<Response> {
+        self.response.take()
     }
     /// The failed response's HTTP status code.
     /// `Some(reqwest::StatusCode)` if the request was sent and failed, OR if parsing the response JSON failed.

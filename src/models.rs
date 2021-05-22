@@ -29,9 +29,11 @@ pub mod account_v1 {
         pub puuid: String,
         /// This field may be excluded from the response if the account doesn't have a gameName.
         #[serde(rename = "gameName")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub game_name: Option<String>,
         /// This field may be excluded from the response if the account doesn't have a tagLine.
         #[serde(rename = "tagLine")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub tag_line: Option<String>,
     }
     /// ActiveShard data object.
@@ -120,6 +122,7 @@ pub mod clash_v1 {
         #[serde(rename = "summonerId")]
         pub summoner_id: String,
         #[serde(rename = "teamId")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub team_id: Option<String>,
         /// (Legal values:  UNSELECTED,  FILL,  TOP,  JUNGLE,  MIDDLE,  BOTTOM,  UTILITY)
         #[serde(rename = "position")]
@@ -222,6 +225,7 @@ pub mod league_exp_v4 {
         #[serde(rename = "inactive")]
         pub inactive: bool,
         #[serde(rename = "miniSeries")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub mini_series: Option<MiniSeries>,
     }
     /// MiniSeries data object.
@@ -271,6 +275,7 @@ pub mod league_v4 {
         #[serde(rename = "summonerName")]
         pub summoner_name: String,
         #[serde(rename = "miniSeries")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub mini_series: Option<MiniSeries>,
         #[serde(rename = "inactive")]
         pub inactive: bool,
@@ -337,6 +342,7 @@ pub mod league_v4 {
         #[serde(rename = "inactive")]
         pub inactive: bool,
         #[serde(rename = "miniSeries")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub mini_series: Option<MiniSeries>,
     }
 }
@@ -797,6 +803,7 @@ pub mod match_v4 {
         pub summoner_name: String,
         /// Player's summonerId (Encrypted)
         #[serde(rename = "summonerId")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub summoner_id: Option<String>,
         /// Player's original platformId.
         #[serde(rename = "platformId")]
@@ -854,6 +861,7 @@ pub mod match_v4 {
         /// String indicating whether or not the team won. There are only two values visibile in public match history.<br>
         /// (Legal values:  Fail,  Win)
         #[serde(rename = "win")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub win: Option<String>,
     }
     /// TeamBans data object.
@@ -877,6 +885,7 @@ pub mod match_v4 {
         pub champion_id: crate::consts::Champion,
         /// List of legacy Rune information. Not included for matches played with Runes Reforged.
         #[serde(rename = "runes")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub runes: Option<std::vec::Vec<Rune>>,
         /// Participant statistics.
         #[serde(rename = "stats")]
@@ -886,6 +895,7 @@ pub mod match_v4 {
         pub team_id: crate::consts::Team,
         /// Participant timeline data.
         #[serde(rename = "timeline")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub timeline: Option<ParticipantTimeline>,
         /// First Summoner Spell id.
         #[serde(rename = "spell1Id")]
@@ -896,9 +906,11 @@ pub mod match_v4 {
         /// Highest ranked tier achieved for the previous season in a specific subset of queueIds, if any, otherwise null. Used to display border in game loading screen. Please refer to the Ranked Info documentation.<br>
         /// (Legal values:  CHALLENGER,  MASTER,  DIAMOND,  PLATINUM,  GOLD,  SILVER,  BRONZE,  UNRANKED)
         #[serde(rename = "highestAchievedSeasonTier")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub highest_achieved_season_tier: Option<crate::consts::Tier>,
         /// List of legacy Mastery information. Not included for matches played with Runes Reforged.
         #[serde(rename = "masteries")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub masteries: Option<std::vec::Vec<Mastery>>,
     }
     /// Rune data object.
@@ -927,12 +939,15 @@ pub mod match_v4 {
         #[serde(rename = "goldEarned")]
         pub gold_earned: i32,
         #[serde(rename = "firstInhibitorKill")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub first_inhibitor_kill: Option<bool>,
         #[serde(rename = "physicalDamageTaken")]
         pub physical_damage_taken: i64,
         #[serde(rename = "nodeNeutralizeAssist")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub node_neutralize_assist: Option<i32>,
         #[serde(rename = "totalPlayerScore")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub total_player_score: Option<i32>,
         #[serde(rename = "champLevel")]
         pub champ_level: i32,
@@ -949,6 +964,7 @@ pub mod match_v4 {
         #[serde(rename = "magicDamageDealtToChampions")]
         pub magic_damage_dealt_to_champions: i64,
         #[serde(rename = "wardsKilled")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub wards_killed: Option<i32>,
         #[serde(rename = "pentaKills")]
         pub penta_kills: i32,
@@ -957,18 +973,23 @@ pub mod match_v4 {
         #[serde(rename = "largestCriticalStrike")]
         pub largest_critical_strike: i32,
         #[serde(rename = "nodeNeutralize")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub node_neutralize: Option<i32>,
         #[serde(rename = "totalTimeCrowdControlDealt")]
         pub total_time_crowd_control_dealt: i32,
         #[serde(rename = "firstTowerKill")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub first_tower_kill: Option<bool>,
         #[serde(rename = "magicDamageDealt")]
         pub magic_damage_dealt: i64,
         #[serde(rename = "totalScoreRank")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub total_score_rank: Option<i32>,
         #[serde(rename = "nodeCapture")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub node_capture: Option<i32>,
         #[serde(rename = "wardsPlaced")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub wards_placed: Option<i32>,
         #[serde(rename = "totalDamageDealt")]
         pub total_damage_dealt: i64,
@@ -983,44 +1004,56 @@ pub mod match_v4 {
         #[serde(rename = "physicalDamageDealtToChampions")]
         pub physical_damage_dealt_to_champions: i64,
         #[serde(rename = "neutralMinionsKilledTeamJungle")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub neutral_minions_killed_team_jungle: Option<i32>,
         #[serde(rename = "totalMinionsKilled")]
         pub total_minions_killed: i32,
         #[serde(rename = "firstInhibitorAssist")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub first_inhibitor_assist: Option<bool>,
         #[serde(rename = "visionWardsBoughtInGame")]
         pub vision_wards_bought_in_game: i32,
         #[serde(rename = "objectivePlayerScore")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub objective_player_score: Option<i32>,
         #[serde(rename = "kills")]
         pub kills: i32,
         #[serde(rename = "firstTowerAssist")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub first_tower_assist: Option<bool>,
         #[serde(rename = "combatPlayerScore")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub combat_player_score: Option<i32>,
         #[serde(rename = "inhibitorKills")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub inhibitor_kills: Option<i32>,
         #[serde(rename = "turretKills")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub turret_kills: Option<i32>,
         #[serde(rename = "participantId")]
         pub participant_id: i32,
         #[serde(rename = "trueDamageTaken")]
         pub true_damage_taken: i64,
         #[serde(rename = "firstBloodAssist")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub first_blood_assist: Option<bool>,
         #[serde(rename = "nodeCaptureAssist")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub node_capture_assist: Option<i32>,
         #[serde(rename = "assists")]
         pub assists: i32,
         #[serde(rename = "teamObjective")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub team_objective: Option<i32>,
         #[serde(rename = "altarsNeutralized")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub altars_neutralized: Option<i32>,
         #[serde(rename = "goldSpent")]
         pub gold_spent: i32,
         #[serde(rename = "damageDealtToTurrets")]
         pub damage_dealt_to_turrets: i64,
         #[serde(rename = "altarsCaptured")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub altars_captured: Option<i32>,
         #[serde(rename = "win")]
         pub win: bool,
@@ -1029,20 +1062,24 @@ pub mod match_v4 {
         #[serde(rename = "unrealKills")]
         pub unreal_kills: i32,
         #[serde(rename = "visionScore")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub vision_score: Option<i64>,
         #[serde(rename = "physicalDamageDealt")]
         pub physical_damage_dealt: i64,
         #[serde(rename = "firstBloodKill")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub first_blood_kill: Option<bool>,
         #[serde(rename = "longestTimeSpentLiving")]
         pub longest_time_spent_living: i32,
         #[serde(rename = "killingSprees")]
         pub killing_sprees: i32,
         #[serde(rename = "sightWardsBoughtInGame")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub sight_wards_bought_in_game: Option<i32>,
         #[serde(rename = "trueDamageDealtToChampions")]
         pub true_damage_dealt_to_champions: i64,
         #[serde(rename = "neutralMinionsKilledEnemyJungle")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub neutral_minions_killed_enemy_jungle: Option<i32>,
         #[serde(rename = "doubleKills")]
         pub double_kills: i32,
@@ -1059,111 +1096,150 @@ pub mod match_v4 {
         #[serde(rename = "item5")]
         pub item5: i32,
         #[serde(rename = "playerScore0")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub player_score0: Option<i32>,
         #[serde(rename = "playerScore1")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub player_score1: Option<i32>,
         #[serde(rename = "playerScore2")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub player_score2: Option<i32>,
         #[serde(rename = "playerScore3")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub player_score3: Option<i32>,
         #[serde(rename = "playerScore4")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub player_score4: Option<i32>,
         #[serde(rename = "playerScore5")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub player_score5: Option<i32>,
         #[serde(rename = "playerScore6")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub player_score6: Option<i32>,
         #[serde(rename = "playerScore7")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub player_score7: Option<i32>,
         #[serde(rename = "playerScore8")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub player_score8: Option<i32>,
         #[serde(rename = "playerScore9")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub player_score9: Option<i32>,
         /// Primary path keystone rune.
         #[serde(rename = "perk0")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub perk0: Option<i32>,
         /// Post game rune stats.
         #[serde(rename = "perk0Var1")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub perk0_var1: Option<i32>,
         /// Post game rune stats.
         #[serde(rename = "perk0Var2")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub perk0_var2: Option<i32>,
         /// Post game rune stats.
         #[serde(rename = "perk0Var3")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub perk0_var3: Option<i32>,
         /// Primary path rune.
         #[serde(rename = "perk1")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub perk1: Option<i32>,
         /// Post game rune stats.
         #[serde(rename = "perk1Var1")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub perk1_var1: Option<i32>,
         /// Post game rune stats.
         #[serde(rename = "perk1Var2")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub perk1_var2: Option<i32>,
         /// Post game rune stats.
         #[serde(rename = "perk1Var3")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub perk1_var3: Option<i32>,
         /// Primary path rune.
         #[serde(rename = "perk2")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub perk2: Option<i32>,
         /// Post game rune stats.
         #[serde(rename = "perk2Var1")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub perk2_var1: Option<i32>,
         /// Post game rune stats.
         #[serde(rename = "perk2Var2")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub perk2_var2: Option<i32>,
         /// Post game rune stats.
         #[serde(rename = "perk2Var3")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub perk2_var3: Option<i32>,
         /// Primary path rune.
         #[serde(rename = "perk3")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub perk3: Option<i32>,
         /// Post game rune stats.
         #[serde(rename = "perk3Var1")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub perk3_var1: Option<i32>,
         /// Post game rune stats.
         #[serde(rename = "perk3Var2")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub perk3_var2: Option<i32>,
         /// Post game rune stats.
         #[serde(rename = "perk3Var3")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub perk3_var3: Option<i32>,
         /// Secondary path rune.
         #[serde(rename = "perk4")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub perk4: Option<i32>,
         /// Post game rune stats.
         #[serde(rename = "perk4Var1")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub perk4_var1: Option<i32>,
         /// Post game rune stats.
         #[serde(rename = "perk4Var2")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub perk4_var2: Option<i32>,
         /// Post game rune stats.
         #[serde(rename = "perk4Var3")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub perk4_var3: Option<i32>,
         /// Secondary path rune.
         #[serde(rename = "perk5")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub perk5: Option<i32>,
         /// Post game rune stats.
         #[serde(rename = "perk5Var1")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub perk5_var1: Option<i32>,
         /// Post game rune stats.
         #[serde(rename = "perk5Var2")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub perk5_var2: Option<i32>,
         /// Post game rune stats.
         #[serde(rename = "perk5Var3")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub perk5_var3: Option<i32>,
         /// Primary rune path
         #[serde(rename = "perkPrimaryStyle")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub perk_primary_style: Option<i32>,
         /// Secondary rune path
         #[serde(rename = "perkSubStyle")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub perk_sub_style: Option<i32>,
         /// Stat rune
         #[serde(rename = "statPerk0")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub stat_perk0: Option<i32>,
         /// Stat rune
         #[serde(rename = "statPerk1")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub stat_perk1: Option<i32>,
         /// Stat rune
         #[serde(rename = "statPerk2")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub stat_perk2: Option<i32>,
     }
     /// ParticipantTimeline data object.
@@ -1171,35 +1247,45 @@ pub mod match_v4 {
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct ParticipantTimeline {
         #[serde(rename = "participantId")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub participant_id: Option<i32>,
         /// Creep score difference versus the calculated lane opponent(s) for a specified period.
         #[serde(rename = "csDiffPerMinDeltas")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub cs_diff_per_min_deltas: Option<std::collections::HashMap<String, f64>>,
         /// Damage taken for a specified period.
         #[serde(rename = "damageTakenPerMinDeltas")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub damage_taken_per_min_deltas: Option<std::collections::HashMap<String, f64>>,
         /// Participant's calculated role.<br>
         /// (Legal values:  DUO,  NONE,  SOLO,  DUO_CARRY,  DUO_SUPPORT)
         #[serde(rename = "role")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub role: Option<String>,
         /// Damage taken difference versus the calculated lane opponent(s) for a specified period.
         #[serde(rename = "damageTakenDiffPerMinDeltas")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub damage_taken_diff_per_min_deltas: Option<std::collections::HashMap<String, f64>>,
         /// Experience change for a specified period.
         #[serde(rename = "xpPerMinDeltas")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub xp_per_min_deltas: Option<std::collections::HashMap<String, f64>>,
         /// Experience difference versus the calculated lane opponent(s) for a specified period.
         #[serde(rename = "xpDiffPerMinDeltas")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub xp_diff_per_min_deltas: Option<std::collections::HashMap<String, f64>>,
         /// Participant's calculated lane. MID and BOT are legacy values.<br>
         /// (Legal values:  MID,  MIDDLE,  TOP,  JUNGLE,  BOT,  BOTTOM)
         #[serde(rename = "lane")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub lane: Option<String>,
         /// Creeps for a specified period.
         #[serde(rename = "creepsPerMinDeltas")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub creeps_per_min_deltas: Option<std::collections::HashMap<String, f64>>,
         /// Gold for a specified period.
         #[serde(rename = "goldPerMinDeltas")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub gold_per_min_deltas: Option<std::collections::HashMap<String, f64>>,
     }
     /// Mastery data object.
@@ -1232,6 +1318,7 @@ pub mod match_v4 {
         #[serde(rename = "gameId")]
         pub game_id: i64,
         #[serde(rename = "role")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub role: Option<String>,
         #[serde(rename = "season")]
         pub season: i32,
@@ -1242,6 +1329,7 @@ pub mod match_v4 {
         #[serde(rename = "queue")]
         pub queue: crate::consts::Queue,
         #[serde(rename = "lane")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub lane: Option<String>,
         #[serde(rename = "timestamp")]
         pub timestamp: i64,
@@ -1275,8 +1363,10 @@ pub mod match_v4 {
         #[serde(rename = "minionsKilled")]
         pub minions_killed: i32,
         #[serde(rename = "teamScore")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub team_score: Option<i32>,
         #[serde(rename = "dominionScore")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub dominion_score: Option<i32>,
         #[serde(rename = "totalGold")]
         pub total_gold: i32,
@@ -1287,6 +1377,7 @@ pub mod match_v4 {
         #[serde(rename = "currentGold")]
         pub current_gold: i32,
         #[serde(rename = "position")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub position: Option<MatchPosition>,
         #[serde(rename = "jungleMinionsKilled")]
         pub jungle_minions_killed: i32,
@@ -1305,51 +1396,72 @@ pub mod match_v4 {
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MatchEvent {
         #[serde(rename = "laneType")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub lane_type: Option<String>,
         #[serde(rename = "skillSlot")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub skill_slot: Option<i32>,
         #[serde(rename = "ascendedType")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub ascended_type: Option<String>,
         #[serde(rename = "creatorId")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub creator_id: Option<i32>,
         #[serde(rename = "afterId")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub after_id: Option<i32>,
         #[serde(rename = "eventType")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub event_type: Option<String>,
         /// (Legal values:  CHAMPION_KILL,  WARD_PLACED,  WARD_KILL,  BUILDING_KILL,  ELITE_MONSTER_KILL,  ITEM_PURCHASED,  ITEM_SOLD,  ITEM_DESTROYED,  ITEM_UNDO,  SKILL_LEVEL_UP,  ASCENDED_EVENT,  CAPTURE_POINT,  PORO_KING_SUMMON)
         #[serde(rename = "type")]
         pub r#type: String,
         #[serde(rename = "levelUpType")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub level_up_type: Option<String>,
         #[serde(rename = "wardType")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub ward_type: Option<String>,
         #[serde(rename = "participantId")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub participant_id: Option<i32>,
         #[serde(rename = "towerType")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub tower_type: Option<String>,
         #[serde(rename = "itemId")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub item_id: Option<i32>,
         #[serde(rename = "beforeId")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub before_id: Option<i32>,
         #[serde(rename = "pointCaptured")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub point_captured: Option<String>,
         #[serde(rename = "monsterType")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub monster_type: Option<String>,
         #[serde(rename = "monsterSubType")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub monster_sub_type: Option<String>,
         #[serde(rename = "teamId")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub team_id: Option<crate::consts::Team>,
         #[serde(rename = "position")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub position: Option<MatchPosition>,
         #[serde(rename = "killerId")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub killer_id: Option<i32>,
         #[serde(rename = "timestamp")]
         pub timestamp: i64,
         #[serde(rename = "assistingParticipantIds")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub assisting_participant_ids: Option<std::vec::Vec<i32>>,
         #[serde(rename = "buildingType")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub building_type: Option<String>,
         #[serde(rename = "victimId")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub victim_id: Option<i32>,
     }
 }
@@ -1414,6 +1526,7 @@ pub mod spectator_v4 {
         pub banned_champions: std::vec::Vec<BannedChampion>,
         /// The queue type (queue types are documented on the Game Constants page)
         #[serde(rename = "gameQueueConfigId")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub game_queue_config_id: Option<crate::consts::Queue>,
         /// The observer information
         #[serde(rename = "observers")]
@@ -1453,6 +1566,7 @@ pub mod spectator_v4 {
         pub champion_id: crate::consts::Champion,
         /// Perks/Runes Reforged Information
         #[serde(rename = "perks")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub perks: Option<Perks>,
         /// The ID of the profile icon used by this participant
         #[serde(rename = "profileIconId")]
@@ -1652,6 +1766,7 @@ pub mod tft_league_v1 {
         #[serde(rename = "summonerName")]
         pub summoner_name: String,
         #[serde(rename = "miniSeries")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub mini_series: Option<MiniSeries>,
         #[serde(rename = "inactive")]
         pub inactive: bool,
@@ -1689,6 +1804,7 @@ pub mod tft_league_v1 {
     pub struct LeagueEntry {
         /// Not included for the RANKED_TFT_TURBO queueType.
         #[serde(rename = "leagueId")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub league_id: Option<String>,
         /// Player's encrypted summonerId.
         #[serde(rename = "summonerId")]
@@ -1700,18 +1816,23 @@ pub mod tft_league_v1 {
         /// Only included for the RANKED_TFT_TURBO queueType.<br>
         /// (Legal values:  ORANGE,  PURPLE,  BLUE,  GREEN,  GRAY)
         #[serde(rename = "ratedTier")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub rated_tier: Option<String>,
         /// Only included for the RANKED_TFT_TURBO queueType.
         #[serde(rename = "ratedRating")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub rated_rating: Option<i32>,
         /// Not included for the RANKED_TFT_TURBO queueType.
         #[serde(rename = "tier")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub tier: Option<crate::consts::Tier>,
         /// A player's division within a tier. Not included for the RANKED_TFT_TURBO queueType.
         #[serde(rename = "rank")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub rank: Option<crate::consts::Division>,
         /// Not included for the RANKED_TFT_TURBO queueType.
         #[serde(rename = "leaguePoints")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub league_points: Option<i32>,
         /// First placement.
         #[serde(rename = "wins")]
@@ -1721,18 +1842,23 @@ pub mod tft_league_v1 {
         pub losses: i32,
         /// Not included for the RANKED_TFT_TURBO queueType.
         #[serde(rename = "hotStreak")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub hot_streak: Option<bool>,
         /// Not included for the RANKED_TFT_TURBO queueType.
         #[serde(rename = "veteran")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub veteran: Option<bool>,
         /// Not included for the RANKED_TFT_TURBO queueType.
         #[serde(rename = "freshBlood")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub fresh_blood: Option<bool>,
         /// Not included for the RANKED_TFT_TURBO queueType.
         #[serde(rename = "inactive")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub inactive: Option<bool>,
         /// Not included for the RANKED_TFT_TURBO queueType.
         #[serde(rename = "miniSeries")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub mini_series: Option<MiniSeries>,
     }
     /// TopRatedLadderEntry data object.
@@ -1798,6 +1924,7 @@ pub mod tft_match_v1 {
         pub game_length: f32,
         /// Game variation key. Game variations documented in TFT static data.
         #[serde(rename = "game_variation")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub game_variation: Option<String>,
         /// Game client version.
         #[serde(rename = "game_version")]
@@ -1860,12 +1987,14 @@ pub mod tft_match_v1 {
         pub num_units: i32,
         /// Current style for this trait. (0 = No style, 1 = Bronze, 2 = Silver, 3 = Gold, 4 = Chromatic)
         #[serde(rename = "style")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub style: Option<i32>,
         /// Current active tier for the trait.
         #[serde(rename = "tier_current")]
         pub tier_current: i32,
         /// Total tiers for the trait.
         #[serde(rename = "tier_total")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub tier_total: Option<i32>,
     }
     /// Unit data object.
@@ -1880,6 +2009,7 @@ pub mod tft_match_v1 {
         pub character_id: String,
         /// If a unit is chosen as part of the Fates set mechanic, the chosen trait will be indicated by this field. Otherwise this field is excluded from the response.
         #[serde(rename = "chosen")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub chosen: Option<String>,
         /// Unit name. This field is often left blank.
         #[serde(rename = "name")]
@@ -1952,9 +2082,11 @@ pub mod tournament_stub_v4 {
     pub struct TournamentCodeParameters {
         /// Optional list of encrypted summonerIds in order to validate the players eligible to join the lobby. NOTE: We currently do not enforce participants at the team level, but rather the aggregate of teamOne and teamTwo. We may add the ability to enforce at the team level in the future.
         #[serde(rename = "allowedSummonerIds")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub allowed_summoner_ids: Option<std::vec::Vec<String>>,
         /// Optional string that may contain any data in any format, if specified at all. Used to denote any custom information about the game.
         #[serde(rename = "metadata")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub metadata: Option<String>,
         /// The team size of the game. Valid values are 1-5.
         #[serde(rename = "teamSize")]
@@ -2014,6 +2146,7 @@ pub mod tournament_stub_v4 {
         pub provider_id: i32,
         /// The optional name of the tournament.
         #[serde(rename = "name")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub name: Option<String>,
     }
 }
@@ -2029,9 +2162,11 @@ pub mod tournament_v4 {
     pub struct TournamentCodeParameters {
         /// Optional list of encrypted summonerIds in order to validate the players eligible to join the lobby. NOTE: We currently do not enforce participants at the team level, but rather the aggregate of teamOne and teamTwo. We may add the ability to enforce at the team level in the future.
         #[serde(rename = "allowedSummonerIds")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub allowed_summoner_ids: Option<std::vec::Vec<String>>,
         /// Optional string that may contain any data in any format, if specified at all. Used to denote any custom information about the game.
         #[serde(rename = "metadata")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub metadata: Option<String>,
         /// The team size of the game. Valid values are 1-5.
         #[serde(rename = "teamSize")]
@@ -2100,6 +2235,7 @@ pub mod tournament_v4 {
     pub struct TournamentCodeUpdateParameters {
         /// Optional list of encrypted summonerIds in order to validate the players eligible to join the lobby. NOTE: We currently do not enforce participants at the team level, but rather the aggregate of teamOne and teamTwo. We may add the ability to enforce at the team level in the future.
         #[serde(rename = "allowedSummonerIds")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub allowed_summoner_ids: Option<std::vec::Vec<String>>,
         /// The pick type<br>
         /// (Legal values:  BLIND_PICK,  DRAFT_MODE,  ALL_RANDOM,  TOURNAMENT_DRAFT)
@@ -2156,6 +2292,7 @@ pub mod tournament_v4 {
         pub provider_id: i32,
         /// The optional name of the tournament.
         #[serde(rename = "name")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub name: Option<String>,
     }
 }
@@ -2208,6 +2345,7 @@ pub mod val_content_v1 {
         pub name: String,
         /// This field is excluded from the response when a locale is set
         #[serde(rename = "localizedNames")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub localized_names: Option<LocalizedNames>,
         #[serde(rename = "id")]
         pub id: String,
@@ -2215,6 +2353,7 @@ pub mod val_content_v1 {
         pub asset_name: String,
         /// This field is only included for maps and game modes. These values are used in the match response.
         #[serde(rename = "assetPath")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub asset_path: Option<String>,
     }
     /// LocalizedNames data object.
@@ -2268,6 +2407,7 @@ pub mod val_content_v1 {
         pub name: String,
         /// This field is excluded from the response when a locale is set
         #[serde(rename = "localizedNames")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub localized_names: Option<LocalizedNames>,
         #[serde(rename = "id")]
         pub id: String,
@@ -2618,12 +2758,15 @@ pub mod val_ranked_v1 {
     pub struct Player {
         /// This field may be omitted if the player has been anonymized.
         #[serde(rename = "puuid")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub puuid: Option<String>,
         /// This field may be omitted if the player has been anonymized.
         #[serde(rename = "gameName")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub game_name: Option<String>,
         /// This field may be omitted if the player has been anonymized.
         #[serde(rename = "tagLine")]
+        #[serde(skip_serializing_if = "Option::is_none")]
         pub tag_line: Option<String>,
         #[serde(rename = "leaderboardRank")]
         pub leaderboard_rank: i64,

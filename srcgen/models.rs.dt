@@ -55,6 +55,9 @@ pub mod {{= dotUtils.changeCase.snakeCase(endpoint) }} {
         /// {{= prop.description.split('\n').map(x => x.trim()).join('<br>\r\n        /// ') }}
 {{?}}
         {{= dotUtils.formatJsonProperty(propKey) }}
+{{? !required }}
+        #[serde(skip_serializing_if = "Option::is_none")]
+{{?}}
         pub {{= name }}: {{= dotUtils.stringifyType(prop, { optional: !required }) }},
 {{
             }
