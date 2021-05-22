@@ -2,7 +2,7 @@ use std::future::Future;
 use std::sync::Arc;
 
 use log;
-use reqwest::{ Client, RequestBuilder, Method, Url };
+use reqwest::{ Client, RequestBuilder, Method };
 
 use crate::Result;
 use crate::ResponseInfo;
@@ -67,88 +67,30 @@ impl RiotApi {
         Self::with_config(RiotApiConfig::with_key(api_key))
     }
 
-    /// This method is not meant to be used directly.
+    /// This method should generally not be used directly. Consider using endpoint wrappers instead.
     ///
-    /// This sends a GET request based on the given parameters and returns an optional parsed result.
-    ///
-    /// # Parameters
-    /// * `method_id` - A unique string id representing the endpoint method for per-method rate limiting.
-    /// * `region_platform` - The stringified platform, prepended to `.api.riotgames.com` to create the hostname.
-    /// * `path` - The path relative to the hostname.
-    /// * `query` - An optional query string.
-    ///
-    /// # Returns
-    /// A future resolving to a `Result` containg either a `Option<T>` (success) or a `RiotApiError` (failure).
-    pub async fn get_optional<'a, T: serde::de::DeserializeOwned + 'a>(&'a self,
-        method_id: &'static str, region_platform: &'static str, path: String, query: Option<String>)
-        -> Result<Option<T>>
-    {
-        let rinfo = self.get_raw_response(method_id, region_platform, path, query).await?;
-        if rinfo.status_none {
-            return Ok(None);
-        }
-        let retries = rinfo.retries;
-        let status = rinfo.response.status();
-        let value = rinfo.response.json::<Option<T>>().await;
-        value.map_err(|e| RiotApiError::new(e, retries, None, Some(status)))
-    }
-
-    /// This method is not meant to be used directly.
-    ///
-    /// This sends a GET request based on the given parameters and returns a parsed result.
+    /// Creates a `RequestBuilder` instance with the given parameters, for use with the `execute*()` methods.
     ///
     /// # Parameters
-    /// * `method_id` - A unique string id representing the endpoint method for per-method rate limiting.
-    /// * `region_platform` - The stringified platform, prepended to `.api.riotgames.com` to create the hostname.
-    /// * `path` - The path relative to the hostname.
-    /// * `query` - An optional query string.
-    ///
-    /// # Returns
-    /// A future resolving to a `Result` containg either a `T` (success) or a `RiotApiError` (failure).
-    pub async fn get<'a, T: serde::de::DeserializeOwned + 'a>(&'a self,
-        method_id: &'static str, region_platform: &'static str, path: String, query: Option<String>)
-        -> Result<T>
-    {
-        let rinfo = self.get_raw_response(method_id, region_platform, path, query).await?;
-        let retries = rinfo.retries;
-        let status = rinfo.response.status();
-        let value = rinfo.response.json::<T>().await;
-        value.map_err(|e| RiotApiError::new(e, retries, None, Some(status)))
-    }
-
-    /// This method is not meant to be used directly.
-    ///
-    /// This sends a GET request based on the given parameters and returns a raw `ResponseInfo`.
-    ///
-    /// This can be used to implement a Riot API proxy without needing to deserialize and reserialize JSON responses.
-    ///
-    /// # Parameters
-    /// * `method_id` - A unique string id representing the endpoint method for per-method rate limiting.
-    /// * `region_platform` - The stringified platform, prepended to `.api.riotgames.com` to create the hostname.
-    /// * `path` - The path relative to the hostname.
-    /// * `query` - An optional query string.
-    ///
-    /// # Returns
-    /// A future resolving to a `Result` containg either a `ResponseInfo` (success) or a `RiotApiError` (failure).
-    pub fn get_raw_response(&self,
-        method_id: &'static str, region_platform: &'static str, path: String, query: Option<String>)
-        -> impl Future<Output = Result<ResponseInfo>> + '_
-    {
-        let url_base = format!("https://{}.api.riotgames.com", region_platform);
-        let mut url = Url::parse(&*url_base)
-            .unwrap_or_else(|_| panic!("Failed to parse url_base: \"{}\".", url_base));
-        url.set_path(&*path);
-        url.set_query(query.as_deref());
-
-        let request = self.client.get(url);
-        self.execute_raw(method_id, region_platform, request)
-    }
-
+    /// * `method` - The HTTP method for this request.
+    /// * `region_platform` - The stringified platform, used to create the base URL.
+    /// * `path` - The URL path, appended to the base URL.
     pub fn request(&self, method: Method, region_platform: &str, path: &str) -> RequestBuilder {
         let base_url_platform = self.config.base_url.replace("{}", region_platform);
         self.client.request(method, format!("{}/{}", base_url_platform, path))
     }
 
+    /// This method should generally not be used directly. Consider using endpoint wrappers instead.
+    ///
+    /// This sends a request based on the given parameters and returns an optional parsed result.
+    ///
+    /// # Parameters
+    /// * `method_id` - A unique string id representing the endpoint method for per-method rate limiting.
+    /// * `region_platform` - The stringified platform, used in rate limiting.
+    /// * `request` - The request information. Use `request()` to obtain a `RequestBuilder` instance.
+    ///
+    /// # Returns
+    /// A future resolving to a `Result` containg either a `Option<T>` (success) or a `RiotApiError` (failure).
     pub async fn execute_optional<'a, T: serde::de::DeserializeOwned + 'a>(&'a self,
         method_id: &'static str, region_platform: &'static str, request: RequestBuilder)
         -> Result<Option<T>>
@@ -163,6 +105,17 @@ impl RiotApi {
         value.map_err(|e| RiotApiError::new(e, retries, None, Some(status)))
     }
 
+    /// This method should generally not be used directly. Consider using endpoint wrappers instead.
+    ///
+    /// This sends a request based on the given parameters and returns a parsed result.
+    ///
+    /// # Parameters
+    /// * `method_id` - A unique string id representing the endpoint method for per-method rate limiting.
+    /// * `region_platform` - The stringified platform, used in rate limiting.
+    /// * `request` - The request information. Use `request()` to obtain a `RequestBuilder` instance.
+    ///
+    /// # Returns
+    /// A future resolving to a `Result` containg either a `T` (success) or a `RiotApiError` (failure).
     pub async fn execute<'a, T: serde::de::DeserializeOwned + 'a>(&'a self,
         method_id: &'static str, region_platform: &'static str, request: RequestBuilder)
         -> Result<T>
@@ -174,6 +127,19 @@ impl RiotApi {
         value.map_err(|e| RiotApiError::new(e, retries, None, Some(status)))
     }
 
+    /// This method should generally not be used directly. Consider using endpoint wrappers instead.
+    ///
+    /// This sends a request based on the given parameters and returns a raw `ResponseInfo`.
+    ///
+    /// This can be used to implement a Riot API proxy without needing to deserialize and reserialize JSON responses.
+    ///
+    /// # Parameters
+    /// * `method_id` - A unique string id representing the endpoint method for per-method rate limiting.
+    /// * `region_platform` - The stringified platform, used in rate limiting.
+    /// * `request` - The request information. Use `request()` to obtain a `RequestBuilder` instance.
+    ///
+    /// # Returns
+    /// A future resolving to a `Result` containg either a `ResponseInfo` (success) or a `RiotApiError` (failure).
     pub fn execute_raw(&self, method_id: &'static str, region_platform: &'static str, request: RequestBuilder)
         -> impl Future<Output = Result<ResponseInfo>> + '_
     {
