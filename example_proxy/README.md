@@ -1,5 +1,7 @@
 # Riven Example Proxy
 
+<span color="red">This is not yet updated for V2.</span>
+
 This is a simple example implementation of a Riot API proxy server using `hyper`. This adds the API key and forwards
 requests to the Riot API, then returns and forwards responses back to the requester. It handles error cases but only
 provides minimal failure information. HTTP requests will wait to complete when Riven is waiting on rate limits.
