@@ -164,7 +164,7 @@ impl<'a> {{= endpoint }}<'a> {
                     for (let param of allParams)
                     {
 }}
-    /// * `{{= param.name }}`{{= param.required ? '' : ' (optional)' }}{{= param.description ? ' - ' + param.description : ''}}
+    /// * `{{= dotUtils.changeCase.snakeCase(param.name) }}` ({{= param.required ? 'required' : 'optional' }}, in {{= param.in }}){{= param.description ? ' - ' + param.description : ''}}
 {{
                     }
                 }

@@ -281,7 +281,7 @@ impl<'a> AccountV1<'a> {
     /// Get account by puuid
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `puuid`
+    /// * `puuid` (required, in path)
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#account-v1/GET_getByPuuid" target="_blank">`account-v1.getByPuuid`</a>
     ///
@@ -297,8 +297,8 @@ impl<'a> AccountV1<'a> {
     /// Get account by riot id
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `tagLine` - When querying for a player by their riot id, the gameName and tagLine query params are required. However not all accounts have a gameName and tagLine associated so these fields may not be included in the response.
-    /// * `gameName` - When querying for a player by their riot id, the gameName and tagLine query params are required. However not all accounts have a gameName and tagLine associated so these fields may not be included in the response.
+    /// * `tag_line` (required, in path) - When querying for a player by their riot id, the gameName and tagLine query params are required. However not all accounts have a gameName and tagLine associated so these fields may not be included in the response.
+    /// * `game_name` (required, in path) - When querying for a player by their riot id, the gameName and tagLine query params are required. However not all accounts have a gameName and tagLine associated so these fields may not be included in the response.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#account-v1/GET_getByRiotId" target="_blank">`account-v1.getByRiotId`</a>
     ///
@@ -314,7 +314,7 @@ impl<'a> AccountV1<'a> {
     /// Get account by access token
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `Authorization`
+    /// * `authorization` (required, in header)
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#account-v1/GET_getByAccessToken" target="_blank">`account-v1.getByAccessToken`</a>
     ///
@@ -331,8 +331,8 @@ impl<'a> AccountV1<'a> {
     /// Get active shard for a player
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `game`
-    /// * `puuid`
+    /// * `game` (required, in path)
+    /// * `puuid` (required, in path)
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#account-v1/GET_getActiveShard" target="_blank">`account-v1.getActiveShard`</a>
     ///
@@ -360,7 +360,7 @@ impl<'a> ChampionMasteryV4<'a> {
     /// Get all champion mastery entries sorted by number of champion points descending,
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `encryptedSummonerId` - Summoner ID associated with the player
+    /// * `encrypted_summoner_id` (required, in path) - Summoner ID associated with the player
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getAllChampionMasteries" target="_blank">`champion-mastery-v4.getAllChampionMasteries`</a>
     ///
@@ -376,8 +376,8 @@ impl<'a> ChampionMasteryV4<'a> {
     /// Get a champion mastery by player ID and champion ID.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `championId` - Champion ID to retrieve Champion Mastery for
-    /// * `encryptedSummonerId` - Summoner ID associated with the player
+    /// * `champion_id` (required, in path) - Champion ID to retrieve Champion Mastery for
+    /// * `encrypted_summoner_id` (required, in path) - Summoner ID associated with the player
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMastery" target="_blank">`champion-mastery-v4.getChampionMastery`</a>
     ///
@@ -393,7 +393,7 @@ impl<'a> ChampionMasteryV4<'a> {
     /// Get a player's total champion mastery score, which is the sum of individual champion mastery levels.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `encryptedSummonerId` - Summoner ID associated with the player
+    /// * `encrypted_summoner_id` (required, in path) - Summoner ID associated with the player
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMasteryScore" target="_blank">`champion-mastery-v4.getChampionMasteryScore`</a>
     ///
@@ -450,7 +450,7 @@ impl<'a> ClashV1<'a> {
     /// This endpoint returns a list of active Clash players for a given summoner ID. If a summoner registers for multiple tournaments at the same time (e.g., Saturday and Sunday) then both registrations would appear in this list.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `summonerId`
+    /// * `summoner_id` (required, in path)
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#clash-v1/GET_getPlayersBySummoner" target="_blank">`clash-v1.getPlayersBySummoner`</a>
     ///
@@ -466,7 +466,7 @@ impl<'a> ClashV1<'a> {
     /// Get team by ID.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `teamId`
+    /// * `team_id` (required, in path)
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#clash-v1/GET_getTeamById" target="_blank">`clash-v1.getTeamById`</a>
     ///
@@ -497,7 +497,7 @@ impl<'a> ClashV1<'a> {
     /// Get tournament by team ID.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `teamId`
+    /// * `team_id` (required, in path)
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#clash-v1/GET_getTournamentByTeam" target="_blank">`clash-v1.getTournamentByTeam`</a>
     ///
@@ -513,7 +513,7 @@ impl<'a> ClashV1<'a> {
     /// Get tournament by ID.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `tournamentId`
+    /// * `tournament_id` (required, in path)
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#clash-v1/GET_getTournamentById" target="_blank">`clash-v1.getTournamentById`</a>
     ///
@@ -541,10 +541,10 @@ impl<'a> LeagueExpV4<'a> {
     /// Get all the league entries.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `queue` - Note that the queue value must be a valid ranked queue.
-    /// * `tier`
-    /// * `division`
-    /// * `page` (optional) - Defaults to 1. Starts with page 1.
+    /// * `queue` (required, in path) - Note that the queue value must be a valid ranked queue.
+    /// * `tier` (required, in path)
+    /// * `division` (required, in path)
+    /// * `page` (optional, in query) - Defaults to 1. Starts with page 1.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#league-exp-v4/GET_getLeagueEntries" target="_blank">`league-exp-v4.getLeagueEntries`</a>
     ///
@@ -573,7 +573,7 @@ impl<'a> LeagueV4<'a> {
     /// Get the challenger league for given queue.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `queue`
+    /// * `queue` (required, in path)
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getChallengerLeague" target="_blank">`league-v4.getChallengerLeague`</a>
     ///
@@ -589,7 +589,7 @@ impl<'a> LeagueV4<'a> {
     /// Get league entries in all queues for a given summoner ID.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `encryptedSummonerId`
+    /// * `encrypted_summoner_id` (required, in path)
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntriesForSummoner" target="_blank">`league-v4.getLeagueEntriesForSummoner`</a>
     ///
@@ -605,10 +605,10 @@ impl<'a> LeagueV4<'a> {
     /// Get all the league entries.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `division`
-    /// * `tier`
-    /// * `queue` - Note that the queue value must be a valid ranked queue.
-    /// * `page` (optional) - Defaults to 1. Starts with page 1.
+    /// * `division` (required, in path)
+    /// * `tier` (required, in path)
+    /// * `queue` (required, in path) - Note that the queue value must be a valid ranked queue.
+    /// * `page` (optional, in query) - Defaults to 1. Starts with page 1.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntries" target="_blank">`league-v4.getLeagueEntries`</a>
     ///
@@ -625,7 +625,7 @@ impl<'a> LeagueV4<'a> {
     /// Get the grandmaster league of a specific queue.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `queue`
+    /// * `queue` (required, in path)
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getGrandmasterLeague" target="_blank">`league-v4.getGrandmasterLeague`</a>
     ///
@@ -641,7 +641,7 @@ impl<'a> LeagueV4<'a> {
     /// Get league with given ID, including inactive entries.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `leagueId` - The UUID of the league.
+    /// * `league_id` (required, in path) - The UUID of the league.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueById" target="_blank">`league-v4.getLeagueById`</a>
     ///
@@ -657,7 +657,7 @@ impl<'a> LeagueV4<'a> {
     /// Get the master league for given queue.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `queue`
+    /// * `queue` (required, in path)
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getMasterLeague" target="_blank">`league-v4.getMasterLeague`</a>
     ///
@@ -741,7 +741,7 @@ impl<'a> LorDeckV1<'a> {
     /// Get a list of the calling user's decks.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `Authorization`
+    /// * `authorization` (required, in header)
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#lor-deck-v1/GET_getDecks" target="_blank">`lor-deck-v1.getDecks`</a>
     ///
@@ -758,7 +758,7 @@ impl<'a> LorDeckV1<'a> {
     /// Create a new deck for the calling user.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `Authorization`
+    /// * `authorization` (required, in header)
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#lor-deck-v1/POST_createDeck" target="_blank">`lor-deck-v1.createDeck`</a>
     ///
@@ -788,7 +788,7 @@ impl<'a> LorInventoryV1<'a> {
     /// Return a list of cards owned by the calling user.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `Authorization`
+    /// * `authorization` (required, in header)
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#lor-inventory-v1/GET_getCards" target="_blank">`lor-inventory-v1.getCards`</a>
     ///
@@ -817,7 +817,7 @@ impl<'a> LorMatchV1<'a> {
     /// Get a list of match ids by PUUID
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `puuid`
+    /// * `puuid` (required, in path)
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#lor-match-v1/GET_getMatchIdsByPUUID" target="_blank">`lor-match-v1.getMatchIdsByPUUID`</a>
     ///
@@ -833,7 +833,7 @@ impl<'a> LorMatchV1<'a> {
     /// Get match by id
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `matchId`
+    /// * `match_id` (required, in path)
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#lor-match-v1/GET_getMatch" target="_blank">`lor-match-v1.getMatch`</a>
     ///
@@ -915,7 +915,7 @@ impl<'a> MatchV4<'a> {
     /// Get match IDs by tournament code.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `tournamentCode` - The tournament code.
+    /// * `tournament_code` (required, in path) - The tournament code.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchIdsByTournamentCode" target="_blank">`match-v4.getMatchIdsByTournamentCode`</a>
     ///
@@ -931,7 +931,7 @@ impl<'a> MatchV4<'a> {
     /// Get match by match ID.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `matchId` - The match ID.
+    /// * `match_id` (required, in path) - The match ID.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatch" target="_blank">`match-v4.getMatch`</a>
     ///
@@ -947,8 +947,8 @@ impl<'a> MatchV4<'a> {
     /// Get match by match ID and tournament code.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `tournamentCode` - The tournament code.
-    /// * `matchId` - The match ID.
+    /// * `tournament_code` (required, in path) - The tournament code.
+    /// * `match_id` (required, in path) - The match ID.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchByTournamentCode" target="_blank">`match-v4.getMatchByTournamentCode`</a>
     ///
@@ -970,14 +970,14 @@ impl<'a> MatchV4<'a> {
     /// If beginTime is specified, but not endTime, then endTime defaults to the the current unix timestamp in milliseconds (the maximum time range limitation is not observed in this specific case). If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history returning a 400 due to the maximum time range limitation. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `encryptedAccountId` - The account ID.
-    /// * `champion` (optional) - Set of champion IDs for filtering the matchlist.
-    /// * `queue` (optional) - Set of queue IDs for filtering the matchlist.
-    /// * `season` (optional) - [DEPRECATED] This field should not be considered reliable for the purposes of filtering matches by season.
-    /// * `endTime` (optional) - The end time to use for filtering matchlist specified as epoch milliseconds. If beginTime is specified, but not endTime, then endTime defaults to the the current unix timestamp in milliseconds (the maximum time range limitation is not observed in this specific case). If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history returning a 400 due to the maximum time range limitation. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
-    /// * `beginTime` (optional) - The begin time to use for filtering matchlist specified as epoch milliseconds. If beginTime is specified, but not endTime, then endTime defaults to the the current unix timestamp in milliseconds (the maximum time range limitation is not observed in this specific case). If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history returning a 400 due to the maximum time range limitation. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
-    /// * `endIndex` (optional) - The end index to use for filtering matchlist. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned.
-    /// * `beginIndex` (optional) - The begin index to use for filtering matchlist.  If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned.
+    /// * `encrypted_account_id` (required, in path) - The account ID.
+    /// * `champion` (optional, in query) - Set of champion IDs for filtering the matchlist.
+    /// * `queue` (optional, in query) - Set of queue IDs for filtering the matchlist.
+    /// * `season` (optional, in query) - [DEPRECATED] This field should not be considered reliable for the purposes of filtering matches by season.
+    /// * `end_time` (optional, in query) - The end time to use for filtering matchlist specified as epoch milliseconds. If beginTime is specified, but not endTime, then endTime defaults to the the current unix timestamp in milliseconds (the maximum time range limitation is not observed in this specific case). If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history returning a 400 due to the maximum time range limitation. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
+    /// * `begin_time` (optional, in query) - The begin time to use for filtering matchlist specified as epoch milliseconds. If beginTime is specified, but not endTime, then endTime defaults to the the current unix timestamp in milliseconds (the maximum time range limitation is not observed in this specific case). If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history returning a 400 due to the maximum time range limitation. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
+    /// * `end_index` (optional, in query) - The end index to use for filtering matchlist. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned.
+    /// * `begin_index` (optional, in query) - The begin index to use for filtering matchlist.  If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchlist" target="_blank">`match-v4.getMatchlist`</a>
     ///
@@ -1002,7 +1002,7 @@ impl<'a> MatchV4<'a> {
     /// Not all matches have timeline data.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `matchId` - The match ID.
+    /// * `match_id` (required, in path) - The match ID.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchTimeline" target="_blank">`match-v4.getMatchTimeline`</a>
     ///
@@ -1030,9 +1030,9 @@ impl<'a> MatchV5<'a> {
     /// Get a list of match ids by puuid
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `puuid`
-    /// * `start` (optional) - Defaults to 0. Start index.
-    /// * `count` (optional) - Defaults to 20. Valid values: 0 to 100. Match id count.
+    /// * `puuid` (required, in path)
+    /// * `start` (optional, in query) - Defaults to 0. Start index.
+    /// * `count` (optional, in query) - Defaults to 20. Valid values: 0 to 100. Match id count.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#match-v5/GET_getMatchIdsByPUUID" target="_blank">`match-v5.getMatchIdsByPUUID`</a>
     ///
@@ -1050,7 +1050,7 @@ impl<'a> MatchV5<'a> {
     /// Get a match by match id
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `matchId`
+    /// * `match_id` (required, in path)
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#match-v5/GET_getMatch" target="_blank">`match-v5.getMatch`</a>
     ///
@@ -1066,7 +1066,7 @@ impl<'a> MatchV5<'a> {
     /// Get a match timeline by match id
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `matchId`
+    /// * `match_id` (required, in path)
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#match-v5/GET_getTimeline" target="_blank">`match-v5.getTimeline`</a>
     ///
@@ -1094,7 +1094,7 @@ impl<'a> SpectatorV4<'a> {
     /// Get current game information for the given summoner ID.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `encryptedSummonerId` - The ID of the summoner.
+    /// * `encrypted_summoner_id` (required, in path) - The ID of the summoner.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#spectator-v4/GET_getCurrentGameInfoBySummoner" target="_blank">`spectator-v4.getCurrentGameInfoBySummoner`</a>
     ///
@@ -1137,7 +1137,7 @@ impl<'a> SummonerV4<'a> {
     /// Get a summoner by account ID.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `encryptedAccountId`
+    /// * `encrypted_account_id` (required, in path)
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByAccountId" target="_blank">`summoner-v4.getByAccountId`</a>
     ///
@@ -1153,7 +1153,7 @@ impl<'a> SummonerV4<'a> {
     /// Get a summoner by summoner name.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `summonerName` - Summoner Name
+    /// * `summoner_name` (required, in path) - Summoner Name
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getBySummonerName" target="_blank">`summoner-v4.getBySummonerName`</a>
     ///
@@ -1169,7 +1169,7 @@ impl<'a> SummonerV4<'a> {
     /// Get a summoner by PUUID.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `encryptedPUUID` - Summoner ID
+    /// * `encrypted_puuid` (required, in path) - Summoner ID
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByPUUID" target="_blank">`summoner-v4.getByPUUID`</a>
     ///
@@ -1185,7 +1185,7 @@ impl<'a> SummonerV4<'a> {
     /// Get a summoner by access token.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `Authorization` (optional) - Bearer token
+    /// * `authorization` (optional, in header) - Bearer token
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByAccessToken" target="_blank">`summoner-v4.getByAccessToken`</a>
     ///
@@ -1202,7 +1202,7 @@ impl<'a> SummonerV4<'a> {
     /// Get a summoner by summoner ID.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `encryptedSummonerId` - Summoner ID
+    /// * `encrypted_summoner_id` (required, in path) - Summoner ID
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getBySummonerId" target="_blank">`summoner-v4.getBySummonerId`</a>
     ///
@@ -1245,7 +1245,7 @@ impl<'a> TftLeagueV1<'a> {
     /// Get league entries for a given summoner ID.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `summonerId`
+    /// * `summoner_id` (required, in path)
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getLeagueEntriesForSummoner" target="_blank">`tft-league-v1.getLeagueEntriesForSummoner`</a>
     ///
@@ -1261,9 +1261,9 @@ impl<'a> TftLeagueV1<'a> {
     /// Get all the league entries.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `tier`
-    /// * `division`
-    /// * `page` (optional) - Defaults to 1. Starts with page 1.
+    /// * `tier` (required, in path)
+    /// * `division` (required, in path)
+    /// * `page` (optional, in query) - Defaults to 1. Starts with page 1.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getLeagueEntries" target="_blank">`tft-league-v1.getLeagueEntries`</a>
     ///
@@ -1295,7 +1295,7 @@ impl<'a> TftLeagueV1<'a> {
     /// Get league with given ID, including inactive entries.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `leagueId` - The UUID of the league.
+    /// * `league_id` (required, in path) - The UUID of the league.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getLeagueById" target="_blank">`tft-league-v1.getLeagueById`</a>
     ///
@@ -1326,7 +1326,7 @@ impl<'a> TftLeagueV1<'a> {
     /// Get the top rated ladder for given queue
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `queue`
+    /// * `queue` (required, in path)
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getTopRatedLadder" target="_blank">`tft-league-v1.getTopRatedLadder`</a>
     ///
@@ -1354,8 +1354,8 @@ impl<'a> TftMatchV1<'a> {
     /// Get a list of match ids by PUUID
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `puuid`
-    /// * `count` (optional) - Defaults to 20.
+    /// * `puuid` (required, in path)
+    /// * `count` (optional, in query) - Defaults to 20.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-match-v1/GET_getMatchIdsByPUUID" target="_blank">`tft-match-v1.getMatchIdsByPUUID`</a>
     ///
@@ -1372,7 +1372,7 @@ impl<'a> TftMatchV1<'a> {
     /// Get a match by match id
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `matchId`
+    /// * `match_id` (required, in path)
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-match-v1/GET_getMatch" target="_blank">`tft-match-v1.getMatch`</a>
     ///
@@ -1400,7 +1400,7 @@ impl<'a> TftSummonerV1<'a> {
     /// Get a summoner by account ID.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `encryptedAccountId`
+    /// * `encrypted_account_id` (required, in path)
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getByAccountId" target="_blank">`tft-summoner-v1.getByAccountId`</a>
     ///
@@ -1416,7 +1416,7 @@ impl<'a> TftSummonerV1<'a> {
     /// Get a summoner by summoner name.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `summonerName` - Summoner Name
+    /// * `summoner_name` (required, in path) - Summoner Name
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getBySummonerName" target="_blank">`tft-summoner-v1.getBySummonerName`</a>
     ///
@@ -1432,7 +1432,7 @@ impl<'a> TftSummonerV1<'a> {
     /// Get a summoner by PUUID.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `encryptedPUUID` - Summoner ID
+    /// * `encrypted_puuid` (required, in path) - Summoner ID
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getByPUUID" target="_blank">`tft-summoner-v1.getByPUUID`</a>
     ///
@@ -1448,7 +1448,7 @@ impl<'a> TftSummonerV1<'a> {
     /// Get a summoner by access token.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `Authorization` (optional) - Bearer token.
+    /// * `authorization` (optional, in header) - Bearer token.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getByAccessToken" target="_blank">`tft-summoner-v1.getByAccessToken`</a>
     ///
@@ -1465,7 +1465,7 @@ impl<'a> TftSummonerV1<'a> {
     /// Get a summoner by summoner ID.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `encryptedSummonerId` - Summoner ID
+    /// * `encrypted_summoner_id` (required, in path) - Summoner ID
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getBySummonerId" target="_blank">`tft-summoner-v1.getBySummonerId`</a>
     ///
@@ -1493,7 +1493,7 @@ impl<'a> ThirdPartyCodeV4<'a> {
     /// Get third party code for a given summoner ID.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `encryptedSummonerId`
+    /// * `encrypted_summoner_id` (required, in path)
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#third-party-code-v4/GET_getThirdPartyCodeBySummonerId" target="_blank">`third-party-code-v4.getThirdPartyCodeBySummonerId`</a>
     ///
@@ -1521,8 +1521,8 @@ impl<'a> TournamentStubV4<'a> {
     /// Create a mock tournament code for the given tournament.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `count` (optional) - The number of codes to create (max 1000)
-    /// * `tournamentId` - The tournament ID
+    /// * `count` (optional, in query) - The number of codes to create (max 1000)
+    /// * `tournament_id` (required, in query) - The tournament ID
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tournament-stub-v4/POST_createTournamentCode" target="_blank">`tournament-stub-v4.createTournamentCode`</a>
     ///
@@ -1541,7 +1541,7 @@ impl<'a> TournamentStubV4<'a> {
     /// Gets a mock list of lobby events by tournament code.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `tournamentCode` - The short code to look up lobby events for
+    /// * `tournament_code` (required, in path) - The short code to look up lobby events for
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tournament-stub-v4/GET_getLobbyEventsByCode" target="_blank">`tournament-stub-v4.getLobbyEventsByCode`</a>
     ///
@@ -1603,8 +1603,8 @@ impl<'a> TournamentV4<'a> {
     /// Create a tournament code for the given tournament.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `count` (optional) - The number of codes to create (max 1000)
-    /// * `tournamentId` - The tournament ID
+    /// * `count` (optional, in query) - The number of codes to create (max 1000)
+    /// * `tournament_id` (required, in query) - The tournament ID
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tournament-v4/POST_createTournamentCode" target="_blank">`tournament-v4.createTournamentCode`</a>
     ///
@@ -1623,7 +1623,7 @@ impl<'a> TournamentV4<'a> {
     /// Returns the tournament code DTO associated with a tournament code string.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `tournamentCode` - The tournament code string.
+    /// * `tournament_code` (required, in path) - The tournament code string.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tournament-v4/GET_getTournamentCode" target="_blank">`tournament-v4.getTournamentCode`</a>
     ///
@@ -1639,7 +1639,7 @@ impl<'a> TournamentV4<'a> {
     /// Update the pick type, map, spectator type, or allowed summoners for a code.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `tournamentCode` - The tournament code to update
+    /// * `tournament_code` (required, in path) - The tournament code to update
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tournament-v4/PUT_updateCode" target="_blank">`tournament-v4.updateCode`</a>
     ///
@@ -1656,7 +1656,7 @@ impl<'a> TournamentV4<'a> {
     /// Gets a list of lobby events by tournament code.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `tournamentCode` - The short code to look up lobby events for
+    /// * `tournament_code` (required, in path) - The short code to look up lobby events for
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tournament-v4/GET_getLobbyEventsByCode" target="_blank">`tournament-v4.getLobbyEventsByCode`</a>
     ///
@@ -1718,7 +1718,7 @@ impl<'a> ValContentV1<'a> {
     /// Get content optionally filtered by locale
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `locale` (optional)
+    /// * `locale` (optional, in query)
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#val-content-v1/GET_getContent" target="_blank">`val-content-v1.getContent`</a>
     ///
@@ -1747,7 +1747,7 @@ impl<'a> ValMatchV1<'a> {
     /// Get match by id
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `matchId`
+    /// * `match_id` (required, in path)
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#val-match-v1/GET_getMatch" target="_blank">`val-match-v1.getMatch`</a>
     ///
@@ -1763,7 +1763,7 @@ impl<'a> ValMatchV1<'a> {
     /// Get matchlist for games played by puuid
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `puuid`
+    /// * `puuid` (required, in path)
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#val-match-v1/GET_getMatchlist" target="_blank">`val-match-v1.getMatchlist`</a>
     ///
@@ -1781,7 +1781,7 @@ impl<'a> ValMatchV1<'a> {
     /// Returns a list of match ids that have completed in the last 10 minutes for live regions and 12 hours for the esports routing value. NA/LATAM/BR share a match history deployment. As such, recent matches will return a combined list of matches from those three regions. Requests are load balanced so you may see some inconsistencies as matches are added/removed from the list.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `queue`
+    /// * `queue` (required, in path)
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#val-match-v1/GET_getRecent" target="_blank">`val-match-v1.getRecent`</a>
     ///
@@ -1809,9 +1809,9 @@ impl<'a> ValRankedV1<'a> {
     /// Get leaderboard for the competitive queue
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `actId` - Act ids can be found using the val-content API.
-    /// * `size` (optional) - Defaults to 200. Valid values: 1 to 200.
-    /// * `startIndex` (optional) - Defaults to 0.
+    /// * `act_id` (required, in path) - Act ids can be found using the val-content API.
+    /// * `size` (optional, in query) - Defaults to 200. Valid values: 1 to 200.
+    /// * `start_index` (optional, in query) - Defaults to 0.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#val-ranked-v1/GET_getLeaderboard" target="_blank">`val-ranked-v1.getLeaderboard`</a>
     ///
