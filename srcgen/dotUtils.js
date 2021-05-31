@@ -56,7 +56,9 @@ function normalizeArgName(name) {
 }
 
 function normalizePropName(propName) {
-  const out = changeCase.snakeCase(propName);
+  let out = changeCase.snakeCase(propName);
+  if (/^\d/.test(out)) // No leading digits.
+    out = 'x' + out;
   if ('type' === out)
     return 'r#' + out;
   return out;
