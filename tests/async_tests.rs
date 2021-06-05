@@ -15,7 +15,10 @@ macro_rules! async_tests {
                     println!();
                     println!("running tests");
                     println!();
+
+                    #[allow(unused_mut)]
                     let mut oks: u32 = 0;
+                    #[allow(unused_mut)]
                     let mut errs: u32 = 0;
                     $(
                         let $name = async {
