@@ -47,7 +47,6 @@ async_tests!{
         },
 
         matchlist_get: async {
-
             let sp = RIOT_API.summoner_v4().get_by_summoner_name(Region::NA, "haha yes");
             let s = sp.await.map_err(|e| e.to_string())?.ok_or("Failed to get \"haha yes\"".to_owned())?;
             let mp = RIOT_API.match_v4().get_matchlist(Region::NA, &s.account_id, None, Some(2500), None, None, Some(2600), None, None);
@@ -117,6 +116,8 @@ async_tests!{
             rassert!(!m.frames.is_empty(), "Match timeline should have frames.");
             Ok(())
         },
+
+
         // Commented out, requires special API key.
         // // LOR
         // lor_ranked_get_leaderboards: async {

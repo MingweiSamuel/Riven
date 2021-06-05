@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 7938729f7e446a82eb73d3908205a579e3f0db71
+// Version 570eb12bfe9fb09e435976cb454f622293d0020e
 
 //! Automatically generated endpoint handles.
 
@@ -949,10 +949,10 @@ impl<'a> MatchV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_match(&self, region: Region, match_id: &str)
-        -> impl Future<Output = Result<match_v5::Match>> + 'a
+        -> impl Future<Output = Result<Option<match_v5::Match>>> + 'a
     {
         let path_string = format!("/lol/match/v5/matches/{}", match_id);
-        self.base.get::<match_v5::Match>("match-v5.getMatch", region.into(), path_string, None)
+        self.base.get_optional::<match_v5::Match>("match-v5.getMatch", region.into(), path_string, None)
     }
 
     /// Get a match timeline by match id
@@ -964,10 +964,10 @@ impl<'a> MatchV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_timeline(&self, region: Region, match_id: &str)
-        -> impl Future<Output = Result<match_v5::MatchTimeline>> + 'a
+        -> impl Future<Output = Result<Option<match_v5::MatchTimeline>>> + 'a
     {
         let path_string = format!("/lol/match/v5/matches/{}/timeline", match_id);
-        self.base.get::<match_v5::MatchTimeline>("match-v5.getTimeline", region.into(), path_string, None)
+        self.base.get_optional::<match_v5::MatchTimeline>("match-v5.getTimeline", region.into(), path_string, None)
     }
 
 }
