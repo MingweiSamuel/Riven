@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 7938729f7e446a82eb73d3908205a579e3f0db71
+// Version f60af07c98f05dffdaf81262f9b01f97fe94a3a1
 
 //! Automatically generated endpoint handles.
 
@@ -1031,19 +1031,23 @@ impl<'a> MatchV5<'a> {
     /// # Parameters
     /// * `route` - Route to query.
     /// * `puuid` (required, in path)
+    /// * `queue` (optional, in query) - Filter the list of match ids by a specific queue id. This filter is mutually inclusive of the type filter meaning any match ids returned must match both the queue and type filters.
+    /// * `type` (optional, in query) - Filter the list of match ids by the type of match. This filter is mutually inclusive of the queue filter meaning any match ids returned must match both the queue and type filters.
     /// * `start` (optional, in query) - Defaults to 0. Start index.
-    /// * `count` (optional, in query) - Defaults to 20. Valid values: 0 to 100. Match id count.
+    /// * `count` (optional, in query) - Defaults to 20. Valid values: 0 to 100. Number of match ids to return.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#match-v5/GET_getMatchIdsByPUUID" target="_blank">`match-v5.getMatchIdsByPUUID`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_match_ids_by_puuid(&self, route: RegionalRoute, puuid: &str, count: Option<i32>, start: Option<i32>)
+    pub fn get_match_ids_by_puuid(&self, route: RegionalRoute, puuid: &str, count: Option<i32>, queue: Option<i32>, start: Option<i32>, r#type: Option<&str>)
         -> impl Future<Output = Result<Vec<String>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/match/v5/matches/by-puuid/{}/ids", puuid));
         let mut request = request; if let Some(count) = count { request = request.query(&[ ("count", count) ]); }
+        let mut request = request; if let Some(queue) = queue { request = request.query(&[ ("queue", queue) ]); }
         let mut request = request; if let Some(start) = start { request = request.query(&[ ("start", start) ]); }
+        let mut request = request; if let Some(r#type) = r#type { request = request.query(&[ ("type", r#type) ]); }
         self.base.execute_val::<Vec<String>>("match-v5.getMatchIdsByPUUID", route_str, request)
     }
 
@@ -1056,11 +1060,11 @@ impl<'a> MatchV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_match(&self, route: RegionalRoute, match_id: &str)
-        -> impl Future<Output = Result<match_v5::Match>> + 'a
+        -> impl Future<Output = Result<Option<match_v5::Match>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/match/v5/matches/{}", match_id));
-        self.base.execute_val::<match_v5::Match>("match-v5.getMatch", route_str, request)
+        self.base.execute_opt::<match_v5::Match>("match-v5.getMatch", route_str, request)
     }
 
     /// Get a match timeline by match id
@@ -1072,11 +1076,11 @@ impl<'a> MatchV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_timeline(&self, route: RegionalRoute, match_id: &str)
-        -> impl Future<Output = Result<match_v5::MatchTimeline>> + 'a
+        -> impl Future<Output = Result<Option<match_v5::MatchTimeline>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/match/v5/matches/{}/timeline", match_id));
-        self.base.execute_val::<match_v5::MatchTimeline>("match-v5.getTimeline", route_str, request)
+        self.base.execute_opt::<match_v5::MatchTimeline>("match-v5.getTimeline", route_str, request)
     }
 
 }
