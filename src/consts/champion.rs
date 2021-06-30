@@ -6,521 +6,1039 @@
 //                                           //
 ///////////////////////////////////////////////
 
-use num_enum::{ IntoPrimitive, TryFromPrimitive };
-use serde_repr::{ Serialize_repr, Deserialize_repr };
-use strum_macros::{ EnumString, EnumIter, Display, AsRefStr, IntoStaticStr };
+use serde::{ Serialize, Deserialize };
 
-/// League of Legend's champions.
+/// League of Legends champions.
 ///
-/// The documentation of each variant specifies:<br>
+/// The documentation of each const field specifies:<br>
 /// NAME (`IDENTIFIER`, ID).
 ///
 /// Implements [IntoEnumIterator](super::IntoEnumIterator).
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone)]
-#[derive(IntoPrimitive, TryFromPrimitive)]
-#[derive(Serialize_repr, Deserialize_repr)]
-#[derive(EnumString, EnumIter, Display, AsRefStr, IntoStaticStr)]
-#[repr(i16)]
-pub enum Champion {
-    /// A champion that doesn't exist. Used in TeamBans when no champion was banned.
-    ///
-    /// None (`NONE`, -1).
-    None = -1,
-
-    /// Aatrox (`Aatrox`, 266).
-    #[strum(to_string="Aatrox")] Aatrox = 266,
-    /// Ahri (`Ahri`, 103).
-    #[strum(to_string="Ahri")] Ahri = 103,
-    /// Akali (`Akali`, 84).
-    #[strum(to_string="Akali")] Akali = 84,
-    /// Alistar (`Alistar`, 12).
-    #[strum(to_string="Alistar")] Alistar = 12,
-    /// Amumu (`Amumu`, 32).
-    #[strum(to_string="Amumu")] Amumu = 32,
-    /// Anivia (`Anivia`, 34).
-    #[strum(to_string="Anivia")] Anivia = 34,
-    /// Annie (`Annie`, 1).
-    #[strum(to_string="Annie")] Annie = 1,
-    /// Aphelios (`Aphelios`, 523).
-    #[strum(to_string="Aphelios")] Aphelios = 523,
-    /// Ashe (`Ashe`, 22).
-    #[strum(to_string="Ashe")] Ashe = 22,
-    /// Aurelion Sol (`AurelionSol`, 136).
-    #[strum(to_string="Aurelion Sol", serialize="AurelionSol")] AurelionSol = 136,
-    /// Azir (`Azir`, 268).
-    #[strum(to_string="Azir")] Azir = 268,
-    /// Bard (`Bard`, 432).
-    #[strum(to_string="Bard")] Bard = 432,
-    /// Blitzcrank (`Blitzcrank`, 53).
-    #[strum(to_string="Blitzcrank")] Blitzcrank = 53,
-    /// Brand (`Brand`, 63).
-    #[strum(to_string="Brand")] Brand = 63,
-    /// Braum (`Braum`, 201).
-    #[strum(to_string="Braum")] Braum = 201,
-    /// Caitlyn (`Caitlyn`, 51).
-    #[strum(to_string="Caitlyn")] Caitlyn = 51,
-    /// Camille (`Camille`, 164).
-    #[strum(to_string="Camille")] Camille = 164,
-    /// Cassiopeia (`Cassiopeia`, 69).
-    #[strum(to_string="Cassiopeia")] Cassiopeia = 69,
-    /// Cho'Gath (`Chogath`, 31).
-    #[strum(to_string="Cho'Gath", serialize="Chogath")] ChoGath = 31,
-    /// Corki (`Corki`, 42).
-    #[strum(to_string="Corki")] Corki = 42,
-    /// Darius (`Darius`, 122).
-    #[strum(to_string="Darius")] Darius = 122,
-    /// Diana (`Diana`, 131).
-    #[strum(to_string="Diana")] Diana = 131,
-    /// Dr. Mundo (`DrMundo`, 36).
-    #[strum(to_string="Dr. Mundo", serialize="DrMundo")] DrMundo = 36,
-    /// Draven (`Draven`, 119).
-    #[strum(to_string="Draven")] Draven = 119,
-    /// Ekko (`Ekko`, 245).
-    #[strum(to_string="Ekko")] Ekko = 245,
-    /// Elise (`Elise`, 60).
-    #[strum(to_string="Elise")] Elise = 60,
-    /// Evelynn (`Evelynn`, 28).
-    #[strum(to_string="Evelynn")] Evelynn = 28,
-    /// Ezreal (`Ezreal`, 81).
-    #[strum(to_string="Ezreal")] Ezreal = 81,
-    /// Fiddlesticks (`FiddleSticks`, 9).
-    #[strum(to_string="Fiddlesticks", serialize="FiddleSticks")] Fiddlesticks = 9,
-    /// Fiora (`Fiora`, 114).
-    #[strum(to_string="Fiora")] Fiora = 114,
-    /// Fizz (`Fizz`, 105).
-    #[strum(to_string="Fizz")] Fizz = 105,
-    /// Galio (`Galio`, 3).
-    #[strum(to_string="Galio")] Galio = 3,
-    /// Gangplank (`Gangplank`, 41).
-    #[strum(to_string="Gangplank")] Gangplank = 41,
-    /// Garen (`Garen`, 86).
-    #[strum(to_string="Garen")] Garen = 86,
-    /// Gnar (`Gnar`, 150).
-    #[strum(to_string="Gnar")] Gnar = 150,
-    /// Gragas (`Gragas`, 79).
-    #[strum(to_string="Gragas")] Gragas = 79,
-    /// Graves (`Graves`, 104).
-    #[strum(to_string="Graves")] Graves = 104,
-    /// Gwen (`Gwen`, 887).
-    #[strum(to_string="Gwen")] Gwen = 887,
-    /// Hecarim (`Hecarim`, 120).
-    #[strum(to_string="Hecarim")] Hecarim = 120,
-    /// Heimerdinger (`Heimerdinger`, 74).
-    #[strum(to_string="Heimerdinger")] Heimerdinger = 74,
-    /// Illaoi (`Illaoi`, 420).
-    #[strum(to_string="Illaoi")] Illaoi = 420,
-    /// Irelia (`Irelia`, 39).
-    #[strum(to_string="Irelia")] Irelia = 39,
-    /// Ivern (`Ivern`, 427).
-    #[strum(to_string="Ivern")] Ivern = 427,
-    /// Janna (`Janna`, 40).
-    #[strum(to_string="Janna")] Janna = 40,
-    /// Jarvan IV (`JarvanIV`, 59).
-    #[strum(to_string="Jarvan IV", serialize="JarvanIV")] JarvanIV = 59,
-    /// Jax (`Jax`, 24).
-    #[strum(to_string="Jax")] Jax = 24,
-    /// Jayce (`Jayce`, 126).
-    #[strum(to_string="Jayce")] Jayce = 126,
-    /// Jhin (`Jhin`, 202).
-    #[strum(to_string="Jhin")] Jhin = 202,
-    /// Jinx (`Jinx`, 222).
-    #[strum(to_string="Jinx")] Jinx = 222,
-    /// Kai'Sa (`Kaisa`, 145).
-    #[strum(to_string="Kai'Sa", serialize="Kaisa")] KaiSa = 145,
-    /// Kalista (`Kalista`, 429).
-    #[strum(to_string="Kalista")] Kalista = 429,
-    /// Karma (`Karma`, 43).
-    #[strum(to_string="Karma")] Karma = 43,
-    /// Karthus (`Karthus`, 30).
-    #[strum(to_string="Karthus")] Karthus = 30,
-    /// Kassadin (`Kassadin`, 38).
-    #[strum(to_string="Kassadin")] Kassadin = 38,
-    /// Katarina (`Katarina`, 55).
-    #[strum(to_string="Katarina")] Katarina = 55,
-    /// Kayle (`Kayle`, 10).
-    #[strum(to_string="Kayle")] Kayle = 10,
-    /// Kayn (`Kayn`, 141).
-    #[strum(to_string="Kayn")] Kayn = 141,
-    /// Kennen (`Kennen`, 85).
-    #[strum(to_string="Kennen")] Kennen = 85,
-    /// Kha'Zix (`Khazix`, 121).
-    #[strum(to_string="Kha'Zix", serialize="Khazix")] KhaZix = 121,
-    /// Kindred (`Kindred`, 203).
-    #[strum(to_string="Kindred")] Kindred = 203,
-    /// Kled (`Kled`, 240).
-    #[strum(to_string="Kled")] Kled = 240,
-    /// Kog'Maw (`KogMaw`, 96).
-    #[strum(to_string="Kog'Maw", serialize="KogMaw")] KogMaw = 96,
-    /// LeBlanc (`Leblanc`, 7).
-    #[strum(to_string="LeBlanc", serialize="Leblanc")] LeBlanc = 7,
-    /// Lee Sin (`LeeSin`, 64).
-    #[strum(to_string="Lee Sin", serialize="LeeSin")] LeeSin = 64,
-    /// Leona (`Leona`, 89).
-    #[strum(to_string="Leona")] Leona = 89,
-    /// Lillia (`Lillia`, 876).
-    #[strum(to_string="Lillia")] Lillia = 876,
-    /// Lissandra (`Lissandra`, 127).
-    #[strum(to_string="Lissandra")] Lissandra = 127,
-    /// Lucian (`Lucian`, 236).
-    #[strum(to_string="Lucian")] Lucian = 236,
-    /// Lulu (`Lulu`, 117).
-    #[strum(to_string="Lulu")] Lulu = 117,
-    /// Lux (`Lux`, 99).
-    #[strum(to_string="Lux")] Lux = 99,
-    /// Malphite (`Malphite`, 54).
-    #[strum(to_string="Malphite")] Malphite = 54,
-    /// Malzahar (`Malzahar`, 90).
-    #[strum(to_string="Malzahar")] Malzahar = 90,
-    /// Maokai (`Maokai`, 57).
-    #[strum(to_string="Maokai")] Maokai = 57,
-    /// Master Yi (`MasterYi`, 11).
-    #[strum(to_string="Master Yi", serialize="MasterYi")] MasterYi = 11,
-    /// Miss Fortune (`MissFortune`, 21).
-    #[strum(to_string="Miss Fortune", serialize="MissFortune")] MissFortune = 21,
-    /// Mordekaiser (`Mordekaiser`, 82).
-    #[strum(to_string="Mordekaiser")] Mordekaiser = 82,
-    /// Morgana (`Morgana`, 25).
-    #[strum(to_string="Morgana")] Morgana = 25,
-    /// Nami (`Nami`, 267).
-    #[strum(to_string="Nami")] Nami = 267,
-    /// Nasus (`Nasus`, 75).
-    #[strum(to_string="Nasus")] Nasus = 75,
-    /// Nautilus (`Nautilus`, 111).
-    #[strum(to_string="Nautilus")] Nautilus = 111,
-    /// Neeko (`Neeko`, 518).
-    #[strum(to_string="Neeko")] Neeko = 518,
-    /// Nidalee (`Nidalee`, 76).
-    #[strum(to_string="Nidalee")] Nidalee = 76,
-    /// Nocturne (`Nocturne`, 56).
-    #[strum(to_string="Nocturne")] Nocturne = 56,
-    /// Nunu & Willump (`Nunu`, 20).
-    #[strum(to_string="Nunu & Willump", serialize="Nunu")] NunuWillump = 20,
-    /// Olaf (`Olaf`, 2).
-    #[strum(to_string="Olaf")] Olaf = 2,
-    /// Orianna (`Orianna`, 61).
-    #[strum(to_string="Orianna")] Orianna = 61,
-    /// Ornn (`Ornn`, 516).
-    #[strum(to_string="Ornn")] Ornn = 516,
-    /// Pantheon (`Pantheon`, 80).
-    #[strum(to_string="Pantheon")] Pantheon = 80,
-    /// Poppy (`Poppy`, 78).
-    #[strum(to_string="Poppy")] Poppy = 78,
-    /// Pyke (`Pyke`, 555).
-    #[strum(to_string="Pyke")] Pyke = 555,
-    /// Qiyana (`Qiyana`, 246).
-    #[strum(to_string="Qiyana")] Qiyana = 246,
-    /// Quinn (`Quinn`, 133).
-    #[strum(to_string="Quinn")] Quinn = 133,
-    /// Rakan (`Rakan`, 497).
-    #[strum(to_string="Rakan")] Rakan = 497,
-    /// Rammus (`Rammus`, 33).
-    #[strum(to_string="Rammus")] Rammus = 33,
-    /// Rek'Sai (`RekSai`, 421).
-    #[strum(to_string="Rek'Sai", serialize="RekSai")] RekSai = 421,
-    /// Rell (`Rell`, 526).
-    #[strum(to_string="Rell")] Rell = 526,
-    /// Renekton (`Renekton`, 58).
-    #[strum(to_string="Renekton")] Renekton = 58,
-    /// Rengar (`Rengar`, 107).
-    #[strum(to_string="Rengar")] Rengar = 107,
-    /// Riven (`Riven`, 92).
-    #[strum(to_string="Riven")] Riven = 92,
-    /// Rumble (`Rumble`, 68).
-    #[strum(to_string="Rumble")] Rumble = 68,
-    /// Ryze (`Ryze`, 13).
-    #[strum(to_string="Ryze")] Ryze = 13,
-    /// Samira (`Samira`, 360).
-    #[strum(to_string="Samira")] Samira = 360,
-    /// Sejuani (`Sejuani`, 113).
-    #[strum(to_string="Sejuani")] Sejuani = 113,
-    /// Senna (`Senna`, 235).
-    #[strum(to_string="Senna")] Senna = 235,
-    /// Seraphine (`Seraphine`, 147).
-    #[strum(to_string="Seraphine")] Seraphine = 147,
-    /// Sett (`Sett`, 875).
-    #[strum(to_string="Sett")] Sett = 875,
-    /// Shaco (`Shaco`, 35).
-    #[strum(to_string="Shaco")] Shaco = 35,
-    /// Shen (`Shen`, 98).
-    #[strum(to_string="Shen")] Shen = 98,
-    /// Shyvana (`Shyvana`, 102).
-    #[strum(to_string="Shyvana")] Shyvana = 102,
-    /// Singed (`Singed`, 27).
-    #[strum(to_string="Singed")] Singed = 27,
-    /// Sion (`Sion`, 14).
-    #[strum(to_string="Sion")] Sion = 14,
-    /// Sivir (`Sivir`, 15).
-    #[strum(to_string="Sivir")] Sivir = 15,
-    /// Skarner (`Skarner`, 72).
-    #[strum(to_string="Skarner")] Skarner = 72,
-    /// Sona (`Sona`, 37).
-    #[strum(to_string="Sona")] Sona = 37,
-    /// Soraka (`Soraka`, 16).
-    #[strum(to_string="Soraka")] Soraka = 16,
-    /// Swain (`Swain`, 50).
-    #[strum(to_string="Swain")] Swain = 50,
-    /// Sylas (`Sylas`, 517).
-    #[strum(to_string="Sylas")] Sylas = 517,
-    /// Syndra (`Syndra`, 134).
-    #[strum(to_string="Syndra")] Syndra = 134,
-    /// Tahm Kench (`TahmKench`, 223).
-    #[strum(to_string="Tahm Kench", serialize="TahmKench")] TahmKench = 223,
-    /// Taliyah (`Taliyah`, 163).
-    #[strum(to_string="Taliyah")] Taliyah = 163,
-    /// Talon (`Talon`, 91).
-    #[strum(to_string="Talon")] Talon = 91,
-    /// Taric (`Taric`, 44).
-    #[strum(to_string="Taric")] Taric = 44,
-    /// Teemo (`Teemo`, 17).
-    #[strum(to_string="Teemo")] Teemo = 17,
-    /// Thresh (`Thresh`, 412).
-    #[strum(to_string="Thresh")] Thresh = 412,
-    /// Tristana (`Tristana`, 18).
-    #[strum(to_string="Tristana")] Tristana = 18,
-    /// Trundle (`Trundle`, 48).
-    #[strum(to_string="Trundle")] Trundle = 48,
-    /// Tryndamere (`Tryndamere`, 23).
-    #[strum(to_string="Tryndamere")] Tryndamere = 23,
-    /// Twisted Fate (`TwistedFate`, 4).
-    #[strum(to_string="Twisted Fate", serialize="TwistedFate")] TwistedFate = 4,
-    /// Twitch (`Twitch`, 29).
-    #[strum(to_string="Twitch")] Twitch = 29,
-    /// Udyr (`Udyr`, 77).
-    #[strum(to_string="Udyr")] Udyr = 77,
-    /// Urgot (`Urgot`, 6).
-    #[strum(to_string="Urgot")] Urgot = 6,
-    /// Varus (`Varus`, 110).
-    #[strum(to_string="Varus")] Varus = 110,
-    /// Vayne (`Vayne`, 67).
-    #[strum(to_string="Vayne")] Vayne = 67,
-    /// Veigar (`Veigar`, 45).
-    #[strum(to_string="Veigar")] Veigar = 45,
-    /// Vel'Koz (`Velkoz`, 161).
-    #[strum(to_string="Vel'Koz", serialize="Velkoz")] VelKoz = 161,
-    /// Vi (`Vi`, 254).
-    #[strum(to_string="Vi")] Vi = 254,
-    /// Viego (`Viego`, 234).
-    #[strum(to_string="Viego")] Viego = 234,
-    /// Viktor (`Viktor`, 112).
-    #[strum(to_string="Viktor")] Viktor = 112,
-    /// Vladimir (`Vladimir`, 8).
-    #[strum(to_string="Vladimir")] Vladimir = 8,
-    /// Volibear (`Volibear`, 106).
-    #[strum(to_string="Volibear")] Volibear = 106,
-    /// Warwick (`Warwick`, 19).
-    #[strum(to_string="Warwick")] Warwick = 19,
-    /// Wukong (`MonkeyKing`, 62).
-    #[strum(to_string="Wukong", serialize="MonkeyKing")] Wukong = 62,
-    /// Xayah (`Xayah`, 498).
-    #[strum(to_string="Xayah")] Xayah = 498,
-    /// Xerath (`Xerath`, 101).
-    #[strum(to_string="Xerath")] Xerath = 101,
-    /// Xin Zhao (`XinZhao`, 5).
-    #[strum(to_string="Xin Zhao", serialize="XinZhao")] XinZhao = 5,
-    /// Yasuo (`Yasuo`, 157).
-    #[strum(to_string="Yasuo")] Yasuo = 157,
-    /// Yone (`Yone`, 777).
-    #[strum(to_string="Yone")] Yone = 777,
-    /// Yorick (`Yorick`, 83).
-    #[strum(to_string="Yorick")] Yorick = 83,
-    /// Yuumi (`Yuumi`, 350).
-    #[strum(to_string="Yuumi")] Yuumi = 350,
-    /// Zac (`Zac`, 154).
-    #[strum(to_string="Zac")] Zac = 154,
-    /// Zed (`Zed`, 238).
-    #[strum(to_string="Zed")] Zed = 238,
-    /// Ziggs (`Ziggs`, 115).
-    #[strum(to_string="Ziggs")] Ziggs = 115,
-    /// Zilean (`Zilean`, 26).
-    #[strum(to_string="Zilean")] Zilean = 26,
-    /// Zoe (`Zoe`, 142).
-    #[strum(to_string="Zoe")] Zoe = 142,
-    /// Zyra (`Zyra`, 143).
-    #[strum(to_string="Zyra")] Zyra = 143,
-}
+#[derive(Serialize, Deserialize)]
+#[derive(Copy, Clone)]
+#[derive(PartialEq, Eq, PartialOrd, Ord)]
+#[serde(transparent)]
+#[repr(transparent)]
+pub struct Champion(pub i16);
 
 impl Champion {
-    /// The champion's name (localized `en_US`), or `"NONE"` for the None variant.
-    pub fn name(self) -> &'static str {
-        self.into()
+    /// Aatrox (`Aatrox`, 266).
+    pub const AATROX: Self = Self(266);
+    /// Ahri (`Ahri`, 103).
+    pub const AHRI: Self = Self(103);
+    /// Akali (`Akali`, 84).
+    pub const AKALI: Self = Self(84);
+    /// Alistar (`Alistar`, 12).
+    pub const ALISTAR: Self = Self(12);
+    /// Amumu (`Amumu`, 32).
+    pub const AMUMU: Self = Self(32);
+    /// Anivia (`Anivia`, 34).
+    pub const ANIVIA: Self = Self(34);
+    /// Annie (`Annie`, 1).
+    pub const ANNIE: Self = Self(1);
+    /// Aphelios (`Aphelios`, 523).
+    pub const APHELIOS: Self = Self(523);
+    /// Ashe (`Ashe`, 22).
+    pub const ASHE: Self = Self(22);
+    /// Aurelion Sol (`AurelionSol`, 136).
+    pub const AURELION_SOL: Self = Self(136);
+    /// Azir (`Azir`, 268).
+    pub const AZIR: Self = Self(268);
+    /// Bard (`Bard`, 432).
+    pub const BARD: Self = Self(432);
+    /// Blitzcrank (`Blitzcrank`, 53).
+    pub const BLITZCRANK: Self = Self(53);
+    /// Brand (`Brand`, 63).
+    pub const BRAND: Self = Self(63);
+    /// Braum (`Braum`, 201).
+    pub const BRAUM: Self = Self(201);
+    /// Caitlyn (`Caitlyn`, 51).
+    pub const CAITLYN: Self = Self(51);
+    /// Camille (`Camille`, 164).
+    pub const CAMILLE: Self = Self(164);
+    /// Cassiopeia (`Cassiopeia`, 69).
+    pub const CASSIOPEIA: Self = Self(69);
+    /// Cho'Gath (`Chogath`, 31).
+    pub const CHO_GATH: Self = Self(31);
+    /// Corki (`Corki`, 42).
+    pub const CORKI: Self = Self(42);
+    /// Darius (`Darius`, 122).
+    pub const DARIUS: Self = Self(122);
+    /// Diana (`Diana`, 131).
+    pub const DIANA: Self = Self(131);
+    /// Dr. Mundo (`DrMundo`, 36).
+    pub const DR_MUNDO: Self = Self(36);
+    /// Draven (`Draven`, 119).
+    pub const DRAVEN: Self = Self(119);
+    /// Ekko (`Ekko`, 245).
+    pub const EKKO: Self = Self(245);
+    /// Elise (`Elise`, 60).
+    pub const ELISE: Self = Self(60);
+    /// Evelynn (`Evelynn`, 28).
+    pub const EVELYNN: Self = Self(28);
+    /// Ezreal (`Ezreal`, 81).
+    pub const EZREAL: Self = Self(81);
+    /// Fiddlesticks (`FiddleSticks`, 9).
+    pub const FIDDLESTICKS: Self = Self(9);
+    /// Fiora (`Fiora`, 114).
+    pub const FIORA: Self = Self(114);
+    /// Fizz (`Fizz`, 105).
+    pub const FIZZ: Self = Self(105);
+    /// Galio (`Galio`, 3).
+    pub const GALIO: Self = Self(3);
+    /// Gangplank (`Gangplank`, 41).
+    pub const GANGPLANK: Self = Self(41);
+    /// Garen (`Garen`, 86).
+    pub const GAREN: Self = Self(86);
+    /// Gnar (`Gnar`, 150).
+    pub const GNAR: Self = Self(150);
+    /// Gragas (`Gragas`, 79).
+    pub const GRAGAS: Self = Self(79);
+    /// Graves (`Graves`, 104).
+    pub const GRAVES: Self = Self(104);
+    /// Gwen (`Gwen`, 887).
+    pub const GWEN: Self = Self(887);
+    /// Hecarim (`Hecarim`, 120).
+    pub const HECARIM: Self = Self(120);
+    /// Heimerdinger (`Heimerdinger`, 74).
+    pub const HEIMERDINGER: Self = Self(74);
+    /// Illaoi (`Illaoi`, 420).
+    pub const ILLAOI: Self = Self(420);
+    /// Irelia (`Irelia`, 39).
+    pub const IRELIA: Self = Self(39);
+    /// Ivern (`Ivern`, 427).
+    pub const IVERN: Self = Self(427);
+    /// Janna (`Janna`, 40).
+    pub const JANNA: Self = Self(40);
+    /// Jarvan IV (`JarvanIV`, 59).
+    pub const JARVAN_IV: Self = Self(59);
+    /// Jax (`Jax`, 24).
+    pub const JAX: Self = Self(24);
+    /// Jayce (`Jayce`, 126).
+    pub const JAYCE: Self = Self(126);
+    /// Jhin (`Jhin`, 202).
+    pub const JHIN: Self = Self(202);
+    /// Jinx (`Jinx`, 222).
+    pub const JINX: Self = Self(222);
+    /// Kai'Sa (`Kaisa`, 145).
+    pub const KAI_SA: Self = Self(145);
+    /// Kalista (`Kalista`, 429).
+    pub const KALISTA: Self = Self(429);
+    /// Karma (`Karma`, 43).
+    pub const KARMA: Self = Self(43);
+    /// Karthus (`Karthus`, 30).
+    pub const KARTHUS: Self = Self(30);
+    /// Kassadin (`Kassadin`, 38).
+    pub const KASSADIN: Self = Self(38);
+    /// Katarina (`Katarina`, 55).
+    pub const KATARINA: Self = Self(55);
+    /// Kayle (`Kayle`, 10).
+    pub const KAYLE: Self = Self(10);
+    /// Kayn (`Kayn`, 141).
+    pub const KAYN: Self = Self(141);
+    /// Kennen (`Kennen`, 85).
+    pub const KENNEN: Self = Self(85);
+    /// Kha'Zix (`Khazix`, 121).
+    pub const KHA_ZIX: Self = Self(121);
+    /// Kindred (`Kindred`, 203).
+    pub const KINDRED: Self = Self(203);
+    /// Kled (`Kled`, 240).
+    pub const KLED: Self = Self(240);
+    /// Kog'Maw (`KogMaw`, 96).
+    pub const KOG_MAW: Self = Self(96);
+    /// LeBlanc (`Leblanc`, 7).
+    pub const LE_BLANC: Self = Self(7);
+    /// Lee Sin (`LeeSin`, 64).
+    pub const LEE_SIN: Self = Self(64);
+    /// Leona (`Leona`, 89).
+    pub const LEONA: Self = Self(89);
+    /// Lillia (`Lillia`, 876).
+    pub const LILLIA: Self = Self(876);
+    /// Lissandra (`Lissandra`, 127).
+    pub const LISSANDRA: Self = Self(127);
+    /// Lucian (`Lucian`, 236).
+    pub const LUCIAN: Self = Self(236);
+    /// Lulu (`Lulu`, 117).
+    pub const LULU: Self = Self(117);
+    /// Lux (`Lux`, 99).
+    pub const LUX: Self = Self(99);
+    /// Malphite (`Malphite`, 54).
+    pub const MALPHITE: Self = Self(54);
+    /// Malzahar (`Malzahar`, 90).
+    pub const MALZAHAR: Self = Self(90);
+    /// Maokai (`Maokai`, 57).
+    pub const MAOKAI: Self = Self(57);
+    /// Master Yi (`MasterYi`, 11).
+    pub const MASTER_YI: Self = Self(11);
+    /// Miss Fortune (`MissFortune`, 21).
+    pub const MISS_FORTUNE: Self = Self(21);
+    /// Mordekaiser (`Mordekaiser`, 82).
+    pub const MORDEKAISER: Self = Self(82);
+    /// Morgana (`Morgana`, 25).
+    pub const MORGANA: Self = Self(25);
+    /// Nami (`Nami`, 267).
+    pub const NAMI: Self = Self(267);
+    /// Nasus (`Nasus`, 75).
+    pub const NASUS: Self = Self(75);
+    /// Nautilus (`Nautilus`, 111).
+    pub const NAUTILUS: Self = Self(111);
+    /// Neeko (`Neeko`, 518).
+    pub const NEEKO: Self = Self(518);
+    /// Nidalee (`Nidalee`, 76).
+    pub const NIDALEE: Self = Self(76);
+    /// Nocturne (`Nocturne`, 56).
+    pub const NOCTURNE: Self = Self(56);
+    /// Nunu & Willump (`Nunu`, 20).
+    pub const NUNU_WILLUMP: Self = Self(20);
+    /// Olaf (`Olaf`, 2).
+    pub const OLAF: Self = Self(2);
+    /// Orianna (`Orianna`, 61).
+    pub const ORIANNA: Self = Self(61);
+    /// Ornn (`Ornn`, 516).
+    pub const ORNN: Self = Self(516);
+    /// Pantheon (`Pantheon`, 80).
+    pub const PANTHEON: Self = Self(80);
+    /// Poppy (`Poppy`, 78).
+    pub const POPPY: Self = Self(78);
+    /// Pyke (`Pyke`, 555).
+    pub const PYKE: Self = Self(555);
+    /// Qiyana (`Qiyana`, 246).
+    pub const QIYANA: Self = Self(246);
+    /// Quinn (`Quinn`, 133).
+    pub const QUINN: Self = Self(133);
+    /// Rakan (`Rakan`, 497).
+    pub const RAKAN: Self = Self(497);
+    /// Rammus (`Rammus`, 33).
+    pub const RAMMUS: Self = Self(33);
+    /// Rek'Sai (`RekSai`, 421).
+    pub const REK_SAI: Self = Self(421);
+    /// Rell (`Rell`, 526).
+    pub const RELL: Self = Self(526);
+    /// Renekton (`Renekton`, 58).
+    pub const RENEKTON: Self = Self(58);
+    /// Rengar (`Rengar`, 107).
+    pub const RENGAR: Self = Self(107);
+    /// Riven (`Riven`, 92).
+    pub const RIVEN: Self = Self(92);
+    /// Rumble (`Rumble`, 68).
+    pub const RUMBLE: Self = Self(68);
+    /// Ryze (`Ryze`, 13).
+    pub const RYZE: Self = Self(13);
+    /// Samira (`Samira`, 360).
+    pub const SAMIRA: Self = Self(360);
+    /// Sejuani (`Sejuani`, 113).
+    pub const SEJUANI: Self = Self(113);
+    /// Senna (`Senna`, 235).
+    pub const SENNA: Self = Self(235);
+    /// Seraphine (`Seraphine`, 147).
+    pub const SERAPHINE: Self = Self(147);
+    /// Sett (`Sett`, 875).
+    pub const SETT: Self = Self(875);
+    /// Shaco (`Shaco`, 35).
+    pub const SHACO: Self = Self(35);
+    /// Shen (`Shen`, 98).
+    pub const SHEN: Self = Self(98);
+    /// Shyvana (`Shyvana`, 102).
+    pub const SHYVANA: Self = Self(102);
+    /// Singed (`Singed`, 27).
+    pub const SINGED: Self = Self(27);
+    /// Sion (`Sion`, 14).
+    pub const SION: Self = Self(14);
+    /// Sivir (`Sivir`, 15).
+    pub const SIVIR: Self = Self(15);
+    /// Skarner (`Skarner`, 72).
+    pub const SKARNER: Self = Self(72);
+    /// Sona (`Sona`, 37).
+    pub const SONA: Self = Self(37);
+    /// Soraka (`Soraka`, 16).
+    pub const SORAKA: Self = Self(16);
+    /// Swain (`Swain`, 50).
+    pub const SWAIN: Self = Self(50);
+    /// Sylas (`Sylas`, 517).
+    pub const SYLAS: Self = Self(517);
+    /// Syndra (`Syndra`, 134).
+    pub const SYNDRA: Self = Self(134);
+    /// Tahm Kench (`TahmKench`, 223).
+    pub const TAHM_KENCH: Self = Self(223);
+    /// Taliyah (`Taliyah`, 163).
+    pub const TALIYAH: Self = Self(163);
+    /// Talon (`Talon`, 91).
+    pub const TALON: Self = Self(91);
+    /// Taric (`Taric`, 44).
+    pub const TARIC: Self = Self(44);
+    /// Teemo (`Teemo`, 17).
+    pub const TEEMO: Self = Self(17);
+    /// Thresh (`Thresh`, 412).
+    pub const THRESH: Self = Self(412);
+    /// Tristana (`Tristana`, 18).
+    pub const TRISTANA: Self = Self(18);
+    /// Trundle (`Trundle`, 48).
+    pub const TRUNDLE: Self = Self(48);
+    /// Tryndamere (`Tryndamere`, 23).
+    pub const TRYNDAMERE: Self = Self(23);
+    /// Twisted Fate (`TwistedFate`, 4).
+    pub const TWISTED_FATE: Self = Self(4);
+    /// Twitch (`Twitch`, 29).
+    pub const TWITCH: Self = Self(29);
+    /// Udyr (`Udyr`, 77).
+    pub const UDYR: Self = Self(77);
+    /// Urgot (`Urgot`, 6).
+    pub const URGOT: Self = Self(6);
+    /// Varus (`Varus`, 110).
+    pub const VARUS: Self = Self(110);
+    /// Vayne (`Vayne`, 67).
+    pub const VAYNE: Self = Self(67);
+    /// Veigar (`Veigar`, 45).
+    pub const VEIGAR: Self = Self(45);
+    /// Vel'Koz (`Velkoz`, 161).
+    pub const VEL_KOZ: Self = Self(161);
+    /// Vi (`Vi`, 254).
+    pub const VI: Self = Self(254);
+    /// Viego (`Viego`, 234).
+    pub const VIEGO: Self = Self(234);
+    /// Viktor (`Viktor`, 112).
+    pub const VIKTOR: Self = Self(112);
+    /// Vladimir (`Vladimir`, 8).
+    pub const VLADIMIR: Self = Self(8);
+    /// Volibear (`Volibear`, 106).
+    pub const VOLIBEAR: Self = Self(106);
+    /// Warwick (`Warwick`, 19).
+    pub const WARWICK: Self = Self(19);
+    /// Wukong (`MonkeyKing`, 62).
+    pub const WUKONG: Self = Self(62);
+    /// Xayah (`Xayah`, 498).
+    pub const XAYAH: Self = Self(498);
+    /// Xerath (`Xerath`, 101).
+    pub const XERATH: Self = Self(101);
+    /// Xin Zhao (`XinZhao`, 5).
+    pub const XIN_ZHAO: Self = Self(5);
+    /// Yasuo (`Yasuo`, 157).
+    pub const YASUO: Self = Self(157);
+    /// Yone (`Yone`, 777).
+    pub const YONE: Self = Self(777);
+    /// Yorick (`Yorick`, 83).
+    pub const YORICK: Self = Self(83);
+    /// Yuumi (`Yuumi`, 350).
+    pub const YUUMI: Self = Self(350);
+    /// Zac (`Zac`, 154).
+    pub const ZAC: Self = Self(154);
+    /// Zed (`Zed`, 238).
+    pub const ZED: Self = Self(238);
+    /// Ziggs (`Ziggs`, 115).
+    pub const ZIGGS: Self = Self(115);
+    /// Zilean (`Zilean`, 26).
+    pub const ZILEAN: Self = Self(26);
+    /// Zoe (`Zoe`, 142).
+    pub const ZOE: Self = Self(142);
+    /// Zyra (`Zyra`, 143).
+    pub const ZYRA: Self = Self(143);
+
+    pub const fn is_known(self) -> bool {
+        match self {
+            Self::AATROX       => true,
+            Self::AHRI         => true,
+            Self::AKALI        => true,
+            Self::ALISTAR      => true,
+            Self::AMUMU        => true,
+            Self::ANIVIA       => true,
+            Self::ANNIE        => true,
+            Self::APHELIOS     => true,
+            Self::ASHE         => true,
+            Self::AURELION_SOL => true,
+            Self::AZIR         => true,
+            Self::BARD         => true,
+            Self::BLITZCRANK   => true,
+            Self::BRAND        => true,
+            Self::BRAUM        => true,
+            Self::CAITLYN      => true,
+            Self::CAMILLE      => true,
+            Self::CASSIOPEIA   => true,
+            Self::CHO_GATH     => true,
+            Self::CORKI        => true,
+            Self::DARIUS       => true,
+            Self::DIANA        => true,
+            Self::DR_MUNDO     => true,
+            Self::DRAVEN       => true,
+            Self::EKKO         => true,
+            Self::ELISE        => true,
+            Self::EVELYNN      => true,
+            Self::EZREAL       => true,
+            Self::FIDDLESTICKS => true,
+            Self::FIORA        => true,
+            Self::FIZZ         => true,
+            Self::GALIO        => true,
+            Self::GANGPLANK    => true,
+            Self::GAREN        => true,
+            Self::GNAR         => true,
+            Self::GRAGAS       => true,
+            Self::GRAVES       => true,
+            Self::GWEN         => true,
+            Self::HECARIM      => true,
+            Self::HEIMERDINGER => true,
+            Self::ILLAOI       => true,
+            Self::IRELIA       => true,
+            Self::IVERN        => true,
+            Self::JANNA        => true,
+            Self::JARVAN_IV    => true,
+            Self::JAX          => true,
+            Self::JAYCE        => true,
+            Self::JHIN         => true,
+            Self::JINX         => true,
+            Self::KAI_SA       => true,
+            Self::KALISTA      => true,
+            Self::KARMA        => true,
+            Self::KARTHUS      => true,
+            Self::KASSADIN     => true,
+            Self::KATARINA     => true,
+            Self::KAYLE        => true,
+            Self::KAYN         => true,
+            Self::KENNEN       => true,
+            Self::KHA_ZIX      => true,
+            Self::KINDRED      => true,
+            Self::KLED         => true,
+            Self::KOG_MAW      => true,
+            Self::LE_BLANC     => true,
+            Self::LEE_SIN      => true,
+            Self::LEONA        => true,
+            Self::LILLIA       => true,
+            Self::LISSANDRA    => true,
+            Self::LUCIAN       => true,
+            Self::LULU         => true,
+            Self::LUX          => true,
+            Self::MALPHITE     => true,
+            Self::MALZAHAR     => true,
+            Self::MAOKAI       => true,
+            Self::MASTER_YI    => true,
+            Self::MISS_FORTUNE => true,
+            Self::MORDEKAISER  => true,
+            Self::MORGANA      => true,
+            Self::NAMI         => true,
+            Self::NASUS        => true,
+            Self::NAUTILUS     => true,
+            Self::NEEKO        => true,
+            Self::NIDALEE      => true,
+            Self::NOCTURNE     => true,
+            Self::NUNU_WILLUMP => true,
+            Self::OLAF         => true,
+            Self::ORIANNA      => true,
+            Self::ORNN         => true,
+            Self::PANTHEON     => true,
+            Self::POPPY        => true,
+            Self::PYKE         => true,
+            Self::QIYANA       => true,
+            Self::QUINN        => true,
+            Self::RAKAN        => true,
+            Self::RAMMUS       => true,
+            Self::REK_SAI      => true,
+            Self::RELL         => true,
+            Self::RENEKTON     => true,
+            Self::RENGAR       => true,
+            Self::RIVEN        => true,
+            Self::RUMBLE       => true,
+            Self::RYZE         => true,
+            Self::SAMIRA       => true,
+            Self::SEJUANI      => true,
+            Self::SENNA        => true,
+            Self::SERAPHINE    => true,
+            Self::SETT         => true,
+            Self::SHACO        => true,
+            Self::SHEN         => true,
+            Self::SHYVANA      => true,
+            Self::SINGED       => true,
+            Self::SION         => true,
+            Self::SIVIR        => true,
+            Self::SKARNER      => true,
+            Self::SONA         => true,
+            Self::SORAKA       => true,
+            Self::SWAIN        => true,
+            Self::SYLAS        => true,
+            Self::SYNDRA       => true,
+            Self::TAHM_KENCH   => true,
+            Self::TALIYAH      => true,
+            Self::TALON        => true,
+            Self::TARIC        => true,
+            Self::TEEMO        => true,
+            Self::THRESH       => true,
+            Self::TRISTANA     => true,
+            Self::TRUNDLE      => true,
+            Self::TRYNDAMERE   => true,
+            Self::TWISTED_FATE => true,
+            Self::TWITCH       => true,
+            Self::UDYR         => true,
+            Self::URGOT        => true,
+            Self::VARUS        => true,
+            Self::VAYNE        => true,
+            Self::VEIGAR       => true,
+            Self::VEL_KOZ      => true,
+            Self::VI           => true,
+            Self::VIEGO        => true,
+            Self::VIKTOR       => true,
+            Self::VLADIMIR     => true,
+            Self::VOLIBEAR     => true,
+            Self::WARWICK      => true,
+            Self::WUKONG       => true,
+            Self::XAYAH        => true,
+            Self::XERATH       => true,
+            Self::XIN_ZHAO     => true,
+            Self::YASUO        => true,
+            Self::YONE         => true,
+            Self::YORICK       => true,
+            Self::YUUMI        => true,
+            Self::ZAC          => true,
+            Self::ZED          => true,
+            Self::ZIGGS        => true,
+            Self::ZILEAN       => true,
+            Self::ZOE          => true,
+            Self::ZYRA         => true,
+            _ => false,
+        }
+    }
+
+    /// The champion's name (`en_US` localization).
+    pub const fn name(self) -> Option<&'static str> {
+        match self {
+            Self::AATROX       => Some("Aatrox"),
+            Self::AHRI         => Some("Ahri"),
+            Self::AKALI        => Some("Akali"),
+            Self::ALISTAR      => Some("Alistar"),
+            Self::AMUMU        => Some("Amumu"),
+            Self::ANIVIA       => Some("Anivia"),
+            Self::ANNIE        => Some("Annie"),
+            Self::APHELIOS     => Some("Aphelios"),
+            Self::ASHE         => Some("Ashe"),
+            Self::AURELION_SOL => Some("Aurelion Sol"),
+            Self::AZIR         => Some("Azir"),
+            Self::BARD         => Some("Bard"),
+            Self::BLITZCRANK   => Some("Blitzcrank"),
+            Self::BRAND        => Some("Brand"),
+            Self::BRAUM        => Some("Braum"),
+            Self::CAITLYN      => Some("Caitlyn"),
+            Self::CAMILLE      => Some("Camille"),
+            Self::CASSIOPEIA   => Some("Cassiopeia"),
+            Self::CHO_GATH     => Some("Cho'Gath"),
+            Self::CORKI        => Some("Corki"),
+            Self::DARIUS       => Some("Darius"),
+            Self::DIANA        => Some("Diana"),
+            Self::DR_MUNDO     => Some("Dr. Mundo"),
+            Self::DRAVEN       => Some("Draven"),
+            Self::EKKO         => Some("Ekko"),
+            Self::ELISE        => Some("Elise"),
+            Self::EVELYNN      => Some("Evelynn"),
+            Self::EZREAL       => Some("Ezreal"),
+            Self::FIDDLESTICKS => Some("Fiddlesticks"),
+            Self::FIORA        => Some("Fiora"),
+            Self::FIZZ         => Some("Fizz"),
+            Self::GALIO        => Some("Galio"),
+            Self::GANGPLANK    => Some("Gangplank"),
+            Self::GAREN        => Some("Garen"),
+            Self::GNAR         => Some("Gnar"),
+            Self::GRAGAS       => Some("Gragas"),
+            Self::GRAVES       => Some("Graves"),
+            Self::GWEN         => Some("Gwen"),
+            Self::HECARIM      => Some("Hecarim"),
+            Self::HEIMERDINGER => Some("Heimerdinger"),
+            Self::ILLAOI       => Some("Illaoi"),
+            Self::IRELIA       => Some("Irelia"),
+            Self::IVERN        => Some("Ivern"),
+            Self::JANNA        => Some("Janna"),
+            Self::JARVAN_IV    => Some("Jarvan IV"),
+            Self::JAX          => Some("Jax"),
+            Self::JAYCE        => Some("Jayce"),
+            Self::JHIN         => Some("Jhin"),
+            Self::JINX         => Some("Jinx"),
+            Self::KAI_SA       => Some("Kai'Sa"),
+            Self::KALISTA      => Some("Kalista"),
+            Self::KARMA        => Some("Karma"),
+            Self::KARTHUS      => Some("Karthus"),
+            Self::KASSADIN     => Some("Kassadin"),
+            Self::KATARINA     => Some("Katarina"),
+            Self::KAYLE        => Some("Kayle"),
+            Self::KAYN         => Some("Kayn"),
+            Self::KENNEN       => Some("Kennen"),
+            Self::KHA_ZIX      => Some("Kha'Zix"),
+            Self::KINDRED      => Some("Kindred"),
+            Self::KLED         => Some("Kled"),
+            Self::KOG_MAW      => Some("Kog'Maw"),
+            Self::LE_BLANC     => Some("LeBlanc"),
+            Self::LEE_SIN      => Some("Lee Sin"),
+            Self::LEONA        => Some("Leona"),
+            Self::LILLIA       => Some("Lillia"),
+            Self::LISSANDRA    => Some("Lissandra"),
+            Self::LUCIAN       => Some("Lucian"),
+            Self::LULU         => Some("Lulu"),
+            Self::LUX          => Some("Lux"),
+            Self::MALPHITE     => Some("Malphite"),
+            Self::MALZAHAR     => Some("Malzahar"),
+            Self::MAOKAI       => Some("Maokai"),
+            Self::MASTER_YI    => Some("Master Yi"),
+            Self::MISS_FORTUNE => Some("Miss Fortune"),
+            Self::MORDEKAISER  => Some("Mordekaiser"),
+            Self::MORGANA      => Some("Morgana"),
+            Self::NAMI         => Some("Nami"),
+            Self::NASUS        => Some("Nasus"),
+            Self::NAUTILUS     => Some("Nautilus"),
+            Self::NEEKO        => Some("Neeko"),
+            Self::NIDALEE      => Some("Nidalee"),
+            Self::NOCTURNE     => Some("Nocturne"),
+            Self::NUNU_WILLUMP => Some("Nunu & Willump"),
+            Self::OLAF         => Some("Olaf"),
+            Self::ORIANNA      => Some("Orianna"),
+            Self::ORNN         => Some("Ornn"),
+            Self::PANTHEON     => Some("Pantheon"),
+            Self::POPPY        => Some("Poppy"),
+            Self::PYKE         => Some("Pyke"),
+            Self::QIYANA       => Some("Qiyana"),
+            Self::QUINN        => Some("Quinn"),
+            Self::RAKAN        => Some("Rakan"),
+            Self::RAMMUS       => Some("Rammus"),
+            Self::REK_SAI      => Some("Rek'Sai"),
+            Self::RELL         => Some("Rell"),
+            Self::RENEKTON     => Some("Renekton"),
+            Self::RENGAR       => Some("Rengar"),
+            Self::RIVEN        => Some("Riven"),
+            Self::RUMBLE       => Some("Rumble"),
+            Self::RYZE         => Some("Ryze"),
+            Self::SAMIRA       => Some("Samira"),
+            Self::SEJUANI      => Some("Sejuani"),
+            Self::SENNA        => Some("Senna"),
+            Self::SERAPHINE    => Some("Seraphine"),
+            Self::SETT         => Some("Sett"),
+            Self::SHACO        => Some("Shaco"),
+            Self::SHEN         => Some("Shen"),
+            Self::SHYVANA      => Some("Shyvana"),
+            Self::SINGED       => Some("Singed"),
+            Self::SION         => Some("Sion"),
+            Self::SIVIR        => Some("Sivir"),
+            Self::SKARNER      => Some("Skarner"),
+            Self::SONA         => Some("Sona"),
+            Self::SORAKA       => Some("Soraka"),
+            Self::SWAIN        => Some("Swain"),
+            Self::SYLAS        => Some("Sylas"),
+            Self::SYNDRA       => Some("Syndra"),
+            Self::TAHM_KENCH   => Some("Tahm Kench"),
+            Self::TALIYAH      => Some("Taliyah"),
+            Self::TALON        => Some("Talon"),
+            Self::TARIC        => Some("Taric"),
+            Self::TEEMO        => Some("Teemo"),
+            Self::THRESH       => Some("Thresh"),
+            Self::TRISTANA     => Some("Tristana"),
+            Self::TRUNDLE      => Some("Trundle"),
+            Self::TRYNDAMERE   => Some("Tryndamere"),
+            Self::TWISTED_FATE => Some("Twisted Fate"),
+            Self::TWITCH       => Some("Twitch"),
+            Self::UDYR         => Some("Udyr"),
+            Self::URGOT        => Some("Urgot"),
+            Self::VARUS        => Some("Varus"),
+            Self::VAYNE        => Some("Vayne"),
+            Self::VEIGAR       => Some("Veigar"),
+            Self::VEL_KOZ      => Some("Vel'Koz"),
+            Self::VI           => Some("Vi"),
+            Self::VIEGO        => Some("Viego"),
+            Self::VIKTOR       => Some("Viktor"),
+            Self::VLADIMIR     => Some("Vladimir"),
+            Self::VOLIBEAR     => Some("Volibear"),
+            Self::WARWICK      => Some("Warwick"),
+            Self::WUKONG       => Some("Wukong"),
+            Self::XAYAH        => Some("Xayah"),
+            Self::XERATH       => Some("Xerath"),
+            Self::XIN_ZHAO     => Some("Xin Zhao"),
+            Self::YASUO        => Some("Yasuo"),
+            Self::YONE         => Some("Yone"),
+            Self::YORICK       => Some("Yorick"),
+            Self::YUUMI        => Some("Yuumi"),
+            Self::ZAC          => Some("Zac"),
+            Self::ZED          => Some("Zed"),
+            Self::ZIGGS        => Some("Ziggs"),
+            Self::ZILEAN       => Some("Zilean"),
+            Self::ZOE          => Some("Zoe"),
+            Self::ZYRA         => Some("Zyra"),
+            _ => None,
+        }
     }
 
     /// The champion's identifier key. Somtimes called "key", "identifier", or "alias".
     /// This is mainly used in DDragon paths.
     ///
     /// This is generally the `en_US` name with spaces and punctuation removed,
-    /// but there are the following exceptions:
+    /// capitalization preserved, however the follow are exceptions:
     ///
-    /// Variant | Name | Identifier
+    /// Field | Name | Identifier
     /// --------|------|-----------
-    /// `None` | "NONE" | "NONE"
-    /// `ChoGath` | "Cho'Gath" | "Chogath"
-    /// `Fiddlesticks` | "Fiddlesticks" | "FiddleSticks"
-    /// `KaiSa` | "Kai'Sa" | "Kaisa"
-    /// `KhaZix` | "Kha'Zix" | "Khazix"
-    /// `LeBlanc` | "LeBlanc" | "Leblanc"
-    /// `NunuWillump` | "Nunu & Willump" | "Nunu"
-    /// `VelKoz` | "Vel'Koz" | "Velkoz"
-    /// `Wukong` | "Wukong" | "MonkeyKing"
-    pub fn identifier(self) -> &'static str {
+    /// `CHO_GATH` | "Cho'Gath" | "Chogath"
+    /// `FIDDLESTICKS` | "Fiddlesticks" | "FiddleSticks"
+    /// `KAI_SA` | "Kai'Sa" | "Kaisa"
+    /// `KHA_ZIX` | "Kha'Zix" | "Khazix"
+    /// `LE_BLANC` | "LeBlanc" | "Leblanc"
+    /// `NUNU_WILLUMP` | "Nunu & Willump" | "Nunu"
+    /// `VEL_KOZ` | "Vel'Koz" | "Velkoz"
+    /// `WUKONG` | "Wukong" | "MonkeyKing"
+    pub const fn identifier(self) -> Option<&'static str> {
         match self {
-            Self::None         => "NONE",
-            Self::Aatrox       => "Aatrox",
-            Self::Ahri         => "Ahri",
-            Self::Akali        => "Akali",
-            Self::Alistar      => "Alistar",
-            Self::Amumu        => "Amumu",
-            Self::Anivia       => "Anivia",
-            Self::Annie        => "Annie",
-            Self::Aphelios     => "Aphelios",
-            Self::Ashe         => "Ashe",
-            Self::AurelionSol  => "AurelionSol",
-            Self::Azir         => "Azir",
-            Self::Bard         => "Bard",
-            Self::Blitzcrank   => "Blitzcrank",
-            Self::Brand        => "Brand",
-            Self::Braum        => "Braum",
-            Self::Caitlyn      => "Caitlyn",
-            Self::Camille      => "Camille",
-            Self::Cassiopeia   => "Cassiopeia",
-            Self::ChoGath      => "Chogath",
-            Self::Corki        => "Corki",
-            Self::Darius       => "Darius",
-            Self::Diana        => "Diana",
-            Self::DrMundo      => "DrMundo",
-            Self::Draven       => "Draven",
-            Self::Ekko         => "Ekko",
-            Self::Elise        => "Elise",
-            Self::Evelynn      => "Evelynn",
-            Self::Ezreal       => "Ezreal",
-            Self::Fiddlesticks => "FiddleSticks",
-            Self::Fiora        => "Fiora",
-            Self::Fizz         => "Fizz",
-            Self::Galio        => "Galio",
-            Self::Gangplank    => "Gangplank",
-            Self::Garen        => "Garen",
-            Self::Gnar         => "Gnar",
-            Self::Gragas       => "Gragas",
-            Self::Graves       => "Graves",
-            Self::Gwen         => "Gwen",
-            Self::Hecarim      => "Hecarim",
-            Self::Heimerdinger => "Heimerdinger",
-            Self::Illaoi       => "Illaoi",
-            Self::Irelia       => "Irelia",
-            Self::Ivern        => "Ivern",
-            Self::Janna        => "Janna",
-            Self::JarvanIV     => "JarvanIV",
-            Self::Jax          => "Jax",
-            Self::Jayce        => "Jayce",
-            Self::Jhin         => "Jhin",
-            Self::Jinx         => "Jinx",
-            Self::KaiSa        => "Kaisa",
-            Self::Kalista      => "Kalista",
-            Self::Karma        => "Karma",
-            Self::Karthus      => "Karthus",
-            Self::Kassadin     => "Kassadin",
-            Self::Katarina     => "Katarina",
-            Self::Kayle        => "Kayle",
-            Self::Kayn         => "Kayn",
-            Self::Kennen       => "Kennen",
-            Self::KhaZix       => "Khazix",
-            Self::Kindred      => "Kindred",
-            Self::Kled         => "Kled",
-            Self::KogMaw       => "KogMaw",
-            Self::LeBlanc      => "Leblanc",
-            Self::LeeSin       => "LeeSin",
-            Self::Leona        => "Leona",
-            Self::Lillia       => "Lillia",
-            Self::Lissandra    => "Lissandra",
-            Self::Lucian       => "Lucian",
-            Self::Lulu         => "Lulu",
-            Self::Lux          => "Lux",
-            Self::Malphite     => "Malphite",
-            Self::Malzahar     => "Malzahar",
-            Self::Maokai       => "Maokai",
-            Self::MasterYi     => "MasterYi",
-            Self::MissFortune  => "MissFortune",
-            Self::Mordekaiser  => "Mordekaiser",
-            Self::Morgana      => "Morgana",
-            Self::Nami         => "Nami",
-            Self::Nasus        => "Nasus",
-            Self::Nautilus     => "Nautilus",
-            Self::Neeko        => "Neeko",
-            Self::Nidalee      => "Nidalee",
-            Self::Nocturne     => "Nocturne",
-            Self::NunuWillump  => "Nunu",
-            Self::Olaf         => "Olaf",
-            Self::Orianna      => "Orianna",
-            Self::Ornn         => "Ornn",
-            Self::Pantheon     => "Pantheon",
-            Self::Poppy        => "Poppy",
-            Self::Pyke         => "Pyke",
-            Self::Qiyana       => "Qiyana",
-            Self::Quinn        => "Quinn",
-            Self::Rakan        => "Rakan",
-            Self::Rammus       => "Rammus",
-            Self::RekSai       => "RekSai",
-            Self::Rell         => "Rell",
-            Self::Renekton     => "Renekton",
-            Self::Rengar       => "Rengar",
-            Self::Riven        => "Riven",
-            Self::Rumble       => "Rumble",
-            Self::Ryze         => "Ryze",
-            Self::Samira       => "Samira",
-            Self::Sejuani      => "Sejuani",
-            Self::Senna        => "Senna",
-            Self::Seraphine    => "Seraphine",
-            Self::Sett         => "Sett",
-            Self::Shaco        => "Shaco",
-            Self::Shen         => "Shen",
-            Self::Shyvana      => "Shyvana",
-            Self::Singed       => "Singed",
-            Self::Sion         => "Sion",
-            Self::Sivir        => "Sivir",
-            Self::Skarner      => "Skarner",
-            Self::Sona         => "Sona",
-            Self::Soraka       => "Soraka",
-            Self::Swain        => "Swain",
-            Self::Sylas        => "Sylas",
-            Self::Syndra       => "Syndra",
-            Self::TahmKench    => "TahmKench",
-            Self::Taliyah      => "Taliyah",
-            Self::Talon        => "Talon",
-            Self::Taric        => "Taric",
-            Self::Teemo        => "Teemo",
-            Self::Thresh       => "Thresh",
-            Self::Tristana     => "Tristana",
-            Self::Trundle      => "Trundle",
-            Self::Tryndamere   => "Tryndamere",
-            Self::TwistedFate  => "TwistedFate",
-            Self::Twitch       => "Twitch",
-            Self::Udyr         => "Udyr",
-            Self::Urgot        => "Urgot",
-            Self::Varus        => "Varus",
-            Self::Vayne        => "Vayne",
-            Self::Veigar       => "Veigar",
-            Self::VelKoz       => "Velkoz",
-            Self::Vi           => "Vi",
-            Self::Viego        => "Viego",
-            Self::Viktor       => "Viktor",
-            Self::Vladimir     => "Vladimir",
-            Self::Volibear     => "Volibear",
-            Self::Warwick      => "Warwick",
-            Self::Wukong       => "MonkeyKing",
-            Self::Xayah        => "Xayah",
-            Self::Xerath       => "Xerath",
-            Self::XinZhao      => "XinZhao",
-            Self::Yasuo        => "Yasuo",
-            Self::Yone         => "Yone",
-            Self::Yorick       => "Yorick",
-            Self::Yuumi        => "Yuumi",
-            Self::Zac          => "Zac",
-            Self::Zed          => "Zed",
-            Self::Ziggs        => "Ziggs",
-            Self::Zilean       => "Zilean",
-            Self::Zoe          => "Zoe",
-            Self::Zyra         => "Zyra",
+            Self::AATROX       => Some("Aatrox"),
+            Self::AHRI         => Some("Ahri"),
+            Self::AKALI        => Some("Akali"),
+            Self::ALISTAR      => Some("Alistar"),
+            Self::AMUMU        => Some("Amumu"),
+            Self::ANIVIA       => Some("Anivia"),
+            Self::ANNIE        => Some("Annie"),
+            Self::APHELIOS     => Some("Aphelios"),
+            Self::ASHE         => Some("Ashe"),
+            Self::AURELION_SOL => Some("AurelionSol"),
+            Self::AZIR         => Some("Azir"),
+            Self::BARD         => Some("Bard"),
+            Self::BLITZCRANK   => Some("Blitzcrank"),
+            Self::BRAND        => Some("Brand"),
+            Self::BRAUM        => Some("Braum"),
+            Self::CAITLYN      => Some("Caitlyn"),
+            Self::CAMILLE      => Some("Camille"),
+            Self::CASSIOPEIA   => Some("Cassiopeia"),
+            Self::CHO_GATH     => Some("Chogath"),
+            Self::CORKI        => Some("Corki"),
+            Self::DARIUS       => Some("Darius"),
+            Self::DIANA        => Some("Diana"),
+            Self::DR_MUNDO     => Some("DrMundo"),
+            Self::DRAVEN       => Some("Draven"),
+            Self::EKKO         => Some("Ekko"),
+            Self::ELISE        => Some("Elise"),
+            Self::EVELYNN      => Some("Evelynn"),
+            Self::EZREAL       => Some("Ezreal"),
+            Self::FIDDLESTICKS => Some("FiddleSticks"),
+            Self::FIORA        => Some("Fiora"),
+            Self::FIZZ         => Some("Fizz"),
+            Self::GALIO        => Some("Galio"),
+            Self::GANGPLANK    => Some("Gangplank"),
+            Self::GAREN        => Some("Garen"),
+            Self::GNAR         => Some("Gnar"),
+            Self::GRAGAS       => Some("Gragas"),
+            Self::GRAVES       => Some("Graves"),
+            Self::GWEN         => Some("Gwen"),
+            Self::HECARIM      => Some("Hecarim"),
+            Self::HEIMERDINGER => Some("Heimerdinger"),
+            Self::ILLAOI       => Some("Illaoi"),
+            Self::IRELIA       => Some("Irelia"),
+            Self::IVERN        => Some("Ivern"),
+            Self::JANNA        => Some("Janna"),
+            Self::JARVAN_IV    => Some("JarvanIV"),
+            Self::JAX          => Some("Jax"),
+            Self::JAYCE        => Some("Jayce"),
+            Self::JHIN         => Some("Jhin"),
+            Self::JINX         => Some("Jinx"),
+            Self::KAI_SA       => Some("Kaisa"),
+            Self::KALISTA      => Some("Kalista"),
+            Self::KARMA        => Some("Karma"),
+            Self::KARTHUS      => Some("Karthus"),
+            Self::KASSADIN     => Some("Kassadin"),
+            Self::KATARINA     => Some("Katarina"),
+            Self::KAYLE        => Some("Kayle"),
+            Self::KAYN         => Some("Kayn"),
+            Self::KENNEN       => Some("Kennen"),
+            Self::KHA_ZIX      => Some("Khazix"),
+            Self::KINDRED      => Some("Kindred"),
+            Self::KLED         => Some("Kled"),
+            Self::KOG_MAW      => Some("KogMaw"),
+            Self::LE_BLANC     => Some("Leblanc"),
+            Self::LEE_SIN      => Some("LeeSin"),
+            Self::LEONA        => Some("Leona"),
+            Self::LILLIA       => Some("Lillia"),
+            Self::LISSANDRA    => Some("Lissandra"),
+            Self::LUCIAN       => Some("Lucian"),
+            Self::LULU         => Some("Lulu"),
+            Self::LUX          => Some("Lux"),
+            Self::MALPHITE     => Some("Malphite"),
+            Self::MALZAHAR     => Some("Malzahar"),
+            Self::MAOKAI       => Some("Maokai"),
+            Self::MASTER_YI    => Some("MasterYi"),
+            Self::MISS_FORTUNE => Some("MissFortune"),
+            Self::MORDEKAISER  => Some("Mordekaiser"),
+            Self::MORGANA      => Some("Morgana"),
+            Self::NAMI         => Some("Nami"),
+            Self::NASUS        => Some("Nasus"),
+            Self::NAUTILUS     => Some("Nautilus"),
+            Self::NEEKO        => Some("Neeko"),
+            Self::NIDALEE      => Some("Nidalee"),
+            Self::NOCTURNE     => Some("Nocturne"),
+            Self::NUNU_WILLUMP => Some("Nunu"),
+            Self::OLAF         => Some("Olaf"),
+            Self::ORIANNA      => Some("Orianna"),
+            Self::ORNN         => Some("Ornn"),
+            Self::PANTHEON     => Some("Pantheon"),
+            Self::POPPY        => Some("Poppy"),
+            Self::PYKE         => Some("Pyke"),
+            Self::QIYANA       => Some("Qiyana"),
+            Self::QUINN        => Some("Quinn"),
+            Self::RAKAN        => Some("Rakan"),
+            Self::RAMMUS       => Some("Rammus"),
+            Self::REK_SAI      => Some("RekSai"),
+            Self::RELL         => Some("Rell"),
+            Self::RENEKTON     => Some("Renekton"),
+            Self::RENGAR       => Some("Rengar"),
+            Self::RIVEN        => Some("Riven"),
+            Self::RUMBLE       => Some("Rumble"),
+            Self::RYZE         => Some("Ryze"),
+            Self::SAMIRA       => Some("Samira"),
+            Self::SEJUANI      => Some("Sejuani"),
+            Self::SENNA        => Some("Senna"),
+            Self::SERAPHINE    => Some("Seraphine"),
+            Self::SETT         => Some("Sett"),
+            Self::SHACO        => Some("Shaco"),
+            Self::SHEN         => Some("Shen"),
+            Self::SHYVANA      => Some("Shyvana"),
+            Self::SINGED       => Some("Singed"),
+            Self::SION         => Some("Sion"),
+            Self::SIVIR        => Some("Sivir"),
+            Self::SKARNER      => Some("Skarner"),
+            Self::SONA         => Some("Sona"),
+            Self::SORAKA       => Some("Soraka"),
+            Self::SWAIN        => Some("Swain"),
+            Self::SYLAS        => Some("Sylas"),
+            Self::SYNDRA       => Some("Syndra"),
+            Self::TAHM_KENCH   => Some("TahmKench"),
+            Self::TALIYAH      => Some("Taliyah"),
+            Self::TALON        => Some("Talon"),
+            Self::TARIC        => Some("Taric"),
+            Self::TEEMO        => Some("Teemo"),
+            Self::THRESH       => Some("Thresh"),
+            Self::TRISTANA     => Some("Tristana"),
+            Self::TRUNDLE      => Some("Trundle"),
+            Self::TRYNDAMERE   => Some("Tryndamere"),
+            Self::TWISTED_FATE => Some("TwistedFate"),
+            Self::TWITCH       => Some("Twitch"),
+            Self::UDYR         => Some("Udyr"),
+            Self::URGOT        => Some("Urgot"),
+            Self::VARUS        => Some("Varus"),
+            Self::VAYNE        => Some("Vayne"),
+            Self::VEIGAR       => Some("Veigar"),
+            Self::VEL_KOZ      => Some("Velkoz"),
+            Self::VI           => Some("Vi"),
+            Self::VIEGO        => Some("Viego"),
+            Self::VIKTOR       => Some("Viktor"),
+            Self::VLADIMIR     => Some("Vladimir"),
+            Self::VOLIBEAR     => Some("Volibear"),
+            Self::WARWICK      => Some("Warwick"),
+            Self::WUKONG       => Some("MonkeyKing"),
+            Self::XAYAH        => Some("Xayah"),
+            Self::XERATH       => Some("Xerath"),
+            Self::XIN_ZHAO     => Some("XinZhao"),
+            Self::YASUO        => Some("Yasuo"),
+            Self::YONE         => Some("Yone"),
+            Self::YORICK       => Some("Yorick"),
+            Self::YUUMI        => Some("Yuumi"),
+            Self::ZAC          => Some("Zac"),
+            Self::ZED          => Some("Zed"),
+            Self::ZIGGS        => Some("Ziggs"),
+            Self::ZILEAN       => Some("Zilean"),
+            Self::ZOE          => Some("Zoe"),
+            Self::ZYRA         => Some("Zyra"),
+            _ => None,
         }
+    }
+}
+
+impl std::str::FromStr for Champion {
+    type Err = ();
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s.chars()
+            .take(4)
+            .filter(|c| c.is_ascii_alphanumeric())
+            .fold(0_u32, |hash, next| hash * 256 + u32::from(next))
+        {
+            0x41415452 /* AATR */ => Ok(Champion::AATROX),
+            0x41485249 /* AHRI */ => Ok(Champion::AHRI),
+            0x414b414c /* AKAL */ => Ok(Champion::AKALI),
+            0x414c4953 /* ALIS */ => Ok(Champion::ALISTAR),
+            0x414d554d /* AMUM */ => Ok(Champion::AMUMU),
+            0x414e4956 /* ANIV */ => Ok(Champion::ANIVIA),
+            0x414e4e49 /* ANNI */ => Ok(Champion::ANNIE),
+            0x41504845 /* APHE */ => Ok(Champion::APHELIOS),
+            0x41534845 /* ASHE */ => Ok(Champion::ASHE),
+            0x41555245 /* AURE */ => Ok(Champion::AURELION_SOL),
+            0x415a4952 /* AZIR */ => Ok(Champion::AZIR),
+            0x42415244 /* BARD */ => Ok(Champion::BARD),
+            0x424c4954 /* BLIT */ => Ok(Champion::BLITZCRANK),
+            0x4252414e /* BRAN */ => Ok(Champion::BRAND),
+            0x42524155 /* BRAU */ => Ok(Champion::BRAUM),
+            0x43414954 /* CAIT */ => Ok(Champion::CAITLYN),
+            0x43414d49 /* CAMI */ => Ok(Champion::CAMILLE),
+            0x43415353 /* CASS */ => Ok(Champion::CASSIOPEIA),
+            0x43484f47 /* CHOG */ => Ok(Champion::CHO_GATH),
+            0x43484f   /* CHO  */ => Ok(Champion::CHO_GATH),
+            0x434f524b /* CORK */ => Ok(Champion::CORKI),
+            0x44415249 /* DARI */ => Ok(Champion::DARIUS),
+            0x4449414e /* DIAN */ => Ok(Champion::DIANA),
+            0x44524d55 /* DRMU */ => Ok(Champion::DR_MUNDO),
+            0x4452     /* DR   */ => Ok(Champion::DR_MUNDO),
+            0x44524156 /* DRAV */ => Ok(Champion::DRAVEN),
+            0x454b4b4f /* EKKO */ => Ok(Champion::EKKO),
+            0x454c4953 /* ELIS */ => Ok(Champion::ELISE),
+            0x4556454c /* EVEL */ => Ok(Champion::EVELYNN),
+            0x455a5245 /* EZRE */ => Ok(Champion::EZREAL),
+            0x46494444 /* FIDD */ => Ok(Champion::FIDDLESTICKS),
+            0x46494f52 /* FIOR */ => Ok(Champion::FIORA),
+            0x46495a5a /* FIZZ */ => Ok(Champion::FIZZ),
+            0x47414c49 /* GALI */ => Ok(Champion::GALIO),
+            0x47414e47 /* GANG */ => Ok(Champion::GANGPLANK),
+            0x47415245 /* GARE */ => Ok(Champion::GAREN),
+            0x474e4152 /* GNAR */ => Ok(Champion::GNAR),
+            0x47524147 /* GRAG */ => Ok(Champion::GRAGAS),
+            0x47524156 /* GRAV */ => Ok(Champion::GRAVES),
+            0x4757454e /* GWEN */ => Ok(Champion::GWEN),
+            0x48454341 /* HECA */ => Ok(Champion::HECARIM),
+            0x4845494d /* HEIM */ => Ok(Champion::HEIMERDINGER),
+            0x494c4c41 /* ILLA */ => Ok(Champion::ILLAOI),
+            0x4952454c /* IREL */ => Ok(Champion::IRELIA),
+            0x49564552 /* IVER */ => Ok(Champion::IVERN),
+            0x4a414e4e /* JANN */ => Ok(Champion::JANNA),
+            0x4a415256 /* JARV */ => Ok(Champion::JARVAN_IV),
+            0x4a4158   /* JAX  */ => Ok(Champion::JAX),
+            0x4a415943 /* JAYC */ => Ok(Champion::JAYCE),
+            0x4a48494e /* JHIN */ => Ok(Champion::JHIN),
+            0x4a494e58 /* JINX */ => Ok(Champion::JINX),
+            0x4b414953 /* KAIS */ => Ok(Champion::KAI_SA),
+            0x4b4149   /* KAI  */ => Ok(Champion::KAI_SA),
+            0x4b414c49 /* KALI */ => Ok(Champion::KALISTA),
+            0x4b41524d /* KARM */ => Ok(Champion::KARMA),
+            0x4b415254 /* KART */ => Ok(Champion::KARTHUS),
+            0x4b415353 /* KASS */ => Ok(Champion::KASSADIN),
+            0x4b415441 /* KATA */ => Ok(Champion::KATARINA),
+            0x4b41594c /* KAYL */ => Ok(Champion::KAYLE),
+            0x4b41594e /* KAYN */ => Ok(Champion::KAYN),
+            0x4b454e4e /* KENN */ => Ok(Champion::KENNEN),
+            0x4b48415a /* KHAZ */ => Ok(Champion::KHA_ZIX),
+            0x4b4841   /* KHA  */ => Ok(Champion::KHA_ZIX),
+            0x4b494e44 /* KIND */ => Ok(Champion::KINDRED),
+            0x4b4c4544 /* KLED */ => Ok(Champion::KLED),
+            0x4b4f474d /* KOGM */ => Ok(Champion::KOG_MAW),
+            0x4b4f47   /* KOG  */ => Ok(Champion::KOG_MAW),
+            0x4c45424c /* LEBL */ => Ok(Champion::LE_BLANC),
+            0x4c454553 /* LEES */ => Ok(Champion::LEE_SIN),
+            0x4c4545   /* LEE  */ => Ok(Champion::LEE_SIN),
+            0x4c454f4e /* LEON */ => Ok(Champion::LEONA),
+            0x4c494c4c /* LILL */ => Ok(Champion::LILLIA),
+            0x4c495353 /* LISS */ => Ok(Champion::LISSANDRA),
+            0x4c554349 /* LUCI */ => Ok(Champion::LUCIAN),
+            0x4c554c55 /* LULU */ => Ok(Champion::LULU),
+            0x4c5558   /* LUX  */ => Ok(Champion::LUX),
+            0x4d414c50 /* MALP */ => Ok(Champion::MALPHITE),
+            0x4d414c5a /* MALZ */ => Ok(Champion::MALZAHAR),
+            0x4d414f4b /* MAOK */ => Ok(Champion::MAOKAI),
+            0x4d415354 /* MAST */ => Ok(Champion::MASTER_YI),
+            0x4d495353 /* MISS */ => Ok(Champion::MISS_FORTUNE),
+            0x4d4f5244 /* MORD */ => Ok(Champion::MORDEKAISER),
+            0x4d4f5247 /* MORG */ => Ok(Champion::MORGANA),
+            0x4e414d49 /* NAMI */ => Ok(Champion::NAMI),
+            0x4e415355 /* NASU */ => Ok(Champion::NASUS),
+            0x4e415554 /* NAUT */ => Ok(Champion::NAUTILUS),
+            0x4e45454b /* NEEK */ => Ok(Champion::NEEKO),
+            0x4e494441 /* NIDA */ => Ok(Champion::NIDALEE),
+            0x4e4f4354 /* NOCT */ => Ok(Champion::NOCTURNE),
+            0x4e554e55 /* NUNU */ => Ok(Champion::NUNU_WILLUMP),
+            0x4f4c4146 /* OLAF */ => Ok(Champion::OLAF),
+            0x4f524941 /* ORIA */ => Ok(Champion::ORIANNA),
+            0x4f524e4e /* ORNN */ => Ok(Champion::ORNN),
+            0x50414e54 /* PANT */ => Ok(Champion::PANTHEON),
+            0x504f5050 /* POPP */ => Ok(Champion::POPPY),
+            0x50594b45 /* PYKE */ => Ok(Champion::PYKE),
+            0x51495941 /* QIYA */ => Ok(Champion::QIYANA),
+            0x5155494e /* QUIN */ => Ok(Champion::QUINN),
+            0x52414b41 /* RAKA */ => Ok(Champion::RAKAN),
+            0x52414d4d /* RAMM */ => Ok(Champion::RAMMUS),
+            0x52454b53 /* REKS */ => Ok(Champion::REK_SAI),
+            0x52454b   /* REK  */ => Ok(Champion::REK_SAI),
+            0x52454c4c /* RELL */ => Ok(Champion::RELL),
+            0x52454e45 /* RENE */ => Ok(Champion::RENEKTON),
+            0x52454e47 /* RENG */ => Ok(Champion::RENGAR),
+            0x52495645 /* RIVE */ => Ok(Champion::RIVEN),
+            0x52554d42 /* RUMB */ => Ok(Champion::RUMBLE),
+            0x52595a45 /* RYZE */ => Ok(Champion::RYZE),
+            0x53414d49 /* SAMI */ => Ok(Champion::SAMIRA),
+            0x53454a55 /* SEJU */ => Ok(Champion::SEJUANI),
+            0x53454e4e /* SENN */ => Ok(Champion::SENNA),
+            0x53455241 /* SERA */ => Ok(Champion::SERAPHINE),
+            0x53455454 /* SETT */ => Ok(Champion::SETT),
+            0x53484143 /* SHAC */ => Ok(Champion::SHACO),
+            0x5348454e /* SHEN */ => Ok(Champion::SHEN),
+            0x53485956 /* SHYV */ => Ok(Champion::SHYVANA),
+            0x53494e47 /* SING */ => Ok(Champion::SINGED),
+            0x53494f4e /* SION */ => Ok(Champion::SION),
+            0x53495649 /* SIVI */ => Ok(Champion::SIVIR),
+            0x534b4152 /* SKAR */ => Ok(Champion::SKARNER),
+            0x534f4e41 /* SONA */ => Ok(Champion::SONA),
+            0x534f5241 /* SORA */ => Ok(Champion::SORAKA),
+            0x53574149 /* SWAI */ => Ok(Champion::SWAIN),
+            0x53594c41 /* SYLA */ => Ok(Champion::SYLAS),
+            0x53594e44 /* SYND */ => Ok(Champion::SYNDRA),
+            0x5441484d /* TAHM */ => Ok(Champion::TAHM_KENCH),
+            0x54414c49 /* TALI */ => Ok(Champion::TALIYAH),
+            0x54414c4f /* TALO */ => Ok(Champion::TALON),
+            0x54415249 /* TARI */ => Ok(Champion::TARIC),
+            0x5445454d /* TEEM */ => Ok(Champion::TEEMO),
+            0x54485245 /* THRE */ => Ok(Champion::THRESH),
+            0x54524953 /* TRIS */ => Ok(Champion::TRISTANA),
+            0x5452554e /* TRUN */ => Ok(Champion::TRUNDLE),
+            0x5452594e /* TRYN */ => Ok(Champion::TRYNDAMERE),
+            0x54574953 /* TWIS */ => Ok(Champion::TWISTED_FATE),
+            0x54574954 /* TWIT */ => Ok(Champion::TWITCH),
+            0x55445952 /* UDYR */ => Ok(Champion::UDYR),
+            0x5552474f /* URGO */ => Ok(Champion::URGOT),
+            0x56415255 /* VARU */ => Ok(Champion::VARUS),
+            0x5641594e /* VAYN */ => Ok(Champion::VAYNE),
+            0x56454947 /* VEIG */ => Ok(Champion::VEIGAR),
+            0x56454c4b /* VELK */ => Ok(Champion::VEL_KOZ),
+            0x56454c   /* VEL  */ => Ok(Champion::VEL_KOZ),
+            0x5649     /* VI   */ => Ok(Champion::VI),
+            0x56494547 /* VIEG */ => Ok(Champion::VIEGO),
+            0x56494b54 /* VIKT */ => Ok(Champion::VIKTOR),
+            0x564c4144 /* VLAD */ => Ok(Champion::VLADIMIR),
+            0x564f4c49 /* VOLI */ => Ok(Champion::VOLIBEAR),
+            0x57415257 /* WARW */ => Ok(Champion::WARWICK),
+            0x57554b4f /* WUKO */ => Ok(Champion::WUKONG),
+            0x4d4f4e4b /* MONK */ => Ok(Champion::WUKONG),
+            0x58415941 /* XAYA */ => Ok(Champion::XAYAH),
+            0x58455241 /* XERA */ => Ok(Champion::XERATH),
+            0x58494e5a /* XINZ */ => Ok(Champion::XIN_ZHAO),
+            0x58494e   /* XIN  */ => Ok(Champion::XIN_ZHAO),
+            0x59415355 /* YASU */ => Ok(Champion::YASUO),
+            0x594f4e45 /* YONE */ => Ok(Champion::YONE),
+            0x594f5249 /* YORI */ => Ok(Champion::YORICK),
+            0x5955554d /* YUUM */ => Ok(Champion::YUUMI),
+            0x5a4143   /* ZAC  */ => Ok(Champion::ZAC),
+            0x5a4544   /* ZED  */ => Ok(Champion::ZED),
+            0x5a494747 /* ZIGG */ => Ok(Champion::ZIGGS),
+            0x5a494c45 /* ZILE */ => Ok(Champion::ZILEAN),
+            0x5a4f45   /* ZOE  */ => Ok(Champion::ZOE),
+            0x5a595241 /* ZYRA */ => Ok(Champion::ZYRA),
+            _ => Err(()),
+        }
+    }
+}
+
+impl std::convert::TryFrom<&str> for Champion {
+    type Error = <Self as std::str::FromStr>::Err;
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        <Self as std::str::FromStr>::from_str(value)
+    }
+}
+
+impl std::convert::From<i16> for Champion {
+    fn from(value: i16) -> Self {
+        Self(value)
+    }
+}
+
+impl std::convert::From<Champion> for i16 {
+    fn from(value: Champion) -> Self {
+        value.0
+    }
+}
+
+impl std::fmt::Display for Champion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        self.0.fmt(f)
+    }
+}
+
+impl std::fmt::Debug for Champion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "Champion({} {})", self.0, self.identifier().unwrap_or("UNKNOWN"))
     }
 }

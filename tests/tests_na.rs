@@ -59,7 +59,7 @@ async_tests!{
         matchlist_get2: async {
             let sp = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, "haha yes");
             let s = sp.await.map_err(|e| e.to_string())?.ok_or("Failed to get \"haha yes\"".to_owned())?;
-            let mp = RIOT_API.match_v4().get_matchlist(ROUTE, &s.account_id, None, None, Some(&[ Champion::Sion, Champion::Sivir, Champion::Cassiopeia ]), None, None, None, None);
+            let mp = RIOT_API.match_v4().get_matchlist(ROUTE, &s.account_id, None, None, Some(&[ Champion::SION, Champion::SIVIR, Champion::CASSIOPEIA ]), None, None, None, None);
             let m = mp.await.map_err(|e| e.to_string())?.ok_or("Failed to get matchlist".to_owned())?;
             rassert!(m.matches.len() > 0, "Matchlist should not be empty");
             Ok(())

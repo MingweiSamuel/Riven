@@ -3,83 +3,156 @@
     const champions = require('./.champion.json')
         .filter(({ id }) => id > 0)
         .sortBy(({ name }) => name);
+    const constName = name => dotUtils.changeCase.constantCase(name).replace(/[^_A-Z0-9]+/g, '');
+    const constNamePad = 12;
+
     const hashFactor = 256;
-    const enumName = name => name.replace(/[^a-z]+/i, '');
-    const strHash = function(str) {
+    const strHash = (str) => {
         let h = 0;
         for (let c of str)
             h = hashFactor * h + c.charCodeAt(0);
         return h;
     };
-    const padId = function(id) { return ('' + id).padEnd(3); };
 }}{{= dotUtils.preamble() }}
 
-use num_enum::{ IntoPrimitive, TryFromPrimitive };
-use serde_repr::{ Serialize_repr, Deserialize_repr };
-use strum_macros::{ EnumString, EnumIter, Display, AsRefStr, IntoStaticStr };
+use serde::{ Serialize, Deserialize };
 
-/// League of Legend's champions.
+/// League of Legends champions.
 ///
-/// The documentation of each variant specifies:<br>
+/// The documentation of each const field specifies:<br>
 /// NAME (`IDENTIFIER`, ID).
 ///
 /// Implements [IntoEnumIterator](super::IntoEnumIterator).
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone)]
-#[derive(IntoPrimitive, TryFromPrimitive)]
-#[derive(Serialize_repr, Deserialize_repr)]
-#[derive(EnumString, EnumIter, Display, AsRefStr, IntoStaticStr)]
-#[repr(i16)]
-pub enum Champion {
-    /// A champion that doesn't exist. Used in TeamBans when no champion was banned.
-    ///
-    /// None (`NONE`, -1).
-    None = -1,
+#[derive(Serialize, Deserialize)]
+#[derive(Copy, Clone)]
+#[derive(PartialEq, Eq, PartialOrd, Ord)]
+#[serde(transparent)]
+#[repr(transparent)]
+pub struct Champion(pub i16);
 
+impl Champion {
 {{
     for (let { id, alias, name } of champions) {
 }}
     /// {{= name }} (`{{= alias }}`, {{= id }}).
-    #[strum(to_string="{{= name }}"{{? name !== alias }}, serialize="{{= alias }}"{{?}})] {{= enumName(name) }} = {{= id }},
+    pub const {{= constName(name) }}: Self = Self({{= id }});
 {{
     }
 }}
-}
 
-impl Champion {
-    /// The champion's name (localized `en_US`), or `"NONE"` for the None variant.
-    pub fn name(self) -> &'static str {
-        self.into()
+    pub const fn is_known(self) -> bool {
+        match self {
+{{
+    for (let { name, alias } of champions) {
+}}
+            Self::{{= constName(name).padEnd(constNamePad) }} => true,
+{{
+    }
+}}
+            _ => false,
+        }
+    }
+
+    /// The champion's name (`en_US` localization).
+    pub const fn name(self) -> Option<&'static str> {
+        match self {
+{{
+    for (let { name } of champions) {
+}}
+            Self::{{= constName(name).padEnd(constNamePad) }} => Some("{{= name }}"),
+{{
+    }
+}}
+            _ => None,
+        }
     }
 
     /// The champion's identifier key. Somtimes called "key", "identifier", or "alias".
     /// This is mainly used in DDragon paths.
     ///
     /// This is generally the `en_US` name with spaces and punctuation removed,
-    /// but there are the following exceptions:
+    /// capitalization preserved, however the follow are exceptions:
     ///
-    /// Variant | Name | Identifier
+    /// Field | Name | Identifier
     /// --------|------|-----------
-    /// `None` | "NONE" | "NONE"
 {{
     for (let { name, alias } of champions) {
         if (name.replace(/[^a-zA-Z0-9]+/, '') !== alias) {
 }}
-    /// `{{= enumName(name) }}` | "{{= name }}" | "{{= alias }}"
+    /// `{{= constName(name) }}` | "{{= name }}" | "{{= alias }}"
 {{
         }
     }
 }}
-    pub fn identifier(self) -> &'static str {
+    pub const fn identifier(self) -> Option<&'static str> {
         match self {
-            Self::None         => "NONE",
 {{
     for (let { name, alias } of champions) {
 }}
-            Self::{{= enumName(name).padEnd(12) }} => "{{= alias }}",
+            Self::{{= constName(name).padEnd(constNamePad) }} => Some("{{= alias }}"),
 {{
     }
 }}
+            _ => None,
         }
+    }
+}
+
+impl std::str::FromStr for Champion {
+    type Err = ();
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s.chars()
+            .take(4)
+            .filter(|c| c.is_ascii_alphanumeric())
+            .fold(0_u32, |hash, next| hash * {{= hashFactor }} + u32::from(next))
+        {
+{{
+    const keyStrings = (name, alias) => new Set([].concat(...[ name, alias ].map(s => s.toUpperCase())
+        .map(s => [
+            s.replace(/[^A-Z0-9]+/, '').substring(0, 4),
+            s.split(/[^A-Z0-9]/, 1)[0].substring(0, 4),
+            s.split(/[^A-Z]/, 1)[0].substring(0, 4),
+        ])));
+    for (const { id, alias, name } of champions) {
+        for (const prefix of keyStrings(name, alias)) {
+}}
+            0x{{= strHash(prefix).toString(16).padEnd(8) }} /* {{= prefix.padEnd(4) }} */ => Ok(Champion::{{= constName(name) }}),
+{{
+        }
+    }
+}}
+            _ => Err(()),
+        }
+    }
+}
+
+impl std::convert::TryFrom<&str> for Champion {
+    type Error = <Self as std::str::FromStr>::Err;
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        <Self as std::str::FromStr>::from_str(value)
+    }
+}
+
+impl std::convert::From<i16> for Champion {
+    fn from(value: i16) -> Self {
+        Self(value)
+    }
+}
+
+impl std::convert::From<Champion> for i16 {
+    fn from(value: Champion) -> Self {
+        value.0
+    }
+}
+
+impl std::fmt::Display for Champion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        self.0.fmt(f)
+    }
+}
+
+impl std::fmt::Debug for Champion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "Champion({} {})", self.0, self.identifier().unwrap_or("UNKNOWN"))
     }
 }
