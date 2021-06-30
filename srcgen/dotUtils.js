@@ -102,7 +102,7 @@ function formatJsonProperty(name) {
 
 function formatAddQueryParam(param) {
   const k = `"${param.name}"`;
-  const name = changeCase.snakeCase(param.name);
+  const name = normalizePropName(param.name);
   const condStart = param.required ? '' : `mut request = request; if let Some(${name}) = ${name} { `;
   const condEnd = param.required ? '' : ' }'
   const prop = param.schema;
