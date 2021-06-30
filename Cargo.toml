@@ -21,6 +21,8 @@ features = [ "nightly" ]
 
 [features]
 nightly = [ "parking_lot/nightly" ]
+native-tls = [ "reqwest/native-tls" ]
+rustls-tls = [ "reqwest/rustls-tls" ]
 
 [dependencies]
 lazy_static = "1.4"
