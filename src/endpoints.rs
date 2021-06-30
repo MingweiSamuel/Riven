@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 570eb12bfe9fb09e435976cb454f622293d0020e
+// Version f60af07c98f05dffdaf81262f9b01f97fe94a3a1
 
 //! Automatically generated endpoint handles.
 
@@ -923,18 +923,22 @@ impl<'a> MatchV5<'a> {
     /// # Parameters
     /// * `region` - Region to query.
     /// * `puuid`
+    /// * `queue` (optional) - Filter the list of match ids by a specific queue id. This filter is mutually inclusive of the type filter meaning any match ids returned must match both the queue and type filters.
+    /// * `type` (optional) - Filter the list of match ids by the type of match. This filter is mutually inclusive of the queue filter meaning any match ids returned must match both the queue and type filters.
     /// * `start` (optional) - Defaults to 0. Start index.
-    /// * `count` (optional) - Defaults to 20. Valid values: 0 to 100. Match id count.
+    /// * `count` (optional) - Defaults to 20. Valid values: 0 to 100. Number of match ids to return.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#match-v5/GET_getMatchIdsByPUUID" target="_blank">`match-v5.getMatchIdsByPUUID`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_match_ids_by_puuid(&self, region: Region, puuid: &str, count: Option<i32>, start: Option<i32>)
+    pub fn get_match_ids_by_puuid(&self, region: Region, puuid: &str, count: Option<i32>, queue: Option<i32>, start: Option<i32>, r#type: Option<&str>)
         -> impl Future<Output = Result<Vec<String>>> + 'a
     {
         let mut query_params = Serializer::new(String::new());
         if let Some(count) = count { query_params.append_pair("count", &*count.to_string()); };
+        if let Some(queue) = queue { query_params.append_pair("queue", &*queue.to_string()); };
         if let Some(start) = start { query_params.append_pair("start", &*start.to_string()); };
+        if let Some(r#type) = r#type { query_params.append_pair("type", r#type); };
         let query_string = query_params.finish();
         let path_string = format!("/lol/match/v5/matches/by-puuid/{}/ids", puuid);
         self.base.get::<Vec<String>>("match-v5.getMatchIdsByPUUID", region.into(), path_string, Some(query_string))
