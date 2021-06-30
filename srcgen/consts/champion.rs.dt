@@ -1,4 +1,4 @@
-﻿{{
+{{
     const dotUtils = require('./dotUtils.js');
     const champions = require('./.champion.json')
         .filter(({ id }) => id > 0)

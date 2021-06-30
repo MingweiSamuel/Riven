@@ -1,4 +1,4 @@
-﻿{{
+{{
     const dotUtils = require('./dotUtils.js');
     const gameModes = require('./.gameModes.json');
 }}{{= dotUtils.preamble() }}

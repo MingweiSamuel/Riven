@@ -1,4 +1,4 @@
-﻿{{
+{{
     const dotUtils = require('./dotUtils.js');
     const queues = require('./.queues.json');
 }}{{= dotUtils.preamble() }}

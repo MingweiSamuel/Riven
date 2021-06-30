@@ -1,4 +1,4 @@
-﻿{{
+{{
     const dotUtils = require('./dotUtils.js');
     const seasons = require('./.seasons.json');
 }}{{= dotUtils.preamble() }}
