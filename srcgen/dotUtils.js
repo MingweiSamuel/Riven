@@ -127,10 +127,10 @@ function formatQueryParamStringify(name, prop, useOwned = false) {
 }
 
 function formatAddQueryParam(param) {
-  let k = `"${param.name}"`;
-  let name = changeCase.snakeCase(param.name);
-  let nc = param.required ? '' : `if let Some(${name}) = ${name} `;
-  let prop = param.schema;
+  const k = `"${param.name}"`;
+  const name = normalizePropName(param.name);
+  const nc = param.required ? '' : `if let Some(${name}) = ${name} `;
+  const prop = param.schema;
   switch (prop.type) {
     case 'array': return `${nc}{ query_params.extend_pairs(${name}.iter()`
       + `.map(|w| (${k}, ${formatQueryParamStringify("w", prop.items, true)}))); }`;

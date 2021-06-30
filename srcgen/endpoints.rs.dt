@@ -108,7 +108,7 @@ impl<'a> {{= endpoint }}<'a> {
                     let required = paramList === pathParams;
                     for (let param of paramList)
                     {
-                        argBuilder.push(', ', dotUtils.changeCase.snakeCase(param.name), ': ',
+                        argBuilder.push(', ', dotUtils.normalizePropName(param.name), ': ',
                             dotUtils.stringifyType(param.schema, { endpoint, optional: !required, owned: false }));
                     }
                 }
