@@ -64,7 +64,7 @@ macro_rules! newtype_enum {
     } => {
         $( #[$attr] )*
         #[derive(Copy, Clone)]
-        #[derive(PartialEq, Eq, PartialOrd, Ord)]
+        #[derive(Hash, PartialEq, Eq, PartialOrd, Ord)]
         #[repr(transparent)]
         $v struct $name($v $repr);
         impl $name {

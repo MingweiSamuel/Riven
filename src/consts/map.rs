@@ -6,60 +6,57 @@
 //                                           //
 ///////////////////////////////////////////////
 
-use serde_repr::{ Serialize_repr, Deserialize_repr };
-use num_enum::{ IntoPrimitive, TryFromPrimitive };
+use serde::{ Serialize, Deserialize };
 
-/// League of Legends maps.
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone)]
-#[derive(Eq, PartialEq, Hash, PartialOrd, Ord)]
-#[derive(Serialize_repr, Deserialize_repr)]
-#[derive(IntoPrimitive, TryFromPrimitive)]
-#[repr(u8)]
-pub enum Map {
-    /// Summoner's Rift
-    /// Original Summer variant
-    SUMMONERS_RIFT_ORIGINAL_SUMMER_VARIANT = 1,
-    /// Summoner's Rift
-    /// Original Autumn variant
-    SUMMONERS_RIFT_ORIGINAL_AUTUMN_VARIANT = 2,
-    /// The Proving Grounds
-    /// Tutorial Map
-    THE_PROVING_GROUNDS = 3,
-    /// Twisted Treeline
-    /// Original Version
-    TWISTED_TREELINE_ORIGINAL_VERSION = 4,
-    /// The Crystal Scar
-    /// Dominion map
-    THE_CRYSTAL_SCAR = 8,
-    /// Twisted Treeline
-    /// Last TT map
-    TWISTED_TREELINE = 10,
-    /// Summoner's Rift
-    /// Current Version
-    SUMMONERS_RIFT = 11,
-    /// Howling Abyss
-    /// ARAM map
-    HOWLING_ABYSS = 12,
-    /// Butcher's Bridge
-    /// Alternate ARAM map
-    BUTCHERS_BRIDGE = 14,
-    /// Cosmic Ruins
-    /// Dark Star: Singularity map
-    COSMIC_RUINS = 16,
-    /// Valoran City Park
-    /// Star Guardian Invasion map
-    VALORAN_CITY_PARK = 18,
-    /// Substructure 43
-    /// PROJECT: Hunters map
-    SUBSTRUCTURE_43 = 19,
-    /// Crash Site
-    /// Odyssey: Extraction map
-    CRASH_SITE = 20,
-    /// Nexus Blitz
-    /// Nexus Blitz map
-    NEXUS_BLITZ = 21,
-    /// Convergence
-    /// Teamfight Tactics map
-    CONVERGENCE = 22,
+newtype_enum! {
+    /// A League of Legends map.
+    #[derive(Serialize, Deserialize)]
+    #[serde(transparent)]
+    pub newtype_enum Map(u8) {
+        /// Summoner's Rift
+        /// Original Summer variant
+        SUMMONERS_RIFT_ORIGINAL_SUMMER_VARIANT = 1,
+        /// Summoner's Rift
+        /// Original Autumn variant
+        SUMMONERS_RIFT_ORIGINAL_AUTUMN_VARIANT = 2,
+        /// The Proving Grounds
+        /// Tutorial Map
+        THE_PROVING_GROUNDS = 3,
+        /// Twisted Treeline
+        /// Original Version
+        TWISTED_TREELINE_ORIGINAL_VERSION = 4,
+        /// The Crystal Scar
+        /// Dominion map
+        THE_CRYSTAL_SCAR = 8,
+        /// Twisted Treeline
+        /// Last TT map
+        TWISTED_TREELINE = 10,
+        /// Summoner's Rift
+        /// Current Version
+        SUMMONERS_RIFT = 11,
+        /// Howling Abyss
+        /// ARAM map
+        HOWLING_ABYSS = 12,
+        /// Butcher's Bridge
+        /// Alternate ARAM map
+        BUTCHERS_BRIDGE = 14,
+        /// Cosmic Ruins
+        /// Dark Star: Singularity map
+        COSMIC_RUINS = 16,
+        /// Valoran City Park
+        /// Star Guardian Invasion map
+        VALORAN_CITY_PARK = 18,
+        /// Substructure 43
+        /// PROJECT: Hunters map
+        SUBSTRUCTURE_43 = 19,
+        /// Crash Site
+        /// Odyssey: Extraction map
+        CRASH_SITE = 20,
+        /// Nexus Blitz
+        /// Nexus Blitz map
+        NEXUS_BLITZ = 21,
+        /// Convergence
+        /// Teamfight Tactics map
+        CONVERGENCE = 22,
+    }
 }

@@ -3,26 +3,23 @@
     const maps = require('./.maps.json');
 }}{{= dotUtils.preamble() }}
 
-use serde_repr::{ Serialize_repr, Deserialize_repr };
-use num_enum::{ IntoPrimitive, TryFromPrimitive };
+use serde::{ Serialize, Deserialize };
 
-/// League of Legends maps.
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone)]
-#[derive(Eq, PartialEq, Hash, PartialOrd, Ord)]
-#[derive(Serialize_repr, Deserialize_repr)]
-#[derive(IntoPrimitive, TryFromPrimitive)]
-#[repr(u8)]
-pub enum Map {
+newtype_enum! {
+    /// A League of Legends map.
+    #[derive(Serialize, Deserialize)]
+    #[serde(transparent)]
+    pub newtype_enum Map(u8) {
 {{
     for (const e of maps) {
         const desc = e['x-desc'] ? e['x-desc'].split('\n') : [];
 }}
 {{~ desc :line }}
-    /// {{= line }}
+        /// {{= line }}
 {{~}}
-    {{= e['x-name'] }} = {{= e['x-value'] }},
+        {{= e['x-name'] }} = {{= e['x-value'] }},
 {{
     }
 }}
+    }
 }
