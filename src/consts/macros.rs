@@ -11,6 +11,7 @@ macro_rules! serde_string {
                 s.parse().map_err(serde::de::Error::custom)
             }
         }
+
         impl serde::ser::Serialize for $name {
             fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
             where
@@ -20,6 +21,25 @@ macro_rules! serde_string {
             }
         }
     };
+}
+
+macro_rules! string_enum_str {
+    ( $name:ident ) => {
+        impl AsRef<str> for $name {
+            fn as_ref(&self) -> &str {
+                match self {
+                    Self::UNKNOWN(string) => &*string,
+                    known => known.into(),
+                }
+            }
+        }
+
+        impl std::fmt::Display for $name {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+                self.as_ref().fmt(f)
+            }
+        }
+    }
 }
 
 macro_rules! arr {
@@ -35,7 +55,7 @@ macro_rules! arr {
 macro_rules! newtype_enum {
     {
         $( #[$attr:meta] )*
-        $v:vis newtype_enum $name:ident($repr:ident) {
+        $v:vis newtype_enum $name:ident($repr:ty) {
             $(
                 $( #[$var_attr:meta] )*
                 $var_name:ident = $var_val:expr,
@@ -50,7 +70,7 @@ macro_rules! newtype_enum {
         impl $name {
             $(
                 $( #[$var_attr] )*
-                $v const $var_name: Self = Self( $var_val );
+                $v const $var_name: Self = Self($var_val);
             )*
         }
 

@@ -6,16 +6,20 @@
 //                                           //
 ///////////////////////////////////////////////
 
-use strum_macros::{ EnumString, Display, AsRefStr, IntoStaticStr };
+use strum_macros::{ EnumString, IntoStaticStr };
 
 /// League of Legends game mode, such as Classic,
 /// ARAM, URF, One For All, Ascension, etc.
 #[non_exhaustive]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Clone)]
 #[derive(Eq, PartialEq, Hash)]
-#[derive(EnumString, Display, AsRefStr, IntoStaticStr)]
+#[derive(EnumString, IntoStaticStr)]
 #[repr(u8)]
 pub enum GameMode {
+    // Catch-all variant for new, unknown game modes.
+    #[strum(default)]
+    UNKNOWN(String),
+
     /// ARAM games
     ARAM,
     /// All Random Summoner's Rift games
@@ -62,4 +66,5 @@ pub enum GameMode {
     URF,
 }
 
+string_enum_str!(GameMode);
 serde_string!(GameMode);
