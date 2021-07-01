@@ -6,7 +6,7 @@
 #![allow(deprecated)]
 #![allow(non_camel_case_types)]
 
-mod macro_serde_string;
+mod macros;
 
 mod champion;
 pub use champion::*;
