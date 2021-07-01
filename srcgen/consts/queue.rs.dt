@@ -3,30 +3,27 @@
     const queues = require('./.queues.json');
 }}{{= dotUtils.preamble() }}
 
-use serde_repr::{ Serialize_repr, Deserialize_repr };
-use num_enum::{ IntoPrimitive, TryFromPrimitive };
+use serde::{ Serialize, Deserialize };
 
-/// League of Legends matchmaking queue.
-#[non_exhaustive]
-#[derive(Debug, Copy, Clone)]
-#[derive(Eq, PartialEq)]
-#[derive(Serialize_repr, Deserialize_repr)]
-#[derive(IntoPrimitive, TryFromPrimitive)]
-#[repr(u16)]
-pub enum Queue {
+newtype_enum! {
+    /// A League of Legends matchmaking queue.
+    #[derive(Serialize, Deserialize)]
+    #[serde(transparent)]
+    pub newtype_enum Queue(u16) {
 {{
     for (const e of queues) {
         const desc = e['x-desc'] ? e['x-desc'].split('\n') : [];
 }}
 {{~ desc :line }}
-    /// {{= line }}
+        /// {{= line }}
 {{~}}
 {{? e['x-deprecated'] }}
-    /// {{= e.notes }}
-    #[deprecated(note="{{= e.notes }}")]
+        /// {{= e.notes }}
+        #[deprecated(note="{{= e.notes }}")]
 {{?}}
-    {{= e['x-name'] }} = {{= e['x-value'] }},
+        {{= e['x-name'] }} = {{= e['x-value'] }},
 {{
     }
 }}
+    }
 }
