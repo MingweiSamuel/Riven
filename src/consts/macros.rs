@@ -76,14 +76,14 @@ macro_rules! newtype_enum {
 
         impl $name {
             arr!{
-                #[doc = "Array containing all variants, ordered by their id value."]
+                #[doc = "Array containing all known variants."]
                 pub const ALL_KNOWN: [Self; _] = [
                     $( Self::$var_name, )*
                 ]
             }
 
             #[doc = "If this is one of the known variants."]
-            $v fn is_known(self) -> bool {
+            $v const fn is_known(self) -> bool {
                 match self {
                     $(
                         Self::$var_name => true,
