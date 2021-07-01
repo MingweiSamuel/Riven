@@ -3,13 +3,14 @@
     const champions = require('./.champion.json')
         .filter(({ id }) => id > 0)
         .sortBy(({ name }) => name);
+
     const constName = name => dotUtils.changeCase.constantCase(name).replace(/[^_A-Z0-9]+/g, '');
     const constNamePad = 12;
 
     const hashFactor = 256;
     const strHash = (str) => {
         let h = 0;
-        for (let c of str)
+        for (const c of str)
             h = hashFactor * h + c.charCodeAt(0);
         return h;
     };
@@ -32,18 +33,35 @@ pub struct Champion(pub i16);
 
 impl Champion {
 {{
-    for (let { id, alias, name } of champions) {
+    for (const { id, alias, name } of champions) {
 }}
-    /// {{= name }} (`{{= alias }}`, {{= id }}).
-    pub const {{= constName(name) }}: Self = Self({{= id }});
+    /** {{= `${name} (\`${alias}\`, ${id})`.padEnd(33) }} */ pub const {{= `${constName(name)}:`.padEnd(1 + constNamePad) }} Self = Self({{= id }});
 {{
     }
 }}
+}
+
+
+impl Champion {
+    /// Array containing all Champion variants, ordered by their id value.
+    pub const ALL: [Self; {{= champions.length }}] = [
+{{
+    {
+        const champNames = require('./.champion.json').slice(1).map(({ name }) => `Self::${constName(name)},`.padEnd(8 + constNamePad));
+        const step = 8;
+        for (let i = 0; i < champNames.length; i += step) {
+}}
+        {{= champNames.slice(i, i + step).join('').trim() }}
+{{
+        }
+    }
+}}
+    ];
 
     pub const fn is_known(self) -> bool {
         match self {
 {{
-    for (let { name, alias } of champions) {
+    for (const { name, alias } of champions) {
 }}
             Self::{{= constName(name).padEnd(constNamePad) }} => true,
 {{
@@ -57,7 +75,7 @@ impl Champion {
     pub const fn name(self) -> Option<&'static str> {
         match self {
 {{
-    for (let { name } of champions) {
+    for (const { name } of champions) {
 }}
             Self::{{= constName(name).padEnd(constNamePad) }} => Some("{{= name }}"),
 {{
@@ -76,7 +94,7 @@ impl Champion {
     /// Field | Name | Identifier
     /// --------|------|-----------
 {{
-    for (let { name, alias } of champions) {
+    for (const { name, alias } of champions) {
         if (name.replace(/[^a-zA-Z0-9]+/, '') !== alias) {
 }}
     /// `{{= constName(name) }}` | "{{= name }}" | "{{= alias }}"
@@ -87,7 +105,7 @@ impl Champion {
     pub const fn identifier(self) -> Option<&'static str> {
         match self {
 {{
-    for (let { name, alias } of champions) {
+    for (const { name, alias } of champions) {
 }}
             Self::{{= constName(name).padEnd(constNamePad) }} => Some("{{= alias }}"),
 {{
