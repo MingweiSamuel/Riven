@@ -1,10 +1,6 @@
-#![cfg_attr(feature = "nightly", feature(non_exhaustive))]
-#![cfg_attr(feature = "nightly", feature(external_doc))]
-
 #![forbid(unsafe_code)]
 
-#![cfg_attr(feature = "nightly", doc(include = "../README.md"))]
-#![cfg_attr(not(feature = "nightly"), doc = "See [README.md](https://github.com/MingweiSamuel/Riven#readme).")]
+#![doc = include_str!("../README.md")]
 
 // Re-exported reqwest types.
 pub use reqwest;
