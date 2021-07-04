@@ -81,12 +81,28 @@
 //!  9) Irelia         46465 (5)
 //! 10) Vladimir       37176 (5)
 //! ```
+//! ### Feature Flags
 //! 
-//! ### Nightly vs Stable
+//! #### Nightly vs Stable
 //! 
-//! Enable the `nightly` feature to use nightly-only functionality. Mainly enables
+//! Enable the `nightly` feature to use nightly-only functionality. This enables
 //! [nightly optimizations in the `parking_lot` crate](https://github.com/Amanieu/parking_lot#nightly-vs-stable).
-//! Also required for running async integration tests.
+//! 
+//! ```toml
+//! riven = { version = "...", features = [ "nightly" ] }
+//! ```
+//! 
+//! #### rustls
+//! 
+//! Riven uses [reqwest](https://github.com/seanmonstar/reqwest) for making requests. By default, reqwest uses the native TLS library.
+//! If you prefer using [rustls](https://github.com/ctz/rustls) you can do so by turning off the Riven default features
+//! and specifying the `rustls-tls` feature:
+//! 
+//! ```toml
+//! riven = { version = "...", default-features = false, features = [ "rustls-tls" ] }
+//! ```
+//! 
+//! Riven is additionally able to produce [tracing](https://docs.rs/tracing) spans for requests if the `tracing` feature is enabled. This feature is disabled by default.
 //! 
 //! ### Docs
 //! 
