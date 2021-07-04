@@ -3,12 +3,14 @@ use std::sync::Arc;
 
 use log;
 use reqwest::{ StatusCode, RequestBuilder };
+#[cfg(feature = "tracing")]
+use tracing::Instrument;
 
-use crate::Result;
-use crate::ResponseInfo;
-use crate::RiotApiError;
-use crate::RiotApiConfig;
 use crate::util::InsertOnlyCHashMap;
+use crate::ResponseInfo;
+use crate::Result;
+use crate::RiotApiConfig;
+use crate::RiotApiError;
 
 use super::RateLimit;
 use super::RateLimitType;
@@ -46,11 +48,20 @@ impl RegionalRequester {
                     .get_or_insert_with(method_id, || RateLimit::new(RateLimitType::Method));
 
                 // Rate limit.
-                RateLimit::acquire_both(&self.app_rate_limit, &*method_rate_limit).await;
+                let rate_limit = RateLimit::acquire_both(&self.app_rate_limit, &*method_rate_limit);
+                #[cfg(feature = "tracing")]
+                let rate_limit = rate_limit.instrument(tracing::info_span!("rate_limit"));
+                rate_limit.await;
 
                 // Send request.
-                let request_clone = request.try_clone().expect("Failed to clone request.");
-                let response = request_clone.send().await
+                let request_clone = request
+                    .try_clone()
+                    .expect("Failed to clone request.")
+                    .send();
+                #[cfg(feature = "tracing")]
+                let request_clone = request_clone.instrument(tracing::info_span!("request"));
+                let response = request_clone
+                    .await
                     .map_err(|e| RiotApiError::new(e, retries, None, None))?;
 
                 // Maybe update rate limits (based on response headers).
