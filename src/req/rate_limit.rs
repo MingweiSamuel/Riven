@@ -5,6 +5,7 @@ use log;
 use parking_lot::{ RwLock, RwLockUpgradableReadGuard };
 use reqwest::{ StatusCode, Response };
 use scan_fmt::scan_fmt;
+use tokio::sync::Notify;
 
 use crate::RiotApiConfig;
 use super::{ TokenBucket, VectorTokenBucket };
@@ -18,6 +19,8 @@ pub struct RateLimit {
     buckets: RwLock<Vec<VectorTokenBucket>>,
     // Set to when we can retry if a retry-after header is received.
     retry_after: RwLock<Option<Instant>>,
+    // Notifies waiters when rate limits are updated.
+    update_notify: Notify,
 }
 
 impl RateLimit {
@@ -32,10 +35,23 @@ impl RateLimit {
             // Rate limit before getting from response: 1/s.
             buckets: RwLock::new(vec![initial_bucket]),
             retry_after: RwLock::new(None),
+            update_notify: Notify::new(),
         }
     }
 
-    pub fn get_both_or_delay(app_rate_limit: &Self, method_rate_limit: &Self) -> Option<Duration> {
+    pub async fn acquire_both(app_rate_limit: &Self, method_rate_limit: &Self) {
+        while let Some(delay) = Self::acquire_both_or_duration(app_rate_limit, method_rate_limit) {
+            tokio::select! {
+                biased;
+                _ = tokio::time::sleep(delay) => { continue }
+                _ = app_rate_limit.update_notify.notified() => {}
+                _ = method_rate_limit.update_notify.notified() => {}
+            };
+            log::trace!("Task awoken due to rate limit update.");
+        }
+    }
+
+    fn acquire_both_or_duration(app_rate_limit: &Self, method_rate_limit: &Self) -> Option<Duration> {
         // Check retry after.
         {
             let retry_after_delay = app_rate_limit.get_retry_after_delay()
@@ -140,15 +156,18 @@ impl RateLimit {
         // https://github.com/rust-lang/rust/issues/53667
         if let Some(limit_header) = limit_header_opt {
         if let Some(count_header) = count_header_opt {
+            {
+                let buckets = self.buckets.upgradable_read();
+                if !buckets_require_updating(limit_header, &*buckets) {
+                    return;
+                }
 
-            let buckets = self.buckets.upgradable_read();
-            if !buckets_require_updating(limit_header, &*buckets) {
-                return;
+                // Buckets require updating. Upgrade to write lock.
+                let mut buckets = RwLockUpgradableReadGuard::upgrade(buckets);
+                *buckets = buckets_from_header(config, limit_header, count_header);
             }
-
-            // Buckets require updating. Upgrade to write lock.
-            let mut buckets = RwLockUpgradableReadGuard::upgrade(buckets);
-            *buckets = buckets_from_header(config, limit_header, count_header)
+            // Notify waiters that buckets have updated (after unlocking).
+            self.update_notify.notify_waiters();
         }}
     }
 }

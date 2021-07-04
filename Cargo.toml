@@ -36,7 +36,7 @@ serde_json = "1.0"
 serde_repr = "0.1"
 strum = "0.20"
 strum_macros = "0.20"
-tokio = { version = "1", default-features = false, features = [ "time", "parking_lot" ] }
+tokio = { version = "1", default-features = false, features = [ "time", "macros", "parking_lot" ] }
 
 [dev-dependencies]
 colored = "2"

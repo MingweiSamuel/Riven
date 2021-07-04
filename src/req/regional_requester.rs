@@ -45,10 +45,8 @@ impl RegionalRequester {
                 let method_rate_limit: Arc<RateLimit> = self.method_rate_limits
                     .get_or_insert_with(method_id, || RateLimit::new(RateLimitType::Method));
 
-                // Rate limiting.
-                while let Some(delay) = RateLimit::get_both_or_delay(&self.app_rate_limit, &*method_rate_limit) {
-                    tokio::time::sleep(delay).await;
-                }
+                // Rate limit.
+                RateLimit::acquire_both(&self.app_rate_limit, &*method_rate_limit).await;
 
                 // Send request.
                 let request_clone = request.try_clone().expect("Failed to clone request.");
