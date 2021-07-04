@@ -88,6 +88,16 @@
 //! [nightly optimizations in the `parking_lot` crate](https://github.com/Amanieu/parking_lot#nightly-vs-stable).
 //! Also required for running async integration tests.
 //! 
+//! ### Other Features
+//! 
+//! Riven uses [reqwest](https://docs.rs/reqwest) for making requests. By default, reqwest uses the native TLS library. If you prefer using rustls, you can do so by turning off the Riven default features, and specifying the `rusttls-tls` feature:
+//! 
+//! ```
+//! riven = { version = "*", default-features = false, features = ["rustls-tls"] }
+//! ```
+//! 
+//! Riven is additionally able to produce [tracing](https://docs.rs/tracing) spans for requests if the `tracing` feature is enabled. This feature is disabled by default.
+//! 
 //! ### Docs
 //! 
 //! [On docs.rs](https://docs.rs/riven/).
