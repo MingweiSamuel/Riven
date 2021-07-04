@@ -20,6 +20,7 @@ categories = [ "api-bindings", "web-programming::http-client" ]
 features = [ "nightly" ]
 
 [features]
+default = [ "native-tls" ]
 nightly = [ "parking_lot/nightly" ]
 native-tls = [ "reqwest/native-tls" ]
 rustls-tls = [ "reqwest/rustls-tls" ]
@@ -29,7 +30,7 @@ lazy_static = "1.4"
 log = "0.4"
 num_enum = "0.5"
 parking_lot = "0.11"
-reqwest = { version = "0.11", features = [ "gzip", "json" ] }
+reqwest = { version = "0.11", default-features = false, features = [ "gzip", "json" ] }
 scan_fmt = { version = "0.2", default-features = false }
 serde = { version = "1.0", features = [ "derive" ] }
 serde_json = "1.0"
