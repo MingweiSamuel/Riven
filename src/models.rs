@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version f60af07c98f05dffdaf81262f9b01f97fe94a3a1
+// Version 8fec9617c247f0ee5c96feecc8526fdc9dca0369
 
 //! Data transfer structs.
 //!
@@ -1719,6 +1719,8 @@ pub mod match_v5 {
         pub queue_id: crate::consts::Queue,
         #[serde(rename = "teams")]
         pub teams: std::vec::Vec<MatchInfoTeam>,
+        #[serde(rename = "tournamentCode")]
+        pub tournament_code: Option<String>,
     }
     /// MatchTimelineInfoFrameEvent data object.
     #[derive(Debug)]

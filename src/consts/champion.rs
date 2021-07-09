@@ -34,6 +34,8 @@ pub enum Champion {
     #[strum(to_string="Ahri")] Ahri = 103,
     /// Akali (`Akali`, 84).
     #[strum(to_string="Akali")] Akali = 84,
+    /// Akshan (`Akshan`, 166).
+    #[strum(to_string="Akshan")] Akshan = 166,
     /// Alistar (`Alistar`, 12).
     #[strum(to_string="Alistar")] Alistar = 12,
     /// Amumu (`Amumu`, 32).
@@ -369,6 +371,7 @@ impl Champion {
             Self::Aatrox       => "Aatrox",
             Self::Ahri         => "Ahri",
             Self::Akali        => "Akali",
+            Self::Akshan       => "Akshan",
             Self::Alistar      => "Alistar",
             Self::Amumu        => "Amumu",
             Self::Anivia       => "Anivia",
