@@ -1,10 +1,14 @@
 use std::future::Future;
 use std::sync::Arc;
 
+#[cfg(not(feature="tracing"))]
 use log;
-use reqwest::{ StatusCode, RequestBuilder };
+#[cfg(feature="tracing")]
+use tracing as log;
 #[cfg(feature = "tracing")]
 use tracing::Instrument;
+
+use reqwest::{ StatusCode, RequestBuilder };
 
 use crate::util::InsertOnlyCHashMap;
 use crate::ResponseInfo;

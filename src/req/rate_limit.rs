@@ -1,7 +1,11 @@
 use std::cmp;
 use std::time::{ Duration, Instant };
 
+#[cfg(not(feature="tracing"))]
 use log;
+#[cfg(feature="tracing")]
+use tracing as log;
+
 use parking_lot::{ RwLock, RwLockUpgradableReadGuard };
 use reqwest::{ StatusCode, Response };
 use scan_fmt::scan_fmt;

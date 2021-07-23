@@ -49,16 +49,17 @@ async_tests!{
             Ok(())
         },
 
-        // tft-league-v1.getLeagueEntriesForSummoner
-        // https://github.com/MingweiSamuel/Riven/issues/25
-        tft_league_getleagueentriesforsummoner: async {
-            let sp = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, "Caihonbbt");
-            let sr = sp.await.map_err(|e| e.to_string())?.ok_or("Failed to get \"Caihonbbt\"".to_owned())?;
-            let lp = RIOT_API.tft_league_v1().get_league_entries_for_summoner(ROUTE, &sr.id);
-            let lr = lp.await.map_err(|e| e.to_string())?;
-            rassert!(0 < lr.len());
-            Ok(())
-        },
+        // Disabled: Caihonbbt no longer ranked.
+        // // tft-league-v1.getLeagueEntriesForSummoner
+        // // https://github.com/MingweiSamuel/Riven/issues/25
+        // tft_league_getleagueentriesforsummoner: async {
+        //     let sp = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, "Caihonbbt");
+        //     let sr = sp.await.map_err(|e| e.to_string())?.ok_or("Failed to get \"Caihonbbt\"".to_owned())?;
+        //     let lp = RIOT_API.tft_league_v1().get_league_entries_for_summoner(ROUTE, &sr.id);
+        //     let lr = lp.await.map_err(|e| e.to_string())?;
+        //     rassert!(0 < lr.len());
+        //     Ok(())
+        // },
         // tft-league-v1.getTopRatedLadder
         // https://github.com/MingweiSamuel/Riven/issues/24
         tft_league_gettopratedladder: async {

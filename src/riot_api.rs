@@ -1,7 +1,11 @@
 use std::future::Future;
 use std::sync::Arc;
 
+#[cfg(not(feature="tracing"))]
 use log;
+#[cfg(feature="tracing")]
+use tracing as log;
+
 use reqwest::{ Client, RequestBuilder, Method };
 
 use crate::Result;
