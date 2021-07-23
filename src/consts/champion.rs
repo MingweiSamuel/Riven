@@ -20,6 +20,7 @@ newtype_enum! {
     /// `AATROX` | "Aatrox" | "Aatrox" | 266
     /// `AHRI` | "Ahri" | "Ahri" | 103
     /// `AKALI` | "Akali" | "Akali" | 84
+    /// `AKSHAN` | "Akshan" | "Akshan" | 166
     /// `ALISTAR` | "Alistar" | "Alistar" | 12
     /// `AMUMU` | "Amumu" | "Amumu" | 32
     /// `ANIVIA` | "Anivia" | "Anivia" | 34
@@ -178,6 +179,7 @@ newtype_enum! {
         AATROX = 266,
         AHRI = 103,
         AKALI = 84,
+        AKSHAN = 166,
         ALISTAR = 12,
         AMUMU = 32,
         ANIVIA = 34,
@@ -340,6 +342,7 @@ impl Champion {
             Self::AATROX       => Some("Aatrox"),
             Self::AHRI         => Some("Ahri"),
             Self::AKALI        => Some("Akali"),
+            Self::AKSHAN       => Some("Akshan"),
             Self::ALISTAR      => Some("Alistar"),
             Self::AMUMU        => Some("Amumu"),
             Self::ANIVIA       => Some("Anivia"),
@@ -517,6 +520,7 @@ impl Champion {
             Self::AATROX       => Some("Aatrox"),
             Self::AHRI         => Some("Ahri"),
             Self::AKALI        => Some("Akali"),
+            Self::AKSHAN       => Some("Akshan"),
             Self::ALISTAR      => Some("Alistar"),
             Self::AMUMU        => Some("Amumu"),
             Self::ANIVIA       => Some("Anivia"),
@@ -685,6 +689,7 @@ impl std::str::FromStr for Champion {
             0x41415452 /* AATR */ => Ok(Champion::AATROX),
             0x41485249 /* AHRI */ => Ok(Champion::AHRI),
             0x414b414c /* AKAL */ => Ok(Champion::AKALI),
+            0x414b5348 /* AKSH */ => Ok(Champion::AKSHAN),
             0x414c4953 /* ALIS */ => Ok(Champion::ALISTAR),
             0x414d554d /* AMUM */ => Ok(Champion::AMUMU),
             0x414e4956 /* ANIV */ => Ok(Champion::ANIVIA),

@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 8fec9617c247f0ee5c96feecc8526fdc9dca0369
+// Version 653f68e2d03da44548ff93bc4ffe558e5e70e906
 
 //! Data transfer structs.
 //!
@@ -1505,24 +1505,24 @@ pub mod match_v5 {
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MatchInfoParticipantPerksStatPerks {
         #[serde(rename = "defense")]
-        pub defense: i64,
+        pub defense: i32,
         #[serde(rename = "flex")]
-        pub flex: i64,
+        pub flex: i32,
         #[serde(rename = "offense")]
-        pub offense: i64,
+        pub offense: i32,
     }
     /// MatchInfoParticipantPerksStyleSelection data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MatchInfoParticipantPerksStyleSelection {
         #[serde(rename = "perk")]
-        pub perk: i64,
+        pub perk: i32,
         #[serde(rename = "var1")]
-        pub var1: i64,
+        pub var1: i32,
         #[serde(rename = "var2")]
-        pub var2: i64,
+        pub var2: i32,
         #[serde(rename = "var3")]
-        pub var3: i64,
+        pub var3: i32,
     }
     /// MatchInfoParticipantPerksStyle data object.
     #[derive(Debug)]
@@ -1533,7 +1533,7 @@ pub mod match_v5 {
         #[serde(rename = "selections")]
         pub selections: std::vec::Vec<MatchInfoParticipantPerksStyleSelection>,
         #[serde(rename = "style")]
-        pub style: i64,
+        pub style: i32,
     }
     /// MatchInfoParticipantPerks data object.
     #[derive(Debug)]
@@ -1549,39 +1549,39 @@ pub mod match_v5 {
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MatchInfoParticipant {
         #[serde(rename = "assists")]
-        pub assists: i64,
+        pub assists: i32,
         #[serde(rename = "baronKills")]
-        pub baron_kills: i64,
+        pub baron_kills: i32,
         #[serde(rename = "bountyLevel")]
-        pub bounty_level: i64,
+        pub bounty_level: i32,
         #[serde(rename = "champExperience")]
-        pub champ_experience: i64,
+        pub champ_experience: i32,
         #[serde(rename = "champLevel")]
-        pub champ_level: i64,
+        pub champ_level: i32,
         #[serde(rename = "championId")]
         pub champion_id: crate::consts::Champion,
         #[serde(rename = "championName")]
         pub champion_name: String,
         #[serde(rename = "championTransform")]
-        pub champion_transform: i64,
+        pub champion_transform: i32,
         #[serde(rename = "consumablesPurchased")]
-        pub consumables_purchased: i64,
+        pub consumables_purchased: i32,
         #[serde(rename = "damageDealtToBuildings")]
-        pub damage_dealt_to_buildings: i64,
+        pub damage_dealt_to_buildings: i32,
         #[serde(rename = "damageDealtToObjectives")]
-        pub damage_dealt_to_objectives: i64,
+        pub damage_dealt_to_objectives: i32,
         #[serde(rename = "damageDealtToTurrets")]
-        pub damage_dealt_to_turrets: i64,
+        pub damage_dealt_to_turrets: i32,
         #[serde(rename = "damageSelfMitigated")]
-        pub damage_self_mitigated: i64,
+        pub damage_self_mitigated: i32,
         #[serde(rename = "deaths")]
-        pub deaths: i64,
+        pub deaths: i32,
         #[serde(rename = "detectorWardsPlaced")]
-        pub detector_wards_placed: i64,
+        pub detector_wards_placed: i32,
         #[serde(rename = "doubleKills")]
-        pub double_kills: i64,
+        pub double_kills: i32,
         #[serde(rename = "dragonKills")]
-        pub dragon_kills: i64,
+        pub dragon_kills: i32,
         #[serde(rename = "firstBloodAssist")]
         pub first_blood_assist: bool,
         #[serde(rename = "firstBloodKill")]
@@ -1595,79 +1595,79 @@ pub mod match_v5 {
         #[serde(rename = "gameEndedInSurrender")]
         pub game_ended_in_surrender: bool,
         #[serde(rename = "goldEarned")]
-        pub gold_earned: i64,
+        pub gold_earned: i32,
         #[serde(rename = "goldSpent")]
-        pub gold_spent: i64,
+        pub gold_spent: i32,
         #[serde(rename = "individualPosition")]
         pub individual_position: String,
         #[serde(rename = "inhibitorKills")]
-        pub inhibitor_kills: i64,
+        pub inhibitor_kills: i32,
         #[serde(rename = "inhibitorsLost")]
-        pub inhibitors_lost: i64,
+        pub inhibitors_lost: i32,
         #[serde(rename = "item0")]
-        pub item0: i64,
+        pub item0: i32,
         #[serde(rename = "item1")]
-        pub item1: i64,
+        pub item1: i32,
         #[serde(rename = "item2")]
-        pub item2: i64,
+        pub item2: i32,
         #[serde(rename = "item3")]
-        pub item3: i64,
+        pub item3: i32,
         #[serde(rename = "item4")]
-        pub item4: i64,
+        pub item4: i32,
         #[serde(rename = "item5")]
-        pub item5: i64,
+        pub item5: i32,
         #[serde(rename = "item6")]
-        pub item6: i64,
+        pub item6: i32,
         #[serde(rename = "itemsPurchased")]
-        pub items_purchased: i64,
+        pub items_purchased: i32,
         #[serde(rename = "killingSprees")]
-        pub killing_sprees: i64,
+        pub killing_sprees: i32,
         #[serde(rename = "kills")]
-        pub kills: i64,
+        pub kills: i32,
         #[serde(rename = "lane")]
         pub lane: String,
         #[serde(rename = "largestCriticalStrike")]
-        pub largest_critical_strike: i64,
+        pub largest_critical_strike: i32,
         #[serde(rename = "largestKillingSpree")]
-        pub largest_killing_spree: i64,
+        pub largest_killing_spree: i32,
         #[serde(rename = "largestMultiKill")]
-        pub largest_multi_kill: i64,
+        pub largest_multi_kill: i32,
         #[serde(rename = "longestTimeSpentLiving")]
-        pub longest_time_spent_living: i64,
+        pub longest_time_spent_living: i32,
         #[serde(rename = "magicDamageDealt")]
-        pub magic_damage_dealt: i64,
+        pub magic_damage_dealt: i32,
         #[serde(rename = "magicDamageDealtToChampions")]
-        pub magic_damage_dealt_to_champions: i64,
+        pub magic_damage_dealt_to_champions: i32,
         #[serde(rename = "magicDamageTaken")]
-        pub magic_damage_taken: i64,
+        pub magic_damage_taken: i32,
         #[serde(rename = "neutralMinionsKilled")]
-        pub neutral_minions_killed: i64,
+        pub neutral_minions_killed: i32,
         #[serde(rename = "nexusKills")]
-        pub nexus_kills: i64,
+        pub nexus_kills: i32,
         #[serde(rename = "nexusLost")]
-        pub nexus_lost: i64,
+        pub nexus_lost: i32,
         #[serde(rename = "objectivesStolen")]
-        pub objectives_stolen: i64,
+        pub objectives_stolen: i32,
         #[serde(rename = "objectivesStolenAssists")]
-        pub objectives_stolen_assists: i64,
+        pub objectives_stolen_assists: i32,
         #[serde(rename = "participantId")]
-        pub participant_id: i64,
+        pub participant_id: i32,
         #[serde(rename = "pentaKills")]
-        pub penta_kills: i64,
+        pub penta_kills: i32,
         #[serde(rename = "perks")]
         pub perks: MatchInfoParticipantPerks,
         #[serde(rename = "physicalDamageDealt")]
-        pub physical_damage_dealt: i64,
+        pub physical_damage_dealt: i32,
         #[serde(rename = "physicalDamageDealtToChampions")]
-        pub physical_damage_dealt_to_champions: i64,
+        pub physical_damage_dealt_to_champions: i32,
         #[serde(rename = "physicalDamageTaken")]
-        pub physical_damage_taken: i64,
+        pub physical_damage_taken: i32,
         #[serde(rename = "profileIcon")]
-        pub profile_icon: i64,
+        pub profile_icon: i32,
         #[serde(rename = "puuid")]
         pub puuid: String,
         #[serde(rename = "quadraKills")]
-        pub quadra_kills: i64,
+        pub quadra_kills: i32,
         #[serde(rename = "riotIdName")]
         pub riot_id_name: String,
         #[serde(rename = "riotIdTagline")]
@@ -1675,27 +1675,27 @@ pub mod match_v5 {
         #[serde(rename = "role")]
         pub role: String,
         #[serde(rename = "sightWardsBoughtInGame")]
-        pub sight_wards_bought_in_game: i64,
+        pub sight_wards_bought_in_game: i32,
         #[serde(rename = "spell1Casts")]
-        pub spell1_casts: i64,
+        pub spell1_casts: i32,
         #[serde(rename = "spell2Casts")]
-        pub spell2_casts: i64,
+        pub spell2_casts: i32,
         #[serde(rename = "spell3Casts")]
-        pub spell3_casts: i64,
+        pub spell3_casts: i32,
         #[serde(rename = "spell4Casts")]
-        pub spell4_casts: i64,
+        pub spell4_casts: i32,
         #[serde(rename = "summoner1Casts")]
-        pub summoner1_casts: i64,
+        pub summoner1_casts: i32,
         #[serde(rename = "summoner1Id")]
-        pub summoner1_id: i64,
+        pub summoner1_id: i32,
         #[serde(rename = "summoner2Casts")]
-        pub summoner2_casts: i64,
+        pub summoner2_casts: i32,
         #[serde(rename = "summoner2Id")]
-        pub summoner2_id: i64,
+        pub summoner2_id: i32,
         #[serde(rename = "summonerId")]
         pub summoner_id: String,
         #[serde(rename = "summonerLevel")]
-        pub summoner_level: i64,
+        pub summoner_level: i32,
         #[serde(rename = "summonerName")]
         pub summoner_name: String,
         #[serde(rename = "teamEarlySurrendered")]
@@ -1705,51 +1705,51 @@ pub mod match_v5 {
         #[serde(rename = "teamPosition")]
         pub team_position: String,
         #[serde(rename = "timeCCingOthers")]
-        pub time_c_cing_others: i64,
+        pub time_c_cing_others: i32,
         #[serde(rename = "timePlayed")]
-        pub time_played: i64,
+        pub time_played: i32,
         #[serde(rename = "totalDamageDealt")]
-        pub total_damage_dealt: i64,
+        pub total_damage_dealt: i32,
         #[serde(rename = "totalDamageDealtToChampions")]
-        pub total_damage_dealt_to_champions: i64,
+        pub total_damage_dealt_to_champions: i32,
         #[serde(rename = "totalDamageShieldedOnTeammates")]
-        pub total_damage_shielded_on_teammates: i64,
+        pub total_damage_shielded_on_teammates: i32,
         #[serde(rename = "totalDamageTaken")]
-        pub total_damage_taken: i64,
+        pub total_damage_taken: i32,
         #[serde(rename = "totalHeal")]
-        pub total_heal: i64,
+        pub total_heal: i32,
         #[serde(rename = "totalHealsOnTeammates")]
-        pub total_heals_on_teammates: i64,
+        pub total_heals_on_teammates: i32,
         #[serde(rename = "totalMinionsKilled")]
-        pub total_minions_killed: i64,
+        pub total_minions_killed: i32,
         #[serde(rename = "totalTimeCCDealt")]
-        pub total_time_cc_dealt: i64,
+        pub total_time_cc_dealt: i32,
         #[serde(rename = "totalTimeSpentDead")]
-        pub total_time_spent_dead: i64,
+        pub total_time_spent_dead: i32,
         #[serde(rename = "totalUnitsHealed")]
-        pub total_units_healed: i64,
+        pub total_units_healed: i32,
         #[serde(rename = "tripleKills")]
-        pub triple_kills: i64,
+        pub triple_kills: i32,
         #[serde(rename = "trueDamageDealt")]
-        pub true_damage_dealt: i64,
+        pub true_damage_dealt: i32,
         #[serde(rename = "trueDamageDealtToChampions")]
-        pub true_damage_dealt_to_champions: i64,
+        pub true_damage_dealt_to_champions: i32,
         #[serde(rename = "trueDamageTaken")]
-        pub true_damage_taken: i64,
+        pub true_damage_taken: i32,
         #[serde(rename = "turretKills")]
-        pub turret_kills: i64,
+        pub turret_kills: i32,
         #[serde(rename = "turretsLost")]
-        pub turrets_lost: i64,
+        pub turrets_lost: i32,
         #[serde(rename = "unrealKills")]
-        pub unreal_kills: i64,
+        pub unreal_kills: i32,
         #[serde(rename = "visionScore")]
-        pub vision_score: i64,
+        pub vision_score: i32,
         #[serde(rename = "visionWardsBoughtInGame")]
-        pub vision_wards_bought_in_game: i64,
+        pub vision_wards_bought_in_game: i32,
         #[serde(rename = "wardsKilled")]
-        pub wards_killed: i64,
+        pub wards_killed: i32,
         #[serde(rename = "wardsPlaced")]
-        pub wards_placed: i64,
+        pub wards_placed: i32,
         #[serde(rename = "win")]
         pub win: bool,
     }
@@ -1760,7 +1760,7 @@ pub mod match_v5 {
         #[serde(rename = "championId")]
         pub champion_id: crate::consts::Champion,
         #[serde(rename = "pickTurn")]
-        pub pick_turn: i64,
+        pub pick_turn: i32,
     }
     /// MatchInfoTeamObjective data object.
     #[derive(Debug)]
@@ -1769,7 +1769,7 @@ pub mod match_v5 {
         #[serde(rename = "first")]
         pub first: bool,
         #[serde(rename = "kills")]
-        pub kills: i64,
+        pub kills: i32,
     }
     /// MatchInfoTeamObjectives data object.
     #[derive(Debug)]
@@ -1808,7 +1808,7 @@ pub mod match_v5 {
         #[serde(rename = "gameCreation")]
         pub game_creation: i64,
         #[serde(rename = "gameDuration")]
-        pub game_duration: i64,
+        pub game_duration: i32,
         #[serde(rename = "gameId")]
         pub game_id: i64,
         #[serde(rename = "gameMode")]
@@ -1841,44 +1841,44 @@ pub mod match_v5 {
     pub struct MatchTimelineInfoFrameEvent {
         #[serde(rename = "realTimestamp")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub real_timestamp: Option<i64>,
+        pub real_timestamp: Option<i32>,
         #[serde(rename = "timestamp")]
-        pub timestamp: i64,
+        pub timestamp: i32,
         #[serde(rename = "type")]
         pub r#type: String,
         #[serde(rename = "itemId")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub item_id: Option<i64>,
+        pub item_id: Option<i32>,
         #[serde(rename = "participantId")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub participant_id: Option<i64>,
+        pub participant_id: Option<i32>,
         #[serde(rename = "levelUpType")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub level_up_type: Option<String>,
         #[serde(rename = "skillSlot")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub skill_slot: Option<i64>,
+        pub skill_slot: Option<i32>,
         #[serde(rename = "creatorId")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub creator_id: Option<i64>,
+        pub creator_id: Option<i32>,
         #[serde(rename = "wardType")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub ward_type: Option<String>,
         #[serde(rename = "level")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub level: Option<i64>,
+        pub level: Option<i32>,
         #[serde(rename = "assistingParticipantIds")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub assisting_participant_ids: Option<std::vec::Vec<i64>>,
+        pub assisting_participant_ids: Option<std::vec::Vec<i32>>,
         #[serde(rename = "bounty")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub bounty: Option<i64>,
+        pub bounty: Option<i32>,
         #[serde(rename = "killStreakLength")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub kill_streak_length: Option<i64>,
+        pub kill_streak_length: Option<i32>,
         #[serde(rename = "killerId")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub killer_id: Option<i64>,
+        pub killer_id: Option<i32>,
         #[serde(rename = "position")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub position: Option<MatchTimelineInfoFrameParticipantFramePosition>,
@@ -1890,7 +1890,7 @@ pub mod match_v5 {
         pub victim_damage_received: Option<std::vec::Vec<MatchTimelineInfoFrameEventVictimDamageDealt>>,
         #[serde(rename = "victimId")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub victim_id: Option<i64>,
+        pub victim_id: Option<i32>,
         #[serde(rename = "killType")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub kill_type: Option<String>,
@@ -1902,7 +1902,7 @@ pub mod match_v5 {
         pub team_id: Option<crate::consts::Team>,
         #[serde(rename = "multiKillLength")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub multi_kill_length: Option<i64>,
+        pub multi_kill_length: Option<i32>,
         #[serde(rename = "killerTeamId")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub killer_team_id: Option<crate::consts::Team>,
@@ -1920,19 +1920,19 @@ pub mod match_v5 {
         pub tower_type: Option<String>,
         #[serde(rename = "afterId")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub after_id: Option<i64>,
+        pub after_id: Option<i32>,
         #[serde(rename = "beforeId")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub before_id: Option<i64>,
+        pub before_id: Option<i32>,
         #[serde(rename = "goldGain")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub gold_gain: Option<i64>,
+        pub gold_gain: Option<i32>,
         #[serde(rename = "gameId")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub game_id: Option<i64>,
+        pub game_id: Option<i32>,
         #[serde(rename = "winningTeam")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub winning_team: Option<i64>,
+        pub winning_team: Option<i32>,
         #[serde(rename = "transformType")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub transform_type: Option<String>,
@@ -1945,93 +1945,93 @@ pub mod match_v5 {
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MatchTimelineInfoFrameParticipantFrameChampionStats {
         #[serde(rename = "abilityHaste")]
-        pub ability_haste: i64,
+        pub ability_haste: i32,
         #[serde(rename = "abilityPower")]
-        pub ability_power: i64,
+        pub ability_power: i32,
         #[serde(rename = "armor")]
-        pub armor: i64,
+        pub armor: i32,
         #[serde(rename = "armorPen")]
-        pub armor_pen: i64,
+        pub armor_pen: i32,
         #[serde(rename = "armorPenPercent")]
-        pub armor_pen_percent: i64,
+        pub armor_pen_percent: i32,
         #[serde(rename = "attackDamage")]
-        pub attack_damage: i64,
+        pub attack_damage: i32,
         #[serde(rename = "attackSpeed")]
-        pub attack_speed: i64,
+        pub attack_speed: i32,
         #[serde(rename = "bonusArmorPenPercent")]
-        pub bonus_armor_pen_percent: i64,
+        pub bonus_armor_pen_percent: i32,
         #[serde(rename = "bonusMagicPenPercent")]
-        pub bonus_magic_pen_percent: i64,
+        pub bonus_magic_pen_percent: i32,
         #[serde(rename = "ccReduction")]
-        pub cc_reduction: i64,
+        pub cc_reduction: i32,
         #[serde(rename = "cooldownReduction")]
-        pub cooldown_reduction: i64,
+        pub cooldown_reduction: i32,
         #[serde(rename = "health")]
-        pub health: i64,
+        pub health: i32,
         #[serde(rename = "healthMax")]
-        pub health_max: i64,
+        pub health_max: i32,
         #[serde(rename = "healthRegen")]
-        pub health_regen: i64,
+        pub health_regen: i32,
         #[serde(rename = "lifesteal")]
-        pub lifesteal: i64,
+        pub lifesteal: i32,
         #[serde(rename = "magicPen")]
-        pub magic_pen: i64,
+        pub magic_pen: i32,
         #[serde(rename = "magicPenPercent")]
-        pub magic_pen_percent: i64,
+        pub magic_pen_percent: i32,
         #[serde(rename = "magicResist")]
-        pub magic_resist: i64,
+        pub magic_resist: i32,
         #[serde(rename = "movementSpeed")]
-        pub movement_speed: i64,
+        pub movement_speed: i32,
         #[serde(rename = "omnivamp")]
-        pub omnivamp: i64,
+        pub omnivamp: i32,
         #[serde(rename = "physicalVamp")]
-        pub physical_vamp: i64,
+        pub physical_vamp: i32,
         #[serde(rename = "power")]
-        pub power: i64,
+        pub power: i32,
         #[serde(rename = "powerMax")]
-        pub power_max: i64,
+        pub power_max: i32,
         #[serde(rename = "powerRegen")]
-        pub power_regen: i64,
+        pub power_regen: i32,
         #[serde(rename = "spellVamp")]
-        pub spell_vamp: i64,
+        pub spell_vamp: i32,
     }
     /// MatchTimelineInfoFrameParticipantFrameDamageStats data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MatchTimelineInfoFrameParticipantFrameDamageStats {
         #[serde(rename = "magicDamageDone")]
-        pub magic_damage_done: i64,
+        pub magic_damage_done: i32,
         #[serde(rename = "magicDamageDoneToChampions")]
-        pub magic_damage_done_to_champions: i64,
+        pub magic_damage_done_to_champions: i32,
         #[serde(rename = "magicDamageTaken")]
-        pub magic_damage_taken: i64,
+        pub magic_damage_taken: i32,
         #[serde(rename = "physicalDamageDone")]
-        pub physical_damage_done: i64,
+        pub physical_damage_done: i32,
         #[serde(rename = "physicalDamageDoneToChampions")]
-        pub physical_damage_done_to_champions: i64,
+        pub physical_damage_done_to_champions: i32,
         #[serde(rename = "physicalDamageTaken")]
-        pub physical_damage_taken: i64,
+        pub physical_damage_taken: i32,
         #[serde(rename = "totalDamageDone")]
-        pub total_damage_done: i64,
+        pub total_damage_done: i32,
         #[serde(rename = "totalDamageDoneToChampions")]
-        pub total_damage_done_to_champions: i64,
+        pub total_damage_done_to_champions: i32,
         #[serde(rename = "totalDamageTaken")]
-        pub total_damage_taken: i64,
+        pub total_damage_taken: i32,
         #[serde(rename = "trueDamageDone")]
-        pub true_damage_done: i64,
+        pub true_damage_done: i32,
         #[serde(rename = "trueDamageDoneToChampions")]
-        pub true_damage_done_to_champions: i64,
+        pub true_damage_done_to_champions: i32,
         #[serde(rename = "trueDamageTaken")]
-        pub true_damage_taken: i64,
+        pub true_damage_taken: i32,
     }
     /// MatchTimelineInfoFrameParticipantFramePosition data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MatchTimelineInfoFrameParticipantFramePosition {
         #[serde(rename = "x")]
-        pub x: i64,
+        pub x: i32,
         #[serde(rename = "y")]
-        pub y: i64,
+        pub y: i32,
     }
     /// MatchTimelineInfoFrameParticipantFrame data object.
     #[derive(Debug)]
@@ -2040,27 +2040,27 @@ pub mod match_v5 {
         #[serde(rename = "championStats")]
         pub champion_stats: MatchTimelineInfoFrameParticipantFrameChampionStats,
         #[serde(rename = "currentGold")]
-        pub current_gold: i64,
+        pub current_gold: i32,
         #[serde(rename = "damageStats")]
         pub damage_stats: MatchTimelineInfoFrameParticipantFrameDamageStats,
         #[serde(rename = "goldPerSecond")]
-        pub gold_per_second: i64,
+        pub gold_per_second: i32,
         #[serde(rename = "jungleMinionsKilled")]
-        pub jungle_minions_killed: i64,
+        pub jungle_minions_killed: i32,
         #[serde(rename = "level")]
-        pub level: i64,
+        pub level: i32,
         #[serde(rename = "minionsKilled")]
-        pub minions_killed: i64,
+        pub minions_killed: i32,
         #[serde(rename = "participantId")]
-        pub participant_id: i64,
+        pub participant_id: i32,
         #[serde(rename = "position")]
         pub position: MatchTimelineInfoFrameParticipantFramePosition,
         #[serde(rename = "timeEnemySpentControlled")]
-        pub time_enemy_spent_controlled: i64,
+        pub time_enemy_spent_controlled: i32,
         #[serde(rename = "totalGold")]
-        pub total_gold: i64,
+        pub total_gold: i32,
         #[serde(rename = "xp")]
-        pub xp: i64,
+        pub xp: i32,
     }
     /// MatchTimelineInfoFrameParticipantFrames data object.
     #[derive(Debug)]
@@ -2096,7 +2096,7 @@ pub mod match_v5 {
         #[serde(rename = "participantFrames")]
         pub participant_frames: MatchTimelineInfoFrameParticipantFrames,
         #[serde(rename = "timestamp")]
-        pub timestamp: i64,
+        pub timestamp: i32,
     }
     /// MatchTimelineInfoFrameEventVictimDamageDealt data object.
     #[derive(Debug)]
@@ -2105,19 +2105,19 @@ pub mod match_v5 {
         #[serde(rename = "basic")]
         pub basic: bool,
         #[serde(rename = "magicDamage")]
-        pub magic_damage: i64,
+        pub magic_damage: i32,
         #[serde(rename = "name")]
         pub name: String,
         #[serde(rename = "participantId")]
-        pub participant_id: i64,
+        pub participant_id: i32,
         #[serde(rename = "physicalDamage")]
-        pub physical_damage: i64,
+        pub physical_damage: i32,
         #[serde(rename = "spellName")]
         pub spell_name: String,
         #[serde(rename = "spellSlot")]
-        pub spell_slot: i64,
+        pub spell_slot: i32,
         #[serde(rename = "trueDamage")]
-        pub true_damage: i64,
+        pub true_damage: i32,
         #[serde(rename = "type")]
         pub r#type: String,
     }
@@ -2126,7 +2126,7 @@ pub mod match_v5 {
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MatchTimelineInfoParticipant {
         #[serde(rename = "participantId")]
-        pub participant_id: i64,
+        pub participant_id: i32,
         #[serde(rename = "puuid")]
         pub puuid: String,
     }
@@ -2135,11 +2135,11 @@ pub mod match_v5 {
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MatchTimelineInfo {
         #[serde(rename = "frameInterval")]
-        pub frame_interval: i64,
+        pub frame_interval: i32,
         #[serde(rename = "frames")]
         pub frames: std::vec::Vec<MatchTimelineInfoFrame>,
         #[serde(rename = "gameId")]
-        pub game_id: i64,
+        pub game_id: i32,
         #[serde(rename = "participants")]
         pub participants: std::vec::Vec<MatchTimelineInfoParticipant>,
     }

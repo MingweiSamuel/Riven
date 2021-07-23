@@ -237,6 +237,8 @@ newtype_enum! {
         NEXUS_BLITZ_NEXUS_BLITZ_DEPRECATED_1200 = 1200,
         /// Nexus Blitz games on Nexus Blitz
         NEXUS_BLITZ_NEXUS_BLITZ = 1300,
+        /// Ultimate Spellbook games on Summoner's Rift
+        SUMMONERS_RIFT_ULTIMATE_SPELLBOOK = 1400,
         /// Tutorial 1 games on Summoner's Rift
         SUMMONERS_RIFT_TUTORIAL_1 = 2000,
         /// Tutorial 2 games on Summoner's Rift
