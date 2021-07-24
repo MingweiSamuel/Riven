@@ -68,9 +68,7 @@ impl VectorTokenBucket {
 
         // Effective duration.
         let d_eff = duration + duration_overhead;
-        let burst_duration = Duration::new(
-            (d_eff.as_secs()      as f32 * burst_pct).ceil()  as u64,
-            (d_eff.subsec_nanos() as f32 * burst_pct).ceil()  as u32);
+        let burst_duration = d_eff.mul_f32(burst_pct);
         let burst_limit = std::cmp::max(1,
             (total_limit          as f32 * burst_pct).floor() as usize);
         debug_assert!(burst_limit <= total_limit);
@@ -137,7 +135,21 @@ impl TokenBucket for VectorTokenBucket {
         for _ in 0..n {
             timestamps.push_front(now);
         }
-        timestamps.len() <= self.total_limit
+
+        // Check total limit.
+        if self.total_limit < timestamps.len() {
+            return false;
+        }
+
+        // Check burst limit.
+        if let Some(burst_time) = timestamps.get(self.burst_limit) {
+            let duration_since = now.duration_since(*burst_time); // `now` before `burst_time` will panic.
+            if duration_since < self.burst_duration {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     fn get_bucket_duration(&self) -> Duration {
