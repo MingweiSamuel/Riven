@@ -33,7 +33,7 @@ impl RateLimit {
 
     pub fn new(rate_limit_type: RateLimitType) -> Self {
         let initial_bucket = VectorTokenBucket::new(
-            Duration::from_secs(1), 1, Duration::new(0, 0), 1.0);
+            Duration::from_secs(1), 1, Duration::new(0, 0), 1.0, 1.0);
         RateLimit {
             rate_limit_type: rate_limit_type,
             // Rate limit before getting from response: 1/s.
@@ -168,7 +168,7 @@ impl RateLimit {
 
                 // Buckets require updating. Upgrade to write lock.
                 let mut buckets = RwLockUpgradableReadGuard::upgrade(buckets);
-                *buckets = buckets_from_header(config, limit_header, count_header);
+                *buckets = buckets_from_header(config, limit_header, count_header, self.rate_limit_type);
             }
             // Notify waiters that buckets have updated (after unlocking).
             self.update_notify.notify_waiters();
@@ -190,7 +190,7 @@ fn buckets_require_updating(limit_header: &str, buckets: &Vec<VectorTokenBucket>
     false
 }
 
-fn buckets_from_header(config: &RiotApiConfig, limit_header: &str, count_header: &str) -> Vec<VectorTokenBucket> {
+fn buckets_from_header(config: &RiotApiConfig, limit_header: &str, count_header: &str, rate_limit_type: RateLimitType) -> Vec<VectorTokenBucket> {
     // Limits: "20000:10,1200000:600"
     // Counts: "7:10,58:600"
     let size = limit_header.split(",").count();
@@ -204,11 +204,17 @@ fn buckets_from_header(config: &RiotApiConfig, limit_header: &str, count_header:
             .unwrap_or_else(|_| panic!("Failed to parse count entry \"{}\".", count_entry));
         debug_assert!(limit_secs == count_secs);
 
+        let rate_usage_factor = if RateLimitType::Application == rate_limit_type {
+            config.app_rate_usage_factor
+        } else {
+            config.method_rate_usage_factor
+        };
+
         let limit_f32 = limit as f32;
-        let scaled_burst_pct = config.burst_pct * limit_f32 / (limit_f32 + 1.0);
+        let scaled_burst_factor = config.burst_factor * limit_f32 / (limit_f32 + 1.0);
 
         let bucket = VectorTokenBucket::new(Duration::from_secs(limit_secs), limit,
-            config.duration_overhead, scaled_burst_pct);
+            config.duration_overhead, scaled_burst_factor, rate_usage_factor);
         bucket.get_tokens(count);
         out.push(bucket);
     }

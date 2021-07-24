@@ -11,7 +11,9 @@ use reqwest::header::{ HeaderMap, HeaderValue };
 pub struct RiotApiConfig {
     pub(crate) base_url: String,
     pub(crate) retries: u8,
-    pub(crate) burst_pct: f32,
+    pub(crate) app_rate_usage_factor: f32,
+    pub(crate) method_rate_usage_factor: f32,
+    pub(crate) burst_factor: f32,
     pub(crate) duration_overhead: Duration,
     pub(crate) client_builder: Option<ClientBuilder>,
 }
@@ -33,10 +35,15 @@ impl RiotApiConfig {
     /// Default number of retries.
     pub const DEFAULT_RETRIES: u8 = 3;
 
+    /// `1.0`
+    ///
+    /// Default rate limit usage factor.
+    pub const DEFAULT_RATE_USAGE_FACTOR: f32 = 1.0;
+
     /// `0.99`
     ///
-    /// Default `burst_pct`, also used by `preconfig_burst`.
-    pub const PRECONFIG_BURST_BURST_PCT: f32 = 0.99;
+    /// Default `burst_factor`, also used by `preconfig_burst`.
+    pub const PRECONFIG_BURST_BURST_FACTOR: f32 = 0.99;
     /// `989` ms
     ///
     /// Default `duration_overhead`, also used by `preconfig_burst`.
@@ -44,8 +51,8 @@ impl RiotApiConfig {
 
     /// `0.47`
     ///
-    /// `burst_pct` used by `preconfig_throughput`.
-    pub const PRECONFIG_THROUGHPUT_BURST_PCT: f32 = 0.47;
+    /// `burst_factor` used by `preconfig_throughput`.
+    pub const PRECONFIG_THROUGHPUT_BURST_FACTOR: f32 = 0.47;
     /// `10` ms.
     ///
     /// `duration_overhead` used by `preconfig_throughput`.
@@ -55,7 +62,7 @@ impl RiotApiConfig {
     /// configuration:
     ///
     /// * `retries = 3` (`RiotApiConfig::DEFAULT_RETRIES`).
-    /// * `purst_pct = 0.99` (`preconfig_burst`).
+    /// * `burst_factor = 0.99` (`preconfig_burst`).
     /// * `duration_overhead = 989 ms` (`preconfig_burst`).
     ///
     /// `api_key` should be a Riot Games API key from
@@ -71,7 +78,9 @@ impl RiotApiConfig {
         Self {
             base_url: Self::DEFAULT_BASE_URL.into(),
             retries: Self::DEFAULT_RETRIES,
-            burst_pct: Self::PRECONFIG_BURST_BURST_PCT,
+            app_rate_usage_factor: Self::DEFAULT_RATE_USAGE_FACTOR,
+            method_rate_usage_factor: Self::DEFAULT_RATE_USAGE_FACTOR,
+            burst_factor: Self::PRECONFIG_BURST_BURST_FACTOR,
             duration_overhead: Self::PRECONFIG_BURST_DURATION_OVERHEAD,
             client_builder: Some(
                 ClientBuilder::new()
@@ -86,13 +95,15 @@ impl RiotApiConfig {
     /// `RiotApiConfig::RIOT_KEY_HEADER`, otherwise authentication will fail.
     ///
     /// * `retries = 3` (`RiotApiConfig::DEFAULT_RETRIES`).
-    /// * `purst_pct = 0.99` (`preconfig_burst`).
+    /// * `burst_factor = 0.99` (`preconfig_burst`).
     /// * `duration_overhead = 989 ms` (`preconfig_burst`).
     pub fn with_client_builder(client_builder: ClientBuilder) -> Self {
         Self {
             base_url: Self::DEFAULT_BASE_URL.to_owned(),
             retries: Self::DEFAULT_RETRIES,
-            burst_pct: Self::PRECONFIG_BURST_BURST_PCT,
+            app_rate_usage_factor: Self::DEFAULT_RATE_USAGE_FACTOR,
+            method_rate_usage_factor: Self::DEFAULT_RATE_USAGE_FACTOR,
+            burst_factor: Self::PRECONFIG_BURST_BURST_FACTOR,
             duration_overhead: Self::PRECONFIG_BURST_DURATION_OVERHEAD,
             client_builder: Some(client_builder),
         }
@@ -101,13 +112,13 @@ impl RiotApiConfig {
     /// Sets rate limiting settings to preconfigured values optimized for burst,
     /// low latency:
     ///
-    /// * `burst_pct = 0.99` (`PRECONFIG_BURST_BURST_PCT`).
+    /// * `burst_factor = 0.99` (`PRECONFIG_BURST_BURST_FACTOR`).
     /// * `duration_overhead = 989 ms` (`PRECONFIG_BURST_DURATION_OVERHEAD_MILLIS`).
     ///
     /// # Returns
     /// `self`, for chaining.
     pub fn preconfig_burst(mut self) -> Self {
-        self.burst_pct = Self::PRECONFIG_BURST_BURST_PCT;
+        self.burst_factor = Self::PRECONFIG_BURST_BURST_FACTOR;
         self.duration_overhead = Self::PRECONFIG_BURST_DURATION_OVERHEAD;
         self
     }
@@ -115,13 +126,13 @@ impl RiotApiConfig {
     /// Sets the rate limiting settings to preconfigured values  optimized for
     /// high throughput:
     ///
-    /// * `burst_pct = 0.47` (`PRECONFIG_THROUGHPUT_BURST_PCT`).
+    /// * `burst_factor = 0.47` (`PRECONFIG_THROUGHPUT_BURST_FACTOR`).
     /// * `duration_overhead = 10 ms` (`PRECONFIG_THROUGHPUT_DURATION_OVERHEAD_MILLIS`).
     ///
     /// # Returns
     /// `self`, for chaining.
     pub fn preconfig_throughput(mut self) -> Self {
-        self.burst_pct = Self::PRECONFIG_THROUGHPUT_BURST_PCT;
+        self.burst_factor = Self::PRECONFIG_THROUGHPUT_BURST_FACTOR;
         self.duration_overhead = Self::PRECONFIG_THROUGHPUT_DURATION_OVERHEAD;
         self
     }
@@ -147,6 +158,76 @@ impl RiotApiConfig {
     pub fn set_retries(mut self, retries: u8) -> Self {
         self.retries = retries;
         self
+    }
+
+    /// The rate limit usage percentage controls how much of the API key's rate
+    /// limit will be used. The default value of `1.0` means the entirety of
+    /// the rate limit may be used if it is needed. This applies to both the
+    /// API key's rate limit (per route) _and_ to endpoint method rate limits.
+    ///
+    /// Setting a value lower than `1.0` can be useful if you are running
+    /// multiple API instances on the same API key.
+    ///
+    /// For example, four instances, possibly running on different machines,
+    /// could each have a value of `0.25` to share an API key's rate limit
+    /// evenly.
+    ///
+    /// Note that if you have multiple instances hitting _different_ methods,
+    /// you should use [set_app_rate_usage_factor()] and [set_method_rate_usage_factor()]
+    /// separately, as this sets both.
+    ///
+    /// This also can be used to reduce the chance of hitting 429s, although
+    /// 429s should be rare even with this set to `1.0`.
+    ///
+    /// # Panics
+    /// If `rate_usage_factor` is not in range (0, 1].
+    ///
+    /// # Returns
+    /// `self`, for chaining.
+    pub fn set_rate_usage_factor(mut self, rate_usage_factor: f32) -> Self {
+        // Use inverted check to handle NaN.
+        if 0.0 < rate_usage_factor && rate_usage_factor <= 1.0 {
+            self.app_rate_usage_factor = rate_usage_factor;
+            self.method_rate_usage_factor = rate_usage_factor;
+            return self;
+        }
+        panic!("rate_usage_factor \"{}\" not in range (0, 1].", rate_usage_factor);
+    }
+
+    /// See [set_rate_usage_factor]. Setting this is useful if you have multiple
+    /// instances sharing the app rate limit, but are hitting distinct methods
+    /// and therefore do not need their method usage decreased.
+    ///
+    /// # Panics
+    /// If `app_rate_usage_factor` is not in range (0, 1\].
+    ///
+    /// # Returns
+    /// `self`, for chaining.
+    pub fn set_app_rate_usage_factor(mut self, app_rate_usage_factor: f32) -> Self {
+        // Use inverted check to handle NaN.
+        if 0.0 < app_rate_usage_factor && app_rate_usage_factor <= 1.0 {
+            self.app_rate_usage_factor = app_rate_usage_factor;
+            return self;
+        }
+        panic!("app_rate_usage_factor \"{}\" not in range (0, 1].", app_rate_usage_factor);
+    }
+
+    /// See [set_rate_usage_factor] and [set_app_rate_usage_factor].
+    /// This method is mainly provided for completeness, though it may be
+    /// useful in advanced use cases.
+    ///
+    /// # Panics
+    /// If `method_rate_usage_factor` is not in range (0, 1\].
+    ///
+    /// # Returns
+    /// `self`, for chaining.
+    pub fn set_method_rate_usage_factor(mut self, method_rate_usage_factor: f32) -> Self {
+        // Use inverted check to handle NaN.
+        if 0.0 < method_rate_usage_factor && method_rate_usage_factor <= 1.0 {
+            self.method_rate_usage_factor = method_rate_usage_factor;
+            return self;
+        }
+        panic!("method_rate_usage_factor \"{}\" not in range (0, 1].", method_rate_usage_factor);
     }
 
     /// Burst percentage controls how many burst requests are allowed and
@@ -180,17 +261,17 @@ impl RiotApiConfig {
     /// better.
     ///
     /// # Panics
-    /// If `burst_pct` is not in range (0, 1].
+    /// If `burst_factor` is not in range (0, 1\].
     ///
     /// # Returns
     /// `self`, for chaining.
-    pub fn set_burst_pct(mut self, burst_pct: f32) -> Self {
+    pub fn set_burst_factor(mut self, burst_factor: f32) -> Self {
         // Use inverted check to handle NaN.
-        if 0.0 < burst_pct && burst_pct < 1.0 {
-            self.burst_pct = burst_pct;
+        if 0.0 < burst_factor && burst_factor <= 1.0 {
+            self.burst_factor = burst_factor;
             return self;
         }
-        panic!("burst_pct \"{}\" not in range (0, 1].", burst_pct);
+        panic!("burst_factor \"{}\" not in range (0, 1].", burst_factor);
     }
 
     /// Sets the additional bucket duration to consider when rate limiting.

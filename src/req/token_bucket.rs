@@ -39,10 +39,16 @@ pub trait TokenBucket {
 }
 
 pub struct VectorTokenBucket {
+    /// The total limit supplied to the constructor, unadjusted by the [rate_usage_factor].
+    _given_total_limit: usize,
+    /// Additional factor to reduce rate limit usage, in range (0, 1\].
+    _rate_usage_factor: f32,
+
     /// Duration of this TokenBucket.
     duration: Duration,
     // Total tokens available from this TokenBucket.
     total_limit: usize,
+
     /// Extra duration to be considered on top of `duration`, to account for
     /// varying network latency.
     duration_overhead: Duration,
@@ -58,30 +64,38 @@ pub struct VectorTokenBucket {
 }
 
 impl VectorTokenBucket {
-    pub fn new(duration: Duration, total_limit: usize,
-        duration_overhead: Duration, burst_pct: f32) -> Self
+    pub fn new(duration: Duration, given_total_limit: usize,
+        duration_overhead: Duration, burst_factor: f32,
+        rate_usage_factor: f32) -> Self
     {
-        debug_assert!(0.0 < burst_pct && burst_pct <= 1.0,
-            "BAD burst_pct {}.", burst_pct);
+        debug_assert!(0.0 < rate_usage_factor && rate_usage_factor <= 1.0,
+            "BAD rate_usage_factor {}.", rate_usage_factor);
+        debug_assert!(0.0 < burst_factor && burst_factor <= 1.0,
+            "BAD burst_factor {}.", burst_factor);
         // Float ops may lose precision, but nothing should be that precise.
-        // API always uses round numbers, burst_pct is frac of 256.
+        // API always uses round numbers, burst_factor is frac of 256.
+
+        // Adjust everything by rate_usage_factor.
+        let total_limit = std::cmp::max(1,
+            (given_total_limit as f32 * rate_usage_factor).floor() as usize);
 
         // Effective duration.
         let d_eff = duration + duration_overhead;
-        let burst_duration = Duration::new(
-            (d_eff.as_secs()      as f32 * burst_pct).ceil()  as u64,
-            (d_eff.subsec_nanos() as f32 * burst_pct).ceil()  as u32);
+        let burst_duration = d_eff.mul_f32(burst_factor);
         let burst_limit = std::cmp::max(1,
-            (total_limit          as f32 * burst_pct).floor() as usize);
+            (total_limit as f32 * burst_factor).floor() as usize);
         debug_assert!(burst_limit <= total_limit);
 
         VectorTokenBucket {
-            duration: duration,
-            total_limit: total_limit,
-            duration_overhead: duration_overhead,
+            _given_total_limit: given_total_limit,
+            _rate_usage_factor: rate_usage_factor,
 
-            burst_duration: burst_duration,
-            burst_limit: burst_limit,
+            duration,
+            total_limit,
+
+            duration_overhead,
+            burst_duration,
+            burst_limit,
 
             timestamps: Mutex::new(VecDeque::with_capacity(total_limit)),
         }
@@ -90,8 +104,7 @@ impl VectorTokenBucket {
     fn update_get_timestamps(&self) -> MutexGuard<VecDeque<Instant>> {
         let mut timestamps = self.timestamps.lock();
         let cutoff = Instant::now() - self.duration - self.duration_overhead;
-        // We only need to trim the end of the queue to not leak memory.
-        // We could do it lazily somehow if we wanted to be really fancy.
+        // Pop off timestamps that are beyound the bucket duration.
         while timestamps.back().map_or(false, |ts| *ts < cutoff) {
             timestamps.pop_back();
         }
@@ -103,11 +116,6 @@ impl TokenBucket for VectorTokenBucket {
 
     fn get_delay(&self) -> Option<Duration> {
         let timestamps = self.update_get_timestamps();
-
-        // The "?" means:
-        // `if timestamps.len() < self.total_limit { return None }`
-        // Timestamp that needs to be popped before
-        // we can enter another timestamp.
 
         // Full rate limit.
         if let Some(ts) = timestamps.get(self.total_limit - 1) {
@@ -137,7 +145,21 @@ impl TokenBucket for VectorTokenBucket {
         for _ in 0..n {
             timestamps.push_front(now);
         }
-        timestamps.len() <= self.total_limit
+
+        // Check total limit.
+        if self.total_limit < timestamps.len() {
+            return false;
+        }
+
+        // Check burst limit.
+        if let Some(burst_time) = timestamps.get(self.burst_limit) {
+            let duration_since = now.duration_since(*burst_time); // `now` before `burst_time` will panic.
+            if duration_since < self.burst_duration {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     fn get_bucket_duration(&self) -> Duration {

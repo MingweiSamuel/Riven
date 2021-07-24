@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -e
 
 # Ensure stable builds.
 cargo +stable test --no-run
