@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 653f68e2d03da44548ff93bc4ffe558e5e70e906
+// Version 12e3bc69894adde9001edb3c64126cd90d4531bd
 
 //! Automatically generated endpoint handles.
 
@@ -1135,6 +1135,8 @@ impl<'a> MatchV5<'a> {
     /// # Parameters
     /// * `route` - Route to query.
     /// * `puuid` (required, in path)
+    /// * `start_time` (optional, in query) - Epoch timestamp in seconds.
+    /// * `end_time` (optional, in query) - Epoch timestamp in seconds.
     /// * `queue` (optional, in query) - Filter the list of match ids by a specific queue id. This filter is mutually inclusive of the type filter meaning any match ids returned must match both the queue and type filters.
     /// * `type` (optional, in query) - Filter the list of match ids by the type of match. This filter is mutually inclusive of the queue filter meaning any match ids returned must match both the queue and type filters.
     /// * `start` (optional, in query) - Defaults to 0. Start index.
@@ -1143,13 +1145,15 @@ impl<'a> MatchV5<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#match-v5/GET_getMatchIdsByPUUID" target="_blank">`match-v5.getMatchIdsByPUUID`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_match_ids_by_puuid(&self, route: RegionalRoute, puuid: &str, count: Option<i32>, queue: Option<i32>, start: Option<i32>, r#type: Option<&str>)
+    pub fn get_match_ids_by_puuid(&self, route: RegionalRoute, puuid: &str, count: Option<i32>, end_time: Option<i64>, queue: Option<i32>, start_time: Option<i64>, start: Option<i32>, r#type: Option<&str>)
         -> impl Future<Output = Result<Vec<String>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/match/v5/matches/by-puuid/{}/ids", puuid));
         let mut request = request; if let Some(count) = count { request = request.query(&[ ("count", count) ]); }
+        let mut request = request; if let Some(end_time) = end_time { request = request.query(&[ ("endTime", end_time) ]); }
         let mut request = request; if let Some(queue) = queue { request = request.query(&[ ("queue", queue) ]); }
+        let mut request = request; if let Some(start_time) = start_time { request = request.query(&[ ("startTime", start_time) ]); }
         let mut request = request; if let Some(start) = start { request = request.query(&[ ("start", start) ]); }
         let mut request = request; if let Some(r#type) = r#type { request = request.query(&[ ("type", r#type) ]); }
         let future = self.base.execute_val::<Vec<String>>("match-v5.getMatchIdsByPUUID", route_str, request);

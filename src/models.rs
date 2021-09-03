@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 653f68e2d03da44548ff93bc4ffe558e5e70e906
+// Version 12e3bc69894adde9001edb3c64126cd90d4531bd
 
 //! Data transfer structs.
 //!
@@ -738,10 +738,10 @@ pub mod match_v4 {
         /// Participant identity information. Participant identity information is purposefully excluded for custom games.
         #[serde(rename = "participantIdentities")]
         pub participant_identities: std::vec::Vec<ParticipantIdentity>,
-        /// Please refer to the Game Constants documentation.
+        /// Refer to the Game Constants documentation.
         #[serde(rename = "queueId")]
         pub queue_id: crate::consts::Queue,
-        /// Please refer to the Game Constants documentation.
+        /// Refer to the Game Constants documentation.
         #[serde(rename = "gameType")]
         pub game_type: crate::consts::GameType,
         /// Match duration in seconds.
@@ -756,16 +756,16 @@ pub mod match_v4 {
         /// Designates the timestamp when champion select ended and the loading screen appeared, NOT when the game timer was at 0:00.
         #[serde(rename = "gameCreation")]
         pub game_creation: i64,
-        /// Please refer to the Game Constants documentation.
+        /// Refer to the Game Constants documentation.
         #[serde(rename = "seasonId")]
         pub season_id: crate::consts::Season,
         /// The major.minor version typically indicates the patch the match was played on.
         #[serde(rename = "gameVersion")]
         pub game_version: String,
-        /// Please refer to the Game Constants documentation.
+        /// Refer to the Game Constants documentation.
         #[serde(rename = "mapId")]
         pub map_id: crate::consts::Map,
-        /// Please refer to the Game Constants documentation.
+        /// Refer to the Game Constants documentation.
         #[serde(rename = "gameMode")]
         pub game_mode: crate::consts::GameMode,
         /// Participant information.
@@ -1475,79 +1475,74 @@ pub mod match_v5 {
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Match {
+        /// Match metadata.
         #[serde(rename = "metadata")]
-        pub metadata: MatchMetadata,
+        pub metadata: Metadata,
+        /// Match info.
         #[serde(rename = "info")]
-        pub info: MatchInfo,
+        pub info: Info,
     }
-    /// MatchTimeline data object.
+    /// Metadata data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
-    pub struct MatchTimeline {
-        #[serde(rename = "metadata")]
-        pub metadata: MatchMetadata,
-        #[serde(rename = "info")]
-        pub info: MatchTimelineInfo,
-    }
-    /// MatchMetadata data object.
-    #[derive(Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
-    pub struct MatchMetadata {
-        #[serde(rename = "dataVersion")]
+    pub struct Metadata {
+        /// Match data version.
+        #[serde(rename = "data_version")]
         pub data_version: String,
-        #[serde(rename = "matchId")]
+        /// Match id.
+        #[serde(rename = "match_id")]
         pub match_id: String,
+        /// A list of participant PUUIDs.
         #[serde(rename = "participants")]
         pub participants: std::vec::Vec<String>,
     }
-    /// MatchInfoParticipantPerksStatPerks data object.
+    /// Info data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
-    pub struct MatchInfoParticipantPerksStatPerks {
-        #[serde(rename = "defense")]
-        pub defense: i32,
-        #[serde(rename = "flex")]
-        pub flex: i32,
-        #[serde(rename = "offense")]
-        pub offense: i32,
+    pub struct Info {
+        /// Unix timestamp for when the game is created (i.e., the loading screen).
+        #[serde(rename = "gameCreation")]
+        pub game_creation: i64,
+        /// Game length in milliseconds.
+        #[serde(rename = "gameDuration")]
+        pub game_duration: i64,
+        #[serde(rename = "gameId")]
+        pub game_id: i64,
+        /// Refer to the Game Constants documentation.
+        #[serde(rename = "gameMode")]
+        pub game_mode: String,
+        #[serde(rename = "gameName")]
+        pub game_name: String,
+        /// Unix timestamp for when match actually starts.
+        #[serde(rename = "gameStartTimestamp")]
+        pub game_start_timestamp: i64,
+        #[serde(rename = "gameType")]
+        pub game_type: String,
+        /// The first two parts can be used to determine the patch a game was played on.
+        #[serde(rename = "gameVersion")]
+        pub game_version: String,
+        /// Refer to the Game Constants documentation.
+        #[serde(rename = "mapId")]
+        pub map_id: i32,
+        #[serde(rename = "participants")]
+        pub participants: std::vec::Vec<Participant>,
+        /// Platform where the match was played.
+        #[serde(rename = "platformId")]
+        pub platform_id: String,
+        /// Refer to the Game Constants documentation.
+        #[serde(rename = "queueId")]
+        pub queue_id: i32,
+        #[serde(rename = "teams")]
+        pub teams: std::vec::Vec<Team>,
+        /// Tournament code used to generate the match.
+        #[serde(rename = "tournamentCode")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub tournament_code: Option<String>,
     }
-    /// MatchInfoParticipantPerksStyleSelection data object.
+    /// Participant data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
-    pub struct MatchInfoParticipantPerksStyleSelection {
-        #[serde(rename = "perk")]
-        pub perk: i32,
-        #[serde(rename = "var1")]
-        pub var1: i32,
-        #[serde(rename = "var2")]
-        pub var2: i32,
-        #[serde(rename = "var3")]
-        pub var3: i32,
-    }
-    /// MatchInfoParticipantPerksStyle data object.
-    #[derive(Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
-    pub struct MatchInfoParticipantPerksStyle {
-        #[serde(rename = "description")]
-        pub description: String,
-        #[serde(rename = "selections")]
-        pub selections: std::vec::Vec<MatchInfoParticipantPerksStyleSelection>,
-        #[serde(rename = "style")]
-        pub style: i32,
-    }
-    /// MatchInfoParticipantPerks data object.
-    #[derive(Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
-    pub struct MatchInfoParticipantPerks {
-        #[serde(rename = "statPerks")]
-        pub stat_perks: MatchInfoParticipantPerksStatPerks,
-        #[serde(rename = "styles")]
-        pub styles: std::vec::Vec<MatchInfoParticipantPerksStyle>,
-    }
-    /// MatchInfoParticipant data object.
-    #[derive(Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
-    pub struct MatchInfoParticipant {
+    pub struct Participant {
         #[serde(rename = "assists")]
         pub assists: i32,
         #[serde(rename = "baronKills")]
@@ -1559,7 +1554,7 @@ pub mod match_v5 {
         #[serde(rename = "champLevel")]
         pub champ_level: i32,
         #[serde(rename = "championId")]
-        pub champion_id: crate::consts::Champion,
+        pub champion_id: i32,
         #[serde(rename = "championName")]
         pub champion_name: String,
         #[serde(rename = "championTransform")]
@@ -1602,6 +1597,9 @@ pub mod match_v5 {
         pub individual_position: String,
         #[serde(rename = "inhibitorKills")]
         pub inhibitor_kills: i32,
+        #[serde(rename = "inhibitorTakedowns")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub inhibitor_takedowns: Option<i32>,
         #[serde(rename = "inhibitorsLost")]
         pub inhibitors_lost: i32,
         #[serde(rename = "item0")]
@@ -1644,6 +1642,9 @@ pub mod match_v5 {
         pub neutral_minions_killed: i32,
         #[serde(rename = "nexusKills")]
         pub nexus_kills: i32,
+        #[serde(rename = "nexusTakedowns")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub nexus_takedowns: Option<i32>,
         #[serde(rename = "nexusLost")]
         pub nexus_lost: i32,
         #[serde(rename = "objectivesStolen")]
@@ -1655,7 +1656,7 @@ pub mod match_v5 {
         #[serde(rename = "pentaKills")]
         pub penta_kills: i32,
         #[serde(rename = "perks")]
-        pub perks: MatchInfoParticipantPerks,
+        pub perks: Perks,
         #[serde(rename = "physicalDamageDealt")]
         pub physical_damage_dealt: i32,
         #[serde(rename = "physicalDamageDealtToChampions")]
@@ -1701,7 +1702,7 @@ pub mod match_v5 {
         #[serde(rename = "teamEarlySurrendered")]
         pub team_early_surrendered: bool,
         #[serde(rename = "teamId")]
-        pub team_id: crate::consts::Team,
+        pub team_id: i32,
         #[serde(rename = "teamPosition")]
         pub team_position: String,
         #[serde(rename = "timeCCingOthers")]
@@ -1738,6 +1739,9 @@ pub mod match_v5 {
         pub true_damage_taken: i32,
         #[serde(rename = "turretKills")]
         pub turret_kills: i32,
+        #[serde(rename = "turretTakedowns")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub turret_takedowns: Option<i32>,
         #[serde(rename = "turretsLost")]
         pub turrets_lost: i32,
         #[serde(rename = "unrealKills")]
@@ -1753,87 +1757,106 @@ pub mod match_v5 {
         #[serde(rename = "win")]
         pub win: bool,
     }
-    /// MatchInfoTeamBan data object.
+    /// Perks data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
-    pub struct MatchInfoTeamBan {
+    pub struct Perks {
+        #[serde(rename = "statPerks")]
+        pub stat_perks: PerkStats,
+        #[serde(rename = "styles")]
+        pub styles: std::vec::Vec<PerkStyle>,
+    }
+    /// PerkStats data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct PerkStats {
+        #[serde(rename = "defense")]
+        pub defense: i32,
+        #[serde(rename = "flex")]
+        pub flex: i32,
+        #[serde(rename = "offense")]
+        pub offense: i32,
+    }
+    /// PerkStyle data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct PerkStyle {
+        #[serde(rename = "description")]
+        pub description: String,
+        #[serde(rename = "selections")]
+        pub selections: std::vec::Vec<PerkStyleSelection>,
+        #[serde(rename = "style")]
+        pub style: i32,
+    }
+    /// PerkStyleSelection data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct PerkStyleSelection {
+        #[serde(rename = "perk")]
+        pub perk: i32,
+        #[serde(rename = "var1")]
+        pub var1: i32,
+        #[serde(rename = "var2")]
+        pub var2: i32,
+        #[serde(rename = "var3")]
+        pub var3: i32,
+    }
+    /// Team data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Team {
+        #[serde(rename = "bans")]
+        pub bans: std::vec::Vec<Ban>,
+        #[serde(rename = "objectives")]
+        pub objectives: Objectives,
+        #[serde(rename = "teamId")]
+        pub team_id: i32,
+        #[serde(rename = "win")]
+        pub win: bool,
+    }
+    /// Ban data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Ban {
         #[serde(rename = "championId")]
-        pub champion_id: crate::consts::Champion,
+        pub champion_id: i32,
         #[serde(rename = "pickTurn")]
         pub pick_turn: i32,
     }
-    /// MatchInfoTeamObjective data object.
+    /// Objectives data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
-    pub struct MatchInfoTeamObjective {
+    pub struct Objectives {
+        #[serde(rename = "baron")]
+        pub baron: Objective,
+        #[serde(rename = "champion")]
+        pub champion: Objective,
+        #[serde(rename = "dragon")]
+        pub dragon: Objective,
+        #[serde(rename = "inhibitor")]
+        pub inhibitor: Objective,
+        #[serde(rename = "riftHerald")]
+        pub rift_herald: Objective,
+        #[serde(rename = "tower")]
+        pub tower: Objective,
+    }
+    /// Objective data object.
+    #[derive(Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    pub struct Objective {
         #[serde(rename = "first")]
         pub first: bool,
         #[serde(rename = "kills")]
         pub kills: i32,
     }
-    /// MatchInfoTeamObjectives data object.
+    /// MatchTimeline data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
-    pub struct MatchInfoTeamObjectives {
-        #[serde(rename = "baron")]
-        pub baron: MatchInfoTeamObjective,
-        #[serde(rename = "champion")]
-        pub champion: MatchInfoTeamObjective,
-        #[serde(rename = "dragon")]
-        pub dragon: MatchInfoTeamObjective,
-        #[serde(rename = "inhibitor")]
-        pub inhibitor: MatchInfoTeamObjective,
-        #[serde(rename = "riftHerald")]
-        pub rift_herald: MatchInfoTeamObjective,
-        #[serde(rename = "tower")]
-        pub tower: MatchInfoTeamObjective,
-    }
-    /// MatchInfoTeam data object.
-    #[derive(Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
-    pub struct MatchInfoTeam {
-        #[serde(rename = "bans")]
-        pub bans: std::vec::Vec<MatchInfoTeamBan>,
-        #[serde(rename = "objectives")]
-        pub objectives: MatchInfoTeamObjectives,
-        #[serde(rename = "teamId")]
-        pub team_id: crate::consts::Team,
-        #[serde(rename = "win")]
-        pub win: bool,
-    }
-    /// MatchInfo data object.
-    #[derive(Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
-    pub struct MatchInfo {
-        #[serde(rename = "gameCreation")]
-        pub game_creation: i64,
-        #[serde(rename = "gameDuration")]
-        pub game_duration: i32,
-        #[serde(rename = "gameId")]
-        pub game_id: i64,
-        #[serde(rename = "gameMode")]
-        pub game_mode: crate::consts::GameMode,
-        #[serde(rename = "gameName")]
-        pub game_name: String,
-        #[serde(rename = "gameStartTimestamp")]
-        pub game_start_timestamp: i64,
-        #[serde(rename = "gameType")]
-        pub game_type: crate::consts::GameType,
-        #[serde(rename = "gameVersion")]
-        pub game_version: String,
-        #[serde(rename = "mapId")]
-        pub map_id: crate::consts::Map,
-        #[serde(rename = "participants")]
-        pub participants: std::vec::Vec<MatchInfoParticipant>,
-        #[serde(rename = "platformId")]
-        pub platform_id: String,
-        #[serde(rename = "queueId")]
-        pub queue_id: crate::consts::Queue,
-        #[serde(rename = "teams")]
-        pub teams: std::vec::Vec<MatchInfoTeam>,
-        #[serde(rename = "tournamentCode")]
-        #[serde(skip_serializing_if = "Option::is_none")]
-        pub tournament_code: Option<String>,
+    pub struct MatchTimeline {
+        #[serde(rename = "metadata")]
+        pub metadata: Metadata,
+        #[serde(rename = "info")]
+        pub info: MatchTimelineInfo,
     }
     /// MatchTimelineInfoFrameEvent data object.
     #[derive(Debug)]
@@ -1841,9 +1864,11 @@ pub mod match_v5 {
     pub struct MatchTimelineInfoFrameEvent {
         #[serde(rename = "realTimestamp")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub real_timestamp: Option<i32>,
+        pub real_timestamp: Option<i64>,
         #[serde(rename = "timestamp")]
         pub timestamp: i32,
+        /// Timeline event type.<br>
+        /// (Known legal values: ASCENDED_EVENT, BUILDING_KILL, CAPTURE_POINT, CHAMPION_KILL, CHAMPION_SPECIAL_KILL, CHAMPION_TRANSFORM, DRAGON_SOUL_GIVEN, ELITE_MONSTER_KILL, GAME_END, ITEM_DESTROYED, ITEM_PURCHASED, ITEM_SOLD, ITEM_UNDO, LEVEL_UP, PAUSE_END, PAUSE_START, SKILL_LEVEL_UP, TURRET_PLATE_DESTROYED, WARD_KILL, WARD_PLACED)
         #[serde(rename = "type")]
         pub r#type: String,
         #[serde(rename = "itemId")]
@@ -1881,7 +1906,7 @@ pub mod match_v5 {
         pub killer_id: Option<i32>,
         #[serde(rename = "position")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub position: Option<MatchTimelineInfoFrameParticipantFramePosition>,
+        pub position: Option<MatchTimelinePosition>,
         #[serde(rename = "victimDamageDealt")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub victim_damage_dealt: Option<std::vec::Vec<MatchTimelineInfoFrameEventVictimDamageDealt>>,
@@ -1929,7 +1954,7 @@ pub mod match_v5 {
         pub gold_gain: Option<i32>,
         #[serde(rename = "gameId")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub game_id: Option<i32>,
+        pub game_id: Option<i64>,
         #[serde(rename = "winningTeam")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub winning_team: Option<i32>,
@@ -2024,10 +2049,10 @@ pub mod match_v5 {
         #[serde(rename = "trueDamageTaken")]
         pub true_damage_taken: i32,
     }
-    /// MatchTimelineInfoFrameParticipantFramePosition data object.
+    /// MatchTimelinePosition data object.
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
-    pub struct MatchTimelineInfoFrameParticipantFramePosition {
+    pub struct MatchTimelinePosition {
         #[serde(rename = "x")]
         pub x: i32,
         #[serde(rename = "y")]
@@ -2054,7 +2079,7 @@ pub mod match_v5 {
         #[serde(rename = "participantId")]
         pub participant_id: i32,
         #[serde(rename = "position")]
-        pub position: MatchTimelineInfoFrameParticipantFramePosition,
+        pub position: MatchTimelinePosition,
         #[serde(rename = "timeEnemySpentControlled")]
         pub time_enemy_spent_controlled: i32,
         #[serde(rename = "totalGold")]
@@ -2139,7 +2164,7 @@ pub mod match_v5 {
         #[serde(rename = "frames")]
         pub frames: std::vec::Vec<MatchTimelineInfoFrame>,
         #[serde(rename = "gameId")]
-        pub game_id: i32,
+        pub game_id: i64,
         #[serde(rename = "participants")]
         pub participants: std::vec::Vec<MatchTimelineInfoParticipant>,
     }
