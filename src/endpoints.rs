@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 8fec9617c247f0ee5c96feecc8526fdc9dca0369
+// Version 12e3bc69894adde9001edb3c64126cd90d4531bd
 
 //! Automatically generated endpoint handles.
 
@@ -923,6 +923,8 @@ impl<'a> MatchV5<'a> {
     /// # Parameters
     /// * `region` - Region to query.
     /// * `puuid`
+    /// * `startTime` (optional) - Epoch timestamp in seconds.
+    /// * `endTime` (optional) - Epoch timestamp in seconds.
     /// * `queue` (optional) - Filter the list of match ids by a specific queue id. This filter is mutually inclusive of the type filter meaning any match ids returned must match both the queue and type filters.
     /// * `type` (optional) - Filter the list of match ids by the type of match. This filter is mutually inclusive of the queue filter meaning any match ids returned must match both the queue and type filters.
     /// * `start` (optional) - Defaults to 0. Start index.
@@ -931,12 +933,14 @@ impl<'a> MatchV5<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#match-v5/GET_getMatchIdsByPUUID" target="_blank">`match-v5.getMatchIdsByPUUID`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_match_ids_by_puuid(&self, region: Region, puuid: &str, count: Option<i32>, queue: Option<i32>, start: Option<i32>, r#type: Option<&str>)
+    pub fn get_match_ids_by_puuid(&self, region: Region, puuid: &str, count: Option<i32>, end_time: Option<i64>, queue: Option<i32>, start_time: Option<i64>, start: Option<i32>, r#type: Option<&str>)
         -> impl Future<Output = Result<Vec<String>>> + 'a
     {
         let mut query_params = Serializer::new(String::new());
         if let Some(count) = count { query_params.append_pair("count", &*count.to_string()); };
+        if let Some(end_time) = end_time { query_params.append_pair("endTime", &*end_time.to_string()); };
         if let Some(queue) = queue { query_params.append_pair("queue", &*queue.to_string()); };
+        if let Some(start_time) = start_time { query_params.append_pair("startTime", &*start_time.to_string()); };
         if let Some(start) = start { query_params.append_pair("start", &*start.to_string()); };
         if let Some(r#type) = r#type { query_params.append_pair("type", r#type); };
         let query_string = query_params.finish();

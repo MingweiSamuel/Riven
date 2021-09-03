@@ -58,6 +58,8 @@ pub enum GameMode {
     TUTORIAL_MODULE_2,
     /// Tutorial: Shop for Gear.
     TUTORIAL_MODULE_3,
+    /// Ultimate Spellbook games.
+    ULTBOOK,
     /// URF games
     URF,
 }
