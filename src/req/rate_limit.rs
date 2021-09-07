@@ -29,7 +29,17 @@ pub struct RateLimit {
 
 impl RateLimit {
     /// Header specifying which RateLimitType caused a 429.
+    /// This header specifies which rate limit is violated in a 429 (if any).
+    /// There are three possible values, see [HEADER_XRATELIMITTYPE_APPLICATION],
+    /// [HEADER_XRATELIMITTYPE_METHOD], and [HEADER_XRATELIMITTYPE_SERVICE].
     const HEADER_XRATELIMITTYPE: &'static str = "X-Rate-Limit-Type";
+
+    /// `"application"` - Entire app/key is rate limited due to violation.
+    const HEADER_XRATELIMITTYPE_APPLICATION: &'static str = "application";
+    /// `"method"` - App/key is rate limited on a specific method due to violation.
+    const HEADER_XRATELIMITTYPE_METHOD: &'static str = "method";
+    /// `"service"` - Service backend is rate-limiting (no violation).
+    const HEADER_XRATELIMITTYPE_SERVICE: &'static str = "service";
 
     pub fn new(rate_limit_type: RateLimitType) -> Self {
         let initial_bucket = VectorTokenBucket::new(
@@ -101,32 +111,34 @@ impl RateLimit {
             }
 
             {
-                // Check if the header that indicates the relevant RateLimit is present.
+                // Get the X-Rate-Limit-Type header, `Some("application" | "method" | "service")` or `None`.
                 let header_opt = response.headers()
-                    .get(RateLimit::HEADER_XRATELIMITTYPE)
+                    .get(Self::HEADER_XRATELIMITTYPE)
                     .or_else(|| {
-                        log::info!("429 response missing {} header.", RateLimit::HEADER_XRATELIMITTYPE);
+                        log::info!("429 response missing {} header.", Self::HEADER_XRATELIMITTYPE);
                         None
                     })
                     .and_then(|header_value| header_value.to_str()
-                        .map_err(|e| log::info!("429 response, failed to parse {} header as string: {}.",
-                            RateLimit::HEADER_XRATELIMITTYPE, e))
+                        .map_err(|e| log::info!("429 response, error parsing '{}' header as string: {}. Header value: {:#?}",
+                        Self::HEADER_XRATELIMITTYPE, e, header_value))
                         .ok());
-                match header_opt {
-                    None => {
-                        // Take default responsibility, or ignore.
-                        if !self.rate_limit_type.default_responsibility() {
-                            return None;
-                        }
-                        log::warn!("429 response has missing or invalid {} header, {} rate limit taking responsibility.",
-                            RateLimit::HEADER_XRATELIMITTYPE, self.rate_limit_type.type_name());
-                    }
-                    Some(header_value) => {
-                        // Ignore if header's value does not match us.
-                        if self.rate_limit_type.type_name() != header_value.to_lowercase() {
-                            return None;
-                        }
-                    }
+
+                // This match checks the valid possibilities. Otherwise returns none to ignore.
+                // `Application` handles "application", `Method` handles all other values.
+                let application_should_handle = match header_opt {
+                    Some(Self::HEADER_XRATELIMITTYPE_APPLICATION) => true,
+                    Some(Self::HEADER_XRATELIMITTYPE_METHOD | Self::HEADER_XRATELIMITTYPE_SERVICE) => false,
+                    other => {
+                        // Method handles unknown values.
+                        log::warn!(
+                            "429 response has None (missing or invalid) or unknown {} header value {:?}, {:?} rate limit obeying retry-after.",
+                            Self::HEADER_XRATELIMITTYPE, other, self.rate_limit_type);
+                        false
+                    },
+                };
+
+                if (self.rate_limit_type == RateLimitType::Application) != application_should_handle {
+                    return None;
                 }
             }
 
@@ -135,7 +147,7 @@ impl RateLimit {
                 .get(reqwest::header::RETRY_AFTER)?.to_str()
                 .expect("Failed to read retry-after header as string.");
 
-            log::info!("429 response, rate limit {}, retry-after {} secs.", self.rate_limit_type.type_name(), retry_after_header);
+            log::info!("429 response, rate limit {:?}, retry-after {} secs.", self.rate_limit_type, retry_after_header);
 
             // Header currently only returns ints, but float is more general. Can be zero.
             let retry_after_secs: f32 = retry_after_header.parse()
