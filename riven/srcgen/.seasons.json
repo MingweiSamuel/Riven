@@ -1,0 +1,98 @@
+[
+  {
+    "id": 0,
+    "season": "PRESEASON 3",
+    "x-value": 0,
+    "x-name": "PRESEASON_3"
+  },
+  {
+    "id": 1,
+    "season": "SEASON 3",
+    "x-value": 1,
+    "x-name": "SEASON_3"
+  },
+  {
+    "id": 2,
+    "season": "PRESEASON 2014",
+    "x-value": 2,
+    "x-name": "PRESEASON_2014"
+  },
+  {
+    "id": 3,
+    "season": "SEASON 2014",
+    "x-value": 3,
+    "x-name": "SEASON_2014"
+  },
+  {
+    "id": 4,
+    "season": "PRESEASON 2015",
+    "x-value": 4,
+    "x-name": "PRESEASON_2015"
+  },
+  {
+    "id": 5,
+    "season": "SEASON 2015",
+    "x-value": 5,
+    "x-name": "SEASON_2015"
+  },
+  {
+    "id": 6,
+    "season": "PRESEASON 2016",
+    "x-value": 6,
+    "x-name": "PRESEASON_2016"
+  },
+  {
+    "id": 7,
+    "season": "SEASON 2016",
+    "x-value": 7,
+    "x-name": "SEASON_2016"
+  },
+  {
+    "id": 8,
+    "season": "PRESEASON 2017",
+    "x-value": 8,
+    "x-name": "PRESEASON_2017"
+  },
+  {
+    "id": 9,
+    "season": "SEASON 2017",
+    "x-value": 9,
+    "x-name": "SEASON_2017"
+  },
+  {
+    "id": 10,
+    "season": "PRESEASON 2018",
+    "x-value": 10,
+    "x-name": "PRESEASON_2018"
+  },
+  {
+    "id": 11,
+    "season": "SEASON 2018",
+    "x-value": 11,
+    "x-name": "SEASON_2018"
+  },
+  {
+    "id": 12,
+    "season": "PRESEASON 2019",
+    "x-value": 12,
+    "x-name": "PRESEASON_2019"
+  },
+  {
+    "id": 13,
+    "season": "SEASON 2019",
+    "x-value": 13,
+    "x-name": "SEASON_2019"
+  },
+  {
+    "id": 14,
+    "season": "PRESEASON 2020",
+    "x-value": 14,
+    "x-name": "PRESEASON_2020"
+  },
+  {
+    "id": 15,
+    "season": "SEASON 2020",
+    "x-value": 15,
+    "x-name": "SEASON_2020"
+  }
+]

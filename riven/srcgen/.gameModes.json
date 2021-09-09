@@ -1,0 +1,163 @@
+[
+  {
+    "gameMode": "ARAM",
+    "description": "ARAM games",
+    "x-value": "ARAM",
+    "x-name": "ARAM",
+    "x-desc": "ARAM games"
+  },
+  {
+    "gameMode": "ARSR",
+    "description": "All Random Summoner's Rift games",
+    "x-value": "ARSR",
+    "x-name": "ARSR",
+    "x-desc": "All Random Summoner's Rift games"
+  },
+  {
+    "gameMode": "ASCENSION",
+    "description": "Ascension games",
+    "x-value": "ASCENSION",
+    "x-name": "ASCENSION",
+    "x-desc": "Ascension games"
+  },
+  {
+    "gameMode": "ASSASSINATE",
+    "description": "Blood Hunt Assassin games",
+    "x-value": "ASSASSINATE",
+    "x-name": "ASSASSINATE",
+    "x-desc": "Blood Hunt Assassin games"
+  },
+  {
+    "gameMode": "CLASSIC",
+    "description": "Classic Summoner's Rift and Twisted Treeline games",
+    "x-value": "CLASSIC",
+    "x-name": "CLASSIC",
+    "x-desc": "Classic Summoner's Rift and Twisted Treeline games"
+  },
+  {
+    "gameMode": "DARKSTAR",
+    "description": "Dark Star: Singularity games",
+    "x-value": "DARKSTAR",
+    "x-name": "DARKSTAR",
+    "x-desc": "Dark Star: Singularity games"
+  },
+  {
+    "gameMode": "DOOMBOTSTEEMO",
+    "description": "Doom Bot games",
+    "x-value": "DOOMBOTSTEEMO",
+    "x-name": "DOOMBOTSTEEMO",
+    "x-desc": "Doom Bot games"
+  },
+  {
+    "gameMode": "FIRSTBLOOD",
+    "description": "Snowdown Showdown games",
+    "x-value": "FIRSTBLOOD",
+    "x-name": "FIRSTBLOOD",
+    "x-desc": "Snowdown Showdown games"
+  },
+  {
+    "gameMode": "GAMEMODEX",
+    "description": "Nexus Blitz games, deprecated in patch 9.2 in favor of gameMode NEXUSBLITZ.",
+    "x-value": "GAMEMODEX",
+    "x-name": "GAMEMODEX",
+    "x-desc": "Nexus Blitz games, deprecated in patch 9.2 in favor of gameMode NEXUSBLITZ."
+  },
+  {
+    "gameMode": "KINGPORO",
+    "description": "Legend of the Poro King games",
+    "x-value": "KINGPORO",
+    "x-name": "KINGPORO",
+    "x-desc": "Legend of the Poro King games"
+  },
+  {
+    "gameMode": "NEXUSBLITZ",
+    "description": "Nexus Blitz games.",
+    "x-value": "NEXUSBLITZ",
+    "x-name": "NEXUSBLITZ",
+    "x-desc": "Nexus Blitz games."
+  },
+  {
+    "gameMode": "ODIN",
+    "description": "Dominion/Crystal Scar games",
+    "x-value": "ODIN",
+    "x-name": "ODIN",
+    "x-desc": "Dominion/Crystal Scar games"
+  },
+  {
+    "gameMode": "ODYSSEY",
+    "description": "Odyssey: Extraction games",
+    "x-value": "ODYSSEY",
+    "x-name": "ODYSSEY",
+    "x-desc": "Odyssey: Extraction games"
+  },
+  {
+    "gameMode": "ONEFORALL",
+    "description": "One for All games",
+    "x-value": "ONEFORALL",
+    "x-name": "ONEFORALL",
+    "x-desc": "One for All games"
+  },
+  {
+    "gameMode": "PROJECT",
+    "description": "PROJECT: Hunters games",
+    "x-value": "PROJECT",
+    "x-name": "PROJECT",
+    "x-desc": "PROJECT: Hunters games"
+  },
+  {
+    "gameMode": "SIEGE",
+    "description": "Nexus Siege games",
+    "x-value": "SIEGE",
+    "x-name": "SIEGE",
+    "x-desc": "Nexus Siege games"
+  },
+  {
+    "gameMode": "STARGUARDIAN",
+    "description": "Star Guardian Invasion games",
+    "x-value": "STARGUARDIAN",
+    "x-name": "STARGUARDIAN",
+    "x-desc": "Star Guardian Invasion games"
+  },
+  {
+    "gameMode": "TUTORIAL",
+    "description": "Tutorial games",
+    "x-value": "TUTORIAL",
+    "x-name": "TUTORIAL",
+    "x-desc": "Tutorial games"
+  },
+  {
+    "gameMode": "TUTORIAL_MODULE_1",
+    "description": "Tutorial: Welcome to League.",
+    "x-value": "TUTORIAL_MODULE_1",
+    "x-name": "TUTORIAL_MODULE_1",
+    "x-desc": "Tutorial: Welcome to League."
+  },
+  {
+    "gameMode": "TUTORIAL_MODULE_2",
+    "description": "Tutorial: Power Up.",
+    "x-value": "TUTORIAL_MODULE_2",
+    "x-name": "TUTORIAL_MODULE_2",
+    "x-desc": "Tutorial: Power Up."
+  },
+  {
+    "gameMode": "TUTORIAL_MODULE_3",
+    "description": "Tutorial: Shop for Gear.",
+    "x-value": "TUTORIAL_MODULE_3",
+    "x-name": "TUTORIAL_MODULE_3",
+    "x-desc": "Tutorial: Shop for Gear."
+  },
+  {
+    "gameMode": "ULTBOOK",
+    "description": "Ultimate Spellbook games.",
+    "x-value": "ULTBOOK",
+    "x-name": "ULTBOOK",
+    "x-desc": "Ultimate Spellbook games."
+  },
+  {
+    "gameMode": "URF",
+    "description": "URF games",
+    "x-value": "URF",
+    "x-name": "URF",
+    "x-desc": "URF games"
+  }
+]

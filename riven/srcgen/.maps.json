@@ -1,0 +1,137 @@
+[
+  {
+    "mapId": 1,
+    "mapName": "Summoner's Rift",
+    "notes": "Original Summer variant",
+    "x-value": 1,
+    "x-deprecated": true,
+    "x-desc": "Summoner's Rift\nOriginal Summer variant",
+    "x-name": "SUMMONERS_RIFT_ORIGINAL_SUMMER_VARIANT"
+  },
+  {
+    "mapId": 2,
+    "mapName": "Summoner's Rift",
+    "notes": "Original Autumn variant",
+    "x-value": 2,
+    "x-deprecated": true,
+    "x-desc": "Summoner's Rift\nOriginal Autumn variant",
+    "x-name": "SUMMONERS_RIFT_ORIGINAL_AUTUMN_VARIANT"
+  },
+  {
+    "mapId": 3,
+    "mapName": "The Proving Grounds",
+    "notes": "Tutorial Map",
+    "x-value": 3,
+    "x-deprecated": false,
+    "x-desc": "The Proving Grounds\nTutorial Map",
+    "x-name": "THE_PROVING_GROUNDS"
+  },
+  {
+    "mapId": 4,
+    "mapName": "Twisted Treeline",
+    "notes": "Original Version",
+    "x-value": 4,
+    "x-deprecated": true,
+    "x-desc": "Twisted Treeline\nOriginal Version",
+    "x-name": "TWISTED_TREELINE_ORIGINAL_VERSION"
+  },
+  {
+    "mapId": 8,
+    "mapName": "The Crystal Scar",
+    "notes": "Dominion map",
+    "x-value": 8,
+    "x-deprecated": false,
+    "x-desc": "The Crystal Scar\nDominion map",
+    "x-name": "THE_CRYSTAL_SCAR"
+  },
+  {
+    "mapId": 10,
+    "mapName": "Twisted Treeline",
+    "notes": "Last TT map",
+    "x-value": 10,
+    "x-deprecated": false,
+    "x-desc": "Twisted Treeline\nLast TT map",
+    "x-name": "TWISTED_TREELINE"
+  },
+  {
+    "mapId": 11,
+    "mapName": "Summoner's Rift",
+    "notes": "Current Version",
+    "x-value": 11,
+    "x-deprecated": false,
+    "x-desc": "Summoner's Rift\nCurrent Version",
+    "x-name": "SUMMONERS_RIFT"
+  },
+  {
+    "mapId": 12,
+    "mapName": "Howling Abyss",
+    "notes": "ARAM map",
+    "x-value": 12,
+    "x-deprecated": false,
+    "x-desc": "Howling Abyss\nARAM map",
+    "x-name": "HOWLING_ABYSS"
+  },
+  {
+    "mapId": 14,
+    "mapName": "Butcher's Bridge",
+    "notes": "Alternate ARAM map",
+    "x-value": 14,
+    "x-deprecated": false,
+    "x-desc": "Butcher's Bridge\nAlternate ARAM map",
+    "x-name": "BUTCHERS_BRIDGE"
+  },
+  {
+    "mapId": 16,
+    "mapName": "Cosmic Ruins",
+    "notes": "Dark Star: Singularity map",
+    "x-value": 16,
+    "x-deprecated": false,
+    "x-desc": "Cosmic Ruins\nDark Star: Singularity map",
+    "x-name": "COSMIC_RUINS"
+  },
+  {
+    "mapId": 18,
+    "mapName": "Valoran City Park",
+    "notes": "Star Guardian Invasion map",
+    "x-value": 18,
+    "x-deprecated": false,
+    "x-desc": "Valoran City Park\nStar Guardian Invasion map",
+    "x-name": "VALORAN_CITY_PARK"
+  },
+  {
+    "mapId": 19,
+    "mapName": "Substructure 43",
+    "notes": "PROJECT: Hunters map",
+    "x-value": 19,
+    "x-deprecated": false,
+    "x-desc": "Substructure 43\nPROJECT: Hunters map",
+    "x-name": "SUBSTRUCTURE_43"
+  },
+  {
+    "mapId": 20,
+    "mapName": "Crash Site",
+    "notes": "Odyssey: Extraction map",
+    "x-value": 20,
+    "x-deprecated": false,
+    "x-desc": "Crash Site\nOdyssey: Extraction map",
+    "x-name": "CRASH_SITE"
+  },
+  {
+    "mapId": 21,
+    "mapName": "Nexus Blitz",
+    "notes": "Nexus Blitz map",
+    "x-value": 21,
+    "x-deprecated": false,
+    "x-desc": "Nexus Blitz\nNexus Blitz map",
+    "x-name": "NEXUS_BLITZ"
+  },
+  {
+    "mapId": 22,
+    "mapName": "Convergence",
+    "notes": "Teamfight Tactics map",
+    "x-value": 22,
+    "x-deprecated": false,
+    "x-desc": "Convergence\nTeamfight Tactics map",
+    "x-name": "CONVERGENCE"
+  }
+]

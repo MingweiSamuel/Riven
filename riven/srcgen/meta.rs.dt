@@ -1,0 +1,29 @@
+{{
+    const spec = require('./.spec.json');
+    const dotUtils = require('./dotUtils.js');
+
+    const operations = [];
+    for (const [ route, path ] of Object.entries(spec.paths)) {
+        for (const [ method, operation ] of Object.entries(path)) {
+            if (method.startsWith('x-')) continue;
+            operations.push({ route, method, operation });
+        }
+    }
+}}{{= dotUtils.preamble() }}
+
+// http://www.mingweisamuel.com/riotapi-schema/tool/
+// Version {{= spec.info.version }}
+
+//! Metadata about the Riot API and Riven.
+//!
+//! Note: this modules is automatically generated.
+
+pub static ALL_ENDPOINTS: [(reqwest::Method, &'static str, &'static str); {{= operations.length }}] = [
+{{
+    for (const { route, method, operation } of operations) {
+}}
+    (reqwest::Method::{{= method.toUpperCase() }}, "{{= route }}", "{{= operation.operationId }}"),
+{{
+    }
+}}
+];

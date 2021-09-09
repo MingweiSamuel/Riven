@@ -1,0 +1,23 @@
+[
+  {
+    "gametype": "CUSTOM_GAME",
+    "description": "Custom games",
+    "x-value": "CUSTOM_GAME",
+    "x-name": "CUSTOM_GAME",
+    "x-desc": "Custom games"
+  },
+  {
+    "gametype": "MATCHED_GAME",
+    "description": "all other games",
+    "x-value": "MATCHED_GAME",
+    "x-name": "MATCHED_GAME",
+    "x-desc": "all other games"
+  },
+  {
+    "gametype": "TUTORIAL_GAME",
+    "description": "Tutorial games",
+    "x-value": "TUTORIAL_GAME",
+    "x-name": "TUTORIAL_GAME",
+    "x-desc": "Tutorial games"
+  }
+]
