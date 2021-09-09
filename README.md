@@ -28,11 +28,10 @@ use riven::RiotApi;
 use riven::consts::PlatformRoute;
 
 // Enter tokio async runtime.
-let mut rt = tokio::runtime::Runtime::new().unwrap();
+let rt = tokio::runtime::Runtime::new().unwrap();
 rt.block_on(async {
     // Create RiotApi instance from key string.
-    let api_key = "RGAPI-01234567-89ab-cdef-0123-456789abcdef";
-    # /* (doc testing) */ let api_key = std::env!("RGAPI_KEY");
+    let api_key = std::env!("RGAPI_KEY"); // "RGAPI-01234567-89ab-cdef-0123-456789abcdef";
     let riot_api = RiotApi::with_key(api_key);
 
     // Get summoner data.
@@ -52,7 +51,7 @@ rt.block_on(async {
     // Print champioon masteries.
     for (i, mastery) in masteries.iter().take(10).enumerate() {
         println!("{: >2}) {: <9}    {: >7} ({})", i + 1,
-            mastery.champion_id.to_string(),
+            mastery.champion_id.name().unwrap_or("UNKNOWN"),
             mastery.champion_points, mastery.champion_level);
     }
 });
@@ -60,14 +59,14 @@ rt.block_on(async {
 Output:
 ```text
 잘 못 Champion Masteries:
- 1) Riven        1219895 (7)
- 2) Fiora         229714 (5)
+ 1) Riven        1236866 (7)
+ 2) Fiora         230679 (5)
  3) Katarina      175985 (5)
- 4) Lee Sin       150546 (7)
- 5) Jax           100509 (5)
+ 4) Lee Sin       156070 (7)
+ 5) Jax           102662 (5)
  6) Gnar           76373 (6)
  7) Kai'Sa         64271 (5)
- 8) Caitlyn        46479 (5)
+ 8) Caitlyn        46614 (5)
  9) Irelia         46465 (5)
 10) Vladimir       37176 (5)
 ```
