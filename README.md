@@ -145,7 +145,7 @@ if you are have any questions or trouble with Riven.
 ## Development
 
 NodeJS is used to generate code for Riven. The
-[`srcgen/`](https://github.com/MingweiSamuel/Riven/tree/master/srcgen)
+[`srcgen/`](https://github.com/MingweiSamuel/Riven/tree/v/2.x.x/riven/srcgen)
 folder contains the code and [doT.js](https://olado.github.io/doT/index.html)
 templates. `index.js` lists the JSON files downloaded and used to generate the
 code.
