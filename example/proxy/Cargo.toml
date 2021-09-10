@@ -1,4 +1,5 @@
 [package]
+publish = false
 name = "riven_example_proxy"
 version = "0.0.0"
 authors = [ "Mingwei Samuel <mingwei.samuel@gmail.com>" ]
