@@ -13,48 +13,63 @@ newtype_enum! {
     #[derive(Serialize, Deserialize)]
     #[serde(transparent)]
     pub newtype_enum Map(u8) {
+        /// `1`.
         /// Summoner's Rift
         /// Original Summer variant
         SUMMONERS_RIFT_ORIGINAL_SUMMER_VARIANT = 1,
+        /// `2`.
         /// Summoner's Rift
         /// Original Autumn variant
         SUMMONERS_RIFT_ORIGINAL_AUTUMN_VARIANT = 2,
+        /// `3`.
         /// The Proving Grounds
         /// Tutorial Map
         THE_PROVING_GROUNDS = 3,
+        /// `4`.
         /// Twisted Treeline
         /// Original Version
         TWISTED_TREELINE_ORIGINAL_VERSION = 4,
+        /// `8`.
         /// The Crystal Scar
         /// Dominion map
         THE_CRYSTAL_SCAR = 8,
+        /// `10`.
         /// Twisted Treeline
         /// Last TT map
         TWISTED_TREELINE = 10,
+        /// `11`.
         /// Summoner's Rift
         /// Current Version
         SUMMONERS_RIFT = 11,
+        /// `12`.
         /// Howling Abyss
         /// ARAM map
         HOWLING_ABYSS = 12,
+        /// `14`.
         /// Butcher's Bridge
         /// Alternate ARAM map
         BUTCHERS_BRIDGE = 14,
+        /// `16`.
         /// Cosmic Ruins
         /// Dark Star: Singularity map
         COSMIC_RUINS = 16,
+        /// `18`.
         /// Valoran City Park
         /// Star Guardian Invasion map
         VALORAN_CITY_PARK = 18,
+        /// `19`.
         /// Substructure 43
         /// PROJECT: Hunters map
         SUBSTRUCTURE_43 = 19,
+        /// `20`.
         /// Crash Site
         /// Odyssey: Extraction map
         CRASH_SITE = 20,
+        /// `21`.
         /// Nexus Blitz
         /// Nexus Blitz map
         NEXUS_BLITZ = 21,
+        /// `22`.
         /// Convergence
         /// Teamfight Tactics map
         CONVERGENCE = 22,

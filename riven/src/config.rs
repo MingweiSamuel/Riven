@@ -173,7 +173,7 @@ impl RiotApiConfig {
     /// evenly.
     ///
     /// Note that if you have multiple instances hitting _different_ methods,
-    /// you should use [set_app_rate_usage_factor()] and [set_method_rate_usage_factor()]
+    /// you should use [Self::set_app_rate_usage_factor()] and [Self::set_method_rate_usage_factor()]
     /// separately, as this sets both.
     ///
     /// This also can be used to reduce the chance of hitting 429s, although
@@ -194,7 +194,7 @@ impl RiotApiConfig {
         panic!("rate_usage_factor \"{}\" not in range (0, 1].", rate_usage_factor);
     }
 
-    /// See [set_rate_usage_factor]. Setting this is useful if you have multiple
+    /// See [Self::set_rate_usage_factor]. Setting this is useful if you have multiple
     /// instances sharing the app rate limit, but are hitting distinct methods
     /// and therefore do not need their method usage decreased.
     ///
@@ -212,7 +212,7 @@ impl RiotApiConfig {
         panic!("app_rate_usage_factor \"{}\" not in range (0, 1].", app_rate_usage_factor);
     }
 
-    /// See [set_rate_usage_factor] and [set_app_rate_usage_factor].
+    /// See [Self::set_rate_usage_factor] and [Self::set_app_rate_usage_factor].
     /// This method is mainly provided for completeness, though it may be
     /// useful in advanced use cases.
     ///

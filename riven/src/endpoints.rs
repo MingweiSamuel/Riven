@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 12e3bc69894adde9001edb3c64126cd90d4531bd
+// Version 595cfab83bc31def1d3d161df5ca26f99033f539
 
 //! Automatically generated endpoint handles.
 
@@ -1135,7 +1135,7 @@ impl<'a> MatchV5<'a> {
     /// # Parameters
     /// * `route` - Route to query.
     /// * `puuid` (required, in path)
-    /// * `start_time` (optional, in query) - Epoch timestamp in seconds.
+    /// * `start_time` (optional, in query) - Epoch timestamp in seconds. The matchlist started storing timestamps on June 16th, 2021. Any matches played before June 16th, 2021 won't be included in the results if the startTime filter is set.
     /// * `end_time` (optional, in query) - Epoch timestamp in seconds.
     /// * `queue` (optional, in query) - Filter the list of match ids by a specific queue id. This filter is mutually inclusive of the type filter meaning any match ids returned must match both the queue and type filters.
     /// * `type` (optional, in query) - Filter the list of match ids by the type of match. This filter is mutually inclusive of the queue filter meaning any match ids returned must match both the queue and type filters.

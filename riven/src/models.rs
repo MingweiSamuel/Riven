@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 12e3bc69894adde9001edb3c64126cd90d4531bd
+// Version 595cfab83bc31def1d3d161df5ca26f99033f539
 
 //! Data transfer structs.
 //!
@@ -1557,6 +1557,7 @@ pub mod match_v5 {
         pub champion_id: i32,
         #[serde(rename = "championName")]
         pub champion_name: String,
+        /// This field is currently only utilized for Kayn's transformations. (Legal values: 0 - None, 1 - Slayer, 2 - Assassin)
         #[serde(rename = "championTransform")]
         pub champion_transform: i32,
         #[serde(rename = "consumablesPurchased")]
@@ -1593,6 +1594,7 @@ pub mod match_v5 {
         pub gold_earned: i32,
         #[serde(rename = "goldSpent")]
         pub gold_spent: i32,
+        /// Both individualPosition and teamPosition are computed by the game server and are different versions of the most likely position played by a player. The individualPosition is the best guess for which position the player actually played in isolation of anything else. The teamPosition is the best guess for which position the player actually played if we add the constraint that each team must have one top player, one jungle, one middle, etc. Generally the recommendation is to use the teamPosition field over the individualPosition field.
         #[serde(rename = "individualPosition")]
         pub individual_position: String,
         #[serde(rename = "inhibitorKills")]
@@ -1703,6 +1705,7 @@ pub mod match_v5 {
         pub team_early_surrendered: bool,
         #[serde(rename = "teamId")]
         pub team_id: i32,
+        /// Both individualPosition and teamPosition are computed by the game server and are different versions of the most likely position played by a player. The individualPosition is the best guess for which position the player actually played in isolation of anything else. The teamPosition is the best guess for which position the player actually played if we add the constraint that each team must have one top player, one jungle, one middle, etc. Generally the recommendation is to use the teamPosition field over the individualPosition field.
         #[serde(rename = "teamPosition")]
         pub team_position: String,
         #[serde(rename = "timeCCingOthers")]
