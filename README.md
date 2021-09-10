@@ -5,7 +5,7 @@
     <a href="https://github.com/MingweiSamuel/Riven/"><img src="https://cdn.communitydragon.org/latest/champion/Riven/square" width="20" height="20" alt="Riven Github"></a>
     <a href="https://crates.io/crates/riven"><img src="https://img.shields.io/crates/v/riven?style=flat-square&logo=rust" alt="Crates.io"></a>
     <a href="https://docs.rs/riven/"><img src="https://img.shields.io/badge/docs.rs-Riven-blue?style=flat-square&logo=read-the-docs&logoColor=white" alt="Docs.rs"></a>
-    <a href="https://travis-ci.com/MingweiSamuel/Riven"><img src="https://img.shields.io/travis/com/mingweisamuel/riven?style=flat-square" alt="Travis CI"></a>
+    <!--<a href="https://travis-ci.com/MingweiSamuel/Riven"><img src="https://img.shields.io/travis/com/mingweisamuel/riven?style=flat-square" alt="Travis CI"></a>-->
     <a href="https://github.com/rust-secure-code/safety-dance/"><img src="https://img.shields.io/badge/unsafe-forbidden-green.svg?style=flat-square" alt="unsafe forbidden"></a>
 </p>
 
@@ -19,7 +19,7 @@ Data structs and endpoints are automatically generated from the
 
 * Fast, asynchronous, thread-safe.
 * Automatically retries failed requests.
-* TFT API Support.
+* Supports all endpoints, kept up-to-date using [riotapi-schema](https://github.com/MingweiSamuel/riotapi-schema).
 
 ## Usage
 
