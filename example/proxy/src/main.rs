@@ -23,8 +23,7 @@ lazy_static! {
                 std::fs::read_to_string(path).ok()
             })
             .expect("Failed to find RGAPI_KEY env var or apikey.txt.");
-        RiotApi::with_config(RiotApiConfig::with_key(api_key.trim())
-            .preconfig_burst())
+        RiotApi::new(RiotApiConfig::with_key(api_key.trim()).preconfig_burst())
     };
 }
 

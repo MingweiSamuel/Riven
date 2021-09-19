@@ -19,11 +19,11 @@ pub struct RiotApiConfig {
 }
 
 impl RiotApiConfig {
-    /// Request header name for the Riot API key.
+    /// Request header name for the Riot API key, `"X-Riot-Token"`.
     ///
     /// When using `set_client_builder`, the supplied builder should include
     /// this default header with the Riot API key as the value.
-    const RIOT_KEY_HEADER: &'static str = "X-Riot-Token";
+    pub const RIOT_KEY_HEADER: &'static str = "X-Riot-Token";
 
     /// `"https://{}.api.riotgames.com"`
     ///
@@ -92,7 +92,7 @@ impl RiotApiConfig {
     /// Creates a new `RiotApiConfig` with the given client builder.
     ///
     /// The client builder default headers should include a value for
-    /// `RiotApiConfig::RIOT_KEY_HEADER`, otherwise authentication will fail.
+    /// [`RiotApiConfig::RIOT_KEY_HEADER`] (`"X-Riot-Token"`), otherwise authentication will fail.
     ///
     /// * `retries = 3` (`RiotApiConfig::DEFAULT_RETRIES`).
     /// * `burst_factor = 0.99` (`preconfig_burst`).
@@ -290,5 +290,11 @@ impl RiotApiConfig {
     pub fn set_duration_overhead(mut self, duration_overhead: Duration) -> Self {
         self.duration_overhead = duration_overhead;
         self
+    }
+}
+
+impl<T: AsRef<[u8]>> From<T> for RiotApiConfig {
+    fn from(api_key: T) -> Self {
+        Self::with_key(api_key)
     }
 }

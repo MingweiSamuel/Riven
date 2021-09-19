@@ -19,11 +19,16 @@ use crate::util::InsertOnlyCHashMap;
 ///
 /// # Usage
 ///
-/// Construct an instance using [`with_key(api_key)`](RiotApi::with_key) or
-/// [`with_config(config)`](RiotApi::with_config).
+/// Construct an instance using [`RiotApi::new(api_key or config)`](RiotApi::new).
+/// The parameter may be a Riot API key string or a [`RiotApiConfig`]. Riot API
+/// keys are obtained from the [Riot Developer Portal](https://developer.riotgames.com/)
+/// and look like `"RGAPI-01234567-89ab-cdef-0123-456789abcdef"`.
 ///
-/// An instance provides access to "endpoint handles" which in turn provide access
-/// to individual API method calls. For example, getting a summoner by name:
+/// An instance provides access to "endpoint handles" which in turn provide
+/// access to individual API method calls. For example, to get a summoner by
+/// name we first access the [`summoner_v4()`](RiotApi::summoner_v4) endpoints
+/// then call the [`get_by_summoner_name()`](crate::endpoints::SummonerV4::get_by_summoner_name)
+/// method:
 /// ```ignore
 /// riot_api.summoner_v4().get_by_summoner_name(Region::NA, "LugnutsK")
 /// ```
@@ -31,14 +36,14 @@ use crate::util::InsertOnlyCHashMap;
 /// # Rate Limiting
 ///
 /// The Riot Game API enforces _dynamic_ rate limiting, meaning that rate limits are
-/// specified in response headers and (theoretically) could change at any time.
+/// specified in response headers and can change at any time.
 /// Riven keeps track of changing rate limits seamlessly, preventing you from
 /// getting blacklisted.
 ///
-/// Riven's rate limiting is highly efficient, meaning that it can reach the limits
-/// of your rate limit without going over.
+/// Riven's rate limiting is highly efficient; it can use the full throughput
+/// of your rate limit without triggering 429 errors.
 ///
-/// To adjust rate limiting, see [RiotApiConfig](crate::RiotApiConfig) and use
+/// To adjust rate limiting, see [RiotApiConfig] and use
 /// [`with_config(config)`](RiotApi::with_config) to construct an instance.
 pub struct RiotApi {
     /// Configuration settings.
@@ -51,10 +56,11 @@ pub struct RiotApi {
 }
 
 impl RiotApi {
-    /// Constructs a new instance from the given [RiotApiConfig](crate::RiotApiConfig), consuming it.
-    pub fn with_config(mut config: RiotApiConfig) -> Self {
+    /// Constructs a new instance from an API key (e.g. `"RGAPI-01234567-89ab-cdef-0123-456789abcdef"`) or a [RiotApiConfig].
+    pub fn new(config: impl Into<RiotApiConfig>) -> Self {
+        let mut config = config.into();
         let client_builder = config.client_builder.take()
-            .expect("!NONE CLIENT_BUILDER IN CONFIG.");
+            .expect("CLIENT_BUILDER IN CONFIG SHOULD NOT BE NONE.");
         Self {
             config: config,
             client: client_builder.build().expect("Failed to create client from builder."),
@@ -62,13 +68,20 @@ impl RiotApi {
         }
     }
 
+    /// Constructs a new instance from the given [RiotApiConfig](crate::RiotApiConfig), consuming it.
+    #[deprecated(since = "2.0", note = "use `RiotApi::new(config)` instead")]
+    pub fn with_config(config: RiotApiConfig) -> Self {
+        Self::new(config)
+    }
+
     /// Constructs a new instance from the given API key, using default configuration.
     ///
     /// `api_key` should be a Riot Games API key from
     /// [https://developer.riotgames.com/](https://developer.riotgames.com/),
     /// and should look like `"RGAPI-01234567-89ab-cdef-0123-456789abcdef"`.
+    #[deprecated(since = "2.0", note = "use `RiotApi::new(api_key)` instead")]
     pub fn with_key(api_key: impl AsRef<[u8]>) -> Self {
-        Self::with_config(RiotApiConfig::with_key(api_key))
+        Self::new(api_key)
     }
 
     /// This method should generally not be used directly. Consider using endpoint wrappers instead.

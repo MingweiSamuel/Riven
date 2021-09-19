@@ -1,8 +1,15 @@
 # Riven Example Proxy
 
-This is a simple example implementation of a Riot API proxy server using `hyper`. This adds the API key and forwards
-requests to the Riot API, then returns and forwards responses back to the requester. It handles error cases but only
-provides minimal failure information. HTTP requests will wait to complete when Riven is waiting on rate limits.
+This is a simple example implementation of a Riot API proxy server using
+[`hyper`](https://github.com/hyperium/hyper). This adds the API key and
+forwards requests to the Riot API, then returns and forwards responses back to
+the requester.
+
+This can handle not just GET endpoints but also POST and PUT (and any others)
+with bodies, however it does not handle RSO endpoints which require an
+`Authorization` header parameter. This handles errors but provides only minimal
+failure information. Rate limits are enforced, so requests will wait to complete
+when Riven is at the rate limit.
 
 Set `RGAPI_KEY` env var then run:
 ```bash

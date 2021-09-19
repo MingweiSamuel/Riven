@@ -25,13 +25,13 @@
 //! Data structs and endpoints are automatically generated from the
 //! [Riot API Reference](https://developer.riotgames.com/api-methods/) ([Swagger](http://www.mingweisamuel.com/riotapi-schema/tool/)).
 //! 
-//! ## Design
+//! # Design
 //! 
 //! * Fast, asynchronous, thread-safe.
 //! * Automatically retries failed requests.
 //! * Supports all endpoints, kept up-to-date using [riotapi-schema](https://github.com/MingweiSamuel/riotapi-schema).
 //! 
-//! ## Usage
+//! # Usage
 //! 
 //! ```rust
 //! use riven::RiotApi;
@@ -42,7 +42,7 @@
 //! rt.block_on(async {
 //!     // Create RiotApi instance from key string.
 //!     let api_key = std::env!("RGAPI_KEY"); // "RGAPI-01234567-89ab-cdef-0123-456789abcdef";
-//!     let riot_api = RiotApi::with_key(api_key);
+//!     let riot_api = RiotApi::new(api_key);
 //! 
 //!     // Get summoner data.
 //!     let summoner = riot_api.summoner_v4()
@@ -80,9 +80,14 @@
 //!  9) Irelia         46465 (5)
 //! 10) Vladimir       37176 (5)
 //! ```
-//! ### Feature Flags
+//! The [`RiotApi` struct documentation](https://docs.rs/riven/latest/riven/struct.RiotApi.html)
+//! contains additional usage information. The [tests](https://github.com/MingweiSamuel/Riven/tree/v/2.x.x/riven/tests)
+//! and [example proxy](https://github.com/MingweiSamuel/Riven/tree/v/2.x.x/example/proxy)
+//! provide more example usage.
 //! 
-//! #### Nightly vs Stable
+//! ## Feature Flags
+//! 
+//! ### Nightly vs Stable
 //! 
 //! Enable the `nightly` feature to use nightly-only functionality. This enables
 //! [nightly optimizations in the `parking_lot` crate](https://github.com/Amanieu/parking_lot#nightly-vs-stable).
@@ -91,7 +96,7 @@
 //! riven = { version = "...", features = [ "nightly" ] }
 //! ```
 //! 
-//! #### rustls
+//! ### rustls
 //! 
 //! Riven uses [reqwest](https://github.com/seanmonstar/reqwest) for making requests. By default, reqwest uses the native TLS library.
 //! If you prefer using [rustls](https://github.com/ctz/rustls) you can do so by turning off the Riven default features
@@ -103,11 +108,11 @@
 //! 
 //! Riven is additionally able to produce [tracing](https://docs.rs/tracing) spans for requests if the `tracing` feature is enabled. This feature is disabled by default.
 //! 
-//! ### Docs
+//! ## Docs
 //! 
 //! [On docs.rs](https://docs.rs/riven/).
 //! 
-//! ### Error Handling
+//! ## Error Handling
 //! 
 //! Riven returns either `Result<T>` or `Result<Option<T>>` within futures.
 //! 
@@ -126,12 +131,12 @@
 //! attempted, and the Reqwest `Response` object.
 //! 
 //! You can configure the number of time Riven retries using
-//! `RiotApiConfig::set_retries(...)` and the `RiotApi::with_config(config)`
+//! `RiotApiConfig::set_retries(...)` and the `RiotApi::from_config(config)`
 //! constructor. By default, Riven retries up to 3 times (4 requests total).
 //! Some errors, such as 400 client errors, are not retried as they would
 //! inevitably fail again.
 //! 
-//! ### Semantic Versioning
+//! ## Semantic Versioning
 //! 
 //! This package follows semantic versioning to an extent. However, the Riot API
 //! itself changes often and does not follow semantic versioning, which makes
@@ -147,23 +152,24 @@
 //! Parts of Riven that do not depend on Riot API changes do follow semantic
 //! versioning.
 //! 
-//! ### Additional Help
+//! ## Additional Help
 //! 
 //! Feel free to [make an issue](https://github.com/MingweiSamuel/Riven/issues/new)
 //! if you are have any questions or trouble with Riven.
 //! 
-//! ## Development
+//! # Development
 //! 
 //! NodeJS is used to generate code for Riven. The
-//! [`srcgen/`](https://github.com/MingweiSamuel/Riven/tree/master/srcgen)
+//! [`riven/srcgen`](https://github.com/MingweiSamuel/Riven/tree/v/2.x.x/riven/srcgen)
 //! folder contains the code and [doT.js](https://olado.github.io/doT/index.html)
 //! templates. `index.js` lists the JSON files downloaded and used to generate the
 //! code.
 //! 
 //! To set up the srcgen, you will first need to install NodeJS. Then enter the
-//! srcgen folder and run `npm ci` (or `npm install`) to install dependencies.
+//! `riven/srcgen` folder and run `npm ci` (or `npm install`) to install
+//! dependencies.
 //! 
-//! To run the srcgen use `node srcgen` from the main folder.
+//! To run the srcgen use `node riven/srcgen` from the repository root.
 //! 
 //! 
 
