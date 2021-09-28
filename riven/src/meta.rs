@@ -7,13 +7,13 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 595cfab83bc31def1d3d161df5ca26f99033f539
+// Version 0715d17267a9bec35845651ad3fb702c5bcbdaa1
 
 //! Metadata about the Riot API and Riven.
 //!
 //! Note: this modules is automatically generated.
 
-pub static ALL_ENDPOINTS: [(reqwest::Method, &'static str, &'static str); 75] = [
+pub static ALL_ENDPOINTS: [(reqwest::Method, &'static str, &'static str); 70] = [
     (reqwest::Method::GET, "/riot/account/v1/accounts/by-puuid/{puuid}", "account-v1.getByPuuid"),
     (reqwest::Method::GET, "/riot/account/v1/accounts/by-riot-id/{gameName}/{tagLine}", "account-v1.getByRiotId"),
     (reqwest::Method::GET, "/riot/account/v1/accounts/me", "account-v1.getByAccessToken"),
@@ -43,11 +43,6 @@ pub static ALL_ENDPOINTS: [(reqwest::Method, &'static str, &'static str); 75] = 
     (reqwest::Method::GET, "/lor/match/v1/matches/{matchId}", "lor-match-v1.getMatch"),
     (reqwest::Method::GET, "/lor/ranked/v1/leaderboards", "lor-ranked-v1.getLeaderboards"),
     (reqwest::Method::GET, "/lor/status/v1/platform-data", "lor-status-v1.getPlatformData"),
-    (reqwest::Method::GET, "/lol/match/v4/matches/by-tournament-code/{tournamentCode}/ids", "match-v4.getMatchIdsByTournamentCode"),
-    (reqwest::Method::GET, "/lol/match/v4/matches/{matchId}", "match-v4.getMatch"),
-    (reqwest::Method::GET, "/lol/match/v4/matches/{matchId}/by-tournament-code/{tournamentCode}", "match-v4.getMatchByTournamentCode"),
-    (reqwest::Method::GET, "/lol/match/v4/matchlists/by-account/{encryptedAccountId}", "match-v4.getMatchlist"),
-    (reqwest::Method::GET, "/lol/match/v4/timelines/by-match/{matchId}", "match-v4.getMatchTimeline"),
     (reqwest::Method::GET, "/lol/match/v5/matches/by-puuid/{puuid}/ids", "match-v5.getMatchIdsByPUUID"),
     (reqwest::Method::GET, "/lol/match/v5/matches/{matchId}", "match-v5.getMatch"),
     (reqwest::Method::GET, "/lol/match/v5/matches/{matchId}/timeline", "match-v5.getTimeline"),
