@@ -68,22 +68,6 @@ impl RiotApi {
         }
     }
 
-    /// Constructs a new instance from the given [RiotApiConfig](crate::RiotApiConfig), consuming it.
-    #[deprecated(since = "2.0", note = "use `RiotApi::new(config)` instead")]
-    pub fn with_config(config: RiotApiConfig) -> Self {
-        Self::new(config)
-    }
-
-    /// Constructs a new instance from the given API key, using default configuration.
-    ///
-    /// `api_key` should be a Riot Games API key from
-    /// [https://developer.riotgames.com/](https://developer.riotgames.com/),
-    /// and should look like `"RGAPI-01234567-89ab-cdef-0123-456789abcdef"`.
-    #[deprecated(since = "2.0", note = "use `RiotApi::new(api_key)` instead")]
-    pub fn with_key(api_key: impl AsRef<[u8]>) -> Self {
-        Self::new(api_key)
-    }
-
     /// This method should generally not be used directly. Consider using endpoint wrappers instead.
     ///
     /// Creates a `RequestBuilder` instance with the given parameters, for use with the `execute*()` methods.
