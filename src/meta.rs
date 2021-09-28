@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 12e3bc69894adde9001edb3c64126cd90d4531bd
+// Version 0715d17267a9bec35845651ad3fb702c5bcbdaa1
 
 //! Metadata about the Riot API and Riven.
 //!
@@ -45,11 +45,6 @@ lazy_static! {
         map.insert("/lor/match/v1/matches/{matchId}", "lor-match-v1.getMatch");
         map.insert("/lor/ranked/v1/leaderboards", "lor-ranked-v1.getLeaderboards");
         map.insert("/lor/status/v1/platform-data", "lor-status-v1.getPlatformData");
-        map.insert("/lol/match/v4/matches/by-tournament-code/{tournamentCode}/ids", "match-v4.getMatchIdsByTournamentCode");
-        map.insert("/lol/match/v4/matches/{matchId}", "match-v4.getMatch");
-        map.insert("/lol/match/v4/matches/{matchId}/by-tournament-code/{tournamentCode}", "match-v4.getMatchByTournamentCode");
-        map.insert("/lol/match/v4/matchlists/by-account/{encryptedAccountId}", "match-v4.getMatchlist");
-        map.insert("/lol/match/v4/timelines/by-match/{matchId}", "match-v4.getMatchTimeline");
         map.insert("/lol/match/v5/matches/by-puuid/{puuid}/ids", "match-v5.getMatchIdsByPUUID");
         map.insert("/lol/match/v5/matches/{matchId}", "match-v5.getMatch");
         map.insert("/lol/match/v5/matches/{matchId}/timeline", "match-v5.getTimeline");

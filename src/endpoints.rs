@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 12e3bc69894adde9001edb3c64126cd90d4531bd
+// Version 0715d17267a9bec35845651ad3fb702c5bcbdaa1
 
 //! Automatically generated endpoint handles.
 
@@ -139,15 +139,6 @@ impl RiotApi {
     #[inline]
     pub fn lor_status_v1(&self) -> LorStatusV1 {
         LorStatusV1 { base: self }
-    }
-    /// Returns a handle for accessing [MatchV4](crate::endpoints::MatchV4) endpoints.
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/apis#match-v4" target="_blank">`match-v4`</a>
-    ///
-    /// Note: this method is automatically generated.
-    #[inline]
-    pub fn match_v4(&self) -> MatchV4 {
-        MatchV4 { base: self }
     }
     /// Returns a handle for accessing [MatchV5](crate::endpoints::MatchV5) endpoints.
     /// # Riot Developer API Reference
@@ -799,117 +790,6 @@ impl<'a> LorStatusV1<'a> {
 
 }
 
-/// MatchV4 endpoints handle, accessed by calling [`match_v4()`](crate::RiotApi::match_v4) on a [`RiotApi`](crate::RiotApi) instance.
-/// # Riot Developer API Reference
-/// <a href="https://developer.riotgames.com/apis#match-v4" target="_blank">`match-v4`</a>
-///
-/// Note: this struct is automatically generated.
-pub struct MatchV4<'a> {
-    base: &'a RiotApi,
-}
-impl<'a> MatchV4<'a> {
-    /// Get match IDs by tournament code.
-    /// # Parameters
-    /// * `region` - Region to query.
-    /// * `tournamentCode` - The tournament code.
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchIdsByTournamentCode" target="_blank">`match-v4.getMatchIdsByTournamentCode`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn get_match_ids_by_tournament_code(&self, region: Region, tournament_code: &str)
-        -> impl Future<Output = Result<Vec<i64>>> + 'a
-    {
-        let path_string = format!("/lol/match/v4/matches/by-tournament-code/{}/ids", tournament_code);
-        self.base.get::<Vec<i64>>("match-v4.getMatchIdsByTournamentCode", region.into(), path_string, None)
-    }
-
-    /// Get match by match ID.
-    /// # Parameters
-    /// * `region` - Region to query.
-    /// * `matchId` - The match ID.
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatch" target="_blank">`match-v4.getMatch`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn get_match(&self, region: Region, match_id: i64)
-        -> impl Future<Output = Result<Option<match_v4::Match>>> + 'a
-    {
-        let path_string = format!("/lol/match/v4/matches/{}", match_id);
-        self.base.get_optional::<match_v4::Match>("match-v4.getMatch", region.into(), path_string, None)
-    }
-
-    /// Get match by match ID and tournament code.
-    /// # Parameters
-    /// * `region` - Region to query.
-    /// * `tournamentCode` - The tournament code.
-    /// * `matchId` - The match ID.
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchByTournamentCode" target="_blank">`match-v4.getMatchByTournamentCode`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn get_match_by_tournament_code(&self, region: Region, match_id: i64, tournament_code: &str)
-        -> impl Future<Output = Result<match_v4::Match>> + 'a
-    {
-        let path_string = format!("/lol/match/v4/matches/{}/by-tournament-code/{}", match_id, tournament_code);
-        self.base.get::<match_v4::Match>("match-v4.getMatchByTournamentCode", region.into(), path_string, None)
-    }
-
-    /// Get matchlist for games played on given account ID and platform ID and filtered using given filter parameters, if any.
-    /// ## Implementation Notes
-    /// A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned.
-    ///
-    /// If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned.
-    ///
-    /// If beginTime is specified, but not endTime, then endTime defaults to the the current unix timestamp in milliseconds (the maximum time range limitation is not observed in this specific case). If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history returning a 400 due to the maximum time range limitation. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
-    /// # Parameters
-    /// * `region` - Region to query.
-    /// * `encryptedAccountId` - The account ID.
-    /// * `champion` (optional) - Set of champion IDs for filtering the matchlist.
-    /// * `queue` (optional) - Set of queue IDs for filtering the matchlist.
-    /// * `season` (optional) - [DEPRECATED] This field should not be considered reliable for the purposes of filtering matches by season.
-    /// * `endTime` (optional) - The end time to use for filtering matchlist specified as epoch milliseconds. If beginTime is specified, but not endTime, then endTime defaults to the the current unix timestamp in milliseconds (the maximum time range limitation is not observed in this specific case). If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history returning a 400 due to the maximum time range limitation. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
-    /// * `beginTime` (optional) - The begin time to use for filtering matchlist specified as epoch milliseconds. If beginTime is specified, but not endTime, then endTime defaults to the the current unix timestamp in milliseconds (the maximum time range limitation is not observed in this specific case). If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history returning a 400 due to the maximum time range limitation. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
-    /// * `endIndex` (optional) - The end index to use for filtering matchlist. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned.
-    /// * `beginIndex` (optional) - The begin index to use for filtering matchlist.  If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned.
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchlist" target="_blank">`match-v4.getMatchlist`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn get_matchlist(&self, region: Region, encrypted_account_id: &str, begin_time: Option<i64>, begin_index: Option<i32>, champion: Option<&[crate::consts::Champion]>, end_time: Option<i64>, end_index: Option<i32>, queue: Option<&[crate::consts::Queue]>, season: Option<&[crate::consts::Season]>)
-        -> impl Future<Output = Result<Option<match_v4::Matchlist>>> + 'a
-    {
-        let mut query_params = Serializer::new(String::new());
-        if let Some(begin_time) = begin_time { query_params.append_pair("beginTime", &*begin_time.to_string()); };
-        if let Some(begin_index) = begin_index { query_params.append_pair("beginIndex", &*begin_index.to_string()); };
-        if let Some(champion) = champion { query_params.extend_pairs(champion.iter().map(|w| ("champion", Into::<i16>::into(*w).to_string()))); };
-        if let Some(end_time) = end_time { query_params.append_pair("endTime", &*end_time.to_string()); };
-        if let Some(end_index) = end_index { query_params.append_pair("endIndex", &*end_index.to_string()); };
-        if let Some(queue) = queue { query_params.extend_pairs(queue.iter().map(|w| ("queue", Into::<u16>::into(*w).to_string()))); };
-        if let Some(season) = season { query_params.extend_pairs(season.iter().map(|w| ("season", Into::<u8>::into(*w).to_string()))); };
-        let query_string = query_params.finish();
-        let path_string = format!("/lol/match/v4/matchlists/by-account/{}", encrypted_account_id);
-        self.base.get_optional::<match_v4::Matchlist>("match-v4.getMatchlist", region.into(), path_string, Some(query_string))
-    }
-
-    /// Get match timeline by match ID.
-    /// ## Implementation Notes
-    /// Not all matches have timeline data.
-    /// # Parameters
-    /// * `region` - Region to query.
-    /// * `matchId` - The match ID.
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchTimeline" target="_blank">`match-v4.getMatchTimeline`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn get_match_timeline(&self, region: Region, match_id: i64)
-        -> impl Future<Output = Result<Option<match_v4::MatchTimeline>>> + 'a
-    {
-        let path_string = format!("/lol/match/v4/timelines/by-match/{}", match_id);
-        self.base.get_optional::<match_v4::MatchTimeline>("match-v4.getMatchTimeline", region.into(), path_string, None)
-    }
-
-}
-
 /// MatchV5 endpoints handle, accessed by calling [`match_v5()`](crate::RiotApi::match_v5) on a [`RiotApi`](crate::RiotApi) instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#match-v5" target="_blank">`match-v5`</a>
@@ -923,7 +803,7 @@ impl<'a> MatchV5<'a> {
     /// # Parameters
     /// * `region` - Region to query.
     /// * `puuid`
-    /// * `startTime` (optional) - Epoch timestamp in seconds.
+    /// * `startTime` (optional) - Epoch timestamp in seconds. The matchlist started storing timestamps on June 16th, 2021. Any matches played before June 16th, 2021 won't be included in the results if the startTime filter is set.
     /// * `endTime` (optional) - Epoch timestamp in seconds.
     /// * `queue` (optional) - Filter the list of match ids by a specific queue id. This filter is mutually inclusive of the type filter meaning any match ids returned must match both the queue and type filters.
     /// * `type` (optional) - Filter the list of match ids by the type of match. This filter is mutually inclusive of the queue filter meaning any match ids returned must match both the queue and type filters.
