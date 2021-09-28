@@ -65,7 +65,7 @@ macro_rules! rassert {
     };
     ( $x:expr, $format:expr $(, $arg:expr)* ) => {
         {
-            if $x { Ok(()) } else { Err( format!($format, $( $arg )* ) ) }?
+            if $x { Ok(()) } else { Err( format!($format $(, $arg )* ) ) }?
         }
     };
 }
