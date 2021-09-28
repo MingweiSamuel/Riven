@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 0715d17267a9bec35845651ad3fb702c5bcbdaa1
+// Version f4a77c89fedf1b9e2d8ff0897e2779ef549aaccf
 
 //! Data transfer structs.
 //!
@@ -739,10 +739,10 @@ pub mod match_v5 {
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Metadata {
         /// Match data version.
-        #[serde(rename = "data_version")]
+        #[serde(rename = "dataVersion")]
         pub data_version: String,
         /// Match id.
-        #[serde(rename = "match_id")]
+        #[serde(rename = "matchId")]
         pub match_id: String,
         /// A list of participant PUUIDs.
         #[serde(rename = "participants")]
