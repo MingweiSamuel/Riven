@@ -12,7 +12,7 @@ use riven::models::tournament_stub_v4::*;
 
 const ROUTE: RegionalRoute = RegionalRoute::AMERICAS;
 
-static MATCHES: [&'static str; 3] = [ "NA1_3923487226", "NA1_4049206905", "NA1_4052515784" ];
+static MATCHES: [&'static str; 4] = [ "NA1_3923487226", "NA1_4049206905", "NA1_4052515784", "NA1_4062578191" ];
 
 async_tests!{
     my_runner {
@@ -78,7 +78,7 @@ async_tests!{
                 let m = p.await.map_err(|e| e.to_string())?.ok_or(format!("Match timeline {} not found.", matche))?;
                 rassert_eq!(matche, m.metadata.match_id, "Bad match id? Sent {}, received {}.", matche, m.metadata.match_id);
                 rassert!(!m.metadata.participants.is_empty(), "Match should have participants.");
-                rassert_eq!(matche, format!("NA1_{}", m.info.game_id), "Match number ID should match.");
+                rassert_eq!(matche[(matche.find('_').unwrap() + 1)..], format!("{}", m.info.game_id), "Match number ID should match.");
                 rassert!(!m.info.frames.is_empty(), "Match timleine should have frames.");
             }
             Ok(())
