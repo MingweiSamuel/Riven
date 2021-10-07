@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version e2256839626b09f465df7f5a1def1f74c5d073a5
+// Version 1f61128ea79f3d07bd47c2f585e9f22905bed753
 
 //! Automatically generated endpoint handles.
 
@@ -1006,7 +1006,7 @@ impl<'a> MatchV5<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#match-v5/GET_getMatchIdsByPUUID" target="_blank">`match-v5.getMatchIdsByPUUID`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_match_ids_by_puuid(&self, route: RegionalRoute, puuid: &str, count: Option<i32>, end_time: Option<i64>, queue: Option<i32>, start_time: Option<i64>, start: Option<i32>, r#type: Option<&str>)
+    pub fn get_match_ids_by_puuid(&self, route: RegionalRoute, puuid: &str, count: Option<i32>, end_time: Option<i64>, queue: Option<crate::consts::Queue>, start_time: Option<i64>, start: Option<i32>, r#type: Option<&str>)
         -> impl Future<Output = Result<Vec<String>>> + 'a
     {
         let route_str = route.into();
@@ -1277,7 +1277,7 @@ impl<'a> TftLeagueV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getLeagueEntries" target="_blank">`tft-league-v1.getLeagueEntries`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_league_entries(&self, route: PlatformRoute, tier: &str, division: &str, page: Option<i32>)
+    pub fn get_league_entries(&self, route: PlatformRoute, tier: crate::consts::Tier, division: &str, page: Option<i32>)
         -> impl Future<Output = Result<Vec<tft_league_v1::LeagueEntry>>> + 'a
     {
         let route_str = route.into();

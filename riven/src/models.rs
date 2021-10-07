@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version e2256839626b09f465df7f5a1def1f74c5d073a5
+// Version 1f61128ea79f3d07bd47c2f585e9f22905bed753
 
 //! Data transfer structs.
 //!
@@ -772,20 +772,20 @@ pub mod match_v5 {
         pub game_id: i64,
         /// Refer to the Game Constants documentation.
         #[serde(rename = "gameMode")]
-        pub game_mode: String,
+        pub game_mode: crate::consts::GameMode,
         #[serde(rename = "gameName")]
         pub game_name: String,
         /// Unix timestamp for when match starts on the game server.
         #[serde(rename = "gameStartTimestamp")]
         pub game_start_timestamp: i64,
         #[serde(rename = "gameType")]
-        pub game_type: String,
+        pub game_type: crate::consts::GameType,
         /// The first two parts can be used to determine the patch a game was played on.
         #[serde(rename = "gameVersion")]
         pub game_version: String,
         /// Refer to the Game Constants documentation.
         #[serde(rename = "mapId")]
-        pub map_id: i32,
+        pub map_id: crate::consts::Map,
         #[serde(rename = "participants")]
         pub participants: std::vec::Vec<Participant>,
         /// Platform where the match was played.
@@ -793,7 +793,7 @@ pub mod match_v5 {
         pub platform_id: String,
         /// Refer to the Game Constants documentation.
         #[serde(rename = "queueId")]
-        pub queue_id: i32,
+        pub queue_id: crate::consts::Queue,
         #[serde(rename = "teams")]
         pub teams: std::vec::Vec<Team>,
         /// Tournament code used to generate the match.
@@ -817,7 +817,7 @@ pub mod match_v5 {
         pub champ_level: i32,
         /// Prior to patch 11.4, on Feb 9th, 2021, this field returned invalid championIds. We recommend determining the champion based on the championName field.
         #[serde(rename = "championId")]
-        pub champion_id: i32,
+        pub champion_id: crate::consts::Champion,
         #[serde(rename = "championName")]
         pub champion_name: String,
         /// This field is currently only utilized for Kayn's transformations. (Legal values: 0 - None, 1 - Slayer, 2 - Assassin)
@@ -967,7 +967,7 @@ pub mod match_v5 {
         #[serde(rename = "teamEarlySurrendered")]
         pub team_early_surrendered: bool,
         #[serde(rename = "teamId")]
-        pub team_id: i32,
+        pub team_id: crate::consts::Team,
         /// Both individualPosition and teamPosition are computed by the game server and are different versions of the most likely position played by a player. The individualPosition is the best guess for which position the player actually played in isolation of anything else. The teamPosition is the best guess for which position the player actually played if we add the constraint that each team must have one top player, one jungle, one middle, etc. Generally the recommendation is to use the teamPosition field over the individualPosition field.
         #[serde(rename = "teamPosition")]
         pub team_position: String,
@@ -1076,7 +1076,7 @@ pub mod match_v5 {
         #[serde(rename = "objectives")]
         pub objectives: Objectives,
         #[serde(rename = "teamId")]
-        pub team_id: i32,
+        pub team_id: crate::consts::Team,
         #[serde(rename = "win")]
         pub win: bool,
     }
@@ -1085,7 +1085,7 @@ pub mod match_v5 {
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Ban {
         #[serde(rename = "championId")]
-        pub champion_id: i32,
+        pub champion_id: crate::consts::Champion,
         #[serde(rename = "pickTurn")]
         pub pick_turn: i32,
     }
