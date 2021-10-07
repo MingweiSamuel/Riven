@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version f4a77c89fedf1b9e2d8ff0897e2779ef549aaccf
+// Version e2256839626b09f465df7f5a1def1f74c5d073a5
 
 //! Automatically generated endpoint handles.
 

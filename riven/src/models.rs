@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version f4a77c89fedf1b9e2d8ff0897e2779ef549aaccf
+// Version e2256839626b09f465df7f5a1def1f74c5d073a5
 
 //! Data transfer structs.
 //!
@@ -758,12 +758,16 @@ pub mod match_v5 {
     #[derive(Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Info {
-        /// Unix timestamp for when the game is created (i.e., the loading screen).
+        /// Unix timestamp for when the game is created on the game server (i.e., the loading screen).
         #[serde(rename = "gameCreation")]
         pub game_creation: i64,
-        /// Game length in milliseconds.
+        /// Prior to patch 11.20, this field returns the game length in milliseconds calculated from gameEndTimestamp - gameStartTimestamp. Post patch 11.20, this field returns the max timePlayed of any participant in the game in seconds, which makes the behavior of this field consistent with that of match-v4. The best way to handling the change in this field is to treat the value as milliseconds if the gameEndTimestamp field isn't in the response and to treat the value as seconds if gameEndTimestamp is in the response.
         #[serde(rename = "gameDuration")]
         pub game_duration: i64,
+        /// Unix timestamp for when match ends on the game server. This timestamp can occasionally be significantly longer than when the match "ends". The most reliable way of determining the timestamp for the end of the match would be to add the max time played of any participant to the gameStartTimestamp. This field was added to match-v5 in patch 11.20 on Oct 5th, 2021.
+        #[serde(rename = "gameEndTimestamp")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub game_end_timestamp: Option<i64>,
         #[serde(rename = "gameId")]
         pub game_id: i64,
         /// Refer to the Game Constants documentation.
@@ -771,7 +775,7 @@ pub mod match_v5 {
         pub game_mode: String,
         #[serde(rename = "gameName")]
         pub game_name: String,
-        /// Unix timestamp for when match actually starts.
+        /// Unix timestamp for when match starts on the game server.
         #[serde(rename = "gameStartTimestamp")]
         pub game_start_timestamp: i64,
         #[serde(rename = "gameType")]
@@ -811,6 +815,7 @@ pub mod match_v5 {
         pub champ_experience: i32,
         #[serde(rename = "champLevel")]
         pub champ_level: i32,
+        /// Prior to patch 11.4, on Feb 9th, 2021, this field returned invalid championIds. We recommend determining the champion based on the championName field.
         #[serde(rename = "championId")]
         pub champion_id: i32,
         #[serde(rename = "championName")]
