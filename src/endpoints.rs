@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version f4a77c89fedf1b9e2d8ff0897e2779ef549aaccf
+// Version 1f61128ea79f3d07bd47c2f585e9f22905bed753
 
 //! Automatically generated endpoint handles.
 
@@ -813,13 +813,13 @@ impl<'a> MatchV5<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#match-v5/GET_getMatchIdsByPUUID" target="_blank">`match-v5.getMatchIdsByPUUID`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_match_ids_by_puuid(&self, region: Region, puuid: &str, count: Option<i32>, end_time: Option<i64>, queue: Option<i32>, start_time: Option<i64>, start: Option<i32>, r#type: Option<&str>)
+    pub fn get_match_ids_by_puuid(&self, region: Region, puuid: &str, count: Option<i32>, end_time: Option<i64>, queue: Option<crate::consts::Queue>, start_time: Option<i64>, start: Option<i32>, r#type: Option<&str>)
         -> impl Future<Output = Result<Vec<String>>> + 'a
     {
         let mut query_params = Serializer::new(String::new());
         if let Some(count) = count { query_params.append_pair("count", &*count.to_string()); };
         if let Some(end_time) = end_time { query_params.append_pair("endTime", &*end_time.to_string()); };
-        if let Some(queue) = queue { query_params.append_pair("queue", &*queue.to_string()); };
+        if let Some(queue) = queue { query_params.append_pair("queue", &*Into::<u16>::into(queue).to_string()); };
         if let Some(start_time) = start_time { query_params.append_pair("startTime", &*start_time.to_string()); };
         if let Some(start) = start { query_params.append_pair("start", &*start.to_string()); };
         if let Some(r#type) = r#type { query_params.append_pair("type", r#type); };
@@ -1019,7 +1019,7 @@ impl<'a> TftLeagueV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getLeagueEntries" target="_blank">`tft-league-v1.getLeagueEntries`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_league_entries(&self, region: Region, tier: &str, division: &str, page: Option<i32>)
+    pub fn get_league_entries(&self, region: Region, tier: crate::consts::Tier, division: &str, page: Option<i32>)
         -> impl Future<Output = Result<Vec<tft_league_v1::LeagueEntry>>> + 'a
     {
         let mut query_params = Serializer::new(String::new());

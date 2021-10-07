@@ -114,8 +114,8 @@ function formatQueryParamStringify(name, prop, useOwned = false) {
   if (prop['x-enum']) {
     switch (prop.type) {
       case 'integer':
-        return `${own}Into::<${enumTypeLookup[prop['x-enum']]}>::into(*${name}).to_string()`;
-      default: throw new Error(`Enum not supported: ${JSON.stringify(prop)}.`)
+        return `${own}Into::<${enumTypeLookup[prop['x-enum']]}>::into(${name}).to_string()`;
+      default: // Fall-through.
     }
   }
   switch (prop.type) {
