@@ -42,7 +42,7 @@ pub mod {{= dotUtils.changeCase.snakeCase(endpoint) }} {
     ///
     /// Note: This struct is automatically generated
 {{?}}
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct {{= schemaName }} {
 {{

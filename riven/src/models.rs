@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 1f61128ea79f3d07bd47c2f585e9f22905bed753
+// Version 309704e3979855858e36430b178e507e48702059
 
 //! Data transfer structs.
 //!
@@ -22,7 +22,7 @@
 #[allow(dead_code)]
 pub mod account_v1 {
     /// Account data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Account {
         #[serde(rename = "puuid")]
@@ -37,7 +37,7 @@ pub mod account_v1 {
         pub tag_line: Option<String>,
     }
     /// ActiveShard data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct ActiveShard {
         #[serde(rename = "puuid")]
@@ -59,7 +59,7 @@ pub mod champion_mastery_v4 {
     /// This object contains single Champion Mastery information for player and champion combination.
     ///
     /// Note: This struct is automatically generated
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct ChampionMastery {
         /// Number of points needed to achieve next level. Zero if player reached maximum champion level for this champion.
@@ -98,7 +98,7 @@ pub mod champion_mastery_v4 {
 #[allow(dead_code)]
 pub mod champion_v3 {
     /// ChampionInfo data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct ChampionInfo {
         #[serde(rename = "maxNewPlayerLevel")]
@@ -116,7 +116,7 @@ pub mod champion_v3 {
 #[allow(dead_code)]
 pub mod clash_v1 {
     /// Player data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Player {
         #[serde(rename = "summonerId")]
@@ -132,7 +132,7 @@ pub mod clash_v1 {
         pub role: String,
     }
     /// Team data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Team {
         #[serde(rename = "id")]
@@ -155,7 +155,7 @@ pub mod clash_v1 {
         pub players: std::vec::Vec<Player>,
     }
     /// Tournament data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Tournament {
         #[serde(rename = "id")]
@@ -171,7 +171,7 @@ pub mod clash_v1 {
         pub schedule: std::vec::Vec<TournamentPhase>,
     }
     /// TournamentPhase data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct TournamentPhase {
         #[serde(rename = "id")]
@@ -191,7 +191,7 @@ pub mod clash_v1 {
 #[allow(dead_code)]
 pub mod league_exp_v4 {
     /// LeagueEntry data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct LeagueEntry {
         #[serde(rename = "leagueId")]
@@ -229,7 +229,7 @@ pub mod league_exp_v4 {
         pub mini_series: Option<MiniSeries>,
     }
     /// MiniSeries data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MiniSeries {
         #[serde(rename = "losses")]
@@ -249,7 +249,7 @@ pub mod league_exp_v4 {
 #[allow(dead_code)]
 pub mod league_v4 {
     /// LeagueList data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct LeagueList {
         #[serde(rename = "leagueId")]
@@ -264,7 +264,7 @@ pub mod league_v4 {
         pub queue: crate::consts::QueueType,
     }
     /// LeagueItem data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct LeagueItem {
         #[serde(rename = "freshBlood")]
@@ -295,7 +295,7 @@ pub mod league_v4 {
         pub summoner_id: String,
     }
     /// MiniSeries data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MiniSeries {
         #[serde(rename = "losses")]
@@ -308,7 +308,7 @@ pub mod league_v4 {
         pub wins: i32,
     }
     /// LeagueEntry data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct LeagueEntry {
         #[serde(rename = "leagueId")]
@@ -353,7 +353,7 @@ pub mod league_v4 {
 #[allow(dead_code)]
 pub mod lol_status_v3 {
     /// ShardStatus data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct ShardStatus {
         #[serde(rename = "locales")]
@@ -370,7 +370,7 @@ pub mod lol_status_v3 {
         pub region_tag: String,
     }
     /// Service data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Service {
         #[serde(rename = "name")]
@@ -383,7 +383,7 @@ pub mod lol_status_v3 {
         pub incidents: std::vec::Vec<Incident>,
     }
     /// Incident data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Incident {
         #[serde(rename = "id")]
@@ -396,7 +396,7 @@ pub mod lol_status_v3 {
         pub updates: std::vec::Vec<Message>,
     }
     /// Message data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Message {
         #[serde(rename = "id")]
@@ -417,7 +417,7 @@ pub mod lol_status_v3 {
         pub translations: std::vec::Vec<Translation>,
     }
     /// Translation data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Translation {
         #[serde(rename = "updated_at")]
@@ -435,7 +435,7 @@ pub mod lol_status_v3 {
 #[allow(dead_code)]
 pub mod lol_status_v4 {
     /// PlatformData data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct PlatformData {
         #[serde(rename = "id")]
@@ -450,7 +450,7 @@ pub mod lol_status_v4 {
         pub incidents: std::vec::Vec<Status>,
     }
     /// Status data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Status {
         #[serde(rename = "id")]
@@ -476,7 +476,7 @@ pub mod lol_status_v4 {
         pub platforms: std::vec::Vec<String>,
     }
     /// Content data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Content {
         #[serde(rename = "locale")]
@@ -485,7 +485,7 @@ pub mod lol_status_v4 {
         pub content: String,
     }
     /// Update data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Update {
         #[serde(rename = "id")]
@@ -512,7 +512,7 @@ pub mod lol_status_v4 {
 #[allow(dead_code)]
 pub mod lor_deck_v1 {
     /// Deck data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Deck {
         #[serde(rename = "id")]
@@ -523,7 +523,7 @@ pub mod lor_deck_v1 {
         pub code: String,
     }
     /// NewDeck data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct NewDeck {
         #[serde(rename = "name")]
@@ -539,7 +539,7 @@ pub mod lor_deck_v1 {
 #[allow(dead_code)]
 pub mod lor_inventory_v1 {
     /// Card data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Card {
         #[serde(rename = "code")]
@@ -555,7 +555,7 @@ pub mod lor_inventory_v1 {
 #[allow(dead_code)]
 pub mod lor_match_v1 {
     /// Match data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Match {
         /// Match metadata.
@@ -566,7 +566,7 @@ pub mod lor_match_v1 {
         pub info: Info,
     }
     /// Metadata data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Metadata {
         /// Match data version.
@@ -580,7 +580,7 @@ pub mod lor_match_v1 {
         pub participants: std::vec::Vec<String>,
     }
     /// Info data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Info {
         /// (Legal values:  Constructed,  Expeditions,  Tutorial)
@@ -600,7 +600,7 @@ pub mod lor_match_v1 {
         pub total_turn_count: i32,
     }
     /// Player data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Player {
         #[serde(rename = "puuid")]
@@ -626,7 +626,7 @@ pub mod lor_match_v1 {
 #[allow(dead_code)]
 pub mod lor_ranked_v1 {
     /// Leaderboard data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Leaderboard {
         /// A list of players in Master tier.
@@ -634,7 +634,7 @@ pub mod lor_ranked_v1 {
         pub players: std::vec::Vec<Player>,
     }
     /// Player data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Player {
         #[serde(rename = "name")]
@@ -653,7 +653,7 @@ pub mod lor_ranked_v1 {
 #[allow(dead_code)]
 pub mod lor_status_v1 {
     /// PlatformData data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct PlatformData {
         #[serde(rename = "id")]
@@ -668,7 +668,7 @@ pub mod lor_status_v1 {
         pub incidents: std::vec::Vec<Status>,
     }
     /// Status data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Status {
         #[serde(rename = "id")]
@@ -694,7 +694,7 @@ pub mod lor_status_v1 {
         pub platforms: std::vec::Vec<String>,
     }
     /// Content data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Content {
         #[serde(rename = "locale")]
@@ -703,7 +703,7 @@ pub mod lor_status_v1 {
         pub content: String,
     }
     /// Update data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Update {
         #[serde(rename = "id")]
@@ -730,7 +730,7 @@ pub mod lor_status_v1 {
 #[allow(dead_code)]
 pub mod match_v5 {
     /// Match data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Match {
         /// Match metadata.
@@ -741,7 +741,7 @@ pub mod match_v5 {
         pub info: Info,
     }
     /// Metadata data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Metadata {
         /// Match data version.
@@ -755,7 +755,7 @@ pub mod match_v5 {
         pub participants: std::vec::Vec<String>,
     }
     /// Info data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Info {
         /// Unix timestamp for when the game is created on the game server (i.e., the loading screen).
@@ -796,13 +796,13 @@ pub mod match_v5 {
         pub queue_id: crate::consts::Queue,
         #[serde(rename = "teams")]
         pub teams: std::vec::Vec<Team>,
-        /// Tournament code used to generate the match.
+        /// Tournament code used to generate the match. This field was added to match-v5 in patch 11.13 on June 23rd, 2021.
         #[serde(rename = "tournamentCode")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub tournament_code: Option<String>,
     }
     /// Participant data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Participant {
         #[serde(rename = "assists")]
@@ -815,7 +815,7 @@ pub mod match_v5 {
         pub champ_experience: i32,
         #[serde(rename = "champLevel")]
         pub champ_level: i32,
-        /// Prior to patch 11.4, on Feb 9th, 2021, this field returned invalid championIds. We recommend determining the champion based on the championName field.
+        /// Prior to patch 11.4, on Feb 18th, 2021, this field returned invalid championIds. We recommend determining the champion based on the championName field for matches played prior to patch 11.4.
         #[serde(rename = "championId")]
         pub champion_id: crate::consts::Champion,
         #[serde(rename = "championName")]
@@ -1024,7 +1024,7 @@ pub mod match_v5 {
         pub win: bool,
     }
     /// Perks data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Perks {
         #[serde(rename = "statPerks")]
@@ -1033,7 +1033,7 @@ pub mod match_v5 {
         pub styles: std::vec::Vec<PerkStyle>,
     }
     /// PerkStats data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct PerkStats {
         #[serde(rename = "defense")]
@@ -1044,7 +1044,7 @@ pub mod match_v5 {
         pub offense: i32,
     }
     /// PerkStyle data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct PerkStyle {
         #[serde(rename = "description")]
@@ -1055,7 +1055,7 @@ pub mod match_v5 {
         pub style: i32,
     }
     /// PerkStyleSelection data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct PerkStyleSelection {
         #[serde(rename = "perk")]
@@ -1068,7 +1068,7 @@ pub mod match_v5 {
         pub var3: i32,
     }
     /// Team data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Team {
         #[serde(rename = "bans")]
@@ -1081,7 +1081,7 @@ pub mod match_v5 {
         pub win: bool,
     }
     /// Ban data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Ban {
         #[serde(rename = "championId")]
@@ -1090,7 +1090,7 @@ pub mod match_v5 {
         pub pick_turn: i32,
     }
     /// Objectives data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Objectives {
         #[serde(rename = "baron")]
@@ -1107,7 +1107,7 @@ pub mod match_v5 {
         pub tower: Objective,
     }
     /// Objective data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Objective {
         #[serde(rename = "first")]
@@ -1116,7 +1116,7 @@ pub mod match_v5 {
         pub kills: i32,
     }
     /// MatchTimeline data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MatchTimeline {
         #[serde(rename = "metadata")]
@@ -1125,7 +1125,7 @@ pub mod match_v5 {
         pub info: MatchTimelineInfo,
     }
     /// MatchTimelineInfoFrameEvent data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MatchTimelineInfoFrameEvent {
         #[serde(rename = "realTimestamp")]
@@ -1232,7 +1232,7 @@ pub mod match_v5 {
         pub name: Option<String>,
     }
     /// MatchTimelineInfoFrameParticipantFrameChampionStats data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MatchTimelineInfoFrameParticipantFrameChampionStats {
         #[serde(rename = "abilityHaste")]
@@ -1287,7 +1287,7 @@ pub mod match_v5 {
         pub spell_vamp: i32,
     }
     /// MatchTimelineInfoFrameParticipantFrameDamageStats data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MatchTimelineInfoFrameParticipantFrameDamageStats {
         #[serde(rename = "magicDamageDone")]
@@ -1316,7 +1316,7 @@ pub mod match_v5 {
         pub true_damage_taken: i32,
     }
     /// MatchTimelinePosition data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MatchTimelinePosition {
         #[serde(rename = "x")]
@@ -1325,7 +1325,7 @@ pub mod match_v5 {
         pub y: i32,
     }
     /// MatchTimelineInfoFrameParticipantFrame data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MatchTimelineInfoFrameParticipantFrame {
         #[serde(rename = "championStats")]
@@ -1354,7 +1354,7 @@ pub mod match_v5 {
         pub xp: i32,
     }
     /// MatchTimelineInfoFrameParticipantFrames data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MatchTimelineInfoFrameParticipantFrames {
         #[serde(rename = "1")]
@@ -1379,7 +1379,7 @@ pub mod match_v5 {
         pub x10: MatchTimelineInfoFrameParticipantFrame,
     }
     /// MatchTimelineInfoFrame data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MatchTimelineInfoFrame {
         #[serde(rename = "events")]
@@ -1390,7 +1390,7 @@ pub mod match_v5 {
         pub timestamp: i32,
     }
     /// MatchTimelineInfoFrameEventVictimDamageDealt data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MatchTimelineInfoFrameEventVictimDamageDealt {
         #[serde(rename = "basic")]
@@ -1413,7 +1413,7 @@ pub mod match_v5 {
         pub r#type: String,
     }
     /// MatchTimelineInfoParticipant data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MatchTimelineInfoParticipant {
         #[serde(rename = "participantId")]
@@ -1422,7 +1422,7 @@ pub mod match_v5 {
         pub puuid: String,
     }
     /// MatchTimelineInfo data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MatchTimelineInfo {
         #[serde(rename = "frameInterval")]
@@ -1442,7 +1442,7 @@ pub mod match_v5 {
 #[allow(dead_code)]
 pub mod spectator_v4 {
     /// CurrentGameInfo data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct CurrentGameInfo {
         /// The ID of the game
@@ -1481,7 +1481,7 @@ pub mod spectator_v4 {
         pub participants: std::vec::Vec<CurrentGameParticipant>,
     }
     /// BannedChampion data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct BannedChampion {
         /// The turn during which the champion was banned
@@ -1495,7 +1495,7 @@ pub mod spectator_v4 {
         pub team_id: crate::consts::Team,
     }
     /// Observer data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Observer {
         /// Key used to decrypt the spectator grid game data for playback
@@ -1503,7 +1503,7 @@ pub mod spectator_v4 {
         pub encryption_key: String,
     }
     /// CurrentGameParticipant data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct CurrentGameParticipant {
         /// The ID of the champion played by this participant
@@ -1539,7 +1539,7 @@ pub mod spectator_v4 {
         pub game_customization_objects: std::vec::Vec<GameCustomizationObject>,
     }
     /// Perks data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Perks {
         /// IDs of the perks/runes assigned.
@@ -1553,7 +1553,7 @@ pub mod spectator_v4 {
         pub perk_sub_style: i64,
     }
     /// GameCustomizationObject data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct GameCustomizationObject {
         /// Category identifier for Game Customization
@@ -1564,7 +1564,7 @@ pub mod spectator_v4 {
         pub content: String,
     }
     /// FeaturedGames data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct FeaturedGames {
         /// The list of featured games
@@ -1575,7 +1575,7 @@ pub mod spectator_v4 {
         pub client_refresh_interval: i64,
     }
     /// FeaturedGameInfo data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct FeaturedGameInfo {
         /// The game mode<br>
@@ -1615,7 +1615,7 @@ pub mod spectator_v4 {
         pub platform_id: String,
     }
     /// Participant data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Participant {
         /// Flag indicating whether or not this participant is a bot
@@ -1652,7 +1652,7 @@ pub mod summoner_v4 {
     /// represents a summoner
     ///
     /// Note: This struct is automatically generated
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Summoner {
         /// Encrypted account ID. Max length 56 characters.
@@ -1685,7 +1685,7 @@ pub mod summoner_v4 {
 #[allow(dead_code)]
 pub mod tft_league_v1 {
     /// LeagueList data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct LeagueList {
         #[serde(rename = "leagueId")]
@@ -1700,7 +1700,7 @@ pub mod tft_league_v1 {
         pub queue: crate::consts::QueueType,
     }
     /// LeagueItem data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct LeagueItem {
         #[serde(rename = "freshBlood")]
@@ -1731,7 +1731,7 @@ pub mod tft_league_v1 {
         pub summoner_id: String,
     }
     /// MiniSeries data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MiniSeries {
         #[serde(rename = "losses")]
@@ -1744,7 +1744,7 @@ pub mod tft_league_v1 {
         pub wins: i32,
     }
     /// LeagueEntry data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct LeagueEntry {
         /// Not included for the RANKED_TFT_TURBO queueType.
@@ -1807,7 +1807,7 @@ pub mod tft_league_v1 {
         pub mini_series: Option<MiniSeries>,
     }
     /// TopRatedLadderEntry data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct TopRatedLadderEntry {
         #[serde(rename = "summonerId")]
@@ -1833,7 +1833,7 @@ pub mod tft_league_v1 {
 #[allow(dead_code)]
 pub mod tft_match_v1 {
     /// Match data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Match {
         /// Match metadata.
@@ -1844,7 +1844,7 @@ pub mod tft_match_v1 {
         pub info: Info,
     }
     /// Metadata data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Metadata {
         /// Match data version.
@@ -1858,7 +1858,7 @@ pub mod tft_match_v1 {
         pub participants: std::vec::Vec<String>,
     }
     /// Info data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Info {
         /// Unix timestamp.
@@ -1884,7 +1884,7 @@ pub mod tft_match_v1 {
         pub tft_set_number: i32,
     }
     /// Participant data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Participant {
         /// Participant's companion.
@@ -1921,7 +1921,7 @@ pub mod tft_match_v1 {
         pub units: std::vec::Vec<Unit>,
     }
     /// Trait data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Trait {
         /// Trait name.
@@ -1943,7 +1943,7 @@ pub mod tft_match_v1 {
         pub tier_total: Option<i32>,
     }
     /// Unit data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Unit {
         /// A list of the unit's items. Please refer to the Teamfight Tactics documentation for item ids.
@@ -1967,7 +1967,7 @@ pub mod tft_match_v1 {
         pub tier: i32,
     }
     /// Companion data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Companion {
         #[serde(rename = "skin_ID")]
@@ -1989,7 +1989,7 @@ pub mod tft_summoner_v1 {
     /// represents a summoner
     ///
     /// Note: This struct is automatically generated
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Summoner {
         /// Encrypted account ID. Max length 56 characters.
@@ -2022,7 +2022,7 @@ pub mod tft_summoner_v1 {
 #[allow(dead_code)]
 pub mod tournament_stub_v4 {
     /// TournamentCodeParameters data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct TournamentCodeParameters {
         /// Optional list of encrypted summonerIds in order to validate the players eligible to join the lobby. NOTE: We currently do not enforce participants at the team level, but rather the aggregate of teamOne and teamTwo. We may add the ability to enforce at the team level in the future.
@@ -2050,14 +2050,14 @@ pub mod tournament_stub_v4 {
         pub spectator_type: String,
     }
     /// LobbyEventWrapper data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct LobbyEventWrapper {
         #[serde(rename = "eventList")]
         pub event_list: std::vec::Vec<LobbyEvent>,
     }
     /// LobbyEvent data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct LobbyEvent {
         /// The summonerId that triggered the event (Encrypted)
@@ -2071,7 +2071,7 @@ pub mod tournament_stub_v4 {
         pub timestamp: String,
     }
     /// ProviderRegistrationParameters data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct ProviderRegistrationParameters {
         /// The region in which the provider will be running tournaments.<br>
@@ -2083,7 +2083,7 @@ pub mod tournament_stub_v4 {
         pub url: String,
     }
     /// TournamentRegistrationParameters data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct TournamentRegistrationParameters {
         /// The provider ID to specify the regional registered provider data to associate this tournament.
@@ -2102,7 +2102,7 @@ pub mod tournament_stub_v4 {
 #[allow(dead_code)]
 pub mod tournament_v4 {
     /// TournamentCodeParameters data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct TournamentCodeParameters {
         /// Optional list of encrypted summonerIds in order to validate the players eligible to join the lobby. NOTE: We currently do not enforce participants at the team level, but rather the aggregate of teamOne and teamTwo. We may add the ability to enforce at the team level in the future.
@@ -2130,7 +2130,7 @@ pub mod tournament_v4 {
         pub spectator_type: String,
     }
     /// TournamentCode data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct TournamentCode {
         /// The tournament code.
@@ -2175,7 +2175,7 @@ pub mod tournament_v4 {
         pub participants: std::vec::Vec<String>,
     }
     /// TournamentCodeUpdateParameters data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct TournamentCodeUpdateParameters {
         /// Optional list of encrypted summonerIds in order to validate the players eligible to join the lobby. NOTE: We currently do not enforce participants at the team level, but rather the aggregate of teamOne and teamTwo. We may add the ability to enforce at the team level in the future.
@@ -2196,14 +2196,14 @@ pub mod tournament_v4 {
         pub spectator_type: String,
     }
     /// LobbyEventWrapper data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct LobbyEventWrapper {
         #[serde(rename = "eventList")]
         pub event_list: std::vec::Vec<LobbyEvent>,
     }
     /// LobbyEvent data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct LobbyEvent {
         /// Timestamp from the event
@@ -2217,7 +2217,7 @@ pub mod tournament_v4 {
         pub summoner_id: String,
     }
     /// ProviderRegistrationParameters data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct ProviderRegistrationParameters {
         /// The region in which the provider will be running tournaments.<br>
@@ -2229,7 +2229,7 @@ pub mod tournament_v4 {
         pub url: String,
     }
     /// TournamentRegistrationParameters data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct TournamentRegistrationParameters {
         /// The provider ID to specify the regional registered provider data to associate this tournament.
@@ -2248,7 +2248,7 @@ pub mod tournament_v4 {
 #[allow(dead_code)]
 pub mod val_content_v1 {
     /// Content data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Content {
         #[serde(rename = "version")]
@@ -2283,7 +2283,7 @@ pub mod val_content_v1 {
         pub acts: std::vec::Vec<Act>,
     }
     /// ContentItem data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct ContentItem {
         #[serde(rename = "name")]
@@ -2302,7 +2302,7 @@ pub mod val_content_v1 {
         pub asset_path: Option<String>,
     }
     /// LocalizedNames data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct LocalizedNames {
         #[serde(rename = "ar-AE")]
@@ -2345,7 +2345,7 @@ pub mod val_content_v1 {
         pub zh_tw: String,
     }
     /// Act data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Act {
         #[serde(rename = "name")]
@@ -2367,7 +2367,7 @@ pub mod val_content_v1 {
 #[allow(dead_code)]
 pub mod val_match_v1 {
     /// Match data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Match {
         #[serde(rename = "matchInfo")]
@@ -2382,7 +2382,7 @@ pub mod val_match_v1 {
         pub round_results: std::vec::Vec<RoundResult>,
     }
     /// MatchInfo data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MatchInfo {
         #[serde(rename = "matchId")]
@@ -2409,7 +2409,7 @@ pub mod val_match_v1 {
         pub season_id: String,
     }
     /// Player data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Player {
         #[serde(rename = "puuid")]
@@ -2434,7 +2434,7 @@ pub mod val_match_v1 {
         pub player_title: String,
     }
     /// PlayerStats data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct PlayerStats {
         #[serde(rename = "score")]
@@ -2453,7 +2453,7 @@ pub mod val_match_v1 {
         pub ability_casts: AbilityCasts,
     }
     /// AbilityCasts data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct AbilityCasts {
         #[serde(rename = "grenadeCasts")]
@@ -2466,7 +2466,7 @@ pub mod val_match_v1 {
         pub ultimate_casts: i32,
     }
     /// Coach data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Coach {
         #[serde(rename = "puuid")]
@@ -2475,7 +2475,7 @@ pub mod val_match_v1 {
         pub team_id: String,
     }
     /// Team data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Team {
         /// This is an arbitrary string. Red and Blue in bomb modes. The puuid of the player in deathmatch.
@@ -2492,7 +2492,7 @@ pub mod val_match_v1 {
         pub num_points: i32,
     }
     /// RoundResult data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct RoundResult {
         #[serde(rename = "roundNum")]
@@ -2529,7 +2529,7 @@ pub mod val_match_v1 {
         pub round_result_code: String,
     }
     /// PlayerLocations data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct PlayerLocations {
         #[serde(rename = "puuid")]
@@ -2540,7 +2540,7 @@ pub mod val_match_v1 {
         pub location: Location,
     }
     /// Location data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Location {
         #[serde(rename = "x")]
@@ -2549,7 +2549,7 @@ pub mod val_match_v1 {
         pub y: i32,
     }
     /// PlayerRoundStats data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct PlayerRoundStats {
         #[serde(rename = "puuid")]
@@ -2566,7 +2566,7 @@ pub mod val_match_v1 {
         pub ability: Ability,
     }
     /// Kill data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Kill {
         #[serde(rename = "timeSinceGameStartMillis")]
@@ -2590,7 +2590,7 @@ pub mod val_match_v1 {
         pub finishing_damage: FinishingDamage,
     }
     /// FinishingDamage data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct FinishingDamage {
         #[serde(rename = "damageType")]
@@ -2601,7 +2601,7 @@ pub mod val_match_v1 {
         pub is_secondary_fire_mode: bool,
     }
     /// Damage data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Damage {
         /// PUUID
@@ -2617,7 +2617,7 @@ pub mod val_match_v1 {
         pub headshots: i32,
     }
     /// Economy data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Economy {
         #[serde(rename = "loadoutValue")]
@@ -2632,7 +2632,7 @@ pub mod val_match_v1 {
         pub spent: i32,
     }
     /// Ability data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Ability {
         #[serde(rename = "grenadeEffects")]
@@ -2645,7 +2645,7 @@ pub mod val_match_v1 {
         pub ultimate_effects: String,
     }
     /// Matchlist data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Matchlist {
         #[serde(rename = "puuid")]
@@ -2654,7 +2654,7 @@ pub mod val_match_v1 {
         pub history: std::vec::Vec<MatchlistEntry>,
     }
     /// MatchlistEntry data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MatchlistEntry {
         #[serde(rename = "matchId")]
@@ -2665,7 +2665,7 @@ pub mod val_match_v1 {
         pub team_id: String,
     }
     /// RecentMatches data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct RecentMatches {
         #[serde(rename = "currentTime")]
@@ -2682,7 +2682,7 @@ pub mod val_match_v1 {
 #[allow(dead_code)]
 pub mod val_ranked_v1 {
     /// Leaderboard data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Leaderboard {
         /// The shard for the given leaderboard.
@@ -2698,7 +2698,7 @@ pub mod val_ranked_v1 {
         pub players: std::vec::Vec<Player>,
     }
     /// Player data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Player {
         /// This field may be omitted if the player has been anonymized.
@@ -2728,7 +2728,7 @@ pub mod val_ranked_v1 {
 #[allow(dead_code)]
 pub mod val_status_v1 {
     /// PlatformData data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct PlatformData {
         #[serde(rename = "id")]
@@ -2743,7 +2743,7 @@ pub mod val_status_v1 {
         pub incidents: std::vec::Vec<Status>,
     }
     /// Status data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Status {
         #[serde(rename = "id")]
@@ -2769,7 +2769,7 @@ pub mod val_status_v1 {
         pub platforms: std::vec::Vec<String>,
     }
     /// Content data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Content {
         #[serde(rename = "locale")]
@@ -2778,7 +2778,7 @@ pub mod val_status_v1 {
         pub content: String,
     }
     /// Update data object.
-    #[derive(Debug)]
+    #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct Update {
         #[serde(rename = "id")]
