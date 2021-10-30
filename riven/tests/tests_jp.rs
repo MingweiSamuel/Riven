@@ -16,7 +16,7 @@ async_tests!{
         // Summoner tests.
         summoner_get_kanjikana: async {
             let p = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, "私の 頭が かたい");
-            let s = p.await.map_err(|e| e.to_string())?.ok_or("Failed to get myheadhard".to_owned())?;
+            let s = p.await.map_err(|e| e.to_string())?.ok_or_else(|| "Failed to get myheadhard".to_owned())?;
             rassert_eq!("私の頭がかたい", s.name);
             Ok(())
         },
@@ -54,10 +54,10 @@ async_tests!{
         // // https://github.com/MingweiSamuel/Riven/issues/25
         // tft_league_getleagueentriesforsummoner: async {
         //     let sp = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, "Caihonbbt");
-        //     let sr = sp.await.map_err(|e| e.to_string())?.ok_or("Failed to get \"Caihonbbt\"".to_owned())?;
+        //     let sr = sp.await.map_err(|e| e.to_string())?.ok_or_else(|| "Failed to get \"Caihonbbt\"".to_owned())?;
         //     let lp = RIOT_API.tft_league_v1().get_league_entries_for_summoner(ROUTE, &sr.id);
         //     let lr = lp.await.map_err(|e| e.to_string())?;
-        //     rassert!(0 < lr.len());
+        //     rassert!(!lr.is_empty());
         //     Ok(())
         // },
         // tft-league-v1.getTopRatedLadder
@@ -65,7 +65,7 @@ async_tests!{
         tft_league_gettopratedladder: async {
             let lp = RIOT_API.tft_league_v1().get_top_rated_ladder(ROUTE, QueueType::RANKED_TFT_TURBO);
             let lr = lp.await.map_err(|e| e.to_string())?;
-            rassert!(0 < lr.len());
+            rassert!(!lr.is_empty());
             Ok(())
         },
     }

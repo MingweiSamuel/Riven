@@ -13,7 +13,7 @@
 //!
 //! Note: this modules is automatically generated.
 
-pub static ALL_ENDPOINTS: [(reqwest::Method, &'static str, &'static str); 70] = [
+pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 70] = [
     (reqwest::Method::GET, "/riot/account/v1/accounts/by-puuid/{puuid}", "account-v1.getByPuuid"),
     (reqwest::Method::GET, "/riot/account/v1/accounts/by-riot-id/{gameName}/{tagLine}", "account-v1.getByRiotId"),
     (reqwest::Method::GET, "/riot/account/v1/accounts/me", "account-v1.getByAccessToken"),

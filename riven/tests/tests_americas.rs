@@ -12,7 +12,7 @@ use riven::models::tournament_stub_v4::*;
 
 const ROUTE: RegionalRoute = RegionalRoute::AMERICAS;
 
-static MATCHES: [&'static str; 4] = [ "NA1_3923487226", "NA1_4049206905", "NA1_4052515784", "NA1_4062578191" ];
+static MATCHES: [&str; 4] = [ "NA1_3923487226", "NA1_4049206905", "NA1_4052515784", "NA1_4062578191" ];
 
 async_tests!{
     my_runner {

@@ -32,7 +32,7 @@ fn create_json_response(body: &'static str, status: StatusCode) -> Response<Body
     let mut resp = Response::new(Body::from(body));
     *resp.status_mut() = status;
     resp.headers_mut().insert(hyper::header::CONTENT_TYPE, HeaderValue::from_static("application/json"));
-    return resp;
+    resp
 }
 
 /// Main request handler service.
@@ -97,7 +97,7 @@ async fn handle_request(req: Request<Body>) -> Result<Response<Body>, Infallible
         };
         *out_response.body_mut() = Body::from((&bytes[..]).to_vec());
     }
-    return Ok(out_response);
+    Ok(out_response)
 }
 
 /// Gets the region, method_id, and Riot API path based on the given http method and path.
@@ -111,7 +111,7 @@ fn parse_path<'a>(http_method: &Method, req_path: &'a str) -> Option<( Route, &'
     // Find method_id for given path.
     let method_id = find_matching_method_id(http_method, req_path)?;
 
-    return Some(( route, method_id, req_path ))
+    Some(( route, method_id, req_path ))
 }
 
 /// Finds the method_id given the request path.

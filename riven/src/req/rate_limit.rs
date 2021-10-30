@@ -2,7 +2,7 @@ use std::cmp;
 use std::time::{ Duration, Instant };
 
 #[cfg(not(feature="tracing"))]
-use log;
+use log as log;
 #[cfg(feature="tracing")]
 use tracing as log;
 
@@ -45,7 +45,7 @@ impl RateLimit {
         let initial_bucket = VectorTokenBucket::new(
             Duration::from_secs(1), 1, Duration::new(0, 0), 1.0, 1.0);
         RateLimit {
-            rate_limit_type: rate_limit_type,
+            rate_limit_type,
             // Rate limit before getting from response: 1/s.
             buckets: RwLock::new(vec![initial_bucket]),
             retry_after: RwLock::new(None),
@@ -154,7 +154,7 @@ impl RateLimit {
                 .expect("Failed to parse retry-after header as f32.");
             // Add 0.5 seconds to account for rounding, cases when response is zero.
             let delay = Duration::from_secs_f32(0.5 + retry_after_secs);
-            return Some(Instant::now() + delay);
+            Some(Instant::now() + delay)
         }() {
             *self.retry_after.write() = Some(retry_after);
         }
@@ -188,11 +188,11 @@ impl RateLimit {
     }
 }
 
-fn buckets_require_updating(limit_header: &str, buckets: &Vec<VectorTokenBucket>) -> bool {
-    if buckets.len() != limit_header.split(",").count() {
+fn buckets_require_updating(limit_header: &str, buckets: &[VectorTokenBucket]) -> bool {
+    if buckets.len() != limit_header.split(',').count() {
         return true;
     }
-    for (limit_header_entry, bucket) in limit_header.split(",").zip(&*buckets) {
+    for (limit_header_entry, bucket) in limit_header.split(',').zip(buckets) {
         // limit_header_entry "100:60" means 100 req per 60 sec.
         let bucket_entry = format!("{}:{}", bucket.get_total_limit(), bucket.get_bucket_duration().as_secs());
         if limit_header_entry != bucket_entry {
@@ -205,11 +205,11 @@ fn buckets_require_updating(limit_header: &str, buckets: &Vec<VectorTokenBucket>
 fn buckets_from_header(config: &RiotApiConfig, limit_header: &str, count_header: &str, rate_limit_type: RateLimitType) -> Vec<VectorTokenBucket> {
     // Limits: "20000:10,1200000:600"
     // Counts: "7:10,58:600"
-    let size = limit_header.split(",").count();
-    debug_assert!(size == count_header.split(",").count());
+    let size = limit_header.split(',').count();
+    debug_assert!(size == count_header.split(',').count());
     let mut out = Vec::with_capacity(size);
 
-    for (limit_entry, count_entry) in limit_header.split(",").zip(count_header.split(",")) {
+    for (limit_entry, count_entry) in limit_header.split(',').zip(count_header.split(',')) {
         let (limit, limit_secs) = scan_fmt!(limit_entry, "{d}:{d}", usize, u64)
             .unwrap_or_else(|_| panic!("Failed to parse limit entry \"{}\".", limit_entry));
         let (count, count_secs) = scan_fmt!(count_entry, "{d}:{d}", usize, u64)

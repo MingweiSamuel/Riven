@@ -59,7 +59,7 @@ pub fn non_apex_iter() -> Iter {
         tier_iter.next();
     }
     Iter {
-        tier_iter: tier_iter,
+        tier_iter,
         div_iter: Division::iter(),
     }
 }

@@ -2,7 +2,7 @@ use std::future::Future;
 use std::sync::Arc;
 
 #[cfg(not(feature="tracing"))]
-use log;
+use log as log;
 #[cfg(feature="tracing")]
 use tracing as log;
 #[cfg(feature = "tracing")]
@@ -69,8 +69,8 @@ impl RegionalRequester {
                     .map_err(|e| RiotApiError::new(e, retries, None, None))?;
 
                 // Maybe update rate limits (based on response headers).
-                self.app_rate_limit.on_response(&config, &response);
-                method_rate_limit.on_response(&config, &response);
+                self.app_rate_limit.on_response(config, &response);
+                method_rate_limit.on_response(config, &response);
 
                 let status = response.status();
                 // Handle normal success / failure cases.
@@ -79,9 +79,9 @@ impl RegionalRequester {
                 if status.is_success() || status_none {
                     log::trace!("Response {} (retried {} times), success, returning result.", status, retries);
                     break Ok(ResponseInfo {
-                        response: response,
-                        retries: retries,
-                        status_none: status_none,
+                        response,
+                        retries,
+                        status_none,
                     });
                 }
                 let err = response.error_for_status_ref().err().unwrap_or_else(

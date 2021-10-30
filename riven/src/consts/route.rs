@@ -192,11 +192,11 @@ impl num_enum::TryFromPrimitive for Route {
 
     fn try_from_primitive(number: Self::Primitive) -> Result<Self, num_enum::TryFromPrimitiveError<Self>> {
         RegionalRoute::try_from_primitive(number)
-            .map(|r| Route::Regional(r))
+            .map(Route::Regional)
             .or_else(|_| PlatformRoute::try_from_primitive(number)
-                .map(|r| Route::Platform(r)))
+                .map(Route::Platform))
             .or_else(|_| ValPlatformRoute::try_from_primitive(number)
-                .map(|r| Route::ValPlatform(r)))
+                .map(Route::ValPlatform))
             .map_err(|_| num_enum::TryFromPrimitiveError { number })
     }
 }
@@ -222,11 +222,11 @@ impl std::str::FromStr for Route {
     type Err = strum::ParseError;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         RegionalRoute::from_str(s)
-            .map(|r| Self::Regional(r))
+            .map(Self::Regional)
             .or_else(|_| PlatformRoute::from_str(s)
-                .map(|r| Self::Platform(r)))
+                .map(Self::Platform))
             .or_else(|_| ValPlatformRoute::from_str(s)
-                .map(|r| Self::ValPlatform(r)))
+                .map(Self::ValPlatform))
             .map_err(|_| strum::ParseError::VariantNotFound)
     }
 }
@@ -236,11 +236,11 @@ impl Route {
         use strum::IntoEnumIterator;
 
         let regional = RegionalRoute::iter()
-            .map(|r| Self::Regional(r));
+            .map(Self::Regional);
         let platform = PlatformRoute::iter()
-            .map(|r| Self::Platform(r));
+            .map(Self::Platform);
         let val_platform = ValPlatformRoute::iter()
-            .map(|r| Self::ValPlatform(r));
+            .map(Self::ValPlatform);
 
         regional
             .chain(platform)

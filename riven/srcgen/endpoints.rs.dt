@@ -7,6 +7,7 @@
 // Version {{= spec.info.version }}
 
 //! Automatically generated endpoint handles.
+#![allow(clippy::let_and_return, clippy::too_many_arguments)]
 
 use crate::models::*;
 

@@ -2,7 +2,7 @@ use std::future::Future;
 use std::sync::Arc;
 
 #[cfg(not(feature="tracing"))]
-use log;
+use log as log;
 #[cfg(feature="tracing")]
 use tracing as log;
 
@@ -62,7 +62,7 @@ impl RiotApi {
         let client_builder = config.client_builder.take()
             .expect("CLIENT_BUILDER IN CONFIG SHOULD NOT BE NONE.");
         Self {
-            config: config,
+            config,
             client: client_builder.build().expect("Failed to create client from builder."),
             regional_requesters: InsertOnlyCHashMap::new(),
         }

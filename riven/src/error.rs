@@ -20,10 +20,10 @@ pub struct RiotApiError {
 impl RiotApiError {
     pub(crate) fn new(reqwest_error: Error, retries: u8, response: Option<Response>, status_code: Option<StatusCode>) -> Self {
         Self {
-            reqwest_error: reqwest_error,
-            retries: retries,
-            response: response,
-            status_code: status_code,
+            reqwest_error,
+            retries,
+            response,
+            status_code,
         }
     }
     /// The reqwest::Error for the final failed request.

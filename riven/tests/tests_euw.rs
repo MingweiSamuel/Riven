@@ -16,16 +16,16 @@ async_tests!{
         // Champion Mastery tests.
         championmastery_getscore_ma5tery: async {
             let sum = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, "ma5tery");
-            let sum = sum.await.map_err(|e| e.to_string())?.ok_or("Failed to get summoner".to_owned())?;
+            let sum = sum.await.map_err(|e| e.to_string())?.ok_or_else(|| "Failed to get summoner".to_owned())?;
 
             let p = RIOT_API.champion_mastery_v4().get_champion_mastery_score(ROUTE, &*sum.id);
             let s = p.await.map_err(|e| e.to_string())?;
-            rassert!(969 <= s && s <= 1000, "Unexpected ma5tery score: {}.", s);
+            rassert!((969..=1000).contains(&s), "Unexpected ma5tery score: {}.", s);
             Ok(())
         },
         championmastery_getall_ma5tery: async {
             let sum = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, "ma5tery");
-            let sum = sum.await.map_err(|e| e.to_string())?.ok_or("Failed to get summoner".to_owned())?;
+            let sum = sum.await.map_err(|e| e.to_string())?.ok_or_else(|| "Failed to get summoner".to_owned())?;
 
             let p = RIOT_API.champion_mastery_v4().get_all_champion_masteries(ROUTE, &*sum.id);
             let s = p.await.map_err(|e| e.to_string())?;
@@ -36,11 +36,11 @@ async_tests!{
             let featured_p = RIOT_API.spectator_v4().get_featured_games(ROUTE);
             let featured = featured_p.await.map_err(|e| e.to_string())?;
 
-            rassert!(featured.game_list.len() > 0);
+            rassert!(!featured.game_list.is_empty());
 
             let summoner_name = &featured.game_list[0].participants[0].summoner_name;
             let summoner_p = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, summoner_name);
-            let summoner = summoner_p.await.map_err(|e| e.to_string())?.ok_or("Failed to get summoner".to_owned())?;
+            let summoner = summoner_p.await.map_err(|e| e.to_string())?.ok_or_else(|| "Failed to get summoner".to_owned())?;
 
             let livegame_p = RIOT_API.spectator_v4().get_current_game_info_by_summoner(ROUTE, &summoner.id);
             let livegame_o = livegame_p.await.map_err(|e| e.to_string())?;

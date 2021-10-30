@@ -25,8 +25,8 @@ async_tests!{
         summoner_double: async {
             let l1p = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, "lug nuts k");
             let l2p = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, "lugnuts k");
-            let l1 = l1p.await.map_err(|e| e.to_string())?.ok_or("Failed to get l1".to_owned())?;
-            let l2 = l2p.await.map_err(|e| e.to_string())?.ok_or("Failed to get l2".to_owned())?;
+            let l1 = l1p.await.map_err(|e| e.to_string())?.ok_or_else(|| "Failed to get l1".to_owned())?;
+            let l2 = l2p.await.map_err(|e| e.to_string())?.ok_or_else(|| "Failed to get l2".to_owned())?;
             validate_summoners(l1, l2)?;
             Ok(())
         },

@@ -11,7 +11,7 @@ use riven::consts::*;
 
 const ROUTE: RegionalRoute = RegionalRoute::ASIA;
 
-static MATCHES: [&'static str; 1] = [ "KR_5495121707" ];
+static MATCHES: [&str; 1] = [ "KR_5495121707" ];
 
 async_tests!{
     my_runner {

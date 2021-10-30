@@ -10,6 +10,7 @@
 // Version 309704e3979855858e36430b178e507e48702059
 
 //! Automatically generated endpoint handles.
+#![allow(clippy::let_and_return, clippy::too_many_arguments)]
 
 use crate::models::*;
 

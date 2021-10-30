@@ -108,7 +108,7 @@ impl VectorTokenBucket {
         while timestamps.back().map_or(false, |ts| *ts < cutoff) {
             timestamps.pop_back();
         }
-        return timestamps;
+        timestamps
     }
 }
 
@@ -159,7 +159,7 @@ impl TokenBucket for VectorTokenBucket {
             }
         }
 
-        return true;
+        true
     }
 
     fn get_bucket_duration(&self) -> Duration {
