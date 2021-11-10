@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 309704e3979855858e36430b178e507e48702059
+// Version f7d7b8c90243fcb043ffe81c5b08b0925be83bdf
 
 //! Data transfer structs.
 //!
@@ -1236,7 +1236,8 @@ pub mod match_v5 {
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct MatchTimelineInfoFrameParticipantFrameChampionStats {
         #[serde(rename = "abilityHaste")]
-        pub ability_haste: i32,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub ability_haste: Option<i32>,
         #[serde(rename = "abilityPower")]
         pub ability_power: i32,
         #[serde(rename = "armor")]
@@ -1274,9 +1275,11 @@ pub mod match_v5 {
         #[serde(rename = "movementSpeed")]
         pub movement_speed: i32,
         #[serde(rename = "omnivamp")]
-        pub omnivamp: i32,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub omnivamp: Option<i32>,
         #[serde(rename = "physicalVamp")]
-        pub physical_vamp: i32,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub physical_vamp: Option<i32>,
         #[serde(rename = "power")]
         pub power: i32,
         #[serde(rename = "powerMax")]
@@ -1430,9 +1433,11 @@ pub mod match_v5 {
         #[serde(rename = "frames")]
         pub frames: std::vec::Vec<MatchTimelineInfoFrame>,
         #[serde(rename = "gameId")]
-        pub game_id: i64,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub game_id: Option<i64>,
         #[serde(rename = "participants")]
-        pub participants: std::vec::Vec<MatchTimelineInfoParticipant>,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub participants: Option<std::vec::Vec<MatchTimelineInfoParticipant>>,
     }
 }
 
