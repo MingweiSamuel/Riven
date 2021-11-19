@@ -16,6 +16,8 @@ pub enum QueueType {
     RANKED_TFT,
     // Ranked Teamfight Tactics, Hyper Roll gamemode.
     RANKED_TFT_TURBO,
+    // Ranked Teamfight Tactics, Double Up gamemode.
+    RANKED_TFT_PAIRS
 }
 
 serde_string!(QueueType);
