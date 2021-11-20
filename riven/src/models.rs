@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version f7d7b8c90243fcb043ffe81c5b08b0925be83bdf
+// Version 5998519c2eb30a8c3f88edf1dcf88e2c6f091ba1
 
 //! Data transfer structs.
 //!
@@ -312,7 +312,8 @@ pub mod league_v4 {
     #[derive(serde::Serialize, serde::Deserialize)]
     pub struct LeagueEntry {
         #[serde(rename = "leagueId")]
-        pub league_id: String,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub league_id: Option<String>,
         /// Player's encrypted summonerId.
         #[serde(rename = "summonerId")]
         pub summoner_id: String,
@@ -321,10 +322,12 @@ pub mod league_v4 {
         #[serde(rename = "queueType")]
         pub queue_type: crate::consts::QueueType,
         #[serde(rename = "tier")]
-        pub tier: crate::consts::Tier,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub tier: Option<crate::consts::Tier>,
         /// The player's division within a tier.
         #[serde(rename = "rank")]
-        pub rank: crate::consts::Division,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub rank: Option<crate::consts::Division>,
         #[serde(rename = "leaguePoints")]
         pub league_points: i32,
         /// Winning team on Summoners Rift.

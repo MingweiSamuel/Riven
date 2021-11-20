@@ -53,7 +53,8 @@ async_tests!{
             let summoner = summoner_fut.await.map_err(|e| e.to_string())?.ok_or_else(|| "Failed to get \"TheNicoNi\"".to_owned())?;
             let league_fut = RIOT_API.league_v4().get_league_entries_for_summoner(ROUTE, &*summoner.id);
             let league = league_fut.await.map_err(|e| e.to_string())?;
-            let _ = league;
+            rassert_eq!(1, league.len()); // BRITTLE!
+            rassert_eq!(league[0].queue_type, QueueType::RANKED_TFT_PAIRS);
             Ok(())
         },
 
