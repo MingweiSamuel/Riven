@@ -47,6 +47,15 @@ async_tests!{
             rassert!(!d.is_empty(), "Challenger shouldn't be empty.");
             Ok(())
         },
+        // TO TEST THIS BUG: https://github.com/RiotGames/developer-relations/issues/572.
+        league_getforsummoner_tftbug: async {
+            let summoner_fut = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, "TheNicoNi");
+            let summoner = summoner_fut.await.map_err(|e| e.to_string())?.ok_or_else(|| "Failed to get \"TheNicoNi\"".to_owned())?;
+            let league_fut = RIOT_API.league_v4().get_league_entries_for_summoner(ROUTE, &*summoner.id);
+            let league = league_fut.await.map_err(|e| e.to_string())?;
+            let _ = league;
+            Ok(())
+        },
 
         // TODO: MATCH-V4 REMOVED.
         // matchlist_get: async {
