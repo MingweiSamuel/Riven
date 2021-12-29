@@ -44,7 +44,7 @@ use crate::util::InsertOnlyCHashMap;
 /// of your rate limit without triggering 429 errors.
 ///
 /// To adjust rate limiting, see [RiotApiConfig] and use
-/// [`with_config(config)`](RiotApi::with_config) to construct an instance.
+/// [`RiotApi::new(config)`](RiotApi::new) to construct an instance.
 pub struct RiotApi {
     /// Configuration settings.
     config: RiotApiConfig,
