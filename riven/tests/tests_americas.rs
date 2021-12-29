@@ -12,7 +12,7 @@ use riven::models::tournament_stub_v4::*;
 
 const ROUTE: RegionalRoute = RegionalRoute::AMERICAS;
 
-static MATCHES: [&str; 5] = [
+static MATCHES: &[&str] = &[
     "NA1_3923487226",
     "NA1_4049206905",
     "NA1_4052515784",
@@ -69,27 +69,10 @@ async_tests!{
         },
 
         match_v5_get: async {
-            for matche in MATCHES {
-                let p = RIOT_API.match_v5().get_match(ROUTE, matche);
-                let m = p.await.map_err(|e| format!("Failed to get match {}: {:?}", matche, e))?.ok_or(format!("Match {} not found.", matche))?;
-                rassert_eq!(matche, m.metadata.match_id, "Bad match id? Sent {}, received {}.", matche, m.metadata.match_id);
-                rassert!(!m.metadata.participants.is_empty(), "Match should have participants.");
-                rassert!(!m.info.teams.is_empty(), "Match should have teams.");
-            }
-            Ok(())
+            match_v5_get(ROUTE, MATCHES).await
         },
         match_v5_get_timeline: async {
-            for matche in MATCHES {
-                let p = RIOT_API.match_v5().get_timeline(ROUTE, matche);
-                let m = p.await.map_err(|e| format!("Failed to get match {}: {:?}", matche, e))?.ok_or(format!("Match {} not found.", matche))?;
-                rassert_eq!(matche, m.metadata.match_id, "Bad match id? Sent {}, received {}.", matche, m.metadata.match_id);
-                rassert!(!m.metadata.participants.is_empty(), "Match should have participants.");
-                if let Some(game_id) = m.info.game_id {
-                    rassert_eq!(matche[(matche.find('_').unwrap() + 1)..], format!("{}", game_id), "Match number ID should match.");
-                }
-                rassert!(!m.info.frames.is_empty(), "Match timleine should have frames.");
-            }
-            Ok(())
+            match_v5_get_timeline(ROUTE, MATCHES).await
         },
     }
 }

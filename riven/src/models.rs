@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 5998519c2eb30a8c3f88edf1dcf88e2c6f091ba1
+// Version 517bb1adbfb393d65b8829b208ebe331bb6e73dc
 
 //! Data transfer structs.
 //!
@@ -831,7 +831,8 @@ pub mod match_v5 {
         #[serde(rename = "consumablesPurchased")]
         pub consumables_purchased: i32,
         #[serde(rename = "damageDealtToBuildings")]
-        pub damage_dealt_to_buildings: i32,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub damage_dealt_to_buildings: Option<i32>,
         #[serde(rename = "damageDealtToObjectives")]
         pub damage_dealt_to_objectives: i32,
         #[serde(rename = "damageDealtToTurrets")]
@@ -871,7 +872,8 @@ pub mod match_v5 {
         #[serde(skip_serializing_if = "Option::is_none")]
         pub inhibitor_takedowns: Option<i32>,
         #[serde(rename = "inhibitorsLost")]
-        pub inhibitors_lost: i32,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub inhibitors_lost: Option<i32>,
         #[serde(rename = "item0")]
         pub item0: i32,
         #[serde(rename = "item1")]
@@ -916,7 +918,8 @@ pub mod match_v5 {
         #[serde(skip_serializing_if = "Option::is_none")]
         pub nexus_takedowns: Option<i32>,
         #[serde(rename = "nexusLost")]
-        pub nexus_lost: i32,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub nexus_lost: Option<i32>,
         #[serde(rename = "objectivesStolen")]
         pub objectives_stolen: i32,
         #[serde(rename = "objectivesStolenAssists")]
@@ -1014,7 +1017,8 @@ pub mod match_v5 {
         #[serde(skip_serializing_if = "Option::is_none")]
         pub turret_takedowns: Option<i32>,
         #[serde(rename = "turretsLost")]
-        pub turrets_lost: i32,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub turrets_lost: Option<i32>,
         #[serde(rename = "unrealKills")]
         pub unreal_kills: i32,
         #[serde(rename = "visionScore")]
