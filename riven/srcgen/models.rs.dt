@@ -59,6 +59,9 @@ pub mod {{= dotUtils.changeCase.snakeCase(endpoint) }} {
         #[serde(skip_serializing_if = "Option::is_none")]
 {{?}}
 {{? 'championId' === propKey && (prop.description || '').includes('this field returned invalid championIds') }}
+        ///
+        /// Instead use [`Self::champion()`] which checks this field then parses [`Self::champion_name`].
+        #[deprecated(since = "2.5.0", note = "Use `Participant.champion()` instead. Riot sometimes returns corrupted data for this field: https://github.com/RiotGames/developer-relations/issues/553")]
         #[serde(serialize_with = "crate::consts::Champion::serialize_result")]
         #[serde(deserialize_with = "crate::consts::Champion::deserialize_result")]
         pub {{= name }}: Result<crate::consts::Champion, std::num::TryFromIntError>,

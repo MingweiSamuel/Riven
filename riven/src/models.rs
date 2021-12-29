@@ -820,6 +820,9 @@ pub mod match_v5 {
         pub champ_level: i32,
         /// Prior to patch 11.4, on Feb 18th, 2021, this field returned invalid championIds. We recommend determining the champion based on the championName field for matches played prior to patch 11.4.
         #[serde(rename = "championId")]
+        ///
+        /// Instead use [`Self::champion()`] which checks this field then parses [`Self::champion_name`].
+        #[deprecated(since = "2.5.0", note = "Use `Participant.champion()` instead. Riot sometimes returns corrupted data for this field: https://github.com/RiotGames/developer-relations/issues/553")]
         #[serde(serialize_with = "crate::consts::Champion::serialize_result")]
         #[serde(deserialize_with = "crate::consts::Champion::deserialize_result")]
         pub champion_id: Result<crate::consts::Champion, std::num::TryFromIntError>,
