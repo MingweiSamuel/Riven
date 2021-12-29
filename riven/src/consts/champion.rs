@@ -6,8 +6,6 @@
 //                                           //
 ///////////////////////////////////////////////
 
-use serde::{ Serialize, Deserialize };
-
 newtype_enum! {
     /// A League of Legends champion.
     ///
@@ -174,7 +172,7 @@ newtype_enum! {
     /// `ZILEAN` | "Zilean" | "Zilean" | 26
     /// `ZOE` | "Zoe" | "Zoe" | 142
     /// `ZYRA` | "Zyra" | "Zyra" | 143
-    #[derive(Serialize, Deserialize)]
+    #[derive(serde::Serialize, serde::Deserialize)]
     #[serde(transparent)]
     pub newtype_enum Champion(i16) {
         /// `266`.
@@ -836,6 +834,29 @@ impl Champion {
             Self::ZYRA         => Some("Zyra"),
             _ => None,
         }
+    }
+
+    /// https://github.com/MingweiSamuel/Riven/issues/36
+    pub(crate) fn serialize_result<S>(
+        val: &Result<Self, std::num::TryFromIntError>,
+        serializer: S,
+    ) -> Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::Serialize;
+        val.unwrap_or(Champion(-1)).serialize(serializer)
+    }
+
+    /// https://github.com/MingweiSamuel/Riven/issues/36
+    pub(crate) fn deserialize_result<'de, D>(
+        deserializer: D,
+    ) -> Result<Result<Self, std::num::TryFromIntError>, D::Error>
+    where
+        D: serde::de::Deserializer<'de>,
+    {
+        use std::convert::TryInto;
+        <i64 as serde::de::Deserialize>::deserialize(deserializer).map(|id| id.try_into().map(Self))
     }
 }
 

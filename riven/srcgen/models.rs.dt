@@ -49,16 +49,22 @@ pub mod {{= dotUtils.changeCase.snakeCase(endpoint) }} {
             for (let [ propKey, prop ] of Object.entries(props))
             {
                 const name = dotUtils.normalizePropName(propKey);
-                const required = requiredSet.has(propKey);
+                const optional = !requiredSet.has(propKey);
 }}
 {{? prop.description }}
         /// {{= prop.description.split('\n').map(x => x.trim()).join('<br>\r\n        /// ') }}
 {{?}}
         {{= dotUtils.formatJsonProperty(propKey) }}
-{{? !required }}
+{{? optional }}
         #[serde(skip_serializing_if = "Option::is_none")]
 {{?}}
-        pub {{= name }}: {{= dotUtils.stringifyType(prop, { optional: !required }) }},
+{{? 'championId' === propKey && (prop.description || '').includes('this field returned invalid championIds') }}
+        #[serde(serialize_with = "crate::consts::Champion::serialize_result")]
+        #[serde(deserialize_with = "crate::consts::Champion::deserialize_result")]
+        pub {{= name }}: Result<crate::consts::Champion, std::num::TryFromIntError>,
+{{??}}
+        pub {{= name }}: {{= dotUtils.stringifyType(prop, { optional }) }},
+{{?}}
 {{
             }
 }}

@@ -820,7 +820,9 @@ pub mod match_v5 {
         pub champ_level: i32,
         /// Prior to patch 11.4, on Feb 18th, 2021, this field returned invalid championIds. We recommend determining the champion based on the championName field for matches played prior to patch 11.4.
         #[serde(rename = "championId")]
-        pub champion_id: crate::consts::Champion,
+        #[serde(serialize_with = "crate::consts::Champion::serialize_result")]
+        #[serde(deserialize_with = "crate::consts::Champion::deserialize_result")]
+        pub champion_id: Result<crate::consts::Champion, std::num::TryFromIntError>,
         #[serde(rename = "championName")]
         pub champion_name: String,
         /// This field is currently only utilized for Kayn's transformations. (Legal values: 0 - None, 1 - Slayer, 2 - Assassin)
