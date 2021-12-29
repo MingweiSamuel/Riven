@@ -1,4 +1,3 @@
-use std::error::Error as StdError;
 use std::fmt;
 
 use reqwest::{ Error, Response, StatusCode };
@@ -58,8 +57,8 @@ impl fmt::Display for RiotApiError {
         write!(f, "{:#?}", self)
     }
 }
-impl StdError for RiotApiError {
-    fn source(&self) -> Option<&(dyn StdError + 'static)> {
+impl std::error::Error for RiotApiError {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         Some(&self.reqwest_error)
     }
 }

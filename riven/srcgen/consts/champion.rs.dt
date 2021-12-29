@@ -6,14 +6,6 @@
 
     const constName = name => dotUtils.changeCase.constantCase(name).replace(/[^_A-Z0-9]+/g, '');
     const constNamePad = 12;
-
-    const hashFactor = 256;
-    const strHash = (str) => {
-        let h = 0;
-        for (const c of str)
-            h = hashFactor * h + c.charCodeAt(0);
-        return h;
-    };
 }}{{= dotUtils.preamble() }}
 
 newtype_enum! {
@@ -115,14 +107,27 @@ impl Champion {
     }
 }
 
+#[derive(Debug)]
+pub struct ParseChampionError([char; 4]);
+impl std::fmt::Display for ParseChampionError {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        let s: String = self.0.iter().copied().take_while(|&c| '\0' != c).collect();
+        write!(f, "Failed to parse unknown champion prefix: {:?}", s)
+    }
+}
+impl std::error::Error for ParseChampionError {}
+
 impl std::str::FromStr for Champion {
-    type Err = ();
+    type Err = ParseChampionError;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        match s.chars()
+        let mut chars = ['\0'; 4];
+        s.chars()
             .take(4)
             .filter(|c| c.is_ascii_alphanumeric())
-            .fold(0_u32, |hash, next| hash * {{= hashFactor }} + u32::from(next))
-        {
+            .map(|c| c.to_ascii_uppercase())
+            .enumerate()
+            .for_each(|(i, c)| chars[i] = c);
+        match chars {
 {{
     const keyStrings = (name, alias) => new Set([].concat(...[ name, alias ].map(s => s.toUpperCase())
         .map(s => [
@@ -132,13 +137,16 @@ impl std::str::FromStr for Champion {
         ])));
     for (const { id, alias, name } of champions) {
         for (const prefix of keyStrings(name, alias)) {
+            const chars = Object.assign(Array(4).fill('\\0'), Array.from(prefix))
+                .map(c => `'${c}'`)
+                .map(c => c.padStart(4));
 }}
-            0x{{= strHash(prefix).toString(16).padEnd(8) }} /* {{= prefix.padEnd(4) }} */ => Ok(Champion::{{= constName(name) }}),
+            /* {{= prefix.padEnd(4) }} */ [{{= chars.join(', ') }}] => Ok(Champion::{{= constName(name) }}),
 {{
         }
     }
 }}
-            _ => Err(()),
+            unknown => Err(ParseChampionError(unknown)),
         }
     }
 }

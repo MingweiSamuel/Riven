@@ -40,6 +40,12 @@ pub async fn match_v5_get(route: RegionalRoute, matches: &[&'static str]) -> Res
         if m.metadata.participants.is_empty() {
             return Err("Match should have participants.".to_owned());
         }
+        if m.metadata.participants.len() != m.info.participants.len() {
+            return Err("Match participants do not line up with participant UUIDs.".to_owned());
+        }
+        for participant in &m.info.participants {
+            participant.champion().map_err(|e| format!("Failed to determine champion: {}", e))?;
+        }
         if m.info.teams.is_empty() {
             return Err("Match should have teams.".to_owned());
         }
