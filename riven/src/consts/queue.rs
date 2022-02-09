@@ -183,7 +183,7 @@ newtype_enum! {
         /// ARURF games on Summoner's Rift
         /// Deprecated in patch 7.19 in favor of queueId 900
         #[deprecated(note="Deprecated in patch 7.19 in favor of queueId 900")]
-        SUMMONERS_RIFT_ARURF = 318,
+        SUMMONERS_RIFT_ARURF_DEPRECATED_318 = 318,
         /// `325`.
         /// All Random games on Summoner's Rift
         SUMMONERS_RIFT_ALL_RANDOM = 325,
@@ -249,8 +249,8 @@ newtype_enum! {
         /// Co-op vs. AI Intermediate Bot games on Summoner's Rift
         SUMMONERS_RIFT_CO_OP_VS_AI_INTERMEDIATE_BOT = 850,
         /// `900`.
-        /// URF games on Summoner's Rift
-        SUMMONERS_RIFT_URF = 900,
+        /// ARURF games on Summoner's Rift
+        SUMMONERS_RIFT_ARURF = 900,
         /// `910`.
         /// Ascension games on Crystal Scar
         CRYSTAL_SCAR_ASCENSION = 910,
@@ -331,6 +331,9 @@ newtype_enum! {
         /// `1400`.
         /// Ultimate Spellbook games on Summoner's Rift
         SUMMONERS_RIFT_ULTIMATE_SPELLBOOK = 1400,
+        /// `1900`.
+        /// Pick URF games on Summoner's Rift
+        SUMMONERS_RIFT_PICK_URF = 1900,
         /// `2000`.
         /// Tutorial 1 games on Summoner's Rift
         SUMMONERS_RIFT_TUTORIAL_1 = 2000,

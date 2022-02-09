@@ -112,6 +112,7 @@ newtype_enum! {
     /// `RAMMUS` | "Rammus" | "Rammus" | 33
     /// `REK_SAI` | "Rek'Sai" | "RekSai" | 421
     /// `RELL` | "Rell" | "Rell" | 526
+    /// `RENATA_GLASC` | "Renata Glasc" | "Renata" | 888
     /// `RENEKTON` | "Renekton" | "Renekton" | 58
     /// `RENGAR` | "Rengar" | "Rengar" | 107
     /// `RIVEN` | "Riven" | "Riven" | 92
@@ -168,6 +169,7 @@ newtype_enum! {
     /// `YUUMI` | "Yuumi" | "Yuumi" | 350
     /// `ZAC` | "Zac" | "Zac" | 154
     /// `ZED` | "Zed" | "Zed" | 238
+    /// `ZERI` | "Zeri" | "Zeri" | 221
     /// `ZIGGS` | "Ziggs" | "Ziggs" | 115
     /// `ZILEAN` | "Zilean" | "Zilean" | 26
     /// `ZOE` | "Zoe" | "Zoe" | 142
@@ -369,6 +371,8 @@ newtype_enum! {
         REK_SAI = 421,
         /// `526`.
         RELL = 526,
+        /// `888`.
+        RENATA_GLASC = 888,
         /// `58`.
         RENEKTON = 58,
         /// `107`.
@@ -481,6 +485,8 @@ newtype_enum! {
         ZAC = 154,
         /// `238`.
         ZED = 238,
+        /// `221`.
+        ZERI = 221,
         /// `115`.
         ZIGGS = 115,
         /// `26`.
@@ -593,6 +599,7 @@ impl Champion {
             Self::RAMMUS       => Some("Rammus"),
             Self::REK_SAI      => Some("Rek'Sai"),
             Self::RELL         => Some("Rell"),
+            Self::RENATA_GLASC => Some("Renata Glasc"),
             Self::RENEKTON     => Some("Renekton"),
             Self::RENGAR       => Some("Rengar"),
             Self::RIVEN        => Some("Riven"),
@@ -649,6 +656,7 @@ impl Champion {
             Self::YUUMI        => Some("Yuumi"),
             Self::ZAC          => Some("Zac"),
             Self::ZED          => Some("Zed"),
+            Self::ZERI         => Some("Zeri"),
             Self::ZIGGS        => Some("Ziggs"),
             Self::ZILEAN       => Some("Zilean"),
             Self::ZOE          => Some("Zoe"),
@@ -671,6 +679,7 @@ impl Champion {
     /// `KHA_ZIX` | "Kha'Zix" | "Khazix" | 121
     /// `LE_BLANC` | "LeBlanc" | "Leblanc" | 7
     /// `NUNU_WILLUMP` | "Nunu & Willump" | "Nunu" | 20
+    /// `RENATA_GLASC` | "Renata Glasc" | "Renata" | 888
     /// `VEL_KOZ` | "Vel'Koz" | "Velkoz" | 161
     /// `WUKONG` | "Wukong" | "MonkeyKing" | 62
     pub const fn identifier(self) -> Option<&'static str> {
@@ -772,6 +781,7 @@ impl Champion {
             Self::RAMMUS       => Some("Rammus"),
             Self::REK_SAI      => Some("RekSai"),
             Self::RELL         => Some("Rell"),
+            Self::RENATA_GLASC => Some("Renata"),
             Self::RENEKTON     => Some("Renekton"),
             Self::RENGAR       => Some("Rengar"),
             Self::RIVEN        => Some("Riven"),
@@ -828,6 +838,7 @@ impl Champion {
             Self::YUUMI        => Some("Yuumi"),
             Self::ZAC          => Some("Zac"),
             Self::ZED          => Some("Zed"),
+            Self::ZERI         => Some("Zeri"),
             Self::ZIGGS        => Some("Ziggs"),
             Self::ZILEAN       => Some("Zilean"),
             Self::ZOE          => Some("Zoe"),
@@ -985,6 +996,7 @@ impl std::str::FromStr for Champion {
             /* REKS */ [ 'R',  'E',  'K',  'S'] => Ok(Champion::REK_SAI),
             /* REK  */ [ 'R',  'E',  'K', '\0'] => Ok(Champion::REK_SAI),
             /* RELL */ [ 'R',  'E',  'L',  'L'] => Ok(Champion::RELL),
+            /* RENA */ [ 'R',  'E',  'N',  'A'] => Ok(Champion::RENATA_GLASC),
             /* RENE */ [ 'R',  'E',  'N',  'E'] => Ok(Champion::RENEKTON),
             /* RENG */ [ 'R',  'E',  'N',  'G'] => Ok(Champion::RENGAR),
             /* RIVE */ [ 'R',  'I',  'V',  'E'] => Ok(Champion::RIVEN),
@@ -1044,6 +1056,7 @@ impl std::str::FromStr for Champion {
             /* YUUM */ [ 'Y',  'U',  'U',  'M'] => Ok(Champion::YUUMI),
             /* ZAC  */ [ 'Z',  'A',  'C', '\0'] => Ok(Champion::ZAC),
             /* ZED  */ [ 'Z',  'E',  'D', '\0'] => Ok(Champion::ZED),
+            /* ZERI */ [ 'Z',  'E',  'R',  'I'] => Ok(Champion::ZERI),
             /* ZIGG */ [ 'Z',  'I',  'G',  'G'] => Ok(Champion::ZIGGS),
             /* ZILE */ [ 'Z',  'I',  'L',  'E'] => Ok(Champion::ZILEAN),
             /* ZOE  */ [ 'Z',  'O',  'E', '\0'] => Ok(Champion::ZOE),
