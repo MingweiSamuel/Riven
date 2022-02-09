@@ -1,6 +1,7 @@
 use std::cmp::Ordering;
 
 use num_enum::{ IntoPrimitive, TryFromPrimitive };
+use serde::{ Serialize, Deserialize };
 use strum::IntoEnumIterator;
 use strum_macros::{ EnumString, Display, AsRefStr, IntoStaticStr };
 
@@ -15,6 +16,7 @@ use strum_macros::{ EnumString, Display, AsRefStr, IntoStaticStr };
 #[derive(Eq, PartialEq, Hash)]
 #[derive(EnumString, Display, AsRefStr, IntoStaticStr)]
 #[derive(IntoPrimitive, TryFromPrimitive)]
+#[derive(Serialize, Deserialize)]
 #[repr(u8)]
 pub enum Division {
     /// Division 1, the best/highest division in a [`Tier`](crate::consts::Tier), or the only division in
@@ -30,8 +32,6 @@ pub enum Division {
     #[deprecated(note="Removed for 2019.")]
     V   = 5,
 }
-
-serde_string!(Division);
 
 /// Returns a DoubleEndedIterator of I, II, III, IV.
 /// Ordered from high rank (I) to low (IV).

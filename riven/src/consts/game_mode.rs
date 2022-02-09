@@ -6,6 +6,7 @@
 //                                           //
 ///////////////////////////////////////////////
 
+use serde::{ Serialize, Deserialize };
 use strum_macros::{ EnumString, IntoStaticStr };
 
 /// League of Legends game mode, such as Classic,
@@ -14,6 +15,7 @@ use strum_macros::{ EnumString, IntoStaticStr };
 #[derive(Debug, Clone)]
 #[derive(Eq, PartialEq, Hash)]
 #[derive(EnumString, IntoStaticStr)]
+#[derive(Serialize, Deserialize)]
 #[repr(u8)]
 pub enum GameMode {
     /// Catch-all variant for new, unknown game modes.
@@ -69,4 +71,3 @@ pub enum GameMode {
 }
 
 string_enum_str!(GameMode);
-serde_string!(GameMode);

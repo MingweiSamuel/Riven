@@ -1,3 +1,4 @@
+use serde::{ Serialize, Deserialize };
 use strum_macros::{ EnumString, Display, AsRefStr, IntoStaticStr };
 
 /// LoL or TFT ranked queue types.
@@ -5,6 +6,7 @@ use strum_macros::{ EnumString, Display, AsRefStr, IntoStaticStr };
 #[derive(Debug, Copy, Clone)]
 #[derive(Eq, PartialEq, Hash)]
 #[derive(EnumString, Display, AsRefStr, IntoStaticStr)]
+#[derive(Serialize, Deserialize)]
 pub enum QueueType {
     /// League of Legends, Summoner's Rift (5v5), Ranked Solo Queue.
     RANKED_SOLO_5x5,
@@ -19,8 +21,6 @@ pub enum QueueType {
     /// Ranked Teamfight Tactics, Double Up gamemode.
     RANKED_TFT_PAIRS
 }
-
-serde_string!(QueueType);
 
 #[cfg(test)]
 mod test {
