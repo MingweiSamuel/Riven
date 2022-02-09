@@ -31,7 +31,7 @@ pub enum RegionalRoute {
 #[derive(Clone, Copy)]
 #[repr(u8)]
 #[non_exhaustive]
-// Note: strum(serialize = ...) actuall specifies extra DEserialization values.
+// Note: strum(serialize = ...) actually specifies extra DEserialization values.
 pub enum PlatformRoute {
     /// Brazil.
     #[strum(to_string="BR1", serialize="BR")]
@@ -83,7 +83,7 @@ pub enum PlatformRoute {
 
 impl PlatformRoute {
     /// Converts this [`PlatformRoute`] into its corresponding
-/// [`RegionalRoute`]. Useful, for example, in [`match-v5` endpoints](crate::endpoints::MatchV5).
+    /// [`RegionalRoute`]. Useful, for example, in [`match-v5` endpoints](crate::endpoints::MatchV5).
     pub fn to_regional(self) -> RegionalRoute {
         match self {
             Self::BR1  => RegionalRoute::AMERICAS,
