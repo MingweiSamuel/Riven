@@ -6,6 +6,8 @@
 // http://www.mingweisamuel.com/riotapi-schema/tool/
 // Version {{= spec.info.version }}
 
+#![allow(missing_docs)]
+
 //! Data transfer structs.
 //!
 //! Separated into separate modules for each endpoint.

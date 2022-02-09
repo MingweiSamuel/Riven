@@ -18,6 +18,8 @@
 //!
 //! Note: this modules is automatically generated.
 
+/// Metadata for endpoints. Each tuple corresponds to one endpoint and contains
+/// the HTTP [`Method`](reqwest::Method), `str` path, and the method's `str` ID.
 pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); {{= operations.length }}] = [
 {{
     for (const { route, method, operation } of operations) {

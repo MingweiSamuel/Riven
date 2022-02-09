@@ -6,17 +6,17 @@ use strum_macros::{ EnumString, Display, AsRefStr, IntoStaticStr };
 #[derive(Eq, PartialEq, Hash)]
 #[derive(EnumString, Display, AsRefStr, IntoStaticStr)]
 pub enum QueueType {
-    // League of Legends, Summoner's Rift (5v5), Ranked Solo Queue.
+    /// League of Legends, Summoner's Rift (5v5), Ranked Solo Queue.
     RANKED_SOLO_5x5,
-    // League of Legends, Summoner's Rift (5v5), Flex Queue.
+    /// League of Legends, Summoner's Rift (5v5), Flex Queue.
     RANKED_FLEX_SR,
-    // League of Legends, Twisted Treeline (3v3), Flex Queue.
+    /// League of Legends, Twisted Treeline (3v3), Flex Queue.
     RANKED_FLEX_TT,
-    // Ranked Teamfight Tactics.
+    /// Ranked Teamfight Tactics.
     RANKED_TFT,
-    // Ranked Teamfight Tactics, Hyper Roll gamemode.
+    /// Ranked Teamfight Tactics, Hyper Roll gamemode.
     RANKED_TFT_TURBO,
-    // Ranked Teamfight Tactics, Double Up gamemode.
+    /// Ranked Teamfight Tactics, Double Up gamemode.
     RANKED_TFT_PAIRS
 }
 

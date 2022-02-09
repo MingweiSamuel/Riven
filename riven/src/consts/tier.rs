@@ -41,8 +41,8 @@ pub enum Tier {
 serde_string!(Tier);
 
 impl Tier {
-    /// If this tier is an apex tier: master, grandmaster, or challenger.
-    /// Returns false for unranked.
+    /// If this tier is an apex tier: [`Self::MASTER`], [`Self::GRANDMASTER`],
+    /// or [`Self::CHALLENGER`]. Returns false for [`Self::UNRANKED`].
     ///
     /// These tiers are NOT queryable by LeagueV4Endpoints::get_league_entries(...).
     pub const fn is_apex(self) -> bool {
@@ -53,7 +53,7 @@ impl Tier {
     /// If this tier is a "standard" tier: iron through diamond.
     /// Returns false for unranked.
     ///
-    /// ONLY these tiers are queryable by LeagueV4Endpoints::get_league_entries(...).
+    /// ONLY these tiers are queryable by [`LeagueV4::get_league_entries(...)`](crate::endpoints::LeagueV4::get_league_entries).
     pub fn is_standard(self) -> bool {
         // Casts needed for const.
         ((Self::UNRANKED as u8) < (self as u8)) && ((self as u8) < (Self::MASTER as u8))

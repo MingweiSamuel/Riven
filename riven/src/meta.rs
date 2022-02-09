@@ -13,6 +13,8 @@
 //!
 //! Note: this modules is automatically generated.
 
+/// Metadata for endpoints. Each tuple corresponds to one endpoint and contains
+/// the HTTP [`Method`](reqwest::Method), `str` path, and the method's `str` ID.
 pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 70] = [
     (reqwest::Method::GET, "/riot/account/v1/accounts/by-puuid/{puuid}", "account-v1.getByPuuid"),
     (reqwest::Method::GET, "/riot/account/v1/accounts/by-riot-id/{gameName}/{tagLine}", "account-v1.getByRiotId"),

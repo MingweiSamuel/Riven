@@ -17,10 +17,16 @@ use strum_macros::{ EnumString, Display, AsRefStr, IntoStaticStr };
 #[derive(IntoPrimitive, TryFromPrimitive)]
 #[repr(u8)]
 pub enum Division {
+    /// Division 1, the best/highest division in a [`Tier`](crate::consts::Tier), or the only division in
+    /// [apex tiers](crate::consts::Tier::is_apex).
     I   = 1,
+    /// Division 2, the second highest division.
     II  = 2,
+    /// Division 3, the third highest division.
     III = 3,
+    /// Division 4, the fourth and lowest division since 2019.
     IV  = 4,
+    /// Division 5, the lowest division, only used before 2019.
     #[deprecated(note="Removed for 2019.")]
     V   = 5,
 }

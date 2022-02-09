@@ -7,6 +7,7 @@
 ///////////////////////////////////////////////
 
 #![forbid(unsafe_code)]
+#![deny(missing_docs)]
 
 //! <h1 align="center">
 //!     Riven<br>

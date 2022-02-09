@@ -82,6 +82,8 @@ pub enum PlatformRoute {
 }
 
 impl PlatformRoute {
+    /// Converts this [`PlatformRoute`] into its corresponding
+/// [`RegionalRoute`]. Useful, for example, in [`match-v5` endpoints](crate::endpoints::MatchV5).
     pub fn to_regional(self) -> RegionalRoute {
         match self {
             Self::BR1  => RegionalRoute::AMERICAS,
@@ -160,8 +162,11 @@ pub enum ValPlatformRoute {
 #[repr(u8)]
 #[non_exhaustive]
 pub enum Route {
+    /// Sub-variant for [`RegionalRoute`]s.
     Regional(RegionalRoute),
+    /// Sub-variant for [`PlatformRoute`]s.
     Platform(PlatformRoute),
+    /// Sub-variant for [`ValPlatformRoute`]s.
     ValPlatform(ValPlatformRoute),
 }
 
@@ -232,6 +237,8 @@ impl std::str::FromStr for Route {
 }
 
 impl Route {
+    /// Returns an iterator over all routes. Starts with [`Self::Regional`],
+    /// then [`Self::Platform`], and finally [`Self::ValPlatform`].
     pub fn iter() -> impl Iterator<Item = Self> {
         use strum::IntoEnumIterator;
 

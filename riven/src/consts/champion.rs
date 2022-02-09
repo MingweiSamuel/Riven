@@ -871,6 +871,11 @@ impl Champion {
     }
 }
 
+/// The error used for failures in [`Champion`]'s
+/// [`FromStr`](std::str::FromStr) implementation.
+///
+/// Currently only internally stores the four characters used to parse the
+/// champion, but may change in the future.
 #[derive(Debug)]
 pub struct ParseChampionError([char; 4]);
 impl std::fmt::Display for ParseChampionError {

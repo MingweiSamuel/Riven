@@ -16,7 +16,7 @@ use strum_macros::{ EnumString, IntoStaticStr };
 #[derive(EnumString, IntoStaticStr)]
 #[repr(u8)]
 pub enum GameMode {
-    // Catch-all variant for new, unknown game modes.
+    /// Catch-all variant for new, unknown game modes.
     #[strum(default)]
     UNKNOWN(String),
 
