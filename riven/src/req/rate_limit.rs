@@ -169,9 +169,7 @@ impl RateLimit {
         let count_header_opt = headers.get(self.rate_limit_type.count_header())
             .map(|h| h.to_str().expect("Failed to read count header as string."));
 
-        // https://github.com/rust-lang/rust/issues/53667
-        if let Some(limit_header) = limit_header_opt {
-        if let Some(count_header) = count_header_opt {
+        if let (Some(limit_header), Some(count_header)) = (limit_header_opt, count_header_opt) {
             {
                 let buckets = self.buckets.upgradable_read();
                 if !buckets_require_updating(limit_header, &*buckets) {
@@ -184,7 +182,7 @@ impl RateLimit {
             }
             // Notify waiters that buckets have updated (after unlocking).
             self.update_notify.notify_waiters();
-        }}
+        }
     }
 }
 

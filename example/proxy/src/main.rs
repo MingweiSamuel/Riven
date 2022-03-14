@@ -129,19 +129,16 @@ fn paths_match(ref_path: &str, req_path: &str) -> bool {
     let mut ref_iter = ref_path.split('/');
     let mut req_iter = req_path.split('/');
     loop {
-        let ref_seg_opt = ref_iter.next();
-        let req_seg_opt = req_iter.next();
-        if ref_seg_opt.is_none() != req_seg_opt.is_none() {
-            return false;
-        }
-        if let Some(ref_seg) = ref_seg_opt {
-        if let Some(req_seg) = req_seg_opt {
-            if ref_seg.starts_with('{') || ref_seg == req_seg {
-                continue;
+        match (ref_iter.next(), req_iter.next()) {
+            (None, None) => return true,
+            (Some(ref_seg), Some(req_seg)) => {
+                if ref_seg.starts_with('{') || ref_seg == req_seg {
+                    continue;
+                }
+                return false;
             }
-            return false;
-        }}
-        return true;
+            _ => return false,
+        }
     }
 }
 
