@@ -16,6 +16,7 @@ static MATCHES: &[&str] = &[
     "EUW1_5097684633",
     "EUW1_5097963383",
     "EUW1_5102203800", // https://github.com/MingweiSamuel/Riven/issues/36
+    "EUW1_5765650307", // https://gist.github.com/MingweiSamuel/d5f9dc40cc5a80a9255e488f27705c56?permalink_comment_id=4088256#gistcomment-4088256
 ];
 
 async_tests! {
