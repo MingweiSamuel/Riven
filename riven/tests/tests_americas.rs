@@ -22,6 +22,7 @@ static MATCHES: &[&str] = &[
     // New games with `match-v5.ParticipantDto.challenges` field.
     "NA1_4209556127",
     "NA1_4212715433",
+    "NA1_4265913704", // `match-v5.ParticipantDto.challenges.mejaisFullStackInTime`
 ];
 
 async_tests!{

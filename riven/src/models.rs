@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 55679c92250cb02f03ebf8d1d761e16d5c93c59c
+// Version 616004110d2cf4f8bb0b1e0332e079399aea56cc
 
 #![allow(missing_docs)]
 
@@ -1408,6 +1408,9 @@ pub mod match_v5 {
         #[serde(rename = "maxLevelLeadLaneOpponent")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub max_level_lead_lane_opponent: Option<f64>,
+        #[serde(rename = "mejaisFullStackInTime")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub mejais_full_stack_in_time: Option<f64>,
         #[serde(rename = "moreEnemyJungleThanOpponent")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub more_enemy_jungle_than_opponent: Option<f64>,
