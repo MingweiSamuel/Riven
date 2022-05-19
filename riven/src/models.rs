@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version d2e2d8db61e32b60f6722b887694538659c20436
+// Version 4969d1e8bcccde31f0dfc173cfb49652bea2b35c
 
 #![allow(missing_docs)]
 
@@ -380,14 +380,19 @@ pub mod lol_challenges_v1 {
         pub id: i64,
         #[serde(rename = "localizedNames")]
         pub localized_names: std::collections::HashMap<String, std::collections::HashMap<String, String>>,
+        /// DISABLED - not visible and not calculated, HIDDEN - not visible, but calculated, ENABLED - visible and calculated, ARCHIVED - visible, but not calculated
         #[serde(rename = "state")]
-        pub state: State,
+        pub state: String,
+        /// LIFETIME - stats are incremented without reset, SEASON - stats are accumulated by season and reset at the beginning of new season
         #[serde(rename = "tracking")]
-        pub tracking: Tracking,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub tracking: Option<String>,
         #[serde(rename = "startTimestamp")]
-        pub start_timestamp: i64,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub start_timestamp: Option<i64>,
         #[serde(rename = "endTimestamp")]
-        pub end_timestamp: i64,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub end_timestamp: Option<i64>,
         #[serde(rename = "leaderboard")]
         pub leaderboard: bool,
         #[serde(rename = "thresholds")]
