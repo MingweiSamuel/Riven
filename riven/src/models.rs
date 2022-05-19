@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 616004110d2cf4f8bb0b1e0332e079399aea56cc
+// Version d2e2d8db61e32b60f6722b887694538659c20436
 
 #![allow(missing_docs)]
 
@@ -363,6 +363,134 @@ pub mod league_v4 {
         #[serde(rename = "miniSeries")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub mini_series: Option<MiniSeries>,
+    }
+}
+
+/// Data structs used by [`LolChallengesV1`](crate::endpoints::LolChallengesV1).
+/// 
+/// Note: this module is automatically generated.
+#[allow(dead_code)]
+pub mod lol_challenges_v1 {
+    /// ChallengeConfigInfo data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct ChallengeConfigInfo {
+        #[serde(rename = "id")]
+        pub id: i64,
+        #[serde(rename = "localizedNames")]
+        pub localized_names: std::collections::HashMap<String, std::collections::HashMap<String, String>>,
+        #[serde(rename = "state")]
+        pub state: State,
+        #[serde(rename = "tracking")]
+        pub tracking: Tracking,
+        #[serde(rename = "startTimestamp")]
+        pub start_timestamp: i64,
+        #[serde(rename = "endTimestamp")]
+        pub end_timestamp: i64,
+        #[serde(rename = "leaderboard")]
+        pub leaderboard: bool,
+        #[serde(rename = "thresholds")]
+        pub thresholds: std::collections::HashMap<String, f64>,
+    }
+    /// State data object.
+    /// # Description
+    /// DISABLED - not visible and not calculated,<br>
+    /// HIDDEN - not visible, but calculated,<br>
+    /// ENABLED - visible and calculated,<br>
+    /// ARCHIVED - visible, but not calculated
+    ///
+    /// Note: This struct is automatically generated
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct State {
+    }
+    /// Tracking data object.
+    /// # Description
+    /// LIFETIME - stats are incremented without reset,<br>
+    /// SEASON - stats are accumulated by season and reset at the beginning of new season
+    ///
+    /// Note: This struct is automatically generated
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct Tracking {
+    }
+    /// ApexPlayerInfo data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct ApexPlayerInfo {
+        #[serde(rename = "puuid")]
+        pub puuid: String,
+        #[serde(rename = "value")]
+        pub value: f64,
+        #[serde(rename = "position")]
+        pub position: i32,
+    }
+    /// Level data object.
+    /// # Description
+    /// 0 NONE,<br>
+    /// 1 IRON,<br>
+    /// 2 BRONZE,<br>
+    /// 3 SILVER,<br>
+    /// 4 GOLD,<br>
+    /// 5 PLATINUM,<br>
+    /// 6 DIAMOND,<br>
+    /// 7 MASTER,<br>
+    /// 8 GRANDMASTER,<br>
+    /// 9 CHALLENGER
+    ///
+    /// Note: This struct is automatically generated
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct Level {
+    }
+    /// PlayerInfo data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct PlayerInfo {
+        #[serde(rename = "challenges")]
+        pub challenges: std::vec::Vec<ChallengeInfo>,
+        #[serde(rename = "preferences")]
+        pub preferences: PlayerClientPreferences,
+        #[serde(rename = "totalPoints")]
+        pub total_points: ChallengePoints,
+        #[serde(rename = "categoryPoints")]
+        pub category_points: std::collections::HashMap<String, ChallengePoints>,
+    }
+    /// ChallengeInfo data object.
+    /// # Description
+    /// UNKNOWN TYPE.
+    ///
+    /// Note: This struct is automatically generated
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct ChallengeInfo {
+    }
+    /// PlayerClientPreferences data object.
+    /// # Description
+    /// UNKNOWN TYPE.
+    ///
+    /// Note: This struct is automatically generated
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct PlayerClientPreferences {
+    }
+    /// ChallengePoints data object.
+    /// # Description
+    /// UNKNOWN TYPE.
+    ///
+    /// Note: This struct is automatically generated
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct ChallengePoints {
     }
 }
 

@@ -37,6 +37,8 @@ pub enum Tier {
     IRON        =  40,
 
     /// Unranked, no tier. Repr: `0_u8`.
+    /// Also deserializes from "NONE" returned by `lol-challenges-v1.getChallengePercentiles`.
+    #[serde(alias = "NONE")]
     UNRANKED    =   0,
 }
 

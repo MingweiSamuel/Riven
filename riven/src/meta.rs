@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 616004110d2cf4f8bb0b1e0332e079399aea56cc
+// Version d2e2d8db61e32b60f6722b887694538659c20436
 
 //! Metadata about the Riot API and Riven.
 //!
@@ -15,7 +15,7 @@
 
 /// Metadata for endpoints. Each tuple corresponds to one endpoint and contains
 /// the HTTP [`Method`](reqwest::Method), `str` path, and the method's `str` ID.
-pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 70] = [
+pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 75] = [
     (reqwest::Method::GET, "/riot/account/v1/accounts/by-puuid/{puuid}", "account-v1.getByPuuid"),
     (reqwest::Method::GET, "/riot/account/v1/accounts/by-riot-id/{gameName}/{tagLine}", "account-v1.getByRiotId"),
     (reqwest::Method::GET, "/riot/account/v1/accounts/me", "account-v1.getByAccessToken"),
@@ -36,6 +36,12 @@ pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 70] = [
     (reqwest::Method::GET, "/lol/league/v4/grandmasterleagues/by-queue/{queue}", "league-v4.getGrandmasterLeague"),
     (reqwest::Method::GET, "/lol/league/v4/leagues/{leagueId}", "league-v4.getLeagueById"),
     (reqwest::Method::GET, "/lol/league/v4/masterleagues/by-queue/{queue}", "league-v4.getMasterLeague"),
+    (reqwest::Method::GET, "/lol/challenges/v1/challenges/config", "lol-challenges-v1.getAllChallengeConfigs"),
+    (reqwest::Method::GET, "/lol/challenges/v1/challenges/percentiles", "lol-challenges-v1.getAllChallengePercentiles"),
+    (reqwest::Method::GET, "/lol/challenges/v1/challenges/{challengeId}/config", "lol-challenges-v1.getChallengeConfigs"),
+    (reqwest::Method::GET, "/lol/challenges/v1/challenges/{challengeId}/leaderboards/by-level/{level}", "lol-challenges-v1.getChallengeLeaderboards"),
+    (reqwest::Method::GET, "/lol/challenges/v1/challenges/{challengeId}/percentiles", "lol-challenges-v1.getChallengePercentiles"),
+    (reqwest::Method::GET, "/lol/challenges/v1/player-data/{puuid}", "lol-challenges-v1.getPlayerData"),
     (reqwest::Method::GET, "/lol/status/v3/shard-data", "lol-status-v3.getShardData"),
     (reqwest::Method::GET, "/lol/status/v4/platform-data", "lol-status-v4.getPlatformData"),
     (reqwest::Method::GET, "/lor/deck/v1/decks/me", "lor-deck-v1.getDecks"),
@@ -69,7 +75,6 @@ pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 70] = [
     (reqwest::Method::GET, "/tft/summoner/v1/summoners/by-puuid/{encryptedPUUID}", "tft-summoner-v1.getByPUUID"),
     (reqwest::Method::GET, "/tft/summoner/v1/summoners/me", "tft-summoner-v1.getByAccessToken"),
     (reqwest::Method::GET, "/tft/summoner/v1/summoners/{encryptedSummonerId}", "tft-summoner-v1.getBySummonerId"),
-    (reqwest::Method::GET, "/lol/platform/v4/third-party-code/by-summoner/{encryptedSummonerId}", "third-party-code-v4.getThirdPartyCodeBySummonerId"),
     (reqwest::Method::POST, "/lol/tournament-stub/v4/codes", "tournament-stub-v4.createTournamentCode"),
     (reqwest::Method::GET, "/lol/tournament-stub/v4/lobby-events/by-code/{tournamentCode}", "tournament-stub-v4.getLobbyEventsByCode"),
     (reqwest::Method::POST, "/lol/tournament-stub/v4/providers", "tournament-stub-v4.registerProviderData"),

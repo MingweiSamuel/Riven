@@ -40,7 +40,7 @@ pub mod {{= dotUtils.changeCase.snakeCase(endpoint) }} {
     /// {{= schemaName }} data object.
 {{? schema.description }}
     /// # Description
-    /// {{= schema.description }}
+    /// {{= schema.description.split('\n').map(x => x.trim()).join('<br>\r\n    /// ') }}
     ///
     /// Note: This struct is automatically generated
 {{?}}

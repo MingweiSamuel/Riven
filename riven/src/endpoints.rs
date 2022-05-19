@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 616004110d2cf4f8bb0b1e0332e079399aea56cc
+// Version d2e2d8db61e32b60f6722b887694538659c20436
 
 //! Automatically generated endpoint handles.
 #![allow(clippy::let_and_return, clippy::too_many_arguments)]
@@ -79,6 +79,15 @@ impl RiotApi {
     #[inline]
     pub fn league_v4(&self) -> LeagueV4 {
         LeagueV4 { base: self }
+    }
+    /// Returns a handle for accessing [LolChallengesV1](crate::endpoints::LolChallengesV1) endpoints.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/apis#lol-challenges-v1" target="_blank">`lol-challenges-v1`</a>
+    ///
+    /// Note: this method is automatically generated.
+    #[inline]
+    pub fn lol_challenges_v1(&self) -> LolChallengesV1 {
+        LolChallengesV1 { base: self }
     }
     /// Returns a handle for accessing [LolStatusV3](crate::endpoints::LolStatusV3) endpoints.
     /// # Riot Developer API Reference
@@ -196,15 +205,6 @@ impl RiotApi {
     #[inline]
     pub fn tft_summoner_v1(&self) -> TftSummonerV1 {
         TftSummonerV1 { base: self }
-    }
-    /// Returns a handle for accessing [ThirdPartyCodeV4](crate::endpoints::ThirdPartyCodeV4) endpoints.
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/apis#third-party-code-v4" target="_blank">`third-party-code-v4`</a>
-    ///
-    /// Note: this method is automatically generated.
-    #[inline]
-    pub fn third_party_code_v4(&self) -> ThirdPartyCodeV4 {
-        ThirdPartyCodeV4 { base: self }
     }
     /// Returns a handle for accessing [TournamentStubV4](crate::endpoints::TournamentStubV4) endpoints.
     /// # Riot Developer API Reference
@@ -721,6 +721,133 @@ impl<'a> LeagueV4<'a> {
         let future = self.base.execute_val::<league_v4::LeagueList>("league-v4.getMasterLeague", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("league-v4.getMasterLeague"));
+        future
+    }
+
+}
+
+/// LolChallengesV1 endpoints handle, accessed by calling [`lol_challenges_v1()`](crate::RiotApi::lol_challenges_v1) on a [`RiotApi`](crate::RiotApi) instance.
+/// # Riot Developer API Reference
+/// <a href="https://developer.riotgames.com/apis#lol-challenges-v1" target="_blank">`lol-challenges-v1`</a>
+///
+/// Note: this struct is automatically generated.
+#[repr(transparent)]
+pub struct LolChallengesV1<'a> {
+    base: &'a RiotApi,
+}
+impl<'a> LolChallengesV1<'a> {
+    /// List of all basic challenge configuration information (includes all translations for names and descriptions)
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#lol-challenges-v1/GET_getAllChallengeConfigs" target="_blank">`lol-challenges-v1.getAllChallengeConfigs`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_all_challenge_configs(&self, route: PlatformRoute)
+        -> impl Future<Output = Result<Vec<lol_challenges_v1::ChallengeConfigInfo>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/lol/challenges/v1/challenges/config");
+        let future = self.base.execute_val::<Vec<lol_challenges_v1::ChallengeConfigInfo>>("lol-challenges-v1.getAllChallengeConfigs", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("lol-challenges-v1.getAllChallengeConfigs"));
+        future
+    }
+
+    /// Map of level to percentile of players who have achieved it - keys: ChallengeId -> Season -> Level -> percentile of players who achieved it
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#lol-challenges-v1/GET_getAllChallengePercentiles" target="_blank">`lol-challenges-v1.getAllChallengePercentiles`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_all_challenge_percentiles(&self, route: PlatformRoute)
+        -> impl Future<Output = Result<std::collections::HashMap<i64, std::collections::HashMap<crate::consts::Tier, f64>>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/lol/challenges/v1/challenges/percentiles");
+        let future = self.base.execute_val::<std::collections::HashMap<i64, std::collections::HashMap<crate::consts::Tier, f64>>>("lol-challenges-v1.getAllChallengePercentiles", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("lol-challenges-v1.getAllChallengePercentiles"));
+        future
+    }
+
+    /// Get challenge configuration (REST)
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// * `challenge_id` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#lol-challenges-v1/GET_getChallengeConfigs" target="_blank">`lol-challenges-v1.getChallengeConfigs`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_challenge_configs(&self, route: PlatformRoute, challenge_id: i64)
+        -> impl Future<Output = Result<Option<lol_challenges_v1::ChallengeConfigInfo>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/challenges/v1/challenges/{}/config", challenge_id));
+        let future = self.base.execute_opt::<lol_challenges_v1::ChallengeConfigInfo>("lol-challenges-v1.getChallengeConfigs", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("lol-challenges-v1.getChallengeConfigs"));
+        future
+    }
+
+    /// Return top players for each level. Level must be MASTER, GRANDMASTER or CHALLENGER.
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// * `level` (required, in path)
+    /// * `challenge_id` (required, in path)
+    /// * `limit` (optional, in query)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#lol-challenges-v1/GET_getChallengeLeaderboards" target="_blank">`lol-challenges-v1.getChallengeLeaderboards`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_challenge_leaderboards(&self, route: PlatformRoute, challenge_id: i64, level: &str, limit: Option<i32>)
+        -> impl Future<Output = Result<Option<Vec<lol_challenges_v1::ApexPlayerInfo>>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/challenges/v1/challenges/{}/leaderboards/by-level/{}", challenge_id, level));
+        let mut request = request; if let Some(limit) = limit { request = request.query(&[ ("limit", limit) ]); }
+        let future = self.base.execute_opt::<Vec<lol_challenges_v1::ApexPlayerInfo>>("lol-challenges-v1.getChallengeLeaderboards", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("lol-challenges-v1.getChallengeLeaderboards"));
+        future
+    }
+
+    /// Map of level to percentile of players who have achieved it
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// * `challenge_id` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#lol-challenges-v1/GET_getChallengePercentiles" target="_blank">`lol-challenges-v1.getChallengePercentiles`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_challenge_percentiles(&self, route: PlatformRoute, challenge_id: i64)
+        -> impl Future<Output = Result<Option<std::collections::HashMap<crate::consts::Tier, f64>>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/challenges/v1/challenges/{}/percentiles", challenge_id));
+        let future = self.base.execute_opt::<std::collections::HashMap<crate::consts::Tier, f64>>("lol-challenges-v1.getChallengePercentiles", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("lol-challenges-v1.getChallengePercentiles"));
+        future
+    }
+
+    /// Returns player information with list of all progressed challenges (REST)
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// * `puuid` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#lol-challenges-v1/GET_getPlayerData" target="_blank">`lol-challenges-v1.getPlayerData`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_player_data(&self, route: PlatformRoute, puuid: &str)
+        -> impl Future<Output = Result<lol_challenges_v1::PlayerInfo>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/challenges/v1/player-data/{}", puuid));
+        let future = self.base.execute_val::<lol_challenges_v1::PlayerInfo>("lol-challenges-v1.getPlayerData", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("lol-challenges-v1.getPlayerData"));
         future
     }
 
@@ -1380,17 +1507,23 @@ impl<'a> TftMatchV1<'a> {
     /// # Parameters
     /// * `route` - Route to query.
     /// * `puuid` (required, in path)
-    /// * `count` (optional, in query) - Defaults to 20.
+    /// * `start` (optional, in query) - Defaults to 0. Start index.
+    /// * `end_time` (optional, in query) - Epoch timestamp in seconds.
+    /// * `start_time` (optional, in query) - Epoch timestamp in seconds. The matchlist started storing timestamps on June 16th, 2021. Any matches played before June 16th, 2021 won't be included in the results if the startTime filter is set.
+    /// * `count` (optional, in query) - Defaults to 20. Number of match ids to return.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-match-v1/GET_getMatchIdsByPUUID" target="_blank">`tft-match-v1.getMatchIdsByPUUID`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_match_ids_by_puuid(&self, route: RegionalRoute, puuid: &str, count: Option<i32>)
+    pub fn get_match_ids_by_puuid(&self, route: RegionalRoute, puuid: &str, count: Option<i32>, end_time: Option<i64>, start: Option<i32>, start_time: Option<i64>)
         -> impl Future<Output = Result<Vec<String>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/tft/match/v1/matches/by-puuid/{}/ids", puuid));
         let mut request = request; if let Some(count) = count { request = request.query(&[ ("count", count) ]); }
+        let mut request = request; if let Some(end_time) = end_time { request = request.query(&[ ("endTime", end_time) ]); }
+        let mut request = request; if let Some(start) = start { request = request.query(&[ ("start", start) ]); }
+        let mut request = request; if let Some(start_time) = start_time { request = request.query(&[ ("startTime", start_time) ]); }
         let future = self.base.execute_val::<Vec<String>>("tft-match-v1.getMatchIdsByPUUID", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tft-match-v1.getMatchIdsByPUUID"));
@@ -1521,37 +1654,6 @@ impl<'a> TftSummonerV1<'a> {
         let future = self.base.execute_val::<tft_summoner_v1::Summoner>("tft-summoner-v1.getBySummonerId", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tft-summoner-v1.getBySummonerId"));
-        future
-    }
-
-}
-
-/// ThirdPartyCodeV4 endpoints handle, accessed by calling [`third_party_code_v4()`](crate::RiotApi::third_party_code_v4) on a [`RiotApi`](crate::RiotApi) instance.
-/// # Riot Developer API Reference
-/// <a href="https://developer.riotgames.com/apis#third-party-code-v4" target="_blank">`third-party-code-v4`</a>
-///
-/// Note: this struct is automatically generated.
-#[repr(transparent)]
-pub struct ThirdPartyCodeV4<'a> {
-    base: &'a RiotApi,
-}
-impl<'a> ThirdPartyCodeV4<'a> {
-    /// Get third party code for a given summoner ID.
-    /// # Parameters
-    /// * `route` - Route to query.
-    /// * `encrypted_summoner_id` (required, in path)
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#third-party-code-v4/GET_getThirdPartyCodeBySummonerId" target="_blank">`third-party-code-v4.getThirdPartyCodeBySummonerId`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn get_third_party_code_by_summoner_id(&self, route: PlatformRoute, encrypted_summoner_id: &str)
-        -> impl Future<Output = Result<String>> + 'a
-    {
-        let route_str = route.into();
-        let request = self.base.request(Method::GET, route_str, &format!("/lol/platform/v4/third-party-code/by-summoner/{}", encrypted_summoner_id));
-        let future = self.base.execute_val::<String>("third-party-code-v4.getThirdPartyCodeBySummonerId", route_str, request);
-        #[cfg(feature = "tracing")]
-        let future = future.instrument(tracing::info_span!("third-party-code-v4.getThirdPartyCodeBySummonerId"));
         future
     }
 

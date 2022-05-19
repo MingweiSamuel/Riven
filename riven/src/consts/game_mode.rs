@@ -38,11 +38,11 @@ pub enum GameMode {
     DOOMBOTSTEEMO,
     /// Snowdown Showdown games
     FIRSTBLOOD,
-    /// Nexus Blitz games, deprecated in patch 9.2 in favor of gameMode NEXUSBLITZ.
+    /// Nexus Blitz games
     GAMEMODEX,
     /// Legend of the Poro King games
     KINGPORO,
-    /// Nexus Blitz games.
+    /// Nexus Blitz games
     NEXUSBLITZ,
     /// Dominion/Crystal Scar games
     ODIN,
@@ -50,6 +50,8 @@ pub enum GameMode {
     ODYSSEY,
     /// One for All games
     ONEFORALL,
+    /// Practice tool training games.
+    PRACTICETOOL,
     /// PROJECT: Hunters games
     PROJECT,
     /// Nexus Siege games
@@ -64,7 +66,7 @@ pub enum GameMode {
     TUTORIAL_MODULE_2,
     /// Tutorial: Shop for Gear.
     TUTORIAL_MODULE_3,
-    /// Ultimate Spellbook games.
+    /// Ultimate Spellbook games
     ULTBOOK,
     /// URF games
     URF,
