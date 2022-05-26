@@ -28,6 +28,7 @@ newtype_enum! {
     /// `AURELION_SOL` | "Aurelion Sol" | "AurelionSol" | 136
     /// `AZIR` | "Azir" | "Azir" | 268
     /// `BARD` | "Bard" | "Bard" | 432
+    /// `BEL_VETH` | "Bel'Veth" | "Belveth" | 200
     /// `BLITZCRANK` | "Blitzcrank" | "Blitzcrank" | 53
     /// `BRAND` | "Brand" | "Brand" | 63
     /// `BRAUM` | "Braum" | "Braum" | 201
@@ -203,6 +204,8 @@ newtype_enum! {
         AZIR = 268,
         /// `432`.
         BARD = 432,
+        /// `200`.
+        BEL_VETH = 200,
         /// `53`.
         BLITZCRANK = 53,
         /// `63`.
@@ -515,6 +518,7 @@ impl Champion {
             Self::AURELION_SOL => Some("Aurelion Sol"),
             Self::AZIR         => Some("Azir"),
             Self::BARD         => Some("Bard"),
+            Self::BEL_VETH     => Some("Bel'Veth"),
             Self::BLITZCRANK   => Some("Blitzcrank"),
             Self::BRAND        => Some("Brand"),
             Self::BRAUM        => Some("Braum"),
@@ -673,6 +677,7 @@ impl Champion {
     ///
     /// Field | Name | Identifier | Id
     /// ---|---|---|---
+    /// `BEL_VETH` | "Bel'Veth" | "Belveth" | 200
     /// `CHO_GATH` | "Cho'Gath" | "Chogath" | 31
     /// `FIDDLESTICKS` | "Fiddlesticks" | "FiddleSticks" | 9
     /// `KAI_SA` | "Kai'Sa" | "Kaisa" | 145
@@ -697,6 +702,7 @@ impl Champion {
             Self::AURELION_SOL => Some("AurelionSol"),
             Self::AZIR         => Some("Azir"),
             Self::BARD         => Some("Bard"),
+            Self::BEL_VETH     => Some("Belveth"),
             Self::BLITZCRANK   => Some("Blitzcrank"),
             Self::BRAND        => Some("Brand"),
             Self::BRAUM        => Some("Braum"),
@@ -910,6 +916,8 @@ impl std::str::FromStr for Champion {
             /* AURE */ [ 'A',  'U',  'R',  'E'] => Ok(Champion::AURELION_SOL),
             /* AZIR */ [ 'A',  'Z',  'I',  'R'] => Ok(Champion::AZIR),
             /* BARD */ [ 'B',  'A',  'R',  'D'] => Ok(Champion::BARD),
+            /* BELV */ [ 'B',  'E',  'L',  'V'] => Ok(Champion::BEL_VETH),
+            /* BEL  */ [ 'B',  'E',  'L', '\0'] => Ok(Champion::BEL_VETH),
             /* BLIT */ [ 'B',  'L',  'I',  'T'] => Ok(Champion::BLITZCRANK),
             /* BRAN */ [ 'B',  'R',  'A',  'N'] => Ok(Champion::BRAND),
             /* BRAU */ [ 'B',  'R',  'A',  'U'] => Ok(Champion::BRAUM),

@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 4969d1e8bcccde31f0dfc173cfb49652bea2b35c
+// Version 8afe7b8e927da46a6f41108e6dc7e1a8c71d89b9
 
 #![allow(missing_docs)]
 
@@ -468,34 +468,56 @@ pub mod lol_challenges_v1 {
         pub category_points: std::collections::HashMap<String, ChallengePoints>,
     }
     /// ChallengeInfo data object.
-    /// # Description
-    /// UNKNOWN TYPE.
-    ///
-    /// Note: This struct is automatically generated
     #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct ChallengeInfo {
+        #[serde(rename = "challengeId")]
+        pub challenge_id: i64,
+        #[serde(rename = "percentile")]
+        pub percentile: f64,
+        #[serde(rename = "level")]
+        pub level: crate::consts::Tier,
+        #[serde(rename = "value")]
+        pub value: f64,
+        #[serde(rename = "achievedTime")]
+        pub achieved_time: i64,
+        #[serde(rename = "position")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub position: Option<i64>,
+        #[serde(rename = "playersInLevel")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub players_in_level: Option<i64>,
     }
     /// PlayerClientPreferences data object.
-    /// # Description
-    /// UNKNOWN TYPE.
-    ///
-    /// Note: This struct is automatically generated
     #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct PlayerClientPreferences {
+        #[serde(rename = "bannerAccent")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub banner_accent: Option<String>,
+        #[serde(rename = "title")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub title: Option<String>,
+        #[serde(rename = "challengeIds")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub challenge_ids: Option<std::vec::Vec<i64>>,
     }
     /// ChallengePoints data object.
-    /// # Description
-    /// UNKNOWN TYPE.
-    ///
-    /// Note: This struct is automatically generated
     #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct ChallengePoints {
+        #[serde(rename = "level")]
+        pub level: crate::consts::Tier,
+        #[serde(rename = "current")]
+        pub current: i64,
+        #[serde(rename = "max")]
+        pub max: i64,
+        #[serde(rename = "percentile")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub percentile: Option<f64>,
     }
 }
 

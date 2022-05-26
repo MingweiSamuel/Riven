@@ -11,8 +11,44 @@ use riven::consts::*;
 
 const ROUTE: PlatformRoute = PlatformRoute::LA1;
 
+/// en_US description: "As a laner, get kills before 10 minutes outside your lane (anyone but your lane opponent)"
+const CHALLENGE_ID__ARAM_1K_DPM: i64 = 101101;
+
 async_tests! {
     my_runner {
+        // /lol/challenges/v1/challenges/{challengeId}/leaderboards/by-level/{level}
+        // /lol/challenges/v1/player-data/{puuid}
+        lol_challenges_v1_leaderboards_playerdata: async {
+            let challenge_id = CHALLENGE_ID__ARAM_1K_DPM;
+            let leaderboard = RIOT_API.lol_challenges_v1()
+                .get_challenge_leaderboards(ROUTE, challenge_id, Tier::GRANDMASTER, None)
+                .await.map_err(|e| e.to_string())?
+                .ok_or_else(|| format!("Challenge leaderboard with id {} returned 404", challenge_id))?;
+
+            {
+                rassert!(!leaderboard.is_empty());
+                let start = leaderboard[0].position;
+                // Commented out: leaderboard is not monotonic for some reason.
+                // let mut val = leaderboard[0].value;
+                for (n, entry) in leaderboard.iter().enumerate() {
+                    rassert_eq!(start + (n as i32), entry.position);
+                    // rassert!(entry.val <= val);
+                    // val = etnry.val;
+                }
+            }
+
+            // Spot check 10% for `player-data`.
+            for entry in leaderboard.iter().step_by(10)
+            {
+                let player_data = RIOT_API.lol_challenges_v1().get_player_data(ROUTE, &*entry.puuid)
+                    .await.map_err(|e| format!("Failed to get player data PUUID {}: {}", entry.puuid, e))?;
+            }
+
+            Ok(())
+        },
+
+        // /lol/challenges/v1/challenges/config
+        // /lol/challenges/v1/challenges/{challengeId}/config
         lol_challenges_v1_check_configs: async {
             let challenges = RIOT_API.lol_challenges_v1().get_all_challenge_configs(ROUTE)
                 .await.map_err(|e| e.to_string())?;
@@ -32,6 +68,9 @@ async_tests! {
 
             Ok(())
         },
+
+        // /lol/challenges/v1/challenges/percentiles
+        // /lol/challenges/v1/challenges/{challengeId}/percentiles
         lol_challenges_v1_check_percentiles: async {
             // Check all percentiles.
             let percentiles = RIOT_API.lol_challenges_v1().get_all_challenge_percentiles(ROUTE)

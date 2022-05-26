@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 4969d1e8bcccde31f0dfc173cfb49652bea2b35c
+// Version 8afe7b8e927da46a6f41108e6dc7e1a8c71d89b9
 
 //! Automatically generated endpoint handles.
 #![allow(clippy::let_and_return, clippy::too_many_arguments)]
@@ -801,7 +801,7 @@ impl<'a> LolChallengesV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#lol-challenges-v1/GET_getChallengeLeaderboards" target="_blank">`lol-challenges-v1.getChallengeLeaderboards`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_challenge_leaderboards(&self, route: PlatformRoute, challenge_id: i64, level: &str, limit: Option<i32>)
+    pub fn get_challenge_leaderboards(&self, route: PlatformRoute, challenge_id: i64, level: crate::consts::Tier, limit: Option<i32>)
         -> impl Future<Output = Result<Option<Vec<lol_challenges_v1::ApexPlayerInfo>>>> + 'a
     {
         let route_str = route.into();
