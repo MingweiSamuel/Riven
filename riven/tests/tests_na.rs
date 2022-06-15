@@ -54,7 +54,10 @@ async_tests!{
             let league_fut = RIOT_API.league_v4().get_league_entries_for_summoner(ROUTE, &*summoner.id);
             let league = league_fut.await.map_err(|e| e.to_string())?;
             rassert_eq!(1, league.len()); // BRITTLE!
-            rassert_eq!(league[0].queue_type, QueueType::RANKED_TFT_PAIRS);
+            #[allow(deprecated)]
+            {
+                rassert_eq!(league[0].queue_type, QueueType::RANKED_TFT_PAIRS);
+            }
             Ok(())
         },
 

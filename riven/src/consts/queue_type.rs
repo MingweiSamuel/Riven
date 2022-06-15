@@ -3,11 +3,15 @@ use strum_macros::{ EnumString, Display, AsRefStr, IntoStaticStr };
 
 /// LoL or TFT ranked queue types.
 #[non_exhaustive]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Clone)]
 #[derive(Eq, PartialEq, Hash)]
 #[derive(EnumString, Display, AsRefStr, IntoStaticStr)]
 #[derive(Serialize, Deserialize)]
 pub enum QueueType {
+    /// Catch-all variant for new, unknown queue types.
+    #[strum(default)]
+    UNKNOWN(String),
+
     /// League of Legends, Summoner's Rift (5v5), Ranked Solo Queue.
     RANKED_SOLO_5x5,
     /// League of Legends, Summoner's Rift (5v5), Flex Queue.
@@ -19,7 +23,11 @@ pub enum QueueType {
     /// Ranked Teamfight Tactics, Hyper Roll gamemode.
     RANKED_TFT_TURBO,
     /// Ranked Teamfight Tactics, Double Up gamemode.
-    RANKED_TFT_PAIRS
+    RANKED_TFT_DOUBLE_UP,
+
+    /// Ranked Teamfight Tactics, OLD Double Up gamemode. Changed some time before June 2022.
+    #[deprecated(note="Use RANKED_TFT_DOUBLE_UP instead.")]
+    RANKED_TFT_PAIRS,
 }
 
 #[cfg(test)]
