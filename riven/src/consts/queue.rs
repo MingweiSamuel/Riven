@@ -318,8 +318,13 @@ newtype_enum! {
         /// Ranked Teamfight Tactics (Hyper Roll) games on Convergence
         CONVERGENCE_RANKED_TEAMFIGHT_TACTICS_HYPER_ROLL_ = 1130,
         /// `1150`.
-        /// Ranked Teamfight Tactics (Double Up Beta) games on Convergence
-        CONVERGENCE_RANKED_TEAMFIGHT_TACTICS_DOUBLE_UP_BETA_ = 1150,
+        /// Ranked Teamfight Tactics (Double Up Workshop) games on Convergence
+        /// Deprecated in patch 12.11 in favor of queueId 1160
+        #[deprecated(note="Deprecated in patch 12.11 in favor of queueId 1160")]
+        CONVERGENCE_RANKED_TEAMFIGHT_TACTICS_DOUBLE_UP_WORKSHOP__DEPRECATED_1150 = 1150,
+        /// `1160`.
+        /// Ranked Teamfight Tactics (Double Up Workshop) games on Convergence
+        CONVERGENCE_RANKED_TEAMFIGHT_TACTICS_DOUBLE_UP_WORKSHOP_ = 1160,
         /// `1200`.
         /// Nexus Blitz games on Nexus Blitz
         /// Deprecated in patch 9.2 in favor of queueId 1300

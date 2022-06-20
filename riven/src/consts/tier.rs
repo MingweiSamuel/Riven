@@ -1,5 +1,6 @@
-use strum::IntoEnumIterator;
 use num_enum::{ IntoPrimitive, TryFromPrimitive };
+use serde::{ Serialize, Deserialize };
+use strum::IntoEnumIterator;
 use strum_macros::{ EnumString, Display, AsRefStr, IntoStaticStr };
 
 /// LoL and TFT ranked tiers, such as gold, diamond, challenger, etc.
@@ -13,6 +14,7 @@ use strum_macros::{ EnumString, Display, AsRefStr, IntoStaticStr };
 #[derive(Eq, PartialEq, Hash, PartialOrd, Ord)]
 #[derive(IntoPrimitive, TryFromPrimitive)]
 #[derive(EnumString, Display, AsRefStr, IntoStaticStr)]
+#[derive(Serialize, Deserialize)]
 #[repr(u8)]
 pub enum Tier {
     /// Challenger, the highest tier, an apex tier. Repr: `220_u8`.
@@ -39,8 +41,6 @@ pub enum Tier {
     #[serde(alias = "NONE")]
     UNRANKED    =   0,
 }
-
-serde_string!(Tier);
 
 impl Tier {
     /// If this tier is an apex tier: [`Self::MASTER`], [`Self::GRANDMASTER`],

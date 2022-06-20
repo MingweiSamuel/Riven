@@ -3,12 +3,14 @@
     const gameTypes = require('./.gameTypes.json');
 }}{{= dotUtils.preamble() }}
 
+use serde::{ Serialize, Deserialize };
 use strum_macros::{ EnumString, Display, AsRefStr, IntoStaticStr };
 
 /// League of Legends game type: matched game, custom game, or tutorial game.
 #[derive(Debug, Copy, Clone)]
 #[derive(Eq, PartialEq, Hash)]
 #[derive(EnumString, Display, AsRefStr, IntoStaticStr)]
+#[derive(Serialize, Deserialize)]
 #[repr(u8)]
 pub enum GameType {
 {{
@@ -23,5 +25,3 @@ pub enum GameType {
     }
 }}
 }
-
-serde_string!(GameType);

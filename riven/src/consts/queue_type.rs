@@ -1,10 +1,10 @@
-use strum_macros::{ EnumString, Display, AsRefStr, IntoStaticStr };
+use strum_macros::{ EnumString, IntoStaticStr };
 
 /// LoL or TFT ranked queue types.
 #[non_exhaustive]
 #[derive(Debug, Clone)]
 #[derive(Eq, PartialEq, Hash)]
-#[derive(EnumString, Display, AsRefStr, IntoStaticStr)]
+#[derive(EnumString, IntoStaticStr)]
 pub enum QueueType {
     /// Catch-all variant for new, unknown queue types.
     #[strum(default)]
@@ -28,7 +28,7 @@ pub enum QueueType {
     RANKED_TFT_PAIRS,
 }
 
-serde_string!(QueueType);
+serde_strum_unknown!(QueueType);
 
 #[cfg(test)]
 mod test {

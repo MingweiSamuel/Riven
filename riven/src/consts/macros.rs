@@ -1,29 +1,12 @@
 #![macro_use]
 
-macro_rules! serde_string {
-    ( $name:ident ) => {
-        impl<'de> serde::de::Deserialize<'de> for $name {
-            fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-            where
-                D: serde::de::Deserializer<'de>
-            {
-                let s = String::deserialize(deserializer)?;
-                s.parse().map_err(serde::de::Error::custom)
-            }
-        }
-
-        impl serde::ser::Serialize for $name {
-            fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-            where
-                S: serde::ser::Serializer,
-            {
-                serializer.serialize_str(self.as_ref())
-            }
-        }
-    };
-}
-
-macro_rules! string_enum_str {
+/// Macro for deriving `Serialize` and `Deserialize` for string enums with an
+/// `UNKNOWN(String)` variant.
+///
+/// Enum should have `#[derive(EnumString, IntoStaticStr)]` included.
+///
+/// Also implements `AsRef<str>`, `Display`, and `From<&str>`.
+macro_rules! serde_strum_unknown {
     ( $name:ident ) => {
         impl AsRef<str> for $name {
             fn as_ref(&self) -> &str {
@@ -33,10 +16,31 @@ macro_rules! string_enum_str {
                 }
             }
         }
-
         impl std::fmt::Display for $name {
             fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
                 self.as_ref().fmt(f)
+            }
+        }
+        impl serde::ser::Serialize for $name {
+            fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                serializer.serialize_str(self.as_ref())
+            }
+        }
+
+        impl From<&str> for $name {
+            fn from(item: &str) -> Self {
+                item.parse().unwrap()
+            }
+        }
+        impl<'de> serde::de::Deserialize<'de> for $name {
+            fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+            where
+                D: serde::de::Deserializer<'de>
+            {
+                <&str>::deserialize(deserializer).map(Into::into)
             }
         }
     }

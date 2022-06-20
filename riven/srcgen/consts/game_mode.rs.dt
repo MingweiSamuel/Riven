@@ -30,5 +30,4 @@ pub enum GameMode {
 }}
 }
 
-string_enum_str!(GameMode);
-serde_string!(GameMode);
+serde_strum_unknown!(GameMode);

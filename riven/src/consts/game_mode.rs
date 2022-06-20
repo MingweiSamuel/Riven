@@ -70,5 +70,4 @@ pub enum GameMode {
     URF,
 }
 
-string_enum_str!(GameMode);
-serde_string!(GameMode);
+serde_strum_unknown!(GameMode);
