@@ -6,14 +6,12 @@
 //                                           //
 ///////////////////////////////////////////////
 
-use serde::{ Serialize, Deserialize };
 use strum_macros::{ EnumString, Display, AsRefStr, IntoStaticStr };
 
 /// League of Legends game type: matched game, custom game, or tutorial game.
 #[derive(Debug, Copy, Clone)]
 #[derive(Eq, PartialEq, Hash)]
 #[derive(EnumString, Display, AsRefStr, IntoStaticStr)]
-#[derive(Serialize, Deserialize)]
 #[repr(u8)]
 pub enum GameType {
     /// Custom games
@@ -23,3 +21,5 @@ pub enum GameType {
     /// Tutorial games
     TUTORIAL_GAME,
 }
+
+serde_string!(GameType);

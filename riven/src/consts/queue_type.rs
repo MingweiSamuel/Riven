@@ -1,4 +1,3 @@
-use serde::{ Serialize, Deserialize };
 use strum_macros::{ EnumString, Display, AsRefStr, IntoStaticStr };
 
 /// LoL or TFT ranked queue types.
@@ -6,7 +5,6 @@ use strum_macros::{ EnumString, Display, AsRefStr, IntoStaticStr };
 #[derive(Debug, Clone)]
 #[derive(Eq, PartialEq, Hash)]
 #[derive(EnumString, Display, AsRefStr, IntoStaticStr)]
-#[derive(Serialize, Deserialize)]
 pub enum QueueType {
     /// Catch-all variant for new, unknown queue types.
     #[strum(default)]
@@ -29,6 +27,8 @@ pub enum QueueType {
     #[deprecated(note="Use RANKED_TFT_DOUBLE_UP instead.")]
     RANKED_TFT_PAIRS,
 }
+
+serde_string!(QueueType);
 
 #[cfg(test)]
 mod test {
