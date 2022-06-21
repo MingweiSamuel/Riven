@@ -6,12 +6,8 @@
 //                                           //
 ///////////////////////////////////////////////
 
-use serde::{ Serialize, Deserialize };
-
 newtype_enum! {
     /// A League of Legends map.
-    #[derive(Serialize, Deserialize)]
-    #[serde(transparent)]
     pub newtype_enum Map(u8) {
         /// `1`.
         /// Summoner's Rift

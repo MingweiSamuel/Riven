@@ -3,7 +3,7 @@
 /// Macro for deriving `Serialize` and `Deserialize` for string enums with an
 /// `UNKNOWN(String)` variant.
 ///
-/// Enum should have `#[derive(EnumString, IntoStaticStr)]` included.
+/// Enum should have `#[derive(EnumString, EnumVariantNames, IntoStaticStr)]` included.
 ///
 /// Also implements `AsRef<str>`, `Display`, and `From<&str>`.
 macro_rules! serde_strum_unknown {
@@ -40,7 +40,23 @@ macro_rules! serde_strum_unknown {
             where
                 D: serde::de::Deserializer<'de>
             {
-                <&str>::deserialize(deserializer).map(Into::into)
+                #[cfg(not(feature = "deny-unknown-enum-variants-strings"))]
+                {
+                    <&str>::deserialize(deserializer).map(Into::into)
+                }
+                #[cfg(feature = "deny-unknown-enum-variants-strings")]
+                {
+                    <&str>::deserialize(deserializer).map(Into::into)
+                        .and_then(|item| {
+                            match item {
+                                Self::UNKNOWN(unknown) => Err(serde::de::Error::unknown_variant(
+                                    &*unknown,
+                                    <Self as strum::VariantNames>::VARIANTS,
+                                )),
+                                other => Ok(other),
+                            }
+                        })
+                }
             }
         }
     }
@@ -56,6 +72,13 @@ macro_rules! arr {
     }
 }
 
+/// Macro for newtype "enums" with integer values.
+///
+/// For serde, use the following:
+/// ```ignore
+/// #[derive(Serialize, Deserialize)]
+/// #[serde(from = "$repr", into = "$repr")]
+/// ```
 macro_rules! newtype_enum {
     {
         $( #[$attr:meta] )*
@@ -97,15 +120,49 @@ macro_rules! newtype_enum {
             }
         }
 
+        impl std::convert::From<$name> for $repr {
+            fn from(value: $name ) -> Self {
+                value.0
+            }
+        }
+        impl serde::ser::Serialize for $name {
+            fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                <$repr>::serialize(&self.0, serializer)
+            }
+        }
+
         impl std::convert::From<$repr> for $name {
             fn from(value: $repr ) -> Self {
                 Self(value)
             }
         }
-
-        impl std::convert::From<$name> for $repr {
-            fn from(value: $name ) -> Self {
-                value.0
+        impl<'de> serde::de::Deserialize<'de> for $name {
+            fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+            where
+                D: serde::de::Deserializer<'de>
+            {
+                #[cfg(not(feature = "deny-unknown-enum-variants-integers"))]
+                {
+                    <$repr>::deserialize(deserializer).map(Into::into)
+                }
+                #[cfg(feature = "deny-unknown-enum-variants-integers")]
+                {
+                    <$repr>::deserialize(deserializer).map(Into::into)
+                        .and_then(|item: Self| {
+                            if !item.is_known() {
+                                Err(serde::de::Error::custom(format!(
+                                    "Unknown integer enum variant: {} (\"deny-unknown-enum-variants-integers\" feature is enabled).\nExpected one of the following: {:?}",
+                                    item, Self::ALL_KNOWN
+                                )))
+                            }
+                            else {
+                                Ok(item)
+                            }
+                        })
+                }
             }
         }
 
@@ -114,7 +171,6 @@ macro_rules! newtype_enum {
                 self.0.fmt(f)
             }
         }
-
         impl std::fmt::Debug for $name {
             fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
                 write!(f, "{}({}{})", stringify!($name), self.0, if self.is_known() { "" } else { "?" })

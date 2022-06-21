@@ -3,12 +3,8 @@
     const queues = require('./.queues.json');
 }}{{= dotUtils.preamble() }}
 
-use serde::{ Serialize, Deserialize };
-
 newtype_enum! {
     /// A League of Legends matchmaking queue.
-    #[derive(Serialize, Deserialize)]
-    #[serde(transparent)]
     pub newtype_enum Queue(u16) {
 {{
     for (const e of queues) {

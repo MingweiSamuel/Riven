@@ -9,4 +9,4 @@ cargo +stable test --no-run --features tracing
 cargo +nightly test --no-run --features nightly,tracing
 
 # Run tests on nightly.
-RGAPI_KEY="$(cat apikey.txt)" RUST_BACKTRACE=1 RUST_LOG=riven=trace cargo +nightly test --features nightly,deny-unknown-fields -- --nocapture
+RGAPI_KEY="$(cat apikey.txt)" RUST_BACKTRACE=1 RUST_LOG=riven=trace cargo +nightly test --features nightly,deny-unknown -- --nocapture

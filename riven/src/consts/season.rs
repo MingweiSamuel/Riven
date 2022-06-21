@@ -6,12 +6,8 @@
 //                                           //
 ///////////////////////////////////////////////
 
-use serde::{ Serialize, Deserialize };
-
 newtype_enum! {
     /// A League of Legends season for competitive matchmaking.
-    #[derive(Serialize, Deserialize)]
-    #[serde(transparent)]
     pub newtype_enum Season(u8) {
         /// `0`.
         PRESEASON_3 = 0,

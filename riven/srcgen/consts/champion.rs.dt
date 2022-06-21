@@ -17,6 +17,7 @@ newtype_enum! {
     ///
     /// Field | Name | Identifier | Id
     /// ---|---|---|---
+    /// `NONE` | None (no ban) | | -1
 {{
     for (const { id, alias, name } of champions) {
 }}
@@ -24,9 +25,10 @@ newtype_enum! {
 {{
     }
 }}
-    #[derive(serde::Serialize, serde::Deserialize)]
-    #[serde(transparent)]
     pub newtype_enum Champion(i16) {
+        /// `-1`, none. Appears when a champion ban is not used in champ select.
+        NONE = -1,
+
 {{
     for (const { id, alias, name } of champions) {
 }}

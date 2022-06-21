@@ -6,12 +6,8 @@
 //                                           //
 ///////////////////////////////////////////////
 
-use serde::{ Serialize, Deserialize };
-
 newtype_enum! {
     /// A League of Legends matchmaking queue.
-    #[derive(Serialize, Deserialize)]
-    #[serde(transparent)]
     pub newtype_enum Queue(u16) {
         /// `0`.
         /// Games on Custom games

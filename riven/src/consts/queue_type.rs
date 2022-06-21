@@ -1,10 +1,10 @@
-use strum_macros::{ EnumString, IntoStaticStr };
+use strum_macros::{ EnumString, EnumVariantNames, IntoStaticStr };
 
 /// LoL or TFT ranked queue types.
 #[non_exhaustive]
 #[derive(Debug, Clone)]
 #[derive(Eq, PartialEq, Hash)]
-#[derive(EnumString, IntoStaticStr)]
+#[derive(EnumString, EnumVariantNames, IntoStaticStr)]
 pub enum QueueType {
     /// Catch-all variant for new, unknown queue types.
     #[strum(default)]
@@ -62,6 +62,8 @@ mod test {
     }
 
     #[test]
+    // Note: this test is often not run due to this condition below.
+    #[cfg(not(feature = "deny-unknown-enum-variants-strings"))]
     fn check_deserialize() {
         use std::collections::BTreeMap;
 

@@ -28,7 +28,15 @@ default-tls = [ "reqwest/default-tls" ]
 native-tls = [ "reqwest/native-tls" ]
 rustls-tls = [ "reqwest/rustls-tls" ]
 
+deny-unknown = [ "deny-unknown-fields", "deny-unknown-enum-variants" ]
+# If enabled, extra unknown fields encountered during deserialization will
+# cause an error instead of being ignored.
 deny-unknown-fields = []
+# If enabled, deserialization of unknown enum variants will cause an error
+# instead of being deserialized to `UNKNOWN` or other integer variants.
+deny-unknown-enum-variants = [ "deny-unknown-enum-variants-strings", "deny-unknown-enum-variants-integers" ]
+deny-unknown-enum-variants-strings = []
+deny-unknown-enum-variants-integers = []
 
 [dependencies]
 lazy_static = "1.4"

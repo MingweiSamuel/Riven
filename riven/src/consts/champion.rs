@@ -15,6 +15,7 @@ newtype_enum! {
     ///
     /// Field | Name | Identifier | Id
     /// ---|---|---|---
+    /// `NONE` | None (no ban) | | -1
     /// `AATROX` | "Aatrox" | "Aatrox" | 266
     /// `AHRI` | "Ahri" | "Ahri" | 103
     /// `AKALI` | "Akali" | "Akali" | 84
@@ -175,9 +176,10 @@ newtype_enum! {
     /// `ZILEAN` | "Zilean" | "Zilean" | 26
     /// `ZOE` | "Zoe" | "Zoe" | 142
     /// `ZYRA` | "Zyra" | "Zyra" | 143
-    #[derive(serde::Serialize, serde::Deserialize)]
-    #[serde(transparent)]
     pub newtype_enum Champion(i16) {
+        /// `-1`, none. Appears when a champion ban is not used in champ select.
+        NONE = -1,
+
         /// `266`.
         AATROX = 266,
         /// `103`.
