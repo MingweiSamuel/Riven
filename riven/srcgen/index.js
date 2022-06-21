@@ -24,6 +24,10 @@ const files = [
     '.queues.json'
   ],
   [
+    'http://www.mingweisamuel.com/riotapi-schema/enums/queueTypes.json',
+    '.queueTypes.json'
+  ],
+  [
     'http://www.mingweisamuel.com/riotapi-schema/enums/gameTypes.json',
     '.gameTypes.json'
   ],
@@ -34,8 +38,8 @@ const files = [
   [
     'http://www.mingweisamuel.com/riotapi-schema/enums/maps.json',
     '.maps.json'
-  ]
-]
+  ],
+];
 
 const downloadFilesPromise = Promise.all(files.map(([url, file]) => req(url)
   .then(body => fs.writeFileAsync(file, body, "utf8"))));

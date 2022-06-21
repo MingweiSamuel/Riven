@@ -1,0 +1,39 @@
+{{
+    const dotUtils = require('./dotUtils.js');
+    const queueTypes = require('./.queueTypes.json');
+}}{{= dotUtils.preamble() }}
+
+use strum_macros::{ EnumString, EnumVariantNames, IntoStaticStr };
+
+/// LoL or TFT ranked queue types.
+#[non_exhaustive]
+#[derive(Debug, Clone)]
+#[derive(Eq, PartialEq, Hash)]
+#[derive(EnumString, EnumVariantNames, IntoStaticStr)]
+#[repr(u8)]
+pub enum QueueType {
+    /// Catch-all variant for new, unknown queue types.
+    #[strum(default)]
+    UNKNOWN(String),
+
+{{
+    for (const e of queueTypes) {
+        const desc = e['x-desc'] ? e['x-desc'].split('\n') : [];
+}}
+{{~ desc :line }}
+    /// {{= line }}
+{{~}}
+{{? e['x-deprecated'] }}
+    /// {{= e.notes }}
+    #[deprecated(note="{{= e.notes }}")]
+{{?}}
+    {{= e['x-name'] }},
+{{
+    }
+}}
+}
+
+serde_strum_unknown!(QueueType);
+
+#[cfg(test)]
+mod test;
