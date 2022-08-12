@@ -100,6 +100,7 @@ newtype_enum! {
     /// `NAUTILUS` | "Nautilus" | "Nautilus" | 111
     /// `NEEKO` | "Neeko" | "Neeko" | 518
     /// `NIDALEE` | "Nidalee" | "Nidalee" | 76
+    /// `NILAH` | "Nilah" | "Nilah" | 895
     /// `NOCTURNE` | "Nocturne" | "Nocturne" | 56
     /// `NUNU_WILLUMP` | "Nunu & Willump" | "Nunu" | 20
     /// `OLAF` | "Olaf" | "Olaf" | 2
@@ -348,6 +349,8 @@ newtype_enum! {
         NEEKO = 518,
         /// `76`.
         NIDALEE = 76,
+        /// `895`.
+        NILAH = 895,
         /// `56`.
         NOCTURNE = 56,
         /// `20`.
@@ -591,6 +594,7 @@ impl Champion {
             Self::NAUTILUS     => Some("Nautilus"),
             Self::NEEKO        => Some("Neeko"),
             Self::NIDALEE      => Some("Nidalee"),
+            Self::NILAH        => Some("Nilah"),
             Self::NOCTURNE     => Some("Nocturne"),
             Self::NUNU_WILLUMP => Some("Nunu & Willump"),
             Self::OLAF         => Some("Olaf"),
@@ -775,6 +779,7 @@ impl Champion {
             Self::NAUTILUS     => Some("Nautilus"),
             Self::NEEKO        => Some("Neeko"),
             Self::NIDALEE      => Some("Nidalee"),
+            Self::NILAH        => Some("Nilah"),
             Self::NOCTURNE     => Some("Nocturne"),
             Self::NUNU_WILLUMP => Some("Nunu"),
             Self::OLAF         => Some("Olaf"),
@@ -996,6 +1001,7 @@ impl std::str::FromStr for Champion {
             /* NAUT */ [ 'N',  'A',  'U',  'T'] => Ok(Champion::NAUTILUS),
             /* NEEK */ [ 'N',  'E',  'E',  'K'] => Ok(Champion::NEEKO),
             /* NIDA */ [ 'N',  'I',  'D',  'A'] => Ok(Champion::NIDALEE),
+            /* NILA */ [ 'N',  'I',  'L',  'A'] => Ok(Champion::NILAH),
             /* NOCT */ [ 'N',  'O',  'C',  'T'] => Ok(Champion::NOCTURNE),
             /* NUNU */ [ 'N',  'U',  'N',  'U'] => Ok(Champion::NUNU_WILLUMP),
             /* OLAF */ [ 'O',  'L',  'A',  'F'] => Ok(Champion::OLAF),
