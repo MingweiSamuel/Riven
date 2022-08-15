@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 3417abd2af40c6500ced39393b045652896cd0dd
+// Version 648c5b93c3144e7094749547bb91481778c8dc08
 
 #![allow(missing_docs)]
 
@@ -481,7 +481,8 @@ pub mod lol_challenges_v1 {
         #[serde(rename = "value")]
         pub value: f64,
         #[serde(rename = "achievedTime")]
-        pub achieved_time: i64,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub achieved_time: Option<i64>,
         #[serde(rename = "position")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub position: Option<i64>,
