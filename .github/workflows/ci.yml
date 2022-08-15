@@ -54,16 +54,41 @@ jobs:
           override: true
           components: rustfmt
 
-      - name: Run Cargo check
+      - name: Run `cargo +stable check --all-targets`
         uses: actions-rs/cargo@v1
         with:
+          toolchain: stable
           command: check
           args: --all-targets
 
-      - name: Run Cargo test
+      - name: Run `cargo +stable check --all-targets --features tracing`
+        uses: actions-rs/cargo@v1
+        with:
+          toolchain: stable
+          command: check
+          args: --all-targets --features tracing
+
+      - name: Run `cargo check --all-targets --features nightly,tracing`
+        uses: actions-rs/cargo@v1
+        with:
+          command: check
+          args: --all-targets --features nightly,tracing
+
+      - name: Run `cargo build --all-targets --features nightly,deny-unknown`
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --all-targets --features nightly,deny-unknown
+
+      - name: Run `cargo test --features nightly,deny-unknown`
         uses: actions-rs/cargo@v1
         with:
           command: test
+          args: --features nightly,deny-unknown
+        env:
+          RUST_BACKTRACE: 1
+          RUSTLOG: riven=trace
+          RGAPI_KEY: ${{ secrets.RGAPI_KEY }}
 
   # lints:
   #   name: Lints
