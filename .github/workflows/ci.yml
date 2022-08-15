@@ -1,0 +1,95 @@
+name: CI
+
+on:
+  push:
+    branches: [v/2.x.x]
+  pull_request:
+    branches: [v/2.x.x]
+  schedule:
+    - cron: "24 05 * * *" # Daily at 10:24 PM PDT, 9:24 PM PST.
+  workflow_dispatch:
+# TODO: generate nightly releases
+#    inputs:
+#      should_bench:
+#        description: "Should Benchmark? (`true`)"
+#        required: true
+#        default: "false"
+
+jobs:
+  pre_job:
+    runs-on: ubuntu-latest
+    outputs:
+      should_skip: ${{ steps.skip_check.outputs.should_skip }}
+    steps:
+      - id: skip_check
+        uses: fkirc/skip-duplicate-actions@v3.4.0
+        with:
+          cancel_others: "true"
+
+  test:
+    name: Check & Test
+    needs: pre_job
+    if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Node dependencies
+        run: npm ci --prefix riven/srcgen
+
+      - name: Run codegen
+        run: node riven/srcgen
+
+      - name: Install Rust nightly toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: nightly
+          override: true
+          components: rustfmt
+
+      - name: Run Cargo check
+        uses: actions-rs/cargo@v1
+        with:
+          command: check
+          args: --all-targets
+
+      - name: Run Cargo test
+        uses: actions-rs/cargo@v1
+        with:
+          command: test
+
+  # lints:
+  #   name: Lints
+  #   needs: pre_job
+  #   if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout sources
+  #       uses: actions/checkout@v2
+
+  #     - name: Install nightly toolchain
+  #       uses: actions-rs/toolchain@v1
+  #       with:
+  #         profile: minimal
+  #         toolchain: nightly
+  #         override: true
+  #         components: rustfmt, clippy
+
+  #     - name: Run cargo fmt
+  #       uses: actions-rs/cargo@v1
+  #       with:
+  #         command: fmt
+  #         args: --all -- --check
+
+  #     - name: Run cargo clippy
+  #       uses: actions-rs/cargo@v1
+  #       with:
+  #         command: clippy
+  #         args: -- -D warnings
