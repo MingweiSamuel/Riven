@@ -164,5 +164,12 @@ async_tests!{
             assert!(team.is_none());
             Ok(())
         },
+
+        status: async {
+            let p = RIOT_API.lol_status_v4().get_platform_data(PlatformRoute::NA1);
+            let status = p.await.map_err(|e| e.to_string())?;
+            println!("{:?}", status);
+            Ok(())
+        },
     }
 }

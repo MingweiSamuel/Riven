@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 648c5b93c3144e7094749547bb91481778c8dc08
+// Version dae26e2703c82eb19447d1b27f1209801cb83beb
 
 //! Automatically generated endpoint handles.
 #![allow(clippy::let_and_return, clippy::too_many_arguments)]
@@ -196,6 +196,15 @@ impl RiotApi {
     #[inline]
     pub fn tft_match_v1(&self) -> TftMatchV1 {
         TftMatchV1 { base: self }
+    }
+    /// Returns a handle for accessing [TftStatusV1](crate::endpoints::TftStatusV1) endpoints.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/apis#tft-status-v1" target="_blank">`tft-status-v1`</a>
+    ///
+    /// Note: this method is automatically generated.
+    #[inline]
+    pub fn tft_status_v1(&self) -> TftStatusV1 {
+        TftStatusV1 { base: self }
     }
     /// Returns a handle for accessing [TftSummonerV1](crate::endpoints::TftSummonerV1) endpoints.
     /// # Riot Developer API Reference
@@ -399,6 +408,27 @@ impl<'a> ChampionMasteryV4<'a> {
         let future = self.base.execute_opt::<champion_mastery_v4::ChampionMastery>("champion-mastery-v4.getChampionMastery", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("champion-mastery-v4.getChampionMastery"));
+        future
+    }
+
+    /// Get specified number of top champion mastery entries sorted by number of champion points descending.
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// * `encrypted_summoner_id` (required, in path) - Summoner ID associated with the player
+    /// * `count` (optional, in query) - Number of entries to retrieve, defaults to 3
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getTopChampionMasteries" target="_blank">`champion-mastery-v4.getTopChampionMasteries`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_top_champion_masteries(&self, route: PlatformRoute, encrypted_summoner_id: &str, count: Option<i32>)
+        -> impl Future<Output = Result<Vec<champion_mastery_v4::ChampionMastery>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/champion-mastery/v4/champion-masteries/by-summoner/{}/top", encrypted_summoner_id));
+        let mut request = request; if let Some(count) = count { request = request.query(&[ ("count", count) ]); }
+        let future = self.base.execute_val::<Vec<champion_mastery_v4::ChampionMastery>>("champion-mastery-v4.getTopChampionMasteries", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("champion-mastery-v4.getTopChampionMasteries"));
         future
     }
 
@@ -1546,6 +1576,36 @@ impl<'a> TftMatchV1<'a> {
         let future = self.base.execute_opt::<tft_match_v1::Match>("tft-match-v1.getMatch", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tft-match-v1.getMatch"));
+        future
+    }
+
+}
+
+/// TftStatusV1 endpoints handle, accessed by calling [`tft_status_v1()`](crate::RiotApi::tft_status_v1) on a [`RiotApi`](crate::RiotApi) instance.
+/// # Riot Developer API Reference
+/// <a href="https://developer.riotgames.com/apis#tft-status-v1" target="_blank">`tft-status-v1`</a>
+///
+/// Note: this struct is automatically generated.
+#[repr(transparent)]
+pub struct TftStatusV1<'a> {
+    base: &'a RiotApi,
+}
+impl<'a> TftStatusV1<'a> {
+    /// Get Teamfight Tactics status for the given platform.
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-status-v1/GET_getPlatformData" target="_blank">`tft-status-v1.getPlatformData`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_platform_data(&self, route: PlatformRoute)
+        -> impl Future<Output = Result<tft_status_v1::PlatformData>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/tft/status/v1/platform-data");
+        let future = self.base.execute_val::<tft_status_v1::PlatformData>("tft-status-v1.getPlatformData", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tft-status-v1.getPlatformData"));
         future
     }
 

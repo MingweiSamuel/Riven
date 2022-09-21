@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 648c5b93c3144e7094749547bb91481778c8dc08
+// Version dae26e2703c82eb19447d1b27f1209801cb83beb
 
 //! Metadata about the Riot API and Riven.
 //!
@@ -15,13 +15,14 @@
 
 /// Metadata for endpoints. Each tuple corresponds to one endpoint and contains
 /// the HTTP [`Method`](reqwest::Method), `str` path, and the method's `str` ID.
-pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 75] = [
+pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 77] = [
     (reqwest::Method::GET, "/riot/account/v1/accounts/by-puuid/{puuid}", "account-v1.getByPuuid"),
     (reqwest::Method::GET, "/riot/account/v1/accounts/by-riot-id/{gameName}/{tagLine}", "account-v1.getByRiotId"),
     (reqwest::Method::GET, "/riot/account/v1/accounts/me", "account-v1.getByAccessToken"),
     (reqwest::Method::GET, "/riot/account/v1/active-shards/by-game/{game}/by-puuid/{puuid}", "account-v1.getActiveShard"),
     (reqwest::Method::GET, "/lol/champion-mastery/v4/champion-masteries/by-summoner/{encryptedSummonerId}", "champion-mastery-v4.getAllChampionMasteries"),
     (reqwest::Method::GET, "/lol/champion-mastery/v4/champion-masteries/by-summoner/{encryptedSummonerId}/by-champion/{championId}", "champion-mastery-v4.getChampionMastery"),
+    (reqwest::Method::GET, "/lol/champion-mastery/v4/champion-masteries/by-summoner/{encryptedSummonerId}/top", "champion-mastery-v4.getTopChampionMasteries"),
     (reqwest::Method::GET, "/lol/champion-mastery/v4/scores/by-summoner/{encryptedSummonerId}", "champion-mastery-v4.getChampionMasteryScore"),
     (reqwest::Method::GET, "/lol/platform/v3/champion-rotations", "champion-v3.getChampionInfo"),
     (reqwest::Method::GET, "/lol/clash/v1/players/by-summoner/{summonerId}", "clash-v1.getPlayersBySummoner"),
@@ -70,6 +71,7 @@ pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 75] = [
     (reqwest::Method::GET, "/tft/league/v1/rated-ladders/{queue}/top", "tft-league-v1.getTopRatedLadder"),
     (reqwest::Method::GET, "/tft/match/v1/matches/by-puuid/{puuid}/ids", "tft-match-v1.getMatchIdsByPUUID"),
     (reqwest::Method::GET, "/tft/match/v1/matches/{matchId}", "tft-match-v1.getMatch"),
+    (reqwest::Method::GET, "/tft/status/v1/platform-data", "tft-status-v1.getPlatformData"),
     (reqwest::Method::GET, "/tft/summoner/v1/summoners/by-account/{encryptedAccountId}", "tft-summoner-v1.getByAccountId"),
     (reqwest::Method::GET, "/tft/summoner/v1/summoners/by-name/{summonerName}", "tft-summoner-v1.getBySummonerName"),
     (reqwest::Method::GET, "/tft/summoner/v1/summoners/by-puuid/{encryptedPUUID}", "tft-summoner-v1.getByPUUID"),

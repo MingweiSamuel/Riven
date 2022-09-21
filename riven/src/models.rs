@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 648c5b93c3144e7094749547bb91481778c8dc08
+// Version dae26e2703c82eb19447d1b27f1209801cb83beb
 
 #![allow(missing_docs)]
 
@@ -639,10 +639,12 @@ pub mod lol_status_v4 {
         pub id: i32,
         /// (Legal values:  scheduled,  in_progress,  complete)
         #[serde(rename = "maintenance_status")]
-        pub maintenance_status: String,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub maintenance_status: Option<String>,
         /// (Legal values:  info,  warning,  critical)
         #[serde(rename = "incident_severity")]
-        pub incident_severity: String,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub incident_severity: Option<String>,
         #[serde(rename = "titles")]
         pub titles: std::vec::Vec<Content>,
         #[serde(rename = "updates")]
@@ -650,9 +652,11 @@ pub mod lol_status_v4 {
         #[serde(rename = "created_at")]
         pub created_at: String,
         #[serde(rename = "archive_at")]
-        pub archive_at: String,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub archive_at: Option<String>,
         #[serde(rename = "updated_at")]
-        pub updated_at: String,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub updated_at: Option<String>,
         /// (Legal values: windows, macos, android, ios, ps4, xbone, switch)
         #[serde(rename = "platforms")]
         pub platforms: std::vec::Vec<String>,
@@ -2628,6 +2632,87 @@ pub mod tft_match_v1 {
         pub content_id: String,
         #[serde(rename = "species")]
         pub species: String,
+    }
+}
+
+/// Data structs used by [`TftStatusV1`](crate::endpoints::TftStatusV1).
+/// 
+/// Note: this module is automatically generated.
+#[allow(dead_code)]
+pub mod tft_status_v1 {
+    /// PlatformData data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct PlatformData {
+        #[serde(rename = "id")]
+        pub id: String,
+        #[serde(rename = "name")]
+        pub name: String,
+        #[serde(rename = "locales")]
+        pub locales: std::vec::Vec<String>,
+        #[serde(rename = "maintenances")]
+        pub maintenances: std::vec::Vec<Status>,
+        #[serde(rename = "incidents")]
+        pub incidents: std::vec::Vec<Status>,
+    }
+    /// Status data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct Status {
+        #[serde(rename = "id")]
+        pub id: i32,
+        /// (Legal values:  scheduled,  in_progress,  complete)
+        #[serde(rename = "maintenance_status")]
+        pub maintenance_status: String,
+        /// (Legal values:  info,  warning,  critical)
+        #[serde(rename = "incident_severity")]
+        pub incident_severity: String,
+        #[serde(rename = "titles")]
+        pub titles: std::vec::Vec<Content>,
+        #[serde(rename = "updates")]
+        pub updates: std::vec::Vec<Update>,
+        #[serde(rename = "created_at")]
+        pub created_at: String,
+        #[serde(rename = "archive_at")]
+        pub archive_at: String,
+        #[serde(rename = "updated_at")]
+        pub updated_at: String,
+        /// (Legal values: windows, macos, android, ios, ps4, xbone, switch)
+        #[serde(rename = "platforms")]
+        pub platforms: std::vec::Vec<String>,
+    }
+    /// Content data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct Content {
+        #[serde(rename = "locale")]
+        pub locale: String,
+        #[serde(rename = "content")]
+        pub content: String,
+    }
+    /// Update data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct Update {
+        #[serde(rename = "id")]
+        pub id: i32,
+        #[serde(rename = "author")]
+        pub author: String,
+        #[serde(rename = "publish")]
+        pub publish: bool,
+        /// (Legal values: riotclient, riotstatus, game)
+        #[serde(rename = "publish_locations")]
+        pub publish_locations: std::vec::Vec<String>,
+        #[serde(rename = "translations")]
+        pub translations: std::vec::Vec<Content>,
+        #[serde(rename = "created_at")]
+        pub created_at: String,
+        #[serde(rename = "updated_at")]
+        pub updated_at: String,
     }
 }
 
