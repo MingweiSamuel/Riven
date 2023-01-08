@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version dae26e2703c82eb19447d1b27f1209801cb83beb
+// Version a9b6936baced1f181b550b7fb921ab72b216076c
 
 //! Automatically generated endpoint handles.
 #![allow(clippy::let_and_return, clippy::too_many_arguments)]
@@ -1280,6 +1280,25 @@ pub struct SummonerV4<'a> {
     base: &'a RiotApi,
 }
 impl<'a> SummonerV4<'a> {
+    /// Get a summoner by its RSO encrypted PUUID.
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// * `rso_puuid` (required, in path) - Summoner ID
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByRSOPUUID" target="_blank">`summoner-v4.getByRSOPUUID`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_by_rsopuuid(&self, route: PlatformRoute, rso_puuid: &str)
+        -> impl Future<Output = Result<summoner_v4::Summoner>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/fulfillment/v1/summoners/by-puuid/{}", rso_puuid));
+        let future = self.base.execute_val::<summoner_v4::Summoner>("summoner-v4.getByRSOPUUID", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("summoner-v4.getByRSOPUUID"));
+        future
+    }
+
     /// Get a summoner by account ID.
     /// # Parameters
     /// * `route` - Route to query.

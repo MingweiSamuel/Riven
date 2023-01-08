@@ -67,6 +67,7 @@ newtype_enum! {
     /// `JAYCE` | "Jayce" | "Jayce" | 126
     /// `JHIN` | "Jhin" | "Jhin" | 202
     /// `JINX` | "Jinx" | "Jinx" | 222
+    /// `K_SANTE` | "K'Sante" | "KSante" | 897
     /// `KAI_SA` | "Kai'Sa" | "Kaisa" | 145
     /// `KALISTA` | "Kalista" | "Kalista" | 429
     /// `KARMA` | "Karma" | "Karma" | 43
@@ -283,6 +284,8 @@ newtype_enum! {
         JHIN = 202,
         /// `222`.
         JINX = 222,
+        /// `897`.
+        K_SANTE = 897,
         /// `145`.
         KAI_SA = 145,
         /// `429`.
@@ -561,6 +564,7 @@ impl Champion {
             Self::JAYCE        => Some("Jayce"),
             Self::JHIN         => Some("Jhin"),
             Self::JINX         => Some("Jinx"),
+            Self::K_SANTE      => Some("K'Sante"),
             Self::KAI_SA       => Some("Kai'Sa"),
             Self::KALISTA      => Some("Kalista"),
             Self::KARMA        => Some("Karma"),
@@ -746,6 +750,7 @@ impl Champion {
             Self::JAYCE        => Some("Jayce"),
             Self::JHIN         => Some("Jhin"),
             Self::JINX         => Some("Jinx"),
+            Self::K_SANTE      => Some("KSante"),
             Self::KAI_SA       => Some("Kaisa"),
             Self::KALISTA      => Some("Kalista"),
             Self::KARMA        => Some("Karma"),
@@ -964,6 +969,8 @@ impl std::str::FromStr for Champion {
             /* JAYC */ [ 'J',  'A',  'Y',  'C'] => Ok(Champion::JAYCE),
             /* JHIN */ [ 'J',  'H',  'I',  'N'] => Ok(Champion::JHIN),
             /* JINX */ [ 'J',  'I',  'N',  'X'] => Ok(Champion::JINX),
+            /* KSAN */ [ 'K',  'S',  'A',  'N'] => Ok(Champion::K_SANTE),
+            /* K    */ [ 'K', '\0', '\0', '\0'] => Ok(Champion::K_SANTE),
             /* KAIS */ [ 'K',  'A',  'I',  'S'] => Ok(Champion::KAI_SA),
             /* KAI  */ [ 'K',  'A',  'I', '\0'] => Ok(Champion::KAI_SA),
             /* KALI */ [ 'K',  'A',  'L',  'I'] => Ok(Champion::KALISTA),
