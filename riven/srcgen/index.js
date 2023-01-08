@@ -40,7 +40,7 @@ const files = [
     '.maps.json'
   ],
   [
-    'https://raw.githubusercontent.com/MingweiSamuel/riotapi-schema/master/src/data/routesTable.json',
+    'http://www.mingweisamuel.com/riotapi-schema/routesTable.json',
     '.routesTable.json'
   ],
 ];
