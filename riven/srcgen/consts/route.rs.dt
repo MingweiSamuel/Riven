@@ -1,0 +1,142 @@
+{{
+    const dotUtils = require('./dotUtils.js');
+    const routesTable = require('./.routesTable.json');
+}}{{= dotUtils.preamble() }}
+
+use num_enum::{ IntoPrimitive, TryFromPrimitive };
+use strum_macros::{ EnumString, EnumIter, Display, IntoStaticStr };
+
+/// Regional routes, used in tournament services, Legends of Runterra, and other endpoints.
+#[derive(Debug)]
+#[derive(PartialEq, Eq, Hash, PartialOrd, Ord)]
+#[derive(IntoPrimitive, TryFromPrimitive)]
+#[derive(EnumString, EnumIter, Display, IntoStaticStr)]
+#[derive(Clone, Copy)]
+#[repr(u8)]
+#[non_exhaustive]
+pub enum RegionalRoute {
+{{
+    for (const [ name, { id, description, deprecated } ] of Object.entries(routesTable['regional'])) {
+        const desc = description.split('\n');
+}}
+{{~ desc :line }}
+    /// {{= line }}
+{{~}}
+    ///
+    /// `{{= id }}` (riotapi-schema ID/repr)
+{{? deprecated }}
+    #[deprecated]
+{{?}}
+    {{= name.toUpperCase() }} = {{= id }},
+
+{{
+    }
+}}
+}
+
+/// Platform routes for League of Legends (LoL), Teamfight Tactics (TFT), and Legends of Runeterra (LoR).
+#[derive(Debug)]
+#[derive(PartialEq, Eq, Hash, PartialOrd, Ord)]
+#[derive(IntoPrimitive, TryFromPrimitive)]
+#[derive(EnumString, EnumIter, Display, IntoStaticStr)]
+#[derive(Clone, Copy)]
+#[repr(u8)]
+#[non_exhaustive]
+// Note: strum(serialize = ...) actually specifies extra DEserialization values.
+pub enum PlatformRoute {
+{{
+    for (const [ name, { id, description, altName, deprecated } ] of Object.entries(routesTable['platform'])) {
+        const desc = description.split('\n');
+}}
+{{~ desc :line }}
+    /// {{= line }}
+{{~}}
+    ///
+    /// `{{= id }}` (riotapi-schema ID/repr)
+{{? deprecated }}
+    #[deprecated]
+{{?}}
+{{? altName }}
+    #[strum(to_string="{{= name.toUpperCase() }}", serialize="{{= altName }}")]
+{{?}}
+    {{= name.toUpperCase() }} = {{= id }},
+
+{{
+    }
+}}
+}
+
+impl PlatformRoute {
+    /// Converts this [`PlatformRoute`] into its corresponding
+    /// [`RegionalRoute`] for LoL and TFT match endpoints.
+    /// For example, [`match-v5`](crate::endpoints::MatchV5).
+    pub fn to_regional(self) -> RegionalRoute {
+        match self {
+{{
+    for (const [ name, { regionalRoute } ] of Object.entries(routesTable['platform'])) {
+}}
+            Self::{{= name.toUpperCase() }} => RegionalRoute::{{= regionalRoute.toUpperCase() }},
+{{
+    }
+}}
+        }
+    }
+
+    /// Converts this [`PlatformRoute`] into its corresponding
+    /// [`RegionalRoute`] for LoR endpoints.
+    /// For example, [`lor-match-v1`](crate::endpoints::LorMatchV1).
+    pub fn to_regional_lor(self) -> RegionalRoute {
+        match self {
+{{
+    for (const [ name, { regionalRouteLor } ] of Object.entries(routesTable['platform'])) {
+}}
+            Self::{{= name.toUpperCase() }} => RegionalRoute::{{= regionalRouteLor.toUpperCase() }},
+{{
+    }
+}}
+        }
+    }
+
+    /// Used in LoL Tournament API.
+    pub fn as_region_str(self) -> &'static str {
+        match self {
+{{
+    for (const [ name, { altName } ] of Object.entries(routesTable['platform'])) {
+        if (!altName) continue;
+}}
+            Self::{{= name.toUpperCase() }} => "{{= altName }}",
+{{
+    }
+}}
+            other => other.into()
+        }
+    }
+}
+
+/// Platform routes for Valorant.
+#[derive(Debug)]
+#[derive(PartialEq, Eq, Hash, PartialOrd, Ord)]
+#[derive(IntoPrimitive, TryFromPrimitive)]
+#[derive(EnumString, EnumIter, Display, IntoStaticStr)]
+#[derive(Clone, Copy)]
+#[repr(u8)]
+#[non_exhaustive]
+pub enum ValPlatformRoute {
+{{
+    for (const [ name, { id, description, deprecated } ] of Object.entries(routesTable['val-platform'])) {
+        const desc = description.split('\n');
+}}
+{{~ desc :line }}
+    /// {{= line }}
+{{~}}
+    ///
+    /// `{{= id }}` (riotapi-schema ID/repr)
+{{? deprecated }}
+    #[deprecated]
+{{?}}
+    {{= name.toUpperCase() }} = {{= id }},
+
+{{
+    }
+}}
+}

@@ -39,6 +39,10 @@ const files = [
     'http://www.mingweisamuel.com/riotapi-schema/enums/maps.json',
     '.maps.json'
   ],
+  [
+    'https://raw.githubusercontent.com/MingweiSamuel/riotapi-schema/master/src/data/routesTable.json',
+    '.routesTable.json'
+  ],
 ];
 
 const downloadFilesPromise = Promise.all(files.map(([url, file]) => req(url)

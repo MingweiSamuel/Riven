@@ -34,6 +34,9 @@ pub mod ranks;
 mod route;
 pub use route::*;
 
+mod route_ext;
+pub use route_ext::*;
+
 mod season;
 pub use season::*;
 
