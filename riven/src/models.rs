@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version a9b6936baced1f181b550b7fb921ab72b216076c
+// Version d9133c31439c2d38263002fad5fa824f2ea0cb8b
 
 #![allow(missing_docs)]
 
@@ -2819,7 +2819,7 @@ pub mod tournament_stub_v4 {
         /// The region in which the provider will be running tournaments.<br>
         /// (Legal values:  BR,  EUNE,  EUW,  JP,  LAN,  LAS,  NA,  OCE,  PBE,  RU,  TR)
         #[serde(rename = "region")]
-        pub region: String,
+        pub region: crate::consts::TournamentRegion,
         /// The provider's callback URL to which tournament game results in this region should be posted. The URL must be well-formed, use the http or https protocol, and use the default port for the protocol (http URLs must use port 80, https URLs must use port 443).
         #[serde(rename = "url")]
         pub url: String,
@@ -2972,7 +2972,7 @@ pub mod tournament_v4 {
         /// The region in which the provider will be running tournaments.<br>
         /// (Legal values:  BR,  EUNE,  EUW,  JP,  LAN,  LAS,  NA,  OCE,  PBE,  RU,  TR)
         #[serde(rename = "region")]
-        pub region: String,
+        pub region: crate::consts::TournamentRegion,
         /// The provider's callback URL to which tournament game results in this region should be posted. The URL must be well-formed, use the http or https protocol, and use the default port for the protocol (http URLs must use port 80, https URLs must use port 443).
         #[serde(rename = "url")]
         pub url: String,

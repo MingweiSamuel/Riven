@@ -97,7 +97,30 @@ impl PlatformRoute {
         }
     }
 
-    /// Used in LoL Tournament API.
+    /// Used in the LoL Tournament API. Specifically
+    /// [`tournament-stub-v4.registerProviderData`](crate::endpoints::TournamentStubV4::register_provider_data)
+    /// and [`tournament-v4.registerProviderData`](crate::endpoints::TournamentV4::register_provider_data).
+    pub fn to_tournament_region(self) -> Option<TournamentRegion> {
+        match self {
+{{
+    for (const [ name, { tournamentRegion } ] of Object.entries(routesTable['platform'])) {
+        if (!tournamentRegion) continue;
+}}
+            Self::{{= name.toUpperCase() }} => Some(TournamentRegion::{{= tournamentRegion }}),
+{{
+    }
+}}
+            _other => None,
+        }
+    }
+
+    /// Get the slightly more human-friendly alternate name for this `PlatformRoute`. Specifically
+    /// excludes any trailing numbers and appends extra N(orth), S(outh), E(ast), and/or W(est)
+    /// suffixes to some names. Some of these are old region names which are often still used as
+    /// user-facing names, e.g. on op.gg.
+    ///
+    /// Note these strings *are* handled by the `FromStr` implementation, if you wish to parse them
+    /// back into `PlatformRoute`s.
     pub fn as_region_str(self) -> &'static str {
         match self {
 {{
@@ -108,7 +131,7 @@ impl PlatformRoute {
 {{
     }
 }}
-            other => other.into()
+            other => other.into(),
         }
     }
 }
@@ -137,6 +160,37 @@ pub enum ValPlatformRoute {
     {{= name.toUpperCase() }} = {{= id }},
 
 {{
+    }
+}}
+}
+
+/// Tournament regions for League of Legends (LoL) used in
+/// [`tournament-stub-v4.registerProviderData`](crate::endpoints::TournamentStubV4::register_provider_data)
+/// and [`tournament-v4.registerProviderData`](crate::endpoints::TournamentV4::register_provider_data).
+#[derive(Debug)]
+#[derive(PartialEq, Eq, Hash, PartialOrd, Ord)]
+#[derive(IntoPrimitive, TryFromPrimitive)]
+#[derive(EnumString, EnumIter, Display, IntoStaticStr)]
+#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, Copy)]
+#[repr(u8)]
+#[non_exhaustive]
+// Note: strum(serialize = ...) actually specifies extra DEserialization values.
+pub enum TournamentRegion {
+{{
+    for (const [ name, { id, description, tournamentRegion, deprecated } ] of Object.entries(routesTable['platform'])) {
+        if (tournamentRegion) {
+            const desc = description.split('\n');
+}}
+{{~ desc :line }}
+    /// {{= line }}
+{{~}}
+{{? deprecated }}
+    #[deprecated]
+{{?}}
+    {{= tournamentRegion }} = {{= id }},
+{{
+        }
     }
 }}
 }

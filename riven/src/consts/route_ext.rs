@@ -181,4 +181,12 @@ mod tests {
         assert_eq!(Ok(ValPlatformRoute::ESPORTS), "ESPORTS".parse());
         assert!("SEA".parse::<ValPlatformRoute>().is_err());
     }
+
+    #[test]
+    fn test_tournament_region_serde() {
+        use crate::consts::TournamentRegion;
+        let json = serde_json::to_string(&TournamentRegion::EUNE);
+        assert!(json.is_ok());
+        assert_eq!("\"EUNE\"", &*json.unwrap());
+    }
 }

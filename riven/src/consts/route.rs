@@ -117,6 +117,7 @@ pub enum PlatformRoute {
     /// Philippines
     ///
     /// `32` (riotapi-schema ID/repr)
+    #[strum(to_string="PH2", serialize="PH")]
     PH2 = 32,
 
     /// Russia
@@ -127,11 +128,13 @@ pub enum PlatformRoute {
     /// Singapore
     ///
     /// `33` (riotapi-schema ID/repr)
+    #[strum(to_string="SG2", serialize="SG")]
     SG2 = 33,
 
     /// Thailand
     ///
     /// `34` (riotapi-schema ID/repr)
+    #[strum(to_string="TH2", serialize="TH")]
     TH2 = 34,
 
     /// Turkey
@@ -143,11 +146,13 @@ pub enum PlatformRoute {
     /// Taiwan
     ///
     /// `35` (riotapi-schema ID/repr)
+    #[strum(to_string="TW2", serialize="TW")]
     TW2 = 35,
 
     /// Vietnam
     ///
     /// `36` (riotapi-schema ID/repr)
+    #[strum(to_string="VN2", serialize="VN")]
     VN2 = 36,
 
     /// Public Beta Environment, special beta testing platform. Located in North America.
@@ -209,7 +214,32 @@ impl PlatformRoute {
         }
     }
 
-    /// Used in LoL Tournament API.
+    /// Used in the LoL Tournament API. Specifically
+    /// [`tournament-stub-v4.registerProviderData`](crate::endpoints::TournamentStubV4::register_provider_data)
+    /// and [`tournament-v4.registerProviderData`](crate::endpoints::TournamentV4::register_provider_data).
+    pub fn to_tournament_region(self) -> Option<TournamentRegion> {
+        match self {
+            Self::BR1 => Some(TournamentRegion::BR),
+            Self::EUN1 => Some(TournamentRegion::EUNE),
+            Self::EUW1 => Some(TournamentRegion::EUW),
+            Self::JP1 => Some(TournamentRegion::JP),
+            Self::LA1 => Some(TournamentRegion::LAN),
+            Self::LA2 => Some(TournamentRegion::LAS),
+            Self::NA1 => Some(TournamentRegion::NA),
+            Self::OC1 => Some(TournamentRegion::OCE),
+            Self::TR1 => Some(TournamentRegion::TR),
+            Self::PBE1 => Some(TournamentRegion::PBE),
+            _other => None,
+        }
+    }
+
+    /// Get the slightly more human-friendly alternate name for this `PlatformRoute`. Specifically
+    /// excludes any trailing numbers and appends extra N(orth), S(outh), E(ast), and/or W(est)
+    /// suffixes to some names. Some of these are old region names which are often still used as
+    /// user-facing names, e.g. on op.gg.
+    ///
+    /// Note these strings *are* handled by the `FromStr` implementation, if you wish to parse them
+    /// back into `PlatformRoute`s.
     pub fn as_region_str(self) -> &'static str {
         match self {
             Self::BR1 => "BR",
@@ -220,9 +250,14 @@ impl PlatformRoute {
             Self::LA2 => "LAS",
             Self::NA1 => "NA",
             Self::OC1 => "OCE",
+            Self::PH2 => "PH",
+            Self::SG2 => "SG",
+            Self::TH2 => "TH",
             Self::TR1 => "TR",
+            Self::TW2 => "TW",
+            Self::VN2 => "VN",
             Self::PBE1 => "PBE",
-            other => other.into()
+            other => other.into(),
         }
     }
 }
@@ -271,4 +306,39 @@ pub enum ValPlatformRoute {
     /// `95` (riotapi-schema ID/repr)
     ESPORTS = 95,
 
+}
+
+/// Tournament regions for League of Legends (LoL) used in
+/// [`tournament-stub-v4.registerProviderData`](crate::endpoints::TournamentStubV4::register_provider_data)
+/// and [`tournament-v4.registerProviderData`](crate::endpoints::TournamentV4::register_provider_data).
+#[derive(Debug)]
+#[derive(PartialEq, Eq, Hash, PartialOrd, Ord)]
+#[derive(IntoPrimitive, TryFromPrimitive)]
+#[derive(EnumString, EnumIter, Display, IntoStaticStr)]
+#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, Copy)]
+#[repr(u8)]
+#[non_exhaustive]
+// Note: strum(serialize = ...) actually specifies extra DEserialization values.
+pub enum TournamentRegion {
+    /// Brazil.
+    BR = 16,
+    /// Europe, Northeast.
+    EUNE = 17,
+    /// Europe, West.
+    EUW = 18,
+    /// Japan.
+    JP = 19,
+    /// Latin America, North.
+    LAN = 21,
+    /// Latin America, South.
+    LAS = 22,
+    /// North America.
+    NA = 23,
+    /// Oceana.
+    OCE = 24,
+    /// Turkey
+    TR = 26,
+    /// Public Beta Environment, special beta testing platform. Located in North America.
+    PBE = 31,
 }

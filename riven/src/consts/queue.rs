@@ -220,8 +220,11 @@ newtype_enum! {
         /// Dark Star: Singularity games on Cosmic Ruins
         COSMIC_RUINS_DARK_STAR_SINGULARITY = 610,
         /// `700`.
-        /// Clash games on Summoner's Rift
+        /// Summoner's Rift Clash games on Summoner's Rift
         SUMMONERS_RIFT_CLASH = 700,
+        /// `720`.
+        /// ARAM Clash games on Howling Abyss
+        HOWLING_ABYSS_ARAM_CLASH = 720,
         /// `800`.
         /// Co-op vs. AI Intermediate Bot games on Twisted Treeline
         /// Deprecated in patch 9.23
@@ -325,10 +328,10 @@ newtype_enum! {
         /// Nexus Blitz games on Nexus Blitz
         /// Deprecated in patch 9.2 in favor of queueId 1300
         #[deprecated(note="Deprecated in patch 9.2 in favor of queueId 1300")]
-        NEXUS_BLITZ_NEXUS_BLITZ_DEPRECATED_1200 = 1200,
+        NEXUS_BLITZ_DEPRECATED_1200 = 1200,
         /// `1300`.
         /// Nexus Blitz games on Nexus Blitz
-        NEXUS_BLITZ_NEXUS_BLITZ = 1300,
+        NEXUS_BLITZ = 1300,
         /// `1400`.
         /// Ultimate Spellbook games on Summoner's Rift
         SUMMONERS_RIFT_ULTIMATE_SPELLBOOK = 1400,
