@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version f3bb2db3eef1ffd9fa3bb8ce0fdaf1c167dc6ae2
+// Version eac495e7f53e2f13cedbe13e257ef23569f53919
 
 #![allow(missing_docs)]
 
@@ -2618,7 +2618,8 @@ pub mod tft_match_v1 {
         pub item_names: Option<std::vec::Vec<String>>,
         /// A list of the unit's items. Please refer to the Teamfight Tactics documentation for item ids.
         #[serde(rename = "items")]
-        pub items: std::vec::Vec<i32>,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub items: Option<std::vec::Vec<i32>>,
         /// This field was introduced in patch 9.22 with data_version 2.
         #[serde(rename = "character_id")]
         pub character_id: String,
