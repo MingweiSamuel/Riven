@@ -23,8 +23,39 @@ pub mod ids {
     pub const ACCOUNT_ID_LUGNUTSK: &str = "iheZF2uJ50S84Hfq6Ob8GNlJAUmBmac-EsEEWBJjD01q1jQ";
 }
 
-pub async fn match_v5_get(route: RegionalRoute, matches: &[&'static str]) -> Result<(), String> {
-    for &matche in matches {
+pub async fn tft_match_v1_get(route: RegionalRoute, matches: &[impl AsRef<str>]) -> Result<(), String> {
+    let futures = matches.iter().map(|matche| async move {
+        let matche = matche.as_ref();
+        let p = RIOT_API.tft_match_v1().get_match(route, matche);
+        let m = p
+            .await
+            .map_err(|e| format!("Failed to get match {}: {:?}", matche, e))?
+            .ok_or(format!("Match {} not found.", matche))?;
+
+        if matche != &*m.metadata.match_id {
+            return Err(format!(
+                "Bad match id? Sent {}, received {}.",
+                matche, m.metadata.match_id
+            ));
+        }
+        if m.metadata.participants.is_empty() {
+            return Err("Match should have participants (metadata).".to_owned());
+        }
+        if m.metadata.participants.len() != m.info.participants.len() {
+            return Err("Match participants do not line up with participant UUIDs.".to_owned());
+        }
+        if m.info.participants.is_empty() {
+            return Err("Match should have participants (info).".to_owned());
+        }
+        Ok(())
+    });
+    futures::future::try_join_all(futures).await?;
+    Ok(())
+}
+
+pub async fn match_v5_get(route: RegionalRoute, matches: &[impl AsRef<str>]) -> Result<(), String> {
+    let futures = matches.iter().map(|matche| async move {
+        let matche = matche.as_ref();
         let p = RIOT_API.match_v5().get_match(route, matche);
         let m = p
             .await
@@ -49,15 +80,18 @@ pub async fn match_v5_get(route: RegionalRoute, matches: &[&'static str]) -> Res
         if m.info.teams.is_empty() {
             return Err("Match should have teams.".to_owned());
         }
-    }
+        Ok(())
+    });
+    futures::future::try_join_all(futures).await?;
     Ok(())
 }
 
 pub async fn match_v5_get_timeline(
     route: RegionalRoute,
-    matches: &[&'static str],
+    matches: &[impl AsRef<str>],
 ) -> Result<(), String> {
-    for &matche in matches {
+    let futures = matches.iter().map(|matche| async move {
+        let matche = matche.as_ref();
         let p = RIOT_API.match_v5().get_timeline(route, matche);
         let m = p
             .await
@@ -80,6 +114,8 @@ pub async fn match_v5_get_timeline(
         if m.info.frames.is_empty() {
             return Err("Match timleine should have frames.".to_owned());
         }
-    }
+        Ok(())
+    });
+    futures::future::try_join_all(futures).await?;
     Ok(())
 }
