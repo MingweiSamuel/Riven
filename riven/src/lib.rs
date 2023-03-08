@@ -59,7 +59,7 @@
 //!         .get_all_champion_masteries(PlatformRoute::NA1, &summoner.id).await
 //!         .expect("Get champion masteries failed.");
 //! 
-//!     // Print champioon masteries.
+//!     // Print champion masteries.
 //!     for (i, mastery) in masteries.iter().take(10).enumerate() {
 //!         println!("{: >2}) {: <9}    {: >7} ({})", i + 1,
 //!             mastery.champion_id.name().unwrap_or("UNKNOWN"),

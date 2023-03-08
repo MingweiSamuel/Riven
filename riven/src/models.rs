@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version d9133c31439c2d38263002fad5fa824f2ea0cb8b
+// Version f3bb2db3eef1ffd9fa3bb8ce0fdaf1c167dc6ae2
 
 #![allow(missing_docs)]
 
@@ -2419,7 +2419,7 @@ pub mod tft_league_v1 {
         #[serde(rename = "tier")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub tier: Option<crate::consts::Tier>,
-        /// A player's division within a tier. Not included for the RANKED_TFT_TURBO queueType.
+        /// The player's division within a tier. Not included for the RANKED_TFT_TURBO queueType.
         #[serde(rename = "rank")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub rank: Option<crate::consts::Division>,
@@ -2513,6 +2513,12 @@ pub mod tft_match_v1 {
     #[derive(serde::Serialize, serde::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Info {
+        #[serde(rename = "tft_game_type")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub tft_game_type: Option<String>,
+        #[serde(rename = "tft_set_core_name")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub tft_set_core_name: Option<String>,
         /// Unix timestamp.
         #[serde(rename = "game_datetime")]
         pub game_datetime: i64,
@@ -2540,6 +2546,12 @@ pub mod tft_match_v1 {
     #[derive(serde::Serialize, serde::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Participant {
+        #[serde(rename = "augments")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub augments: Option<std::vec::Vec<String>>,
+        #[serde(rename = "partner_group_id")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub partner_group_id: Option<i32>,
         /// Participant's companion.
         #[serde(rename = "companion")]
         pub companion: Companion,
@@ -2601,6 +2613,9 @@ pub mod tft_match_v1 {
     #[derive(serde::Serialize, serde::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Unit {
+        #[serde(rename = "itemNames")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub item_names: Option<std::vec::Vec<String>>,
         /// A list of the unit's items. Please refer to the Teamfight Tactics documentation for item ids.
         #[serde(rename = "items")]
         pub items: std::vec::Vec<i32>,
@@ -2626,6 +2641,9 @@ pub mod tft_match_v1 {
     #[derive(serde::Serialize, serde::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Companion {
+        #[serde(rename = "item_ID")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub item_id: Option<i32>,
         #[serde(rename = "skin_ID")]
         pub skin_id: i32,
         #[serde(rename = "content_ID")]
