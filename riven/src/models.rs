@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version eac495e7f53e2f13cedbe13e257ef23569f53919
+// Version 00881b2fe08decaf43fb24d252c955e4d7e97019
 
 #![allow(missing_docs)]
 
@@ -1236,6 +1236,51 @@ pub mod match_v5 {
         pub wards_placed: i32,
         #[serde(rename = "win")]
         pub win: bool,
+        #[serde(rename = "allInPings")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub all_in_pings: Option<i32>,
+        #[serde(rename = "assistMePings")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub assist_me_pings: Option<i32>,
+        #[serde(rename = "baitPings")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub bait_pings: Option<i32>,
+        #[serde(rename = "basicPings")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub basic_pings: Option<i32>,
+        #[serde(rename = "commandPings")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub command_pings: Option<i32>,
+        #[serde(rename = "dangerPings")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub danger_pings: Option<i32>,
+        #[serde(rename = "enemyMissingPings")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub enemy_missing_pings: Option<i32>,
+        #[serde(rename = "enemyVisionPings")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub enemy_vision_pings: Option<i32>,
+        #[serde(rename = "getBackPings")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub get_back_pings: Option<i32>,
+        #[serde(rename = "holdPings")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub hold_pings: Option<i32>,
+        #[serde(rename = "needVisionPings")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub need_vision_pings: Option<i32>,
+        #[serde(rename = "onMyWayPings")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub on_my_way_pings: Option<i32>,
+        #[serde(rename = "pushPings")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub push_pings: Option<i32>,
+        #[serde(rename = "visionClearedPings")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub vision_cleared_pings: Option<i32>,
+        #[serde(rename = "eligibleForProgression")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub eligible_for_progression: Option<bool>,
         #[serde(rename = "challenges")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub challenges: Option<ParticipantChallenges>,
@@ -1517,6 +1562,9 @@ pub mod match_v5 {
         #[serde(rename = "killedChampTookFullTeamDamageSurvived")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub killed_champ_took_full_team_damage_survived: Option<f64>,
+        #[serde(rename = "killingSprees")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub killing_sprees: Option<f64>,
         #[serde(rename = "killParticipation")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub kill_participation: Option<f64>,
@@ -1610,6 +1658,9 @@ pub mod match_v5 {
         #[serde(rename = "pickKillWithAlly")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub pick_kill_with_ally: Option<f64>,
+        #[serde(rename = "playedChampSelectPosition")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub played_champ_select_position: Option<f64>,
         #[serde(rename = "poroExplosions")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub poro_explosions: Option<f64>,
@@ -1676,6 +1727,9 @@ pub mod match_v5 {
         #[serde(rename = "takedownsFirst25Minutes")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub takedowns_first25_minutes: Option<f64>,
+        #[serde(rename = "takedownsFirstXMinutes")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub takedowns_first_x_minutes: Option<f64>,
         #[serde(rename = "takedownsInAlcove")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub takedowns_in_alcove: Option<f64>,
