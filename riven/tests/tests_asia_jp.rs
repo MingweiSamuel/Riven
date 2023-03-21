@@ -11,7 +11,28 @@ use riven::consts::*;
 
 const ROUTE: PlatformRoute = PlatformRoute::JP1;
 
-async_tests!{
+static MATCHES: &[&str] = &[
+    // Regular game:
+    "KR_5495121707",
+    // `teamPosition` empty:
+    // AFK:
+    "JP1_312062554",
+    "JP1_326464722",
+    "JP1_289504387",
+    "JP1_285434511",
+    "JP1_307559381",
+    "JP1_292569767",
+    "JP1_310138781",
+    "JP1_300507433",
+    "JP1_283568774",
+    // `individualPosition` is set but `teamPosition` is empty due to AFK slightly after beginning:
+    "JP1_285797147",
+    // Illegal big `championId`s. https://github.com/RiotGames/developer-relations/issues/553
+    "JP1_267647303",
+    "JP1_273343663",
+];
+
+async_tests! {
     my_runner {
         // Summoner tests.
         summoner_get_kanjikana: async {
@@ -67,6 +88,17 @@ async_tests!{
             let lr = lp.await.map_err(|e| e.to_string())?;
             rassert!(!lr.is_empty());
             Ok(())
+        },
+
+        // ASIA regional tests
+        league_v4_match_v5_latest_combo: async {
+            league_v4_match_v5_latest_combo(ROUTE).await
+        },
+        match_v5_get: async {
+            match_v5_get(ROUTE.to_regional(), MATCHES).await
+        },
+        match_v5_get_timeline: async {
+            match_v5_get_timeline(ROUTE.to_regional(), MATCHES).await
         },
     }
 }
