@@ -86,13 +86,19 @@ pub async fn tft_match_v1_get(
             ));
         }
         if m.metadata.participants.is_empty() {
-            return Err("Match should have participants (metadata).".to_owned());
+            return Err(format!(
+                "Match {} should have participants (metadata).",
+                matche
+            ));
         }
         if m.metadata.participants.len() != m.info.participants.len() {
-            return Err("Match participants do not line up with participant UUIDs.".to_owned());
+            return Err(format!(
+                "Match {} participants do not line up with participant UUIDs.",
+                matche
+            ));
         }
         if m.info.participants.is_empty() {
-            return Err("Match should have participants (info).".to_owned());
+            return Err(format!("Match {} should have participants (info).", matche));
         }
         Ok(())
     });
@@ -119,18 +125,21 @@ pub async fn match_v5_get(
             ));
         }
         if m.metadata.participants.is_empty() {
-            return Err("Match should have participants.".to_owned());
+            return Err(format!("Match {} should have participants.", matche));
         }
         if m.metadata.participants.len() != m.info.participants.len() {
-            return Err("Match participants do not line up with participant UUIDs.".to_owned());
+            return Err(format!(
+                "Match {} participants do not line up with participant UUIDs.",
+                matche
+            ));
         }
         for participant in &m.info.participants {
             participant
                 .champion()
-                .map_err(|e| format!("Failed to determine champion: {}", e))?;
+                .map_err(|e| format!("Failed to determine match {} champion: {}", matche, e))?;
         }
         if m.info.teams.is_empty() {
-            return Err("Match should have teams.".to_owned());
+            return Err(format!("Match {} should have teams.", matche));
         }
         Ok(())
     });
@@ -156,15 +165,15 @@ pub async fn match_v5_get_timeline(
             ));
         }
         if m.metadata.participants.is_empty() {
-            return Err("Match should have participants.".to_owned());
+            return Err(format!("Match {} should have participants.", matche));
         }
         if let Some(game_id) = m.info.game_id {
             if matche[(matche.find('_').unwrap() + 1)..] != game_id.to_string() {
-                return Err("Match number ID should match.".to_owned());
+                return Err(format!("Match {} number ID should match.", matche));
             }
         }
         if m.info.frames.is_empty() {
-            return Err("Match timleine should have frames.".to_owned());
+            return Err(format!("Match {} timleine should have frames.", matche));
         }
         Ok(())
     });
