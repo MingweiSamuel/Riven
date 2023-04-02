@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 00881b2fe08decaf43fb24d252c955e4d7e97019
+// Version 675e4fa61821a0c21181c967ab2c6eca33a599c6
 
 //! Automatically generated endpoint handles.
 #![allow(clippy::let_and_return, clippy::too_many_arguments)]
@@ -493,6 +493,27 @@ pub struct ClashV1<'a> {
     base: &'a RiotApi,
 }
 impl<'a> ClashV1<'a> {
+    /// Get players by puuid
+    /// ## Implementation Notes
+    /// This endpoint returns a list of active Clash players for a given PUUID. If a summoner registers for multiple tournaments at the same time (e.g., Saturday and Sunday) then both registrations would appear in this list.
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// * `encrypted_puuid` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#clash-v1/GET_getPlayersByPUUID" target="_blank">`clash-v1.getPlayersByPUUID`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_players_by_puuid(&self, route: PlatformRoute, encrypted_puuid: &str)
+        -> impl Future<Output = Result<Vec<clash_v1::Player>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/clash/v1/players/by-puuid/{}", encrypted_puuid));
+        let future = self.base.execute_val::<Vec<clash_v1::Player>>("clash-v1.getPlayersByPUUID", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("clash-v1.getPlayersByPUUID"));
+        future
+    }
+
     /// Get players by summoner ID.
     /// ## Implementation Notes
     /// This endpoint returns a list of active Clash players for a given summoner ID. If a summoner registers for multiple tournaments at the same time (e.g., Saturday and Sunday) then both registrations would appear in this list.
