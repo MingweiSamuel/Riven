@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 675e4fa61821a0c21181c967ab2c6eca33a599c6
+// Version 504595fec7b02c19d8dab9f3bb22a6406af8024f
 
 #![allow(missing_docs)]
 
@@ -504,6 +504,12 @@ pub mod lol_challenges_v1 {
         #[serde(rename = "challengeIds")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub challenge_ids: Option<std::vec::Vec<i64>>,
+        #[serde(rename = "crestBorder")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub crest_border: Option<String>,
+        #[serde(rename = "prestigeCrestBorderLevel")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub prestige_crest_border_level: Option<i32>,
     }
     /// ChallengePoints data object.
     #[derive(Clone, Debug)]
