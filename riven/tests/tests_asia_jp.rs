@@ -30,6 +30,8 @@ static MATCHES: &[&str] = &[
     // Illegal big `championId`s. https://github.com/RiotGames/developer-relations/issues/553
     "JP1_267647303",
     "JP1_273343663",
+    // Only has participant IDs for blue team.
+    "JP1_391732436",
 ];
 
 async_tests! {

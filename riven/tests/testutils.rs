@@ -128,10 +128,12 @@ pub async fn match_v5_get(
             return Err(format!("Match {} should have participants.", matche));
         }
         if m.metadata.participants.len() != m.info.participants.len() {
-            return Err(format!(
+            // Sometimes only returns match IDs for one team? JP1_391732436
+            // Do not return error.
+            eprintln!(
                 "Match {} participants do not line up with participant UUIDs.",
                 matche
-            ));
+            );
         }
         for participant in &m.info.participants {
             participant
