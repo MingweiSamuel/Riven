@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 504595fec7b02c19d8dab9f3bb22a6406af8024f
+// Version b7086969fec8ed652bd16834e2cf9f67c7583b1e
 
 #![allow(missing_docs)]
 
@@ -1508,6 +1508,9 @@ pub mod match_v5 {
         #[serde(rename = "fastestLegendary")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub fastest_legendary: Option<f64>,
+        #[serde(rename = "firstTurretKilled")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub first_turret_killed: Option<f64>,
         #[serde(rename = "firstTurretKilledTime")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub first_turret_killed_time: Option<f64>,
