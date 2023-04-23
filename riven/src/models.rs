@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version b7086969fec8ed652bd16834e2cf9f67c7583b1e
+// Version d97f2bb9615cefe58ef8c1e9eca459cc51305d07
 
 #![allow(missing_docs)]
 
@@ -1290,6 +1290,12 @@ pub mod match_v5 {
         #[serde(rename = "challenges")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub challenges: Option<ParticipantChallenges>,
+        #[serde(rename = "totalAllyJungleMinionsKilled")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub total_ally_jungle_minions_killed: Option<i32>,
+        #[serde(rename = "totalEnemyJungleMinionsKilled")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub total_enemy_jungle_minions_killed: Option<i32>,
     }
     /// Perks data object.
     #[derive(Clone, Debug)]
