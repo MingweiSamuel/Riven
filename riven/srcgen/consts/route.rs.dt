@@ -11,6 +11,7 @@ use strum_macros::{ EnumString, EnumIter, Display, IntoStaticStr };
 #[derive(PartialEq, Eq, Hash, PartialOrd, Ord)]
 #[derive(IntoPrimitive, TryFromPrimitive)]
 #[derive(EnumString, EnumIter, Display, IntoStaticStr)]
+#[derive(serde::Serialize, serde::Deserialize)]
 #[derive(Clone, Copy)]
 #[repr(u8)]
 #[non_exhaustive]
@@ -39,6 +40,7 @@ pub enum RegionalRoute {
 #[derive(PartialEq, Eq, Hash, PartialOrd, Ord)]
 #[derive(IntoPrimitive, TryFromPrimitive)]
 #[derive(EnumString, EnumIter, Display, IntoStaticStr)]
+#[derive(serde::Serialize, serde::Deserialize)]
 #[derive(Clone, Copy)]
 #[repr(u8)]
 #[non_exhaustive]
@@ -58,6 +60,7 @@ pub enum PlatformRoute {
 {{?}}
 {{? altName }}
     #[strum(to_string="{{= name.toUpperCase() }}", serialize="{{= altName }}")]
+    #[serde(alias="{{= altName }}")]
 {{?}}
     {{= name.toUpperCase() }} = {{= id }},
 
@@ -141,6 +144,7 @@ impl PlatformRoute {
 #[derive(PartialEq, Eq, Hash, PartialOrd, Ord)]
 #[derive(IntoPrimitive, TryFromPrimitive)]
 #[derive(EnumString, EnumIter, Display, IntoStaticStr)]
+#[derive(serde::Serialize, serde::Deserialize)]
 #[derive(Clone, Copy)]
 #[repr(u8)]
 #[non_exhaustive]

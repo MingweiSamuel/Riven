@@ -14,6 +14,7 @@ use strum_macros::{ EnumString, EnumIter, Display, IntoStaticStr };
 #[derive(PartialEq, Eq, Hash, PartialOrd, Ord)]
 #[derive(IntoPrimitive, TryFromPrimitive)]
 #[derive(EnumString, EnumIter, Display, IntoStaticStr)]
+#[derive(serde::Serialize, serde::Deserialize)]
 #[derive(Clone, Copy)]
 #[repr(u8)]
 #[non_exhaustive]
@@ -56,6 +57,7 @@ pub enum RegionalRoute {
 #[derive(PartialEq, Eq, Hash, PartialOrd, Ord)]
 #[derive(IntoPrimitive, TryFromPrimitive)]
 #[derive(EnumString, EnumIter, Display, IntoStaticStr)]
+#[derive(serde::Serialize, serde::Deserialize)]
 #[derive(Clone, Copy)]
 #[repr(u8)]
 #[non_exhaustive]
@@ -65,24 +67,28 @@ pub enum PlatformRoute {
     ///
     /// `16` (riotapi-schema ID/repr)
     #[strum(to_string="BR1", serialize="BR")]
+    #[serde(alias="BR")]
     BR1 = 16,
 
     /// Europe, Northeast.
     ///
     /// `17` (riotapi-schema ID/repr)
     #[strum(to_string="EUN1", serialize="EUNE")]
+    #[serde(alias="EUNE")]
     EUN1 = 17,
 
     /// Europe, West.
     ///
     /// `18` (riotapi-schema ID/repr)
     #[strum(to_string="EUW1", serialize="EUW")]
+    #[serde(alias="EUW")]
     EUW1 = 18,
 
     /// Japan.
     ///
     /// `19` (riotapi-schema ID/repr)
     #[strum(to_string="JP1", serialize="JP")]
+    #[serde(alias="JP")]
     JP1 = 19,
 
     /// Korea.
@@ -94,30 +100,35 @@ pub enum PlatformRoute {
     ///
     /// `21` (riotapi-schema ID/repr)
     #[strum(to_string="LA1", serialize="LAN")]
+    #[serde(alias="LAN")]
     LA1 = 21,
 
     /// Latin America, South.
     ///
     /// `22` (riotapi-schema ID/repr)
     #[strum(to_string="LA2", serialize="LAS")]
+    #[serde(alias="LAS")]
     LA2 = 22,
 
     /// North America.
     ///
     /// `23` (riotapi-schema ID/repr)
     #[strum(to_string="NA1", serialize="NA")]
+    #[serde(alias="NA")]
     NA1 = 23,
 
     /// Oceana.
     ///
     /// `24` (riotapi-schema ID/repr)
     #[strum(to_string="OC1", serialize="OCE")]
+    #[serde(alias="OCE")]
     OC1 = 24,
 
     /// Philippines
     ///
     /// `32` (riotapi-schema ID/repr)
     #[strum(to_string="PH2", serialize="PH")]
+    #[serde(alias="PH")]
     PH2 = 32,
 
     /// Russia
@@ -129,36 +140,42 @@ pub enum PlatformRoute {
     ///
     /// `33` (riotapi-schema ID/repr)
     #[strum(to_string="SG2", serialize="SG")]
+    #[serde(alias="SG")]
     SG2 = 33,
 
     /// Thailand
     ///
     /// `34` (riotapi-schema ID/repr)
     #[strum(to_string="TH2", serialize="TH")]
+    #[serde(alias="TH")]
     TH2 = 34,
 
     /// Turkey
     ///
     /// `26` (riotapi-schema ID/repr)
     #[strum(to_string="TR1", serialize="TR")]
+    #[serde(alias="TR")]
     TR1 = 26,
 
     /// Taiwan
     ///
     /// `35` (riotapi-schema ID/repr)
     #[strum(to_string="TW2", serialize="TW")]
+    #[serde(alias="TW")]
     TW2 = 35,
 
     /// Vietnam
     ///
     /// `36` (riotapi-schema ID/repr)
     #[strum(to_string="VN2", serialize="VN")]
+    #[serde(alias="VN")]
     VN2 = 36,
 
     /// Public Beta Environment, special beta testing platform. Located in North America.
     ///
     /// `31` (riotapi-schema ID/repr)
     #[strum(to_string="PBE1", serialize="PBE")]
+    #[serde(alias="PBE")]
     PBE1 = 31,
 
 }
@@ -267,6 +284,7 @@ impl PlatformRoute {
 #[derive(PartialEq, Eq, Hash, PartialOrd, Ord)]
 #[derive(IntoPrimitive, TryFromPrimitive)]
 #[derive(EnumString, EnumIter, Display, IntoStaticStr)]
+#[derive(serde::Serialize, serde::Deserialize)]
 #[derive(Clone, Copy)]
 #[repr(u8)]
 #[non_exhaustive]
