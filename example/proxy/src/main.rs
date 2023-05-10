@@ -2,16 +2,16 @@
 
 use std::convert::Infallible;
 
-use hyper::http;
-use http::{ Method, Request, Response, StatusCode };
-use hyper::{ Body, Server };
-use hyper::service::{ make_service_fn, service_fn };
+use http::{Method, Request, Response, StatusCode};
 use hyper::header::HeaderValue;
+use hyper::http;
+use hyper::service::{make_service_fn, service_fn};
+use hyper::{Body, Server};
 use lazy_static::lazy_static;
 use tracing as log;
 
-use riven::{ RiotApi, RiotApiConfig };
 use riven::consts::Route;
+use riven::{RiotApi, RiotApiConfig};
 
 lazy_static! {
     /// Create lazy static RiotApi instance.
@@ -31,47 +31,64 @@ lazy_static! {
 fn create_json_response(body: &'static str, status: StatusCode) -> Response<Body> {
     let mut resp = Response::new(Body::from(body));
     *resp.status_mut() = status;
-    resp.headers_mut().insert(hyper::header::CONTENT_TYPE, HeaderValue::from_static("application/json"));
+    resp.headers_mut().insert(
+        hyper::header::CONTENT_TYPE,
+        HeaderValue::from_static("application/json"),
+    );
     resp
 }
 
 /// Main request handler service.
 async fn handle_request(req: Request<Body>) -> Result<Response<Body>, Infallible> {
-
     let (parts, body) = req.into_parts();
     let http::request::Parts { method, uri, .. } = parts;
 
     // Handle path.
     let path_data_opt = parse_path(&method, uri.path());
-    let ( route, method_id, req_path ) = match path_data_opt {
-        None => return Ok(create_json_response(
-            r#"{"error":"Riot API endpoint method not found."}"#, StatusCode::NOT_FOUND)),
+    let (route, method_id, req_path) = match path_data_opt {
+        None => {
+            return Ok(create_json_response(
+                r#"{"error":"Riot API endpoint method not found."}"#,
+                StatusCode::NOT_FOUND,
+            ))
+        }
         Some(path_data) => path_data,
     };
 
-    log::debug!("Request to route {:?}, method ID {:?}: {} {:?}.", route, method_id, method, req_path);
+    log::debug!(
+        "Request to route {:?}, method ID {:?}: {} {:?}.",
+        route,
+        method_id,
+        method,
+        req_path
+    );
 
     // Convert http:request::Parts from hyper to reqwest's RequestBuilder.
     let body = match hyper::body::to_bytes(body).await {
         Err(err) => {
             log::info!("Error handling request body: {:#?}", err);
             return Ok(create_json_response(
-                r#"{"error":"Failed to handle request body."}"#, StatusCode::BAD_REQUEST));
-        },
+                r#"{"error":"Failed to handle request body."}"#,
+                StatusCode::BAD_REQUEST,
+            ));
+        }
         Ok(bytes) => bytes,
     };
 
-    let req_builder = RIOT_API.request(method, route.into(), req_path)
-        .body(body);
+    let req_builder = RIOT_API.request(method, route.into(), req_path).body(body);
 
     // Send request to Riot API.
-    let resp_result = RIOT_API.execute_raw(method_id, route.into(), req_builder).await;
+    let resp_result = RIOT_API
+        .execute_raw(method_id, route.into(), req_builder)
+        .await;
     let resp_info = match resp_result {
         Err(err) => {
             log::info!("Riot API error: {:#?}", err.source_reqwest_error());
             return Ok(create_json_response(
-                r#"{"error":"Riot API request failed."}"#, StatusCode::INTERNAL_SERVER_ERROR));
-        },
+                r#"{"error":"Riot API request failed."}"#,
+                StatusCode::INTERNAL_SERVER_ERROR,
+            ));
+        }
         Ok(resp_info) => resp_info,
     };
 
@@ -86,13 +103,17 @@ async fn handle_request(req: Request<Body>) -> Result<Response<Body>, Infallible
     }
     // Otherwise copy body.
     else {
-        *out_response.status_mut()  = api_response.status();
+        *out_response.status_mut() = api_response.status();
 
         // Using streams would be faster.
         let bytes_result = api_response.bytes().await;
         let bytes = match bytes_result {
-            Err(_err) => return Ok(create_json_response(
-                    r#"{"error":"Failed to get body from Riot API response."}"#, StatusCode::INTERNAL_SERVER_ERROR)),
+            Err(_err) => {
+                return Ok(create_json_response(
+                    r#"{"error":"Failed to get body from Riot API response."}"#,
+                    StatusCode::INTERNAL_SERVER_ERROR,
+                ))
+            }
             Ok(bytes) => bytes,
         };
         *out_response.body_mut() = Body::from((&bytes[..]).to_vec());
@@ -101,22 +122,24 @@ async fn handle_request(req: Request<Body>) -> Result<Response<Body>, Infallible
 }
 
 /// Gets the region, method_id, and Riot API path based on the given http method and path.
-fn parse_path<'a>(http_method: &Method, req_path: &'a str) -> Option<( Route, &'static str, &'a str )> {
-
+fn parse_path<'a>(
+    http_method: &Method,
+    req_path: &'a str,
+) -> Option<(Route, &'static str, &'a str)> {
     // Split URI into region and rest of path.
     let req_path = req_path.trim_start_matches('/');
-    let ( route, req_path ) = req_path.split_at(req_path.find('/')?);
+    let (route, req_path) = req_path.split_at(req_path.find('/')?);
     let route: Route = route.to_uppercase().parse().ok()?;
 
     // Find method_id for given path.
     let method_id = find_matching_method_id(http_method, req_path)?;
 
-    Some(( route, method_id, req_path ))
+    Some((route, method_id, req_path))
 }
 
 /// Finds the method_id given the request path.
 fn find_matching_method_id(http_method: &Method, req_path: &str) -> Option<&'static str> {
-    for ( endpoint_http_method, ref_path, method_id ) in &riven::meta::ALL_ENDPOINTS {
+    for (endpoint_http_method, ref_path, method_id) in &riven::meta::ALL_ENDPOINTS {
         if http_method == endpoint_http_method && paths_match(ref_path, req_path) {
             return Some(method_id);
         }
@@ -160,7 +183,7 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
         async { Ok::<_, Infallible>(service_fn(handle_request)) }
     });
 
-    let addr = ([ 127, 0, 0, 1 ], 3000).into();
+    let addr = ([127, 0, 0, 1], 3000).into();
 
     let server = Server::bind(&addr).serve(make_svc);
 

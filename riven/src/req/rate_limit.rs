@@ -1,19 +1,19 @@
 use std::cmp;
-use std::time::{ Duration, Instant };
+use std::time::{Duration, Instant};
 
-#[cfg(not(feature="tracing"))]
-use log as log;
-#[cfg(feature="tracing")]
+#[cfg(not(feature = "tracing"))]
+use log;
+#[cfg(feature = "tracing")]
 use tracing as log;
 
-use parking_lot::{ RwLock, RwLockUpgradableReadGuard };
-use reqwest::{ StatusCode, Response };
+use parking_lot::{RwLock, RwLockUpgradableReadGuard};
+use reqwest::{Response, StatusCode};
 use scan_fmt::scan_fmt;
 use tokio::sync::Notify;
 
-use crate::RiotApiConfig;
-use super::{ TokenBucket, VectorTokenBucket };
 use super::RateLimitType;
+use super::{TokenBucket, VectorTokenBucket};
+use crate::RiotApiConfig;
 
 pub struct RateLimit {
     rate_limit_type: RateLimitType,
@@ -42,8 +42,8 @@ impl RateLimit {
     const HEADER_XRATELIMITTYPE_SERVICE: &'static str = "service";
 
     pub fn new(rate_limit_type: RateLimitType) -> Self {
-        let initial_bucket = VectorTokenBucket::new(
-            Duration::from_secs(1), 1, Duration::new(0, 0), 1.0, 1.0);
+        let initial_bucket =
+            VectorTokenBucket::new(Duration::from_secs(1), 1, Duration::new(0, 0), 1.0, 1.0);
         RateLimit {
             rate_limit_type,
             // Rate limit before getting from response: 1/s.
@@ -65,13 +65,19 @@ impl RateLimit {
         }
     }
 
-    fn acquire_both_or_duration(app_rate_limit: &Self, method_rate_limit: &Self) -> Option<Duration> {
+    fn acquire_both_or_duration(
+        app_rate_limit: &Self,
+        method_rate_limit: &Self,
+    ) -> Option<Duration> {
         // Check retry after.
         {
-            let retry_after_delay = app_rate_limit.get_retry_after_delay()
-                .and_then(|a| method_rate_limit.get_retry_after_delay().map(|m| cmp::max(a, m)));
+            let retry_after_delay = app_rate_limit.get_retry_after_delay().and_then(|a| {
+                method_rate_limit
+                    .get_retry_after_delay()
+                    .map(|m| cmp::max(a, m))
+            });
             if retry_after_delay.is_some() {
-                return retry_after_delay
+                return retry_after_delay;
             }
         }
         // Check buckets.
@@ -88,12 +94,18 @@ impl RateLimit {
             bucket.get_tokens(1);
         }
 
-        log::trace!("Tokens obtained, buckets: APP {:?} METHOD {:?}", app_buckets, method_buckets);
+        log::trace!(
+            "Tokens obtained, buckets: APP {:?} METHOD {:?}",
+            app_buckets,
+            method_buckets
+        );
         None
     }
 
     pub fn get_retry_after_delay(&self) -> Option<Duration> {
-        self.retry_after.read().and_then(|i| Instant::now().checked_duration_since(i))
+        self.retry_after
+            .read()
+            .and_then(|i| Instant::now().checked_duration_since(i))
     }
 
     /// Update retry-after and rate limits based on an API response.
@@ -153,13 +165,25 @@ impl RateLimit {
         }
 
         // Get retry after header. Only care if it exists.
-        let retry_after_header = response.headers()
+        let retry_after_header = response
+            .headers()
             .get(reqwest::header::RETRY_AFTER)
-            .and_then(|h| h
-                .to_str()
-                .map_err(|e| log::error!("Failed to read retry-after header as visible ASCII string: {:?}.", e)).ok())?;
+            .and_then(|h| {
+                h.to_str()
+                    .map_err(|e| {
+                        log::error!(
+                            "Failed to read retry-after header as visible ASCII string: {:?}.",
+                            e
+                        )
+                    })
+                    .ok()
+            })?;
 
-        log::info!("429 response, rate limit {:?}, retry-after {} secs.", self.rate_limit_type, retry_after_header);
+        log::info!(
+            "429 response, rate limit {:?}, retry-after {} secs.",
+            self.rate_limit_type,
+            retry_after_header
+        );
 
         // Header currently only returns ints, but float is more general. Can be zero.
         let retry_after_secs = retry_after_header
@@ -179,10 +203,30 @@ impl RateLimit {
     fn on_response_rate_limits(&self, config: &RiotApiConfig, response: &Response) {
         // Check if rate limits changed.
         let headers = response.headers();
-        let limit_header_opt = headers.get(self.rate_limit_type.limit_header())
-            .and_then(|h| h.to_str().map_err(|e| log::error!("Failed to read limit header as visible ASCII string: {:?}.", e)).ok());
-        let count_header_opt = headers.get(self.rate_limit_type.count_header())
-            .and_then(|h| h.to_str().map_err(|e| log::error!("Failed to read count header as visible ASCII string: {:?}.", e)).ok());
+        let limit_header_opt = headers
+            .get(self.rate_limit_type.limit_header())
+            .and_then(|h| {
+                h.to_str()
+                    .map_err(|e| {
+                        log::error!(
+                            "Failed to read limit header as visible ASCII string: {:?}.",
+                            e
+                        )
+                    })
+                    .ok()
+            });
+        let count_header_opt = headers
+            .get(self.rate_limit_type.count_header())
+            .and_then(|h| {
+                h.to_str()
+                    .map_err(|e| {
+                        log::error!(
+                            "Failed to read count header as visible ASCII string: {:?}.",
+                            e
+                        )
+                    })
+                    .ok()
+            });
 
         if let (Some(limit_header), Some(count_header)) = (limit_header_opt, count_header_opt) {
             {
@@ -193,7 +237,8 @@ impl RateLimit {
 
                 // Buckets require updating. Upgrade to write lock.
                 let mut buckets = RwLockUpgradableReadGuard::upgrade(buckets);
-                *buckets = buckets_from_header(config, limit_header, count_header, self.rate_limit_type);
+                *buckets =
+                    buckets_from_header(config, limit_header, count_header, self.rate_limit_type);
             }
             // Notify waiters that buckets have updated (after unlocking).
             self.update_notify.notify_waiters();
@@ -207,7 +252,11 @@ fn buckets_require_updating(limit_header: &str, buckets: &[VectorTokenBucket]) -
     }
     for (limit_header_entry, bucket) in limit_header.split(',').zip(buckets) {
         // limit_header_entry "100:60" means 100 req per 60 sec.
-        let bucket_entry = format!("{}:{}", bucket.get_total_limit(), bucket.get_bucket_duration().as_secs());
+        let bucket_entry = format!(
+            "{}:{}",
+            bucket.get_total_limit(),
+            bucket.get_bucket_duration().as_secs()
+        );
         if limit_header_entry != bucket_entry {
             return true;
         }
@@ -215,7 +264,12 @@ fn buckets_require_updating(limit_header: &str, buckets: &[VectorTokenBucket]) -
     false
 }
 
-fn buckets_from_header(config: &RiotApiConfig, limit_header: &str, count_header: &str, rate_limit_type: RateLimitType) -> Vec<VectorTokenBucket> {
+fn buckets_from_header(
+    config: &RiotApiConfig,
+    limit_header: &str,
+    count_header: &str,
+    rate_limit_type: RateLimitType,
+) -> Vec<VectorTokenBucket> {
     // Limits: "20000:10,1200000:600"
     // Counts: "7:10,58:600"
     let size = limit_header.split(',').count();
@@ -238,11 +292,20 @@ fn buckets_from_header(config: &RiotApiConfig, limit_header: &str, count_header:
         let limit_f32 = limit as f32;
         let scaled_burst_factor = config.burst_factor * limit_f32 / (limit_f32 + 1.0);
 
-        let bucket = VectorTokenBucket::new(Duration::from_secs(limit_secs), limit,
-            config.duration_overhead, scaled_burst_factor, rate_usage_factor);
+        let bucket = VectorTokenBucket::new(
+            Duration::from_secs(limit_secs),
+            limit,
+            config.duration_overhead,
+            scaled_burst_factor,
+            rate_usage_factor,
+        );
         bucket.get_tokens(count);
         out.push(bucket);
     }
-    log::debug!("Set buckets to {} limit, {} count.", limit_header, count_header);
+    log::debug!(
+        "Set buckets to {} limit, {} count.",
+        limit_header,
+        count_header
+    );
     out
 }

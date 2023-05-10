@@ -18,14 +18,13 @@ static MATCHES: &[&str] = &[
     "NA1_4052515784",
     "NA1_4062578191",
     "NA1_4097036960",
-
     // New games with `match-v5.ParticipantDto.challenges` field.
     "NA1_4209556127",
     "NA1_4212715433",
     "NA1_4265913704", // `match-v5.ParticipantDto.challenges.mejaisFullStackInTime`
 ];
 
-async_tests!{
+async_tests! {
     my_runner {
         // TODO FAILING since 2022/11/28 https://github.com/MingweiSamuel/Riven/actions/runs/3571320200/jobs/6003088646
         // // Champion Mastery tests.

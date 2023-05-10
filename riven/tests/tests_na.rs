@@ -13,13 +13,18 @@ use riven::models::summoner_v4::*;
 fn validate_summoners(s1: Summoner, s2: Summoner) -> Result<(), String> {
     rassert_eq!(s1.name, s2.name, "Names didn't match {}.", "");
     rassert_eq!(s1.id, s2.id, "SummonerId didn't match {}.", "");
-    rassert_eq!(s1.account_id, s2.account_id, "AccountId didn't match {}.", "");
+    rassert_eq!(
+        s1.account_id,
+        s2.account_id,
+        "AccountId didn't match {}.",
+        ""
+    );
     Ok(())
 }
 
 const ROUTE: PlatformRoute = PlatformRoute::NA1;
 
-async_tests!{
+async_tests! {
     my_runner {
         // Summoner tests.
         summoner_double: async {

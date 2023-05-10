@@ -38,7 +38,7 @@ macro_rules! serde_strum_unknown {
         impl<'de> serde::de::Deserialize<'de> for $name {
             fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
             where
-                D: serde::de::Deserializer<'de>
+                D: serde::de::Deserializer<'de>,
             {
                 #[cfg(not(feature = "deny-unknown-enum-variants-strings"))]
                 {
@@ -46,20 +46,19 @@ macro_rules! serde_strum_unknown {
                 }
                 #[cfg(feature = "deny-unknown-enum-variants-strings")]
                 {
-                    <&str>::deserialize(deserializer).map(Into::into)
-                        .and_then(|item| {
-                            match item {
-                                Self::UNKNOWN(unknown) => Err(serde::de::Error::unknown_variant(
-                                    &*unknown,
-                                    <Self as strum::VariantNames>::VARIANTS,
-                                )),
-                                other => Ok(other),
-                            }
+                    <&str>::deserialize(deserializer)
+                        .map(Into::into)
+                        .and_then(|item| match item {
+                            Self::UNKNOWN(unknown) => Err(serde::de::Error::unknown_variant(
+                                &*unknown,
+                                <Self as strum::VariantNames>::VARIANTS,
+                            )),
+                            other => Ok(other),
                         })
                 }
             }
         }
-    }
+    };
 }
 
 macro_rules! arr {

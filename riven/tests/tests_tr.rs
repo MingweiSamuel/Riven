@@ -12,8 +12,7 @@ use riven::models::summoner_v4::Summoner;
 
 const ROUTE: PlatformRoute = PlatformRoute::TR1;
 
-
-async_tests!{
+async_tests! {
     my_runner {
         league_summoner_bulk_test: async {
             let p = RIOT_API.league_v4().get_challenger_league(ROUTE, QueueType::RANKED_SOLO_5x5);

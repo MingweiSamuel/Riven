@@ -1,19 +1,19 @@
 use std::future::Future;
 use std::sync::Arc;
 
-#[cfg(not(feature="tracing"))]
-use log as log;
-#[cfg(feature="tracing")]
+#[cfg(not(feature = "tracing"))]
+use log;
+#[cfg(feature = "tracing")]
 use tracing as log;
 
-use reqwest::{ Client, RequestBuilder, Method };
+use reqwest::{Client, Method, RequestBuilder};
 
-use crate::Result;
-use crate::ResponseInfo;
-use crate::RiotApiConfig;
-use crate::RiotApiError;
 use crate::req::RegionalRequester;
 use crate::util::InsertOnlyCHashMap;
+use crate::ResponseInfo;
+use crate::Result;
+use crate::RiotApiConfig;
+use crate::RiotApiError;
 
 /// For retrieving data from the Riot Games API.
 ///
@@ -59,11 +59,15 @@ impl RiotApi {
     /// Constructs a new instance from an API key (e.g. `"RGAPI-01234567-89ab-cdef-0123-456789abcdef"`) or a [RiotApiConfig].
     pub fn new(config: impl Into<RiotApiConfig>) -> Self {
         let mut config = config.into();
-        let client_builder = config.client_builder.take()
+        let client_builder = config
+            .client_builder
+            .take()
             .expect("CLIENT_BUILDER IN CONFIG SHOULD NOT BE NONE.");
         Self {
             config,
-            client: client_builder.build().expect("Failed to create client from builder."),
+            client: client_builder
+                .build()
+                .expect("Failed to create client from builder."),
             regional_requesters: InsertOnlyCHashMap::new(),
         }
     }
@@ -78,7 +82,8 @@ impl RiotApi {
     /// * `path` - The URL path, appended to the base URL.
     pub fn request(&self, method: Method, region_platform: &str, path: &str) -> RequestBuilder {
         let base_url_platform = self.config.base_url.replace("{}", region_platform);
-        self.client.request(method, format!("{}{}", base_url_platform, path))
+        self.client
+            .request(method, format!("{}{}", base_url_platform, path))
     }
 
     /// This method should generally not be used directly. Consider using endpoint wrappers instead.
@@ -92,11 +97,15 @@ impl RiotApi {
     ///
     /// # Returns
     /// A future resolving to a `Result` containg either a `T` (success) or a `RiotApiError` (failure).
-    pub async fn execute_val<'a, T: serde::de::DeserializeOwned + 'a>(&'a self,
-        method_id: &'static str, region_platform: &'static str, request: RequestBuilder)
-        -> Result<T>
-    {
-        let rinfo = self.execute_raw(method_id, region_platform, request).await?;
+    pub async fn execute_val<'a, T: serde::de::DeserializeOwned + 'a>(
+        &'a self,
+        method_id: &'static str,
+        region_platform: &'static str,
+        request: RequestBuilder,
+    ) -> Result<T> {
+        let rinfo = self
+            .execute_raw(method_id, region_platform, request)
+            .await?;
         let retries = rinfo.retries;
         let status = rinfo.response.status();
         let value = rinfo.response.json::<T>().await;
@@ -114,11 +123,15 @@ impl RiotApi {
     ///
     /// # Returns
     /// A future resolving to a `Result` containg either an `Option<T>` (success) or a `RiotApiError` (failure).
-    pub async fn execute_opt<'a, T: serde::de::DeserializeOwned + 'a>(&'a self,
-        method_id: &'static str, region_platform: &'static str, request: RequestBuilder)
-        -> Result<Option<T>>
-    {
-        let rinfo = self.execute_raw(method_id, region_platform, request).await?;
+    pub async fn execute_opt<'a, T: serde::de::DeserializeOwned + 'a>(
+        &'a self,
+        method_id: &'static str,
+        region_platform: &'static str,
+        request: RequestBuilder,
+    ) -> Result<Option<T>> {
+        let rinfo = self
+            .execute_raw(method_id, region_platform, request)
+            .await?;
         if rinfo.status_none {
             return Ok(None);
         }
@@ -139,14 +152,20 @@ impl RiotApi {
     ///
     /// # Returns
     /// A future resolving to a `Result` containg either `()` (success) or a `RiotApiError` (failure).
-    pub async fn execute(&self,
-        method_id: &'static str, region_platform: &'static str, request: RequestBuilder)
-        -> Result<()>
-    {
-        let rinfo = self.execute_raw(method_id, region_platform, request).await?;
+    pub async fn execute(
+        &self,
+        method_id: &'static str,
+        region_platform: &'static str,
+        request: RequestBuilder,
+    ) -> Result<()> {
+        let rinfo = self
+            .execute_raw(method_id, region_platform, request)
+            .await?;
         let retries = rinfo.retries;
         let status = rinfo.response.status();
-        rinfo.response.error_for_status()
+        rinfo
+            .response
+            .error_for_status()
             .map(|_| ())
             .map_err(|e| RiotApiError::new(e, retries, None, Some(status)))
     }
@@ -164,18 +183,25 @@ impl RiotApi {
     ///
     /// # Returns
     /// A future resolving to a `Result` containg either a `ResponseInfo` (success) or a `RiotApiError` (failure).
-    pub fn execute_raw(&self, method_id: &'static str, region_platform: &'static str, request: RequestBuilder)
-        -> impl Future<Output = Result<ResponseInfo>> + '_
-    {
+    pub fn execute_raw(
+        &self,
+        method_id: &'static str,
+        region_platform: &'static str,
+        request: RequestBuilder,
+    ) -> impl Future<Output = Result<ResponseInfo>> + '_ {
         self.regional_requester(region_platform)
             .execute(&self.config, method_id, request)
     }
 
     /// Get or create the RegionalRequester for the given region.
     fn regional_requester(&self, region_platform: &'static str) -> Arc<RegionalRequester> {
-        self.regional_requesters.get_or_insert_with(region_platform, || {
-            log::debug!("Creating requester for region platform {}.", region_platform);
-            RegionalRequester::new()
-        })
+        self.regional_requesters
+            .get_or_insert_with(region_platform, || {
+                log::debug!(
+                    "Creating requester for region platform {}.",
+                    region_platform
+                );
+                RegionalRequester::new()
+            })
     }
 }

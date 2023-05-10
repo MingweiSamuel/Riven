@@ -1,5 +1,5 @@
-use crate::models::match_v5::Participant;
 use crate::consts::Champion;
+use crate::models::match_v5::Participant;
 
 impl Participant {
     /// This method takes the [`Self::champion_id`] field if it is valid
