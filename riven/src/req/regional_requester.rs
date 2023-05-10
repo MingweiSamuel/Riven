@@ -1,8 +1,6 @@
 use std::future::Future;
 use std::sync::Arc;
 
-#[cfg(not(feature = "tracing"))]
-use log;
 #[cfg(feature = "tracing")]
 use tracing as log;
 #[cfg(feature = "tracing")]
@@ -54,7 +52,7 @@ impl RegionalRequester {
                     .get_or_insert_with(method_id, || RateLimit::new(RateLimitType::Method));
 
                 // Rate limit.
-                let rate_limit = RateLimit::acquire_both(&self.app_rate_limit, &*method_rate_limit);
+                let rate_limit = RateLimit::acquire_both(&self.app_rate_limit, &method_rate_limit);
                 #[cfg(feature = "tracing")]
                 let rate_limit = rate_limit.instrument(tracing::info_span!("rate_limit"));
                 rate_limit.await;

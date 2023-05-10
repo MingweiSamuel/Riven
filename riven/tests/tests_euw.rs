@@ -18,7 +18,7 @@ async_tests! {
             let sum = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, "ma5tery");
             let sum = sum.await.map_err(|e| e.to_string())?.ok_or_else(|| "Failed to get summoner".to_owned())?;
 
-            let p = RIOT_API.champion_mastery_v4().get_champion_mastery_score(ROUTE, &*sum.id);
+            let p = RIOT_API.champion_mastery_v4().get_champion_mastery_score(ROUTE, &sum.id);
             let s = p.await.map_err(|e| e.to_string())?;
             rassert!((969..=1000).contains(&s), "Unexpected ma5tery score: {}.", s);
             Ok(())
@@ -27,7 +27,7 @@ async_tests! {
             let sum = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, "ma5tery");
             let sum = sum.await.map_err(|e| e.to_string())?.ok_or_else(|| "Failed to get summoner".to_owned())?;
 
-            let p = RIOT_API.champion_mastery_v4().get_all_champion_masteries(ROUTE, &*sum.id);
+            let p = RIOT_API.champion_mastery_v4().get_all_champion_masteries(ROUTE, &sum.id);
             let s = p.await.map_err(|e| e.to_string())?;
             rassert!(s.len() >= 142, "Expected masteries: {}.", s.len());
             Ok(())

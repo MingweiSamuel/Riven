@@ -58,10 +58,10 @@ async_tests! {
         // summoner must have double-up rank.
         league_getforsummoner_tftbug: async {
             // TODO(mingwei): get summoner from leaderboard to avoid updating this all the time.
-            const SUMMONER_NAME: &'static str = "Vincentscc";
+            const SUMMONER_NAME: &str = "Vincentscc";
             let summoner_fut = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, SUMMONER_NAME);
             let summoner = summoner_fut.await.map_err(|e| e.to_string())?.ok_or_else(|| format!("Failed to get \"{}\"", SUMMONER_NAME))?;
-            let league_fut = RIOT_API.league_v4().get_league_entries_for_summoner(ROUTE, &*summoner.id);
+            let league_fut = RIOT_API.league_v4().get_league_entries_for_summoner(ROUTE, &summoner.id);
             let leagues = league_fut.await.map_err(|e| e.to_string())?;
             let tft_league = leagues.iter().find(|league| QueueType::RANKED_TFT_DOUBLE_UP == league.queue_type);
             rassert!(tft_league.is_some());

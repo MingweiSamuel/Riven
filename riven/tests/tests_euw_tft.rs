@@ -53,13 +53,13 @@ async_tests! {
         tft_combo: async {
             let top_players = RIOT_API.tft_league_v1().get_top_rated_ladder(ROUTE, QueueType::RANKED_TFT_TURBO);
             let top_players = top_players.await.map_err(|e| e.to_string())?;
-            rassert!(0 < top_players.len());
+            rassert!(!top_players.is_empty());
             let top_player_entry = &top_players[0];
-            let top_player = RIOT_API.tft_summoner_v1().get_by_summoner_id(ROUTE, &*top_player_entry.summoner_id);
+            let top_player = RIOT_API.tft_summoner_v1().get_by_summoner_id(ROUTE, &top_player_entry.summoner_id);
             let top_player = top_player.await.map_err(|e| e.to_string())?;
             println!("Top player is {} with `puuid` {}.", top_player.name, top_player.puuid);
             let match_ids = RIOT_API.tft_match_v1().get_match_ids_by_puuid(
-                ROUTE.to_regional(), &*top_player.puuid, Some(10), None, None, None);
+                ROUTE.to_regional(), &top_player.puuid, Some(10), None, None, None);
             let match_ids = match_ids.await.map_err(|e| e.to_string())?;
             tft_match_v1_get(ROUTE.to_regional(), &*match_ids).await?;
             Ok(())

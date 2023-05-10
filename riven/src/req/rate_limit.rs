@@ -1,8 +1,6 @@
 use std::cmp;
 use std::time::{Duration, Instant};
 
-#[cfg(not(feature = "tracing"))]
-use log;
 #[cfg(feature = "tracing")]
 use tracing as log;
 
@@ -231,7 +229,7 @@ impl RateLimit {
         if let (Some(limit_header), Some(count_header)) = (limit_header_opt, count_header_opt) {
             {
                 let buckets = self.buckets.upgradable_read();
-                if !buckets_require_updating(limit_header, &*buckets) {
+                if !buckets_require_updating(limit_header, &buckets) {
                     return;
                 }
 
