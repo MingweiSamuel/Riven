@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version d97f2bb9615cefe58ef8c1e9eca459cc51305d07
+// Version f6d4267816b00afc365920f4f5926fd725eb8674
 
 #![allow(missing_docs)]
 
@@ -3534,8 +3534,8 @@ pub mod val_match_v1 {
         pub match_id: String,
         #[serde(rename = "gameStartTimeMillis")]
         pub game_start_time_millis: i64,
-        #[serde(rename = "teamId")]
-        pub team_id: String,
+        #[serde(rename = "queueId")]
+        pub queue_id: String,
     }
     /// RecentMatches data object.
     #[derive(Clone, Debug)]
