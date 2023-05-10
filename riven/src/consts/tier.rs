@@ -1,7 +1,7 @@
-use num_enum::{ IntoPrimitive, TryFromPrimitive };
-use serde::{ Serialize, Deserialize };
+use num_enum::{IntoPrimitive, TryFromPrimitive};
+use serde::{Deserialize, Serialize};
 use strum::IntoEnumIterator;
-use strum_macros::{ EnumString, Display, AsRefStr, IntoStaticStr };
+use strum_macros::{AsRefStr, Display, EnumString, IntoStaticStr};
 
 /// LoL and TFT ranked tiers, such as gold, diamond, challenger, etc.
 ///
@@ -10,36 +10,49 @@ use strum_macros::{ EnumString, Display, AsRefStr, IntoStaticStr };
 /// Repr'd as arbitrary `u8` values.
 ///
 /// Implements [IntoEnumIterator](super::IntoEnumIterator).
-#[derive(Debug, Copy, Clone)]
-#[derive(Eq, PartialEq, Hash, PartialOrd, Ord)]
-#[derive(IntoPrimitive, TryFromPrimitive)]
-#[derive(EnumString, Display, AsRefStr, IntoStaticStr)]
-#[derive(Serialize, Deserialize)]
+#[derive(
+    Debug,
+    Copy,
+    Clone,
+    Eq,
+    PartialEq,
+    Hash,
+    PartialOrd,
+    Ord,
+    IntoPrimitive,
+    TryFromPrimitive,
+    EnumString,
+    Display,
+    AsRefStr,
+    IntoStaticStr,
+    Serialize,
+    Deserialize,
+)]
 #[repr(u8)]
 pub enum Tier {
     /// Challenger, the highest tier, an apex tier. Repr: `220_u8`.
-    CHALLENGER  = 220,
+    CHALLENGER = 220,
     /// Grand Master, an apex tier. Repr: `200_u8`.
     GRANDMASTER = 200,
     /// Master, an apex tier. Repr: `180_u8`.
-    MASTER      = 180,
+    MASTER = 180,
     /// Diamond, the higest non-apex tier. Repr: `140_u8`.
-    DIAMOND     = 140,
+    DIAMOND = 140,
     /// Platinum. Repr: `120_u8`.
-    PLATINUM    = 120,
+    PLATINUM = 120,
     /// Gold. Repr: `100_u8`.
-    GOLD        = 100,
+    GOLD = 100,
     /// Silver. Repr: `80_u8`.
-    SILVER      =  80,
+    SILVER = 80,
     /// Bronze. Repr: `60_u8`.
-    BRONZE      =  60,
+    BRONZE = 60,
     /// Iron, the lowest tier. Repr: `40_u8`.
-    IRON        =  40,
+    IRON = 40,
 
     /// Unranked, no tier. Repr: `0_u8`.
     /// Also deserializes from "NONE" returned by `lol-challenges-v1.getChallengePercentiles`.
     #[serde(alias = "NONE")]
-    UNRANKED    =   0,
+    UNRANKED = 0,
 }
 
 impl Tier {
@@ -63,7 +76,7 @@ impl Tier {
 
     /// If this tier is ranked. Returns true for iron through challenger, false for unranked.
     pub const fn is_ranked(self) -> bool {
-         // Casts needed for const.
+        // Casts needed for const.
         (Self::UNRANKED as u8) < (self as u8)
     }
 
@@ -77,7 +90,11 @@ impl Tier {
 
     /// Converts UNRANKED to None and all ranked tiers to Some(...).
     pub fn to_ranked(self) -> Option<Self> {
-        if self.is_unranked() { None } else { Some(self) }
+        if self.is_unranked() {
+            None
+        } else {
+            Some(self)
+        }
     }
 }
 
@@ -88,10 +105,18 @@ impl IntoEnumIterator for Tier {
     type Iterator = std::iter::Copied<std::slice::Iter<'static, Self>>;
     fn iter() -> Self::Iterator {
         [
-            Self::CHALLENGER, Self::GRANDMASTER, Self::MASTER,
-            Self::DIAMOND, Self::PLATINUM, Self::GOLD,
-            Self::SILVER, Self::BRONZE, Self::IRON
-        ].iter().copied()
+            Self::CHALLENGER,
+            Self::GRANDMASTER,
+            Self::MASTER,
+            Self::DIAMOND,
+            Self::PLATINUM,
+            Self::GOLD,
+            Self::SILVER,
+            Self::BRONZE,
+            Self::IRON,
+        ]
+        .iter()
+        .copied()
     }
 }
 

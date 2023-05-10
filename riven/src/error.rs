@@ -1,6 +1,6 @@
 use std::fmt;
 
-use reqwest::{ Error, Response, StatusCode };
+use reqwest::{Error, Response, StatusCode};
 
 /// Result containing RiotApiError on failure.
 pub type Result<T> = std::result::Result<T, RiotApiError>;
@@ -17,7 +17,12 @@ pub struct RiotApiError {
     status_code: Option<StatusCode>,
 }
 impl RiotApiError {
-    pub(crate) fn new(reqwest_error: Error, retries: u8, response: Option<Response>, status_code: Option<StatusCode>) -> Self {
+    pub(crate) fn new(
+        reqwest_error: Error,
+        retries: u8,
+        response: Option<Response>,
+        status_code: Option<StatusCode>,
+    ) -> Self {
         Self {
             reqwest_error,
             retries,

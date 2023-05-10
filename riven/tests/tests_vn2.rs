@@ -11,7 +11,7 @@ use riven::consts::*;
 
 const ROUTE: PlatformRoute = PlatformRoute::VN2;
 
-async_tests!{
+async_tests! {
     my_runner {
         status: async {
             let p = RIOT_API.lol_status_v4().get_platform_data(ROUTE);

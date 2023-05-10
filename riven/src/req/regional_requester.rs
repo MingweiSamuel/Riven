@@ -1,14 +1,14 @@
 use std::future::Future;
 use std::sync::Arc;
 
-#[cfg(not(feature="tracing"))]
-use log as log;
-#[cfg(feature="tracing")]
+#[cfg(not(feature = "tracing"))]
+use log;
+#[cfg(feature = "tracing")]
 use tracing as log;
 #[cfg(feature = "tracing")]
 use tracing::Instrument;
 
-use reqwest::{ StatusCode, RequestBuilder };
+use reqwest::{RequestBuilder, StatusCode};
 
 use crate::util::InsertOnlyCHashMap;
 use crate::ResponseInfo;
@@ -40,15 +40,17 @@ impl RegionalRequester {
         }
     }
 
-    pub fn execute<'a>(self: Arc<Self>,
+    pub fn execute<'a>(
+        self: Arc<Self>,
         config: &'a RiotApiConfig,
-        method_id: &'static str, request: RequestBuilder)
-        -> impl Future<Output = Result<ResponseInfo>> + 'a
-    {
+        method_id: &'static str,
+        request: RequestBuilder,
+    ) -> impl Future<Output = Result<ResponseInfo>> + 'a {
         async move {
             let mut retries: u8 = 0;
             loop {
-                let method_rate_limit: Arc<RateLimit> = self.method_rate_limits
+                let method_rate_limit: Arc<RateLimit> = self
+                    .method_rate_limits
                     .get_or_insert_with(method_id, || RateLimit::new(RateLimitType::Method));
 
                 // Rate limit.
@@ -79,24 +81,40 @@ impl RegionalRequester {
                 let status_none = Self::NONE_STATUS_CODES.contains(&status);
                 // Success case.
                 if status.is_success() || status_none {
-                    log::trace!("Response {} (retried {} times), success, returning result.", status, retries);
+                    log::trace!(
+                        "Response {} (retried {} times), success, returning result.",
+                        status,
+                        retries
+                    );
                     break Ok(ResponseInfo {
                         response,
                         retries,
                         status_none,
                     });
                 }
-                let err = response.error_for_status_ref().err().unwrap_or_else(
-                    || panic!("Unhandlable response status code, neither success nor failure: {}.", status));
+                let err = response.error_for_status_ref().err().unwrap_or_else(|| {
+                    panic!(
+                        "Unhandlable response status code, neither success nor failure: {}.",
+                        status
+                    )
+                });
                 // Failure, may or may not be retryable.
                 // Not-retryable: no more retries or 4xx or ? (3xx, redirects exceeded).
                 // Retryable: retries remaining, and 429 or 5xx.
-                if retries >= config.retries ||
-                    (StatusCode::TOO_MANY_REQUESTS != status
-                    && !status.is_server_error())
+                if retries >= config.retries
+                    || (StatusCode::TOO_MANY_REQUESTS != status && !status.is_server_error())
                 {
-                    log::debug!("Response {} (retried {} times), failure, returning error.", status, retries);
-                    break Err(RiotApiError::new(err, retries, Some(response), Some(status)));
+                    log::debug!(
+                        "Response {} (retried {} times), failure, returning error.",
+                        status,
+                        retries
+                    );
+                    break Err(RiotApiError::new(
+                        err,
+                        retries,
+                        Some(response),
+                        Some(status),
+                    ));
                 }
 
                 // Is retryable, do exponential backoff if retry-after wasn't specified.

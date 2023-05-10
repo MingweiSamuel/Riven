@@ -11,7 +11,7 @@ use riven::consts::*;
 
 const ROUTE: PlatformRoute = PlatformRoute::EUW1;
 
-async_tests!{
+async_tests! {
     my_runner {
         // Champion Mastery tests.
         championmastery_getscore_ma5tery: async {

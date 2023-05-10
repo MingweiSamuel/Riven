@@ -1,8 +1,8 @@
 //! Configuration of RiotApi.
 use std::time::Duration;
 
+use reqwest::header::{HeaderMap, HeaderValue};
 use reqwest::ClientBuilder;
-use reqwest::header::{ HeaderMap, HeaderValue };
 
 /// Configuration for instantiating RiotApi.
 ///
@@ -72,7 +72,7 @@ impl RiotApiConfig {
         let mut default_headers = HeaderMap::new();
         default_headers.insert(
             Self::RIOT_KEY_HEADER,
-            HeaderValue::from_bytes(api_key.as_ref()).unwrap()
+            HeaderValue::from_bytes(api_key.as_ref()).unwrap(),
         );
 
         Self {
@@ -82,10 +82,7 @@ impl RiotApiConfig {
             method_rate_usage_factor: Self::DEFAULT_RATE_USAGE_FACTOR,
             burst_factor: Self::PRECONFIG_BURST_BURST_FACTOR,
             duration_overhead: Self::PRECONFIG_BURST_DURATION_OVERHEAD,
-            client_builder: Some(
-                ClientBuilder::new()
-                    .default_headers(default_headers)
-            ),
+            client_builder: Some(ClientBuilder::new().default_headers(default_headers)),
         }
     }
 
@@ -191,7 +188,10 @@ impl RiotApiConfig {
             self.method_rate_usage_factor = rate_usage_factor;
             return self;
         }
-        panic!("rate_usage_factor \"{}\" not in range (0, 1].", rate_usage_factor);
+        panic!(
+            "rate_usage_factor \"{}\" not in range (0, 1].",
+            rate_usage_factor
+        );
     }
 
     /// See [Self::set_rate_usage_factor]. Setting this is useful if you have multiple
@@ -209,7 +209,10 @@ impl RiotApiConfig {
             self.app_rate_usage_factor = app_rate_usage_factor;
             return self;
         }
-        panic!("app_rate_usage_factor \"{}\" not in range (0, 1].", app_rate_usage_factor);
+        panic!(
+            "app_rate_usage_factor \"{}\" not in range (0, 1].",
+            app_rate_usage_factor
+        );
     }
 
     /// See [Self::set_rate_usage_factor] and [Self::set_app_rate_usage_factor].
@@ -227,7 +230,10 @@ impl RiotApiConfig {
             self.method_rate_usage_factor = method_rate_usage_factor;
             return self;
         }
-        panic!("method_rate_usage_factor \"{}\" not in range (0, 1].", method_rate_usage_factor);
+        panic!(
+            "method_rate_usage_factor \"{}\" not in range (0, 1].",
+            method_rate_usage_factor
+        );
     }
 
     /// Burst percentage controls how many burst requests are allowed and

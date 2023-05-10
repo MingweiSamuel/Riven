@@ -1,9 +1,7 @@
-use super::{ RegionalRoute, PlatformRoute, ValPlatformRoute };
+use super::{PlatformRoute, RegionalRoute, ValPlatformRoute};
 
 /// Utility enum containing all routing variants.
-#[derive(Debug)]
-#[derive(PartialEq, Eq, Hash, PartialOrd, Ord)]
-#[derive(Clone, Copy)]
+#[derive(Debug, PartialEq, Eq, Hash, PartialOrd, Ord, Clone, Copy)]
 #[repr(u8)]
 #[non_exhaustive]
 pub enum Route {
@@ -40,13 +38,13 @@ impl num_enum::TryFromPrimitive for Route {
 
     const NAME: &'static str = stringify!(Route);
 
-    fn try_from_primitive(number: Self::Primitive) -> Result<Self, num_enum::TryFromPrimitiveError<Self>> {
+    fn try_from_primitive(
+        number: Self::Primitive,
+    ) -> Result<Self, num_enum::TryFromPrimitiveError<Self>> {
         RegionalRoute::try_from_primitive(number)
             .map(Route::Regional)
-            .or_else(|_| PlatformRoute::try_from_primitive(number)
-                .map(Route::Platform))
-            .or_else(|_| ValPlatformRoute::try_from_primitive(number)
-                .map(Route::ValPlatform))
+            .or_else(|_| PlatformRoute::try_from_primitive(number).map(Route::Platform))
+            .or_else(|_| ValPlatformRoute::try_from_primitive(number).map(Route::ValPlatform))
             .map_err(|_| num_enum::TryFromPrimitiveError { number })
     }
 }
@@ -73,10 +71,8 @@ impl std::str::FromStr for Route {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         RegionalRoute::from_str(s)
             .map(Self::Regional)
-            .or_else(|_| PlatformRoute::from_str(s)
-                .map(Self::Platform))
-            .or_else(|_| ValPlatformRoute::from_str(s)
-                .map(Self::ValPlatform))
+            .or_else(|_| PlatformRoute::from_str(s).map(Self::Platform))
+            .or_else(|_| ValPlatformRoute::from_str(s).map(Self::ValPlatform))
             .map_err(|_| strum::ParseError::VariantNotFound)
     }
 }
@@ -87,16 +83,11 @@ impl Route {
     pub fn iter() -> impl Iterator<Item = Self> {
         use strum::IntoEnumIterator;
 
-        let regional = RegionalRoute::iter()
-            .map(Self::Regional);
-        let platform = PlatformRoute::iter()
-            .map(Self::Platform);
-        let val_platform = ValPlatformRoute::iter()
-            .map(Self::ValPlatform);
+        let regional = RegionalRoute::iter().map(Self::Regional);
+        let platform = PlatformRoute::iter().map(Self::Platform);
+        let val_platform = ValPlatformRoute::iter().map(Self::ValPlatform);
 
-        regional
-            .chain(platform)
-            .chain(val_platform)
+        regional.chain(platform).chain(val_platform)
     }
 }
 
@@ -106,9 +97,18 @@ mod tests {
 
     #[test]
     fn test_route_tostring() {
-        assert_eq!("AMERICAS", Into::<&'static str>::into(Route::Regional(RegionalRoute::AMERICAS)));
-        assert_eq!("KR", Into::<&'static str>::into(Route::Platform(PlatformRoute::KR)));
-        assert_eq!("KR", Into::<&'static str>::into(Route::ValPlatform(ValPlatformRoute::KR)));
+        assert_eq!(
+            "AMERICAS",
+            Into::<&'static str>::into(Route::Regional(RegionalRoute::AMERICAS))
+        );
+        assert_eq!(
+            "KR",
+            Into::<&'static str>::into(Route::Platform(PlatformRoute::KR))
+        );
+        assert_eq!(
+            "KR",
+            Into::<&'static str>::into(Route::ValPlatform(ValPlatformRoute::KR))
+        );
     }
 
     #[test]
@@ -132,7 +132,10 @@ mod tests {
         assert_eq!("AMERICAS", RegionalRoute::AMERICAS.to_string());
         assert_eq!("SEA", RegionalRoute::SEA.to_string());
 
-        assert_eq!("AMERICAS", Into::<&'static str>::into(RegionalRoute::AMERICAS));
+        assert_eq!(
+            "AMERICAS",
+            Into::<&'static str>::into(RegionalRoute::AMERICAS)
+        );
         assert_eq!("SEA", Into::<&'static str>::into(RegionalRoute::SEA));
     }
 
@@ -171,7 +174,10 @@ mod tests {
 
         assert_eq!("AP", Into::<&'static str>::into(ValPlatformRoute::AP));
         assert_eq!("KR", Into::<&'static str>::into(ValPlatformRoute::KR));
-        assert_eq!("ESPORTS", Into::<&'static str>::into(ValPlatformRoute::ESPORTS));
+        assert_eq!(
+            "ESPORTS",
+            Into::<&'static str>::into(ValPlatformRoute::ESPORTS)
+        );
     }
 
     #[test]
