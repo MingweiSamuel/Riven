@@ -6,7 +6,7 @@
 use num_enum::{ IntoPrimitive, TryFromPrimitive };
 use strum_macros::{ EnumString, EnumIter, Display, IntoStaticStr };
 
-/// Regional routes, used in tournament services, Legends of Runterra, and other endpoints.
+/// Regional routes, used in tournament services, Legends of Runeterra (LoR), and other some endpoints.
 #[derive(Debug)]
 #[derive(PartialEq, Eq, Hash, PartialOrd, Ord)]
 #[derive(IntoPrimitive, TryFromPrimitive)]
