@@ -8,35 +8,43 @@
 
 mod macros;
 
+#[rustfmt::skip]
 mod champion;
 pub use champion::*;
 
 mod division;
 pub use division::*;
 
+#[rustfmt::skip]
 mod game_mode;
 pub use game_mode::*;
 
+#[rustfmt::skip]
 mod game_type;
 pub use game_type::*;
 
+#[rustfmt::skip]
 mod map;
 pub use map::*;
 
+#[rustfmt::skip]
 mod queue_type;
 pub use queue_type::*;
 
+#[rustfmt::skip]
 mod queue;
 pub use queue::*;
 
 pub mod ranks;
 
+#[rustfmt::skip]
 mod route;
 pub use route::*;
 
 mod route_ext;
 pub use route_ext::*;
 
+#[rustfmt::skip]
 mod season;
 pub use season::*;
 
