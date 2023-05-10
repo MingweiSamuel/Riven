@@ -7,18 +7,18 @@
 #![deny(missing_docs)]
 
 {{~ readme :line }}
-//! {{= line }}
+//!{{= line ? (' ' + line) : '' }}
 {{~}}
 
 // Re-exported reqwest types.
 pub use reqwest;
-
 
 mod config;
 pub use config::RiotApiConfig;
 
 pub mod consts;
 
+#[rustfmt::skip]
 pub mod endpoints;
 
 mod error;
@@ -26,6 +26,7 @@ pub use error::*;
 
 pub mod meta;
 
+#[rustfmt::skip]
 pub mod models;
 mod models_impls;
 
