@@ -116,7 +116,7 @@ async fn handle_request(req: Request<Body>) -> Result<Response<Body>, Infallible
             }
             Ok(bytes) => bytes,
         };
-        *out_response.body_mut() = Body::from((&bytes[..]).to_vec());
+        *out_response.body_mut() = Body::from(bytes);
     }
     Ok(out_response)
 }

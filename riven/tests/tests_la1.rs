@@ -40,7 +40,7 @@ async_tests! {
             // Spot check 10% for `player-data`.
             for entry in leaderboard.iter().step_by(10)
             {
-                let _player_data = RIOT_API.lol_challenges_v1().get_player_data(ROUTE, &*entry.puuid)
+                let _player_data = RIOT_API.lol_challenges_v1().get_player_data(ROUTE, &entry.puuid)
                     .await.map_err(|e| format!("Failed to get player data PUUID {}: {}", entry.puuid, e))?;
             }
 

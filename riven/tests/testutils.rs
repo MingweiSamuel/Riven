@@ -23,7 +23,7 @@ pub async fn league_v4_match_v5_latest_combo(route: PlatformRoute) -> Result<(),
         .get_challenger_league(route, QueueType::RANKED_SOLO_5x5);
     let challenger_league = challenger_future.await.map_err(|e| e.to_string())?;
 
-    if &QueueType::RANKED_SOLO_5x5 != &challenger_league.queue {
+    if QueueType::RANKED_SOLO_5x5 != challenger_league.queue {
         return Err(format!("Unexpected `queue`: {}", challenger_league.queue));
     }
     if challenger_league.entries.is_empty() {
@@ -42,7 +42,7 @@ pub async fn league_v4_match_v5_latest_combo(route: PlatformRoute) -> Result<(),
 
             let match_ids_future = RIOT_API.match_v5().get_match_ids_by_puuid(
                 route.to_regional(),
-                &*summoner_info.puuid,
+                &summoner_info.puuid,
                 Some(5),
                 None,
                 None,
