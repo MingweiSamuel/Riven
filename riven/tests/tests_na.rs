@@ -30,8 +30,8 @@ async_tests! {
         summoner_double: async {
             let l1p = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, "lug nuts k");
             let l2p = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, "lugnuts k");
-            let l1 = l1p.await.map_err(|e| e.to_string())?.ok_or_else(|| "Failed to get l1".to_owned())?;
-            let l2 = l2p.await.map_err(|e| e.to_string())?.ok_or_else(|| "Failed to get l2".to_owned())?;
+            let l1 = l1p.await.map_err(|e| e.to_string())?.ok_or_else(|| "'lug nuts k' not found!".to_owned())?;
+            let l2 = l2p.await.map_err(|e| e.to_string())?.ok_or_else(|| "'lugnuts k' not found!".to_owned())?;
             validate_summoners(l1, l2)?;
             Ok(())
         },
@@ -50,6 +50,14 @@ async_tests! {
             let p = RIOT_API.league_exp_v4().get_league_entries(ROUTE, QueueType::RANKED_SOLO_5x5, Tier::CHALLENGER, Division::I, None);
             let d = p.await.map_err(|e| e.to_string())?;
             rassert!(!d.is_empty(), "Challenger shouldn't be empty.");
+            Ok(())
+        },
+        champion_mastery_v4: async {
+            let summoner = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, "LugnutsK");
+            let summoner = summoner.await.map_err(|e| e.to_string())?.ok_or_else(|| "'LugnutsK' not found!".to_owned())?;
+            let masteries = RIOT_API.champion_mastery_v4().get_all_champion_masteries(ROUTE, &summoner.id);
+            let masteries = masteries.await.map_err(|e| e.to_string())?;
+            rassert!(74 <= masteries.len());
             Ok(())
         },
 
