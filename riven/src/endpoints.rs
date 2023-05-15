@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version f6d4267816b00afc365920f4f5926fd725eb8674
+// Version bee23b178b4c4f077a377d7b60fd9861e31ed63c
 
 //! Automatically generated endpoint handles.
 #![allow(clippy::let_and_return, clippy::too_many_arguments)]

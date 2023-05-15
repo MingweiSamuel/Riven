@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version f6d4267816b00afc365920f4f5926fd725eb8674
+// Version bee23b178b4c4f077a377d7b60fd9861e31ed63c
 
 #![allow(missing_docs)]
 
@@ -94,6 +94,9 @@ pub mod champion_mastery_v4 {
         /// The token earned for this champion at the current championLevel. When the championLevel is advanced the tokensEarned resets to 0.
         #[serde(rename = "tokensEarned")]
         pub tokens_earned: i32,
+        #[serde(rename = "puuid")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub puuid: Option<String>,
     }
 }
 
