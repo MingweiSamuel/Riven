@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version bee23b178b4c4f077a377d7b60fd9861e31ed63c
+// Version 330285a83d1e8c4a3a619734dc2204446fb16cff
 
 #![allow(missing_docs)]
 
@@ -1790,6 +1790,9 @@ pub mod match_v5 {
         #[serde(rename = "twentyMinionsIn3SecondsCount")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub twenty_minions_in3_seconds_count: Option<f64>,
+        #[serde(rename = "twoWardsOneSweeperCount")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub two_wards_one_sweeper_count: Option<i32>,
         #[serde(rename = "unseenRecalls")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub unseen_recalls: Option<f64>,

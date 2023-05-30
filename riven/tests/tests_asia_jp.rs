@@ -32,6 +32,8 @@ static MATCHES: &[&str] = &[
     "JP1_273343663",
     // Only has participant IDs for blue team.
     "JP1_391732436",
+    // New field `ParticipantChallenges` `twoWardsOneSweeperCount`
+    "JP1_397348569",
 ];
 
 async_tests! {
