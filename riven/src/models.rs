@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 330285a83d1e8c4a3a619734dc2204446fb16cff
+// Version 54c6fd7144adb63e54515df33a6a557eed0f17ba
 
 #![allow(missing_docs)]
 
@@ -1299,6 +1299,24 @@ pub mod match_v5 {
         #[serde(rename = "totalEnemyJungleMinionsKilled")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub total_enemy_jungle_minions_killed: Option<i32>,
+        #[serde(rename = "playerAugment1")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub player_augment1: Option<i32>,
+        #[serde(rename = "playerAugment2")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub player_augment2: Option<i32>,
+        #[serde(rename = "playerAugment3")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub player_augment3: Option<i32>,
+        #[serde(rename = "playerAugment4")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub player_augment4: Option<i32>,
+        #[serde(rename = "playerSubteamId")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub player_subteam_id: Option<i32>,
+        #[serde(rename = "subteamPlacement")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub subteam_placement: Option<i32>,
     }
     /// Perks data object.
     #[derive(Clone, Debug)]

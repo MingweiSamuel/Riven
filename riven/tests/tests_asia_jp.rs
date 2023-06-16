@@ -34,6 +34,9 @@ static MATCHES: &[&str] = &[
     "JP1_391732436",
     // New field `ParticipantChallenges` `twoWardsOneSweeperCount`
     "JP1_397348569",
+    // New fields:
+    // `match-v5.ParticipantDto.playerAugment[1234],playerSubteamId,subteamPlacement`
+    "JP1_400700181",
 ];
 
 async_tests! {
