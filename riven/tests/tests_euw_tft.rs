@@ -28,14 +28,14 @@ async_tests! {
         //     let _s = p.await.map_err(|e| e.to_string())?;
         //     Ok(())
         // },
-        tftleaguev1_getchallengerleague: async {
-            let p = RIOT_API.tft_league_v1().get_challenger_league(ROUTE);
+        tftleaguev1_gettopratedladder: async {
+            let p = RIOT_API.tft_league_v1().get_top_rated_ladder(ROUTE, QueueType::RANKED_TFT_TURBO);
             let l = p.await.map_err(|e| e.to_string())?;
-            rassert!(l.entries.len() > 10, "Expected a few challenger players, got: {}.", l.entries.len());
+            rassert!(l.len() > 10, "Expected a few ranked players, got: {}.", l.len());
             Ok(())
         },
         tftmatchv1_getmatch: async {
-            let p = RIOT_API.tft_match_v1().get_match(ROUTE.to_regional(), "EUW1_4568680990");
+            let p = RIOT_API.tft_match_v1().get_match(ROUTE.to_regional(), "EUW1_6455483163");
             let _m = p.await.map_err(|e| e.to_string())?.ok_or("Failed to get TFT match.".to_owned())?;
             Ok(())
         },
