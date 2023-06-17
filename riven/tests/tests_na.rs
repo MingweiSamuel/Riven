@@ -66,7 +66,7 @@ async_tests! {
         // summoner must have double-up rank.
         league_getforsummoner_tftbug: async {
             // TODO(mingwei): get summoner from leaderboard to avoid updating this all the time.
-            const SUMMONER_NAME: &str = "Vincentscc";
+            const SUMMONER_NAME: &str = "jessixa";
             let summoner_fut = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, SUMMONER_NAME);
             let summoner = summoner_fut.await.map_err(|e| e.to_string())?.ok_or_else(|| format!("Failed to get \"{}\"", SUMMONER_NAME))?;
             let league_fut = RIOT_API.league_v4().get_league_entries_for_summoner(ROUTE, &summoner.id);
