@@ -21,7 +21,9 @@ pub async fn league_v4_match_v5_latest_combo(route: PlatformRoute) -> Result<(),
     let challenger_future = RIOT_API
         .league_v4()
         .get_challenger_league(route, QueueType::RANKED_SOLO_5x5);
-    let challenger_league = challenger_future.await.map_err(|e| e.to_string())?;
+    let challenger_league = challenger_future
+        .await
+        .map_err(|e| format!("Failed to get challenger league: {}", e))?;
 
     if QueueType::RANKED_SOLO_5x5 != challenger_league.queue {
         return Err(format!("Unexpected `queue`: {}", challenger_league.queue));
@@ -38,7 +40,9 @@ pub async fn league_v4_match_v5_latest_combo(route: PlatformRoute) -> Result<(),
             let summoner_future = RIOT_API
                 .summoner_v4()
                 .get_by_summoner_id(route, &entry.summoner_id);
-            let summoner_info = summoner_future.await.map_err(|e| e.to_string())?;
+            let summoner_info = summoner_future
+                .await
+                .map_err(|e| format!("Failed to get summoner info: {}", e))?;
 
             let match_ids_future = RIOT_API.match_v5().get_match_ids_by_puuid(
                 route.to_regional(),
@@ -50,7 +54,9 @@ pub async fn league_v4_match_v5_latest_combo(route: PlatformRoute) -> Result<(),
                 None,
                 None,
             );
-            let match_ids = match_ids_future.await.map_err(|e| e.to_string())?;
+            let match_ids = match_ids_future
+                .await
+                .map_err(|e| format!("Failed to get summoner match IDs: {}", e))?;
             Ok(match_ids) as Result<_, String>
         });
 
