@@ -49,7 +49,9 @@ async_tests! {
         leagueexp_get: async {
             let p = RIOT_API.league_exp_v4().get_league_entries(ROUTE, QueueType::RANKED_SOLO_5x5, Tier::CHALLENGER, Division::I, None);
             let d = p.await.map_err(|e| e.to_string())?;
-            rassert!(!d.is_empty(), "Challenger shouldn't be empty.");
+            if d.is_empty() {
+                eprintln!("Off-season, challenger league is empty.");
+            }
             Ok(())
         },
         champion_mastery_v4: async {

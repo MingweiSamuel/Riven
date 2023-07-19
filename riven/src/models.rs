@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 54c6fd7144adb63e54515df33a6a557eed0f17ba
+// Version 7d71fe40a50ce14ad12ed6db791a4d0bae0f810e
 
 #![allow(missing_docs)]
 
@@ -269,15 +269,18 @@ pub mod league_v4 {
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct LeagueList {
         #[serde(rename = "leagueId")]
-        pub league_id: String,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub league_id: Option<String>,
         #[serde(rename = "entries")]
         pub entries: std::vec::Vec<LeagueItem>,
         #[serde(rename = "tier")]
         pub tier: crate::consts::Tier,
         #[serde(rename = "name")]
-        pub name: String,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub name: Option<String>,
         #[serde(rename = "queue")]
-        pub queue: crate::consts::QueueType,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub queue: Option<crate::consts::QueueType>,
     }
     /// LeagueItem data object.
     #[derive(Clone, Debug)]

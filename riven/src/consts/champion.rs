@@ -97,6 +97,7 @@ newtype_enum! {
     /// `MISS_FORTUNE` | "Miss Fortune" | "MissFortune" | 21
     /// `MORDEKAISER` | "Mordekaiser" | "Mordekaiser" | 82
     /// `MORGANA` | "Morgana" | "Morgana" | 25
+    /// `NAAFIRI` | "Naafiri" | "Naafiri" | 950
     /// `NAMI` | "Nami" | "Nami" | 267
     /// `NASUS` | "Nasus" | "Nasus" | 75
     /// `NAUTILUS` | "Nautilus" | "Nautilus" | 111
@@ -345,6 +346,8 @@ newtype_enum! {
         MORDEKAISER = 82,
         /// `25`.
         MORGANA = 25,
+        /// `950`.
+        NAAFIRI = 950,
         /// `267`.
         NAMI = 267,
         /// `75`.
@@ -597,6 +600,7 @@ impl Champion {
             Self::MISS_FORTUNE => Some("Miss Fortune"),
             Self::MORDEKAISER  => Some("Mordekaiser"),
             Self::MORGANA      => Some("Morgana"),
+            Self::NAAFIRI      => Some("Naafiri"),
             Self::NAMI         => Some("Nami"),
             Self::NASUS        => Some("Nasus"),
             Self::NAUTILUS     => Some("Nautilus"),
@@ -784,6 +788,7 @@ impl Champion {
             Self::MISS_FORTUNE => Some("MissFortune"),
             Self::MORDEKAISER  => Some("Mordekaiser"),
             Self::MORGANA      => Some("Morgana"),
+            Self::NAAFIRI      => Some("Naafiri"),
             Self::NAMI         => Some("Nami"),
             Self::NASUS        => Some("Nasus"),
             Self::NAUTILUS     => Some("Nautilus"),
@@ -1009,6 +1014,7 @@ impl std::str::FromStr for Champion {
             /* MISS */ [ 'M',  'I',  'S',  'S'] => Ok(Champion::MISS_FORTUNE),
             /* MORD */ [ 'M',  'O',  'R',  'D'] => Ok(Champion::MORDEKAISER),
             /* MORG */ [ 'M',  'O',  'R',  'G'] => Ok(Champion::MORGANA),
+            /* NAAF */ [ 'N',  'A',  'A',  'F'] => Ok(Champion::NAAFIRI),
             /* NAMI */ [ 'N',  'A',  'M',  'I'] => Ok(Champion::NAMI),
             /* NASU */ [ 'N',  'A',  'S',  'U'] => Ok(Champion::NASUS),
             /* NAUT */ [ 'N',  'A',  'U',  'T'] => Ok(Champion::NAUTILUS),

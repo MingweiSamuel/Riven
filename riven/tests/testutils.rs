@@ -25,8 +25,14 @@ pub async fn league_v4_match_v5_latest_combo(route: PlatformRoute) -> Result<(),
         .await
         .map_err(|e| format!("Failed to get challenger league: {}", e))?;
 
-    if QueueType::RANKED_SOLO_5x5 != challenger_league.queue {
-        return Err(format!("Unexpected `queue`: {}", challenger_league.queue));
+    let Some(queue) = challenger_league.queue else {
+        assert!(challenger_league.entries.is_empty());
+        eprintln!("Off-season, challenger league is empty.");
+        return Ok(());
+    };
+
+    if QueueType::RANKED_SOLO_5x5 != queue {
+        return Err(format!("Unexpected `queue`: {:?}", queue));
     }
     if challenger_league.entries.is_empty() {
         return Err("Challenger league is unexpectedly empty!".to_owned());
