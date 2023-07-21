@@ -38,6 +38,8 @@ pub enum Tier {
     MASTER = 180,
     /// Diamond, the higest non-apex tier. Repr: `140_u8`.
     DIAMOND = 140,
+    /// Emerald. Added in 2023. Repr: `130_u8`.
+    EMERALD = 130,
     /// Platinum. Repr: `120_u8`.
     PLATINUM = 120,
     /// Gold. Repr: `100_u8`.
@@ -109,6 +111,7 @@ impl IntoEnumIterator for Tier {
             Self::GRANDMASTER,
             Self::MASTER,
             Self::DIAMOND,
+            Self::EMERALD,
             Self::PLATINUM,
             Self::GOLD,
             Self::SILVER,
@@ -188,6 +191,7 @@ mod tests {
         iter.next();
         iter.next();
         assert_eq!(Some(Tier::DIAMOND), iter.next());
+        assert_eq!(Some(Tier::EMERALD), iter.next());
         iter.next();
         iter.next();
         iter.next();
@@ -202,6 +206,7 @@ mod tests {
         iter.next();
         iter.next();
         iter.next();
+        assert_eq!(Some(Tier::EMERALD), iter.next());
         assert_eq!(Some(Tier::DIAMOND), iter.next());
         iter.next();
         iter.next();
