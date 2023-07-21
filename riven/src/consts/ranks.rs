@@ -90,12 +90,12 @@ mod tests {
         assert_eq!(Some((Tier::DIAMOND, Division::II)), it.next());
         assert_eq!(Some((Tier::DIAMOND, Division::III)), it.next());
         assert_eq!(Some((Tier::DIAMOND, Division::IV)), it.next());
+        assert_eq!(Some((Tier::EMERALD, Division::I)), it.next());
+        assert_eq!(Some((Tier::EMERALD, Division::II)), it.next());
+        assert_eq!(Some((Tier::EMERALD, Division::III)), it.next());
+        assert_eq!(Some((Tier::EMERALD, Division::IV)), it.next());
         assert_eq!(Some((Tier::PLATINUM, Division::I)), it.next());
-        let mut last = None;
-        for next in &mut it {
-            last = Some(next);
-        }
+        let last = it.last();
         assert_eq!(Some((Tier::IRON, Division::IV)), last);
-        assert_eq!(None, it.next());
     }
 }
