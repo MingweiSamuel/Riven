@@ -43,6 +43,7 @@ use crate::RiotApiError;
 ///
 /// To adjust rate limiting, see [RiotApiConfig] and use
 /// [`RiotApi::new(config)`](RiotApi::new) to construct an instance.
+#[derive(Clone)]
 pub struct RiotApi {
     /// Configuration settings.
     config: RiotApiConfig,
