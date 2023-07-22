@@ -7,7 +7,7 @@ use reqwest::ClientBuilder;
 /// Configuration for instantiating RiotApi.
 ///
 ///
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct RiotApiConfig {
     pub(crate) base_url: String,
     pub(crate) retries: u8,

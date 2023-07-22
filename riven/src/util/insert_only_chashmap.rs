@@ -5,6 +5,7 @@ use std::sync::Arc;
 
 use parking_lot::Mutex;
 
+#[derive(Clone)]
 pub struct InsertOnlyCHashMap<K: Hash + Eq, V> {
     base: Mutex<HashMap<K, Arc<V>>>,
 }
