@@ -18,6 +18,9 @@ use serde_repr::{Deserialize_repr, Serialize_repr};
 )]
 #[repr(u16)]
 pub enum Team {
+    /// Team ID zero for 2v2v2v2 Arena `CHERRY` game mode. (TODO: SUBJECT TO CHANGE?)
+    ZERO = 0,
+
     /// Blue team (bottom left on Summoner's Rift).
     BLUE = 100,
     /// Red team (top right on Summoner's Rift).

@@ -37,6 +37,10 @@ static MATCHES: &[&str] = &[
     // New fields:
     // `match-v5.ParticipantDto.playerAugment[1234],playerSubteamId,subteamPlacement`
     "JP1_400700181",
+    // New field: `match-v5.ParticipantDto.placement`
+    "JP1_405073638",
+    // New ARENA 2v2v2v2 game mode, broken `subteamPlacement`
+    "KR_6604607115",
 ];
 
 async_tests! {

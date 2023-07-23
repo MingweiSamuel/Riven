@@ -28,6 +28,8 @@ pub enum GameMode {
     ASCENSION,
     /// Blood Hunt Assassin games
     ASSASSINATE,
+    /// 2v2v2v2
+    CHERRY,
     /// Classic Summoner's Rift and Twisted Treeline games
     CLASSIC,
     /// Dark Star: Singularity games
