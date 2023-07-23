@@ -69,5 +69,9 @@ newtype_enum! {
         /// Convergence
         /// Teamfight Tactics map
         CONVERGENCE = 22,
+        /// `30`.
+        /// Arena
+        /// Map for 2v2v2v2 (`CHERRY`). Team up with a friend or venture solo in this new game mode. Face against multiple teams in chaotic battles across diverse arenas
+        ARENA = 30,
     }
 }

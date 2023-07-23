@@ -335,6 +335,9 @@ newtype_enum! {
         /// `1400`.
         /// Ultimate Spellbook games on Summoner's Rift
         SUMMONERS_RIFT_ULTIMATE_SPELLBOOK = 1400,
+        /// `1700`.
+        /// 2v2v2v2 `CHERRY` games on Arena
+        ARENA_2V2V2V2_CHERRY_ = 1700,
         /// `1900`.
         /// Pick URF games on Summoner's Rift
         SUMMONERS_RIFT_PICK_URF = 1900,

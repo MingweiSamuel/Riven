@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 7d71fe40a50ce14ad12ed6db791a4d0bae0f810e
+// Version 55e76c61b6feb1298719d6f55d89f2229e88e4eb
 
 #![allow(missing_docs)]
 
@@ -1320,6 +1320,9 @@ pub mod match_v5 {
         #[serde(rename = "subteamPlacement")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub subteam_placement: Option<i32>,
+        #[serde(rename = "placement")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub placement: Option<i32>,
     }
     /// Perks data object.
     #[derive(Clone, Debug)]
@@ -2097,10 +2100,14 @@ pub mod match_v5 {
         pub x7: MatchTimelineInfoFrameParticipantFrame,
         #[serde(rename = "8")]
         pub x8: MatchTimelineInfoFrameParticipantFrame,
+        /// Possibly null for the Arena 2v2v2v2 (`CHERRY`) game mode.
         #[serde(rename = "9")]
-        pub x9: MatchTimelineInfoFrameParticipantFrame,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub x9: Option<MatchTimelineInfoFrameParticipantFrame>,
+        /// Possibly null for the Arena 2v2v2v2 (`CHERRY`) game mode.
         #[serde(rename = "10")]
-        pub x10: MatchTimelineInfoFrameParticipantFrame,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub x10: Option<MatchTimelineInfoFrameParticipantFrame>,
     }
     /// MatchTimelineInfoFrame data object.
     #[derive(Clone, Debug)]
