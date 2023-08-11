@@ -425,7 +425,7 @@ impl<'a> ChampionMasteryV4<'a> {
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/champion-mastery/v4/champion-masteries/by-summoner/{}/top", encrypted_summoner_id));
-        let mut request = request; if let Some(count) = count { request = request.query(&[ ("count", count) ]); }
+        let request = if let Some(count) = count { request.query(&[ ("count", count) ]) } else { request };
         let future = self.base.execute_val::<Vec<champion_mastery_v4::ChampionMastery>>("champion-mastery-v4.getTopChampionMasteries", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("champion-mastery-v4.getTopChampionMasteries"));
@@ -638,7 +638,7 @@ impl<'a> LeagueExpV4<'a> {
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/league-exp/v4/entries/{}/{}/{}", queue, tier, division));
-        let mut request = request; if let Some(page) = page { request = request.query(&[ ("page", page) ]); }
+        let request = if let Some(page) = page { request.query(&[ ("page", page) ]) } else { request };
         let future = self.base.execute_val::<Vec<league_exp_v4::LeagueEntry>>("league-exp-v4.getLeagueEntries", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("league-exp-v4.getLeagueEntries"));
@@ -711,7 +711,7 @@ impl<'a> LeagueV4<'a> {
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/entries/{}/{}/{}", queue, tier, division));
-        let mut request = request; if let Some(page) = page { request = request.query(&[ ("page", page) ]); }
+        let request = if let Some(page) = page { request.query(&[ ("page", page) ]) } else { request };
         let future = self.base.execute_val::<Vec<league_v4::LeagueEntry>>("league-v4.getLeagueEntries", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("league-v4.getLeagueEntries"));
@@ -857,7 +857,7 @@ impl<'a> LolChallengesV1<'a> {
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/challenges/v1/challenges/{}/leaderboards/by-level/{}", challenge_id, level));
-        let mut request = request; if let Some(limit) = limit { request = request.query(&[ ("limit", limit) ]); }
+        let request = if let Some(limit) = limit { request.query(&[ ("limit", limit) ]) } else { request };
         let future = self.base.execute_opt::<Vec<lol_challenges_v1::ApexPlayerInfo>>("lol-challenges-v1.getChallengeLeaderboards", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("lol-challenges-v1.getChallengeLeaderboards"));
@@ -1190,12 +1190,12 @@ impl<'a> MatchV5<'a> {
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/match/v5/matches/by-puuid/{}/ids", puuid));
-        let mut request = request; if let Some(count) = count { request = request.query(&[ ("count", count) ]); }
-        let mut request = request; if let Some(end_time) = end_time { request = request.query(&[ ("endTime", end_time) ]); }
-        let mut request = request; if let Some(queue) = queue { request = request.query(&[ ("queue", queue) ]); }
-        let mut request = request; if let Some(start_time) = start_time { request = request.query(&[ ("startTime", start_time) ]); }
-        let mut request = request; if let Some(start) = start { request = request.query(&[ ("start", start) ]); }
-        let mut request = request; if let Some(r#type) = r#type { request = request.query(&[ ("type", r#type) ]); }
+        let request = if let Some(count) = count { request.query(&[ ("count", count) ]) } else { request };
+        let request = if let Some(end_time) = end_time { request.query(&[ ("endTime", end_time) ]) } else { request };
+        let request = if let Some(queue) = queue { request.query(&[ ("queue", queue) ]) } else { request };
+        let request = if let Some(start_time) = start_time { request.query(&[ ("startTime", start_time) ]) } else { request };
+        let request = if let Some(start) = start { request.query(&[ ("start", start) ]) } else { request };
+        let request = if let Some(r#type) = r#type { request.query(&[ ("type", r#type) ]) } else { request };
         let future = self.base.execute_val::<Vec<String>>("match-v5.getMatchIdsByPUUID", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("match-v5.getMatchIdsByPUUID"));
@@ -1480,7 +1480,7 @@ impl<'a> TftLeagueV1<'a> {
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/tft/league/v1/entries/{}/{}", tier, division));
-        let mut request = request; if let Some(page) = page { request = request.query(&[ ("page", page) ]); }
+        let request = if let Some(page) = page { request.query(&[ ("page", page) ]) } else { request };
         let future = self.base.execute_val::<Vec<tft_league_v1::LeagueEntry>>("tft-league-v1.getLeagueEntries", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tft-league-v1.getLeagueEntries"));
@@ -1590,10 +1590,10 @@ impl<'a> TftMatchV1<'a> {
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/tft/match/v1/matches/by-puuid/{}/ids", puuid));
-        let mut request = request; if let Some(count) = count { request = request.query(&[ ("count", count) ]); }
-        let mut request = request; if let Some(end_time) = end_time { request = request.query(&[ ("endTime", end_time) ]); }
-        let mut request = request; if let Some(start) = start { request = request.query(&[ ("start", start) ]); }
-        let mut request = request; if let Some(start_time) = start_time { request = request.query(&[ ("startTime", start_time) ]); }
+        let request = if let Some(count) = count { request.query(&[ ("count", count) ]) } else { request };
+        let request = if let Some(end_time) = end_time { request.query(&[ ("endTime", end_time) ]) } else { request };
+        let request = if let Some(start) = start { request.query(&[ ("start", start) ]) } else { request };
+        let request = if let Some(start_time) = start_time { request.query(&[ ("startTime", start_time) ]) } else { request };
         let future = self.base.execute_val::<Vec<String>>("tft-match-v1.getMatchIdsByPUUID", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tft-match-v1.getMatchIdsByPUUID"));
@@ -1784,7 +1784,7 @@ impl<'a> TournamentStubV4<'a> {
         let route_str = route.into();
         let request = self.base.request(Method::POST, route_str, "/lol/tournament-stub/v4/codes");
         let request = request.query(&[ ("tournamentId", tournament_id) ]);
-        let mut request = request; if let Some(count) = count { request = request.query(&[ ("count", count) ]); }
+        let request = if let Some(count) = count { request.query(&[ ("count", count) ]) } else { request };
         let request = request.body(serde_json::ser::to_vec(body).unwrap());
         let future = self.base.execute_val::<Vec<String>>("tournament-stub-v4.createTournamentCode", route_str, request);
         #[cfg(feature = "tracing")]
@@ -1878,7 +1878,7 @@ impl<'a> TournamentV4<'a> {
         let route_str = route.into();
         let request = self.base.request(Method::POST, route_str, "/lol/tournament/v4/codes");
         let request = request.query(&[ ("tournamentId", tournament_id) ]);
-        let mut request = request; if let Some(count) = count { request = request.query(&[ ("count", count) ]); }
+        let request = if let Some(count) = count { request.query(&[ ("count", count) ]) } else { request };
         let request = request.body(serde_json::ser::to_vec(body).unwrap());
         let future = self.base.execute_val::<Vec<String>>("tournament-v4.createTournamentCode", route_str, request);
         #[cfg(feature = "tracing")]
@@ -2009,7 +2009,7 @@ impl<'a> ValContentV1<'a> {
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/val/content/v1/contents");
-        let mut request = request; if let Some(locale) = locale { request = request.query(&[ ("locale", locale) ]); }
+        let request = if let Some(locale) = locale { request.query(&[ ("locale", locale) ]) } else { request };
         let future = self.base.execute_val::<val_content_v1::Content>("val-content-v1.getContent", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("val-content-v1.getContent"));
@@ -2114,8 +2114,8 @@ impl<'a> ValRankedV1<'a> {
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/val/ranked/v1/leaderboards/by-act/{}", act_id));
-        let mut request = request; if let Some(size) = size { request = request.query(&[ ("size", size) ]); }
-        let mut request = request; if let Some(start_index) = start_index { request = request.query(&[ ("startIndex", start_index) ]); }
+        let request = if let Some(size) = size { request.query(&[ ("size", size) ]) } else { request };
+        let request = if let Some(start_index) = start_index { request.query(&[ ("startIndex", start_index) ]) } else { request };
         let future = self.base.execute_opt::<val_ranked_v1::Leaderboard>("val-ranked-v1.getLeaderboard", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("val-ranked-v1.getLeaderboard"));

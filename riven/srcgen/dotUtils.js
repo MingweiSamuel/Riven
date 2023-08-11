@@ -103,16 +103,16 @@ function formatJsonProperty(name) {
 function formatAddQueryParam(param) {
   const k = `"${param.name}"`;
   const name = normalizePropName(param.name);
-  const condStart = param.required ? '' : `mut request = request; if let Some(${name}) = ${name} { `;
-  const condEnd = param.required ? '' : ' }'
+  const condStart = param.required ? '' : `if let Some(${name}) = ${name} { `;
+  const condEnd = param.required ? '' : ' } else { request }'
   const prop = param.schema;
   switch (prop.type) {
-    case 'array': return `let ${condStart}request = request.query(&*${name}.iter()`
-      + `.map(|w| ( ${k}, w )).collect::<Vec<_>>());${condEnd}`;
+    case 'array': return `let request = ${condStart}request.query(&*${name}.iter()`
+      + `.map(|w| ( ${k}, w )).collect::<Vec<_>>())${condEnd};`;
     case 'object':
       throw 'unsupported';
     default:
-      return `let ${condStart}request = request.query(&[ (${k}, ${name}) ]);${condEnd}`;
+      return `let request = ${condStart}request.query(&[ (${k}, ${name}) ])${condEnd};`;
   }
 }
 
