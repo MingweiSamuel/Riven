@@ -11,25 +11,29 @@ use riven::consts::*;
 
 const ROUTE: PlatformRoute = PlatformRoute::JP1;
 
+// Archived 2023-08-17
+// // `teamPosition` empty:
+// // AFK:
+// "JP1_312062554",
+// "JP1_289504387",
+// "JP1_285434511",
+// "JP1_307559381",
+// "JP1_292569767",
+// "JP1_300507433",
+// "JP1_283568774",
+// "JP1_310138781",
+// // `individualPosition` is set but `teamPosition` is empty due to AFK slightly after beginning:
+// "JP1_285797147",
+// // Illegal big `championId`s. https://github.com/RiotGames/developer-relations/issues/553
+// "JP1_267647303",
+// "JP1_273343663",
+
 static MATCHES: &[&str] = &[
     // Regular game:
     "KR_5495121707",
     // `teamPosition` empty:
     // AFK:
-    "JP1_312062554",
     "JP1_326464722",
-    "JP1_289504387",
-    "JP1_285434511",
-    "JP1_307559381",
-    "JP1_292569767",
-    "JP1_310138781",
-    "JP1_300507433",
-    "JP1_283568774",
-    // `individualPosition` is set but `teamPosition` is empty due to AFK slightly after beginning:
-    "JP1_285797147",
-    // Illegal big `championId`s. https://github.com/RiotGames/developer-relations/issues/553
-    "JP1_267647303",
-    "JP1_273343663",
     // Only has participant IDs for blue team.
     "JP1_391732436",
     // New field `ParticipantChallenges` `twoWardsOneSweeperCount`
