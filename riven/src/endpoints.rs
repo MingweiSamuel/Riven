@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 55e76c61b6feb1298719d6f55d89f2229e88e4eb
+// Version 560d6708a4e0e652fc4b2ada788de0bd6eb546ad
 
 //! Automatically generated endpoint handles.
 #![allow(clippy::let_and_return, clippy::too_many_arguments)]
@@ -372,6 +372,66 @@ pub struct ChampionMasteryV4<'a> {
     base: &'a RiotApi,
 }
 impl<'a> ChampionMasteryV4<'a> {
+    /// Get all champion mastery entries sorted by number of champion points descending.
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// * `encrypted_puuid` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getAllChampionMasteriesByPUUID" target="_blank">`champion-mastery-v4.getAllChampionMasteriesByPUUID`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_all_champion_masteries_by_puuid(&self, route: PlatformRoute, encrypted_puuid: &str)
+        -> impl Future<Output = Result<Vec<champion_mastery_v4::ChampionMastery>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/champion-mastery/v4/champion-masteries/by-puuid/{}", encrypted_puuid));
+        let future = self.base.execute_val::<Vec<champion_mastery_v4::ChampionMastery>>("champion-mastery-v4.getAllChampionMasteriesByPUUID", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("champion-mastery-v4.getAllChampionMasteriesByPUUID"));
+        future
+    }
+
+    /// Get a champion mastery by puuid and champion ID.
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// * `encrypted_puuid` (required, in path)
+    /// * `champion_id` (required, in path) - Champion ID to retrieve Champion Mastery.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMasteryByPUUID" target="_blank">`champion-mastery-v4.getChampionMasteryByPUUID`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_champion_mastery_by_puuid(&self, route: PlatformRoute, encrypted_puuid: &str, champion_id: crate::consts::Champion)
+        -> impl Future<Output = Result<champion_mastery_v4::ChampionMastery>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/champion-mastery/v4/champion-masteries/by-puuid/{}/by-champion/{}", encrypted_puuid, champion_id));
+        let future = self.base.execute_val::<champion_mastery_v4::ChampionMastery>("champion-mastery-v4.getChampionMasteryByPUUID", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("champion-mastery-v4.getChampionMasteryByPUUID"));
+        future
+    }
+
+    /// Get specified number of top champion mastery entries sorted by number of champion points descending.
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// * `encrypted_puuid` (required, in path)
+    /// * `count` (optional, in query) - Number of entries to retrieve, defaults to 3.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getTopChampionMasteriesByPUUID" target="_blank">`champion-mastery-v4.getTopChampionMasteriesByPUUID`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_top_champion_masteries_by_puuid(&self, route: PlatformRoute, encrypted_puuid: &str, count: Option<i32>)
+        -> impl Future<Output = Result<Vec<champion_mastery_v4::ChampionMastery>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/champion-mastery/v4/champion-masteries/by-puuid/{}/top", encrypted_puuid));
+        let request = if let Some(count) = count { request.query(&[ ("count", count) ]) } else { request };
+        let future = self.base.execute_val::<Vec<champion_mastery_v4::ChampionMastery>>("champion-mastery-v4.getTopChampionMasteriesByPUUID", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("champion-mastery-v4.getTopChampionMasteriesByPUUID"));
+        future
+    }
+
     /// Get all champion mastery entries sorted by number of champion points descending,
     /// # Parameters
     /// * `route` - Route to query.
@@ -429,6 +489,25 @@ impl<'a> ChampionMasteryV4<'a> {
         let future = self.base.execute_val::<Vec<champion_mastery_v4::ChampionMastery>>("champion-mastery-v4.getTopChampionMasteries", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("champion-mastery-v4.getTopChampionMasteries"));
+        future
+    }
+
+    /// Get a player's total champion mastery score, which is the sum of individual champion mastery levels.
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// * `encrypted_puuid` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMasteryScoreByPUUID" target="_blank">`champion-mastery-v4.getChampionMasteryScoreByPUUID`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_champion_mastery_score_by_puuid(&self, route: PlatformRoute, encrypted_puuid: &str)
+        -> impl Future<Output = Result<i32>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/champion-mastery/v4/scores/by-puuid/{}", encrypted_puuid));
+        let future = self.base.execute_val::<i32>("champion-mastery-v4.getChampionMasteryScoreByPUUID", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("champion-mastery-v4.getChampionMasteryScoreByPUUID"));
         future
     }
 
@@ -498,16 +577,16 @@ impl<'a> ClashV1<'a> {
     /// This endpoint returns a list of active Clash players for a given PUUID. If a summoner registers for multiple tournaments at the same time (e.g., Saturday and Sunday) then both registrations would appear in this list.
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `encrypted_puuid` (required, in path)
+    /// * `puuid` (required, in path)
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#clash-v1/GET_getPlayersByPUUID" target="_blank">`clash-v1.getPlayersByPUUID`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_players_by_puuid(&self, route: PlatformRoute, encrypted_puuid: &str)
+    pub fn get_players_by_puuid(&self, route: PlatformRoute, puuid: &str)
         -> impl Future<Output = Result<Vec<clash_v1::Player>>> + 'a
     {
         let route_str = route.into();
-        let request = self.base.request(Method::GET, route_str, &format!("/lol/clash/v1/players/by-puuid/{}", encrypted_puuid));
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/clash/v1/players/by-puuid/{}", puuid));
         let future = self.base.execute_val::<Vec<clash_v1::Player>>("clash-v1.getPlayersByPUUID", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("clash-v1.getPlayersByPUUID"));

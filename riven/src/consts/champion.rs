@@ -33,6 +33,7 @@ newtype_enum! {
     /// `BLITZCRANK` | "Blitzcrank" | "Blitzcrank" | 53
     /// `BRAND` | "Brand" | "Brand" | 63
     /// `BRAUM` | "Braum" | "Braum" | 201
+    /// `BRIAR` | "Briar" | "Briar" | 233
     /// `CAITLYN` | "Caitlyn" | "Caitlyn" | 51
     /// `CAMILLE` | "Camille" | "Camille" | 164
     /// `CASSIOPEIA` | "Cassiopeia" | "Cassiopeia" | 69
@@ -218,6 +219,8 @@ newtype_enum! {
         BRAND = 63,
         /// `201`.
         BRAUM = 201,
+        /// `233`.
+        BRIAR = 233,
         /// `51`.
         CAITLYN = 51,
         /// `164`.
@@ -536,6 +539,7 @@ impl Champion {
             Self::BLITZCRANK   => Some("Blitzcrank"),
             Self::BRAND        => Some("Brand"),
             Self::BRAUM        => Some("Braum"),
+            Self::BRIAR        => Some("Briar"),
             Self::CAITLYN      => Some("Caitlyn"),
             Self::CAMILLE      => Some("Camille"),
             Self::CASSIOPEIA   => Some("Cassiopeia"),
@@ -724,6 +728,7 @@ impl Champion {
             Self::BLITZCRANK   => Some("Blitzcrank"),
             Self::BRAND        => Some("Brand"),
             Self::BRAUM        => Some("Braum"),
+            Self::BRIAR        => Some("Briar"),
             Self::CAITLYN      => Some("Caitlyn"),
             Self::CAMILLE      => Some("Camille"),
             Self::CASSIOPEIA   => Some("Cassiopeia"),
@@ -943,6 +948,7 @@ impl std::str::FromStr for Champion {
             /* BLIT */ [ 'B',  'L',  'I',  'T'] => Ok(Champion::BLITZCRANK),
             /* BRAN */ [ 'B',  'R',  'A',  'N'] => Ok(Champion::BRAND),
             /* BRAU */ [ 'B',  'R',  'A',  'U'] => Ok(Champion::BRAUM),
+            /* BRIA */ [ 'B',  'R',  'I',  'A'] => Ok(Champion::BRIAR),
             /* CAIT */ [ 'C',  'A',  'I',  'T'] => Ok(Champion::CAITLYN),
             /* CAMI */ [ 'C',  'A',  'M',  'I'] => Ok(Champion::CAMILLE),
             /* CASS */ [ 'C',  'A',  'S',  'S'] => Ok(Champion::CASSIOPEIA),
