@@ -27,13 +27,13 @@ const ROUTE: PlatformRoute = PlatformRoute::JP1;
 // // Illegal big `championId`s. https://github.com/RiotGames/developer-relations/issues/553
 // "JP1_267647303",
 // "JP1_273343663",
+// // `teamPosition` empty:
+// // AFK:
+// "JP1_326464722",
 
 static MATCHES: &[&str] = &[
     // Regular game:
     "KR_5495121707",
-    // `teamPosition` empty:
-    // AFK:
-    "JP1_326464722",
     // Only has participant IDs for blue team.
     "JP1_391732436",
     // New field `ParticipantChallenges` `twoWardsOneSweeperCount`
