@@ -15,7 +15,7 @@ async_tests! {
     my_runner {
         val_content_ranked_test: async {
             let p = RIOT_API.val_content_v1().get_content(ROUTE, Some("zh-CN"));
-            let contents = p.await.map_err(|e| e.to_string())?;
+            let contents = p.await.map_err(|e| format!("Failed to get content: {}", e))?;
 
             // Find the LAST active act, via `.rev().find(...)`.
             // Added filter when parent id is 0000... as there are multiple that are active, the last active seems to be episode 5
