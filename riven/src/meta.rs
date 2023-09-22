@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 560d6708a4e0e652fc4b2ada788de0bd6eb546ad
+// Version e4a5ce3f63911af22ef752e7f5844f4cc4086f0b
 
 //! Metadata about the Riot API and Riven.
 //!
@@ -15,7 +15,7 @@
 
 /// Metadata for endpoints. Each tuple corresponds to one endpoint and contains
 /// the HTTP [`Method`](reqwest::Method), `str` path, and the method's `str` ID.
-pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 83] = [
+pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 88] = [
     (reqwest::Method::GET, "/riot/account/v1/accounts/by-puuid/{puuid}", "account-v1.getByPuuid"),
     (reqwest::Method::GET, "/riot/account/v1/accounts/by-riot-id/{gameName}/{tagLine}", "account-v1.getByRiotId"),
     (reqwest::Method::GET, "/riot/account/v1/accounts/me", "account-v1.getByAccessToken"),
@@ -87,6 +87,11 @@ pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 83] = [
     (reqwest::Method::GET, "/lol/tournament-stub/v4/lobby-events/by-code/{tournamentCode}", "tournament-stub-v4.getLobbyEventsByCode"),
     (reqwest::Method::POST, "/lol/tournament-stub/v4/providers", "tournament-stub-v4.registerProviderData"),
     (reqwest::Method::POST, "/lol/tournament-stub/v4/tournaments", "tournament-stub-v4.registerTournament"),
+    (reqwest::Method::POST, "/lol/tournament-stub/v5/codes", "tournament-stub-v5.createTournamentCode"),
+    (reqwest::Method::GET, "/lol/tournament-stub/v5/codes/{tournamentCode}", "tournament-stub-v5.getTournamentCode"),
+    (reqwest::Method::GET, "/lol/tournament-stub/v5/lobby-events/by-code/{tournamentCode}", "tournament-stub-v5.getLobbyEventsByCode"),
+    (reqwest::Method::POST, "/lol/tournament-stub/v5/providers", "tournament-stub-v5.registerProviderData"),
+    (reqwest::Method::POST, "/lol/tournament-stub/v5/tournaments", "tournament-stub-v5.registerTournament"),
     (reqwest::Method::POST, "/lol/tournament/v4/codes", "tournament-v4.createTournamentCode"),
     (reqwest::Method::GET, "/lol/tournament/v4/codes/{tournamentCode}", "tournament-v4.getTournamentCode"),
     (reqwest::Method::PUT, "/lol/tournament/v4/codes/{tournamentCode}", "tournament-v4.updateCode"),

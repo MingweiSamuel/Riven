@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 560d6708a4e0e652fc4b2ada788de0bd6eb546ad
+// Version e4a5ce3f63911af22ef752e7f5844f4cc4086f0b
 
 //! Automatically generated endpoint handles.
 #![allow(clippy::let_and_return, clippy::too_many_arguments)]
@@ -223,6 +223,15 @@ impl RiotApi {
     #[inline]
     pub fn tournament_stub_v4(&self) -> TournamentStubV4 {
         TournamentStubV4 { base: self }
+    }
+    /// Returns a handle for accessing [TournamentStubV5](crate::endpoints::TournamentStubV5) endpoints.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/apis#tournament-stub-v5" target="_blank">`tournament-stub-v5`</a>
+    ///
+    /// Note: this method is automatically generated.
+    #[inline]
+    pub fn tournament_stub_v5(&self) -> TournamentStubV5 {
+        TournamentStubV5 { base: self }
     }
     /// Returns a handle for accessing [TournamentV4](crate::endpoints::TournamentV4) endpoints.
     /// # Riot Developer API Reference
@@ -1927,6 +1936,119 @@ impl<'a> TournamentStubV4<'a> {
         let future = self.base.execute_val::<i32>("tournament-stub-v4.registerTournament", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tournament-stub-v4.registerTournament"));
+        future
+    }
+
+}
+
+/// TournamentStubV5 endpoints handle, accessed by calling [`tournament_stub_v5()`](crate::RiotApi::tournament_stub_v5) on a [`RiotApi`](crate::RiotApi) instance.
+/// # Riot Developer API Reference
+/// <a href="https://developer.riotgames.com/apis#tournament-stub-v5" target="_blank">`tournament-stub-v5`</a>
+///
+/// Note: this struct is automatically generated.
+#[repr(transparent)]
+pub struct TournamentStubV5<'a> {
+    base: &'a RiotApi,
+}
+impl<'a> TournamentStubV5<'a> {
+    /// Create a tournament code for the given tournament - Stub method
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// * `count` (optional, in query) - The number of codes to create (max 1000)
+    /// * `tournament_id` (required, in query) - The tournament ID
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-stub-v5/POST_createTournamentCode" target="_blank">`tournament-stub-v5.createTournamentCode`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn create_tournament_code(&self, route: RegionalRoute, body: &tournament_stub_v5::TournamentCodeParametersV5, tournament_id: i64, count: Option<i32>)
+        -> impl Future<Output = Result<Vec<String>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::POST, route_str, "/lol/tournament-stub/v5/codes");
+        let request = request.query(&[ ("tournamentId", tournament_id) ]);
+        let request = if let Some(count) = count { request.query(&[ ("count", count) ]) } else { request };
+        let request = request.body(serde_json::ser::to_vec(body).unwrap());
+        let future = self.base.execute_val::<Vec<String>>("tournament-stub-v5.createTournamentCode", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tournament-stub-v5.createTournamentCode"));
+        future
+    }
+
+    /// Returns the tournament code DTO associated with a tournament code string - Stub Method
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// * `tournament_code` (required, in path) - The tournament code string.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-stub-v5/GET_getTournamentCode" target="_blank">`tournament-stub-v5.getTournamentCode`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_tournament_code(&self, route: RegionalRoute, tournament_code: &str)
+        -> impl Future<Output = Result<tournament_stub_v5::TournamentCodeV5>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/tournament-stub/v5/codes/{}", tournament_code));
+        let future = self.base.execute_val::<tournament_stub_v5::TournamentCodeV5>("tournament-stub-v5.getTournamentCode", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tournament-stub-v5.getTournamentCode"));
+        future
+    }
+
+    /// Gets a list of lobby events by tournament code - Stub method
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// * `tournament_code` (required, in path) - The short code to look up lobby events for
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-stub-v5/GET_getLobbyEventsByCode" target="_blank">`tournament-stub-v5.getLobbyEventsByCode`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_lobby_events_by_code(&self, route: RegionalRoute, tournament_code: &str)
+        -> impl Future<Output = Result<tournament_stub_v5::LobbyEventV5Wrapper>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/tournament-stub/v5/lobby-events/by-code/{}", tournament_code));
+        let future = self.base.execute_val::<tournament_stub_v5::LobbyEventV5Wrapper>("tournament-stub-v5.getLobbyEventsByCode", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tournament-stub-v5.getLobbyEventsByCode"));
+        future
+    }
+
+    /// Creates a tournament provider and returns its ID - Stub method
+    /// ## Implementation Notes
+    /// Providers will need to call this endpoint first to register their callback URL and their API key with the tournament system before any other tournament provider endpoints will work.
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-stub-v5/POST_registerProviderData" target="_blank">`tournament-stub-v5.registerProviderData`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn register_provider_data(&self, route: RegionalRoute, body: &tournament_stub_v5::ProviderRegistrationParametersV5)
+        -> impl Future<Output = Result<i32>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::POST, route_str, "/lol/tournament-stub/v5/providers");
+        let request = request.body(serde_json::ser::to_vec(body).unwrap());
+        let future = self.base.execute_val::<i32>("tournament-stub-v5.registerProviderData", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tournament-stub-v5.registerProviderData"));
+        future
+    }
+
+    /// Creates a tournament and returns its ID - Stub method
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-stub-v5/POST_registerTournament" target="_blank">`tournament-stub-v5.registerTournament`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn register_tournament(&self, route: RegionalRoute, body: &tournament_stub_v5::TournamentRegistrationParametersV5)
+        -> impl Future<Output = Result<i32>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::POST, route_str, "/lol/tournament-stub/v5/tournaments");
+        let request = request.body(serde_json::ser::to_vec(body).unwrap());
+        let future = self.base.execute_val::<i32>("tournament-stub-v5.registerTournament", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tournament-stub-v5.registerTournament"));
         future
     }
 
