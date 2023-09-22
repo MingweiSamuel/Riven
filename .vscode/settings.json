@@ -1,0 +1,11 @@
+{
+    "rust-analyzer.runnableEnv": [
+        {
+            // Set output levels for `tracing` logging.
+            "env": {
+                "RUST_BACKTRACE": "1",
+                "RUST_LOG": "riven=debug"
+            }
+        }
+    ]
+}
