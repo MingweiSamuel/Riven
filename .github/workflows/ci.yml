@@ -84,7 +84,7 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: test
-          args: --features nightly,deny-unknown
+          args: --no-fail-fast --features nightly,deny-unknown
         env:
           RUST_BACKTRACE: 1
           RUSTLOG: riven=trace
