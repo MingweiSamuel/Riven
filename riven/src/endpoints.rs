@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version e4a5ce3f63911af22ef752e7f5844f4cc4086f0b
+// Version 5b5ceda174ed782d6e9a60f743e888822c710be1
 
 //! Automatically generated endpoint handles.
 #![allow(clippy::let_and_return, clippy::too_many_arguments)]
@@ -241,6 +241,15 @@ impl RiotApi {
     #[inline]
     pub fn tournament_v4(&self) -> TournamentV4 {
         TournamentV4 { base: self }
+    }
+    /// Returns a handle for accessing [TournamentV5](crate::endpoints::TournamentV5) endpoints.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/apis#tournament-v5" target="_blank">`tournament-v5`</a>
+    ///
+    /// Note: this method is automatically generated.
+    #[inline]
+    pub fn tournament_v5(&self) -> TournamentV5 {
+        TournamentV5 { base: self }
     }
     /// Returns a handle for accessing [ValContentV1](crate::endpoints::ValContentV1) endpoints.
     /// # Riot Developer API Reference
@@ -1519,15 +1528,17 @@ impl<'a> TftLeagueV1<'a> {
     /// Get the challenger league.
     /// # Parameters
     /// * `route` - Route to query.
+    /// * `queue` (optional, in query) - Defaults to RANKED_TFT.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getChallengerLeague" target="_blank">`tft-league-v1.getChallengerLeague`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_challenger_league(&self, route: PlatformRoute)
+    pub fn get_challenger_league(&self, route: PlatformRoute, queue: Option<&str>)
         -> impl Future<Output = Result<tft_league_v1::LeagueList>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/tft/league/v1/challenger");
+        let request = if let Some(queue) = queue { request.query(&[ ("queue", queue) ]) } else { request };
         let future = self.base.execute_val::<tft_league_v1::LeagueList>("tft-league-v1.getChallengerLeague", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tft-league-v1.getChallengerLeague"));
@@ -1558,17 +1569,19 @@ impl<'a> TftLeagueV1<'a> {
     /// * `route` - Route to query.
     /// * `tier` (required, in path)
     /// * `division` (required, in path)
+    /// * `queue` (optional, in query) - Defaults to RANKED_TFT.
     /// * `page` (optional, in query) - Defaults to 1. Starts with page 1.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getLeagueEntries" target="_blank">`tft-league-v1.getLeagueEntries`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_league_entries(&self, route: PlatformRoute, tier: crate::consts::Tier, division: &str, page: Option<i32>)
+    pub fn get_league_entries(&self, route: PlatformRoute, tier: crate::consts::Tier, division: &str, page: Option<i32>, queue: Option<&str>)
         -> impl Future<Output = Result<Vec<tft_league_v1::LeagueEntry>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/tft/league/v1/entries/{}/{}", tier, division));
         let request = if let Some(page) = page { request.query(&[ ("page", page) ]) } else { request };
+        let request = if let Some(queue) = queue { request.query(&[ ("queue", queue) ]) } else { request };
         let future = self.base.execute_val::<Vec<tft_league_v1::LeagueEntry>>("tft-league-v1.getLeagueEntries", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tft-league-v1.getLeagueEntries"));
@@ -1578,15 +1591,17 @@ impl<'a> TftLeagueV1<'a> {
     /// Get the grandmaster league.
     /// # Parameters
     /// * `route` - Route to query.
+    /// * `queue` (optional, in query) - Defaults to RANKED_TFT.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getGrandmasterLeague" target="_blank">`tft-league-v1.getGrandmasterLeague`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_grandmaster_league(&self, route: PlatformRoute)
+    pub fn get_grandmaster_league(&self, route: PlatformRoute, queue: Option<&str>)
         -> impl Future<Output = Result<tft_league_v1::LeagueList>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/tft/league/v1/grandmaster");
+        let request = if let Some(queue) = queue { request.query(&[ ("queue", queue) ]) } else { request };
         let future = self.base.execute_val::<tft_league_v1::LeagueList>("tft-league-v1.getGrandmasterLeague", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tft-league-v1.getGrandmasterLeague"));
@@ -1615,15 +1630,17 @@ impl<'a> TftLeagueV1<'a> {
     /// Get the master league.
     /// # Parameters
     /// * `route` - Route to query.
+    /// * `queue` (optional, in query) - Defaults to RANKED_TFT.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getMasterLeague" target="_blank">`tft-league-v1.getMasterLeague`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn get_master_league(&self, route: PlatformRoute)
+    pub fn get_master_league(&self, route: PlatformRoute, queue: Option<&str>)
         -> impl Future<Output = Result<tft_league_v1::LeagueList>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/tft/league/v1/master");
+        let request = if let Some(queue) = queue { request.query(&[ ("queue", queue) ]) } else { request };
         let future = self.base.execute_val::<tft_league_v1::LeagueList>("tft-league-v1.getMasterLeague", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tft-league-v1.getMasterLeague"));
@@ -2182,6 +2199,139 @@ impl<'a> TournamentV4<'a> {
         let future = self.base.execute_val::<i32>("tournament-v4.registerTournament", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tournament-v4.registerTournament"));
+        future
+    }
+
+}
+
+/// TournamentV5 endpoints handle, accessed by calling [`tournament_v5()`](crate::RiotApi::tournament_v5) on a [`RiotApi`](crate::RiotApi) instance.
+/// # Riot Developer API Reference
+/// <a href="https://developer.riotgames.com/apis#tournament-v5" target="_blank">`tournament-v5`</a>
+///
+/// Note: this struct is automatically generated.
+#[repr(transparent)]
+pub struct TournamentV5<'a> {
+    base: &'a RiotApi,
+}
+impl<'a> TournamentV5<'a> {
+    /// Create a tournament code for the given tournament.
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// * `tournament_id` (required, in query) - The tournament ID
+    /// * `count` (optional, in query) - The number of codes to create (max 1000)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-v5/POST_createTournamentCode" target="_blank">`tournament-v5.createTournamentCode`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn create_tournament_code(&self, route: RegionalRoute, body: &tournament_v5::TournamentCodeParametersV5, tournament_id: i64, count: Option<i32>)
+        -> impl Future<Output = Result<Vec<String>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::POST, route_str, "/lol/tournament/v5/codes");
+        let request = request.query(&[ ("tournamentId", tournament_id) ]);
+        let request = if let Some(count) = count { request.query(&[ ("count", count) ]) } else { request };
+        let request = request.body(serde_json::ser::to_vec(body).unwrap());
+        let future = self.base.execute_val::<Vec<String>>("tournament-v5.createTournamentCode", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tournament-v5.createTournamentCode"));
+        future
+    }
+
+    /// Returns the tournament code DTO associated with a tournament code string.
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// * `tournament_code` (required, in path) - The tournament code string.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-v5/GET_getTournamentCode" target="_blank">`tournament-v5.getTournamentCode`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_tournament_code(&self, route: RegionalRoute, tournament_code: &str)
+        -> impl Future<Output = Result<tournament_v5::TournamentCodeV5>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/tournament/v5/codes/{}", tournament_code));
+        let future = self.base.execute_val::<tournament_v5::TournamentCodeV5>("tournament-v5.getTournamentCode", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tournament-v5.getTournamentCode"));
+        future
+    }
+
+    /// Update the pick type, map, spectator type, or allowed puuids for a code.
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// * `tournament_code` (required, in path) - The tournament code to update
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-v5/PUT_updateCode" target="_blank">`tournament-v5.updateCode`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn update_code(&self, route: RegionalRoute, body: &tournament_v5::TournamentCodeUpdateParametersV5, tournament_code: &str)
+        -> impl Future<Output = Result<()>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::PUT, route_str, &format!("/lol/tournament/v5/codes/{}", tournament_code));
+        let request = request.body(serde_json::ser::to_vec(body).unwrap());
+        let future = self.base.execute("tournament-v5.updateCode", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tournament-v5.updateCode"));
+        future
+    }
+
+    /// Gets a list of lobby events by tournament code.
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// * `tournament_code` (required, in path) - The short code to look up lobby events for
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-v5/GET_getLobbyEventsByCode" target="_blank">`tournament-v5.getLobbyEventsByCode`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_lobby_events_by_code(&self, route: RegionalRoute, tournament_code: &str)
+        -> impl Future<Output = Result<tournament_v5::LobbyEventV5Wrapper>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/tournament/v5/lobby-events/by-code/{}", tournament_code));
+        let future = self.base.execute_val::<tournament_v5::LobbyEventV5Wrapper>("tournament-v5.getLobbyEventsByCode", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tournament-v5.getLobbyEventsByCode"));
+        future
+    }
+
+    /// Creates a tournament provider and returns its ID.
+    /// ## Implementation Notes
+    /// Providers will need to call this endpoint first to register their callback URL and their API key with the tournament system before any other tournament provider endpoints will work.
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-v5/POST_registerProviderData" target="_blank">`tournament-v5.registerProviderData`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn register_provider_data(&self, route: RegionalRoute, body: &tournament_v5::ProviderRegistrationParametersV5)
+        -> impl Future<Output = Result<i32>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::POST, route_str, "/lol/tournament/v5/providers");
+        let request = request.body(serde_json::ser::to_vec(body).unwrap());
+        let future = self.base.execute_val::<i32>("tournament-v5.registerProviderData", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tournament-v5.registerProviderData"));
+        future
+    }
+
+    /// Creates a tournament and returns its ID.
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-v5/POST_registerTournament" target="_blank">`tournament-v5.registerTournament`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn register_tournament(&self, route: RegionalRoute, body: &tournament_v5::TournamentRegistrationParametersV5)
+        -> impl Future<Output = Result<i32>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::POST, route_str, "/lol/tournament/v5/tournaments");
+        let request = request.body(serde_json::ser::to_vec(body).unwrap());
+        let future = self.base.execute_val::<i32>("tournament-v5.registerTournament", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tournament-v5.registerTournament"));
         future
     }
 

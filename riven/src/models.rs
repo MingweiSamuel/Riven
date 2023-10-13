@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version e4a5ce3f63911af22ef752e7f5844f4cc4086f0b
+// Version 5b5ceda174ed782d6e9a60f743e888822c710be1
 
 #![allow(missing_docs)]
 
@@ -1413,6 +1413,9 @@ pub mod match_v5 {
         pub rift_herald: Objective,
         #[serde(rename = "tower")]
         pub tower: Objective,
+        #[serde(rename = "horde")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub horde: Option<Objective>,
     }
     /// Objective data object.
     #[derive(Clone, Debug)]
@@ -3245,6 +3248,162 @@ pub mod tournament_v4 {
     #[derive(serde::Serialize, serde::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct TournamentRegistrationParameters {
+        /// The provider ID to specify the regional registered provider data to associate this tournament.
+        #[serde(rename = "providerId")]
+        pub provider_id: i32,
+        /// The optional name of the tournament.
+        #[serde(rename = "name")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub name: Option<String>,
+    }
+}
+
+/// Data structs used by [`TournamentV5`](crate::endpoints::TournamentV5).
+/// 
+/// Note: this module is automatically generated.
+#[allow(dead_code)]
+pub mod tournament_v5 {
+    /// TournamentCodeParametersV5 data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct TournamentCodeParametersV5 {
+        /// Optional list of encrypted puuids in order to validate the players eligible to join the lobby. NOTE: We currently do not enforce participants at the team level, but rather the aggregate of teamOne and teamTwo. We may add the ability to enforce at the team level in the future.
+        #[serde(rename = "allowedParticipants")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub allowed_participants: Option<std::vec::Vec<String>>,
+        /// Optional string that may contain any data in any format, if specified at all. Used to denote any custom information about the game.
+        #[serde(rename = "metadata")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub metadata: Option<String>,
+        /// The team size of the game. Valid values are 1-5.
+        #[serde(rename = "teamSize")]
+        pub team_size: i32,
+        /// The pick type of the game.<br>
+        /// (Legal values:  BLIND_PICK,  DRAFT_MODE,  ALL_RANDOM,  TOURNAMENT_DRAFT)
+        #[serde(rename = "pickType")]
+        pub pick_type: String,
+        /// The map type of the game.<br>
+        /// (Legal values:  SUMMONERS_RIFT,  HOWLING_ABYSS)
+        #[serde(rename = "mapType")]
+        pub map_type: String,
+        /// The spectator type of the game.<br>
+        /// (Legal values:  NONE,  LOBBYONLY,  ALL)
+        #[serde(rename = "spectatorType")]
+        pub spectator_type: String,
+        /// Checks if allowed participants are enough to make full teams.
+        #[serde(rename = "enoughPlayers")]
+        pub enough_players: bool,
+    }
+    /// TournamentCodeV5 data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct TournamentCodeV5 {
+        /// The tournament code.
+        #[serde(rename = "code")]
+        pub code: String,
+        /// The spectator mode for the tournament code game.
+        #[serde(rename = "spectators")]
+        pub spectators: String,
+        /// The lobby name for the tournament code game.
+        #[serde(rename = "lobbyName")]
+        pub lobby_name: String,
+        /// The metadata for tournament code.
+        #[serde(rename = "metaData")]
+        pub meta_data: String,
+        /// The password for the tournament code game.
+        #[serde(rename = "password")]
+        pub password: String,
+        /// The team size for the tournament code game.
+        #[serde(rename = "teamSize")]
+        pub team_size: i32,
+        /// The provider's ID.
+        #[serde(rename = "providerId")]
+        pub provider_id: i32,
+        /// The pick mode for tournament code game.
+        #[serde(rename = "pickType")]
+        pub pick_type: String,
+        /// The tournament's ID.
+        #[serde(rename = "tournamentId")]
+        pub tournament_id: i32,
+        /// The tournament code's ID.
+        #[serde(rename = "id")]
+        pub id: i32,
+        /// The tournament code's region.<br>
+        /// (Legal values:  BR,  EUNE,  EUW,  JP,  LAN,  LAS,  NA,  OCE,  PBE,  RU,  TR,  KR)
+        #[serde(rename = "region")]
+        pub region: String,
+        /// The game map for the tournament code game
+        #[serde(rename = "map")]
+        pub map: String,
+        /// The puuids of the participants (Encrypted)
+        #[serde(rename = "participants")]
+        pub participants: std::vec::Vec<String>,
+    }
+    /// TournamentCodeUpdateParametersV5 data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct TournamentCodeUpdateParametersV5 {
+        /// Optional list of encrypted puuids in order to validate the players eligible to join the lobby. NOTE: We currently do not enforce participants at the team level, but rather the aggregate of teamOne and teamTwo. We may add the ability to enforce at the team level in the future.
+        #[serde(rename = "allowedParticipants")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub allowed_participants: Option<std::vec::Vec<String>>,
+        /// The pick type<br>
+        /// (Legal values:  BLIND_PICK,  DRAFT_MODE,  ALL_RANDOM,  TOURNAMENT_DRAFT)
+        #[serde(rename = "pickType")]
+        pub pick_type: String,
+        /// The map type<br>
+        /// (Legal values:  SUMMONERS_RIFT,  HOWLING_ABYSS)
+        #[serde(rename = "mapType")]
+        pub map_type: String,
+        /// The spectator type<br>
+        /// (Legal values:  NONE,  LOBBYONLY,  ALL)
+        #[serde(rename = "spectatorType")]
+        pub spectator_type: String,
+    }
+    /// LobbyEventV5Wrapper data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct LobbyEventV5Wrapper {
+        #[serde(rename = "eventList")]
+        pub event_list: std::vec::Vec<LobbyEventV5>,
+    }
+    /// LobbyEventV5 data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct LobbyEventV5 {
+        /// Timestamp from the event
+        #[serde(rename = "timestamp")]
+        pub timestamp: String,
+        /// The type of event that was triggered
+        #[serde(rename = "eventType")]
+        pub event_type: String,
+        /// The puuid that triggered the event (Encrypted)
+        #[serde(rename = "puuid")]
+        pub puuid: String,
+    }
+    /// ProviderRegistrationParametersV5 data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct ProviderRegistrationParametersV5 {
+        /// The region in which the provider will be running tournaments.<br>
+        /// (Legal values:  BR,  EUNE,  EUW,  JP,  LAN,  LAS,  NA,  OCE,  PBE,  RU,  TR,  KR)
+        #[serde(rename = "region")]
+        pub region: String,
+        /// The provider's callback URL to which tournament game results in this region should be posted. The URL must be well-formed, use the http or https protocol, and use the default port for the protocol (http URLs must use port 80, https URLs must use port 443).
+        #[serde(rename = "url")]
+        pub url: String,
+    }
+    /// TournamentRegistrationParametersV5 data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct TournamentRegistrationParametersV5 {
         /// The provider ID to specify the regional registered provider data to associate this tournament.
         #[serde(rename = "providerId")]
         pub provider_id: i32,
