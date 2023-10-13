@@ -14,21 +14,37 @@ const ROUTE: PlatformRoute = PlatformRoute::EUW1;
 async_tests! {
     my_runner {
         // Champion Mastery tests.
+        // SUMMONER ID ENDPOINT BROKEN: https://github.com/RiotGames/developer-relations/issues/830
+        // championmastery_getscore_ma5tery: async {
+        //     let sum = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, "ma5tery");
+        //     let sum = sum.await
+        //         .map_err(|e| format!("Error getting summoner: {}", e))?
+        //         .ok_or_else(|| "Failed to get summoner".to_owned())?;
+
+        //     let p = RIOT_API.champion_mastery_v4().get_champion_mastery_score(ROUTE, &sum.id);
+        //     let s = p.await.map_err(|e| format!("Error getting champion mastery score: {}", e))?;
+        //     rassert!((969..=1000).contains(&s), "Unexpected ma5tery score: {}.", s);
+        //     Ok(())
+        // },
         championmastery_getscore_ma5tery: async {
             let sum = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, "ma5tery");
-            let sum = sum.await.map_err(|e| e.to_string())?.ok_or_else(|| "Failed to get summoner".to_owned())?;
+            let sum = sum.await
+                .map_err(|e| format!("Error getting summoner: {}", e))?
+                .ok_or_else(|| "Failed to get summoner".to_owned())?;
 
-            let p = RIOT_API.champion_mastery_v4().get_champion_mastery_score(ROUTE, &sum.id);
-            let s = p.await.map_err(|e| e.to_string())?;
+            let p = RIOT_API.champion_mastery_v4().get_champion_mastery_score_by_puuid(ROUTE, &sum.puuid);
+            let s = p.await.map_err(|e| format!("Error getting champion mastery score: {}", e))?;
             rassert!((969..=1000).contains(&s), "Unexpected ma5tery score: {}.", s);
             Ok(())
         },
         championmastery_getall_ma5tery: async {
             let sum = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, "ma5tery");
-            let sum = sum.await.map_err(|e| e.to_string())?.ok_or_else(|| "Failed to get summoner".to_owned())?;
+            let sum = sum.await
+                .map_err(|e| format!("Error getting summoner: {}", e))?
+                .ok_or_else(|| "Failed to get summoner".to_owned())?;
 
             let p = RIOT_API.champion_mastery_v4().get_all_champion_masteries(ROUTE, &sum.id);
-            let s = p.await.map_err(|e| e.to_string())?;
+            let s = p.await.map_err(|e| format!("Error getting all champion masteries: {}", e))?;
             rassert!(s.len() >= 142, "Expected masteries: {}.", s.len());
             Ok(())
         },
