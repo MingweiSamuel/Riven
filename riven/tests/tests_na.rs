@@ -63,21 +63,6 @@ async_tests! {
             Ok(())
         },
 
-        // TO TEST THIS BUG: https://github.com/RiotGames/developer-relations/issues/572.
-        // https://lolchess.gg/leaderboards?mode=doubleup&region=na
-        // summoner must have double-up rank.
-        league_getforsummoner_tftbug: async {
-            // TODO(mingwei): get summoner from leaderboard to avoid updating this all the time.
-            const SUMMONER_NAME: &str = "Bobo TFT";
-            let summoner_fut = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, SUMMONER_NAME);
-            let summoner = summoner_fut.await.map_err(|e| e.to_string())?.ok_or_else(|| format!("Failed to get \"{}\"", SUMMONER_NAME))?;
-            let league_fut = RIOT_API.league_v4().get_league_entries_for_summoner(ROUTE, &summoner.id);
-            let leagues = league_fut.await.map_err(|e| e.to_string())?;
-            let tft_league = leagues.iter().find(|league| QueueType::RANKED_TFT_DOUBLE_UP == league.queue_type);
-            rassert!(tft_league.is_some());
-            Ok(())
-        },
-
         // TODO: MATCH-V4 REMOVED.
         // matchlist_get: async {
         //     let sp = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, "haha yes");
