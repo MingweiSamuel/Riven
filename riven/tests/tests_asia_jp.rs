@@ -56,7 +56,7 @@ async_tests! {
         },
         // Make sure 403 is handled as expected.
         tournament_forbidden: async {
-            let p = RIOT_API.tournament_v4().get_tournament_code(ROUTE.to_regional(), "INVALID_CODE");
+            let p = RIOT_API.tournament_v5().get_tournament_code(ROUTE.to_regional(), "INVALID_CODE");
             let r = p.await;
             rassert!(r.is_err());
             rassert_eq!(Some(reqwest::StatusCode::FORBIDDEN), r.unwrap_err().status_code());
