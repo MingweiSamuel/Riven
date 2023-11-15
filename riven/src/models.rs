@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 95a5cf31a385d91b952e19190af5a828d2e60ed8
+// Version b554b42a14de337810d5a510d533453eaf6de207
 
 #![allow(missing_docs)]
 
@@ -1323,6 +1323,45 @@ pub mod match_v5 {
         #[serde(rename = "placement")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub placement: Option<i32>,
+        #[serde(rename = "missions")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub missions: Option<ParticipantMissions>,
+        #[serde(rename = "playerScore0")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub player_score0: Option<i32>,
+        #[serde(rename = "playerScore1")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub player_score1: Option<i32>,
+        #[serde(rename = "playerScore10")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub player_score10: Option<i32>,
+        #[serde(rename = "playerScore11")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub player_score11: Option<i32>,
+        #[serde(rename = "playerScore2")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub player_score2: Option<i32>,
+        #[serde(rename = "playerScore3")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub player_score3: Option<i32>,
+        #[serde(rename = "playerScore4")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub player_score4: Option<i32>,
+        #[serde(rename = "playerScore5")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub player_score5: Option<i32>,
+        #[serde(rename = "playerScore6")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub player_score6: Option<i32>,
+        #[serde(rename = "playerScore7")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub player_score7: Option<i32>,
+        #[serde(rename = "playerScore8")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub player_score8: Option<i32>,
+        #[serde(rename = "playerScore9")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub player_score9: Option<i32>,
     }
     /// Perks data object.
     #[derive(Clone, Debug)]
@@ -1838,6 +1877,36 @@ pub mod match_v5 {
         #[serde(rename = "wardTakedownsBefore20M")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub ward_takedowns_before20_m: Option<f64>,
+    }
+    /// ParticipantMissions data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct ParticipantMissions {
+        #[serde(rename = "playerScore0")]
+        pub player_score0: i32,
+        #[serde(rename = "playerScore1")]
+        pub player_score1: i32,
+        #[serde(rename = "playerScore10")]
+        pub player_score10: i32,
+        #[serde(rename = "playerScore11")]
+        pub player_score11: i32,
+        #[serde(rename = "playerScore2")]
+        pub player_score2: i32,
+        #[serde(rename = "playerScore3")]
+        pub player_score3: i32,
+        #[serde(rename = "playerScore4")]
+        pub player_score4: i32,
+        #[serde(rename = "playerScore5")]
+        pub player_score5: i32,
+        #[serde(rename = "playerScore6")]
+        pub player_score6: i32,
+        #[serde(rename = "playerScore7")]
+        pub player_score7: i32,
+        #[serde(rename = "playerScore8")]
+        pub player_score8: i32,
+        #[serde(rename = "playerScore9")]
+        pub player_score9: i32,
     }
     /// MatchTimelineInfoFrameEvent data object.
     #[derive(Clone, Debug)]
@@ -3124,6 +3193,45 @@ pub mod tournament_v5 {
         /// (Legal values:  NONE,  LOBBYONLY,  ALL)
         #[serde(rename = "spectatorType")]
         pub spectator_type: String,
+    }
+    /// TournamentGamesV5 data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct TournamentGamesV5 {
+        #[serde(rename = "winningTeam")]
+        pub winning_team: std::vec::Vec<TournamentTeamV5>,
+        #[serde(rename = "losingTeam")]
+        pub losing_team: std::vec::Vec<TournamentTeamV5>,
+        /// Tournament Code
+        #[serde(rename = "shortCode")]
+        pub short_code: String,
+        /// Metadata for the TournamentCode
+        #[serde(rename = "metaData")]
+        pub meta_data: String,
+        #[serde(rename = "gameId")]
+        pub game_id: i64,
+        #[serde(rename = "gameName")]
+        pub game_name: String,
+        #[serde(rename = "gameType")]
+        pub game_type: String,
+        /// Game Map ID
+        #[serde(rename = "gameMap")]
+        pub game_map: i32,
+        #[serde(rename = "gameMode")]
+        pub game_mode: String,
+        /// Region of the game
+        #[serde(rename = "region")]
+        pub region: String,
+    }
+    /// TournamentTeamV5 data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct TournamentTeamV5 {
+        /// Player Unique UUID (Encrypted)
+        #[serde(rename = "puuid")]
+        pub puuid: String,
     }
     /// LobbyEventV5Wrapper data object.
     #[derive(Clone, Debug)]

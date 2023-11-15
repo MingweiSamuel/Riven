@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 95a5cf31a385d91b952e19190af5a828d2e60ed8
+// Version b554b42a14de337810d5a510d533453eaf6de207
 
 //! Automatically generated endpoint handles.
 #![allow(clippy::let_and_return, clippy::too_many_arguments)]
@@ -303,8 +303,8 @@ impl<'a> AccountV1<'a> {
     /// Get account by riot id
     /// # Parameters
     /// * `route` - Route to query.
-    /// * `tag_line` (required, in path) - When querying for a player by their riot id, the gameName and tagLine query params are required. However not all accounts have a gameName and tagLine associated so these fields may not be included in the response.
-    /// * `game_name` (required, in path) - When querying for a player by their riot id, the gameName and tagLine query params are required. However not all accounts have a gameName and tagLine associated so these fields may not be included in the response.
+    /// * `tag_line` (required, in path) - When querying for a player by their riot id, the gameName and tagLine query params are required.
+    /// * `game_name` (required, in path) - When querying for a player by their riot id, the gameName and tagLine query params are required.
     /// # Riot Developer API Reference
     /// <a href="https://developer.riotgames.com/api-methods/#account-v1/GET_getByRiotId" target="_blank">`account-v1.getByRiotId`</a>
     ///
@@ -2028,6 +2028,31 @@ impl<'a> TournamentV5<'a> {
         let future = self.base.execute("tournament-v5.updateCode", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tournament-v5.updateCode"));
+        future
+    }
+
+    /// Get games details
+    /// ## Implementation Notes
+    /// Additional endpoint to get tournament games. From this endpoint, you are able to get participants PUUID (the callback doesn't contain this info).
+    ///
+    /// You can also use it to check if the game was recorded and validate callbacks. If the endpoint returns the game, it means a callback was attempted.
+    ///
+    /// This will only work for tournament codes created after November 10, 2023.
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// * `tournament_code` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-v5/GET_getGames" target="_blank">`tournament-v5.getGames`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_games(&self, route: RegionalRoute, tournament_code: &str)
+        -> impl Future<Output = Result<Vec<tournament_v5::TournamentGamesV5>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/tournament/v5/games/by-code/{}", tournament_code));
+        let future = self.base.execute_val::<Vec<tournament_v5::TournamentGamesV5>>("tournament-v5.getGames", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tournament-v5.getGames"));
         future
     }
 

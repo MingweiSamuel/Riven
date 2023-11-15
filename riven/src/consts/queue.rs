@@ -14,101 +14,121 @@ newtype_enum! {
         CUSTOM = 0,
         /// `2`.
         /// 5v5 Blind Pick games on Summoner's Rift
+        ///
         /// Deprecated in patch 7.19 in favor of queueId 430
         #[deprecated(note="Deprecated in patch 7.19 in favor of queueId 430")]
         SUMMONERS_RIFT_5V5_BLIND_PICK_DEPRECATED_2 = 2,
         /// `4`.
         /// 5v5 Ranked Solo games on Summoner's Rift
+        ///
         /// Deprecated in favor of queueId 420
         #[deprecated(note="Deprecated in favor of queueId 420")]
         SUMMONERS_RIFT_5V5_RANKED_SOLO_DEPRECATED_4 = 4,
         /// `6`.
         /// 5v5 Ranked Premade games on Summoner's Rift
+        ///
         /// Game mode deprecated
         #[deprecated(note="Game mode deprecated")]
         SUMMONERS_RIFT_5V5_RANKED_PREMADE = 6,
         /// `7`.
         /// Co-op vs AI games on Summoner's Rift
+        ///
         /// Deprecated in favor of queueId 32 and 33
         #[deprecated(note="Deprecated in favor of queueId 32 and 33")]
         SUMMONERS_RIFT_CO_OP_VS_AI = 7,
         /// `8`.
         /// 3v3 Normal games on Twisted Treeline
+        ///
         /// Deprecated in patch 7.19 in favor of queueId 460
         #[deprecated(note="Deprecated in patch 7.19 in favor of queueId 460")]
         TWISTED_TREELINE_3V3_NORMAL = 8,
         /// `9`.
         /// 3v3 Ranked Flex games on Twisted Treeline
+        ///
         /// Deprecated in patch 7.19 in favor of queueId 470
         #[deprecated(note="Deprecated in patch 7.19 in favor of queueId 470")]
         TWISTED_TREELINE_3V3_RANKED_FLEX_DEPRECATED_9 = 9,
         /// `14`.
         /// 5v5 Draft Pick games on Summoner's Rift
+        ///
         /// Deprecated in favor of queueId 400
         #[deprecated(note="Deprecated in favor of queueId 400")]
         SUMMONERS_RIFT_5V5_DRAFT_PICK_DEPRECATED_14 = 14,
         /// `16`.
         /// 5v5 Dominion Blind Pick games on Crystal Scar
+        ///
         /// Game mode deprecated
         #[deprecated(note="Game mode deprecated")]
         CRYSTAL_SCAR_5V5_DOMINION_BLIND_PICK = 16,
         /// `17`.
         /// 5v5 Dominion Draft Pick games on Crystal Scar
+        ///
         /// Game mode deprecated
         #[deprecated(note="Game mode deprecated")]
         CRYSTAL_SCAR_5V5_DOMINION_DRAFT_PICK = 17,
         /// `25`.
         /// Dominion Co-op vs AI games on Crystal Scar
+        ///
         /// Game mode deprecated
         #[deprecated(note="Game mode deprecated")]
         CRYSTAL_SCAR_DOMINION_CO_OP_VS_AI = 25,
         /// `31`.
         /// Co-op vs AI Intro Bot games on Summoner's Rift
+        ///
         /// Deprecated in patch 7.19 in favor of queueId 830
         #[deprecated(note="Deprecated in patch 7.19 in favor of queueId 830")]
         SUMMONERS_RIFT_CO_OP_VS_AI_INTRO_BOT_DEPRECATED_31 = 31,
         /// `32`.
         /// Co-op vs AI Beginner Bot games on Summoner's Rift
+        ///
         /// Deprecated in patch 7.19 in favor of queueId 840
         #[deprecated(note="Deprecated in patch 7.19 in favor of queueId 840")]
         SUMMONERS_RIFT_CO_OP_VS_AI_BEGINNER_BOT_DEPRECATED_32 = 32,
         /// `33`.
         /// Co-op vs AI Intermediate Bot games on Summoner's Rift
+        ///
         /// Deprecated in patch 7.19 in favor of queueId 850
         #[deprecated(note="Deprecated in patch 7.19 in favor of queueId 850")]
         SUMMONERS_RIFT_CO_OP_VS_AI_INTERMEDIATE_BOT_DEPRECATED_33 = 33,
         /// `41`.
         /// 3v3 Ranked Team games on Twisted Treeline
+        ///
         /// Game mode deprecated
         #[deprecated(note="Game mode deprecated")]
         TWISTED_TREELINE_3V3_RANKED_TEAM = 41,
         /// `42`.
         /// 5v5 Ranked Team games on Summoner's Rift
+        ///
         /// Game mode deprecated
         #[deprecated(note="Game mode deprecated")]
         SUMMONERS_RIFT_5V5_RANKED_TEAM = 42,
         /// `52`.
         /// Co-op vs AI games on Twisted Treeline
+        ///
         /// Deprecated in patch 7.19 in favor of queueId 800
         #[deprecated(note="Deprecated in patch 7.19 in favor of queueId 800")]
         TWISTED_TREELINE_CO_OP_VS_AI = 52,
         /// `61`.
         /// 5v5 Team Builder games on Summoner's Rift
+        ///
         /// Game mode deprecated
         #[deprecated(note="Game mode deprecated")]
         SUMMONERS_RIFT_5V5_TEAM_BUILDER = 61,
         /// `65`.
         /// 5v5 ARAM games on Howling Abyss
+        ///
         /// Deprecated in patch 7.19 in favor of queueId 450
         #[deprecated(note="Deprecated in patch 7.19 in favor of queueId 450")]
         HOWLING_ABYSS_5V5_ARAM_DEPRECATED_65 = 65,
         /// `67`.
         /// ARAM Co-op vs AI games on Howling Abyss
+        ///
         /// Game mode deprecated
         #[deprecated(note="Game mode deprecated")]
         HOWLING_ABYSS_ARAM_CO_OP_VS_AI = 67,
         /// `70`.
         /// One for All games on Summoner's Rift
+        ///
         /// Deprecated in patch 8.6 in favor of queueId 1020
         #[deprecated(note="Deprecated in patch 8.6 in favor of queueId 1020")]
         SUMMONERS_RIFT_ONE_FOR_ALL_DEPRECATED_70 = 70,
@@ -132,21 +152,25 @@ newtype_enum! {
         SUMMONERS_RIFT_CO_OP_VS_AI_ULTRA_RAPID_FIRE = 83,
         /// `91`.
         /// Doom Bots Rank 1 games on Summoner's Rift
+        ///
         /// Deprecated in patch 7.19 in favor of queueId 950
         #[deprecated(note="Deprecated in patch 7.19 in favor of queueId 950")]
         SUMMONERS_RIFT_DOOM_BOTS_RANK_1 = 91,
         /// `92`.
         /// Doom Bots Rank 2 games on Summoner's Rift
+        ///
         /// Deprecated in patch 7.19 in favor of queueId 950
         #[deprecated(note="Deprecated in patch 7.19 in favor of queueId 950")]
         SUMMONERS_RIFT_DOOM_BOTS_RANK_2 = 92,
         /// `93`.
         /// Doom Bots Rank 5 games on Summoner's Rift
+        ///
         /// Deprecated in patch 7.19 in favor of queueId 950
         #[deprecated(note="Deprecated in patch 7.19 in favor of queueId 950")]
         SUMMONERS_RIFT_DOOM_BOTS_RANK_5 = 93,
         /// `96`.
         /// Ascension games on Crystal Scar
+        ///
         /// Deprecated in patch 7.19 in favor of queueId 910
         #[deprecated(note="Deprecated in patch 7.19 in favor of queueId 910")]
         CRYSTAL_SCAR_ASCENSION_DEPRECATED_96 = 96,
@@ -158,6 +182,7 @@ newtype_enum! {
         BUTCHERS_BRIDGE_5V5_ARAM = 100,
         /// `300`.
         /// Legend of the Poro King games on Howling Abyss
+        ///
         /// Deprecated in patch 7.19 in favor of queueId 920
         #[deprecated(note="Deprecated in patch 7.19 in favor of queueId 920")]
         HOWLING_ABYSS_LEGEND_OF_THE_PORO_KING_DEPRECATED_300 = 300,
@@ -169,6 +194,7 @@ newtype_enum! {
         SUMMONERS_RIFT_BLACK_MARKET_BRAWLERS = 313,
         /// `315`.
         /// Nexus Siege games on Summoner's Rift
+        ///
         /// Deprecated in patch 7.19 in favor of queueId 940
         #[deprecated(note="Deprecated in patch 7.19 in favor of queueId 940")]
         SUMMONERS_RIFT_NEXUS_SIEGE_DEPRECATED_315 = 315,
@@ -177,6 +203,7 @@ newtype_enum! {
         CRYSTAL_SCAR_DEFINITELY_NOT_DOMINION = 317,
         /// `318`.
         /// ARURF games on Summoner's Rift
+        ///
         /// Deprecated in patch 7.19 in favor of queueId 900
         #[deprecated(note="Deprecated in patch 7.19 in favor of queueId 900")]
         SUMMONERS_RIFT_ARURF_DEPRECATED_318 = 318,
@@ -188,6 +215,7 @@ newtype_enum! {
         SUMMONERS_RIFT_5V5_DRAFT_PICK = 400,
         /// `410`.
         /// 5v5 Ranked Dynamic games on Summoner's Rift
+        ///
         /// Game mode deprecated in patch 6.22
         #[deprecated(note="Game mode deprecated in patch 6.22")]
         SUMMONERS_RIFT_5V5_RANKED_DYNAMIC = 410,
@@ -205,14 +233,21 @@ newtype_enum! {
         HOWLING_ABYSS_5V5_ARAM = 450,
         /// `460`.
         /// 3v3 Blind Pick games on Twisted Treeline
+        ///
         /// Deprecated in patch 9.23
         #[deprecated(note="Deprecated in patch 9.23")]
         TWISTED_TREELINE_3V3_BLIND_PICK = 460,
         /// `470`.
         /// 3v3 Ranked Flex games on Twisted Treeline
+        ///
         /// Deprecated in patch 9.23
         #[deprecated(note="Deprecated in patch 9.23")]
         TWISTED_TREELINE_3V3_RANKED_FLEX_DEPRECATED_470 = 470,
+        /// `490`.
+        /// Normal (Quickplay) games on Summoner's Rift
+        ///
+        /// https://github.com/RiotGames/developer-relations/issues/846
+        SUMMONERS_RIFT_NORMAL_QUICKPLAY_ = 490,
         /// `600`.
         /// Blood Hunt Assassin games on Summoner's Rift
         SUMMONERS_RIFT_BLOOD_HUNT_ASSASSIN = 600,
@@ -227,11 +262,13 @@ newtype_enum! {
         HOWLING_ABYSS_ARAM_CLASH = 720,
         /// `800`.
         /// Co-op vs. AI Intermediate Bot games on Twisted Treeline
+        ///
         /// Deprecated in patch 9.23
         #[deprecated(note="Deprecated in patch 9.23")]
         TWISTED_TREELINE_CO_OP_VS_AI_INTERMEDIATE_BOT = 800,
         /// `810`.
         /// Co-op vs. AI Intro Bot games on Twisted Treeline
+        ///
         /// Deprecated in patch 9.23
         #[deprecated(note="Deprecated in patch 9.23")]
         TWISTED_TREELINE_CO_OP_VS_AI_INTRO_BOT = 810,
@@ -318,6 +355,7 @@ newtype_enum! {
         CONVERGENCE_RANKED_TEAMFIGHT_TACTICS_HYPER_ROLL_ = 1130,
         /// `1150`.
         /// Ranked Teamfight Tactics (Double Up Workshop) games on Convergence
+        ///
         /// Deprecated in patch 12.11 in favor of queueId 1160
         #[deprecated(note="Deprecated in patch 12.11 in favor of queueId 1160")]
         CONVERGENCE_RANKED_TEAMFIGHT_TACTICS_DOUBLE_UP_WORKSHOP__DEPRECATED_1150 = 1150,
@@ -326,6 +364,7 @@ newtype_enum! {
         CONVERGENCE_RANKED_TEAMFIGHT_TACTICS_DOUBLE_UP_WORKSHOP_ = 1160,
         /// `1200`.
         /// Nexus Blitz games on Nexus Blitz
+        ///
         /// Deprecated in patch 9.2 in favor of queueId 1300
         #[deprecated(note="Deprecated in patch 9.2 in favor of queueId 1300")]
         NEXUS_BLITZ_DEPRECATED_1200 = 1200,

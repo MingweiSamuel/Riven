@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 95a5cf31a385d91b952e19190af5a828d2e60ed8
+// Version b554b42a14de337810d5a510d533453eaf6de207
 
 //! Metadata about the Riot API and Riven.
 //!
@@ -15,7 +15,7 @@
 
 /// Metadata for endpoints. Each tuple corresponds to one endpoint and contains
 /// the HTTP [`Method`](reqwest::Method), `str` path, and the method's `str` ID.
-pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 84] = [
+pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 85] = [
     (reqwest::Method::GET, "/riot/account/v1/accounts/by-puuid/{puuid}", "account-v1.getByPuuid"),
     (reqwest::Method::GET, "/riot/account/v1/accounts/by-riot-id/{gameName}/{tagLine}", "account-v1.getByRiotId"),
     (reqwest::Method::GET, "/riot/account/v1/accounts/me", "account-v1.getByAccessToken"),
@@ -91,6 +91,7 @@ pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 84] = [
     (reqwest::Method::POST, "/lol/tournament/v5/codes", "tournament-v5.createTournamentCode"),
     (reqwest::Method::GET, "/lol/tournament/v5/codes/{tournamentCode}", "tournament-v5.getTournamentCode"),
     (reqwest::Method::PUT, "/lol/tournament/v5/codes/{tournamentCode}", "tournament-v5.updateCode"),
+    (reqwest::Method::GET, "/lol/tournament/v5/games/by-code/{tournamentCode}", "tournament-v5.getGames"),
     (reqwest::Method::GET, "/lol/tournament/v5/lobby-events/by-code/{tournamentCode}", "tournament-v5.getLobbyEventsByCode"),
     (reqwest::Method::POST, "/lol/tournament/v5/providers", "tournament-v5.registerProviderData"),
     (reqwest::Method::POST, "/lol/tournament/v5/tournaments", "tournament-v5.registerTournament"),
