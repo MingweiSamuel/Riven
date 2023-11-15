@@ -14,8 +14,11 @@ newtype_enum! {
 {{~ desc :line }}
         /// {{= line }}
 {{~}}
-{{? e['x-deprecated'] }}
+{{? e.notes }}
+        ///
         /// {{= e.notes }}
+{{?}}
+{{? e['x-deprecated'] }}
         #[deprecated(note="{{= e.notes }}")]
 {{?}}
         {{= e['x-name'] }} = {{= e['x-value'] }},
