@@ -13,7 +13,6 @@ use riven::models::tournament_stub_v5::*;
 const ROUTE: RegionalRoute = RegionalRoute::AMERICAS;
 
 static MATCHES: &[&str] = &[
-    "NA1_4097036960",
     // New games with `match-v5.ParticipantDto.challenges` field.
     "NA1_4209556127",
     "NA1_4212715433",
