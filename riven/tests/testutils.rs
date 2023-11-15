@@ -1,5 +1,7 @@
 #![allow(dead_code)]
 
+use std::future::Future;
+
 use lazy_static::lazy_static;
 
 use riven::consts::{PlatformRoute, QueueType, RegionalRoute};
@@ -157,8 +159,7 @@ pub async fn match_v5_get(
         }
         Ok(())
     });
-    futures::future::try_join_all(futures).await?;
-    Ok(())
+    join_all_future_errs(futures).await
 }
 
 pub async fn match_v5_get_timeline(
@@ -191,6 +192,18 @@ pub async fn match_v5_get_timeline(
         }
         Ok(())
     });
-    futures::future::try_join_all(futures).await?;
-    Ok(())
+    join_all_future_errs(futures).await
+}
+
+/// Joins all futures and keeps ALL error messages, separated by newlines.
+async fn join_all_future_errs<T>(
+    result_tasks: impl Iterator<Item = impl Future<Output = Result<T, String>>>,
+) -> Result<(), String> {
+    futures::future::join_all(result_tasks)
+        .await
+        .into_iter()
+        .filter_map(Result::err)
+        .reduce(|a, b| a + "\n" + &b)
+        .map(Err)
+        .unwrap_or(Ok(()))
 }
