@@ -23,6 +23,8 @@ static MATCHES: &[&str] = &[
     "JP1_405073638",
     // New ARENA 2v2v2v2 game mode, broken `subteamPlacement`
     "KR_6604607115",
+    // New field: `match-v5.ParticipantDto.missions`
+    "JP1_417935351",
 ];
 
 async_tests! {
