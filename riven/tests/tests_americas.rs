@@ -22,6 +22,24 @@ static MATCHES: &[&str] = &[
 
 async_tests! {
     my_runner {
+        // Account-v1
+        account_v1_getbyriotid_getbypuuid: async {
+            // Game name is case and whitespace insensitive.
+            // But tag cannot have spaces. (Is it case sensitive?).
+            let account_tag = RIOT_API.account_v1().get_by_riot_id(ROUTE, "Lug nuts K", "000")
+                .await
+                .map_err(|e| format!("Failed to get account by riot ID: {}", e))?
+                .ok_or("Riot account not found!".to_owned())?;
+
+            let account_puuid = RIOT_API.account_v1().get_by_puuid(ROUTE, &account_tag.puuid)
+                .await
+                .map_err(|e| format!("Failed to get account by PUUID: {}", e))?;
+
+            let _ = account_puuid;
+
+            Ok(())
+        },
+
         // Champion Mastery tests.
         tournamentstub: async {
             let tsv4 = RIOT_API.tournament_stub_v5();
