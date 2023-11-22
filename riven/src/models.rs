@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version b554b42a14de337810d5a510d533453eaf6de207
+// Version a5a3a5f5d5f2a617a56302a0afac77c745e4fd56
 
 #![allow(missing_docs)]
 
@@ -1160,7 +1160,11 @@ pub mod match_v5 {
         #[serde(rename = "quadraKills")]
         pub quadra_kills: i32,
         #[serde(rename = "riotIdName")]
-        pub riot_id_name: String,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub riot_id_name: Option<String>,
+        #[serde(rename = "riotIdGameName")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub riot_id_game_name: Option<String>,
         #[serde(rename = "riotIdTagline")]
         pub riot_id_tagline: String,
         #[serde(rename = "role")]

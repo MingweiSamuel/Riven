@@ -59,6 +59,7 @@ newtype_enum! {
     /// `GWEN` | "Gwen" | "Gwen" | 887
     /// `HECARIM` | "Hecarim" | "Hecarim" | 120
     /// `HEIMERDINGER` | "Heimerdinger" | "Heimerdinger" | 74
+    /// `HWEI` | "Hwei" | "Hwei" | 910
     /// `ILLAOI` | "Illaoi" | "Illaoi" | 420
     /// `IRELIA` | "Irelia" | "Irelia" | 39
     /// `IVERN` | "Ivern" | "Ivern" | 427
@@ -271,6 +272,8 @@ newtype_enum! {
         HECARIM = 120,
         /// `74`.
         HEIMERDINGER = 74,
+        /// `910`.
+        HWEI = 910,
         /// `420`.
         ILLAOI = 420,
         /// `39`.
@@ -565,6 +568,7 @@ impl Champion {
             Self::GWEN         => Some("Gwen"),
             Self::HECARIM      => Some("Hecarim"),
             Self::HEIMERDINGER => Some("Heimerdinger"),
+            Self::HWEI         => Some("Hwei"),
             Self::ILLAOI       => Some("Illaoi"),
             Self::IRELIA       => Some("Irelia"),
             Self::IVERN        => Some("Ivern"),
@@ -754,6 +758,7 @@ impl Champion {
             Self::GWEN         => Some("Gwen"),
             Self::HECARIM      => Some("Hecarim"),
             Self::HEIMERDINGER => Some("Heimerdinger"),
+            Self::HWEI         => Some("Hwei"),
             Self::ILLAOI       => Some("Illaoi"),
             Self::IRELIA       => Some("Irelia"),
             Self::IVERN        => Some("Ivern"),
@@ -976,6 +981,7 @@ impl std::str::FromStr for Champion {
             /* GWEN */ [ 'G',  'W',  'E',  'N'] => Ok(Champion::GWEN),
             /* HECA */ [ 'H',  'E',  'C',  'A'] => Ok(Champion::HECARIM),
             /* HEIM */ [ 'H',  'E',  'I',  'M'] => Ok(Champion::HEIMERDINGER),
+            /* HWEI */ [ 'H',  'W',  'E',  'I'] => Ok(Champion::HWEI),
             /* ILLA */ [ 'I',  'L',  'L',  'A'] => Ok(Champion::ILLAOI),
             /* IREL */ [ 'I',  'R',  'E',  'L'] => Ok(Champion::IRELIA),
             /* IVER */ [ 'I',  'V',  'E',  'R'] => Ok(Champion::IVERN),
