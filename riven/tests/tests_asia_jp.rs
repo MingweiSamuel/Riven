@@ -25,6 +25,8 @@ static MATCHES: &[&str] = &[
     "KR_6604607115",
     // New field: `match-v5.ParticipantDto.missions`
     "JP1_417935351",
+    // New field: `match-v5.ParticipantDto.riotIdGameName`
+    "JP1_419115017",
 ];
 
 async_tests! {
