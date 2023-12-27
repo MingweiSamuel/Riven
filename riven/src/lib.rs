@@ -56,7 +56,7 @@
 //!
 //!     // Get champion mastery data.
 //!     let masteries = riot_api.champion_mastery_v4()
-//!         .get_all_champion_masteries(PlatformRoute::NA1, &summoner.id).await
+//!         .get_all_champion_masteries_by_puuid(PlatformRoute::NA1, &summoner.puuid).await
 //!         .expect("Get champion masteries failed.");
 //!
 //!     // Print champion masteries.

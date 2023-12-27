@@ -57,7 +57,7 @@ async_tests! {
         champion_mastery_v4: async {
             let summoner = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, "LugnutsK");
             let summoner = summoner.await.map_err(|e| e.to_string())?.ok_or_else(|| "'LugnutsK' not found!".to_owned())?;
-            let masteries = RIOT_API.champion_mastery_v4().get_all_champion_masteries(ROUTE, &summoner.id);
+            let masteries = RIOT_API.champion_mastery_v4().get_all_champion_masteries_by_puuid(ROUTE, &summoner.puuid);
             let masteries = masteries.await.map_err(|e| e.to_string())?;
             rassert!(74 <= masteries.len());
             Ok(())

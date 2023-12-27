@@ -43,7 +43,7 @@ async_tests! {
                 .map_err(|e| format!("Error getting summoner: {}", e))?
                 .ok_or_else(|| "Failed to get summoner".to_owned())?;
 
-            let p = RIOT_API.champion_mastery_v4().get_all_champion_masteries(ROUTE, &sum.id);
+            let p = RIOT_API.champion_mastery_v4().get_all_champion_masteries_by_puuid(ROUTE, &sum.puuid);
             let s = p.await.map_err(|e| format!("Error getting all champion masteries: {}", e))?;
             rassert!(s.len() >= 142, "Expected masteries: {}.", s.len());
             Ok(())
