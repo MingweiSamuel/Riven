@@ -19,7 +19,7 @@ async_tests! {
         //     let sum = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, "ma5tery");
         //     let sum = sum.await
         //         .map_err(|e| format!("Error getting summoner: {}", e))?
-        //         .ok_or_else(|| "Failed to get summoner".to_owned())?;
+        //         .ok_or_else(|| "Failed to find summoner".to_owned())?;
 
         //     let p = RIOT_API.champion_mastery_v4().get_champion_mastery_score(ROUTE, &sum.id);
         //     let s = p.await.map_err(|e| format!("Error getting champion mastery score: {}", e))?;
@@ -30,7 +30,7 @@ async_tests! {
             let sum = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, "ma5tery");
             let sum = sum.await
                 .map_err(|e| format!("Error getting summoner: {}", e))?
-                .ok_or_else(|| "Failed to get summoner".to_owned())?;
+                .ok_or_else(|| "Failed to find summoner".to_owned())?;
 
             let p = RIOT_API.champion_mastery_v4().get_champion_mastery_score_by_puuid(ROUTE, &sum.puuid);
             let s = p.await.map_err(|e| format!("Error getting champion mastery score: {}", e))?;
@@ -41,7 +41,7 @@ async_tests! {
             let sum = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, "ma5tery");
             let sum = sum.await
                 .map_err(|e| format!("Error getting summoner: {}", e))?
-                .ok_or_else(|| "Failed to get summoner".to_owned())?;
+                .ok_or_else(|| "Failed to find summoner".to_owned())?;
 
             let p = RIOT_API.champion_mastery_v4().get_all_champion_masteries_by_puuid(ROUTE, &sum.puuid);
             let s = p.await.map_err(|e| format!("Error getting all champion masteries: {}", e))?;
@@ -58,7 +58,7 @@ async_tests! {
 
         //     let summoner_name = &featured.game_list[0].participants[0].summoner_name;
         //     let summoner_p = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, summoner_name);
-        //     let summoner = summoner_p.await.map_err(|e| e.to_string())?.ok_or_else(|| "Failed to get summoner".to_owned())?;
+        //     let summoner = summoner_p.await.map_err(|e| e.to_string())?.ok_or_else(|| "Failed to find summoner".to_owned())?;
 
         //     let livegame_p = RIOT_API.spectator_v4().get_current_game_info_by_summoner(ROUTE, &summoner.id);
         //     let livegame_o = livegame_p.await.map_err(|e| e.to_string())?;

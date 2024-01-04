@@ -50,7 +50,7 @@ pub async fn league_v4_match_v5_latest_combo(route: PlatformRoute) -> Result<(),
                 .get_by_summoner_id(route, &entry.summoner_id);
             let summoner_info = summoner_future
                 .await
-                .map_err(|e| format!("Failed to get summoner info: {}", e))?;
+                .map_err(|e| format!("Failed to find summoner info: {}", e))?;
 
             let match_ids_future = RIOT_API.match_v5().get_match_ids_by_puuid(
                 route.to_regional(),
@@ -64,7 +64,7 @@ pub async fn league_v4_match_v5_latest_combo(route: PlatformRoute) -> Result<(),
             );
             let match_ids = match_ids_future
                 .await
-                .map_err(|e| format!("Failed to get summoner match IDs: {}", e))?;
+                .map_err(|e| format!("Failed to find summoner match IDs: {}", e))?;
             Ok(match_ids) as Result<_, String>
         });
 

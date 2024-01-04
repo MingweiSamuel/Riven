@@ -36,7 +36,7 @@ async_tests!{
                                 REGION, &leagueentry.summoner_id);
                             summonerfuture.await
                                 .map_err(|e| e.to_string())?
-                                .ok_or(format!("Failed to get summoner_id {}.",
+                                .ok_or(format!("Failed to find summoner_id {}.",
                                     leagueentry.summoner_id))
                         });
                     future::join_all(summoners).await
