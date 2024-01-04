@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version cd204d7d764a025c280943766bc498278e439a6c
+// Version d712d94a43004a22ad9f31b9ebfbcaa9e0820305
 
 //! Metadata about the Riot API and Riven.
 //!
@@ -15,7 +15,7 @@
 
 /// Metadata for endpoints. Each tuple corresponds to one endpoint and contains
 /// the HTTP [`Method`](reqwest::Method), `str` path, and the method's `str` ID.
-pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 84] = [
+pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 80] = [
     (reqwest::Method::GET, "/riot/account/v1/accounts/by-puuid/{puuid}", "account-v1.getByPuuid"),
     (reqwest::Method::GET, "/riot/account/v1/accounts/by-riot-id/{gameName}/{tagLine}", "account-v1.getByRiotId"),
     (reqwest::Method::GET, "/riot/account/v1/accounts/me", "account-v1.getByAccessToken"),
@@ -23,11 +23,7 @@ pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 84] = [
     (reqwest::Method::GET, "/lol/champion-mastery/v4/champion-masteries/by-puuid/{encryptedPUUID}", "champion-mastery-v4.getAllChampionMasteriesByPUUID"),
     (reqwest::Method::GET, "/lol/champion-mastery/v4/champion-masteries/by-puuid/{encryptedPUUID}/by-champion/{championId}", "champion-mastery-v4.getChampionMasteryByPUUID"),
     (reqwest::Method::GET, "/lol/champion-mastery/v4/champion-masteries/by-puuid/{encryptedPUUID}/top", "champion-mastery-v4.getTopChampionMasteriesByPUUID"),
-    (reqwest::Method::GET, "/lol/champion-mastery/v4/champion-masteries/by-summoner/{encryptedSummonerId}", "champion-mastery-v4.getAllChampionMasteries"),
-    (reqwest::Method::GET, "/lol/champion-mastery/v4/champion-masteries/by-summoner/{encryptedSummonerId}/by-champion/{championId}", "champion-mastery-v4.getChampionMastery"),
-    (reqwest::Method::GET, "/lol/champion-mastery/v4/champion-masteries/by-summoner/{encryptedSummonerId}/top", "champion-mastery-v4.getTopChampionMasteries"),
     (reqwest::Method::GET, "/lol/champion-mastery/v4/scores/by-puuid/{encryptedPUUID}", "champion-mastery-v4.getChampionMasteryScoreByPUUID"),
-    (reqwest::Method::GET, "/lol/champion-mastery/v4/scores/by-summoner/{encryptedSummonerId}", "champion-mastery-v4.getChampionMasteryScore"),
     (reqwest::Method::GET, "/lol/platform/v3/champion-rotations", "champion-v3.getChampionInfo"),
     (reqwest::Method::GET, "/lol/clash/v1/players/by-summoner/{summonerId}", "clash-v1.getPlayersBySummoner"),
     (reqwest::Method::GET, "/lol/clash/v1/teams/{teamId}", "clash-v1.getTeamById"),

@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version cd204d7d764a025c280943766bc498278e439a6c
+// Version d712d94a43004a22ad9f31b9ebfbcaa9e0820305
 
 //! Automatically generated endpoint handles.
 #![allow(clippy::let_and_return, clippy::too_many_arguments)]
@@ -432,66 +432,6 @@ impl<'a> ChampionMasteryV4<'a> {
         future
     }
 
-    /// Get all champion mastery entries sorted by number of champion points descending,
-    /// # Parameters
-    /// * `route` - Route to query.
-    /// * `encrypted_summoner_id` (required, in path) - Summoner ID associated with the player
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getAllChampionMasteries" target="_blank">`champion-mastery-v4.getAllChampionMasteries`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn get_all_champion_masteries(&self, route: PlatformRoute, encrypted_summoner_id: &str)
-        -> impl Future<Output = Result<Vec<champion_mastery_v4::ChampionMastery>>> + 'a
-    {
-        let route_str = route.into();
-        let request = self.base.request(Method::GET, route_str, &format!("/lol/champion-mastery/v4/champion-masteries/by-summoner/{}", encrypted_summoner_id));
-        let future = self.base.execute_val::<Vec<champion_mastery_v4::ChampionMastery>>("champion-mastery-v4.getAllChampionMasteries", route_str, request);
-        #[cfg(feature = "tracing")]
-        let future = future.instrument(tracing::info_span!("champion-mastery-v4.getAllChampionMasteries"));
-        future
-    }
-
-    /// Get a champion mastery by player ID and champion ID.
-    /// # Parameters
-    /// * `route` - Route to query.
-    /// * `champion_id` (required, in path) - Champion ID to retrieve Champion Mastery for
-    /// * `encrypted_summoner_id` (required, in path) - Summoner ID associated with the player
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMastery" target="_blank">`champion-mastery-v4.getChampionMastery`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn get_champion_mastery(&self, route: PlatformRoute, encrypted_summoner_id: &str, champion_id: crate::consts::Champion)
-        -> impl Future<Output = Result<Option<champion_mastery_v4::ChampionMastery>>> + 'a
-    {
-        let route_str = route.into();
-        let request = self.base.request(Method::GET, route_str, &format!("/lol/champion-mastery/v4/champion-masteries/by-summoner/{}/by-champion/{}", encrypted_summoner_id, champion_id));
-        let future = self.base.execute_opt::<champion_mastery_v4::ChampionMastery>("champion-mastery-v4.getChampionMastery", route_str, request);
-        #[cfg(feature = "tracing")]
-        let future = future.instrument(tracing::info_span!("champion-mastery-v4.getChampionMastery"));
-        future
-    }
-
-    /// Get specified number of top champion mastery entries sorted by number of champion points descending.
-    /// # Parameters
-    /// * `route` - Route to query.
-    /// * `encrypted_summoner_id` (required, in path) - Summoner ID associated with the player
-    /// * `count` (optional, in query) - Number of entries to retrieve, defaults to 3
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getTopChampionMasteries" target="_blank">`champion-mastery-v4.getTopChampionMasteries`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn get_top_champion_masteries(&self, route: PlatformRoute, encrypted_summoner_id: &str, count: Option<i32>)
-        -> impl Future<Output = Result<Vec<champion_mastery_v4::ChampionMastery>>> + 'a
-    {
-        let route_str = route.into();
-        let request = self.base.request(Method::GET, route_str, &format!("/lol/champion-mastery/v4/champion-masteries/by-summoner/{}/top", encrypted_summoner_id));
-        let request = if let Some(count) = count { request.query(&[ ("count", count) ]) } else { request };
-        let future = self.base.execute_val::<Vec<champion_mastery_v4::ChampionMastery>>("champion-mastery-v4.getTopChampionMasteries", route_str, request);
-        #[cfg(feature = "tracing")]
-        let future = future.instrument(tracing::info_span!("champion-mastery-v4.getTopChampionMasteries"));
-        future
-    }
-
     /// Get a player's total champion mastery score, which is the sum of individual champion mastery levels.
     /// # Parameters
     /// * `route` - Route to query.
@@ -508,25 +448,6 @@ impl<'a> ChampionMasteryV4<'a> {
         let future = self.base.execute_val::<i32>("champion-mastery-v4.getChampionMasteryScoreByPUUID", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("champion-mastery-v4.getChampionMasteryScoreByPUUID"));
-        future
-    }
-
-    /// Get a player's total champion mastery score, which is the sum of individual champion mastery levels.
-    /// # Parameters
-    /// * `route` - Route to query.
-    /// * `encrypted_summoner_id` (required, in path) - Summoner ID associated with the player
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMasteryScore" target="_blank">`champion-mastery-v4.getChampionMasteryScore`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn get_champion_mastery_score(&self, route: PlatformRoute, encrypted_summoner_id: &str)
-        -> impl Future<Output = Result<i32>> + 'a
-    {
-        let route_str = route.into();
-        let request = self.base.request(Method::GET, route_str, &format!("/lol/champion-mastery/v4/scores/by-summoner/{}", encrypted_summoner_id));
-        let future = self.base.execute_val::<i32>("champion-mastery-v4.getChampionMasteryScore", route_str, request);
-        #[cfg(feature = "tracing")]
-        let future = future.instrument(tracing::info_span!("champion-mastery-v4.getChampionMasteryScore"));
         future
     }
 

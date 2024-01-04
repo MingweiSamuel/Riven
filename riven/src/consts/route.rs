@@ -108,7 +108,7 @@ pub enum PlatformRoute {
     #[strum(to_string="NA1", serialize="NA")]
     NA1 = 23,
 
-    /// Oceana.
+    /// Oceania.
     ///
     /// `24` (riotapi-schema ID/repr)
     #[strum(to_string="OC1", serialize="OCE")]
@@ -335,7 +335,7 @@ pub enum TournamentRegion {
     LAS = 22,
     /// North America.
     NA = 23,
-    /// Oceana.
+    /// Oceania.
     OCE = 24,
     /// Turkey
     TR = 26,

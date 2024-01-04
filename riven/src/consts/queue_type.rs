@@ -32,11 +32,13 @@ pub enum QueueType {
     /// Ranked Teamfight Tactics (Hyper Roll) games
     RANKED_TFT_TURBO,
     /// Ranked Teamfight Tactics (Double Up Workshop) games
-    /// Deprecated in patch 12.11 in favor of queueId 1160
-    #[deprecated(note="Deprecated in patch 12.11 in favor of queueId 1160")]
+    /// Deprecated in patch 12.11 in favor of queueId 1160 (`RANKED_TFT_DOUBLE_UP`)
+    #[deprecated(note="Deprecated in patch 12.11 in favor of queueId 1160 (`RANKED_TFT_DOUBLE_UP`)")]
     RANKED_TFT_PAIRS,
     /// Ranked Teamfight Tactics (Double Up Workshop) games
     RANKED_TFT_DOUBLE_UP,
+    /// 2v2v2v2 "Arena" games
+    CHERRY,
 }
 
 serde_strum_unknown!(QueueType);
