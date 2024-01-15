@@ -16,12 +16,18 @@ pub enum GameType {
 {{
     for (const e of gameTypes) {
         const desc = e['x-desc'] ? e['x-desc'].split('\n') : [];
+        const nameNoGame = e['x-name'].replace(/_GAME$/, "");
 }}
 {{~ desc :line }}
     /// {{= line }}
 {{~}}
+    #[strum(to_string = "{{= e['x-name'] }}", serialize = "{{= nameNoGame }}")]
+    #[serde(alias = "{{= nameNoGame }}")]
     {{= e['x-name'] }},
 {{
     }
 }}
 }
+
+#[cfg(test)]
+mod test;
