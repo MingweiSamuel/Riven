@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version d712d94a43004a22ad9f31b9ebfbcaa9e0820305
+// Version e610739a49d23996a0987245e4bb5796bcd18533
 
 #![allow(missing_docs)]
 
@@ -1881,6 +1881,9 @@ pub mod match_v5 {
         #[serde(rename = "wardTakedownsBefore20M")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub ward_takedowns_before20_m: Option<f64>,
+        #[serde(rename = "legendaryItemUsed")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub legendary_item_used: Option<std::vec::Vec<i32>>,
     }
     /// ParticipantMissions data object.
     #[derive(Clone, Debug)]
@@ -2354,6 +2357,9 @@ pub mod spectator_v4 {
         /// List of Game Customizations
         #[serde(rename = "gameCustomizationObjects")]
         pub game_customization_objects: std::vec::Vec<GameCustomizationObject>,
+        #[serde(rename = "puuid")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub puuid: Option<String>,
     }
     /// Perks data object.
     #[derive(Clone, Debug)]
@@ -2427,7 +2433,8 @@ pub mod spectator_v4 {
         pub game_queue_config_id: crate::consts::Queue,
         /// The game start time represented in epoch milliseconds
         #[serde(rename = "gameStartTime")]
-        pub game_start_time: i64,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub game_start_time: Option<i64>,
         /// The participant information
         #[serde(rename = "participants")]
         pub participants: std::vec::Vec<Participant>,
@@ -2461,6 +2468,12 @@ pub mod spectator_v4 {
         /// The ID of the first summoner spell used by this participant
         #[serde(rename = "spell1Id")]
         pub spell1_id: i64,
+        #[serde(rename = "puuid")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub puuid: Option<String>,
+        #[serde(rename = "summonerId")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub summoner_id: Option<String>,
     }
 }
 

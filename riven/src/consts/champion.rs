@@ -138,6 +138,7 @@ newtype_enum! {
     /// `SION` | "Sion" | "Sion" | 14
     /// `SIVIR` | "Sivir" | "Sivir" | 15
     /// `SKARNER` | "Skarner" | "Skarner" | 72
+    /// `SMOLDER` | "Smolder" | "Smolder" | 901
     /// `SONA` | "Sona" | "Sona" | 37
     /// `SORAKA` | "Soraka" | "Soraka" | 16
     /// `SWAIN` | "Swain" | "Swain" | 50
@@ -430,6 +431,8 @@ newtype_enum! {
         SIVIR = 15,
         /// `72`.
         SKARNER = 72,
+        /// `901`.
+        SMOLDER = 901,
         /// `37`.
         SONA = 37,
         /// `16`.
@@ -647,6 +650,7 @@ impl Champion {
             Self::SION         => Some("Sion"),
             Self::SIVIR        => Some("Sivir"),
             Self::SKARNER      => Some("Skarner"),
+            Self::SMOLDER      => Some("Smolder"),
             Self::SONA         => Some("Sona"),
             Self::SORAKA       => Some("Soraka"),
             Self::SWAIN        => Some("Swain"),
@@ -837,6 +841,7 @@ impl Champion {
             Self::SION         => Some("Sion"),
             Self::SIVIR        => Some("Sivir"),
             Self::SKARNER      => Some("Skarner"),
+            Self::SMOLDER      => Some("Smolder"),
             Self::SONA         => Some("Sona"),
             Self::SORAKA       => Some("Soraka"),
             Self::SWAIN        => Some("Swain"),
@@ -1066,6 +1071,7 @@ impl std::str::FromStr for Champion {
             /* SION */ [ 'S',  'I',  'O',  'N'] => Ok(Champion::SION),
             /* SIVI */ [ 'S',  'I',  'V',  'I'] => Ok(Champion::SIVIR),
             /* SKAR */ [ 'S',  'K',  'A',  'R'] => Ok(Champion::SKARNER),
+            /* SMOL */ [ 'S',  'M',  'O',  'L'] => Ok(Champion::SMOLDER),
             /* SONA */ [ 'S',  'O',  'N',  'A'] => Ok(Champion::SONA),
             /* SORA */ [ 'S',  'O',  'R',  'A'] => Ok(Champion::SORAKA),
             /* SWAI */ [ 'S',  'W',  'A',  'I'] => Ok(Champion::SWAIN),
