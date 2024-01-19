@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version e610739a49d23996a0987245e4bb5796bcd18533
+// Version 7c0e8b01772177b979c83feae5c71806c1c73205
 
 #![allow(missing_docs)]
 
@@ -799,6 +799,9 @@ pub mod lor_match_v1 {
         pub game_start_time_utc: String,
         #[serde(rename = "game_version")]
         pub game_version: String,
+        /// (Legal values:  standard,  eternal)
+        #[serde(rename = "game_format")]
+        pub game_format: String,
         #[serde(rename = "players")]
         pub players: std::vec::Vec<Player>,
         /// Total turns taken by both players.
@@ -3225,7 +3228,8 @@ pub mod tournament_v5 {
         pub short_code: String,
         /// Metadata for the TournamentCode
         #[serde(rename = "metaData")]
-        pub meta_data: String,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub meta_data: Option<String>,
         #[serde(rename = "gameId")]
         pub game_id: i64,
         #[serde(rename = "gameName")]
