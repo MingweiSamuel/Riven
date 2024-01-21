@@ -39,10 +39,10 @@ async_tests! {
             Ok(())
         },
 
-        // Champion Mastery tests.
+        // Tournament stub test.
         tournamentstub: async {
-            let tsv4 = RIOT_API.tournament_stub_v5();
-            let provider_id = tsv4.register_provider_data(ROUTE, &ProviderRegistrationParametersV5 {
+            let ts = RIOT_API.tournament_stub_v5();
+            let provider_id = ts.register_provider_data(ROUTE, &ProviderRegistrationParametersV5 {
                 region: PlatformRoute::NA1.as_region_str().to_owned(),
                 url: "https://github.com/MingweiSamuel/Riven".to_owned(),
             })
@@ -51,7 +51,7 @@ async_tests! {
 
             println!("provider_id: {}", provider_id);
 
-            let tournament_id = tsv4.register_tournament(ROUTE, &TournamentRegistrationParametersV5 {
+            let tournament_id = ts.register_tournament(ROUTE, &TournamentRegistrationParametersV5 {
                 name: Some("Riven Tourney :)".to_owned()),
                 provider_id,
             })
@@ -60,7 +60,7 @@ async_tests! {
 
             println!("tournament_id: {}", tournament_id);
 
-            let codes_result = tsv4.create_tournament_code(ROUTE, &TournamentCodeParametersV5 {
+            let codes_result = ts.create_tournament_code(ROUTE, &TournamentCodeParametersV5 {
                 map_type: "SUMMONERS_RIFT".to_owned(),
                 metadata: Some("eW91IGZvdW5kIHRoZSBzZWNyZXQgbWVzc2FnZQ==".to_owned()),
                 pick_type: "TOURNAMENT_DRAFT".to_owned(),
