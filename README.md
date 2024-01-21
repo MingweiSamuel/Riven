@@ -72,7 +72,7 @@ Output:
 ```
 The [`RiotApi` struct documentation](https://docs.rs/riven/latest/riven/struct.RiotApi.html)
 contains additional usage information. The [tests](https://github.com/MingweiSamuel/Riven/tree/v/2.x.x/riven/tests)
-and [example proxy](https://github.com/MingweiSamuel/Riven/tree/v/2.x.x/example/proxy)
+and [example proxy](https://github.com/MingweiSamuel/Riven/tree/v/2.x.x/riven/examples/proxy)
 provide more example usage.
 
 ## Feature Flags
