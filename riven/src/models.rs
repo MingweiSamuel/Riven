@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 7c0e8b01772177b979c83feae5c71806c1c73205
+// Version 82c5b64c16bd63688a0d19f471a19301bae8be4a
 
 #![allow(missing_docs)]
 
@@ -2351,6 +2351,10 @@ pub mod spectator_v4 {
         /// The encrypted summoner ID of this participant
         #[serde(rename = "summonerId")]
         pub summoner_id: String,
+        /// The encrypted puuid of this participant
+        #[serde(rename = "puuid")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub puuid: Option<String>,
         /// The ID of the first summoner spell used by this participant
         #[serde(rename = "spell1Id")]
         pub spell1_id: i64,
@@ -2360,9 +2364,6 @@ pub mod spectator_v4 {
         /// List of Game Customizations
         #[serde(rename = "gameCustomizationObjects")]
         pub game_customization_objects: std::vec::Vec<GameCustomizationObject>,
-        #[serde(rename = "puuid")]
-        #[serde(skip_serializing_if = "Option::is_none")]
-        pub puuid: Option<String>,
     }
     /// Perks data object.
     #[derive(Clone, Debug)]
@@ -2434,10 +2435,6 @@ pub mod spectator_v4 {
         /// The queue type (queue types are documented on the Game Constants page)
         #[serde(rename = "gameQueueConfigId")]
         pub game_queue_config_id: crate::consts::Queue,
-        /// The game start time represented in epoch milliseconds
-        #[serde(rename = "gameStartTime")]
-        #[serde(skip_serializing_if = "Option::is_none")]
-        pub game_start_time: Option<i64>,
         /// The participant information
         #[serde(rename = "participants")]
         pub participants: std::vec::Vec<Participant>,
@@ -2462,6 +2459,14 @@ pub mod spectator_v4 {
         /// The summoner name of this participant
         #[serde(rename = "summonerName")]
         pub summoner_name: String,
+        /// Encrypted summoner ID of this participant
+        #[serde(rename = "summonerId")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub summoner_id: Option<String>,
+        /// Encrypted puuid of this participant
+        #[serde(rename = "puuid")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub puuid: Option<String>,
         /// The ID of the champion played by this participant
         #[serde(rename = "championId")]
         pub champion_id: crate::consts::Champion,
@@ -2471,12 +2476,6 @@ pub mod spectator_v4 {
         /// The ID of the first summoner spell used by this participant
         #[serde(rename = "spell1Id")]
         pub spell1_id: i64,
-        #[serde(rename = "puuid")]
-        #[serde(skip_serializing_if = "Option::is_none")]
-        pub puuid: Option<String>,
-        #[serde(rename = "summonerId")]
-        #[serde(skip_serializing_if = "Option::is_none")]
-        pub summoner_id: Option<String>,
     }
 }
 
