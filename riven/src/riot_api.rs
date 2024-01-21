@@ -1,17 +1,13 @@
 use std::future::Future;
 use std::sync::Arc;
 
+use reqwest::{Client, Method, RequestBuilder};
 #[cfg(feature = "tracing")]
 use tracing as log;
 
-use reqwest::{Client, Method, RequestBuilder};
-
 use crate::req::RegionalRequester;
 use crate::util::InsertOnlyCHashMap;
-use crate::ResponseInfo;
-use crate::Result;
-use crate::RiotApiConfig;
-use crate::RiotApiError;
+use crate::{ResponseInfo, Result, RiotApiConfig, RiotApiError};
 
 /// For retrieving data from the Riot Games API.
 ///

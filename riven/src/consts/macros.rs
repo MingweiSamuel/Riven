@@ -7,7 +7,7 @@
 ///
 /// Also implements `AsRef<str>`, `Display`, and `From<&str>`.
 macro_rules! serde_strum_unknown {
-    ( $name:ident ) => {
+    ($name:ident) => {
         impl AsRef<str> for $name {
             fn as_ref(&self) -> &str {
                 match self {

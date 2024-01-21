@@ -3,12 +3,10 @@
 
 mod async_tests;
 mod testutils;
-use testutils::*;
-
 use colored::*;
-
 use riven::consts::*;
 use riven::models::summoner_v4::*;
+use testutils::*;
 
 fn validate_summoners(s1: Summoner, s2: Summoner) -> Result<(), String> {
     rassert_eq!(s1.name, s2.name, "Names didn't match {}.", "");

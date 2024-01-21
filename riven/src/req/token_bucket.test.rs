@@ -7,8 +7,9 @@ mod token_bucket {
     include!("token_bucket.rs");
 
     mod tests {
-        use super::*;
         use lazy_static::lazy_static;
+
+        use super::*;
 
         lazy_static! {
             pub static ref ZERO: Duration = Duration::new(0, 0);

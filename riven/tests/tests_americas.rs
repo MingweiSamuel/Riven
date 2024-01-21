@@ -3,12 +3,10 @@
 
 mod async_tests;
 mod testutils;
-use testutils::*;
-
 use colored::*;
-
 use riven::consts::*;
 use riven::models::tournament_stub_v5::*;
+use testutils::*;
 
 const ROUTE: RegionalRoute = RegionalRoute::AMERICAS;
 

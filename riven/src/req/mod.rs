@@ -4,9 +4,9 @@ mod rate_limit;
 pub use rate_limit::*;
 
 mod rate_limit_type;
-pub use rate_limit_type::*;
+use std::time::Instant;
 
-use std::time::Instant; // Hack for token_bucket_test.rs.
+pub use rate_limit_type::*; // Hack for token_bucket_test.rs.
 mod token_bucket;
 pub use token_bucket::*;
 

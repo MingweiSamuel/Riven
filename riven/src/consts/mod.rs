@@ -47,11 +47,8 @@ pub use route_ext::*;
 #[rustfmt::skip]
 mod season;
 pub use season::*;
-
 /// Trait allowing iteration of enum types, implemented by several enums in this module.
 /// Re-exported from strum.
-///
-///
 pub use strum::IntoEnumIterator;
 
 mod team;

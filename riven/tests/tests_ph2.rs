@@ -3,11 +3,9 @@
 
 mod async_tests;
 mod testutils;
-use testutils::*;
-
 use colored::*;
-
 use riven::consts::*;
+use testutils::*;
 
 const ROUTE: PlatformRoute = PlatformRoute::PH2;
 

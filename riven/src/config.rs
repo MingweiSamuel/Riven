@@ -5,8 +5,6 @@ use reqwest::header::{HeaderMap, HeaderValue};
 use reqwest::ClientBuilder;
 
 /// Configuration for instantiating RiotApi.
-///
-///
 #[derive(Debug)]
 pub struct RiotApiConfig {
     pub(crate) base_url: String,

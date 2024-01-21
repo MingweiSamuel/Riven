@@ -3,11 +3,9 @@
 
 mod async_tests;
 mod testutils;
-use testutils::RIOT_API;
-
 use colored::*;
-
 use riven::consts::*;
+use testutils::RIOT_API;
 
 const ROUTE: PlatformRoute = PlatformRoute::LA1;
 

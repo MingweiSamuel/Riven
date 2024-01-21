@@ -3,7 +3,6 @@
 use std::future::Future;
 
 use lazy_static::lazy_static;
-
 use riven::consts::{PlatformRoute, QueueType, RegionalRoute};
 use riven::{RiotApi, RiotApiConfig};
 

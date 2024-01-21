@@ -1,21 +1,15 @@
 use std::future::Future;
 use std::sync::Arc;
 
+use reqwest::{RequestBuilder, StatusCode};
 #[cfg(feature = "tracing")]
 use tracing as log;
 #[cfg(feature = "tracing")]
 use tracing::Instrument;
 
-use reqwest::{RequestBuilder, StatusCode};
-
+use super::{RateLimit, RateLimitType};
 use crate::util::InsertOnlyCHashMap;
-use crate::ResponseInfo;
-use crate::Result;
-use crate::RiotApiConfig;
-use crate::RiotApiError;
-
-use super::RateLimit;
-use super::RateLimitType;
+use crate::{ResponseInfo, Result, RiotApiConfig, RiotApiError};
 
 pub struct RegionalRequester {
     /// The app rate limit.

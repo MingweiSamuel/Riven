@@ -1,16 +1,14 @@
 use std::cmp;
 use std::time::{Duration, Instant};
 
-#[cfg(feature = "tracing")]
-use tracing as log;
-
 use parking_lot::{RwLock, RwLockUpgradableReadGuard};
 use reqwest::{Response, StatusCode};
 use scan_fmt::scan_fmt;
 use tokio::sync::Notify;
+#[cfg(feature = "tracing")]
+use tracing as log;
 
-use super::RateLimitType;
-use super::{TokenBucket, VectorTokenBucket};
+use super::{RateLimitType, TokenBucket, VectorTokenBucket};
 use crate::RiotApiConfig;
 
 pub struct RateLimit {

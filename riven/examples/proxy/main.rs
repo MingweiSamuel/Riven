@@ -4,14 +4,12 @@ use std::convert::Infallible;
 
 use http::{Method, Request, Response, StatusCode};
 use hyper::header::HeaderValue;
-use hyper::http;
 use hyper::service::{make_service_fn, service_fn};
-use hyper::{Body, Server};
+use hyper::{http, Body, Server};
 use lazy_static::lazy_static;
-use tracing as log;
-
 use riven::consts::Route;
 use riven::{RiotApi, RiotApiConfig};
+use tracing as log;
 
 lazy_static! {
     /// Create lazy static RiotApi instance.
