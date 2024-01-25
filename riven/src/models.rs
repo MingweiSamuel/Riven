@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 82c5b64c16bd63688a0d19f471a19301bae8be4a
+// Version a1ee37accb8b1d6e4d5fddc973d4ce84d20b6b1a
 
 #![allow(missing_docs)]
 
@@ -2403,7 +2403,8 @@ pub mod spectator_v4 {
         pub game_list: std::vec::Vec<FeaturedGameInfo>,
         /// The suggested interval to wait before requesting FeaturedGames again
         #[serde(rename = "clientRefreshInterval")]
-        pub client_refresh_interval: i64,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub client_refresh_interval: Option<i64>,
     }
     /// FeaturedGameInfo data object.
     #[derive(Clone, Debug)]
