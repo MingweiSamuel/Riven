@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version a1ee37accb8b1d6e4d5fddc973d4ce84d20b6b1a
+// Version d4f02b20da80dd2c869da349ba774ef6eddc22fa
 
 #![allow(missing_docs)]
 
@@ -2739,7 +2739,7 @@ pub mod tft_match_v1 {
         pub participants: std::vec::Vec<Participant>,
         /// Please refer to the League of Legends documentation.
         #[serde(rename = "queue_id")]
-        pub queue_id: i32,
+        pub queue_id: crate::consts::Queue,
         /// Teamfight Tactics set number.
         #[serde(rename = "tft_set_number")]
         pub tft_set_number: i32,
