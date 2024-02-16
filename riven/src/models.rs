@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version d4f02b20da80dd2c869da349ba774ef6eddc22fa
+// Version 48735a0c9d1c521d94a20ff0b0b9dc927ab430ca
 
 #![allow(missing_docs)]
 
@@ -1020,6 +1020,9 @@ pub mod match_v5 {
         #[serde(rename = "tournamentCode")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub tournament_code: Option<String>,
+        #[serde(rename = "endOfGameResult")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub end_of_game_result: Option<String>,
     }
     /// Participant data object.
     #[derive(Clone, Debug)]
@@ -2253,6 +2256,9 @@ pub mod match_v5 {
         #[serde(rename = "participants")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub participants: Option<std::vec::Vec<MatchTimelineInfoParticipant>>,
+        #[serde(rename = "endOfGameResult")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub end_of_game_result: Option<String>,
     }
 }
 
@@ -2743,6 +2749,9 @@ pub mod tft_match_v1 {
         /// Teamfight Tactics set number.
         #[serde(rename = "tft_set_number")]
         pub tft_set_number: i32,
+        #[serde(rename = "endOfGameResult")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub end_of_game_result: Option<String>,
     }
     /// Participant data object.
     #[derive(Clone, Debug)]
