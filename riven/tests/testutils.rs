@@ -6,8 +6,41 @@ use lazy_static::lazy_static;
 use riven::consts::{PlatformRoute, QueueType, RegionalRoute};
 use riven::{RiotApi, RiotApiConfig};
 
+#[macro_export]
+macro_rules! rassert {
+    ( $x:expr ) => {
+        {
+            if $x { Ok(()) } else { Err(stringify!($x)) }?
+        }
+    };
+    ( $x:expr, $format:expr $(, $arg:expr)* ) => {
+        {
+            if $x { Ok(()) } else { Err( format!($format $(, $arg )* ) ) }?
+        }
+    };
+}
+
+#[macro_export]
+macro_rules! rassert_eq {
+    ( $a:expr, $b:expr ) => { rassert!($a == $b) };
+    ( $a:expr, $b:expr, $format:expr $(, $arg:expr)* ) => {
+        rassert!($a == $b, $format $(, $arg )* )
+    };
+}
+
+#[macro_export]
+macro_rules! rassert_ne {
+    ( $a:expr, $b:expr ) => { rassert!($a != $b) };
+    ( $a:expr, $b:expr, $format:expr $(, $arg:expr)* ) => {
+        rassert!($a != $b, $format $(, $arg )* )
+    };
+}
+
 lazy_static! {
     pub static ref RIOT_API: RiotApi = {
+        // Initialize logger here, as a convenient trigger spot.
+        env_logger::init();
+
         let api_key = std::env::var("RGAPI_KEY")
             .ok()
             .or_else(|| std::fs::read_to_string("apikey.txt").ok())

@@ -54,11 +54,11 @@ tokio = { version = "1", default-features = false, features = [ "macros", "parki
 tracing = { version = "0.1", optional = true }
 
 [dev-dependencies]
-colored = "2"
 env_logger = "0.10.0"
 fake_instant = "0.5.0"
 futures = "0.3"
 hyper = { version = "0.14", features = [ "server" ] }
 tokio = { version = "1", features = [ "full" ] }
+tokio-shared-rt = "0.1"
 tracing = "0.1"
 tracing-subscriber = "0.2"

@@ -1,9 +1,4 @@
-#![cfg_attr(feature = "nightly", feature(custom_test_frameworks))]
-#![cfg_attr(feature = "nightly", test_runner(my_runner))]
-
-mod async_tests;
 mod testutils;
-use colored::*;
 use riven::consts::*;
 use testutils::*;
 
@@ -27,13 +22,12 @@ static MATCHES: &[&str] = &[
     "EUW1_6568537080",
 ];
 
-async_tests! {
-    my_runner {
-        match_v5_get: async {
-            match_v5_get(ROUTE, MATCHES).await
-        },
-        match_v5_get_timeline: async {
-            match_v5_get_timeline(ROUTE, MATCHES).await
-        },
-    }
+#[tokio_shared_rt::test]
+async fn match_v5_get_test() -> Result<(), String> {
+    match_v5_get(ROUTE, MATCHES).await
+}
+
+#[tokio_shared_rt::test]
+async fn match_v5_get_timeline_test() -> Result<(), String> {
+    match_v5_get_timeline(ROUTE, MATCHES).await
 }
