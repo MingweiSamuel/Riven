@@ -1,14 +1,15 @@
 use std::cmp;
-use std::time::{Duration, Instant};
 
+use futures::FutureExt;
 use parking_lot::{RwLock, RwLockUpgradableReadGuard};
 use reqwest::{Response, StatusCode};
 use scan_fmt::scan_fmt;
-use tokio::sync::Notify;
 #[cfg(feature = "tracing")]
 use tracing as log;
 
 use super::{RateLimitType, TokenBucket, VectorTokenBucket};
+use crate::time::{sleep, Duration, Instant};
+use crate::util::Notify;
 use crate::RiotApiConfig;
 
 pub struct RateLimit {
@@ -51,11 +52,10 @@ impl RateLimit {
 
     pub async fn acquire_both(app_rate_limit: &Self, method_rate_limit: &Self) {
         while let Some(delay) = Self::acquire_both_or_duration(app_rate_limit, method_rate_limit) {
-            tokio::select! {
-                biased;
-                _ = tokio::time::sleep(delay) => { continue }
-                _ = app_rate_limit.update_notify.notified() => {}
-                _ = method_rate_limit.update_notify.notified() => {}
+            futures::select_biased! {
+                _ = sleep(delay).fuse() => continue,
+                _ = method_rate_limit.update_notify.notified().fuse() => {}
+                _ = app_rate_limit.update_notify.notified().fuse() => {}
             };
             log::trace!("Task awoken due to rate limit update.");
         }

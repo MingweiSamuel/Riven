@@ -3,11 +3,10 @@ use std::sync::Arc;
 
 use reqwest::{RequestBuilder, StatusCode};
 #[cfg(feature = "tracing")]
-use tracing as log;
-#[cfg(feature = "tracing")]
-use tracing::Instrument;
+use tracing::{self as log, Instrument};
 
 use super::{RateLimit, RateLimitType};
+use crate::time::{sleep, Duration};
 use crate::util::InsertOnlyCHashMap;
 use crate::{ResponseInfo, Result, RiotApiConfig, RiotApiError};
 
@@ -113,9 +112,9 @@ impl RegionalRequester {
                 // 1 sec, 2 sec, 4 sec, 8 sec.
                 match retry_after {
                     None => {
-                        let delay = std::time::Duration::from_secs(2_u64.pow(retries as u32));
+                        let delay = Duration::from_secs(2_u64.pow(retries as u32));
                         log::debug!("Response {} (retried {} times), NO `retry-after`, using exponential backoff, retrying after {:?}.", status, retries, delay);
-                        let backoff = tokio::time::sleep(delay);
+                        let backoff = sleep(delay);
                         #[cfg(feature = "tracing")]
                         let backoff = backoff.instrument(tracing::info_span!("backoff"));
                         backoff.await;

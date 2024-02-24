@@ -1,8 +1,8 @@
 //! Configuration of RiotApi.
-use std::time::Duration;
-
 use reqwest::header::{HeaderMap, HeaderValue};
 use reqwest::ClientBuilder;
+
+use crate::time::Duration;
 
 /// Configuration for instantiating RiotApi.
 #[derive(Debug)]
