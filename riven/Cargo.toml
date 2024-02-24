@@ -11,10 +11,8 @@ include = [ "src/**", "../README.md" ]
 keywords = [ "riot-games", "riot", "league", "league-of-legends" ]
 categories = [ "api-bindings", "web-programming::http-client" ]
 
-#[badges]
-#travis-ci = { repository = "MingweiSamuel/Riven" }
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+crate-type = ["cdylib", "rlib"]
 
 [package.metadata.docs.rs]
 features = [ "nightly" ]
@@ -39,6 +37,7 @@ deny-unknown-enum-variants-strings = []
 deny-unknown-enum-variants-integers = []
 
 [dependencies]
+futures = "0.3"
 log = "0.4"
 num_enum = "0.5"
 parking_lot = "0.12"
@@ -49,13 +48,18 @@ serde_json = "1.0"
 serde_repr = "0.1"
 strum = "0.20"
 strum_macros = "0.20"
-tokio = { version = "1", default-features = false, features = [ "macros", "parking_lot", "sync", "time" ] }
 tracing = { version = "0.1", optional = true }
+
+[target.'cfg(not(target_family = "wasm"))'.dependencies]
+tokio = { version = "1", default-features = false, features = [ "time" ] }
+
+[target.'cfg(target_family = "wasm")'.dependencies]
+gloo-timers = { version = "0.3", features = [ "futures" ] }
+web-time = "1.0.0"
 
 [dev-dependencies]
 env_logger = "0.10.0"
 fake_instant = "0.5.0"
-futures = "0.3"
 hyper = { version = "0.14", features = [ "server" ] }
 tokio = { version = "1", features = [ "full" ] }
 tokio-shared-rt = "0.1"

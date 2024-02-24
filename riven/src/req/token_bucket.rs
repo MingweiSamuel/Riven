@@ -1,10 +1,10 @@
 use std::collections::VecDeque;
 use std::fmt;
-use std::time::Duration;
 
 use parking_lot::{Mutex, MutexGuard};
 
 use super::Instant; // Hack for token_bucket_test.rs.
+use crate::time::Duration;
 
 /// A `TokenBucket` keeps track of number of requests allowed per duration of
 /// time.

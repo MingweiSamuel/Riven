@@ -39,3 +39,17 @@ mod riot_api;
 pub use riot_api::*;
 
 mod util;
+
+/// Wasm compatibility layer for [`std::time`] or [`web_time`].
+#[rustfmt::skip]
+pub mod time {
+    #[cfg(not(target_family = "wasm"))]
+    pub use std::time::*;
+    #[cfg(target_family = "wasm")]
+    pub use web_time::*;
+
+    #[cfg(not(target_family = "wasm"))]
+    pub use tokio::time::sleep;
+    #[cfg(target_family = "wasm")]
+    pub use gloo_timers::future::sleep;
+}
