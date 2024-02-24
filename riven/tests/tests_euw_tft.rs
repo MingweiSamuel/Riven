@@ -22,14 +22,14 @@ async fn tftmatchv1_get_list() -> Result<(), String> {
 // /// Don't have acecess to tft-status-v1.
 // #[tokio_shared_rt::test]
 // async fn tftstatusv1_getplatformdata() -> Result<(), String> {
-//     let p = RIOT_API.tft_status_v1().get_platform_data(ROUTE);
+//     let p = riot_api().tft_status_v1().get_platform_data(ROUTE);
 //     let _s = p.await.map_err(|e| e.to_string())?;
 //     Ok(())
 // }
 
 #[tokio_shared_rt::test]
 async fn tftleaguev1_gettopratedladder() -> Result<(), String> {
-    let p = RIOT_API
+    let p = riot_api()
         .tft_league_v1()
         .get_top_rated_ladder(ROUTE, QueueType::RANKED_TFT_TURBO);
     let l = p.await.map_err(|e| e.to_string())?;
@@ -43,7 +43,7 @@ async fn tftleaguev1_gettopratedladder() -> Result<(), String> {
 
 #[tokio_shared_rt::test]
 async fn tftmatchv1_getmatch() -> Result<(), String> {
-    let p = RIOT_API
+    let p = riot_api()
         .tft_match_v1()
         .get_match(ROUTE.to_regional(), "EUW1_6455483163");
     let _m = p
@@ -55,7 +55,7 @@ async fn tftmatchv1_getmatch() -> Result<(), String> {
 
 #[tokio_shared_rt::test]
 async fn tftsummonerv1_getbyname() -> Result<(), String> {
-    let p = RIOT_API
+    let p = riot_api()
         .tft_summoner_v1()
         .get_by_summoner_name(ROUTE, "相当猥琐");
     let _s = p
@@ -67,7 +67,7 @@ async fn tftsummonerv1_getbyname() -> Result<(), String> {
 
 #[tokio_shared_rt::test]
 async fn tftsummonerv1_getbyname_none() -> Result<(), String> {
-    let p = RIOT_API
+    let p = riot_api()
         .tft_summoner_v1()
         .get_by_summoner_name(ROUTE, "this summoner does not exist");
     rassert!(p.await.map_err(|e| e.to_string())?.is_none());
@@ -77,13 +77,13 @@ async fn tftsummonerv1_getbyname_none() -> Result<(), String> {
 /// Get top rated player, get some of their matches.
 #[tokio_shared_rt::test]
 async fn tft_combo() -> Result<(), String> {
-    let top_players = RIOT_API
+    let top_players = riot_api()
         .tft_league_v1()
         .get_top_rated_ladder(ROUTE, QueueType::RANKED_TFT_TURBO);
     let top_players = top_players.await.map_err(|e| e.to_string())?;
     rassert!(!top_players.is_empty());
     let top_player_entry = &top_players[0];
-    let top_player = RIOT_API
+    let top_player = riot_api()
         .tft_summoner_v1()
         .get_by_summoner_id(ROUTE, &top_player_entry.summoner_id);
     let top_player = top_player.await.map_err(|e| e.to_string())?;
@@ -91,7 +91,7 @@ async fn tft_combo() -> Result<(), String> {
         "Top player is {} with `puuid` {}.",
         top_player.name, top_player.puuid
     );
-    let match_ids = RIOT_API.tft_match_v1().get_match_ids_by_puuid(
+    let match_ids = riot_api().tft_match_v1().get_match_ids_by_puuid(
         ROUTE.to_regional(),
         &top_player.puuid,
         Some(10),

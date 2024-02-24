@@ -1,12 +1,14 @@
 mod testutils;
 use riven::consts::*;
-use testutils::RIOT_API;
+use testutils::riot_api;
 
 const ROUTE: ValPlatformRoute = ValPlatformRoute::LATAM;
 
 #[tokio_shared_rt::test]
 async fn val_content_ranked_test() -> Result<(), String> {
-    let p = RIOT_API.val_content_v1().get_content(ROUTE, Some("zh-CN"));
+    let p = riot_api()
+        .val_content_v1()
+        .get_content(ROUTE, Some("zh-CN"));
     let contents = p
         .await
         .map_err(|e| format!("Failed to get content: {}", e))?;
@@ -24,7 +26,7 @@ async fn val_content_ranked_test() -> Result<(), String> {
         })
         .ok_or(format!("No active acts of {} found.", contents.acts.len()))?;
 
-    let p = RIOT_API
+    let p = riot_api()
         .val_ranked_v1()
         .get_leaderboard(ROUTE, &act.id, None, None);
     let leaderboard = p.await.map_err(|e| e.to_string())?.ok_or(format!(

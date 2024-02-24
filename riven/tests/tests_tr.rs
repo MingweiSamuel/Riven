@@ -1,13 +1,13 @@
 mod testutils;
 use riven::consts::*;
 use riven::models::summoner_v4::Summoner;
-use testutils::RIOT_API;
+use testutils::riot_api;
 
 const ROUTE: PlatformRoute = PlatformRoute::TR1;
 
 #[tokio_shared_rt::test]
 async fn league_summoner_bulk_test() -> Result<(), String> {
-    let p = RIOT_API
+    let p = riot_api()
         .league_v4()
         .get_challenger_league(ROUTE, QueueType::RANKED_SOLO_5x5);
     // let p = future_start(p);
@@ -20,7 +20,7 @@ async fn league_summoner_bulk_test() -> Result<(), String> {
         .iter()
         .take(50)
         .map(|entry| {
-            RIOT_API
+            riot_api()
                 .summoner_v4()
                 .get_by_summoner_id(ROUTE, &entry.summoner_id)
         })

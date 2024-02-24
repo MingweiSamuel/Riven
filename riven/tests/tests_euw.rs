@@ -8,7 +8,7 @@ const ROUTE: PlatformRoute = PlatformRoute::EUW1;
 
 #[tokio_shared_rt::test]
 async fn championmastery_getscore_ma5tery() -> Result<(), String> {
-    let sum = RIOT_API
+    let sum = riot_api()
         .summoner_v4()
         .get_by_summoner_name(ROUTE, "ma5tery");
     let sum = sum
@@ -16,7 +16,7 @@ async fn championmastery_getscore_ma5tery() -> Result<(), String> {
         .map_err(|e| format!("Error getting summoner: {}", e))?
         .ok_or_else(|| "Failed to find summoner".to_owned())?;
 
-    let p = RIOT_API
+    let p = riot_api()
         .champion_mastery_v4()
         .get_champion_mastery_score_by_puuid(ROUTE, &sum.puuid);
     let s = p
@@ -32,7 +32,7 @@ async fn championmastery_getscore_ma5tery() -> Result<(), String> {
 
 #[tokio_shared_rt::test]
 async fn championmastery_getall_ma5tery() -> Result<(), String> {
-    let sum = RIOT_API
+    let sum = riot_api()
         .summoner_v4()
         .get_by_summoner_name(ROUTE, "ma5tery");
     let sum = sum
@@ -40,7 +40,7 @@ async fn championmastery_getall_ma5tery() -> Result<(), String> {
         .map_err(|e| format!("Error getting summoner: {}", e))?
         .ok_or_else(|| "Failed to find summoner".to_owned())?;
 
-    let p = RIOT_API
+    let p = riot_api()
         .champion_mastery_v4()
         .get_all_champion_masteries_by_puuid(ROUTE, &sum.puuid);
     let s = p
@@ -53,7 +53,7 @@ async fn championmastery_getall_ma5tery() -> Result<(), String> {
 /// https://github.com/RiotGames/developer-relations/issues/602
 #[tokio_shared_rt::test]
 async fn spectator_combo() -> Result<(), String> {
-    let featured_p = RIOT_API.spectator_v4().get_featured_games(ROUTE);
+    let featured_p = riot_api().spectator_v4().get_featured_games(ROUTE);
     let featured = featured_p.await.map_err(|e| e.to_string())?;
 
     if featured.game_list.is_empty() {
@@ -62,7 +62,7 @@ async fn spectator_combo() -> Result<(), String> {
     }
 
     // let summoner_name = &featured.game_list[0].participants[0].summoner_name;
-    // let summoner_p = RIOT_API.summoner_v4().get_by_summoner_name(ROUTE, summoner_name);
+    // let summoner_p = riot_api().summoner_v4().get_by_summoner_name(ROUTE, summoner_name);
     // let summoner = summoner_p.await.map_err(|e| e.to_string())?.ok_or_else(|| "Failed to find summoner".to_owned())?;
 
     let featured_game = &featured.game_list[0];
@@ -74,7 +74,7 @@ async fn spectator_combo() -> Result<(), String> {
         )
     })?;
 
-    let livegame_p = RIOT_API
+    let livegame_p = riot_api()
         .spectator_v4()
         .get_current_game_info_by_summoner(ROUTE, &summoner_id);
     let livegame_o = livegame_p.await.map_err(|e| e.to_string())?;

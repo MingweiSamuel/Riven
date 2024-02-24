@@ -1,6 +1,6 @@
 mod testutils;
 use riven::consts::*;
-use testutils::RIOT_API;
+use testutils::riot_api;
 
 const ROUTE: PlatformRoute = PlatformRoute::LA1;
 
@@ -12,7 +12,7 @@ const CHALLENGE_ID_ARAM_1K_DPM: i64 = 101101;
 #[tokio_shared_rt::test]
 async fn lol_challenges_v1_leaderboards_playerdata() -> Result<(), String> {
     let challenge_id = CHALLENGE_ID_ARAM_1K_DPM;
-    let leaderboard = RIOT_API
+    let leaderboard = riot_api()
         .lol_challenges_v1()
         .get_challenge_leaderboards(ROUTE, challenge_id, Tier::GRANDMASTER, None)
         .await
@@ -38,7 +38,7 @@ async fn lol_challenges_v1_leaderboards_playerdata() -> Result<(), String> {
 
     // Spot check 10% for `player-data`.
     for entry in leaderboard.iter().step_by(10) {
-        let _player_data = RIOT_API
+        let _player_data = riot_api()
             .lol_challenges_v1()
             .get_player_data(ROUTE, &entry.puuid)
             .await
@@ -52,7 +52,7 @@ async fn lol_challenges_v1_leaderboards_playerdata() -> Result<(), String> {
 /// /lol/challenges/v1/challenges/{challengeId}/config
 #[tokio_shared_rt::test]
 async fn lol_challenges_v1_check_configs() -> Result<(), String> {
-    let challenges = RIOT_API
+    let challenges = riot_api()
         .lol_challenges_v1()
         .get_all_challenge_configs(ROUTE)
         .await
@@ -66,7 +66,7 @@ async fn lol_challenges_v1_check_configs() -> Result<(), String> {
 
     // Spot-check 10% of the challenge IDs.
     for challenge in challenges.iter().step_by(10) {
-        RIOT_API
+        riot_api()
             .lol_challenges_v1()
             .get_challenge_configs(ROUTE, challenge.id)
             .await
@@ -87,7 +87,7 @@ async fn lol_challenges_v1_check_configs() -> Result<(), String> {
 #[tokio_shared_rt::test]
 async fn lol_challenges_v1_check_percentiles() -> Result<(), String> {
     // Check all percentiles.
-    let percentiles = RIOT_API
+    let percentiles = riot_api()
         .lol_challenges_v1()
         .get_all_challenge_percentiles(ROUTE)
         .await
@@ -96,7 +96,7 @@ async fn lol_challenges_v1_check_percentiles() -> Result<(), String> {
 
     // Spot-check 10% of the challenge IDs.
     for &challenge_id in percentiles.keys().step_by(10) {
-        RIOT_API
+        riot_api()
             .lol_challenges_v1()
             .get_challenge_percentiles(ROUTE, challenge_id)
             .await

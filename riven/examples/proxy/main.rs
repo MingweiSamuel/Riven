@@ -1,28 +1,31 @@
 // #![deny(warnings)]
 
 use std::convert::Infallible;
+use std::sync::OnceLock;
 
 use http::{Method, Request, Response, StatusCode};
 use hyper::header::HeaderValue;
 use hyper::service::{make_service_fn, service_fn};
 use hyper::{http, Body, Server};
-use lazy_static::lazy_static;
 use riven::consts::Route;
 use riven::{RiotApi, RiotApiConfig};
 use tracing as log;
 
-lazy_static! {
-    /// Create lazy static RiotApi instance.
-    /// Easier than passing it around.
-    pub static ref RIOT_API: RiotApi = {
-        let api_key = std::env::var("RGAPI_KEY").ok()
+static RIOT_API: OnceLock<RiotApi> = OnceLock::new();
+pub fn riot_api() -> &'static RiotApi {
+    RIOT_API.get_or_init(|| {
+        let api_key = std::env::var("RGAPI_KEY")
+            .ok()
             .or_else(|| {
-                let path: std::path::PathBuf = [ env!("CARGO_MANIFEST_DIR"), "../../apikey.txt" ].iter().collect();
+                use std::iter::FromIterator;
+
+                let path =
+                    std::path::PathBuf::from_iter([env!("CARGO_MANIFEST_DIR"), "../apikey.txt"]);
                 std::fs::read_to_string(path).ok()
             })
             .expect("Failed to find RGAPI_KEY env var or apikey.txt.");
         RiotApi::new(RiotApiConfig::with_key(api_key.trim()).preconfig_burst())
-    };
+    })
 }
 
 /// Helper to create JSON error responses.
@@ -73,10 +76,12 @@ async fn handle_request(req: Request<Body>) -> Result<Response<Body>, Infallible
         Ok(bytes) => bytes,
     };
 
-    let req_builder = RIOT_API.request(method, route.into(), req_path).body(body);
+    let req_builder = riot_api()
+        .request(method, route.into(), req_path)
+        .body(body);
 
     // Send request to Riot API.
-    let resp_result = RIOT_API
+    let resp_result = riot_api()
         .execute_raw(method_id, route.into(), req_builder)
         .await;
     let resp_info = match resp_result {
@@ -169,8 +174,8 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     // env_logger::init();
     tracing_subscriber::fmt::init();
 
-    // Trigger lazy_static.
-    let _ = &*RIOT_API;
+    // Trigger initialization.
+    let _ = riot_api();
 
     // For every connection, we must make a `Service` to handle all
     // incoming HTTP requests on said connection.

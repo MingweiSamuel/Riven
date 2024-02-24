@@ -1,8 +1,8 @@
 #![allow(dead_code)]
 
 use std::future::Future;
+use std::sync::OnceLock;
 
-use lazy_static::lazy_static;
 use riven::consts::{PlatformRoute, QueueType, RegionalRoute};
 use riven::{RiotApi, RiotApiConfig};
 
@@ -36,23 +36,30 @@ macro_rules! rassert_ne {
     };
 }
 
-lazy_static! {
-    pub static ref RIOT_API: RiotApi = {
+static RIOT_API: OnceLock<RiotApi> = OnceLock::new();
+pub fn riot_api() -> &'static RiotApi {
+    RIOT_API.get_or_init(|| {
         // Initialize logger here, as a convenient trigger spot.
         env_logger::init();
 
         let api_key = std::env::var("RGAPI_KEY")
             .ok()
-            .or_else(|| std::fs::read_to_string("apikey.txt").ok())
+            .or_else(|| {
+                use std::iter::FromIterator;
+
+                let path =
+                    std::path::PathBuf::from_iter([env!("CARGO_MANIFEST_DIR"), "../apikey.txt"]);
+                std::fs::read_to_string(path).ok()
+            })
             .expect("Failed to find RGAPI_KEY env var or apikey.txt.");
         RiotApi::new(RiotApiConfig::with_key(api_key.trim()).preconfig_burst())
-    };
+    })
 }
 
 pub async fn league_v4_match_v5_latest_combo(route: PlatformRoute) -> Result<(), String> {
     const NUM_MATCHES: usize = 10;
 
-    let challenger_future = RIOT_API
+    let challenger_future = riot_api()
         .league_v4()
         .get_challenger_league(route, QueueType::RANKED_SOLO_5x5);
     let challenger_league = challenger_future
@@ -77,14 +84,14 @@ pub async fn league_v4_match_v5_latest_combo(route: PlatformRoute) -> Result<(),
         .iter()
         .take(5)
         .map(|entry| async move {
-            let summoner_future = RIOT_API
+            let summoner_future = riot_api()
                 .summoner_v4()
                 .get_by_summoner_id(route, &entry.summoner_id);
             let summoner_info = summoner_future
                 .await
                 .map_err(|e| format!("Failed to find summoner info: {}", e))?;
 
-            let match_ids_future = RIOT_API.match_v5().get_match_ids_by_puuid(
+            let match_ids_future = riot_api().match_v5().get_match_ids_by_puuid(
                 route.to_regional(),
                 &summoner_info.puuid,
                 Some(5),
@@ -119,7 +126,7 @@ pub async fn tft_match_v1_get(
 ) -> Result<(), String> {
     let futures = matches.into_iter().map(|matche| async move {
         let matche = matche.as_ref();
-        let p = RIOT_API.tft_match_v1().get_match(route, matche);
+        let p = riot_api().tft_match_v1().get_match(route, matche);
         let m = p
             .await
             .map_err(|e| format!("Failed to get match {}: {:?}", matche, e))?
@@ -158,7 +165,7 @@ pub async fn match_v5_get(
 ) -> Result<(), String> {
     let futures = matches.into_iter().map(|matche| async move {
         let matche = matche.as_ref();
-        let p = RIOT_API.match_v5().get_match(route, matche);
+        let p = riot_api().match_v5().get_match(route, matche);
         let m = p
             .await
             .map_err(|e| format!("Failed to get match {}: {:?}", matche, e))?
@@ -200,7 +207,7 @@ pub async fn match_v5_get_timeline(
 ) -> Result<(), String> {
     let futures = matches.into_iter().map(|matche| async move {
         let matche = matche.as_ref();
-        let p = RIOT_API.match_v5().get_timeline(route, matche);
+        let p = riot_api().match_v5().get_timeline(route, matche);
         let m = p
             .await
             .map_err(|e| format!("Failed to get match {}: {:?}", matche, e))?

@@ -7,18 +7,14 @@ mod token_bucket {
     include!("token_bucket.rs");
 
     mod tests {
-        use lazy_static::lazy_static;
-
         use super::*;
 
-        lazy_static! {
-            pub static ref ZERO: Duration = Duration::new(0, 0);
-        }
+        pub const ZERO: Duration = Duration::new(0, 0);
 
         #[test]
         fn test_basic() {
             Instant::set_time(50_000);
-            let bucket = VectorTokenBucket::new(Duration::from_millis(1000), 100, *ZERO, 0.95, 1.0);
+            let bucket = VectorTokenBucket::new(Duration::from_millis(1000), 100, ZERO, 0.95, 1.0);
             assert!(bucket.get_tokens(50), "Should have not violated limit.");
             assert_eq!(None, bucket.get_delay(), "Can get stuff.");
             assert!(!bucket.get_tokens(51), "Should have violated limit.");
@@ -26,20 +22,20 @@ mod token_bucket {
 
         #[test]
         fn test_internal_constructor() {
-            let bucket = VectorTokenBucket::new(Duration::from_millis(1000), 100, *ZERO, 1.0, 1.0);
+            let bucket = VectorTokenBucket::new(Duration::from_millis(1000), 100, ZERO, 1.0, 1.0);
             assert_eq!(100, bucket.burst_limit);
 
-            let bucket = VectorTokenBucket::new(Duration::from_millis(1000), 100, *ZERO, 1e-6, 1.0);
+            let bucket = VectorTokenBucket::new(Duration::from_millis(1000), 100, ZERO, 1e-6, 1.0);
             assert_eq!(1, bucket.burst_limit);
 
-            let bucket = VectorTokenBucket::new(Duration::from_millis(1000), 100, *ZERO, 1.0, 1e-6);
+            let bucket = VectorTokenBucket::new(Duration::from_millis(1000), 100, ZERO, 1.0, 1e-6);
             assert_eq!(1, bucket.total_limit);
             assert_eq!(1, bucket.burst_limit);
         }
 
         #[test]
         fn test_saturated_100_burst() {
-            let bucket = VectorTokenBucket::new(Duration::from_millis(1000), 100, *ZERO, 1.00, 1.0);
+            let bucket = VectorTokenBucket::new(Duration::from_millis(1000), 100, ZERO, 1.00, 1.0);
 
             Instant::set_time(50_000);
             assert!(
@@ -58,7 +54,7 @@ mod token_bucket {
 
         #[test]
         fn test_saturated_95_burst() {
-            let bucket = VectorTokenBucket::new(Duration::from_millis(1000), 100, *ZERO, 0.95, 1.0);
+            let bucket = VectorTokenBucket::new(Duration::from_millis(1000), 100, ZERO, 0.95, 1.0);
 
             Instant::set_time(50_000);
             assert!(
@@ -85,7 +81,7 @@ mod token_bucket {
 
         #[test]
         fn test_violated_50_burst() {
-            let bucket = VectorTokenBucket::new(Duration::from_millis(1000), 100, *ZERO, 0.50, 1.0);
+            let bucket = VectorTokenBucket::new(Duration::from_millis(1000), 100, ZERO, 0.50, 1.0);
 
             Instant::set_time(50_000);
             assert!(!bucket.get_tokens(90), "Burst should be violated.");
@@ -94,7 +90,7 @@ mod token_bucket {
 
         #[test]
         fn test_saturated_50_burst() {
-            let bucket = VectorTokenBucket::new(Duration::from_millis(1000), 100, *ZERO, 0.50, 1.0);
+            let bucket = VectorTokenBucket::new(Duration::from_millis(1000), 100, ZERO, 0.50, 1.0);
 
             Instant::set_time(50_000);
             assert!(
@@ -128,7 +124,7 @@ mod token_bucket {
             let bucket = VectorTokenBucket::new(
                 Duration::from_millis(1000),
                 100,
-                *ZERO,
+                ZERO,
                 0.90,
                 rate_usage_factor,
             );
@@ -159,7 +155,7 @@ mod token_bucket {
         #[test]
         fn test_many() {
             Instant::set_time(50_000);
-            let bucket = VectorTokenBucket::new(Duration::from_millis(1000), 100, *ZERO, 0.5, 1.0);
+            let bucket = VectorTokenBucket::new(Duration::from_millis(1000), 100, ZERO, 0.5, 1.0);
             assert!(
                 bucket.get_tokens(50),
                 "Should have not violated limit. i=-1."
