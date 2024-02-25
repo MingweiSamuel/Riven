@@ -19,7 +19,7 @@ const ROUTE: PlatformRoute = PlatformRoute::NA1;
 
 // Summoner tests.
 
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn summoner_double() -> Result<(), String> {
     let l1p = riot_api()
         .summoner_v4()
@@ -39,7 +39,7 @@ async fn summoner_double() -> Result<(), String> {
     Ok(())
 }
 
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn champion_getrotation() -> Result<(), String> {
     let p = riot_api().champion_v3().get_champion_info(ROUTE);
     let d = p.await.map_err(|e| e.to_string())?;
@@ -52,7 +52,7 @@ async fn champion_getrotation() -> Result<(), String> {
     Ok(())
 }
 
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn leagueexp_get() -> Result<(), String> {
     let p = riot_api().league_exp_v4().get_league_entries(
         ROUTE,
@@ -68,7 +68,7 @@ async fn leagueexp_get() -> Result<(), String> {
     Ok(())
 }
 
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn champion_mastery_v4() -> Result<(), String> {
     let summoner = riot_api()
         .summoner_v4()
@@ -87,7 +87,7 @@ async fn champion_mastery_v4() -> Result<(), String> {
 
 // Commented out, requires special API key.
 // /// LOR
-// #[tokio_shared_rt::test]
+// #[riven_test]
 // async fn async fn lor_ranked_get_leaderboards() -> Result<(), String> {
 //     let future = riot_api().lor_ranked_v1().get_leaderboards(Region::AMERICAS);
 //     let _leaderboard = future.await.map_err(|e| e.to_string())?;
@@ -96,7 +96,7 @@ async fn champion_mastery_v4() -> Result<(), String> {
 
 // CLASH
 
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn clash_get_tournaments() -> Result<(), String> {
     let p = riot_api().clash_v1().get_tournaments(ROUTE);
     let tours = p.await.map_err(|e| e.to_string())?;
@@ -108,7 +108,7 @@ async fn clash_get_tournaments() -> Result<(), String> {
     Ok(())
 }
 
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn clash_get_team_by_id_invalid() -> Result<(), String> {
     let p = riot_api()
         .clash_v1()
@@ -118,7 +118,7 @@ async fn clash_get_team_by_id_invalid() -> Result<(), String> {
     Ok(())
 }
 
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn status() -> Result<(), String> {
     let p = riot_api().lol_status_v4().get_platform_data(ROUTE);
     let status = p.await.map_err(|e| e.to_string())?;

@@ -11,7 +11,7 @@ static MATCHES: &[&str] = &[
 ];
 
 /// Account-v1
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn account_v1_getbyriotid_getbypuuid() -> Result<(), String> {
     // Game name is case and whitespace insensitive.
     // But tag cannot have spaces. (Is it case sensitive?).
@@ -34,7 +34,7 @@ async fn account_v1_getbyriotid_getbypuuid() -> Result<(), String> {
 }
 
 /// Tournament stub test.
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn tournamentstub() -> Result<(), String> {
     let ts = riot_api().tournament_stub_v5();
     let provider_id = ts
@@ -95,12 +95,12 @@ async fn tournamentstub() -> Result<(), String> {
     }
 }
 
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn match_v5_get_test() -> Result<(), String> {
     match_v5_get(ROUTE, MATCHES).await
 }
 
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn match_v5_get_timeline_test() -> Result<(), String> {
     match_v5_get_timeline(ROUTE, MATCHES).await
 }

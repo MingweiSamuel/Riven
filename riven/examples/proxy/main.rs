@@ -1,5 +1,3 @@
-// #![deny(warnings)]
-
 use std::convert::Infallible;
 use std::sync::OnceLock;
 

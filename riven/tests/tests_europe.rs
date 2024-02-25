@@ -22,12 +22,12 @@ static MATCHES: &[&str] = &[
     "EUW1_6568537080",
 ];
 
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn match_v5_get_test() -> Result<(), String> {
     match_v5_get(ROUTE, MATCHES).await
 }
 
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn match_v5_get_timeline_test() -> Result<(), String> {
     match_v5_get_timeline(ROUTE, MATCHES).await
 }

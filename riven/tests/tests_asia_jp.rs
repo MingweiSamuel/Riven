@@ -23,7 +23,7 @@ static MATCHES: &[&str] = &[
 ];
 
 /// Summoner tests.
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn summoner_get_kanjikana() -> Result<(), String> {
     let p = riot_api()
         .summoner_v4()
@@ -39,7 +39,7 @@ async fn summoner_get_kanjikana() -> Result<(), String> {
 // Failure cases.
 
 // /// Make sure get_raw_response(...) with invalid path fails as expected.
-// #[tokio_shared_rt::test]
+// #[riven_test]
 // async fn raw_response_invalid -> Result<(), String> {
 //     let p = riot_api().get_raw_response("summoner-v4.getBySummonerName", Region::JP.into(), "INVALID/PATH".to_owned(), None);
 //     let r = p.await;
@@ -49,7 +49,7 @@ async fn summoner_get_kanjikana() -> Result<(), String> {
 
 /// summoner_v4().get_by_summoner_name(...) normally returns an option.
 /// If we use `get` (instead of `get_optional`) make sure it errors.
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn get_nonoptional_invalid() -> Result<(), String> {
     let path_string = format!(
         "/lol/summoner/v4/summoners/by-name/{}",
@@ -67,7 +67,7 @@ async fn get_nonoptional_invalid() -> Result<(), String> {
 }
 
 /// Check invalid code, make sure 403 is handled as expected.
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn tournament_forbidden() -> Result<(), String> {
     let p = riot_api()
         .tournament_v5()
@@ -84,7 +84,7 @@ async fn tournament_forbidden() -> Result<(), String> {
 // Disabled: Caihonbbt no longer ranked.
 // /// tft-league-v1.getLeagueEntriesForSummoner
 // /// https://github.com/MingweiSamuel/Riven/issues/25
-// #[tokio_shared_rt::test]
+// #[riven_test]
 // async fn tft_league_getleagueentriesforsummoner() -> Result<(), String> {
 //     let sp = riot_api().summoner_v4().get_by_summoner_name(ROUTE, "Caihonbbt");
 //     let sr = sp.await.map_err(|e| e.to_string())?.ok_or_else(|| "Failed to get \"Caihonbbt\"".to_owned())?;
@@ -96,7 +96,7 @@ async fn tournament_forbidden() -> Result<(), String> {
 
 /// tft-league-v1.getTopRatedLadder
 /// https://github.com/MingweiSamuel/Riven/issues/24
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn tft_league_gettopratedladder() -> Result<(), String> {
     let lp = riot_api()
         .tft_league_v1()
@@ -107,17 +107,17 @@ async fn tft_league_gettopratedladder() -> Result<(), String> {
 }
 
 /// ASIA regional tests
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn league_v4_match_v5_latest_combo_test() -> Result<(), String> {
     league_v4_match_v5_latest_combo(ROUTE).await
 }
 
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn match_v5_get_test() -> Result<(), String> {
     match_v5_get(ROUTE.to_regional(), MATCHES).await
 }
 
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn match_v5_get_timeline_test() -> Result<(), String> {
     match_v5_get_timeline(ROUTE.to_regional(), MATCHES).await
 }

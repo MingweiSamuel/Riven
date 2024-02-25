@@ -1,6 +1,6 @@
 mod testutils;
 use riven::consts::*;
-use testutils::riot_api;
+use testutils::{riot_api, riven_test};
 
 const ROUTE: PlatformRoute = PlatformRoute::LA1;
 
@@ -9,7 +9,7 @@ const CHALLENGE_ID_ARAM_1K_DPM: i64 = 101101;
 
 /// /lol/challenges/v1/challenges/{challengeId}/leaderboards/by-level/{level}
 /// /lol/challenges/v1/player-data/{puuid}
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn lol_challenges_v1_leaderboards_playerdata() -> Result<(), String> {
     let challenge_id = CHALLENGE_ID_ARAM_1K_DPM;
     let leaderboard = riot_api()
@@ -50,7 +50,7 @@ async fn lol_challenges_v1_leaderboards_playerdata() -> Result<(), String> {
 
 /// /lol/challenges/v1/challenges/config
 /// /lol/challenges/v1/challenges/{challengeId}/config
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn lol_challenges_v1_check_configs() -> Result<(), String> {
     let challenges = riot_api()
         .lol_challenges_v1()
@@ -84,7 +84,7 @@ async fn lol_challenges_v1_check_configs() -> Result<(), String> {
 
 /// /lol/challenges/v1/challenges/percentiles
 /// /lol/challenges/v1/challenges/{challengeId}/percentiles
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn lol_challenges_v1_check_percentiles() -> Result<(), String> {
     // Check all percentiles.
     let percentiles = riot_api()

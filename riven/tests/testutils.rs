@@ -1,10 +1,41 @@
-#![allow(dead_code)]
+#![allow(dead_code, unused_imports)]
 
+#[cfg(not(target_family = "wasm"))]
+use std::env::var as env_var;
 use std::future::Future;
 use std::sync::OnceLock;
 
+use futures::try_join;
 use riven::consts::{PlatformRoute, QueueType, RegionalRoute};
 use riven::{RiotApi, RiotApiConfig};
+#[cfg(not(target_family = "wasm"))]
+pub use tokio_shared_rt::test as riven_test;
+#[cfg(target_family = "wasm")]
+pub use wasm_bindgen_test::wasm_bindgen_test as riven_test;
+#[cfg(target_family = "wasm")]
+#[allow(non_upper_case_globals)]
+pub fn env_var<K: AsRef<str>>(key: K) -> Result<String, std::env::VarError> {
+    use wasm_bindgen::prelude::wasm_bindgen;
+
+    #[wasm_bindgen]
+    extern "C" {
+        type Process;
+        static process: Process;
+
+        type Env;
+
+        #[wasm_bindgen(method, getter)]
+        fn env(this: &Process) -> Env;
+
+        #[wasm_bindgen(method, structural, indexing_getter)]
+        fn get(this: &Env, field: &str) -> Option<String>;
+    }
+
+    process
+        .env()
+        .get(key.as_ref())
+        .ok_or(std::env::VarError::NotPresent)
+}
 
 #[macro_export]
 macro_rules! rassert {
@@ -40,9 +71,12 @@ static RIOT_API: OnceLock<RiotApi> = OnceLock::new();
 pub fn riot_api() -> &'static RiotApi {
     RIOT_API.get_or_init(|| {
         // Initialize logger here, as a convenient trigger spot.
+        #[cfg(not(target_family = "wasm"))]
         env_logger::init();
+        #[cfg(target_family = "wasm")]
+        console_log::init_with_level(log::Level::Info).unwrap();
 
-        let api_key = std::env::var("RGAPI_KEY")
+        let api_key = env_var("RGAPI_KEY")
             .ok()
             .or_else(|| {
                 use std::iter::FromIterator;
@@ -112,7 +146,7 @@ pub async fn league_v4_match_v5_latest_combo(route: PlatformRoute) -> Result<(),
     let mut match_ids: Vec<String> = match_ids.into_iter().flatten().collect();
     match_ids.sort_unstable_by(|a, b| a.cmp(b).reverse()); // Sort descending, so latest are first.
 
-    let _ = tokio::try_join!(
+    let _ = try_join!(
         match_v5_get(route.to_regional(), match_ids.iter().take(NUM_MATCHES)),
         match_v5_get_timeline(route.to_regional(), match_ids.iter().take(NUM_MATCHES)),
     )?;
