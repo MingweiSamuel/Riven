@@ -9,7 +9,7 @@ license = "MIT"
 edition = "2018"
 include = [ "src/**", "../README.md", "/examples" ]
 keywords = [ "riot-games", "riot", "league", "league-of-legends" ]
-categories = [ "api-bindings", "web-programming::http-client" ]
+categories = [ "api-bindings", "web-programming::http-client", "wasm" ]
 
 [lib]
 crate-type = ["cdylib", "rlib"]
