@@ -54,40 +54,43 @@ jobs:
           override: true
           components: rustfmt
 
-      - name: Run `cargo +stable check --all-targets`
-        uses: actions-rs/cargo@v1
+      - uses: actions-rs/cargo@v1
         with:
           toolchain: stable
           command: check
-          args: --all-targets
+          args: --all-targets --features __proxy
 
-      - name: Run `cargo +stable check --all-targets --features tracing`
-        uses: actions-rs/cargo@v1
+      - uses: actions-rs/cargo@v1
         with:
           toolchain: stable
           command: check
-          args: --all-targets --features tracing
+          args: --all-targets --features tracing,__proxy
 
-      - name: Run `cargo check --all-targets --features nightly,tracing`
-        uses: actions-rs/cargo@v1
+      - uses: actions-rs/cargo@v1
         with:
           command: check
-          args: --all-targets --features nightly,tracing
+          args: --all-targets --features nightly,tracing,__proxy
 
-      - name: Run `cargo build --all-targets --features nightly,deny-unknown`
-        uses: actions-rs/cargo@v1
+      - uses: actions-rs/cargo@v1
         with:
           command: build
-          args: --all-targets --features nightly,deny-unknown
+          args: --all-targets --features nightly,deny-unknown,__proxy
 
-      - name: Run `cargo test --features nightly,deny-unknown`
-        uses: actions-rs/cargo@v1
+      - uses: actions-rs/cargo@v1
         with:
           command: test
-          args: --no-fail-fast --features nightly,deny-unknown
+          args: --no-fail-fast --features nightly,deny-unknown,__proxy
         env:
           RUST_BACKTRACE: 1
           RUSTLOG: riven=trace
+          RGAPI_KEY: ${{ secrets.RGAPI_KEY }}
+
+      - name: Install `wasm-pack`
+        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+
+      - working-directory: riven
+        run: wasm-pack test --node -- --features nightly,deny-unknown
+        env:
           RGAPI_KEY: ${{ secrets.RGAPI_KEY }}
 
   lints:
