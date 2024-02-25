@@ -112,10 +112,13 @@ impl VectorTokenBucket {
 
     fn update_get_timestamps(&self) -> MutexGuard<VecDeque<Instant>> {
         let mut timestamps = self.timestamps.lock();
-        let cutoff = Instant::now() - self.duration - self.duration_overhead;
-        // Pop off timestamps that are beyound the bucket duration.
-        while timestamps.back().map_or(false, |ts| *ts < cutoff) {
-            timestamps.pop_back();
+        // Only `None` in wasm, for some implementation reason. Probably sets time 0 at the first
+        // `Instant::now()` call or something.
+        if let Some(cutoff) = Instant::now().checked_sub(self.duration + self.duration_overhead) {
+            // Pop off timestamps that are beyound the bucket duration.
+            while timestamps.back().map_or(false, |ts| *ts < cutoff) {
+                timestamps.pop_back();
+            }
         }
         timestamps
     }
