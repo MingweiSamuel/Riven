@@ -1,13 +1,13 @@
 [package]
 name = "riven"
-version = "2.33.1"
+version = "2.34.0-beta.0"
 authors = ["Mingwei Samuel <mingwei.samuel@gmail.com>"]
 repository = "https://github.com/MingweiSamuel/Riven"
 description = "Riot Games API Library"
 readme = "../README.md"
 license = "MIT"
 edition = "2018"
-include = [ "src/**", "../README.md" ]
+include = [ "src/**", "../README.md", "/examples" ]
 keywords = [ "riot-games", "riot", "league", "league-of-legends" ]
 categories = [ "api-bindings", "web-programming::http-client" ]
 
