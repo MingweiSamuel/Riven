@@ -4,7 +4,7 @@ use testutils::*;
 
 const ROUTE: PlatformRoute = PlatformRoute::RU;
 
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn summoner_leagues() -> Result<(), String> {
     let sum = riot_api()
         .summoner_v4()

@@ -6,7 +6,7 @@ const ROUTE: PlatformRoute = PlatformRoute::EUW1;
 
 // Champion Mastery tests
 
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn championmastery_getscore_ma5tery() -> Result<(), String> {
     let sum = riot_api()
         .summoner_v4()
@@ -30,7 +30,7 @@ async fn championmastery_getscore_ma5tery() -> Result<(), String> {
     Ok(())
 }
 
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn championmastery_getall_ma5tery() -> Result<(), String> {
     let sum = riot_api()
         .summoner_v4()
@@ -51,7 +51,7 @@ async fn championmastery_getall_ma5tery() -> Result<(), String> {
 }
 
 /// https://github.com/RiotGames/developer-relations/issues/602
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn spectator_combo() -> Result<(), String> {
     let featured_p = riot_api().spectator_v4().get_featured_games(ROUTE);
     let featured = featured_p.await.map_err(|e| e.to_string())?;

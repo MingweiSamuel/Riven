@@ -1,10 +1,10 @@
 mod testutils;
 use riven::consts::*;
-use testutils::riot_api;
+use testutils::{riot_api, riven_test};
 
 const ROUTE: ValPlatformRoute = ValPlatformRoute::LATAM;
 
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn val_content_ranked_test() -> Result<(), String> {
     let p = riot_api()
         .val_content_v1()

@@ -14,20 +14,20 @@ static TFT_MATCHES: &[&str] = &[
     "EUW1_6807630149",
 ];
 
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn tftmatchv1_get_list() -> Result<(), String> {
     tft_match_v1_get(ROUTE.to_regional(), TFT_MATCHES).await
 }
 
 // /// Don't have acecess to tft-status-v1.
-// #[tokio_shared_rt::test]
+// #[riven_test]
 // async fn tftstatusv1_getplatformdata() -> Result<(), String> {
 //     let p = riot_api().tft_status_v1().get_platform_data(ROUTE);
 //     let _s = p.await.map_err(|e| e.to_string())?;
 //     Ok(())
 // }
 
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn tftleaguev1_gettopratedladder() -> Result<(), String> {
     let p = riot_api()
         .tft_league_v1()
@@ -41,7 +41,7 @@ async fn tftleaguev1_gettopratedladder() -> Result<(), String> {
     Ok(())
 }
 
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn tftmatchv1_getmatch() -> Result<(), String> {
     let p = riot_api()
         .tft_match_v1()
@@ -53,7 +53,7 @@ async fn tftmatchv1_getmatch() -> Result<(), String> {
     Ok(())
 }
 
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn tftsummonerv1_getbyname() -> Result<(), String> {
     let p = riot_api()
         .tft_summoner_v1()
@@ -65,7 +65,7 @@ async fn tftsummonerv1_getbyname() -> Result<(), String> {
     Ok(())
 }
 
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn tftsummonerv1_getbyname_none() -> Result<(), String> {
     let p = riot_api()
         .tft_summoner_v1()
@@ -75,7 +75,7 @@ async fn tftsummonerv1_getbyname_none() -> Result<(), String> {
 }
 
 /// Get top rated player, get some of their matches.
-#[tokio_shared_rt::test]
+#[riven_test]
 async fn tft_combo() -> Result<(), String> {
     let top_players = riot_api()
         .tft_league_v1()

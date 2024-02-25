@@ -36,6 +36,12 @@ deny-unknown-enum-variants = [ "deny-unknown-enum-variants-strings", "deny-unkno
 deny-unknown-enum-variants-strings = []
 deny-unknown-enum-variants-integers = []
 
+__proxy = []
+
+[[example]]
+name = "proxy"
+required-features = [ "__proxy" ]
+
 [dependencies]
 futures = "0.3"
 log = "0.4"
@@ -60,8 +66,16 @@ web-time = "1.0.0"
 [dev-dependencies]
 env_logger = "0.10.0"
 fake_instant = "0.5.0"
-hyper = { version = "0.14", features = [ "server" ] }
-tokio = { version = "1", features = [ "full" ] }
-tokio-shared-rt = "0.1"
 tracing = "0.1"
 tracing-subscriber = "0.2"
+
+[target.'cfg(not(target_family = "wasm"))'.dev-dependencies]
+hyper = { version = "0.14", features = [ "server" ] }
+tokio = { version = "1", features = [ "macros", "rt-multi-thread" ] }
+tokio-shared-rt = "0.1"
+
+[target.'cfg(target_family = "wasm")'.dev-dependencies]
+console_error_panic_hook = "0.1"
+console_log = "1.0"
+wasm-bindgen = "0.2"
+wasm-bindgen-test = "0.3"
