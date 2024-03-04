@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 48735a0c9d1c521d94a20ff0b0b9dc927ab430ca
+// Version ba7699aed741222f2431e1f3e4ba42c3ac302510
 
 //! Automatically generated endpoint handles.
 #![allow(clippy::let_and_return, clippy::too_many_arguments)]
@@ -170,6 +170,15 @@ impl RiotApi {
     #[inline]
     pub fn spectator_v4(&self) -> SpectatorV4 {
         SpectatorV4 { base: self }
+    }
+    /// Returns a handle for accessing [SpectatorV5](crate::endpoints::SpectatorV5) endpoints.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/apis#spectator-v5" target="_blank">`spectator-v5`</a>
+    ///
+    /// Note: this method is automatically generated.
+    #[inline]
+    pub fn spectator_v5(&self) -> SpectatorV5 {
+        SpectatorV5 { base: self }
     }
     /// Returns a handle for accessing [SummonerV4](crate::endpoints::SummonerV4) endpoints.
     /// # Riot Developer API Reference
@@ -1266,6 +1275,55 @@ impl<'a> SpectatorV4<'a> {
         let future = self.base.execute_val::<spectator_v4::FeaturedGames>("spectator-v4.getFeaturedGames", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("spectator-v4.getFeaturedGames"));
+        future
+    }
+
+}
+
+/// SpectatorV5 endpoints handle, accessed by calling [`spectator_v5()`](crate::RiotApi::spectator_v5) on a [`RiotApi`](crate::RiotApi) instance.
+/// # Riot Developer API Reference
+/// <a href="https://developer.riotgames.com/apis#spectator-v5" target="_blank">`spectator-v5`</a>
+///
+/// Note: this struct is automatically generated.
+#[repr(transparent)]
+pub struct SpectatorV5<'a> {
+    base: &'a RiotApi,
+}
+impl<'a> SpectatorV5<'a> {
+    /// Get current game information for the given puuid.
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// * `encrypted_puuid` (required, in path) - The puuid of the summoner.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#spectator-v5/GET_getCurrentGameInfoByPuuid" target="_blank">`spectator-v5.getCurrentGameInfoByPuuid`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_current_game_info_by_puuid(&self, route: PlatformRoute, encrypted_puuid: &str)
+        -> impl Future<Output = Result<Option<spectator_v5::CurrentGameInfo>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/spectator/v5/active-games/by-summoner/{}", encrypted_puuid));
+        let future = self.base.execute_opt::<spectator_v5::CurrentGameInfo>("spectator-v5.getCurrentGameInfoByPuuid", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("spectator-v5.getCurrentGameInfoByPuuid"));
+        future
+    }
+
+    /// Get list of featured games.
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#spectator-v5/GET_getFeaturedGames" target="_blank">`spectator-v5.getFeaturedGames`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_featured_games(&self, route: PlatformRoute)
+        -> impl Future<Output = Result<spectator_v5::FeaturedGames>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/lol/spectator/v5/featured-games");
+        let future = self.base.execute_val::<spectator_v5::FeaturedGames>("spectator-v5.getFeaturedGames", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("spectator-v5.getFeaturedGames"));
         future
     }
 

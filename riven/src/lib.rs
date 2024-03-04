@@ -30,8 +30,9 @@
 //! # Design
 //!
 //! * Fast, asynchronous, thread-safe.
-//! * Automatically retries failed requests.
+//! * Automatically retries failed requests, configurable.
 //! * Supports all endpoints, kept up-to-date using [riotapi-schema](https://github.com/MingweiSamuel/riotapi-schema).
+//! * Can compile to Wasm for server-side or browser+proxy use.
 //!
 //! # Usage
 //!
@@ -108,7 +109,10 @@
 //! riven = { version = "...", default-features = false, features = [ "rustls-tls" ] }
 //! ```
 //!
-//! Riven is additionally able to produce [tracing](https://docs.rs/tracing) spans for requests if the `tracing` feature is enabled. This feature is disabled by default.
+//! ### `log` or `tracing`
+//!
+//! Riven is additionally able to produce [tracing](https://docs.rs/tracing) spans for requests if the `tracing` feature is enabled.
+//! By default the `tracing` feature is disabled and Riven instead writes to [`log`](https://docs.rs/log).
 //!
 //! ## Docs
 //!

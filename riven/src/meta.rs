@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 48735a0c9d1c521d94a20ff0b0b9dc927ab430ca
+// Version ba7699aed741222f2431e1f3e4ba42c3ac302510
 
 //! Metadata about the Riot API and Riven.
 //!
@@ -16,7 +16,7 @@
 
 /// Metadata for endpoints. Each tuple corresponds to one endpoint and contains
 /// the HTTP [`Method`](reqwest::Method), `str` path, and the method's `str` ID.
-pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 80] = [
+pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 82] = [
     (reqwest::Method::GET, "/riot/account/v1/accounts/by-puuid/{puuid}", "account-v1.getByPuuid"),
     (reqwest::Method::GET, "/riot/account/v1/accounts/by-riot-id/{gameName}/{tagLine}", "account-v1.getByRiotId"),
     (reqwest::Method::GET, "/riot/account/v1/accounts/me", "account-v1.getByAccessToken"),
@@ -58,6 +58,8 @@ pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 80] = [
     (reqwest::Method::GET, "/lol/match/v5/matches/{matchId}/timeline", "match-v5.getTimeline"),
     (reqwest::Method::GET, "/lol/spectator/v4/active-games/by-summoner/{encryptedSummonerId}", "spectator-v4.getCurrentGameInfoBySummoner"),
     (reqwest::Method::GET, "/lol/spectator/v4/featured-games", "spectator-v4.getFeaturedGames"),
+    (reqwest::Method::GET, "/lol/spectator/v5/active-games/by-summoner/{encryptedPUUID}", "spectator-v5.getCurrentGameInfoByPuuid"),
+    (reqwest::Method::GET, "/lol/spectator/v5/featured-games", "spectator-v5.getFeaturedGames"),
     (reqwest::Method::GET, "/fulfillment/v1/summoners/by-puuid/{rsoPUUID}", "summoner-v4.getByRSOPUUID"),
     (reqwest::Method::GET, "/lol/summoner/v4/summoners/by-account/{encryptedAccountId}", "summoner-v4.getByAccountId"),
     (reqwest::Method::GET, "/lol/summoner/v4/summoners/by-name/{summonerName}", "summoner-v4.getBySummonerName"),
