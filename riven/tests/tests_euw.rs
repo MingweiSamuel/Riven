@@ -52,7 +52,7 @@ async fn championmastery_getall_ma5tery() -> Result<(), String> {
 
 /// https://github.com/RiotGames/developer-relations/issues/602
 #[riven_test]
-async fn spectator_combo() -> Result<(), String> {
+async fn spectator_v4_combo() -> Result<(), String> {
     let featured_p = riot_api().spectator_v4().get_featured_games(ROUTE);
     let featured = featured_p.await.map_err(|e| e.to_string())?;
 
@@ -60,10 +60,6 @@ async fn spectator_combo() -> Result<(), String> {
         eprintln!("Featured game list is empty!");
         return Ok(());
     }
-
-    // let summoner_name = &featured.game_list[0].participants[0].summoner_name;
-    // let summoner_p = riot_api().summoner_v4().get_by_summoner_name(ROUTE, summoner_name);
-    // let summoner = summoner_p.await.map_err(|e| e.to_string())?.ok_or_else(|| "Failed to find summoner".to_owned())?;
 
     let featured_game = &featured.game_list[0];
     let participant = &featured_game.participants[0];
@@ -77,6 +73,43 @@ async fn spectator_combo() -> Result<(), String> {
     let livegame_p = riot_api()
         .spectator_v4()
         .get_current_game_info_by_summoner(ROUTE, &summoner_id);
+    let livegame_o = livegame_p.await.map_err(|e| e.to_string())?;
+    if let Some(livegame) = livegame_o {
+        let participant_match = livegame
+            .participants
+            .iter()
+            .find(|p| p.summoner_name == participant.summoner_name);
+        rassert!(
+            participant_match.is_some(),
+            "Failed to find summoner in match: {}.",
+            &participant.summoner_name
+        );
+    }
+    Ok(())
+}
+
+#[riven_test]
+async fn spectator_v5_combo() -> Result<(), String> {
+    let featured_p = riot_api().spectator_v5().get_featured_games(ROUTE);
+    let featured = featured_p.await.map_err(|e| e.to_string())?;
+
+    if featured.game_list.is_empty() {
+        eprintln!("Featured game list is empty!");
+        return Ok(());
+    }
+
+    let featured_game = &featured.game_list[0];
+    let participant = &featured_game.participants[0];
+    let puuid = participant.puuid.as_ref().ok_or_else(|| {
+        format!(
+            "Summoner in spectator featured game missing summoner ID: {}",
+            &participant.summoner_name
+        )
+    })?;
+
+    let livegame_p = riot_api()
+        .spectator_v5()
+        .get_current_game_info_by_puuid(ROUTE, &puuid);
     let livegame_o = livegame_p.await.map_err(|e| e.to_string())?;
     if let Some(livegame) = livegame_o {
         let participant_match = livegame
