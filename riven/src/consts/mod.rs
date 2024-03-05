@@ -56,3 +56,36 @@ pub use team::*;
 
 mod tier;
 pub use tier::*;
+
+/// https://github.com/RiotGames/developer-relations/issues/898
+pub(crate) fn serialize_empty_string_none<S, T>(
+    val: &Option<T>,
+    serializer: S,
+) -> Result<S::Ok, S::Error>
+where
+    S: serde::ser::Serializer,
+    T: serde::ser::Serialize,
+{
+    use serde::ser::Serialize;
+    if let Some(val) = val {
+        val.serialize(serializer)
+    } else {
+        "".serialize(serializer)
+    }
+}
+
+/// https://github.com/RiotGames/developer-relations/issues/898
+pub(crate) fn deserialize_empty_string_none<'de, D, T>(
+    deserializer: D,
+) -> Result<Option<T>, D::Error>
+where
+    D: serde::de::Deserializer<'de>,
+    T: serde::de::Deserialize<'de>,
+{
+    use serde::de::{Deserialize, IntoDeserializer};
+    let opt = Option::<String>::deserialize(deserializer)?;
+    match opt.as_deref() {
+        None | Some("") => Ok(None),
+        Some(s) => T::deserialize(s.into_deserializer()).map(Some),
+    }
+}

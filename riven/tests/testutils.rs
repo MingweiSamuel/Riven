@@ -227,6 +227,23 @@ pub async fn match_v5_get(
                 .champion()
                 .map_err(|e| format!("Failed to determine match {} champion: {}", matche, e))?;
         }
+
+        {
+            let game_id = m.info.game_id;
+            if 0 == game_id {
+                eprintln!(
+                    "Match {} `game_id` is zero, skipping remaining tests (see https://github.com/RiotGames/developer-relations/issues/898).",
+                    matche
+                );
+                return Ok(());
+            } else if matche[(matche.find('_').unwrap() + 1)..] != game_id.to_string() {
+                return Err(format!(
+                    "Match {} timeline number ID should match `game_id` {}.",
+                    matche, game_id
+                ));
+            }
+        }
+
         if m.info.teams.is_empty() {
             return Err(format!("Match {} should have teams.", matche));
         }
@@ -256,12 +273,17 @@ pub async fn match_v5_get_timeline(
             return Err(format!("Match {} should have participants.", matche));
         }
         if let Some(game_id) = m.info.game_id {
-            if matche[(matche.find('_').unwrap() + 1)..] != game_id.to_string() {
-                return Err(format!("Match {} number ID should match.", matche));
+            if 0 == game_id {
+                eprintln!("Match {} timeline `game_id` is zero (see https://github.com/RiotGames/developer-relations/issues/898).", matche);
+            } else if matche[(matche.find('_').unwrap() + 1)..] != game_id.to_string() {
+                return Err(format!(
+                    "Match {} timeline number ID should match `game_id` {}.",
+                    matche, game_id
+                ));
             }
         }
         if m.info.frames.is_empty() {
-            return Err(format!("Match {} timleine should have frames.", matche));
+            return Err(format!("Match {} timeline should have frames.", matche));
         }
         Ok(())
     });

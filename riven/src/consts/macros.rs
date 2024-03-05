@@ -49,10 +49,17 @@ macro_rules! serde_strum_unknown {
                     <&str>::deserialize(deserializer)
                         .map(Into::into)
                         .and_then(|item| match item {
-                            Self::UNKNOWN(unknown) => Err(serde::de::Error::unknown_variant(
-                                &*unknown,
-                                <Self as strum::VariantNames>::VARIANTS,
-                            )),
+                            Self::UNKNOWN(unknown) => {
+                                if unknown.is_empty() {
+                                    // https://github.com/RiotGames/developer-relations/issues/898
+                                    Ok(Self::UNKNOWN(unknown))
+                                } else {
+                                    Err(serde::de::Error::unknown_variant(
+                                        &*unknown,
+                                        <Self as strum::VariantNames>::VARIANTS,
+                                    ))
+                                }
+                            }
                             other => Ok(other),
                         })
                 }
@@ -151,7 +158,8 @@ macro_rules! newtype_enum {
                 {
                     <$repr>::deserialize(deserializer).map(Into::into)
                         .and_then(|item: Self| {
-                            if !item.is_known() {
+                            // Exception for id zero: https://github.com/RiotGames/developer-relations/issues/898
+                            if 0 != item.0 && !item.is_known() {
                                 Err(serde::de::Error::custom(format!(
                                     "Unknown integer enum variant: {} (\"deny-unknown-enum-variants-integers\" feature is enabled).\nExpected one of the following: {:?}",
                                     item, Self::ALL_KNOWN

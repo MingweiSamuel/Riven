@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version ba7699aed741222f2431e1f3e4ba42c3ac302510
+// Version 031d3e7fc343bd86d82c45559fc79d3a87fa1b82
 
 #![allow(missing_docs)]
 
@@ -999,7 +999,11 @@ pub mod match_v5 {
         #[serde(rename = "gameStartTimestamp")]
         pub game_start_timestamp: i64,
         #[serde(rename = "gameType")]
-        pub game_type: crate::consts::GameType,
+        ///
+        /// Will be `None` if empty string is returned: https://github.com/RiotGames/developer-relations/issues/898
+        #[serde(serialize_with = "crate::consts::serialize_empty_string_none")]
+        #[serde(deserialize_with = "crate::consts::deserialize_empty_string_none")]
+        pub game_type: Option<crate::consts::GameType>,
         /// The first two parts can be used to determine the patch a game was played on.
         #[serde(rename = "gameVersion")]
         pub game_version: String,
@@ -2203,7 +2207,8 @@ pub mod match_v5 {
         #[serde(rename = "events")]
         pub events: std::vec::Vec<MatchTimelineInfoFrameEvent>,
         #[serde(rename = "participantFrames")]
-        pub participant_frames: MatchTimelineInfoFrameParticipantFrames,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub participant_frames: Option<MatchTimelineInfoFrameParticipantFrames>,
         #[serde(rename = "timestamp")]
         pub timestamp: i32,
     }
