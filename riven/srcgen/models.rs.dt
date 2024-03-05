@@ -73,7 +73,7 @@ pub mod {{= dotUtils.changeCase.snakeCase(endpoint) }} {
         /// Will be `None` if empty string is returned: https://github.com/RiotGames/developer-relations/issues/898
         #[serde(serialize_with = "crate::consts::serialize_empty_string_none")]
         #[serde(deserialize_with = "crate::consts::deserialize_empty_string_none")]
-        pub {{= name }}: Option<{{= dotUtils.stringifyType(prop, {}) }}>,
+        pub {{= name }}: Option<crate::consts::GameType>,
 {{??}}
         pub {{= name }}: {{= dotUtils.stringifyType(prop, { optional }) }},
 {{?}}

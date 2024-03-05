@@ -31,38 +31,5 @@ pub enum GameType {
     TUTORIAL_GAME,
 }
 
-impl GameType {
-    /// https://github.com/RiotGames/developer-relations/issues/898
-    pub(crate) fn serialize_empty<S>(
-        val: &Option<Self>,
-        serializer: S,
-    ) -> Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::Serialize;
-        if let Some(val) = val {
-            val.serialize(serializer)
-        } else {
-            "".serialize(serializer)
-        }
-    }
-
-    /// https://github.com/RiotGames/developer-relations/issues/898
-    pub(crate) fn deserialize_empty<'de, D>(
-        deserializer: D,
-    ) -> Result<Option<Self>, D::Error>
-    where
-        D: serde::de::Deserializer<'de>,
-    {
-        use serde::de::IntoDeserializer;
-        let opt = Option::<String>::deserialize(deserializer)?;
-        match opt.as_deref() {
-            None | Some("") => Ok(None),
-            Some(s) => Self::deserialize(s.into_deserializer()).map(Some)
-        }
-    }
-}
-
 #[cfg(test)]
 mod test;
