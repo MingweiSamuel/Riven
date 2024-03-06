@@ -57,10 +57,28 @@ impl RegionalRequester {
                     .send();
                 #[cfg(feature = "tracing")]
                 let request_clone = request_clone.instrument(tracing::info_span!("request"));
-                let response = request_clone
-                    .await
-                    .map_err(|e| RiotApiError::new(e, retries, None, None))?;
-
+                let response = request_clone.await;
+                let response = match response {
+                    Ok(response) => response,
+                    // Check for lower level errors, like connection errors.
+                    Err(e) => {
+                        if retries >= config.retries {
+                            log::debug!(
+                                "Request failed (retried {} times), failure, returning error.",
+                                retries
+                            );
+                            break Err(RiotApiError::new(e, retries, None, None));
+                        }
+                        let delay = Duration::from_secs(2_u64.pow(retries as u32));
+                        log::debug!("Request failed with cause \"{}\", (retried {} times), using exponential backoff, retrying after {:?}.", e.to_string(), retries, delay);
+                        let backoff = sleep(delay);
+                        #[cfg(feature = "tracing")]
+                        let backoff = backoff.instrument(tracing::info_span!("backoff"));
+                        backoff.await;
+                        retries += 1;
+                        continue;
+                    }
+                };
                 // Maybe update rate limits (based on response headers).
                 // Use single bar for no short circuiting.
                 let retry_after_app = self.app_rate_limit.on_response(config, &response);
