@@ -5,10 +5,7 @@ use testutils::*;
 
 const ROUTE: RegionalRoute = RegionalRoute::AMERICAS;
 
-static MATCHES: &[&str] = &[
-    "NA1_4265913704", // `match-v5.ParticipantDto.challenges.mejaisFullStackInTime`
-    "NA1_4924008147",
-];
+static MATCHES: &[&str] = &["NA1_4924008147"];
 
 /// Account-v1
 #[riven_test]
