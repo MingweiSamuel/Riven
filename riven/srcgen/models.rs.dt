@@ -49,10 +49,16 @@ pub mod {{= dotUtils.changeCase.snakeCase(endpoint) }} {
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct {{= schemaName }} {
 {{
+            const usedNames = new Set();
             for (let [ propKey, prop ] of Object.entries(props))
             {
-                const name = dotUtils.normalizePropName(propKey);
                 const optional = !requiredSet.has(propKey);
+
+                let name = dotUtils.normalizePropName(propKey);
+                while (usedNames.has(name)) {
+                    name += '_';
+                }
+                usedNames.add(name);
 }}
 {{? prop.description }}
         /// {{= prop.description.split('\n').map(x => x.trim()).join('<br>\r\n        /// ') }}
