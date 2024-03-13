@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 031d3e7fc343bd86d82c45559fc79d3a87fa1b82
+// Version 879affafe206ccc5b48127e68c0bd466fcc73c84
 
 #![allow(missing_docs)]
 
@@ -2376,6 +2376,9 @@ pub mod spectator_v4 {
         /// List of Game Customizations
         #[serde(rename = "gameCustomizationObjects")]
         pub game_customization_objects: std::vec::Vec<GameCustomizationObject>,
+        #[serde(rename = "riotId")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub riot_id: Option<String>,
     }
     /// Perks data object.
     #[derive(Clone, Debug)]
@@ -2489,6 +2492,9 @@ pub mod spectator_v4 {
         /// The ID of the first summoner spell used by this participant
         #[serde(rename = "spell1Id")]
         pub spell1_id: i64,
+        #[serde(rename = "riotId")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub riot_id: Option<String>,
     }
 }
 
@@ -2528,7 +2534,8 @@ pub mod spectator_v5 {
         pub banned_champions: std::vec::Vec<BannedChampion>,
         /// The queue type (queue types are documented on the Game Constants page)
         #[serde(rename = "gameQueueConfigId")]
-        pub game_queue_config_id: crate::consts::Queue,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub game_queue_config_id: Option<crate::consts::Queue>,
         /// The observer information
         #[serde(rename = "observers")]
         pub observers: Observer,
@@ -2570,7 +2577,8 @@ pub mod spectator_v5 {
         pub champion_id: crate::consts::Champion,
         /// Perks/Runes Reforged Information
         #[serde(rename = "perks")]
-        pub perks: Perks,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub perks: Option<Perks>,
         /// The ID of the profile icon used by this participant
         #[serde(rename = "profileIconId")]
         pub profile_icon_id: i64,
@@ -2599,6 +2607,9 @@ pub mod spectator_v5 {
         /// List of Game Customizations
         #[serde(rename = "gameCustomizationObjects")]
         pub game_customization_objects: std::vec::Vec<GameCustomizationObject>,
+        #[serde(rename = "riotId")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub riot_id: Option<String>,
     }
     /// Perks data object.
     #[derive(Clone, Debug)]
@@ -2712,6 +2723,9 @@ pub mod spectator_v5 {
         /// The ID of the first summoner spell used by this participant
         #[serde(rename = "spell1Id")]
         pub spell1_id: i64,
+        #[serde(rename = "riotId")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub riot_id: Option<String>,
     }
 }
 
@@ -2980,6 +2994,19 @@ pub mod tft_match_v1 {
         #[serde(rename = "endOfGameResult")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub end_of_game_result: Option<String>,
+        #[serde(rename = "gameCreation")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub game_creation: Option<i64>,
+        #[serde(rename = "gameId")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub game_id: Option<i64>,
+        #[serde(rename = "mapId")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub map_id: Option<i64>,
+        /// Please refer to the League of Legends documentation.
+        #[serde(rename = "queueId")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub queue_id_: Option<crate::consts::Queue>,
     }
     /// Participant data object.
     #[derive(Clone, Debug)]
@@ -3024,6 +3051,9 @@ pub mod tft_match_v1 {
         /// A list of active units for the participant.
         #[serde(rename = "units")]
         pub units: std::vec::Vec<Unit>,
+        #[serde(rename = "missions")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub missions: Option<ParticipantMissions>,
     }
     /// Trait data object.
     #[derive(Clone, Debug)]
@@ -3091,6 +3121,90 @@ pub mod tft_match_v1 {
         pub content_id: String,
         #[serde(rename = "species")]
         pub species: String,
+    }
+    /// ParticipantMissions data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct ParticipantMissions {
+        #[serde(rename = "Assists")]
+        pub assists: i32,
+        #[serde(rename = "DamageDealt")]
+        pub damage_dealt: i32,
+        #[serde(rename = "DamageDealtToObjectives")]
+        pub damage_dealt_to_objectives: i32,
+        #[serde(rename = "DamageDealtToTurrets")]
+        pub damage_dealt_to_turrets: i32,
+        #[serde(rename = "DamageTaken")]
+        pub damage_taken: i32,
+        #[serde(rename = "DoubleKills")]
+        pub double_kills: i32,
+        #[serde(rename = "GoldEarned")]
+        pub gold_earned: i32,
+        #[serde(rename = "GoldSpent")]
+        pub gold_spent: i32,
+        #[serde(rename = "InhibitorsDestroyed")]
+        pub inhibitors_destroyed: i32,
+        #[serde(rename = "Kills")]
+        pub kills: i32,
+        #[serde(rename = "LargestKillingSpree")]
+        pub largest_killing_spree: i32,
+        #[serde(rename = "LargestMultiKill")]
+        pub largest_multi_kill: i32,
+        #[serde(rename = "MagicDamageDealt")]
+        pub magic_damage_dealt: i32,
+        #[serde(rename = "MagicDamageDealtToChampions")]
+        pub magic_damage_dealt_to_champions: i32,
+        #[serde(rename = "NeutralMinionsKilledTeamJungle")]
+        pub neutral_minions_killed_team_jungle: i32,
+        #[serde(rename = "PhysicalDamageDealt")]
+        pub physical_damage_dealt: i32,
+        #[serde(rename = "PhysicalDamageTaken")]
+        pub physical_damage_taken: i32,
+        #[serde(rename = "PlayerScore0")]
+        pub player_score0: i32,
+        #[serde(rename = "PlayerScore1")]
+        pub player_score1: i32,
+        #[serde(rename = "PlayerScore2")]
+        pub player_score2: i32,
+        #[serde(rename = "PlayerScore3")]
+        pub player_score3: i32,
+        #[serde(rename = "PlayerScore4")]
+        pub player_score4: i32,
+        #[serde(rename = "PlayerScore5")]
+        pub player_score5: i32,
+        #[serde(rename = "PlayerScore6")]
+        pub player_score6: i32,
+        #[serde(rename = "PlayerScore9")]
+        pub player_score9: i32,
+        #[serde(rename = "PlayerScore10")]
+        pub player_score10: i32,
+        #[serde(rename = "PlayerScore11")]
+        pub player_score11: i32,
+        #[serde(rename = "QuadraKills")]
+        pub quadra_kills: i32,
+        #[serde(rename = "Spell1Casts")]
+        pub spell1_casts: i32,
+        #[serde(rename = "Spell2Casts")]
+        pub spell2_casts: i32,
+        #[serde(rename = "Spell3Casts")]
+        pub spell3_casts: i32,
+        #[serde(rename = "Spell4Casts")]
+        pub spell4_casts: i32,
+        #[serde(rename = "SummonerSpell1Casts")]
+        pub summoner_spell1_casts: i32,
+        #[serde(rename = "TimeCCOthers")]
+        pub time_cc_others: i32,
+        #[serde(rename = "TotalMinionsKilled")]
+        pub total_minions_killed: i32,
+        #[serde(rename = "TrueDamageDealtToChampions")]
+        pub true_damage_dealt_to_champions: i32,
+        #[serde(rename = "UnrealKills")]
+        pub unreal_kills: i32,
+        #[serde(rename = "VisionScore")]
+        pub vision_score: i32,
+        #[serde(rename = "WardsKilled")]
+        pub wards_killed: i32,
     }
 }
 
