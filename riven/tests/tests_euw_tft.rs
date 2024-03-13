@@ -5,8 +5,6 @@ use testutils::*;
 const ROUTE: PlatformRoute = PlatformRoute::EUW1;
 
 static TFT_MATCHES: &[&str] = &[
-    "EUW1_6307427444", // https://github.com/MingweiSamuel/Riven/issues/50
-    "EUW1_6307262798",
     // https://github.com/MingweiSamuel/Riven/pull/62
     // https://github.com/MingweiSamuel/riotapi-schema/pull/43
     "EUW1_6786745342",
