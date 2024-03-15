@@ -2,7 +2,7 @@ mod testutils;
 use futures::future::join_all;
 use riven::consts::*;
 use riven::models::summoner_v4::Summoner;
-use testutils::{riot_api, riven_test};
+use testutils::*;
 
 const ROUTE: PlatformRoute = PlatformRoute::TR1;
 
@@ -32,4 +32,19 @@ async fn league_summoner_bulk_test() -> Result<(), String> {
     }
 
     Ok(())
+}
+
+#[riven_test]
+async fn spectator_v4_combo_test() -> Result<(), String> {
+    spectator_v4_combo(ROUTE).await
+}
+
+#[riven_test]
+async fn spectator_v5_combo_test() -> Result<(), String> {
+    spectator_v5_combo(ROUTE).await
+}
+
+#[riven_test]
+async fn spectator_tft_v5_combo_test() -> Result<(), String> {
+    spectator_tft_v5_combo(ROUTE).await
 }
