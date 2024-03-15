@@ -290,6 +290,114 @@ pub async fn match_v5_get_timeline(
     join_all_future_errs(futures).await
 }
 
+pub async fn spectator_v4_combo(route: PlatformRoute) -> Result<(), String> {
+    let featured_p = riot_api().spectator_v4().get_featured_games(route);
+    let featured = featured_p.await.map_err(|e| e.to_string())?;
+
+    if featured.game_list.is_empty() {
+        eprintln!("Featured game list is empty!");
+        return Ok(());
+    }
+
+    let featured_game = &featured.game_list[0];
+    let participant = &featured_game.participants[0];
+    let summoner_id = participant.summoner_id.as_ref().ok_or_else(|| {
+        format!(
+            "Summoner in spectator featured game missing summoner ID: {}",
+            &participant.summoner_name
+        )
+    })?;
+
+    let livegame_p = riot_api()
+        .spectator_v4()
+        .get_current_game_info_by_summoner(route, &summoner_id);
+    let livegame_o = livegame_p.await.map_err(|e| e.to_string())?;
+    if let Some(livegame) = livegame_o {
+        let participant_match = livegame
+            .participants
+            .iter()
+            .find(|p| p.summoner_name == participant.summoner_name);
+        rassert!(
+            participant_match.is_some(),
+            "Failed to find summoner in match: {}.",
+            &participant.summoner_name
+        );
+    }
+    Ok(())
+}
+
+pub async fn spectator_v5_combo(route: PlatformRoute) -> Result<(), String> {
+    let featured_p = riot_api().spectator_v5().get_featured_games(route);
+    let featured = featured_p.await.map_err(|e| e.to_string())?;
+
+    if featured.game_list.is_empty() {
+        eprintln!("Featured game list is empty!");
+        return Ok(());
+    }
+
+    let featured_game = &featured.game_list[0];
+    let participant = &featured_game.participants[0];
+    let puuid = participant.puuid.as_ref().ok_or_else(|| {
+        format!(
+            "Summoner in spectator featured game missing summoner ID: {}",
+            &participant.summoner_name
+        )
+    })?;
+
+    let livegame_p = riot_api()
+        .spectator_v5()
+        .get_current_game_info_by_puuid(route, &puuid);
+    let livegame_o = livegame_p.await.map_err(|e| e.to_string())?;
+    if let Some(livegame) = livegame_o {
+        let participant_match = livegame
+            .participants
+            .iter()
+            .find(|p| p.summoner_name == participant.summoner_name);
+        rassert!(
+            participant_match.is_some(),
+            "Failed to find summoner in match: {}.",
+            &participant.summoner_name
+        );
+    }
+    Ok(())
+}
+
+pub async fn spectator_tft_v5_combo(route: PlatformRoute) -> Result<(), String> {
+    let featured_p = riot_api().spectator_tft_v5().get_featured_games(route);
+    let featured = featured_p.await.map_err(|e| e.to_string())?;
+
+    if featured.game_list.is_empty() {
+        eprintln!("Featured game list is empty!");
+        return Ok(());
+    }
+
+    let featured_game = &featured.game_list[0];
+    let participant = &featured_game.participants[0];
+    let puuid = participant.puuid.as_ref().ok_or_else(|| {
+        format!(
+            "Summoner in spectator featured game missing summoner ID: {}",
+            &participant.summoner_name
+        )
+    })?;
+
+    let livegame_p = riot_api()
+        .spectator_tft_v5()
+        .get_current_game_info_by_puuid(route, &puuid);
+    let livegame_o = livegame_p.await.map_err(|e| e.to_string())?;
+    if let Some(livegame) = livegame_o {
+        let participant_match = livegame
+            .participants
+            .iter()
+            .find(|p| p.summoner_name == participant.summoner_name);
+        rassert!(
+            participant_match.is_some(),
+            "Failed to find summoner in match: {}.",
+            &participant.summoner_name
+        );
+    }
+    Ok(())
+}
+
 /// Joins all futures and keeps ALL error messages, separated by newlines.
 async fn join_all_future_errs<T>(
     result_tasks: impl Iterator<Item = impl Future<Output = Result<T, String>>>,
