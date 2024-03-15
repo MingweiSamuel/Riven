@@ -23,6 +23,8 @@ static MATCHES: &[&str] = &[
     //
     "EUW1_6569580003",
     "EUW1_6834713231",
+    // Timeline `OBJECTIVE_BOUNTY_PRESTART` https://github.com/MingweiSamuel/riotapi-schema/issues/45
+    "EUW1_6852390800",
 ];
 
 #[riven_test]
