@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version b7bbeb7db6b83260e4a4252fa4f53b8ca5d57ab0
+// Version a0245ecf8ad0137ea19e1edfa8241a8cbc57c208
 
 #![allow(missing_docs)]
 
@@ -2351,9 +2351,6 @@ pub mod spectator_tft_v5 {
         /// The ID of the profile icon used by this participant
         #[serde(rename = "profileIconId")]
         pub profile_icon_id: i64,
-        /// Flag indicating whether or not this participant is a bot
-        #[serde(rename = "bot")]
-        pub bot: bool,
         /// The team ID of this participant, indicating the participant's team
         #[serde(rename = "teamId")]
         pub team_id: crate::consts::Team,
@@ -2463,9 +2460,6 @@ pub mod spectator_tft_v5 {
     #[derive(serde::Serialize, serde::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Participant {
-        /// Flag indicating whether or not this participant is a bot
-        #[serde(rename = "bot")]
-        pub bot: bool,
         /// The ID of the second summoner spell used by this participant
         #[serde(rename = "spell2Id")]
         pub spell2_id: i64,
