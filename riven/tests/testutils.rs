@@ -303,15 +303,20 @@ pub async fn spectator_v4_combo(route: PlatformRoute) -> Result<(), String> {
     let participant = &featured_game.participants[0];
     let summoner_id = participant.summoner_id.as_ref().ok_or_else(|| {
         format!(
-            "Summoner in spectator featured game missing summoner ID: {}",
-            &participant.summoner_name
+            "Summoner in spectator featured game {} missing summoner ID: {}",
+            featured_game.game_id, &participant.summoner_name,
         )
     })?;
 
     let livegame_p = riot_api()
         .spectator_v4()
         .get_current_game_info_by_summoner(route, &summoner_id);
-    let livegame_o = livegame_p.await.map_err(|e| e.to_string())?;
+    let livegame_o = livegame_p.await.map_err(|e| {
+        format!(
+            "Failed to get live game {} for summoner ID {}: {}",
+            featured_game.game_id, summoner_id, e,
+        )
+    })?;
     if let Some(livegame) = livegame_o {
         let participant_match = livegame
             .participants
@@ -339,15 +344,20 @@ pub async fn spectator_v5_combo(route: PlatformRoute) -> Result<(), String> {
     let participant = &featured_game.participants[0];
     let puuid = participant.puuid.as_ref().ok_or_else(|| {
         format!(
-            "Summoner in spectator featured game missing summoner ID: {}",
-            &participant.summoner_name
+            "Summoner in spectator featured game {} missing summoner ID: {}",
+            featured_game.game_id, &participant.summoner_name,
         )
     })?;
 
     let livegame_p = riot_api()
         .spectator_v5()
         .get_current_game_info_by_puuid(route, &puuid);
-    let livegame_o = livegame_p.await.map_err(|e| e.to_string())?;
+    let livegame_o = livegame_p.await.map_err(|e| {
+        format!(
+            "Failed to get live game {} for summoner PUUID {}: {}",
+            featured_game.game_id, puuid, e,
+        )
+    })?;
     if let Some(livegame) = livegame_o {
         let participant_match = livegame
             .participants
@@ -375,15 +385,20 @@ pub async fn spectator_tft_v5_combo(route: PlatformRoute) -> Result<(), String> 
     let participant = &featured_game.participants[0];
     let puuid = participant.puuid.as_ref().ok_or_else(|| {
         format!(
-            "Summoner in spectator featured game missing summoner ID: {}",
-            &participant.summoner_name
+            "Summoner in spectator featured game {} missing summoner ID: {}",
+            featured_game.game_id, &participant.summoner_name,
         )
     })?;
 
     let livegame_p = riot_api()
         .spectator_tft_v5()
         .get_current_game_info_by_puuid(route, &puuid);
-    let livegame_o = livegame_p.await.map_err(|e| e.to_string())?;
+    let livegame_o = livegame_p.await.map_err(|e| {
+        format!(
+            "Failed to get live game {} for summoner PUUID {}: {}",
+            featured_game.game_id, puuid, e,
+        )
+    })?;
     if let Some(livegame) = livegame_o {
         let participant_match = livegame
             .participants
