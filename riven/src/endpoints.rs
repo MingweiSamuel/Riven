@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 879affafe206ccc5b48127e68c0bd466fcc73c84
+// Version b7bbeb7db6b83260e4a4252fa4f53b8ca5d57ab0
 
 //! Automatically generated endpoint handles.
 #![allow(clippy::let_and_return, clippy::too_many_arguments)]
@@ -161,6 +161,15 @@ impl RiotApi {
     #[inline]
     pub fn match_v5(&self) -> MatchV5 {
         MatchV5 { base: self }
+    }
+    /// Returns a handle for accessing [SpectatorTftV5](crate::endpoints::SpectatorTftV5) endpoints.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/apis#spectator-tft-v5" target="_blank">`spectator-tft-v5`</a>
+    ///
+    /// Note: this method is automatically generated.
+    #[inline]
+    pub fn spectator_tft_v5(&self) -> SpectatorTftV5 {
+        SpectatorTftV5 { base: self }
     }
     /// Returns a handle for accessing [SpectatorV4](crate::endpoints::SpectatorV4) endpoints.
     /// # Riot Developer API Reference
@@ -1226,6 +1235,55 @@ impl<'a> MatchV5<'a> {
         let future = self.base.execute_opt::<match_v5::MatchTimeline>("match-v5.getTimeline", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("match-v5.getTimeline"));
+        future
+    }
+
+}
+
+/// SpectatorTftV5 endpoints handle, accessed by calling [`spectator_tft_v5()`](crate::RiotApi::spectator_tft_v5) on a [`RiotApi`](crate::RiotApi) instance.
+/// # Riot Developer API Reference
+/// <a href="https://developer.riotgames.com/apis#spectator-tft-v5" target="_blank">`spectator-tft-v5`</a>
+///
+/// Note: this struct is automatically generated.
+#[repr(transparent)]
+pub struct SpectatorTftV5<'a> {
+    base: &'a RiotApi,
+}
+impl<'a> SpectatorTftV5<'a> {
+    /// Get current game information for the given puuid.
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// * `encrypted_puuid` (required, in path) - The puuid of the summoner.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#spectator-tft-v5/GET_getCurrentGameInfoByPuuid" target="_blank">`spectator-tft-v5.getCurrentGameInfoByPuuid`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_current_game_info_by_puuid(&self, route: PlatformRoute, encrypted_puuid: &str)
+        -> impl Future<Output = Result<Option<spectator_tft_v5::CurrentGameInfo>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/spectator/tft/v5/active-games/by-puuid/{}", encrypted_puuid));
+        let future = self.base.execute_opt::<spectator_tft_v5::CurrentGameInfo>("spectator-tft-v5.getCurrentGameInfoByPuuid", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("spectator-tft-v5.getCurrentGameInfoByPuuid"));
+        future
+    }
+
+    /// Get list of featured games.
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#spectator-tft-v5/GET_getFeaturedGames" target="_blank">`spectator-tft-v5.getFeaturedGames`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_featured_games(&self, route: PlatformRoute)
+        -> impl Future<Output = Result<spectator_tft_v5::FeaturedGames>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/lol/spectator/tft/v5/featured-games");
+        let future = self.base.execute_val::<spectator_tft_v5::FeaturedGames>("spectator-tft-v5.getFeaturedGames", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("spectator-tft-v5.getFeaturedGames"));
         future
     }
 

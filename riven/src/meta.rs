@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 879affafe206ccc5b48127e68c0bd466fcc73c84
+// Version b7bbeb7db6b83260e4a4252fa4f53b8ca5d57ab0
 
 //! Metadata about the Riot API and Riven.
 //!
@@ -16,7 +16,7 @@
 
 /// Metadata for endpoints. Each tuple corresponds to one endpoint and contains
 /// the HTTP [`Method`](reqwest::Method), `str` path, and the method's `str` ID.
-pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 82] = [
+pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 84] = [
     (reqwest::Method::GET, "/riot/account/v1/accounts/by-puuid/{puuid}", "account-v1.getByPuuid"),
     (reqwest::Method::GET, "/riot/account/v1/accounts/by-riot-id/{gameName}/{tagLine}", "account-v1.getByRiotId"),
     (reqwest::Method::GET, "/riot/account/v1/accounts/me", "account-v1.getByAccessToken"),
@@ -56,6 +56,8 @@ pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 82] = [
     (reqwest::Method::GET, "/lol/match/v5/matches/by-puuid/{puuid}/ids", "match-v5.getMatchIdsByPUUID"),
     (reqwest::Method::GET, "/lol/match/v5/matches/{matchId}", "match-v5.getMatch"),
     (reqwest::Method::GET, "/lol/match/v5/matches/{matchId}/timeline", "match-v5.getTimeline"),
+    (reqwest::Method::GET, "/lol/spectator/tft/v5/active-games/by-puuid/{encryptedPUUID}", "spectator-tft-v5.getCurrentGameInfoByPuuid"),
+    (reqwest::Method::GET, "/lol/spectator/tft/v5/featured-games", "spectator-tft-v5.getFeaturedGames"),
     (reqwest::Method::GET, "/lol/spectator/v4/active-games/by-summoner/{encryptedSummonerId}", "spectator-v4.getCurrentGameInfoBySummoner"),
     (reqwest::Method::GET, "/lol/spectator/v4/featured-games", "spectator-v4.getFeaturedGames"),
     (reqwest::Method::GET, "/lol/spectator/v5/active-games/by-summoner/{encryptedPUUID}", "spectator-v5.getCurrentGameInfoByPuuid"),
