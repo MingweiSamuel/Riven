@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version a0245ecf8ad0137ea19e1edfa8241a8cbc57c208
+// Version 97a4372ab6ab79e7dd10ed65e3785fdbcec5ad2d
 
 #![allow(missing_docs)]
 
@@ -1937,7 +1937,7 @@ pub mod match_v5 {
         #[serde(rename = "timestamp")]
         pub timestamp: i32,
         /// Timeline event type.<br>
-        /// (Known legal values: ASCENDED_EVENT, BUILDING_KILL, CAPTURE_POINT, CHAMPION_KILL, CHAMPION_SPECIAL_KILL, CHAMPION_TRANSFORM, DRAGON_SOUL_GIVEN, ELITE_MONSTER_KILL, GAME_END, ITEM_DESTROYED, ITEM_PURCHASED, ITEM_SOLD, ITEM_UNDO, LEVEL_UP, PAUSE_END, PAUSE_START, SKILL_LEVEL_UP, TURRET_PLATE_DESTROYED, WARD_KILL, WARD_PLACED)
+        /// (Known legal values: ASCENDED_EVENT, BUILDING_KILL, CAPTURE_POINT, CHAMPION_KILL, CHAMPION_SPECIAL_KILL, CHAMPION_TRANSFORM, DRAGON_SOUL_GIVEN, ELITE_MONSTER_KILL, GAME_END, ITEM_DESTROYED, ITEM_PURCHASED, ITEM_SOLD, ITEM_UNDO, LEVEL_UP, OBJECTIVE_BOUNTY_FINISH, OBJECTIVE_BOUNTY_PRESTART, PAUSE_END, PAUSE_START, SKILL_LEVEL_UP, TURRET_PLATE_DESTROYED, WARD_KILL, WARD_PLACED)
         #[serde(rename = "type")]
         pub r#type: String,
         #[serde(rename = "itemId")]
