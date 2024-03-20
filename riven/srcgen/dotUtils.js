@@ -97,8 +97,12 @@ function stringifyType(prop, { endpoint = null, optional = false, fullpath = tru
   }
 }
 
-function formatJsonProperty(name) {
-  return `#[serde(rename = "${name}")]`;
+function formatJsonProperty(name, prop) {
+  const alias = prop['x-alias'];
+  if (alias)
+    return `#[serde(rename = ${JSON.stringify(name)}, alias = ${JSON.stringify(alias)})]`;
+  else
+    return `#[serde(rename = ${JSON.stringify(name)})]`;
 }
 
 function formatAddQueryParam(param) {
