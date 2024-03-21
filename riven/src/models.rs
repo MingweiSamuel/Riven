@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version ad82c899701ee846ad2a22d04ad2f746aa5987b0
+// Version 17d2130981b1c9afd7f3143bff7d109f23910066
 
 #![allow(missing_docs)]
 
@@ -3430,6 +3430,33 @@ pub mod tft_match_v1 {
         pub vision_score: i32,
         #[serde(rename = "WardsKilled")]
         pub wards_killed: i32,
+        #[serde(rename = "Deaths")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub deaths: Option<i32>,
+        #[serde(rename = "KillingSprees")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub killing_sprees: Option<i32>,
+        #[serde(rename = "MagicDamageTaken")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub magic_damage_taken: Option<i32>,
+        #[serde(rename = "PentaKills")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub penta_kills: Option<i32>,
+        #[serde(rename = "PhysicalDamageDealtToChampions")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub physical_damage_dealt_to_champions: Option<i32>,
+        #[serde(rename = "TotalDamageDealtToChampions")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub total_damage_dealt_to_champions: Option<i32>,
+        #[serde(rename = "TripleKills")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub triple_kills: Option<i32>,
+        #[serde(rename = "TrueDamageDealt")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub true_damage_dealt: Option<i32>,
+        #[serde(rename = "TrueDamageTaken")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub true_damage_taken: Option<i32>,
     }
 }
 
