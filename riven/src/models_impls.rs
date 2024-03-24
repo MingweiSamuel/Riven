@@ -18,4 +18,16 @@ impl Participant {
         #[allow(deprecated)]
         self.champion_id.or_else(|_| self.champion_name.parse())
     }
+
+    /// This method returns the name portion of the riot ID for this summoner.
+    ///
+    /// Prior to patch 14.5, this was in the [`Self::riot_id_name`] field.
+    /// After, this moved to the `Self.riot_id_game_name` field.
+    ///
+    /// This method simply returns whichever of the two fields is not `None`.
+    pub fn riot_id_game_name(&self) -> Option<&str> {
+        self.riot_id_game_name
+            .as_deref()
+            .or(self.riot_id_name.as_deref())
+    }
 }
