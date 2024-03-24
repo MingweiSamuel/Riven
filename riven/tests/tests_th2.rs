@@ -11,3 +11,13 @@ async fn status() -> Result<(), String> {
     let _ = status;
     Ok(())
 }
+
+#[riven_test]
+async fn spectator_v5_combo_test() -> Result<(), String> {
+    spectator_v5_combo(ROUTE).await
+}
+
+#[riven_test]
+async fn spectator_tft_v5_combo_test() -> Result<(), String> {
+    spectator_tft_v5_combo(ROUTE).await
+}
