@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 17d2130981b1c9afd7f3143bff7d109f23910066
+// Version 09d8c1d0fc1a3876de2513931c9cb27a616c8768
 
 #![allow(missing_docs)]
 
@@ -1170,9 +1170,11 @@ pub mod match_v5 {
         pub puuid: String,
         #[serde(rename = "quadraKills")]
         pub quadra_kills: i32,
+        /// Replaced by `riotIdGameName` in games played in patch 14.5 and after.
         #[serde(rename = "riotIdName")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub riot_id_name: Option<String>,
+        /// Use `riotIdName` for games before patch 14.5.
         #[serde(rename = "riotIdGameName")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub riot_id_game_name: Option<String>,
@@ -1901,29 +1903,29 @@ pub mod match_v5 {
     #[derive(serde::Serialize, serde::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct ParticipantMissions {
-        #[serde(rename = "playerScore0", alias = "PlayerScore0")]
+        #[serde(rename = "PlayerScore0", alias = "playerScore0")]
         pub player_score0: i32,
-        #[serde(rename = "playerScore1", alias = "PlayerScore1")]
+        #[serde(rename = "PlayerScore1", alias = "playerScore1")]
         pub player_score1: i32,
-        #[serde(rename = "playerScore10", alias = "PlayerScore10")]
+        #[serde(rename = "PlayerScore10", alias = "playerScore10")]
         pub player_score10: i32,
-        #[serde(rename = "playerScore11", alias = "PlayerScore11")]
+        #[serde(rename = "PlayerScore11", alias = "playerScore11")]
         pub player_score11: i32,
-        #[serde(rename = "playerScore2", alias = "PlayerScore2")]
+        #[serde(rename = "PlayerScore2", alias = "playerScore2")]
         pub player_score2: i32,
-        #[serde(rename = "playerScore3", alias = "PlayerScore3")]
+        #[serde(rename = "PlayerScore3", alias = "playerScore3")]
         pub player_score3: i32,
-        #[serde(rename = "playerScore4", alias = "PlayerScore4")]
+        #[serde(rename = "PlayerScore4", alias = "playerScore4")]
         pub player_score4: i32,
-        #[serde(rename = "playerScore5", alias = "PlayerScore5")]
+        #[serde(rename = "PlayerScore5", alias = "playerScore5")]
         pub player_score5: i32,
-        #[serde(rename = "playerScore6", alias = "PlayerScore6")]
+        #[serde(rename = "PlayerScore6", alias = "playerScore6")]
         pub player_score6: i32,
-        #[serde(rename = "playerScore7", alias = "PlayerScore7")]
+        #[serde(rename = "PlayerScore7", alias = "playerScore7")]
         pub player_score7: i32,
-        #[serde(rename = "playerScore8", alias = "PlayerScore8")]
+        #[serde(rename = "PlayerScore8", alias = "playerScore8")]
         pub player_score8: i32,
-        #[serde(rename = "playerScore9", alias = "PlayerScore9")]
+        #[serde(rename = "PlayerScore9", alias = "playerScore9")]
         pub player_score9: i32,
     }
     /// MatchTimelineInfoFrameEvent data object.
