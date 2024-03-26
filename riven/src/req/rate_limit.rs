@@ -9,7 +9,7 @@ use tracing as log;
 
 use super::{RateLimitType, TokenBucket, VectorTokenBucket};
 use crate::time::{sleep, Duration, Instant};
-use crate::util::Notify;
+use tokio::sync::Notify;
 use crate::RiotApiConfig;
 
 pub struct RateLimit {
