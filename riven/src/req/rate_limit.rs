@@ -54,8 +54,8 @@ impl RateLimit {
         while let Some(delay) = Self::acquire_both_or_duration(app_rate_limit, method_rate_limit) {
             futures::select_biased! {
                 _ = sleep(delay).fuse() => continue,
-                _ = method_rate_limit.update_notify.notified().fuse() => {}
-                _ = app_rate_limit.update_notify.notified().fuse() => {}
+                _ = method_rate_limit.update_notify.notified() => {}
+                _ = app_rate_limit.update_notify.notified() => {}
             };
             log::trace!("Task awoken due to rate limit update.");
         }
