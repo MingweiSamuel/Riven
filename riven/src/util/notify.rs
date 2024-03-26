@@ -41,3 +41,24 @@ impl Notify {
         self.waiters.lock().drain(..).for_each(Waker::wake);
     }
 }
+
+#[cfg(all(test, not(target_family = "wasm")))]
+mod test {
+    use futures::FutureExt;
+
+    use super::*;
+
+    #[tokio::test]
+    async fn memory_leak() {
+        let notify = Notify::new();
+
+        for _ in 0..100 {
+            futures::select_biased! {
+                _ = notify.notified().fuse() => {}
+                _ = tokio::task::yield_now().fuse() => {}
+            }
+        }
+
+        assert_eq!(0, notify.waiters.lock().len());
+    }
+}
