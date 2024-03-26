@@ -9,4 +9,4 @@ cd riven
 wasm-pack build -- --features nightly,tracing
 
 # Run tests.
-wasm-pack test --node -- --no-fail-fast --features nightly,deny-unknown
+wasm-pack test --node -- --features nightly,deny-unknown
