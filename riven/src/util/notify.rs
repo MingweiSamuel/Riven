@@ -6,6 +6,8 @@ use futures::future::FusedFuture;
 use futures::FutureExt;
 use parking_lot::Mutex;
 use slab::Slab;
+#[cfg(feature = "tracing")]
+use tracing as log;
 
 #[derive(Default)]
 pub struct Notify {
@@ -64,10 +66,10 @@ impl Notify {
                     // Ensure generation matches before removing, to prevent ABA problem.
                     // If no match, means `Notify::notify_waiters` has already been called and deallocated us.
                     if internal.generation == generation {
-                        internal
-                            .waiters
-                            .try_remove(key)
-                            .expect("Expected to drop registered `Notified` but waker not found.");
+                        if internal.waiters.try_remove(key).is_none() {
+                            // Rare race condition to get here, maybe?
+                            log::trace!("Tried to de-register `Notified` on drop but corresponding waker not found.");
+                        }
                         internal.waiters.shrink_to_fit();
                     }
                 }
