@@ -14,6 +14,9 @@ use crate::models::*;
 use std::future::Future;
 use std::vec::Vec;
 
+#[cfg(feature="metrics")]
+use crate::metrics;
+
 #[cfg(feature="tracing")]
 use tracing::Instrument;
 use reqwest::Method;
@@ -201,6 +204,8 @@ impl<'a> {{= endpoint }}<'a> {
         let future = self.base.execute{{= hasReturn ? (returnOptional ? '_opt' : '_val') : '' }}{{= returnTypeTurbofish }}("{{= operationId }}", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("{{= operationId }}"));
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "{{= operationId }}", route_str);
         future
     }
 

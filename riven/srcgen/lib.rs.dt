@@ -26,6 +26,9 @@ pub use error::*;
 
 pub mod meta;
 
+#[cfg(feature = "metrics")]
+mod metrics;
+
 #[rustfmt::skip]
 pub mod models;
 mod models_impls;

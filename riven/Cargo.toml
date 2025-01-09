@@ -26,6 +26,8 @@ default-tls = [ "reqwest/default-tls" ]
 native-tls = [ "reqwest/native-tls" ]
 rustls-tls = [ "reqwest/rustls-tls" ]
 
+metrics = ["dep:metrics", "dep:pin-project"]
+
 deny-unknown = [ "deny-unknown-fields", "deny-unknown-enum-variants" ]
 # If enabled, extra unknown fields encountered during deserialization will
 # cause an error instead of being ignored.
@@ -46,8 +48,10 @@ required-features = [ "__proxy" ]
 futures = "0.3"
 log = "0.4"
 memo-map = "0.3"
+metrics = { version = "0.24", optional = true }
 num_enum = "0.5"
 parking_lot = "0.12"
+pin-project = { version = "1.1", optional = true }
 reqwest = { version = "0.11", default-features = false, features = [ "gzip", "json" ] }
 scan_fmt = { version = "0.2", default-features = false }
 serde = { version = "1.0", features = [ "derive" ] }
