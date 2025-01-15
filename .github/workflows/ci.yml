@@ -35,16 +35,16 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
+      # - name: Setup Node
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: 20
 
-      - name: Install Node dependencies
-        run: npm ci --prefix riven/srcgen
+      # - name: Install Node dependencies
+      #   run: npm ci --prefix riven/srcgen
 
-      - name: Run codegen
-        run: node riven/srcgen
+      # - name: Run codegen
+      #   run: node riven/srcgen
 
       - name: Install Rust nightly toolchain
         uses: actions-rs/toolchain@v1
@@ -121,3 +121,23 @@ jobs:
         with:
           command: clippy
           args: --all-features --all-targets -- -D warnings
+
+  msrv:
+    name: Verify MSRV
+    needs: pre_job
+    if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+
+      - name: Install Rust nightly toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: nightly
+          override: true
+          components: rustfmt
+
+      - run: cargo install cargo-msrv --no-default-features
+      - run: cargo msrv verify --path riven

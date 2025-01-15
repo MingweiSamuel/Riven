@@ -3,7 +3,6 @@ use std::cmp;
 use futures::FutureExt;
 use parking_lot::{RwLock, RwLockUpgradableReadGuard};
 use reqwest::{Response, StatusCode};
-use scan_fmt::scan_fmt;
 #[cfg(feature = "tracing")]
 use tracing as log;
 
@@ -272,11 +271,19 @@ fn buckets_from_header(
     debug_assert!(size == count_header.split(',').count());
     let mut out = Vec::with_capacity(size);
 
+    // Pair: "100:60"
+    fn scan_pair(entry: &str) -> Option<(usize, u64)> {
+        let (val_str, secs_str) = entry.split_once(':')?;
+        let val: usize = val_str.parse().ok()?;
+        let secs: u64 = secs_str.parse().ok()?;
+        Some((val, secs))
+    }
+
     for (limit_entry, count_entry) in limit_header.split(',').zip(count_header.split(',')) {
-        let (limit, limit_secs) = scan_fmt!(limit_entry, "{d}:{d}", usize, u64)
-            .unwrap_or_else(|_| panic!("Failed to parse limit entry \"{}\".", limit_entry));
-        let (count, count_secs) = scan_fmt!(count_entry, "{d}:{d}", usize, u64)
-            .unwrap_or_else(|_| panic!("Failed to parse count entry \"{}\".", count_entry));
+        let (limit, limit_secs) = scan_pair(limit_entry)
+            .unwrap_or_else(|| panic!("Failed to parse limit entry \"{}\".", limit_entry));
+        let (count, count_secs) = scan_pair(count_entry)
+            .unwrap_or_else(|| panic!("Failed to parse count entry \"{}\".", count_entry));
         debug_assert!(limit_secs == count_secs);
 
         let rate_usage_factor = if RateLimitType::Application == rate_limit_type {

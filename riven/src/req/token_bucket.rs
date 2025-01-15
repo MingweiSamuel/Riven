@@ -30,13 +30,15 @@ pub trait TokenBucket {
     /// Get the duration of this bucket.
     /// # Returns
     /// Duration of the bucket.
-    #[allow(dead_code, reason = "false positive")]
+    #[cfg_attr(feature = "nightly", allow(dead_code, reason = "false positive"))]
+    #[cfg_attr(not(feature = "nightly"), allow(dead_code))]
     fn get_bucket_duration(&self) -> Duration;
 
     /// Get the total limit of this bucket per timespan.
     /// # Returns
     /// Total limit per timespan.
-    #[allow(dead_code, reason = "false positive")]
+    #[cfg_attr(feature = "nightly", allow(dead_code, reason = "false positive"))]
+    #[cfg_attr(not(feature = "nightly"), allow(dead_code))]
     fn get_total_limit(&self) -> usize;
 }
 

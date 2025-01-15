@@ -7,12 +7,17 @@ description = "Riot Games API Library"
 readme = "../README.md"
 license = "MIT"
 edition = "2018"
+rust-version = "1.71.1"
 include = ["src/**", "../README.md", "/examples"]
 keywords = ["riot-games", "riot", "league", "league-of-legends"]
 categories = ["api-bindings", "web-programming::http-client", "wasm"]
 
 [lib]
 crate-type = ["cdylib", "rlib"]
+
+[[bin]]
+name = "__bin"
+path = "src/main.rs"
 
 [package.metadata.docs.rs]
 features = ["nightly"]
@@ -48,45 +53,45 @@ name = "proxy"
 required-features = ["__proxy"]
 
 [dependencies]
-futures = "0.3"
-log = "0.4"
-memo-map = "0.3"
-metrics = { version = "0.24", optional = true }
-num_enum = "0.5"
-parking_lot = "0.12"
-reqwest = { version = "0.11", default-features = false, features = [
+futures = "0.3.0"
+log = "0.4.8"
+memo-map = "0.3.0"
+metrics = { version = "0.24.0", optional = true }
+num_enum = "0.5.0"
+parking_lot = "0.12.0"
+reqwest = { version = "0.11.2", default-features = false, features = [
     "gzip",
     "json",
 ] }
-scan_fmt = { version = "0.2", default-features = false }
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
-serde_repr = "0.1"
-slab = "0.4"
-strum = "0.20"
-strum_macros = "0.20"
-tracing = { version = "0.1", optional = true }
+serde = { version = "1.0.85", features = ["derive"] }
+serde_derive = "1.0.85"
+serde_json = "1.0.1"
+serde_repr = "0.1.0"
+slab = "0.4.4"
+strum = "0.20.0"
+strum_macros = "0.20.0"
+tracing = { version = "0.1.22", optional = true }
 
 [target.'cfg(not(target_family = "wasm"))'.dependencies]
-tokio = { version = "1", default-features = false, features = ["time"] }
+tokio = { version = "1.20.0", default-features = false, features = ["time"] }
 
 [target.'cfg(target_family = "wasm")'.dependencies]
 gloo-timers = { version = "0.3", features = ["futures"] }
 web-time = "1.0.0"
 
 [dev-dependencies]
-env_logger = "0.11.0"
+env_logger = ">=0.10.0,<0.12.0"
 fake_instant = "0.5.0"
-tracing = "0.1"
+tracing = "0.1.22"
 tracing-subscriber = "0.3.17"
 
 [target.'cfg(not(target_family = "wasm"))'.dev-dependencies]
-hyper = { version = "0.14", features = ["server"] }
-tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
-tokio-shared-rt = "0.1"
+hyper = { version = "0.14.5", features = ["server"] }
+tokio = { version = "1.20.0", features = ["macros", "rt-multi-thread"] }
+tokio-shared-rt = "0.1.0"
 
 [target.'cfg(target_family = "wasm")'.dev-dependencies]
 console_error_panic_hook = "0.1"
 console_log = "1.0"
-wasm-bindgen = "0.2"
+wasm-bindgen = "0.2.70"
 wasm-bindgen-test = "0.3"
