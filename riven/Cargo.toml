@@ -15,10 +15,6 @@ categories = ["api-bindings", "web-programming::http-client", "wasm"]
 [lib]
 crate-type = ["cdylib", "rlib"]
 
-[[bin]]
-name = "__bin"
-path = "src/main.rs"
-
 [package.metadata.docs.rs]
 features = ["nightly"]
 
