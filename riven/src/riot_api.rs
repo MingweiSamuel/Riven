@@ -237,7 +237,7 @@ impl RiotApi {
                 Err(e) => Some(Err(e)),
             }
         } else {
-            return None;
+            None
         }
     }
 
@@ -296,20 +296,16 @@ impl RiotApi {
     ///
     /// # Returns
     /// A future resolving to a `Result` containg either a `ResponseInfo` (success) or a `RiotApiError` (failure).
-    pub fn execute_raw(
+    pub async fn execute_raw(
         &self,
         method_id: &'static str,
         region_platform: &'static str,
         request: RequestBuilder,
-    ) -> impl Future<Output = Result<ResponseInfo>> + '_ {
-        async move {
-            self.regional_requester(region_platform)
-                .execute(&self.config, method_id, request, None)
-                .await
-                .expect(
-                    "regional_requester.excute only returns None when min_capacity is Some(f32)",
-                )
-        }
+    ) -> Result<ResponseInfo> {
+        self.regional_requester(region_platform)
+            .execute(&self.config, method_id, request, None)
+            .await
+            .expect("regional_requester.excute only returns None when min_capacity is Some(f32)")
     }
 
     /// This method should generally not be used directly. Consider using endpoint wrappers instead.

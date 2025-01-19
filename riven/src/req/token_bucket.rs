@@ -136,7 +136,7 @@ impl VectorTokenBucket {
 
 impl TokenBucket for VectorTokenBucket {
     fn get_capacity(&self) -> f32 {
-        if self.total_limit <= 0 {
+        if self.total_limit == 0 {
             // Handle edge cases by telling the caller we have no capacity.
             return -1.0;
         }
@@ -147,7 +147,7 @@ impl TokenBucket for VectorTokenBucket {
             return -1.0;
         }
 
-        return 1.0 - (timestamps.len() as f32 / self.total_limit as f32);
+        1.0 - (timestamps.len() as f32 / self.total_limit as f32)
     }
 
     fn get_delay(&self) -> Option<Duration> {
