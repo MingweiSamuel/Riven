@@ -209,7 +209,7 @@ impl<'a> {{= endpoint }}<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `{{= method }}` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst

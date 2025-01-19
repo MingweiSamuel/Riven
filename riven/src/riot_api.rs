@@ -306,7 +306,9 @@ impl RiotApi {
             self.regional_requester(region_platform)
                 .execute(&self.config, method_id, request, None)
                 .await
-                .unwrap() // excute only returns None if min_capacity is Some(f32)
+                .expect(
+                    "regional_requester.excute only returns None when min_capacity is Some(f32)",
+                )
         }
     }
 

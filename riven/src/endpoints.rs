@@ -333,7 +333,7 @@ impl<'a> AccountV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_by_puuid` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -374,7 +374,7 @@ impl<'a> AccountV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_by_riot_id` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -419,7 +419,7 @@ impl<'a> AccountV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_by_access_token` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -462,7 +462,7 @@ impl<'a> AccountV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_active_shard` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -514,7 +514,7 @@ impl<'a> ChampionMasteryV4<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_all_champion_masteries_by_puuid` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -555,7 +555,7 @@ impl<'a> ChampionMasteryV4<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_champion_mastery_by_puuid` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -597,7 +597,7 @@ impl<'a> ChampionMasteryV4<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_top_champion_masteries_by_puuid` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -638,7 +638,7 @@ impl<'a> ChampionMasteryV4<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_champion_mastery_score_by_puuid` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -689,7 +689,7 @@ impl<'a> ChampionV3<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_champion_info` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -743,7 +743,7 @@ impl<'a> ClashV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_players_by_puuid` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -785,7 +785,7 @@ impl<'a> ClashV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_players_by_summoner` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -825,7 +825,7 @@ impl<'a> ClashV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_team_by_id` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -864,7 +864,7 @@ impl<'a> ClashV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_tournaments` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -904,7 +904,7 @@ impl<'a> ClashV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_tournament_by_team` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -944,7 +944,7 @@ impl<'a> ClashV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_tournament_by_id` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -1000,7 +1000,7 @@ impl<'a> LeagueExpV4<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_league_entries` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -1053,7 +1053,7 @@ impl<'a> LeagueV4<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_challenger_league` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -1093,7 +1093,7 @@ impl<'a> LeagueV4<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_league_entries_for_summoner` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -1137,7 +1137,7 @@ impl<'a> LeagueV4<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_league_entries` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -1178,7 +1178,7 @@ impl<'a> LeagueV4<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_grandmaster_league` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -1218,7 +1218,7 @@ impl<'a> LeagueV4<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_league_by_id` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -1258,7 +1258,7 @@ impl<'a> LeagueV4<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_master_league` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -1309,7 +1309,7 @@ impl<'a> LolChallengesV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_all_challenge_configs` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -1348,7 +1348,7 @@ impl<'a> LolChallengesV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_all_challenge_percentiles` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -1388,7 +1388,7 @@ impl<'a> LolChallengesV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_challenge_configs` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -1431,7 +1431,7 @@ impl<'a> LolChallengesV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_challenge_leaderboards` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -1472,7 +1472,7 @@ impl<'a> LolChallengesV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_challenge_percentiles` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -1512,7 +1512,7 @@ impl<'a> LolChallengesV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_player_data` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -1581,7 +1581,7 @@ impl<'a> LolRsoMatchV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_match_ids` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -1635,7 +1635,7 @@ impl<'a> LolRsoMatchV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_match` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -1683,7 +1683,7 @@ impl<'a> LolRsoMatchV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_timeline` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -1736,7 +1736,7 @@ impl<'a> LolStatusV4<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_platform_data` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -1793,7 +1793,7 @@ impl<'a> LorDeckV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_decks` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -1841,7 +1841,7 @@ impl<'a> LorDeckV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `create_deck` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -1901,7 +1901,7 @@ impl<'a> LorInventoryV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_cards` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -1955,7 +1955,7 @@ impl<'a> LorMatchV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_match_ids_by_puuid` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -1995,7 +1995,7 @@ impl<'a> LorMatchV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_match` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -2046,7 +2046,7 @@ impl<'a> LorRankedV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_leaderboards` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -2097,7 +2097,7 @@ impl<'a> LorStatusV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_platform_data` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -2161,7 +2161,7 @@ impl<'a> MatchV5<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_match_ids_by_puuid` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -2207,7 +2207,7 @@ impl<'a> MatchV5<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_match` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -2247,7 +2247,7 @@ impl<'a> MatchV5<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_timeline` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -2299,7 +2299,7 @@ impl<'a> SpectatorTftV5<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_current_game_info_by_puuid` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -2338,7 +2338,7 @@ impl<'a> SpectatorTftV5<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_featured_games` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -2390,7 +2390,7 @@ impl<'a> SpectatorV5<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_current_game_info_by_puuid` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -2429,7 +2429,7 @@ impl<'a> SpectatorV5<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_featured_games` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -2481,7 +2481,7 @@ impl<'a> SummonerV4<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_by_rsopuuid` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -2521,7 +2521,7 @@ impl<'a> SummonerV4<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_by_account_id` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -2561,7 +2561,7 @@ impl<'a> SummonerV4<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_by_puuid` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -2606,7 +2606,7 @@ impl<'a> SummonerV4<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_by_access_token` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -2648,7 +2648,7 @@ impl<'a> SummonerV4<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_by_summoner_id` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -2701,7 +2701,7 @@ impl<'a> TftLeagueV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_challenger_league` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -2742,7 +2742,7 @@ impl<'a> TftLeagueV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_league_entries_for_summoner` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -2787,7 +2787,7 @@ impl<'a> TftLeagueV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_league_entries` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -2830,7 +2830,7 @@ impl<'a> TftLeagueV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_grandmaster_league` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -2871,7 +2871,7 @@ impl<'a> TftLeagueV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_league_by_id` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -2912,7 +2912,7 @@ impl<'a> TftLeagueV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_master_league` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -2953,7 +2953,7 @@ impl<'a> TftLeagueV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_top_rated_ladder` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -3013,7 +3013,7 @@ impl<'a> TftMatchV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_match_ids_by_puuid` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -3057,7 +3057,7 @@ impl<'a> TftMatchV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_match` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -3108,7 +3108,7 @@ impl<'a> TftStatusV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_platform_data` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -3160,7 +3160,7 @@ impl<'a> TftSummonerV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_by_account_id` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -3200,7 +3200,7 @@ impl<'a> TftSummonerV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_by_puuid` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -3245,7 +3245,7 @@ impl<'a> TftSummonerV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_by_access_token` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -3287,7 +3287,7 @@ impl<'a> TftSummonerV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_by_summoner_id` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -3343,7 +3343,7 @@ impl<'a> TournamentStubV5<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `create_tournament_code` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -3386,7 +3386,7 @@ impl<'a> TournamentStubV5<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_tournament_code` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -3426,7 +3426,7 @@ impl<'a> TournamentStubV5<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_lobby_events_by_code` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -3468,7 +3468,7 @@ impl<'a> TournamentStubV5<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `register_provider_data` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -3509,7 +3509,7 @@ impl<'a> TournamentStubV5<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `register_tournament` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -3566,7 +3566,7 @@ impl<'a> TournamentV5<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `create_tournament_code` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -3609,7 +3609,7 @@ impl<'a> TournamentV5<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_tournament_code` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -3650,7 +3650,7 @@ impl<'a> TournamentV5<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `update_code` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -3697,7 +3697,7 @@ impl<'a> TournamentV5<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_games` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -3737,7 +3737,7 @@ impl<'a> TournamentV5<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_lobby_events_by_code` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -3779,7 +3779,7 @@ impl<'a> TournamentV5<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `register_provider_data` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -3820,7 +3820,7 @@ impl<'a> TournamentV5<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `register_tournament` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -3873,7 +3873,7 @@ impl<'a> ValConsoleMatchV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_match` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -3915,7 +3915,7 @@ impl<'a> ValConsoleMatchV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_matchlist` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -3958,7 +3958,7 @@ impl<'a> ValConsoleMatchV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_recent` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -4016,7 +4016,7 @@ impl<'a> ValConsoleRankedV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_leaderboard` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -4072,7 +4072,7 @@ impl<'a> ValContentV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_content` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -4125,7 +4125,7 @@ impl<'a> ValMatchV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_match` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -4165,7 +4165,7 @@ impl<'a> ValMatchV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_matchlist` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -4207,7 +4207,7 @@ impl<'a> ValMatchV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_recent` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -4263,7 +4263,7 @@ impl<'a> ValRankedV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_leaderboard` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
@@ -4316,7 +4316,7 @@ impl<'a> ValStatusV1<'a> {
         future
     }
 
-    /// Variation that checks for minimum capacity
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
     /// See `get_platform_data` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
