@@ -209,6 +209,38 @@ impl<'a> {{= endpoint }}<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity
+    /// See `{{= method }}` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_{{= method }}(&self, min_capacity: f32, {{= argBuilder.join('') }})
+        -> impl Future<Output = Option<Result<{{= returnType }}>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::{{= verb.toUpperCase() }}, route_str, {{= routeArgument }});
+{{? isRso }}
+        let mut request = request.bearer_auth(access_token);
+        if let Some(clear) = self.base.get_rso_clear_header() { request = request.header(clear, "") }
+{{?}}
+{{~ queryParams :queryParam }}
+        {{= dotUtils.formatAddQueryParam(queryParam) }}
+{{~}}
+{{~ headerParams :headerParam }}
+        {{= dotUtils.formatAddHeaderParam(headerParam) }}
+{{~}}
+{{? bodyType }}
+        let request = request.body(serde_json::ser::to_vec(body).unwrap());
+{{?}}
+        let future = self.base.try_execute{{= hasReturn ? (returnOptional ? '_opt' : '_val') : '' }}{{= returnTypeTurbofish }}("{{= operationId }}", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("{{= operationId }}", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "{{= operationId }}", route_str);
+        future
+    }
+
 {{
             }
         }

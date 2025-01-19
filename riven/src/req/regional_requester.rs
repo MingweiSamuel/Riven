@@ -33,18 +33,30 @@ impl RegionalRequester {
         config: &'a RiotApiConfig,
         method_id: &'static str,
         request: RequestBuilder,
-    ) -> Result<ResponseInfo> {
+        min_capacity: Option<f32>,
+    ) -> Option<Result<ResponseInfo>> {
         let mut retries: u8 = 0;
         loop {
             let method_rate_limit = self
                 .method_rate_limits
                 .get_or_insert(&method_id, || RateLimit::new(RateLimitType::Method));
 
-            // Rate limit.
-            let rate_limit = RateLimit::acquire_both(&self.app_rate_limit, method_rate_limit);
-            #[cfg(feature = "tracing")]
-            let rate_limit = rate_limit.instrument(tracing::info_span!("rate_limit"));
-            rate_limit.await;
+            if let Some(min_capacity) = min_capacity {
+                // Never sleep, return None if we don't have enough capacity.
+                if !RateLimit::acquire_both_if_above_capacity(
+                    &self.app_rate_limit,
+                    method_rate_limit,
+                    min_capacity,
+                ) {
+                    return None;
+                }
+            } else {
+                // Sleep until we have capcacity
+                let rate_limit = RateLimit::acquire_both(&self.app_rate_limit, method_rate_limit);
+                #[cfg(feature = "tracing")]
+                let rate_limit = rate_limit.instrument(tracing::info_span!("rate_limit"));
+                rate_limit.await;
+            }
 
             // Send request.
             let request_clone = request
@@ -63,7 +75,7 @@ impl RegionalRequester {
                             "Request failed (retried {} times), failure, returning error.",
                             retries
                         );
-                        break Err(RiotApiError::new(e, retries, None, None));
+                        break Some(Err(RiotApiError::new(e, retries, None, None)));
                     }
                     let delay = Duration::from_secs(2_u64.pow(retries as u32));
                     log::debug!("Request failed with cause \"{}\", (retried {} times), using exponential backoff, retrying after {:?}.", e.to_string(), retries, delay);
@@ -91,11 +103,11 @@ impl RegionalRequester {
                     status,
                     retries
                 );
-                break Ok(ResponseInfo {
+                break Some(Ok(ResponseInfo {
                     response,
                     retries,
                     status_none,
-                });
+                }));
             }
             let err = response.error_for_status_ref().err().unwrap_or_else(|| {
                 panic!(
@@ -114,12 +126,12 @@ impl RegionalRequester {
                     status,
                     retries
                 );
-                break Err(RiotApiError::new(
+                break Some(Err(RiotApiError::new(
                     err,
                     retries,
                     Some(response),
                     Some(status),
-                ));
+                )));
             }
 
             // Is retryable, do exponential backoff if retry-after wasn't specified.
