@@ -25,12 +25,12 @@ mod token_bucket {
             Instant::set_time(50_000);
             let bucket = VectorTokenBucket::new(Duration::from_millis(1000), 100, ZERO, 0.95, 1.0);
             assert!(
-                bucket.get_capacity() - 1.0 < f32::EPSILON,
+                (bucket.get_capacity() - 1.0).abs() < f32::EPSILON,
                 "Should be at total capacity"
             );
             assert!(bucket.get_tokens(50), "Should have not violated limit.");
             assert!(
-                bucket.get_capacity() - 0.5 < f32::EPSILON,
+                (bucket.get_capacity() - 0.5).abs() < f32::EPSILON,
                 "Should be at half capacity."
             );
             assert_eq!(None, bucket.get_delay(), "Can get stuff.");
