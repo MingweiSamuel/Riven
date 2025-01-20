@@ -16,7 +16,7 @@ pub trait TokenBucket {
     /// Get the amount of capcaity available in the bucket.
     /// # Returns
     /// a float representing the amount of capacity available in the bucket from 1.0 to 0.0.
-    /// returns -1.0 if wer're at least one reuqest into our burst capacity.
+    /// returns -1.0 if wer're at least one request into our burst capacity.
     fn get_capacity(&self) -> f32;
 
     /// Get the duration til the next available token, or None if a token
