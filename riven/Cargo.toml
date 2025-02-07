@@ -1,6 +1,6 @@
 [package]
 name = "riven"
-version = "2.61.1"
+version = "2.62.0"
 authors = ["Mingwei Samuel <mingwei.samuel@gmail.com>"]
 repository = "https://github.com/MingweiSamuel/Riven"
 description = "Riot Games API Library"

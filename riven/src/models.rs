@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version c2a4acaddf7d61573b44016a47f43fe0f8366f0a
+// Version f547991c7e72c2a5f2937cb4f393f89212f64fef
 
 #![allow(missing_docs)]
 
@@ -1187,40 +1187,40 @@ pub mod match_v5 {
         pub on_my_way_pings: Option<i32>,
         #[serde(rename = "participantId")]
         pub participant_id: i32,
-        #[serde(rename = "playerScore0")]
+        #[serde(rename = "playerScore0", alias = "PlayerScore0")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub player_score0: Option<i32>,
-        #[serde(rename = "playerScore1")]
+        #[serde(rename = "playerScore1", alias = "PlayerScore1")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub player_score1: Option<i32>,
-        #[serde(rename = "playerScore2")]
+        #[serde(rename = "playerScore2", alias = "PlayerScore2")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub player_score2: Option<i32>,
-        #[serde(rename = "playerScore3")]
+        #[serde(rename = "playerScore3", alias = "PlayerScore3")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub player_score3: Option<i32>,
-        #[serde(rename = "playerScore4")]
+        #[serde(rename = "playerScore4", alias = "PlayerScore4")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub player_score4: Option<i32>,
-        #[serde(rename = "playerScore5")]
+        #[serde(rename = "playerScore5", alias = "PlayerScore5")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub player_score5: Option<i32>,
-        #[serde(rename = "playerScore6")]
+        #[serde(rename = "playerScore6", alias = "PlayerScore6")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub player_score6: Option<i32>,
-        #[serde(rename = "playerScore7")]
+        #[serde(rename = "playerScore7", alias = "PlayerScore7")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub player_score7: Option<i32>,
-        #[serde(rename = "playerScore8")]
+        #[serde(rename = "playerScore8", alias = "PlayerScore8")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub player_score8: Option<i32>,
-        #[serde(rename = "playerScore9")]
+        #[serde(rename = "playerScore9", alias = "PlayerScore9")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub player_score9: Option<i32>,
-        #[serde(rename = "playerScore10")]
+        #[serde(rename = "playerScore10", alias = "PlayerScore10")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub player_score10: Option<i32>,
-        #[serde(rename = "playerScore11")]
+        #[serde(rename = "playerScore11", alias = "PlayerScore11")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub player_score11: Option<i32>,
         #[serde(rename = "pentaKills")]
@@ -3113,6 +3113,9 @@ pub mod tft_match_v1 {
         #[serde(rename = "win")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub win: Option<bool>,
+        #[serde(rename = "skill_tree")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub skill_tree: Option<std::collections::HashMap<String, i32>>,
     }
     /// Trait data object.
     #[derive(Clone, Debug)]

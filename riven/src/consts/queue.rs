@@ -430,5 +430,8 @@ newtype_enum! {
         /// `6000`.
         /// Teamfight Tactics Set 3.5 Revival games on Convergence
         CONVERGENCE_TEAMFIGHT_TACTICS_SET_3_5_REVIVAL = 6000,
+        /// `6100`.
+        /// Teamfight Tactics Revival: Festival of Beasts games on Convergence
+        CONVERGENCE_TEAMFIGHT_TACTICS_REVIVAL_FESTIVAL_OF_BEASTS = 6100,
     }
 }
