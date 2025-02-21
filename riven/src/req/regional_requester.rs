@@ -35,6 +35,7 @@ impl RegionalRequester {
         request: RequestBuilder,
     ) -> Result<ResponseInfo> {
         let mut retries: u8 = 0;
+        let mut reqwest_errors = Vec::new();
         loop {
             let method_rate_limit = self
                 .method_rate_limits
@@ -58,15 +59,19 @@ impl RegionalRequester {
                 Ok(response) => response,
                 // Check for lower level errors, like connection errors.
                 Err(e) => {
+                    reqwest_errors.push(e);
                     if retries >= config.retries {
                         log::debug!(
                             "Request failed (retried {} times), failure, returning error.",
                             retries
                         );
-                        break Err(RiotApiError::new(e, retries, None, None));
+                        break Err(RiotApiError::new(reqwest_errors, None, retries, None, None));
                     }
                     let delay = Duration::from_secs(2_u64.pow(retries as u32));
-                    log::debug!("Request failed with cause \"{}\", (retried {} times), using exponential backoff, retrying after {:?}.", e.to_string(), retries, delay);
+                    log::debug!(
+                        "Request failed with cause \"{}\", (retried {} times), using exponential backoff, retrying after {:?}.",
+                        reqwest_errors.last().unwrap().to_string(), retries, delay,
+                    );
                     let backoff = sleep(delay);
                     #[cfg(feature = "tracing")]
                     let backoff = backoff.instrument(tracing::info_span!("backoff"));
@@ -95,14 +100,16 @@ impl RegionalRequester {
                     response,
                     retries,
                     status_none,
+                    reqwest_errors,
                 });
             }
-            let err = response.error_for_status_ref().err().unwrap_or_else(|| {
+            reqwest_errors.push(response.error_for_status_ref().err().unwrap_or_else(|| {
                 panic!(
                     "Unhandlable response status code, neither success nor failure: {}.",
                     status
                 )
-            });
+            }));
+
             // Failure, may or may not be retryable.
             // Not-retryable: no more retries or 4xx or ? (3xx, redirects exceeded).
             // Retryable: retries remaining, and 429 or 5xx.
@@ -115,7 +122,8 @@ impl RegionalRequester {
                     retries
                 );
                 break Err(RiotApiError::new(
-                    err,
+                    reqwest_errors,
+                    None,
                     retries,
                     Some(response),
                     Some(status),
