@@ -11,6 +11,7 @@
     "rust-analyzer.cargo.features": [
         "nightly",
         "tracing",
-        "deny-unknown"
+        "deny-unknown",
+        "eserde",
     ]
 }

@@ -171,7 +171,7 @@ pub enum ValPlatformRoute {
 #[derive(PartialEq, Eq, Hash, PartialOrd, Ord)]
 #[derive(IntoPrimitive, TryFromPrimitive)]
 #[derive(EnumString, EnumIter, Display, IntoStaticStr)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(crate::Serialize, crate::Deserialize)]
 #[derive(Clone, Copy)]
 #[repr(u8)]
 #[non_exhaustive]

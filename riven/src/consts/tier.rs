@@ -1,7 +1,8 @@
 use num_enum::{IntoPrimitive, TryFromPrimitive};
-use serde::{Deserialize, Serialize};
 use strum::IntoEnumIterator;
 use strum_macros::{AsRefStr, Display, EnumString, IntoStaticStr};
+
+use crate::{Deserialize, Serialize};
 
 /// LoL and TFT ranked tiers, such as gold, diamond, challenger, etc.
 ///

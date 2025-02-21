@@ -1184,6 +1184,7 @@ impl<'a> LorDeckV1<'a> {
         let mut request = request.bearer_auth(access_token);
         if let Some(clear) = self.base.get_rso_clear_header() { request = request.header(clear, "") }
         let request = request.body(serde_json::ser::to_vec(body).unwrap());
+        req.headers_mut().insert(reqwest::header::CONTENT_TYPE, HeaderValue::from_static("application/json"));
         let future = self.base.execute_val::<String>("lor-deck-v1.createDeck", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("lor-deck-v1.createDeck", route = route_str));
@@ -2054,6 +2055,7 @@ impl<'a> TournamentStubV5<'a> {
         let request = request.query(&[ ("tournamentId", tournament_id) ]);
         let request = if let Some(count) = count { request.query(&[ ("count", count) ]) } else { request };
         let request = request.body(serde_json::ser::to_vec(body).unwrap());
+        req.headers_mut().insert(reqwest::header::CONTENT_TYPE, HeaderValue::from_static("application/json"));
         let future = self.base.execute_val::<Vec<String>>("tournament-stub-v5.createTournamentCode", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tournament-stub-v5.createTournamentCode", route = route_str));
@@ -2119,6 +2121,7 @@ impl<'a> TournamentStubV5<'a> {
         let route_str = route.into();
         let request = self.base.request(Method::POST, route_str, "/lol/tournament-stub/v5/providers");
         let request = request.body(serde_json::ser::to_vec(body).unwrap());
+        req.headers_mut().insert(reqwest::header::CONTENT_TYPE, HeaderValue::from_static("application/json"));
         let future = self.base.execute_val::<i32>("tournament-stub-v5.registerProviderData", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tournament-stub-v5.registerProviderData", route = route_str));
@@ -2140,6 +2143,7 @@ impl<'a> TournamentStubV5<'a> {
         let route_str = route.into();
         let request = self.base.request(Method::POST, route_str, "/lol/tournament-stub/v5/tournaments");
         let request = request.body(serde_json::ser::to_vec(body).unwrap());
+        req.headers_mut().insert(reqwest::header::CONTENT_TYPE, HeaderValue::from_static("application/json"));
         let future = self.base.execute_val::<i32>("tournament-stub-v5.registerTournament", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tournament-stub-v5.registerTournament", route = route_str));
@@ -2177,6 +2181,7 @@ impl<'a> TournamentV5<'a> {
         let request = request.query(&[ ("tournamentId", tournament_id) ]);
         let request = if let Some(count) = count { request.query(&[ ("count", count) ]) } else { request };
         let request = request.body(serde_json::ser::to_vec(body).unwrap());
+        req.headers_mut().insert(reqwest::header::CONTENT_TYPE, HeaderValue::from_static("application/json"));
         let future = self.base.execute_val::<Vec<String>>("tournament-v5.createTournamentCode", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tournament-v5.createTournamentCode", route = route_str));
@@ -2220,6 +2225,7 @@ impl<'a> TournamentV5<'a> {
         let route_str = route.into();
         let request = self.base.request(Method::PUT, route_str, &format!("/lol/tournament/v5/codes/{}", tournament_code));
         let request = request.body(serde_json::ser::to_vec(body).unwrap());
+        req.headers_mut().insert(reqwest::header::CONTENT_TYPE, HeaderValue::from_static("application/json"));
         let future = self.base.execute("tournament-v5.updateCode", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tournament-v5.updateCode", route = route_str));
@@ -2291,6 +2297,7 @@ impl<'a> TournamentV5<'a> {
         let route_str = route.into();
         let request = self.base.request(Method::POST, route_str, "/lol/tournament/v5/providers");
         let request = request.body(serde_json::ser::to_vec(body).unwrap());
+        req.headers_mut().insert(reqwest::header::CONTENT_TYPE, HeaderValue::from_static("application/json"));
         let future = self.base.execute_val::<i32>("tournament-v5.registerProviderData", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tournament-v5.registerProviderData", route = route_str));
@@ -2312,6 +2319,7 @@ impl<'a> TournamentV5<'a> {
         let route_str = route.into();
         let request = self.base.request(Method::POST, route_str, "/lol/tournament/v5/tournaments");
         let request = request.body(serde_json::ser::to_vec(body).unwrap());
+        req.headers_mut().insert(reqwest::header::CONTENT_TYPE, HeaderValue::from_static("application/json"));
         let future = self.base.execute_val::<i32>("tournament-v5.registerTournament", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tournament-v5.registerTournament", route = route_str));

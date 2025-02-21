@@ -45,7 +45,7 @@ pub mod {{= dotUtils.changeCase.snakeCase(endpoint) }} {
     /// Note: This struct is automatically generated
 {{?}}
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct {{= schemaName }} {
 {{

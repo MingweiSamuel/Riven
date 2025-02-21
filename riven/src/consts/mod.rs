@@ -8,6 +8,11 @@
 
 mod macros;
 
+#[cfg(feature = "eserde")]
+pub use eserde::{EDeserialize as Deserialize, ESerialize as Serialize};
+#[cfg(not(feature = "eserde"))]
+pub use serde::{Deserialize, Serialize};
+
 #[rustfmt::skip]
 mod champion;
 pub use champion::*;

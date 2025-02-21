@@ -26,7 +26,7 @@
 pub mod account_v1 {
     /// Account data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Account {
         #[serde(rename = "puuid")]
@@ -42,7 +42,7 @@ pub mod account_v1 {
     }
     /// ActiveShard data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct ActiveShard {
         #[serde(rename = "puuid")]
@@ -65,7 +65,7 @@ pub mod champion_mastery_v4 {
     ///
     /// Note: This struct is automatically generated
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct ChampionMastery {
         /// Player Universal Unique Identifier. Exact length of 78 characters. (Encrypted)
@@ -112,7 +112,7 @@ pub mod champion_mastery_v4 {
     ///
     /// Note: This struct is automatically generated
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct NextSeasonMilestones {
         #[serde(rename = "requireGradeCounts")]
@@ -136,7 +136,7 @@ pub mod champion_mastery_v4 {
     ///
     /// Note: This struct is automatically generated
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct RewardConfig {
         /// Reward value
@@ -158,7 +158,7 @@ pub mod champion_mastery_v4 {
 pub mod champion_v3 {
     /// ChampionInfo data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct ChampionInfo {
         #[serde(rename = "maxNewPlayerLevel")]
@@ -177,7 +177,7 @@ pub mod champion_v3 {
 pub mod clash_v1 {
     /// Player data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Player {
         #[serde(rename = "summonerId")]
@@ -196,7 +196,7 @@ pub mod clash_v1 {
     }
     /// Team data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Team {
         #[serde(rename = "id")]
@@ -220,7 +220,7 @@ pub mod clash_v1 {
     }
     /// Tournament data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Tournament {
         #[serde(rename = "id")]
@@ -237,7 +237,7 @@ pub mod clash_v1 {
     }
     /// TournamentPhase data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct TournamentPhase {
         #[serde(rename = "id")]
@@ -258,7 +258,7 @@ pub mod clash_v1 {
 pub mod league_exp_v4 {
     /// LeagueEntry data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct LeagueEntry {
         #[serde(rename = "leagueId")]
@@ -298,7 +298,7 @@ pub mod league_exp_v4 {
     }
     /// MiniSeries data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct MiniSeries {
         #[serde(rename = "losses")]
@@ -319,7 +319,7 @@ pub mod league_exp_v4 {
 pub mod league_v4 {
     /// LeagueList data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct LeagueList {
         #[serde(rename = "leagueId")]
@@ -338,7 +338,7 @@ pub mod league_v4 {
     }
     /// LeagueItem data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct LeagueItem {
         #[serde(rename = "freshBlood")]
@@ -371,7 +371,7 @@ pub mod league_v4 {
     }
     /// MiniSeries data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct MiniSeries {
         #[serde(rename = "losses")]
@@ -385,7 +385,7 @@ pub mod league_v4 {
     }
     /// LeagueEntry data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct LeagueEntry {
         #[serde(rename = "leagueId")]
@@ -435,7 +435,7 @@ pub mod league_v4 {
 pub mod lol_challenges_v1 {
     /// ChallengeConfigInfo data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct ChallengeConfigInfo {
         #[serde(rename = "id")]
@@ -469,7 +469,7 @@ pub mod lol_challenges_v1 {
     ///
     /// Note: This struct is automatically generated
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct State {
     }
@@ -480,13 +480,13 @@ pub mod lol_challenges_v1 {
     ///
     /// Note: This struct is automatically generated
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Tracking {
     }
     /// ApexPlayerInfo data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct ApexPlayerInfo {
         #[serde(rename = "puuid")]
@@ -511,13 +511,13 @@ pub mod lol_challenges_v1 {
     ///
     /// Note: This struct is automatically generated
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Level {
     }
     /// PlayerInfo data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct PlayerInfo {
         #[serde(rename = "challenges")]
@@ -531,7 +531,7 @@ pub mod lol_challenges_v1 {
     }
     /// ChallengeInfo data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct ChallengeInfo {
         #[serde(rename = "challengeId")]
@@ -554,7 +554,7 @@ pub mod lol_challenges_v1 {
     }
     /// PlayerClientPreferences data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct PlayerClientPreferences {
         #[serde(rename = "bannerAccent")]
@@ -575,7 +575,7 @@ pub mod lol_challenges_v1 {
     }
     /// ChallengePoints data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct ChallengePoints {
         #[serde(rename = "level")]
@@ -601,7 +601,7 @@ pub mod lol_rso_match_v1 {
     ///
     /// Note: This struct is automatically generated
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Match {
     }
@@ -611,7 +611,7 @@ pub mod lol_rso_match_v1 {
     ///
     /// Note: This struct is automatically generated
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Timeline {
     }
@@ -624,7 +624,7 @@ pub mod lol_rso_match_v1 {
 pub mod lol_status_v4 {
     /// PlatformData data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct PlatformData {
         #[serde(rename = "id")]
@@ -640,7 +640,7 @@ pub mod lol_status_v4 {
     }
     /// Status data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Status {
         #[serde(rename = "id")]
@@ -671,7 +671,7 @@ pub mod lol_status_v4 {
     }
     /// Content data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Content {
         #[serde(rename = "locale")]
@@ -681,7 +681,7 @@ pub mod lol_status_v4 {
     }
     /// Update data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Update {
         #[serde(rename = "id")]
@@ -709,7 +709,7 @@ pub mod lol_status_v4 {
 pub mod lor_deck_v1 {
     /// Deck data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Deck {
         #[serde(rename = "id")]
@@ -721,7 +721,7 @@ pub mod lor_deck_v1 {
     }
     /// NewDeck data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct NewDeck {
         #[serde(rename = "name")]
@@ -738,7 +738,7 @@ pub mod lor_deck_v1 {
 pub mod lor_inventory_v1 {
     /// Card data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Card {
         #[serde(rename = "code")]
@@ -755,7 +755,7 @@ pub mod lor_inventory_v1 {
 pub mod lor_match_v1 {
     /// Match data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Match {
         /// Match metadata.
@@ -767,7 +767,7 @@ pub mod lor_match_v1 {
     }
     /// Metadata data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Metadata {
         /// Match data version.
@@ -782,7 +782,7 @@ pub mod lor_match_v1 {
     }
     /// Info data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Info {
         /// (Legal values:  Constructed,  Expeditions,  Tutorial)
@@ -806,7 +806,7 @@ pub mod lor_match_v1 {
     }
     /// Player data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Player {
         #[serde(rename = "puuid")]
@@ -833,7 +833,7 @@ pub mod lor_match_v1 {
 pub mod lor_ranked_v1 {
     /// Leaderboard data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Leaderboard {
         /// A list of players in Master tier.
@@ -842,7 +842,7 @@ pub mod lor_ranked_v1 {
     }
     /// Player data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Player {
         #[serde(rename = "name")]
@@ -862,7 +862,7 @@ pub mod lor_ranked_v1 {
 pub mod lor_status_v1 {
     /// PlatformData data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct PlatformData {
         #[serde(rename = "id")]
@@ -878,7 +878,7 @@ pub mod lor_status_v1 {
     }
     /// Status data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Status {
         #[serde(rename = "id")]
@@ -905,7 +905,7 @@ pub mod lor_status_v1 {
     }
     /// Content data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Content {
         #[serde(rename = "locale")]
@@ -915,7 +915,7 @@ pub mod lor_status_v1 {
     }
     /// Update data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Update {
         #[serde(rename = "id")]
@@ -943,7 +943,7 @@ pub mod lor_status_v1 {
 pub mod match_v5 {
     /// Match data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Match {
         /// Match metadata.
@@ -955,7 +955,7 @@ pub mod match_v5 {
     }
     /// Metadata data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Metadata {
         /// Match data version.
@@ -970,7 +970,7 @@ pub mod match_v5 {
     }
     /// Info data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Info {
         /// Refer to indicate if the game ended in termination.
@@ -1026,7 +1026,7 @@ pub mod match_v5 {
     }
     /// Participant data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Participant {
         /// Yellow crossed swords
@@ -1408,7 +1408,7 @@ pub mod match_v5 {
     ///
     /// Note: This struct is automatically generated
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Challenges {
         #[serde(rename = "12AssistStreakCount")]
@@ -1861,7 +1861,7 @@ pub mod match_v5 {
     ///
     /// Note: This struct is automatically generated
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Missions {
         #[serde(rename = "playerScore0", alias = "PlayerScore0")]
@@ -1903,7 +1903,7 @@ pub mod match_v5 {
     }
     /// Perks data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Perks {
         #[serde(rename = "statPerks")]
@@ -1913,7 +1913,7 @@ pub mod match_v5 {
     }
     /// PerkStats data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct PerkStats {
         #[serde(rename = "defense")]
@@ -1925,7 +1925,7 @@ pub mod match_v5 {
     }
     /// PerkStyle data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct PerkStyle {
         #[serde(rename = "description")]
@@ -1937,7 +1937,7 @@ pub mod match_v5 {
     }
     /// PerkStyleSelection data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct PerkStyleSelection {
         #[serde(rename = "perk")]
@@ -1951,7 +1951,7 @@ pub mod match_v5 {
     }
     /// Team data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Team {
         #[serde(rename = "bans")]
@@ -1968,7 +1968,7 @@ pub mod match_v5 {
     }
     /// Ban data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Ban {
         #[serde(rename = "championId")]
@@ -1978,7 +1978,7 @@ pub mod match_v5 {
     }
     /// Objectives data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Objectives {
         #[serde(rename = "baron")]
@@ -2002,7 +2002,7 @@ pub mod match_v5 {
     }
     /// Objective data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Objective {
         #[serde(rename = "first")]
@@ -2012,7 +2012,7 @@ pub mod match_v5 {
     }
     /// Timeline data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Timeline {
         /// Match metadata.
@@ -2024,7 +2024,7 @@ pub mod match_v5 {
     }
     /// MetadataTimeLine data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct MetadataTimeLine {
         /// Match data version.
@@ -2039,7 +2039,7 @@ pub mod match_v5 {
     }
     /// InfoTimeLine data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct InfoTimeLine {
         /// Refer to indicate if the game ended in termination.
@@ -2059,7 +2059,7 @@ pub mod match_v5 {
     }
     /// ParticipantTimeLine data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct ParticipantTimeLine {
         #[serde(rename = "participantId")]
@@ -2069,7 +2069,7 @@ pub mod match_v5 {
     }
     /// FramesTimeLine data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct FramesTimeLine {
         #[serde(rename = "events")]
@@ -2082,7 +2082,7 @@ pub mod match_v5 {
     }
     /// EventsTimeLine data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct EventsTimeLine {
         #[serde(rename = "timestamp")]
@@ -2200,7 +2200,7 @@ pub mod match_v5 {
     }
     /// ParticipantFrames data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct ParticipantFrames {
         /// Key value mapping for each participant
@@ -2209,7 +2209,7 @@ pub mod match_v5 {
     }
     /// ParticipantFrame data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct ParticipantFrame {
         #[serde(rename = "championStats")]
@@ -2239,7 +2239,7 @@ pub mod match_v5 {
     }
     /// ChampionStats data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct ChampionStats {
         #[serde(rename = "abilityHaste")]
@@ -2298,7 +2298,7 @@ pub mod match_v5 {
     }
     /// DamageStats data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct DamageStats {
         #[serde(rename = "magicDamageDone")]
@@ -2328,7 +2328,7 @@ pub mod match_v5 {
     }
     /// Position data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Position {
         #[serde(rename = "x")]
@@ -2338,7 +2338,7 @@ pub mod match_v5 {
     }
     /// Feats data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Feats {
         #[serde(rename = "EPIC_MONSTER_KILL")]
@@ -2353,7 +2353,7 @@ pub mod match_v5 {
     }
     /// MatchTimelineVictimDamage data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct MatchTimelineVictimDamage {
         #[serde(rename = "basic")]
@@ -2377,7 +2377,7 @@ pub mod match_v5 {
     }
     /// Feat data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Feat {
         #[serde(rename = "featState")]
@@ -2393,7 +2393,7 @@ pub mod match_v5 {
 pub mod spectator_tft_v5 {
     /// CurrentGameInfo data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct CurrentGameInfo {
         /// The ID of the game
@@ -2433,7 +2433,7 @@ pub mod spectator_tft_v5 {
     }
     /// BannedChampion data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct BannedChampion {
         /// The turn during which the champion was banned
@@ -2448,7 +2448,7 @@ pub mod spectator_tft_v5 {
     }
     /// Observer data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Observer {
         /// Key used to decrypt the spectator grid game data for playback
@@ -2457,7 +2457,7 @@ pub mod spectator_tft_v5 {
     }
     /// CurrentGameParticipant data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct CurrentGameParticipant {
         /// The ID of the champion played by this participant
@@ -2495,7 +2495,7 @@ pub mod spectator_tft_v5 {
     }
     /// Perks data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Perks {
         /// IDs of the perks/runes assigned.
@@ -2510,7 +2510,7 @@ pub mod spectator_tft_v5 {
     }
     /// GameCustomizationObject data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct GameCustomizationObject {
         /// Category identifier for Game Customization
@@ -2522,7 +2522,7 @@ pub mod spectator_tft_v5 {
     }
     /// FeaturedGames data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct FeaturedGames {
         /// The list of featured games
@@ -2535,7 +2535,7 @@ pub mod spectator_tft_v5 {
     }
     /// FeaturedGameInfo data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct FeaturedGameInfo {
         /// The game mode<br>
@@ -2573,7 +2573,7 @@ pub mod spectator_tft_v5 {
     }
     /// Participant data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Participant {
         /// The ID of the second summoner spell used by this participant
@@ -2612,7 +2612,7 @@ pub mod spectator_tft_v5 {
 pub mod spectator_v5 {
     /// CurrentGameInfo data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct CurrentGameInfo {
         /// The ID of the game
@@ -2652,7 +2652,7 @@ pub mod spectator_v5 {
     }
     /// BannedChampion data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct BannedChampion {
         /// The turn during which the champion was banned
@@ -2667,7 +2667,7 @@ pub mod spectator_v5 {
     }
     /// Observer data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Observer {
         /// Key used to decrypt the spectator grid game data for playback
@@ -2676,7 +2676,7 @@ pub mod spectator_v5 {
     }
     /// CurrentGameParticipant data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct CurrentGameParticipant {
         /// The ID of the champion played by this participant
@@ -2717,7 +2717,7 @@ pub mod spectator_v5 {
     }
     /// Perks data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Perks {
         /// IDs of the perks/runes assigned.
@@ -2732,7 +2732,7 @@ pub mod spectator_v5 {
     }
     /// GameCustomizationObject data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct GameCustomizationObject {
         /// Category identifier for Game Customization
@@ -2744,7 +2744,7 @@ pub mod spectator_v5 {
     }
     /// FeaturedGames data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct FeaturedGames {
         /// The list of featured games
@@ -2757,7 +2757,7 @@ pub mod spectator_v5 {
     }
     /// FeaturedGameInfo data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct FeaturedGameInfo {
         /// The game mode<br>
@@ -2795,7 +2795,7 @@ pub mod spectator_v5 {
     }
     /// Participant data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Participant {
         /// Flag indicating whether or not this participant is a bot
@@ -2841,7 +2841,7 @@ pub mod summoner_v4 {
     ///
     /// Note: This struct is automatically generated
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Summoner {
         /// Encrypted account ID. Max length 56 characters.
@@ -2872,7 +2872,7 @@ pub mod summoner_v4 {
 pub mod tft_league_v1 {
     /// LeagueList data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct LeagueList {
         #[serde(rename = "leagueId")]
@@ -2891,7 +2891,7 @@ pub mod tft_league_v1 {
     }
     /// LeagueItem data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct LeagueItem {
         #[serde(rename = "freshBlood")]
@@ -2924,7 +2924,7 @@ pub mod tft_league_v1 {
     }
     /// MiniSeries data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct MiniSeries {
         #[serde(rename = "losses")]
@@ -2938,7 +2938,7 @@ pub mod tft_league_v1 {
     }
     /// LeagueEntry data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct LeagueEntry {
         /// Player Universal Unique Identifier. Exact length of 78 characters. (Encrypted)
@@ -3004,7 +3004,7 @@ pub mod tft_league_v1 {
     }
     /// TopRatedLadderEntry data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct TopRatedLadderEntry {
         #[serde(rename = "summonerId")]
@@ -3029,7 +3029,7 @@ pub mod tft_league_v1 {
 pub mod tft_match_v1 {
     /// Match data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Match {
         /// Match metadata.
@@ -3041,7 +3041,7 @@ pub mod tft_match_v1 {
     }
     /// Metadata data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Metadata {
         /// Match data version.
@@ -3056,7 +3056,7 @@ pub mod tft_match_v1 {
     }
     /// Info data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Info {
         /// Unix timestamp.
@@ -3105,7 +3105,7 @@ pub mod tft_match_v1 {
     }
     /// Participant data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Participant {
         /// Participant's companion.
@@ -3164,7 +3164,7 @@ pub mod tft_match_v1 {
     }
     /// Trait data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Trait {
         /// Trait name.
@@ -3187,7 +3187,7 @@ pub mod tft_match_v1 {
     }
     /// Unit data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Unit {
         /// A list of the unit's items. Please refer to the Teamfight Tactics documentation for item ids.
@@ -3216,7 +3216,7 @@ pub mod tft_match_v1 {
     }
     /// Companion data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Companion {
         #[serde(rename = "item_ID")]
@@ -3231,7 +3231,7 @@ pub mod tft_match_v1 {
     }
     /// ParticipantMissions data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct ParticipantMissions {
         #[serde(rename = "Assists")]
@@ -3388,7 +3388,7 @@ pub mod tft_match_v1 {
 pub mod tft_status_v1 {
     /// PlatformData data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct PlatformData {
         #[serde(rename = "id")]
@@ -3404,7 +3404,7 @@ pub mod tft_status_v1 {
     }
     /// Status data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Status {
         #[serde(rename = "id")]
@@ -3431,7 +3431,7 @@ pub mod tft_status_v1 {
     }
     /// Content data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Content {
         #[serde(rename = "locale")]
@@ -3441,7 +3441,7 @@ pub mod tft_status_v1 {
     }
     /// Update data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Update {
         #[serde(rename = "id")]
@@ -3473,7 +3473,7 @@ pub mod tft_summoner_v1 {
     ///
     /// Note: This struct is automatically generated
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Summoner {
         /// Encrypted account ID. Max length 56 characters.
@@ -3504,7 +3504,7 @@ pub mod tft_summoner_v1 {
 pub mod tournament_stub_v5 {
     /// TournamentCodeParametersV5 data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct TournamentCodeParametersV5 {
         /// Optional list of encrypted puuids in order to validate the players eligible to join the lobby. NOTE: We currently do not enforce participants at the team level, but rather the aggregate of teamOne and teamTwo. We may add the ability to enforce at the team level in the future.
@@ -3536,7 +3536,7 @@ pub mod tournament_stub_v5 {
     }
     /// TournamentCodeV5 data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct TournamentCodeV5 {
         /// The tournament code.
@@ -3582,7 +3582,7 @@ pub mod tournament_stub_v5 {
     }
     /// LobbyEventV5Wrapper data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct LobbyEventV5Wrapper {
         #[serde(rename = "eventList")]
@@ -3590,7 +3590,7 @@ pub mod tournament_stub_v5 {
     }
     /// LobbyEventV5 data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct LobbyEventV5 {
         /// Timestamp from the event
@@ -3605,7 +3605,7 @@ pub mod tournament_stub_v5 {
     }
     /// ProviderRegistrationParametersV5 data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct ProviderRegistrationParametersV5 {
         /// The region in which the provider will be running tournaments.<br>
@@ -3618,7 +3618,7 @@ pub mod tournament_stub_v5 {
     }
     /// TournamentRegistrationParametersV5 data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct TournamentRegistrationParametersV5 {
         /// The provider ID to specify the regional registered provider data to associate this tournament.
@@ -3638,7 +3638,7 @@ pub mod tournament_stub_v5 {
 pub mod tournament_v5 {
     /// TournamentCodeParametersV5 data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct TournamentCodeParametersV5 {
         /// Optional list of encrypted puuids in order to validate the players eligible to join the lobby. NOTE: We currently do not enforce participants at the team level, but rather the aggregate of teamOne and teamTwo. We may add the ability to enforce at the team level in the future.
@@ -3670,7 +3670,7 @@ pub mod tournament_v5 {
     }
     /// TournamentCodeV5 data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct TournamentCodeV5 {
         /// The tournament code.
@@ -3716,7 +3716,7 @@ pub mod tournament_v5 {
     }
     /// TournamentCodeUpdateParametersV5 data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct TournamentCodeUpdateParametersV5 {
         /// Optional list of encrypted puuids in order to validate the players eligible to join the lobby. NOTE: We currently do not enforce participants at the team level, but rather the aggregate of teamOne and teamTwo. We may add the ability to enforce at the team level in the future.
@@ -3738,7 +3738,7 @@ pub mod tournament_v5 {
     }
     /// TournamentGamesV5 data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct TournamentGamesV5 {
         #[serde(rename = "winningTeam")]
@@ -3769,7 +3769,7 @@ pub mod tournament_v5 {
     }
     /// TournamentTeamV5 data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct TournamentTeamV5 {
         /// Player Unique UUID (Encrypted)
@@ -3778,7 +3778,7 @@ pub mod tournament_v5 {
     }
     /// LobbyEventV5Wrapper data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct LobbyEventV5Wrapper {
         #[serde(rename = "eventList")]
@@ -3786,7 +3786,7 @@ pub mod tournament_v5 {
     }
     /// LobbyEventV5 data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct LobbyEventV5 {
         /// Timestamp from the event
@@ -3801,7 +3801,7 @@ pub mod tournament_v5 {
     }
     /// ProviderRegistrationParametersV5 data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct ProviderRegistrationParametersV5 {
         /// The region in which the provider will be running tournaments.<br>
@@ -3814,7 +3814,7 @@ pub mod tournament_v5 {
     }
     /// TournamentRegistrationParametersV5 data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct TournamentRegistrationParametersV5 {
         /// The provider ID to specify the regional registered provider data to associate this tournament.
@@ -3834,7 +3834,7 @@ pub mod tournament_v5 {
 pub mod val_console_match_v1 {
     /// Match data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Match {
         #[serde(rename = "matchInfo")]
@@ -3850,7 +3850,7 @@ pub mod val_console_match_v1 {
     }
     /// MatchInfo data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct MatchInfo {
         #[serde(rename = "matchId")]
@@ -3878,7 +3878,7 @@ pub mod val_console_match_v1 {
     }
     /// Player data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Player {
         #[serde(rename = "puuid")]
@@ -3904,7 +3904,7 @@ pub mod val_console_match_v1 {
     }
     /// PlayerStats data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct PlayerStats {
         #[serde(rename = "score")]
@@ -3924,7 +3924,7 @@ pub mod val_console_match_v1 {
     }
     /// AbilityCasts data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct AbilityCasts {
         #[serde(rename = "grenadeCasts")]
@@ -3938,7 +3938,7 @@ pub mod val_console_match_v1 {
     }
     /// Coach data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Coach {
         #[serde(rename = "puuid")]
@@ -3948,7 +3948,7 @@ pub mod val_console_match_v1 {
     }
     /// Team data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Team {
         /// This is an arbitrary string. Red and Blue in bomb modes. The puuid of the player in deathmatch.
@@ -3966,7 +3966,7 @@ pub mod val_console_match_v1 {
     }
     /// RoundResult data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct RoundResult {
         #[serde(rename = "roundNum")]
@@ -4004,7 +4004,7 @@ pub mod val_console_match_v1 {
     }
     /// PlayerLocations data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct PlayerLocations {
         #[serde(rename = "puuid")]
@@ -4016,7 +4016,7 @@ pub mod val_console_match_v1 {
     }
     /// Location data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Location {
         #[serde(rename = "x")]
@@ -4026,7 +4026,7 @@ pub mod val_console_match_v1 {
     }
     /// PlayerRoundStats data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct PlayerRoundStats {
         #[serde(rename = "puuid")]
@@ -4044,7 +4044,7 @@ pub mod val_console_match_v1 {
     }
     /// Kill data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Kill {
         #[serde(rename = "timeSinceGameStartMillis")]
@@ -4069,7 +4069,7 @@ pub mod val_console_match_v1 {
     }
     /// FinishingDamage data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct FinishingDamage {
         #[serde(rename = "damageType")]
@@ -4081,7 +4081,7 @@ pub mod val_console_match_v1 {
     }
     /// Damage data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Damage {
         /// PUUID
@@ -4098,7 +4098,7 @@ pub mod val_console_match_v1 {
     }
     /// Economy data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Economy {
         #[serde(rename = "loadoutValue")]
@@ -4114,7 +4114,7 @@ pub mod val_console_match_v1 {
     }
     /// Ability data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Ability {
         #[serde(rename = "grenadeEffects")]
@@ -4128,7 +4128,7 @@ pub mod val_console_match_v1 {
     }
     /// Matchlist data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Matchlist {
         #[serde(rename = "puuid")]
@@ -4138,7 +4138,7 @@ pub mod val_console_match_v1 {
     }
     /// MatchlistEntry data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct MatchlistEntry {
         #[serde(rename = "matchId")]
@@ -4150,7 +4150,7 @@ pub mod val_console_match_v1 {
     }
     /// RecentMatches data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct RecentMatches {
         #[serde(rename = "currentTime")]
@@ -4168,7 +4168,7 @@ pub mod val_console_match_v1 {
 pub mod val_console_ranked_v1 {
     /// Leaderboard data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Leaderboard {
         /// The shard for the given leaderboard.
@@ -4185,7 +4185,7 @@ pub mod val_console_ranked_v1 {
     }
     /// Player data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Player {
         /// This field may be omitted if the player has been anonymized.
@@ -4213,7 +4213,7 @@ pub mod val_console_ranked_v1 {
 pub mod val_content_v1 {
     /// Content data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Content {
         #[serde(rename = "version")]
@@ -4255,7 +4255,7 @@ pub mod val_content_v1 {
     }
     /// ContentItem data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct ContentItem {
         #[serde(rename = "name")]
@@ -4275,7 +4275,7 @@ pub mod val_content_v1 {
     }
     /// LocalizedNames data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct LocalizedNames {
         #[serde(rename = "ar-AE")]
@@ -4320,7 +4320,7 @@ pub mod val_content_v1 {
     }
     /// Act data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Act {
         #[serde(rename = "name")]
@@ -4349,7 +4349,7 @@ pub mod val_content_v1 {
 pub mod val_match_v1 {
     /// Match data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Match {
         #[serde(rename = "matchInfo")]
@@ -4367,7 +4367,7 @@ pub mod val_match_v1 {
     }
     /// MatchInfo data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct MatchInfo {
         #[serde(rename = "matchId")]
@@ -4402,7 +4402,7 @@ pub mod val_match_v1 {
     }
     /// Player data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Player {
         #[serde(rename = "puuid")]
@@ -4433,7 +4433,7 @@ pub mod val_match_v1 {
     }
     /// PlayerStats data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct PlayerStats {
         #[serde(rename = "score")]
@@ -4454,7 +4454,7 @@ pub mod val_match_v1 {
     }
     /// AbilityCasts data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct AbilityCasts {
         #[serde(rename = "grenadeCasts")]
@@ -4468,7 +4468,7 @@ pub mod val_match_v1 {
     }
     /// Coach data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Coach {
         #[serde(rename = "puuid")]
@@ -4478,7 +4478,7 @@ pub mod val_match_v1 {
     }
     /// Team data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Team {
         /// This is an arbitrary string. Red and Blue in bomb modes. The puuid of the player in deathmatch.
@@ -4496,7 +4496,7 @@ pub mod val_match_v1 {
     }
     /// RoundResult data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct RoundResult {
         #[serde(rename = "roundNum")]
@@ -4540,7 +4540,7 @@ pub mod val_match_v1 {
     }
     /// PlayerLocations data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct PlayerLocations {
         #[serde(rename = "puuid")]
@@ -4552,7 +4552,7 @@ pub mod val_match_v1 {
     }
     /// Location data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Location {
         #[serde(rename = "x")]
@@ -4562,7 +4562,7 @@ pub mod val_match_v1 {
     }
     /// PlayerRoundStats data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct PlayerRoundStats {
         #[serde(rename = "puuid")]
@@ -4580,7 +4580,7 @@ pub mod val_match_v1 {
     }
     /// Kill data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Kill {
         #[serde(rename = "timeSinceGameStartMillis")]
@@ -4605,7 +4605,7 @@ pub mod val_match_v1 {
     }
     /// FinishingDamage data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct FinishingDamage {
         #[serde(rename = "damageType")]
@@ -4617,7 +4617,7 @@ pub mod val_match_v1 {
     }
     /// Damage data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Damage {
         /// PUUID
@@ -4634,7 +4634,7 @@ pub mod val_match_v1 {
     }
     /// Economy data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Economy {
         #[serde(rename = "loadoutValue")]
@@ -4650,7 +4650,7 @@ pub mod val_match_v1 {
     }
     /// Ability data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Ability {
         #[serde(rename = "grenadeEffects")]
@@ -4668,7 +4668,7 @@ pub mod val_match_v1 {
     }
     /// Matchlist data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Matchlist {
         #[serde(rename = "puuid")]
@@ -4678,7 +4678,7 @@ pub mod val_match_v1 {
     }
     /// MatchlistEntry data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct MatchlistEntry {
         #[serde(rename = "matchId")]
@@ -4690,7 +4690,7 @@ pub mod val_match_v1 {
     }
     /// RecentMatches data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct RecentMatches {
         #[serde(rename = "currentTime")]
@@ -4708,7 +4708,7 @@ pub mod val_match_v1 {
 pub mod val_ranked_v1 {
     /// Leaderboard data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Leaderboard {
         /// The shard for the given leaderboard.
@@ -4743,7 +4743,7 @@ pub mod val_ranked_v1 {
     }
     /// Player data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Player {
         /// This field may be omitted if the player has been anonymized.
@@ -4770,7 +4770,7 @@ pub mod val_ranked_v1 {
     }
     /// TierDetail data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct TierDetail {
         #[serde(rename = "rankedRatingThreshold")]
@@ -4789,7 +4789,7 @@ pub mod val_ranked_v1 {
 pub mod val_status_v1 {
     /// PlatformData data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct PlatformData {
         #[serde(rename = "id")]
@@ -4805,7 +4805,7 @@ pub mod val_status_v1 {
     }
     /// Status data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Status {
         #[serde(rename = "id")]
@@ -4832,7 +4832,7 @@ pub mod val_status_v1 {
     }
     /// Content data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Content {
         #[serde(rename = "locale")]
@@ -4842,7 +4842,7 @@ pub mod val_status_v1 {
     }
     /// Update data object.
     #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, serde::Deserialize)]
+    #[derive(crate::Serialize, crate::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Update {
         #[serde(rename = "id")]

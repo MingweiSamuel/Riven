@@ -2,6 +2,11 @@ use std::fmt;
 
 use reqwest::{Response, StatusCode};
 
+#[cfg(not(feature = "eserde"))]
+use serde_json::Error as SerdeError;
+#[cfg(feature = "eserde")]
+use eserde::DeserializationErrors as SerdeError;
+
 /// Result containing RiotApiError on failure.
 pub type Result<T> = std::result::Result<T, RiotApiError>;
 
@@ -9,7 +14,7 @@ pub type Result<T> = std::result::Result<T, RiotApiError>;
 #[derive(Debug)]
 pub struct RiotApiError {
     reqwest_errors: Vec<reqwest::Error>,
-    serde_error: Option<serde_json::Error>,
+    serde_error: Option<SerdeError>,
     retries: u8,
     response: Option<Response>,
     status_code: Option<StatusCode>,
@@ -17,7 +22,7 @@ pub struct RiotApiError {
 impl RiotApiError {
     pub(crate) fn new(
         reqwest_errors: Vec<reqwest::Error>,
-        serde_error: Option<serde_json::Error>,
+        serde_error: Option<SerdeError>,
         retries: u8,
         response: Option<Response>,
         status_code: Option<StatusCode>,
@@ -45,7 +50,7 @@ impl RiotApiError {
     }
 
     /// Returns the final deserialization error if any occured.
-    pub fn serde_error(&self) -> Option<&serde_json::Error> {
+    pub fn serde_error(&self) -> Option<&SerdeError> {
         self.serde_error.as_ref()
     }
 

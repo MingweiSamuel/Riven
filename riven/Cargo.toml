@@ -28,6 +28,7 @@ native-tls = ["reqwest/native-tls"]
 rustls-tls = ["reqwest/rustls-tls"]
 
 metrics = ["dep:metrics"]
+eserde = ["dep:eserde"]
 
 deny-unknown = ["deny-unknown-fields", "deny-unknown-enum-variants"]
 # If enabled, extra unknown fields encountered during deserialization will
@@ -49,10 +50,11 @@ name = "proxy"
 required-features = ["__proxy"]
 
 [dependencies]
+eserde = { optional = true, version = "0.1.2", features = ["json"] }
 futures = "0.3.0"
 log = "0.4.8"
 memo-map = "0.3.0"
-metrics = { version = "0.24.0", optional = true }
+metrics = { optional = true, version = "0.24.0" }
 num_enum = "0.5.0"
 parking_lot = "0.12.0"
 reqwest = { version = "0.11.2", default-features = false, features = ["gzip"] }
@@ -63,7 +65,7 @@ serde_repr = "0.1.0"
 slab = "0.4.4"
 strum = "0.20.0"
 strum_macros = "0.20.0"
-tracing = { version = "0.1.22", optional = true }
+tracing = { optional = true, version = "0.1.22" }
 
 [target.'cfg(not(target_family = "wasm"))'.dependencies]
 tokio = { version = "1.20.0", default-features = false, features = ["time"] }

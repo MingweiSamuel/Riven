@@ -1,5 +1,8 @@
 use reqwest::Response;
 
+#[cfg(feature = "eserde")]
+use eserde::json as serde_json;
+
 use crate::{Result, RiotApiError};
 
 /// A "raw" unparsed successful response from the Riot API, for internal or advanced use cases.

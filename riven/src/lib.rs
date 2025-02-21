@@ -190,6 +190,12 @@
 //! To run the srcgen use `node riven/srcgen` from the repository root.
 //!
 
+pub use serde::Serialize;
+#[cfg(feature = "eserde")]
+pub use eserde::Deserialize;
+#[cfg(not(feature = "eserde"))]
+pub use serde::de::Deserialize;
+
 // Re-exported reqwest types.
 pub use reqwest;
 
