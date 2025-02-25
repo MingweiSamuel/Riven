@@ -82,7 +82,7 @@ jobs:
           args: --no-fail-fast --features nightly,deny-unknown,__proxy
         env:
           RUST_BACKTRACE: 1
-          RUSTLOG: riven=trace
+          RUST_LOG: riven=debug
           RGAPI_KEY: ${{ secrets.RGAPI_KEY }}
 
       - name: Install `wasm-pack`
