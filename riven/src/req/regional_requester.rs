@@ -134,7 +134,7 @@ impl RegionalRequester {
                     );
                 }
                 None => {
-                    let delay = Duration::from_secs(2_u64.pow(retries as u32));
+                    let delay = Duration::from_secs(2 + 2_u64.pow(retries as u32));
                     log::debug!("Response {} (retried {} times), NO `retry-after`, using exponential backoff, retrying after {:?}.", status, retries, delay);
                     let backoff = sleep(delay);
                     #[cfg(feature = "tracing")]
