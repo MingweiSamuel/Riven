@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version b328d49fbda1a82f940f38513d8f841308ead694
+// Version 313f162c59045123948a1872024485862504c361
 
 #![allow(missing_docs)]
 
@@ -4359,9 +4359,11 @@ pub mod val_match_v1 {
         #[serde(rename = "coaches")]
         pub coaches: std::vec::Vec<Coach>,
         #[serde(rename = "teams")]
-        pub teams: std::vec::Vec<Team>,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub teams: Option<std::vec::Vec<Team>>,
         #[serde(rename = "roundResults")]
-        pub round_results: std::vec::Vec<RoundResult>,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub round_results: Option<std::vec::Vec<RoundResult>>,
     }
     /// MatchInfo data object.
     #[derive(Clone, Debug)]
@@ -4373,7 +4375,8 @@ pub mod val_match_v1 {
         #[serde(rename = "mapId")]
         pub map_id: String,
         #[serde(rename = "gameLengthMillis")]
-        pub game_length_millis: i32,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub game_length_millis: Option<i32>,
         #[serde(rename = "gameStartMillis")]
         pub game_start_millis: i64,
         #[serde(rename = "provisioningFlowId")]
@@ -4415,7 +4418,8 @@ pub mod val_match_v1 {
         #[serde(rename = "characterId")]
         pub character_id: String,
         #[serde(rename = "stats")]
-        pub stats: PlayerStats,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub stats: Option<PlayerStats>,
         #[serde(rename = "competitiveTier")]
         pub competitive_tier: i32,
         #[serde(rename = "playerCard")]
