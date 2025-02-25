@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version f547991c7e72c2a5f2937cb4f393f89212f64fef
+// Version 6868c802bab567c791c43a1bab6c2098dfde5439
 
 #![allow(missing_docs)]
 
@@ -266,6 +266,9 @@ pub mod league_exp_v4 {
         /// Player's summonerId (Encrypted)
         #[serde(rename = "summonerId")]
         pub summoner_id: String,
+        /// Player's encrypted puuid.
+        #[serde(rename = "puuid")]
+        pub puuid: String,
         #[serde(rename = "queueType")]
         pub queue_type: crate::consts::QueueType,
         #[serde(rename = "tier")]
@@ -362,6 +365,9 @@ pub mod league_v4 {
         /// Player's encrypted summonerId.
         #[serde(rename = "summonerId")]
         pub summoner_id: String,
+        /// Player's encrypted puuid.
+        #[serde(rename = "puuid")]
+        pub puuid: String,
     }
     /// MiniSeries data object.
     #[derive(Clone, Debug)]
@@ -388,6 +394,9 @@ pub mod league_v4 {
         /// Player's encrypted summonerId.
         #[serde(rename = "summonerId")]
         pub summoner_id: String,
+        /// Player's encrypted puuid.
+        #[serde(rename = "puuid")]
+        pub puuid: String,
         #[serde(rename = "queueType")]
         pub queue_type: crate::consts::QueueType,
         #[serde(rename = "tier")]
@@ -2876,6 +2885,9 @@ pub mod tft_league_v1 {
         /// Player's encrypted summonerId.
         #[serde(rename = "summonerId")]
         pub summoner_id: String,
+        /// Player's encrypted puuid.
+        #[serde(rename = "puuid")]
+        pub puuid: String,
     }
     /// MiniSeries data object.
     #[derive(Clone, Debug)]

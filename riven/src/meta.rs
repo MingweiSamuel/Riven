@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version f547991c7e72c2a5f2937cb4f393f89212f64fef
+// Version 6868c802bab567c791c43a1bab6c2098dfde5439
 
 //! Metadata about the Riot API and Riven.
 //!
@@ -16,7 +16,7 @@
 
 /// Metadata for endpoints. Each tuple corresponds to one endpoint and contains
 /// the HTTP [`Method`](reqwest::Method), `str` path, and the method's `str` ID.
-pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 87] = [
+pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 88] = [
     (reqwest::Method::GET, "/riot/account/v1/accounts/by-puuid/{puuid}", "account-v1.getByPuuid"),
     (reqwest::Method::GET, "/riot/account/v1/accounts/by-riot-id/{gameName}/{tagLine}", "account-v1.getByRiotId"),
     (reqwest::Method::GET, "/riot/account/v1/accounts/me", "account-v1.getByAccessToken"),
@@ -34,6 +34,7 @@ pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 87] = [
     (reqwest::Method::GET, "/lol/clash/v1/tournaments/{tournamentId}", "clash-v1.getTournamentById"),
     (reqwest::Method::GET, "/lol/league-exp/v4/entries/{queue}/{tier}/{division}", "league-exp-v4.getLeagueEntries"),
     (reqwest::Method::GET, "/lol/league/v4/challengerleagues/by-queue/{queue}", "league-v4.getChallengerLeague"),
+    (reqwest::Method::GET, "/lol/league/v4/entries/by-puuid/{encryptedPUUID}", "league-v4.getLeagueEntriesByPUUID"),
     (reqwest::Method::GET, "/lol/league/v4/entries/by-summoner/{encryptedSummonerId}", "league-v4.getLeagueEntriesForSummoner"),
     (reqwest::Method::GET, "/lol/league/v4/entries/{queue}/{tier}/{division}", "league-v4.getLeagueEntries"),
     (reqwest::Method::GET, "/lol/league/v4/grandmasterleagues/by-queue/{queue}", "league-v4.getGrandmasterLeague"),
