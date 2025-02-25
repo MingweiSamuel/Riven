@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version f547991c7e72c2a5f2937cb4f393f89212f64fef
+// Version 313f162c59045123948a1872024485862504c361
 
 #![allow(missing_docs)]
 
@@ -266,6 +266,9 @@ pub mod league_exp_v4 {
         /// Player's summonerId (Encrypted)
         #[serde(rename = "summonerId")]
         pub summoner_id: String,
+        /// Player's encrypted puuid.
+        #[serde(rename = "puuid")]
+        pub puuid: String,
         #[serde(rename = "queueType")]
         pub queue_type: crate::consts::QueueType,
         #[serde(rename = "tier")]
@@ -362,6 +365,9 @@ pub mod league_v4 {
         /// Player's encrypted summonerId.
         #[serde(rename = "summonerId")]
         pub summoner_id: String,
+        /// Player's encrypted puuid.
+        #[serde(rename = "puuid")]
+        pub puuid: String,
     }
     /// MiniSeries data object.
     #[derive(Clone, Debug)]
@@ -388,6 +394,9 @@ pub mod league_v4 {
         /// Player's encrypted summonerId.
         #[serde(rename = "summonerId")]
         pub summoner_id: String,
+        /// Player's encrypted puuid.
+        #[serde(rename = "puuid")]
+        pub puuid: String,
         #[serde(rename = "queueType")]
         pub queue_type: crate::consts::QueueType,
         #[serde(rename = "tier")]
@@ -1953,6 +1962,9 @@ pub mod match_v5 {
         pub team_id: crate::consts::Team,
         #[serde(rename = "win")]
         pub win: bool,
+        #[serde(rename = "feats")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub feats: Option<Feats>,
     }
     /// Ban data object.
     #[derive(Clone, Debug)]
@@ -2179,6 +2191,12 @@ pub mod match_v5 {
         #[serde(rename = "actualStartTime")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub actual_start_time: Option<i64>,
+        #[serde(rename = "featType")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub feat_type: Option<i32>,
+        #[serde(rename = "featValue")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub feat_value: Option<i32>,
     }
     /// ParticipantFrames data object.
     #[derive(Clone, Debug)]
@@ -2318,6 +2336,21 @@ pub mod match_v5 {
         #[serde(rename = "y")]
         pub y: i32,
     }
+    /// Feats data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct Feats {
+        #[serde(rename = "EPIC_MONSTER_KILL")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub epic_monster_kill: Option<Feat>,
+        #[serde(rename = "FIRST_BLOOD")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub first_blood: Option<Feat>,
+        #[serde(rename = "FIRST_TURRET")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub first_turret: Option<Feat>,
+    }
     /// MatchTimelineVictimDamage data object.
     #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
@@ -2341,6 +2374,15 @@ pub mod match_v5 {
         pub true_damage: i32,
         #[serde(rename = "type")]
         pub r#type: String,
+    }
+    /// Feat data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct Feat {
+        #[serde(rename = "featState")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub feat_state: Option<i32>,
     }
 }
 
@@ -2876,6 +2918,9 @@ pub mod tft_league_v1 {
         /// Player's encrypted summonerId.
         #[serde(rename = "summonerId")]
         pub summoner_id: String,
+        /// Player's encrypted puuid.
+        #[serde(rename = "puuid")]
+        pub puuid: String,
     }
     /// MiniSeries data object.
     #[derive(Clone, Debug)]
@@ -4314,9 +4359,11 @@ pub mod val_match_v1 {
         #[serde(rename = "coaches")]
         pub coaches: std::vec::Vec<Coach>,
         #[serde(rename = "teams")]
-        pub teams: std::vec::Vec<Team>,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub teams: Option<std::vec::Vec<Team>>,
         #[serde(rename = "roundResults")]
-        pub round_results: std::vec::Vec<RoundResult>,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub round_results: Option<std::vec::Vec<RoundResult>>,
     }
     /// MatchInfo data object.
     #[derive(Clone, Debug)]
@@ -4328,7 +4375,8 @@ pub mod val_match_v1 {
         #[serde(rename = "mapId")]
         pub map_id: String,
         #[serde(rename = "gameLengthMillis")]
-        pub game_length_millis: i32,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub game_length_millis: Option<i32>,
         #[serde(rename = "gameStartMillis")]
         pub game_start_millis: i64,
         #[serde(rename = "provisioningFlowId")]
@@ -4370,7 +4418,8 @@ pub mod val_match_v1 {
         #[serde(rename = "characterId")]
         pub character_id: String,
         #[serde(rename = "stats")]
-        pub stats: PlayerStats,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub stats: Option<PlayerStats>,
         #[serde(rename = "competitiveTier")]
         pub competitive_tier: i32,
         #[serde(rename = "playerCard")]

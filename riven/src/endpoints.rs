@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version f547991c7e72c2a5f2937cb4f393f89212f64fef
+// Version 313f162c59045123948a1872024485862504c361
 
 //! Automatically generated endpoint handles.
 #![allow(clippy::let_and_return, clippy::too_many_arguments)]
@@ -1069,6 +1069,46 @@ impl<'a> LeagueV4<'a> {
         let future = future.instrument(tracing::info_span!("league-v4.getChallengerLeague", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "league-v4.getChallengerLeague", route_str);
+        future
+    }
+
+    /// Get league entries in all queues for a given puuid
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// * `encrypted_puuid` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntriesByPUUID" target="_blank">`league-v4.getLeagueEntriesByPUUID`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_league_entries_by_puuid(&self, route: PlatformRoute, encrypted_puuid: &str)
+        -> impl Future<Output = Result<Vec<league_v4::LeagueEntry>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/entries/by-puuid/{}", encrypted_puuid));
+        let future = self.base.execute_val::<Vec<league_v4::LeagueEntry>>("league-v4.getLeagueEntriesByPUUID", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("league-v4.getLeagueEntriesByPUUID", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "league-v4.getLeagueEntriesByPUUID", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_league_entries_by_puuid` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_league_entries_by_puuid(&self, min_capacity: f32, route: PlatformRoute, encrypted_puuid: &str)
+        -> impl Future<Output = Option<Result<Vec<league_v4::LeagueEntry>>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/entries/by-puuid/{}", encrypted_puuid));
+        let future = self.base.try_execute_val::<Vec<league_v4::LeagueEntry>>("league-v4.getLeagueEntriesByPUUID", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("league-v4.getLeagueEntriesByPUUID", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "league-v4.getLeagueEntriesByPUUID", route_str);
         future
     }
 
