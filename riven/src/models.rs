@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 6868c802bab567c791c43a1bab6c2098dfde5439
+// Version b328d49fbda1a82f940f38513d8f841308ead694
 
 #![allow(missing_docs)]
 
@@ -1962,6 +1962,9 @@ pub mod match_v5 {
         pub team_id: crate::consts::Team,
         #[serde(rename = "win")]
         pub win: bool,
+        #[serde(rename = "feats")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub feats: Option<Feats>,
     }
     /// Ban data object.
     #[derive(Clone, Debug)]
@@ -2188,6 +2191,12 @@ pub mod match_v5 {
         #[serde(rename = "actualStartTime")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub actual_start_time: Option<i64>,
+        #[serde(rename = "featType")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub feat_type: Option<i32>,
+        #[serde(rename = "featValue")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub feat_value: Option<i32>,
     }
     /// ParticipantFrames data object.
     #[derive(Clone, Debug)]
@@ -2327,6 +2336,21 @@ pub mod match_v5 {
         #[serde(rename = "y")]
         pub y: i32,
     }
+    /// Feats data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct Feats {
+        #[serde(rename = "EPIC_MONSTER_KILL")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub epic_monster_kill: Option<Feat>,
+        #[serde(rename = "FIRST_BLOOD")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub first_blood: Option<Feat>,
+        #[serde(rename = "FIRST_TURRET")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub first_turret: Option<Feat>,
+    }
     /// MatchTimelineVictimDamage data object.
     #[derive(Clone, Debug)]
     #[derive(serde::Serialize, serde::Deserialize)]
@@ -2350,6 +2374,15 @@ pub mod match_v5 {
         pub true_damage: i32,
         #[serde(rename = "type")]
         pub r#type: String,
+    }
+    /// Feat data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, serde::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct Feat {
+        #[serde(rename = "featState")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub feat_state: Option<i32>,
     }
 }
 

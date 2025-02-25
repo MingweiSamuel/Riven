@@ -26,6 +26,8 @@ static MATCHES: &[&str] = &[
     "JP1_456819992",
     "JP1_457311633",
     "JP1_457196409",
+    // `feats` https://github.com/RiotGames/developer-relations/issues/1052
+    "JP1_497158018",
 ];
 
 /// summoner_v4().get_by_summoner_name(...) normally returns an option.
