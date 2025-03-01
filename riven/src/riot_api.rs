@@ -90,7 +90,7 @@ impl RiotApi {
     ///
     /// # Returns
     /// A future resolving to a `Result` containg either a `T` (success) or a `RiotApiError` (failure).
-    pub async fn execute_val<'a, T: serde::de::DeserializeOwned + 'a>(
+    pub async fn execute_val<'a, T: for<'de> crate::Deserialize<'de> + 'a>(
         &'a self,
         method_id: &'static str,
         region_platform: &'static str,
@@ -113,7 +113,7 @@ impl RiotApi {
     ///
     /// # Returns
     /// A future resolving to a `Result` containg either an `Option<T>` (success) or a `RiotApiError` (failure).
-    pub async fn execute_opt<'a, T: serde::de::DeserializeOwned + 'a>(
+    pub async fn execute_opt<'a, T: for<'de> crate::Deserialize<'de> + 'a>(
         &'a self,
         method_id: &'static str,
         region_platform: &'static str,

@@ -280,8 +280,7 @@ dependencies = [
 [[package]]
 name = "eserde"
 version = "0.1.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b7b385c6ce7ab3d94b5c04262aa48afcc97c2329ecb2559e83792493b5e71630"
+source = "git+https://github.com/MingweiSamuel/eserde.git?branch=deserialize-with#7ca7ff6c423069ef114791824d9ff0fce59747ab"
 dependencies = [
  "eserde_derive",
  "itoa",
@@ -292,8 +291,7 @@ dependencies = [
 [[package]]
 name = "eserde_derive"
 version = "0.1.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "58199fbf1f2cd20d1a1086ac6e88909493376f9bf648ac65ddda599c2b92f82a"
+source = "git+https://github.com/MingweiSamuel/eserde.git?branch=deserialize-with#7ca7ff6c423069ef114791824d9ff0fce59747ab"
 dependencies = [
  "indexmap",
  "proc-macro2",

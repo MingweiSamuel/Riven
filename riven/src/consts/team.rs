@@ -29,3 +29,5 @@ pub enum Team {
     /// "killerTeamId" when Baron Nashor spawns and kills Rift Herald.
     OTHER = 300,
 }
+
+impl_edeserialize!(Team);

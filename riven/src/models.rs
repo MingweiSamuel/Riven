@@ -4398,6 +4398,7 @@ pub mod val_match_v1 {
         #[serde(rename = "region")]
         pub region: String,
         #[serde(rename = "premierMatchInfo")]
+        #[eserde(compat)]
         pub premier_match_info: serde_json::Map<String, serde_json::Value>,
     }
     /// Player data object.

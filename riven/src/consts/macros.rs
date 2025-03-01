@@ -65,6 +65,7 @@ macro_rules! serde_strum_unknown {
                 }
             }
         }
+        impl_edeserialize!($name);
     };
 }
 
@@ -172,6 +173,7 @@ macro_rules! newtype_enum {
                 }
             }
         }
+        impl_edeserialize!($name);
 
         impl std::fmt::Display for $name {
             fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -184,4 +186,22 @@ macro_rules! newtype_enum {
             }
         }
     }
+}
+
+macro_rules! impl_edeserialize {
+    ($($t:ty),* $(,)?) => {
+        $(
+            #[cfg(feature = "eserde")]
+            impl<'de> eserde::EDeserialize<'de> for $t {
+                fn deserialize_for_errors<D>(deserializer: D) -> Result<(), ()>
+                where
+                    D: serde::Deserializer<'de>
+                {
+                    <Self as serde::de::Deserialize<'de>>::deserialize(deserializer).map(|_| ()).map_err(|e| {
+                        eserde::reporter::ErrorReporter::report(e);
+                    })
+                }
+            }
+        )*
+    };
 }

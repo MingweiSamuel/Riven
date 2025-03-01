@@ -1,7 +1,9 @@
 use reqwest::Response;
 
+#[cfg(not(feature = "eserde"))]
+use serde::de::Deserialize;
 #[cfg(feature = "eserde")]
-use eserde::json as serde_json;
+use eserde::{EDeserialize as Deserialize, json as serde_json};
 
 use crate::{Result, RiotApiError};
 
@@ -20,7 +22,7 @@ pub struct ResponseInfo {
 
 impl ResponseInfo {
     /// Helper to deserialize the JSON-encoded value from a `ResponseInfo`, properly handling errors.
-    pub(crate) async fn json<T: serde::de::DeserializeOwned>(self) -> Result<T> {
+    pub(crate) async fn json<T: for<'de> Deserialize<'de>>(self) -> Result<T> {
         let Self {
             response,
             retries,
