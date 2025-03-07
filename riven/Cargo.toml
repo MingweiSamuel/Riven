@@ -50,7 +50,7 @@ name = "proxy"
 required-features = ["__proxy"]
 
 [dependencies]
-eserde = { optional = true, git = "https://github.com/MingweiSamuel/eserde.git", branch = "deserialize-with", features = ["json"] }
+eserde = { optional = true, git = "https://github.com/MingweiSamuel/eserde.git", branch = "impl_edeserialize", features = ["json"] }
 futures = "0.3.0"
 log = "0.4.8"
 memo-map = "0.3.0"

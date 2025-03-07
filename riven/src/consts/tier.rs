@@ -2,8 +2,6 @@ use num_enum::{IntoPrimitive, TryFromPrimitive};
 use strum::IntoEnumIterator;
 use strum_macros::{AsRefStr, Display, EnumString, IntoStaticStr};
 
-use crate::{Deserialize, Serialize};
-
 /// LoL and TFT ranked tiers, such as gold, diamond, challenger, etc.
 ///
 /// Sorts from lowest rank to highest rank.
@@ -26,8 +24,8 @@ use crate::{Deserialize, Serialize};
     Display,
     AsRefStr,
     IntoStaticStr,
-    Serialize,
-    Deserialize,
+    serde::Serialize,
+    crate::de::Deserialize,
 )]
 #[repr(u8)]
 pub enum Tier {

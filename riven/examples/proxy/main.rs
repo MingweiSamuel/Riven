@@ -84,7 +84,7 @@ async fn handle_request(req: Request<Body>) -> Result<Response<Body>, Infallible
         .await;
     let resp_info = match resp_result {
         Err(err) => {
-            log::info!("Riot API error: {:#?}", err.source_reqwest_error());
+            log::info!("Riot API error: {}", err);
             return Ok(create_json_response(
                 r#"{"error":"Riot API request failed."}"#,
                 StatusCode::INTERNAL_SERVER_ERROR,

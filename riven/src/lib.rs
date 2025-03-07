@@ -190,14 +190,12 @@
 //! To run the srcgen use `node riven/srcgen` from the repository root.
 //!
 
-pub use serde::Serialize;
-#[cfg(not(feature = "eserde"))]
-pub use serde::{Deserialize, de::Deserialize};
-#[cfg(feature = "eserde")]
-pub use eserde::{Deserialize, EDeserialize as Deserialize};
-
-// Re-exported reqwest types.
+// Re-exported crates.
 pub use reqwest;
+pub use serde;
+#[cfg(feature = "eserde")]
+pub use eserde;
+
 
 mod config;
 pub use config::RiotApiConfig;
@@ -241,4 +239,18 @@ pub mod time {
     pub use tokio::time::sleep;
     #[cfg(target_family = "wasm")]
     pub use gloo_timers::future::sleep;
+}
+
+/// Deserialization utilities from either `serde_json` or `eserde`.
+#[rustfmt::skip]
+pub mod de {
+    #[cfg(not(feature = "eserde"))]
+    pub use serde::Deserialize;
+    #[cfg(not(feature = "eserde"))]
+    pub use serde_json::{Error, from_str, from_slice};
+
+    #[cfg(feature = "eserde")]
+    pub use eserde::{Deserialize, EDeserialize as Deserialize, DeserializationErrors as Error};
+    #[cfg(feature = "eserde")]
+    pub use eserde::json::{from_str, from_slice};
 }

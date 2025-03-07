@@ -4,8 +4,6 @@ use num_enum::{IntoPrimitive, TryFromPrimitive};
 use strum::IntoEnumIterator;
 use strum_macros::{AsRefStr, Display, EnumString, IntoStaticStr};
 
-use crate::{Deserialize, Serialize};
-
 /// LoL and TFT rank divisions, I, II, III, IV, and (deprecated) V.
 ///
 /// Ordered such that "higher" divisions are greater than "lower" ones: `Division::I > Division::IV`.
@@ -26,8 +24,8 @@ use crate::{Deserialize, Serialize};
     IntoStaticStr,
     IntoPrimitive,
     TryFromPrimitive,
-    Serialize,
-    Deserialize,
+    serde::Serialize,
+    crate::de::Deserialize,
 )]
 #[repr(u8)]
 pub enum Division {

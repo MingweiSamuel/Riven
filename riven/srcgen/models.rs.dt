@@ -25,7 +25,7 @@
         const endpoint_pascal_case = dotUtils.changeCase.pascalCase(endpoint);
 }}
 /// Data structs used by [`{{= endpoint_pascal_case }}`](crate::endpoints::{{= endpoint_pascal_case }}).
-/// 
+///
 /// Note: this module is automatically generated.
 #[allow(dead_code)]
 pub mod {{= dotUtils.changeCase.snakeCase(endpoint) }} {
@@ -37,7 +37,7 @@ pub mod {{= dotUtils.changeCase.snakeCase(endpoint) }} {
             const props = schema.properties;
             const requiredSet = new Set(schema.required);
 }}
-    /// {{= schemaName }} data object.
+    /// `{{= endpoint }}.{{= rawSchemaName }}` data object.
 {{? schema.description }}
     /// # Description
     /// {{= schema.description.split('\n').map(x => x.trim()).join('<br>\r\n    /// ') }}
@@ -45,7 +45,7 @@ pub mod {{= dotUtils.changeCase.snakeCase(endpoint) }} {
     /// Note: This struct is automatically generated
 {{?}}
     #[derive(Clone, Debug)]
-    #[derive(crate::Serialize, crate::Deserialize)]
+    #[derive(serde::Serialize, crate::de::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct {{= schemaName }} {
 {{
@@ -65,7 +65,7 @@ pub mod {{= dotUtils.changeCase.snakeCase(endpoint) }} {
 {{?}}
         {{= dotUtils.formatJsonProperty(propKey, prop) }}
 {{? optional }}
-        #[serde(skip_serializing_if = "Option::is_none")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
 {{?}}
 {{? 'championId' === propKey && (prop.description || '').includes('this field returned invalid championIds') }}
         ///

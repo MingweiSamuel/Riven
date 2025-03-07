@@ -2,11 +2,6 @@ use std::fmt;
 
 use reqwest::{Response, StatusCode};
 
-#[cfg(not(feature = "eserde"))]
-use serde_json::Error as SerdeError;
-#[cfg(feature = "eserde")]
-use eserde::DeserializationErrors as SerdeError;
-
 /// Result containing RiotApiError on failure.
 pub type Result<T> = std::result::Result<T, RiotApiError>;
 
@@ -14,7 +9,7 @@ pub type Result<T> = std::result::Result<T, RiotApiError>;
 #[derive(Debug)]
 pub struct RiotApiError {
     reqwest_errors: Vec<reqwest::Error>,
-    serde_error: Option<SerdeError>,
+    serde_error: Option<crate::de::Error>,
     retries: u8,
     response: Option<Response>,
     status_code: Option<StatusCode>,
@@ -22,7 +17,7 @@ pub struct RiotApiError {
 impl RiotApiError {
     pub(crate) fn new(
         reqwest_errors: Vec<reqwest::Error>,
-        serde_error: Option<SerdeError>,
+        serde_error: Option<crate::de::Error>,
         retries: u8,
         response: Option<Response>,
         status_code: Option<StatusCode>,
@@ -50,7 +45,7 @@ impl RiotApiError {
     }
 
     /// Returns the final deserialization error if any occured.
-    pub fn serde_error(&self) -> Option<&SerdeError> {
+    pub fn serde_error(&self) -> Option<&crate::de::Error> {
         self.serde_error.as_ref()
     }
 
@@ -82,7 +77,21 @@ impl RiotApiError {
 }
 impl fmt::Display for RiotApiError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{:#?}", self)
+        writeln!(
+            f,
+            "Riot API request failed after {} retries with status code {:?}.",
+            self.retries, self.status_code
+        )?;
+        for (i, reqwest_error) in self.reqwest_errors.iter().enumerate() {
+            writeln!(f, "Reqwest error {}: {}", i + 1, reqwest_error)?;
+        }
+        if let Some(response) = &self.response {
+            writeln!(f, "Response: {:?}", response)?;
+        }
+        if let Some(serde_error) = &self.serde_error {
+            writeln!(f, "Deserialization error: {}", serde_error)?;
+        }
+        Ok(())
     }
 }
 impl std::error::Error for RiotApiError {

@@ -13,7 +13,7 @@ use strum_macros::{ EnumString, Display, AsRefStr, IntoStaticStr };
 #[derive(Debug, Copy, Clone)]
 #[derive(Eq, PartialEq, Hash)]
 #[derive(EnumString, Display, AsRefStr, IntoStaticStr)]
-#[derive(crate::Serialize, crate::Deserialize)]
+#[derive(serde::Serialize, crate::de::Deserialize)]
 #[repr(u8)]
 pub enum GameType {
     /// Custom games

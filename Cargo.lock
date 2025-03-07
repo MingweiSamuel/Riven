@@ -279,8 +279,8 @@ dependencies = [
 
 [[package]]
 name = "eserde"
-version = "0.1.2"
-source = "git+https://github.com/MingweiSamuel/eserde.git?branch=deserialize-with#7ca7ff6c423069ef114791824d9ff0fce59747ab"
+version = "0.1.5"
+source = "git+https://github.com/MingweiSamuel/eserde.git?branch=impl_edeserialize#7b7f1920008871fe09f3116f9bf0a40b19e7ce6f"
 dependencies = [
  "eserde_derive",
  "itoa",
@@ -290,8 +290,8 @@ dependencies = [
 
 [[package]]
 name = "eserde_derive"
-version = "0.1.2"
-source = "git+https://github.com/MingweiSamuel/eserde.git?branch=deserialize-with#7ca7ff6c423069ef114791824d9ff0fce59747ab"
+version = "0.1.5"
+source = "git+https://github.com/MingweiSamuel/eserde.git?branch=impl_edeserialize#7b7f1920008871fe09f3116f9bf0a40b19e7ce6f"
 dependencies = [
  "indexmap",
  "proc-macro2",
