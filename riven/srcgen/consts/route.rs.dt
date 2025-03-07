@@ -2,6 +2,7 @@
     const dotUtils = require('./dotUtils.js');
     const routesTable = require('./.routesTable.json');
 }}{{= dotUtils.preamble() }}
+#![allow(clippy::upper_case_acronyms)]
 
 use num_enum::{ IntoPrimitive, TryFromPrimitive };
 use strum_macros::{ EnumString, EnumIter, Display, IntoStaticStr };

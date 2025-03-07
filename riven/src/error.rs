@@ -9,7 +9,7 @@ pub type Result<T> = std::result::Result<T, RiotApiError>;
 #[derive(Debug)]
 pub struct RiotApiError {
     reqwest_errors: Vec<reqwest::Error>,
-    serde_error: Option<crate::de::Error>,
+    de_error: Option<crate::de::Error>,
     retries: u8,
     response: Option<Response>,
     status_code: Option<StatusCode>,
@@ -24,7 +24,7 @@ impl RiotApiError {
     ) -> Self {
         Self {
             reqwest_errors,
-            serde_error,
+            de_error: serde_error,
             retries,
             response,
             status_code,
@@ -32,9 +32,9 @@ impl RiotApiError {
     }
 
     /// Returns the final `reqwest::Error`, for the final failed request, or panics if this was a deserialization error.
-    #[deprecated = "Use `reqwest_errors()` instead."]
+    #[deprecated = "Use `reqwest_errors()` or `de_error()` instead."]
     pub fn source_reqwest_error(&self) -> &reqwest::Error {
-        &self.reqwest_errors.last().unwrap()
+        self.reqwest_errors.last().unwrap()
     }
 
     /// Returns all `reqwest::Error`s across all retries, in the chronological order they occurred.
@@ -45,8 +45,8 @@ impl RiotApiError {
     }
 
     /// Returns the final deserialization error if any occured.
-    pub fn serde_error(&self) -> Option<&crate::de::Error> {
-        self.serde_error.as_ref()
+    pub fn de_error(&self) -> Option<&crate::de::Error> {
+        self.de_error.as_ref()
     }
 
     /// The number of retires attempted. Zero means exactly one request, zero retries.
@@ -54,7 +54,7 @@ impl RiotApiError {
         self.retries
     }
 
-    /// The failed response.
+    /// The failed, unparsed response.
     /// `Some(&reqwest::Response)` if the request was sent and failed.
     /// `None` if the request was not sent, OR if parsing the response JSON failed.
     pub fn response(&self) -> Option<&Response> {
@@ -79,23 +79,29 @@ impl fmt::Display for RiotApiError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         writeln!(
             f,
-            "Riot API request failed after {} retries with status code {:?}.",
-            self.retries, self.status_code
+            "Riot API request failed after {} retries with status code {:?}{}:",
+            self.retries(),
+            self.status_code(),
+            if self.response().is_some() {
+                " (response not parsed)"
+            } else {
+                ""
+            },
         )?;
-        for (i, reqwest_error) in self.reqwest_errors.iter().enumerate() {
-            writeln!(f, "Reqwest error {}: {}", i + 1, reqwest_error)?;
+        for (i, reqwest_error) in self.reqwest_errors().iter().enumerate() {
+            writeln!(f, "- Reqwest error {}: {}", i + 1, reqwest_error)?;
         }
-        if let Some(response) = &self.response {
-            writeln!(f, "Response: {:?}", response)?;
-        }
-        if let Some(serde_error) = &self.serde_error {
-            writeln!(f, "Deserialization error: {}", serde_error)?;
+        if let Some(serde_error) = self.de_error() {
+            writeln!(f, "- Deserialization error: {}", serde_error)?;
         }
         Ok(())
     }
 }
 impl std::error::Error for RiotApiError {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
-        self.reqwest_errors().last().map(|e| e as _)
+        self.reqwest_errors()
+            .last()
+            .map(|e| e as _)
+            .or_else(|| self.de_error().map(|e| e as _))
     }
 }

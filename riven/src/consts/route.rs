@@ -6,6 +6,7 @@
 //           Do not directly edit!           //
 //                                           //
 ///////////////////////////////////////////////
+#![allow(clippy::upper_case_acronyms)]
 
 use num_enum::{ IntoPrimitive, TryFromPrimitive };
 use strum_macros::{ EnumString, EnumIter, Display, IntoStaticStr };

@@ -1,3 +1,5 @@
+#![allow(clippy::upper_case_acronyms)]
+
 use std::cmp::Ordering;
 
 use num_enum::{IntoPrimitive, TryFromPrimitive};

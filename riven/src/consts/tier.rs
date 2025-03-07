@@ -1,3 +1,5 @@
+#![allow(clippy::upper_case_acronyms)]
+
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 use strum::IntoEnumIterator;
 use strum_macros::{AsRefStr, Display, EnumString, IntoStaticStr};
