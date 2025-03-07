@@ -130,7 +130,7 @@ fn parse_path<'a>(
     // Split URI into region and rest of path.
     let req_path = req_path.trim_start_matches('/');
     let (route, req_path) = req_path.split_at(req_path.find('/')?);
-    let route: Route = route.to_uppercase().parse().ok()?;
+    let route: Route = route.to_ascii_uppercase().parse().ok()?;
 
     // Find method_id for given path.
     let method_id = find_matching_method_id(http_method, req_path)?;

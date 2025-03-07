@@ -1,11 +1,14 @@
-#![doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/", env!("CARGO_PKG_README")))]
 #![forbid(unsafe_code)]
 #![deny(missing_docs)]
+#![doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/", env!("CARGO_PKG_README")))]
 
 // Re-exported crates.
 #[cfg(feature = "eserde")]
 pub use eserde;
 pub use {reqwest, serde, serde_json};
+
+#[macro_use]
+mod macros;
 
 mod config;
 pub use config::RiotApiConfig;
