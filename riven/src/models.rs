@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 313f162c59045123948a1872024485862504c361
+// Version 1b37b11075bdad584e6a46a1bdeffa7ad35c4303
 
 #![allow(missing_docs)]
 
@@ -1198,40 +1198,40 @@ pub mod match_v5 {
         pub participant_id: i32,
         #[serde(rename = "playerScore0", alias = "PlayerScore0")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub player_score0: Option<i32>,
+        pub player_score0: Option<f32>,
         #[serde(rename = "playerScore1", alias = "PlayerScore1")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub player_score1: Option<i32>,
+        pub player_score1: Option<f32>,
         #[serde(rename = "playerScore2", alias = "PlayerScore2")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub player_score2: Option<i32>,
+        pub player_score2: Option<f32>,
         #[serde(rename = "playerScore3", alias = "PlayerScore3")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub player_score3: Option<i32>,
+        pub player_score3: Option<f32>,
         #[serde(rename = "playerScore4", alias = "PlayerScore4")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub player_score4: Option<i32>,
+        pub player_score4: Option<f32>,
         #[serde(rename = "playerScore5", alias = "PlayerScore5")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub player_score5: Option<i32>,
+        pub player_score5: Option<f32>,
         #[serde(rename = "playerScore6", alias = "PlayerScore6")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub player_score6: Option<i32>,
+        pub player_score6: Option<f32>,
         #[serde(rename = "playerScore7", alias = "PlayerScore7")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub player_score7: Option<i32>,
+        pub player_score7: Option<f32>,
         #[serde(rename = "playerScore8", alias = "PlayerScore8")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub player_score8: Option<i32>,
+        pub player_score8: Option<f32>,
         #[serde(rename = "playerScore9", alias = "PlayerScore9")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub player_score9: Option<i32>,
+        pub player_score9: Option<f32>,
         #[serde(rename = "playerScore10", alias = "PlayerScore10")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub player_score10: Option<i32>,
+        pub player_score10: Option<f32>,
         #[serde(rename = "playerScore11", alias = "PlayerScore11")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub player_score11: Option<i32>,
+        pub player_score11: Option<f32>,
         #[serde(rename = "pentaKills")]
         pub penta_kills: i32,
         #[serde(rename = "perks")]
@@ -1864,42 +1864,42 @@ pub mod match_v5 {
     #[derive(serde::Serialize, serde::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Missions {
-        #[serde(rename = "playerScore0")]
+        #[serde(rename = "playerScore0", alias = "PlayerScore0")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub player_score0: Option<i32>,
-        #[serde(rename = "playerScore1")]
+        pub player_score0: Option<f32>,
+        #[serde(rename = "playerScore1", alias = "PlayerScore1")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub player_score1: Option<i32>,
-        #[serde(rename = "playerScore2")]
+        pub player_score1: Option<f32>,
+        #[serde(rename = "playerScore2", alias = "PlayerScore2")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub player_score2: Option<i32>,
-        #[serde(rename = "playerScore3")]
+        pub player_score2: Option<f32>,
+        #[serde(rename = "playerScore3", alias = "PlayerScore3")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub player_score3: Option<i32>,
-        #[serde(rename = "playerScore4")]
+        pub player_score3: Option<f32>,
+        #[serde(rename = "playerScore4", alias = "PlayerScore4")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub player_score4: Option<i32>,
-        #[serde(rename = "playerScore5")]
+        pub player_score4: Option<f32>,
+        #[serde(rename = "playerScore5", alias = "PlayerScore5")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub player_score5: Option<i32>,
-        #[serde(rename = "playerScore6")]
+        pub player_score5: Option<f32>,
+        #[serde(rename = "playerScore6", alias = "PlayerScore6")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub player_score6: Option<i32>,
-        #[serde(rename = "playerScore7")]
+        pub player_score6: Option<f32>,
+        #[serde(rename = "playerScore7", alias = "PlayerScore7")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub player_score7: Option<i32>,
-        #[serde(rename = "playerScore8")]
+        pub player_score7: Option<f32>,
+        #[serde(rename = "playerScore8", alias = "PlayerScore8")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub player_score8: Option<i32>,
-        #[serde(rename = "playerScore9")]
+        pub player_score8: Option<f32>,
+        #[serde(rename = "playerScore9", alias = "PlayerScore9")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub player_score9: Option<i32>,
-        #[serde(rename = "playerScore10")]
+        pub player_score9: Option<f32>,
+        #[serde(rename = "playerScore10", alias = "PlayerScore10")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub player_score10: Option<i32>,
-        #[serde(rename = "playerScore11")]
+        pub player_score10: Option<f32>,
+        #[serde(rename = "playerScore11", alias = "PlayerScore11")]
         #[serde(skip_serializing_if = "Option::is_none")]
-        pub player_score11: Option<i32>,
+        pub player_score11: Option<f32>,
     }
     /// Perks data object.
     #[derive(Clone, Debug)]
