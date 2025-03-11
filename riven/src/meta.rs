@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 313f162c59045123948a1872024485862504c361
+// Version 0ec1ee73a0d4f3138f9cbbe51b2787d41c3d8892
 
 //! Metadata about the Riot API and Riven.
 //!
@@ -16,7 +16,7 @@
 
 /// Metadata for endpoints. Each tuple corresponds to one endpoint and contains
 /// the HTTP [`Method`](reqwest::Method), `str` path, and the method's `str` ID.
-pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 88] = [
+pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 87] = [
     (reqwest::Method::GET, "/riot/account/v1/accounts/by-puuid/{puuid}", "account-v1.getByPuuid"),
     (reqwest::Method::GET, "/riot/account/v1/accounts/by-riot-id/{gameName}/{tagLine}", "account-v1.getByRiotId"),
     (reqwest::Method::GET, "/riot/account/v1/accounts/me", "account-v1.getByAccessToken"),
@@ -27,7 +27,6 @@ pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 88] = [
     (reqwest::Method::GET, "/lol/champion-mastery/v4/scores/by-puuid/{encryptedPUUID}", "champion-mastery-v4.getChampionMasteryScoreByPUUID"),
     (reqwest::Method::GET, "/lol/platform/v3/champion-rotations", "champion-v3.getChampionInfo"),
     (reqwest::Method::GET, "/lol/clash/v1/players/by-puuid/{puuid}", "clash-v1.getPlayersByPUUID"),
-    (reqwest::Method::GET, "/lol/clash/v1/players/by-summoner/{summonerId}", "clash-v1.getPlayersBySummoner"),
     (reqwest::Method::GET, "/lol/clash/v1/teams/{teamId}", "clash-v1.getTeamById"),
     (reqwest::Method::GET, "/lol/clash/v1/tournaments", "clash-v1.getTournaments"),
     (reqwest::Method::GET, "/lol/clash/v1/tournaments/by-team/{teamId}", "clash-v1.getTournamentByTeam"),

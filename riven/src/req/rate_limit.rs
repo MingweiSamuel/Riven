@@ -207,22 +207,45 @@ impl RateLimit {
                         )
                     })
                     .ok()
-            })?;
-
-        log::info!(
-            "429 response, rate limit {:?}, retry-after {} secs.",
-            self.rate_limit_type,
-            retry_after_header
-        );
+            });
 
         // Header currently only returns ints, but float is more general. Can be zero.
-        let retry_after_secs = retry_after_header
-            .parse::<f32>()
-            .map_err(|e| log::error!("Failed to parse read-after header as f32: {:?}.", e))
-            .ok()?;
+        let delay_secs = retry_after_header
+            .and_then(|s| {
+                s.parse::<f32>()
+                    .map_err(|e| {
+                        log::error!(
+                            "Failed to parse {} header as f32: {:?}.",
+                            reqwest::header::RETRY_AFTER,
+                            e,
+                        )
+                    })
+                    .ok()
+                    .map(|mut n| {
+                        n += 0.5;
+                        log::info!(
+                            "429 response, rate limit {:?}, {} header: `{}`, delaying {:?} secs.",
+                            self.rate_limit_type,
+                            reqwest::header::RETRY_AFTER,
+                            s,
+                            n,
+                        );
+                        n
+                    })
+            })
+            .unwrap_or_else(|| {
+                let n = 2.0;
+                log::info!(
+                    "429 response, rate limit {:?}, {} header MISSING, defaulting to {} secs.",
+                    self.rate_limit_type,
+                    reqwest::header::RETRY_AFTER,
+                    n,
+                );
+                n
+            });
 
         // Add 0.5 seconds to account for rounding, cases when response is zero.
-        let delay = Duration::from_secs_f32(0.5 + retry_after_secs);
+        let delay = Duration::from_secs_f32(delay_secs);
 
         // Set `self.retry_after`.
         *self.retry_after.write() = Some(Instant::now() + delay);

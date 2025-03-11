@@ -1,6 +1,5 @@
 /target
 **/*.rs.bk
 /doc
-Cargo.lock
 apikey.txt
 

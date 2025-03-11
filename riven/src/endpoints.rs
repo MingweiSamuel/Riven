@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 313f162c59045123948a1872024485862504c361
+// Version 0ec1ee73a0d4f3138f9cbbe51b2787d41c3d8892
 
 //! Automatically generated endpoint handles.
 #![allow(clippy::let_and_return, clippy::too_many_arguments)]
@@ -759,48 +759,6 @@ impl<'a> ClashV1<'a> {
         let future = future.instrument(tracing::info_span!("clash-v1.getPlayersByPUUID", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "clash-v1.getPlayersByPUUID", route_str);
-        future
-    }
-
-    /// Get players by summoner ID.
-    /// ## Implementation Notes
-    /// This endpoint returns a list of active Clash players for a given summoner ID. If a summoner registers for multiple tournaments at the same time (e.g., Saturday and Sunday) then both registrations would appear in this list.
-    /// # Parameters
-    /// * `route` - Route to query.
-    /// * `summoner_id` (required, in path)
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#clash-v1/GET_getPlayersBySummoner" target="_blank">`clash-v1.getPlayersBySummoner`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn get_players_by_summoner(&self, route: PlatformRoute, summoner_id: &str)
-        -> impl Future<Output = Result<Vec<clash_v1::Player>>> + 'a
-    {
-        let route_str = route.into();
-        let request = self.base.request(Method::GET, route_str, &format!("/lol/clash/v1/players/by-summoner/{}", summoner_id));
-        let future = self.base.execute_val::<Vec<clash_v1::Player>>("clash-v1.getPlayersBySummoner", route_str, request);
-        #[cfg(feature = "tracing")]
-        let future = future.instrument(tracing::info_span!("clash-v1.getPlayersBySummoner", route = route_str));
-        #[cfg(feature = "metrics")]
-        let future = metrics::timed(future, "clash-v1.getPlayersBySummoner", route_str);
-        future
-    }
-
-    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
-    /// See `get_players_by_summoner` for detailed documentation
-    /// # Parameters
-    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
-    ///
-    /// Note: this method is automatically generated.
-    pub fn try_get_players_by_summoner(&self, min_capacity: f32, route: PlatformRoute, summoner_id: &str)
-        -> impl Future<Output = Option<Result<Vec<clash_v1::Player>>>> + 'a
-    {
-        let route_str = route.into();
-        let request = self.base.request(Method::GET, route_str, &format!("/lol/clash/v1/players/by-summoner/{}", summoner_id));
-        let future = self.base.try_execute_val::<Vec<clash_v1::Player>>("clash-v1.getPlayersBySummoner", route_str, request, min_capacity);
-        #[cfg(feature = "tracing")]
-        let future = future.instrument(tracing::info_span!("clash-v1.getPlayersBySummoner", route = route_str));
-        #[cfg(feature = "metrics")]
-        let future = metrics::timed(future, "clash-v1.getPlayersBySummoner", route_str);
         future
     }
 
