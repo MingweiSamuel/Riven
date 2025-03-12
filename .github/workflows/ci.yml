@@ -74,12 +74,12 @@ jobs:
       - uses: actions-rs/cargo@v1
         with:
           command: build
-          args: --all-targets --features nightly,deny-unknown,__proxy
+          args: --all-targets --features nightly,deny-unknown,eserde,__proxy
 
       - uses: actions-rs/cargo@v1
         with:
           command: test
-          args: --no-fail-fast --features nightly,deny-unknown,__proxy
+          args: --no-fail-fast --features nightly,deny-unknown,eserde,__proxy
         env:
           RUST_BACKTRACE: 1
           RUST_LOG: riven=debug
@@ -89,7 +89,7 @@ jobs:
         run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
       - working-directory: riven
-        run: wasm-pack test --node -- --features nightly,deny-unknown
+        run: wasm-pack test --node -- --features nightly,deny-unknown,eserde
         env:
           RGAPI_KEY: ${{ secrets.RGAPI_KEY }}
 
