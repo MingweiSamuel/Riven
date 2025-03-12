@@ -90,7 +90,7 @@ impl RiotApi {
     ///
     /// # Returns
     /// A future resolving to a `Result` containg either a `T` (success) or a `RiotApiError` (failure).
-    pub async fn execute_val<'a, T: serde::de::DeserializeOwned + 'a>(
+    pub async fn execute_val<'a, T: for<'de> crate::de::Deserialize<'de> + 'a>(
         &'a self,
         method_id: &'static str,
         region_platform: &'static str,
@@ -99,10 +99,7 @@ impl RiotApi {
         let rinfo = self
             .execute_raw(method_id, region_platform, request)
             .await?;
-        let retries = rinfo.retries;
-        let status = rinfo.response.status();
-        let value = rinfo.response.json::<T>().await;
-        value.map_err(|e| RiotApiError::new(e, retries, None, Some(status)))
+        rinfo.json::<T>().await
     }
 
     /// This method should generally not be used directly. Consider using endpoint wrappers instead.
@@ -116,7 +113,7 @@ impl RiotApi {
     ///
     /// # Returns
     /// A future resolving to a `Result` containg either an `Option<T>` (success) or a `RiotApiError` (failure).
-    pub async fn execute_opt<'a, T: serde::de::DeserializeOwned + 'a>(
+    pub async fn execute_opt<'a, T: for<'de> crate::de::Deserialize<'de> + 'a>(
         &'a self,
         method_id: &'static str,
         region_platform: &'static str,
@@ -128,10 +125,7 @@ impl RiotApi {
         if rinfo.status_none {
             return Ok(None);
         }
-        let retries = rinfo.retries;
-        let status = rinfo.response.status();
-        let value = rinfo.response.json::<Option<T>>().await;
-        value.map_err(|e| RiotApiError::new(e, retries, None, Some(status)))
+        rinfo.json::<Option<T>>().await
     }
 
     /// This method should generally not be used directly. Consider using endpoint wrappers instead.
@@ -156,11 +150,17 @@ impl RiotApi {
             .await?;
         let retries = rinfo.retries;
         let status = rinfo.response.status();
-        rinfo
-            .response
-            .error_for_status()
-            .map(|_| ())
-            .map_err(|e| RiotApiError::new(e, retries, None, Some(status)))
+        if status.is_client_error() || status.is_server_error() {
+            Err(RiotApiError::new(
+                rinfo.reqwest_errors,
+                None,
+                retries,
+                Some(rinfo.response),
+                Some(status),
+            ))
+        } else {
+            Ok(())
+        }
     }
 
     /// This method should generally not be used directly. Consider using endpoint wrappers instead.

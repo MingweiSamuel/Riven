@@ -199,7 +199,9 @@ impl<'a> {{= endpoint }}<'a> {
         {{= dotUtils.formatAddHeaderParam(headerParam) }}
 {{~}}
 {{? bodyType }}
-        let request = request.body(serde_json::ser::to_vec(body).unwrap());
+        let request = request
+            .body(serde_json::ser::to_vec(body).unwrap())
+            .header(reqwest::header::CONTENT_TYPE, "application/json");
 {{?}}
         let future = self.base.execute{{= hasReturn ? (returnOptional ? '_opt' : '_val') : '' }}{{= returnTypeTurbofish }}("{{= operationId }}", route_str, request);
         #[cfg(feature = "tracing")]

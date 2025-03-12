@@ -1,5 +1,6 @@
+#![allow(clippy::upper_case_acronyms)]
+
 use num_enum::{IntoPrimitive, TryFromPrimitive};
-use serde::{Deserialize, Serialize};
 use strum::IntoEnumIterator;
 use strum_macros::{AsRefStr, Display, EnumString, IntoStaticStr};
 
@@ -25,8 +26,8 @@ use strum_macros::{AsRefStr, Display, EnumString, IntoStaticStr};
     Display,
     AsRefStr,
     IntoStaticStr,
-    Serialize,
-    Deserialize,
+    serde::Serialize,
+    crate::de::Deserialize,
 )]
 #[repr(u8)]
 pub enum Tier {

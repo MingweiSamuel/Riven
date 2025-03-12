@@ -278,6 +278,30 @@ dependencies = [
 ]
 
 [[package]]
+name = "eserde"
+version = "0.1.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2b00bbe58b41137cb1f1421385eae8ae360ce02722ab24dcc91a45be30daeeea"
+dependencies = [
+ "eserde_derive",
+ "itoa",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "eserde_derive"
+version = "0.1.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "92f146f29032c31be76a0b0a0275a5d11b5835711db47689fe4edd3017993615"
+dependencies = [
+ "indexmap",
+ "proc-macro2",
+ "quote",
+ "syn 2.0.96",
+]
+
+[[package]]
 name = "fake_instant"
 version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1146,6 +1170,7 @@ dependencies = [
  "console_error_panic_hook",
  "console_log",
  "env_logger",
+ "eserde",
  "fake_instant",
  "futures",
  "gloo-timers",

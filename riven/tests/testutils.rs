@@ -178,7 +178,7 @@ pub async fn tft_match_v1_get(
         let p = riot_api().tft_match_v1().get_match(route, matche);
         let m = p
             .await
-            .map_err(|e| format!("Failed to get tft match {}: {:?}", matche, e))?
+            .map_err(|e| format!("Failed to get tft match {}: {}", matche, e))?
             .ok_or(format!("Match {} not found.", matche))?;
 
         if matche != &*m.metadata.match_id {
@@ -219,7 +219,7 @@ pub async fn match_v5_get(
         let p = riot_api().match_v5().get_match(route, matche);
         let m = p
             .await
-            .map_err(|e| format!("Failed to get match {}: {:?}", matche, e))?
+            .map_err(|e| format!("Failed to get match {}: {}", matche, e))?
             .ok_or(format!("Match {} not found.", matche))?;
 
         if matche != &*m.metadata.match_id {
@@ -279,7 +279,7 @@ pub async fn match_v5_get_timeline(
         let p = riot_api().match_v5().get_timeline(route, matche);
         let m = p
             .await
-            .map_err(|e| format!("Failed to get match timeline {}: {:?}", matche, e))?
+            .map_err(|e| format!("Failed to get match timeline {}: {}", matche, e))?
             .ok_or(format!("Match {} not found.", matche))?;
         if matche != &*m.metadata.match_id {
             return Err(format!(
@@ -474,7 +474,7 @@ pub async fn val_match_v1_get(
         let p = riot_api().val_match_v1().get_match(route, matche);
         let m = p
             .await
-            .map_err(|e| format!("Failed to get val match {}: {:?}", matche, e))?
+            .map_err(|e| format!("Failed to get val match {}: {}", matche, e))?
             .ok_or(format!("Match {} not found.", matche))?;
 
         // TODO(mingwei): Check the match a bit.

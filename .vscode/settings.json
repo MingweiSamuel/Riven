@@ -11,6 +11,9 @@
     "rust-analyzer.cargo.features": [
         "nightly",
         "tracing",
-        "deny-unknown"
-    ]
+        "deny-unknown",
+        "eserde",
+    ],
+    "evenBetterToml.formatter.compactArrays": false,
+    "evenBetterToml.formatter.columnWidth": 100
 }
