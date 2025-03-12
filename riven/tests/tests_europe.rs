@@ -28,6 +28,9 @@ static MATCHES: &[&str] = &[
     "EUW1_6852390800",
     // SWIFTPLAY
     "EUW1_7261321891",
+    "EUW1_7333077176",
+    // https://github.com/RiotGames/developer-relations/issues/939#issuecomment-2164112865
+    "RU_490603994",
 ];
 
 #[riven_test]

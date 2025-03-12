@@ -5,7 +5,15 @@ use testutils::*;
 
 const ROUTE: RegionalRoute = RegionalRoute::AMERICAS;
 
-static MATCHES: &[&str] = &["NA1_4924008147", "LA1_1568057368"];
+static MATCHES: &[&str] = &[
+    "NA1_4924008147",
+    "LA1_1568057368",
+    // https://github.com/RiotGames/developer-relations/issues/939#issuecomment-2164119529
+    "NA1_5018382378",
+    "NA1_5018422066",
+    // https://github.com/MingweiSamuel/Riven/issues/84
+    "NA1_5245486208",
+];
 
 /// Account-v1
 #[riven_test]
