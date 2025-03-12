@@ -1,64 +1,64 @@
 [package]
 name = "riven"
 version = "2.64.0"
-authors = ["Mingwei Samuel <mingwei.samuel@gmail.com>"]
+authors = [ "Mingwei Samuel <mingwei.samuel@gmail.com>" ]
 repository = "https://github.com/MingweiSamuel/Riven"
 description = "Riot Games API Library"
 readme = "../README.md"
 license = "MIT"
 edition = "2018"
 rust-version = "1.71.1"
-include = ["src/**", "../README.md", "/examples"]
-keywords = ["riot-games", "riot", "league", "league-of-legends"]
-categories = ["api-bindings", "web-programming::http-client", "wasm"]
+include = [ "src/**", "../README.md", "/examples" ]
+keywords = [ "riot-games", "riot", "league", "league-of-legends" ]
+categories = [ "api-bindings", "web-programming::http-client", "wasm" ]
 
 [lib]
-crate-type = ["cdylib", "rlib"]
+crate-type = [ "cdylib", "rlib" ]
 
 [package.metadata.docs.rs]
-features = ["nightly"]
+features = [ "nightly" ]
 
 [features]
-default = ["default-tls"]
+default = [ "default-tls" ]
 
-nightly = ["parking_lot/nightly"]
+nightly = [ "parking_lot/nightly" ]
 
-default-tls = ["reqwest/default-tls"]
-native-tls = ["reqwest/native-tls"]
-rustls-tls = ["reqwest/rustls-tls"]
+default-tls = [ "reqwest/default-tls" ]
+native-tls = [ "reqwest/native-tls" ]
+rustls-tls = [ "reqwest/rustls-tls" ]
 
-metrics = ["dep:metrics"]
-eserde = ["dep:eserde"]
+metrics = [ "dep:metrics" ]
+eserde = [ "dep:eserde" ]
 
-deny-unknown = ["deny-unknown-fields", "deny-unknown-enum-variants"]
+deny-unknown = [ "deny-unknown-fields", "deny-unknown-enum-variants" ]
 # If enabled, extra unknown fields encountered during deserialization will
 # cause an error instead of being ignored.
-deny-unknown-fields = []
+deny-unknown-fields = [  ]
 # If enabled, deserialization of unknown enum variants will cause an error
 # instead of being deserialized to `UNKNOWN` or other integer variants.
 deny-unknown-enum-variants = [
     "deny-unknown-enum-variants-strings",
     "deny-unknown-enum-variants-integers",
 ]
-deny-unknown-enum-variants-strings = []
-deny-unknown-enum-variants-integers = []
+deny-unknown-enum-variants-strings = [  ]
+deny-unknown-enum-variants-integers = [  ]
 
-__proxy = []
+__proxy = [  ]
 
 [[example]]
 name = "proxy"
-required-features = ["__proxy"]
+required-features = [ "__proxy" ]
 
 [dependencies]
-eserde = { optional = true, version = "0.1.6" }
+eserde = { optional = true, version = "0.1.6", features = [ "json" ] }
 futures = "0.3.0"
 log = "0.4.8"
 memo-map = "0.3.0"
 metrics = { optional = true, version = "0.24.0" }
 num_enum = "0.5.0"
 parking_lot = "0.12.0"
-reqwest = { version = "0.11.2", default-features = false, features = ["gzip"] }
-serde = { version = "1.0.85", features = ["derive"] }
+reqwest = { version = "0.11.2", default-features = false, features = [ "gzip" ] }
+serde = { version = "1.0.85", features = [ "derive" ] }
 serde_derive = "1.0.85"
 serde_json = "1.0.1"
 serde_repr = "0.1.0"
@@ -68,10 +68,10 @@ strum_macros = "0.20.0"
 tracing = { optional = true, version = "0.1.22" }
 
 [target.'cfg(not(target_family = "wasm"))'.dependencies]
-tokio = { version = "1.20.0", default-features = false, features = ["time"] }
+tokio = { version = "1.20.0", default-features = false, features = [ "time" ] }
 
 [target.'cfg(target_family = "wasm")'.dependencies]
-gloo-timers = { version = "0.3", features = ["futures"] }
+gloo-timers = { version = "0.3", features = [ "futures" ] }
 web-time = "1.0.0"
 
 [dev-dependencies]
@@ -81,8 +81,8 @@ tracing = "0.1.22"
 tracing-subscriber = "0.3.17"
 
 [target.'cfg(not(target_family = "wasm"))'.dev-dependencies]
-hyper = { version = "0.14.5", features = ["server"] }
-tokio = { version = "1.20.0", features = ["macros", "rt-multi-thread"] }
+hyper = { version = "0.14.5", features = [ "server" ] }
+tokio = { version = "1.20.0", features = [ "macros", "rt-multi-thread" ] }
 tokio-shared-rt = "0.1.0"
 
 [target.'cfg(target_family = "wasm")'.dev-dependencies]

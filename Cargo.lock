@@ -286,6 +286,7 @@ dependencies = [
  "eserde_derive",
  "itoa",
  "serde",
+ "serde_json",
 ]
 
 [[package]]
