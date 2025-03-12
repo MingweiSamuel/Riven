@@ -27,6 +27,7 @@ default-tls = [ "reqwest/default-tls" ]
 native-tls = [ "reqwest/native-tls" ]
 rustls-tls = [ "reqwest/rustls-tls" ]
 
+tracing = [ "dep:tracing" ]
 metrics = [ "dep:metrics" ]
 eserde = [ "dep:eserde" ]
 
@@ -40,7 +41,9 @@ deny-unknown-enum-variants = [
     "deny-unknown-enum-variants-strings",
     "deny-unknown-enum-variants-integers",
 ]
+# If enabled, unknown string enum variants will cause an error.
 deny-unknown-enum-variants-strings = [  ]
+# If enabled, unknown integer enum variants will cause an error.
 deny-unknown-enum-variants-integers = [  ]
 
 __proxy = [  ]
