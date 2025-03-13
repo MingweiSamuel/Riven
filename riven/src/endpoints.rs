@@ -8,12 +8,10 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 0ec1ee73a0d4f3138f9cbbe51b2787d41c3d8892
+// Version 70189fcbec142793477bfadf264265de0134d742
 
 //! Automatically generated endpoint handles.
 #![allow(clippy::let_and_return, clippy::too_many_arguments)]
-
-use crate::models::*;
 
 use std::future::Future;
 use std::vec::Vec;
@@ -321,11 +319,11 @@ impl<'a> AccountV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_by_puuid(&self, route: RegionalRoute, puuid: &str)
-        -> impl Future<Output = Result<account_v1::Account>> + 'a
+        -> impl Future<Output = Result<crate::models::account_v1::Account>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/riot/account/v1/accounts/by-puuid/{}", puuid));
-        let future = self.base.execute_val::<account_v1::Account>("account-v1.getByPuuid", route_str, request);
+        let future = self.base.execute_val::<crate::models::account_v1::Account>("account-v1.getByPuuid", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("account-v1.getByPuuid", route = route_str));
         #[cfg(feature = "metrics")]
@@ -343,11 +341,11 @@ impl<'a> AccountV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_by_riot_id(&self, route: RegionalRoute, game_name: &str, tag_line: &str)
-        -> impl Future<Output = Result<Option<account_v1::Account>>> + 'a
+        -> impl Future<Output = Result<Option<crate::models::account_v1::Account>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/riot/account/v1/accounts/by-riot-id/{}/{}", game_name, tag_line));
-        let future = self.base.execute_opt::<account_v1::Account>("account-v1.getByRiotId", route_str, request);
+        let future = self.base.execute_opt::<crate::models::account_v1::Account>("account-v1.getByRiotId", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("account-v1.getByRiotId", route = route_str));
         #[cfg(feature = "metrics")]
@@ -367,13 +365,13 @@ impl<'a> AccountV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_by_access_token(&self, route: RegionalRoute, access_token: impl std::fmt::Display)
-        -> impl Future<Output = Result<account_v1::Account>> + 'a
+        -> impl Future<Output = Result<crate::models::account_v1::Account>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/riot/account/v1/accounts/me");
         let mut request = request.bearer_auth(access_token);
         if let Some(clear) = self.base.get_rso_clear_header() { request = request.header(clear, "") }
-        let future = self.base.execute_val::<account_v1::Account>("account-v1.getByAccessToken", route_str, request);
+        let future = self.base.execute_val::<crate::models::account_v1::Account>("account-v1.getByAccessToken", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("account-v1.getByAccessToken", route = route_str));
         #[cfg(feature = "metrics")]
@@ -391,11 +389,11 @@ impl<'a> AccountV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_active_shard(&self, route: RegionalRoute, game: &str, puuid: &str)
-        -> impl Future<Output = Result<Option<account_v1::ActiveShard>>> + 'a
+        -> impl Future<Output = Result<Option<crate::models::account_v1::ActiveShard>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/riot/account/v1/active-shards/by-game/{}/by-puuid/{}", game, puuid));
-        let future = self.base.execute_opt::<account_v1::ActiveShard>("account-v1.getActiveShard", route_str, request);
+        let future = self.base.execute_opt::<crate::models::account_v1::ActiveShard>("account-v1.getActiveShard", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("account-v1.getActiveShard", route = route_str));
         #[cfg(feature = "metrics")]
@@ -424,11 +422,11 @@ impl<'a> ChampionMasteryV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_all_champion_masteries_by_puuid(&self, route: PlatformRoute, encrypted_puuid: &str)
-        -> impl Future<Output = Result<Vec<champion_mastery_v4::ChampionMastery>>> + 'a
+        -> impl Future<Output = Result<Vec<crate::models::champion_mastery_v4::ChampionMastery>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/champion-mastery/v4/champion-masteries/by-puuid/{}", encrypted_puuid));
-        let future = self.base.execute_val::<Vec<champion_mastery_v4::ChampionMastery>>("champion-mastery-v4.getAllChampionMasteriesByPUUID", route_str, request);
+        let future = self.base.execute_val::<Vec<crate::models::champion_mastery_v4::ChampionMastery>>("champion-mastery-v4.getAllChampionMasteriesByPUUID", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("champion-mastery-v4.getAllChampionMasteriesByPUUID", route = route_str));
         #[cfg(feature = "metrics")]
@@ -446,11 +444,11 @@ impl<'a> ChampionMasteryV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_champion_mastery_by_puuid(&self, route: PlatformRoute, encrypted_puuid: &str, champion_id: crate::consts::Champion)
-        -> impl Future<Output = Result<champion_mastery_v4::ChampionMastery>> + 'a
+        -> impl Future<Output = Result<crate::models::champion_mastery_v4::ChampionMastery>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/champion-mastery/v4/champion-masteries/by-puuid/{}/by-champion/{}", encrypted_puuid, champion_id));
-        let future = self.base.execute_val::<champion_mastery_v4::ChampionMastery>("champion-mastery-v4.getChampionMasteryByPUUID", route_str, request);
+        let future = self.base.execute_val::<crate::models::champion_mastery_v4::ChampionMastery>("champion-mastery-v4.getChampionMasteryByPUUID", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("champion-mastery-v4.getChampionMasteryByPUUID", route = route_str));
         #[cfg(feature = "metrics")]
@@ -468,12 +466,12 @@ impl<'a> ChampionMasteryV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_top_champion_masteries_by_puuid(&self, route: PlatformRoute, encrypted_puuid: &str, count: Option<i32>)
-        -> impl Future<Output = Result<Vec<champion_mastery_v4::ChampionMastery>>> + 'a
+        -> impl Future<Output = Result<Vec<crate::models::champion_mastery_v4::ChampionMastery>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/champion-mastery/v4/champion-masteries/by-puuid/{}/top", encrypted_puuid));
         let request = if let Some(count) = count { request.query(&[ ("count", count) ]) } else { request };
-        let future = self.base.execute_val::<Vec<champion_mastery_v4::ChampionMastery>>("champion-mastery-v4.getTopChampionMasteriesByPUUID", route_str, request);
+        let future = self.base.execute_val::<Vec<crate::models::champion_mastery_v4::ChampionMastery>>("champion-mastery-v4.getTopChampionMasteriesByPUUID", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("champion-mastery-v4.getTopChampionMasteriesByPUUID", route = route_str));
         #[cfg(feature = "metrics")]
@@ -522,11 +520,11 @@ impl<'a> ChampionV3<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_champion_info(&self, route: PlatformRoute)
-        -> impl Future<Output = Result<champion_v3::ChampionInfo>> + 'a
+        -> impl Future<Output = Result<crate::models::champion_v3::ChampionInfo>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/lol/platform/v3/champion-rotations");
-        let future = self.base.execute_val::<champion_v3::ChampionInfo>("champion-v3.getChampionInfo", route_str, request);
+        let future = self.base.execute_val::<crate::models::champion_v3::ChampionInfo>("champion-v3.getChampionInfo", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("champion-v3.getChampionInfo", route = route_str));
         #[cfg(feature = "metrics")]
@@ -557,11 +555,11 @@ impl<'a> ClashV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_players_by_puuid(&self, route: PlatformRoute, puuid: &str)
-        -> impl Future<Output = Result<Vec<clash_v1::Player>>> + 'a
+        -> impl Future<Output = Result<Vec<crate::models::clash_v1::Player>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/clash/v1/players/by-puuid/{}", puuid));
-        let future = self.base.execute_val::<Vec<clash_v1::Player>>("clash-v1.getPlayersByPUUID", route_str, request);
+        let future = self.base.execute_val::<Vec<crate::models::clash_v1::Player>>("clash-v1.getPlayersByPUUID", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("clash-v1.getPlayersByPUUID", route = route_str));
         #[cfg(feature = "metrics")]
@@ -578,11 +576,11 @@ impl<'a> ClashV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_team_by_id(&self, route: PlatformRoute, team_id: &str)
-        -> impl Future<Output = Result<Option<clash_v1::Team>>> + 'a
+        -> impl Future<Output = Result<Option<crate::models::clash_v1::Team>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/clash/v1/teams/{}", team_id));
-        let future = self.base.execute_opt::<clash_v1::Team>("clash-v1.getTeamById", route_str, request);
+        let future = self.base.execute_opt::<crate::models::clash_v1::Team>("clash-v1.getTeamById", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("clash-v1.getTeamById", route = route_str));
         #[cfg(feature = "metrics")]
@@ -598,11 +596,11 @@ impl<'a> ClashV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_tournaments(&self, route: PlatformRoute)
-        -> impl Future<Output = Result<Vec<clash_v1::Tournament>>> + 'a
+        -> impl Future<Output = Result<Vec<crate::models::clash_v1::Tournament>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/lol/clash/v1/tournaments");
-        let future = self.base.execute_val::<Vec<clash_v1::Tournament>>("clash-v1.getTournaments", route_str, request);
+        let future = self.base.execute_val::<Vec<crate::models::clash_v1::Tournament>>("clash-v1.getTournaments", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("clash-v1.getTournaments", route = route_str));
         #[cfg(feature = "metrics")]
@@ -619,11 +617,11 @@ impl<'a> ClashV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_tournament_by_team(&self, route: PlatformRoute, team_id: &str)
-        -> impl Future<Output = Result<Option<clash_v1::Tournament>>> + 'a
+        -> impl Future<Output = Result<Option<crate::models::clash_v1::Tournament>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/clash/v1/tournaments/by-team/{}", team_id));
-        let future = self.base.execute_opt::<clash_v1::Tournament>("clash-v1.getTournamentByTeam", route_str, request);
+        let future = self.base.execute_opt::<crate::models::clash_v1::Tournament>("clash-v1.getTournamentByTeam", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("clash-v1.getTournamentByTeam", route = route_str));
         #[cfg(feature = "metrics")]
@@ -640,11 +638,11 @@ impl<'a> ClashV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_tournament_by_id(&self, route: PlatformRoute, tournament_id: i32)
-        -> impl Future<Output = Result<Option<clash_v1::Tournament>>> + 'a
+        -> impl Future<Output = Result<Option<crate::models::clash_v1::Tournament>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/clash/v1/tournaments/{}", tournament_id));
-        let future = self.base.execute_opt::<clash_v1::Tournament>("clash-v1.getTournamentById", route_str, request);
+        let future = self.base.execute_opt::<crate::models::clash_v1::Tournament>("clash-v1.getTournamentById", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("clash-v1.getTournamentById", route = route_str));
         #[cfg(feature = "metrics")]
@@ -676,12 +674,12 @@ impl<'a> LeagueExpV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_league_entries(&self, route: PlatformRoute, queue: crate::consts::QueueType, tier: crate::consts::Tier, division: crate::consts::Division, page: Option<i32>)
-        -> impl Future<Output = Result<Option<Vec<league_exp_v4::LeagueEntry>>>> + 'a
+        -> impl Future<Output = Result<Option<Vec<crate::models::league_exp_v4::LeagueEntry>>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/league-exp/v4/entries/{}/{}/{}", queue, tier, division));
         let request = if let Some(page) = page { request.query(&[ ("page", page) ]) } else { request };
-        let future = self.base.execute_opt::<Vec<league_exp_v4::LeagueEntry>>("league-exp-v4.getLeagueEntries", route_str, request);
+        let future = self.base.execute_opt::<Vec<crate::models::league_exp_v4::LeagueEntry>>("league-exp-v4.getLeagueEntries", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("league-exp-v4.getLeagueEntries", route = route_str));
         #[cfg(feature = "metrics")]
@@ -710,11 +708,11 @@ impl<'a> LeagueV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_challenger_league(&self, route: PlatformRoute, queue: crate::consts::QueueType)
-        -> impl Future<Output = Result<league_v4::LeagueList>> + 'a
+        -> impl Future<Output = Result<crate::models::league_v4::LeagueList>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/challengerleagues/by-queue/{}", queue));
-        let future = self.base.execute_val::<league_v4::LeagueList>("league-v4.getChallengerLeague", route_str, request);
+        let future = self.base.execute_val::<crate::models::league_v4::LeagueList>("league-v4.getChallengerLeague", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("league-v4.getChallengerLeague", route = route_str));
         #[cfg(feature = "metrics")]
@@ -731,11 +729,11 @@ impl<'a> LeagueV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_league_entries_by_puuid(&self, route: PlatformRoute, encrypted_puuid: &str)
-        -> impl Future<Output = Result<Vec<league_v4::LeagueEntry>>> + 'a
+        -> impl Future<Output = Result<Vec<crate::models::league_v4::LeagueEntry>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/entries/by-puuid/{}", encrypted_puuid));
-        let future = self.base.execute_val::<Vec<league_v4::LeagueEntry>>("league-v4.getLeagueEntriesByPUUID", route_str, request);
+        let future = self.base.execute_val::<Vec<crate::models::league_v4::LeagueEntry>>("league-v4.getLeagueEntriesByPUUID", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("league-v4.getLeagueEntriesByPUUID", route = route_str));
         #[cfg(feature = "metrics")]
@@ -752,11 +750,11 @@ impl<'a> LeagueV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_league_entries_for_summoner(&self, route: PlatformRoute, encrypted_summoner_id: &str)
-        -> impl Future<Output = Result<Vec<league_v4::LeagueEntry>>> + 'a
+        -> impl Future<Output = Result<Vec<crate::models::league_v4::LeagueEntry>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/entries/by-summoner/{}", encrypted_summoner_id));
-        let future = self.base.execute_val::<Vec<league_v4::LeagueEntry>>("league-v4.getLeagueEntriesForSummoner", route_str, request);
+        let future = self.base.execute_val::<Vec<crate::models::league_v4::LeagueEntry>>("league-v4.getLeagueEntriesForSummoner", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("league-v4.getLeagueEntriesForSummoner", route = route_str));
         #[cfg(feature = "metrics")]
@@ -776,12 +774,12 @@ impl<'a> LeagueV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_league_entries(&self, route: PlatformRoute, queue: crate::consts::QueueType, tier: crate::consts::Tier, division: crate::consts::Division, page: Option<i32>)
-        -> impl Future<Output = Result<Option<Vec<league_v4::LeagueEntry>>>> + 'a
+        -> impl Future<Output = Result<Option<Vec<crate::models::league_v4::LeagueEntry>>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/entries/{}/{}/{}", queue, tier, division));
         let request = if let Some(page) = page { request.query(&[ ("page", page) ]) } else { request };
-        let future = self.base.execute_opt::<Vec<league_v4::LeagueEntry>>("league-v4.getLeagueEntries", route_str, request);
+        let future = self.base.execute_opt::<Vec<crate::models::league_v4::LeagueEntry>>("league-v4.getLeagueEntries", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("league-v4.getLeagueEntries", route = route_str));
         #[cfg(feature = "metrics")]
@@ -798,11 +796,11 @@ impl<'a> LeagueV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_grandmaster_league(&self, route: PlatformRoute, queue: crate::consts::QueueType)
-        -> impl Future<Output = Result<league_v4::LeagueList>> + 'a
+        -> impl Future<Output = Result<crate::models::league_v4::LeagueList>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/grandmasterleagues/by-queue/{}", queue));
-        let future = self.base.execute_val::<league_v4::LeagueList>("league-v4.getGrandmasterLeague", route_str, request);
+        let future = self.base.execute_val::<crate::models::league_v4::LeagueList>("league-v4.getGrandmasterLeague", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("league-v4.getGrandmasterLeague", route = route_str));
         #[cfg(feature = "metrics")]
@@ -819,11 +817,11 @@ impl<'a> LeagueV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_league_by_id(&self, route: PlatformRoute, league_id: &str)
-        -> impl Future<Output = Result<Option<league_v4::LeagueList>>> + 'a
+        -> impl Future<Output = Result<Option<crate::models::league_v4::LeagueList>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/leagues/{}", league_id));
-        let future = self.base.execute_opt::<league_v4::LeagueList>("league-v4.getLeagueById", route_str, request);
+        let future = self.base.execute_opt::<crate::models::league_v4::LeagueList>("league-v4.getLeagueById", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("league-v4.getLeagueById", route = route_str));
         #[cfg(feature = "metrics")]
@@ -840,11 +838,11 @@ impl<'a> LeagueV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_master_league(&self, route: PlatformRoute, queue: crate::consts::QueueType)
-        -> impl Future<Output = Result<league_v4::LeagueList>> + 'a
+        -> impl Future<Output = Result<crate::models::league_v4::LeagueList>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/masterleagues/by-queue/{}", queue));
-        let future = self.base.execute_val::<league_v4::LeagueList>("league-v4.getMasterLeague", route_str, request);
+        let future = self.base.execute_val::<crate::models::league_v4::LeagueList>("league-v4.getMasterLeague", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("league-v4.getMasterLeague", route = route_str));
         #[cfg(feature = "metrics")]
@@ -872,11 +870,11 @@ impl<'a> LolChallengesV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_all_challenge_configs(&self, route: PlatformRoute)
-        -> impl Future<Output = Result<Vec<lol_challenges_v1::ChallengeConfigInfo>>> + 'a
+        -> impl Future<Output = Result<Vec<crate::models::lol_challenges_v1::ChallengeConfigInfo>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/lol/challenges/v1/challenges/config");
-        let future = self.base.execute_val::<Vec<lol_challenges_v1::ChallengeConfigInfo>>("lol-challenges-v1.getAllChallengeConfigs", route_str, request);
+        let future = self.base.execute_val::<Vec<crate::models::lol_challenges_v1::ChallengeConfigInfo>>("lol-challenges-v1.getAllChallengeConfigs", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("lol-challenges-v1.getAllChallengeConfigs", route = route_str));
         #[cfg(feature = "metrics")]
@@ -913,11 +911,11 @@ impl<'a> LolChallengesV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_challenge_configs(&self, route: PlatformRoute, challenge_id: i64)
-        -> impl Future<Output = Result<Option<lol_challenges_v1::ChallengeConfigInfo>>> + 'a
+        -> impl Future<Output = Result<Option<crate::models::lol_challenges_v1::ChallengeConfigInfo>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/challenges/v1/challenges/{}/config", challenge_id));
-        let future = self.base.execute_opt::<lol_challenges_v1::ChallengeConfigInfo>("lol-challenges-v1.getChallengeConfigs", route_str, request);
+        let future = self.base.execute_opt::<crate::models::lol_challenges_v1::ChallengeConfigInfo>("lol-challenges-v1.getChallengeConfigs", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("lol-challenges-v1.getChallengeConfigs", route = route_str));
         #[cfg(feature = "metrics")]
@@ -936,12 +934,12 @@ impl<'a> LolChallengesV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_challenge_leaderboards(&self, route: PlatformRoute, challenge_id: i64, level: crate::consts::Tier, limit: Option<i32>)
-        -> impl Future<Output = Result<Option<Vec<lol_challenges_v1::ApexPlayerInfo>>>> + 'a
+        -> impl Future<Output = Result<Option<Vec<crate::models::lol_challenges_v1::ApexPlayerInfo>>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/challenges/v1/challenges/{}/leaderboards/by-level/{}", challenge_id, level));
         let request = if let Some(limit) = limit { request.query(&[ ("limit", limit) ]) } else { request };
-        let future = self.base.execute_opt::<Vec<lol_challenges_v1::ApexPlayerInfo>>("lol-challenges-v1.getChallengeLeaderboards", route_str, request);
+        let future = self.base.execute_opt::<Vec<crate::models::lol_challenges_v1::ApexPlayerInfo>>("lol-challenges-v1.getChallengeLeaderboards", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("lol-challenges-v1.getChallengeLeaderboards", route = route_str));
         #[cfg(feature = "metrics")]
@@ -979,11 +977,11 @@ impl<'a> LolChallengesV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_player_data(&self, route: PlatformRoute, puuid: &str)
-        -> impl Future<Output = Result<lol_challenges_v1::PlayerInfo>> + 'a
+        -> impl Future<Output = Result<crate::models::lol_challenges_v1::PlayerInfo>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/challenges/v1/player-data/{}", puuid));
-        let future = self.base.execute_val::<lol_challenges_v1::PlayerInfo>("lol-challenges-v1.getPlayerData", route_str, request);
+        let future = self.base.execute_val::<crate::models::lol_challenges_v1::PlayerInfo>("lol-challenges-v1.getPlayerData", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("lol-challenges-v1.getPlayerData", route = route_str));
         #[cfg(feature = "metrics")]
@@ -1054,13 +1052,13 @@ impl<'a> LolRsoMatchV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_match(&self, route: RegionalRoute, access_token: impl std::fmt::Display, match_id: &str)
-        -> impl Future<Output = Result<lol_rso_match_v1::Match>> + 'a
+        -> impl Future<Output = Result<crate::models::match_v5::Match>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/rso-match/v1/matches/{}", match_id));
         let mut request = request.bearer_auth(access_token);
         if let Some(clear) = self.base.get_rso_clear_header() { request = request.header(clear, "") }
-        let future = self.base.execute_val::<lol_rso_match_v1::Match>("lol-rso-match-v1.getMatch", route_str, request);
+        let future = self.base.execute_val::<crate::models::match_v5::Match>("lol-rso-match-v1.getMatch", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("lol-rso-match-v1.getMatch", route = route_str));
         #[cfg(feature = "metrics")]
@@ -1081,13 +1079,13 @@ impl<'a> LolRsoMatchV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_timeline(&self, route: RegionalRoute, access_token: impl std::fmt::Display, match_id: &str)
-        -> impl Future<Output = Result<lol_rso_match_v1::Timeline>> + 'a
+        -> impl Future<Output = Result<crate::models::match_v5::Timeline>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/rso-match/v1/matches/{}/timeline", match_id));
         let mut request = request.bearer_auth(access_token);
         if let Some(clear) = self.base.get_rso_clear_header() { request = request.header(clear, "") }
-        let future = self.base.execute_val::<lol_rso_match_v1::Timeline>("lol-rso-match-v1.getTimeline", route_str, request);
+        let future = self.base.execute_val::<crate::models::match_v5::Timeline>("lol-rso-match-v1.getTimeline", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("lol-rso-match-v1.getTimeline", route = route_str));
         #[cfg(feature = "metrics")]
@@ -1115,11 +1113,11 @@ impl<'a> LolStatusV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_platform_data(&self, route: PlatformRoute)
-        -> impl Future<Output = Result<lol_status_v4::PlatformData>> + 'a
+        -> impl Future<Output = Result<crate::models::lol_status_v4::PlatformData>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/lol/status/v4/platform-data");
-        let future = self.base.execute_val::<lol_status_v4::PlatformData>("lol-status-v4.getPlatformData", route_str, request);
+        let future = self.base.execute_val::<crate::models::lol_status_v4::PlatformData>("lol-status-v4.getPlatformData", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("lol-status-v4.getPlatformData", route = route_str));
         #[cfg(feature = "metrics")]
@@ -1151,13 +1149,13 @@ impl<'a> LorDeckV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_decks(&self, route: RegionalRoute, access_token: impl std::fmt::Display)
-        -> impl Future<Output = Result<Vec<lor_deck_v1::Deck>>> + 'a
+        -> impl Future<Output = Result<Vec<crate::models::lor_deck_v1::Deck>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/lor/deck/v1/decks/me");
         let mut request = request.bearer_auth(access_token);
         if let Some(clear) = self.base.get_rso_clear_header() { request = request.header(clear, "") }
-        let future = self.base.execute_val::<Vec<lor_deck_v1::Deck>>("lor-deck-v1.getDecks", route_str, request);
+        let future = self.base.execute_val::<Vec<crate::models::lor_deck_v1::Deck>>("lor-deck-v1.getDecks", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("lor-deck-v1.getDecks", route = route_str));
         #[cfg(feature = "metrics")]
@@ -1176,7 +1174,7 @@ impl<'a> LorDeckV1<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#lor-deck-v1/POST_createDeck" target="_blank">`lor-deck-v1.createDeck`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn create_deck(&self, route: RegionalRoute, access_token: impl std::fmt::Display, body: &lor_deck_v1::NewDeck)
+    pub fn create_deck(&self, route: RegionalRoute, access_token: impl std::fmt::Display, body: &crate::models::lor_deck_v1::NewDeck)
         -> impl Future<Output = Result<String>> + 'a
     {
         let route_str = route.into();
@@ -1218,13 +1216,13 @@ impl<'a> LorInventoryV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_cards(&self, route: RegionalRoute, access_token: impl std::fmt::Display)
-        -> impl Future<Output = Result<Vec<lor_inventory_v1::Card>>> + 'a
+        -> impl Future<Output = Result<Vec<crate::models::lor_inventory_v1::Card>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/lor/inventory/v1/cards/me");
         let mut request = request.bearer_auth(access_token);
         if let Some(clear) = self.base.get_rso_clear_header() { request = request.header(clear, "") }
-        let future = self.base.execute_val::<Vec<lor_inventory_v1::Card>>("lor-inventory-v1.getCards", route_str, request);
+        let future = self.base.execute_val::<Vec<crate::models::lor_inventory_v1::Card>>("lor-inventory-v1.getCards", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("lor-inventory-v1.getCards", route = route_str));
         #[cfg(feature = "metrics")]
@@ -1274,11 +1272,11 @@ impl<'a> LorMatchV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_match(&self, route: RegionalRoute, match_id: &str)
-        -> impl Future<Output = Result<lor_match_v1::Match>> + 'a
+        -> impl Future<Output = Result<crate::models::lor_match_v1::Match>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lor/match/v1/matches/{}", match_id));
-        let future = self.base.execute_val::<lor_match_v1::Match>("lor-match-v1.getMatch", route_str, request);
+        let future = self.base.execute_val::<crate::models::lor_match_v1::Match>("lor-match-v1.getMatch", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("lor-match-v1.getMatch", route = route_str));
         #[cfg(feature = "metrics")]
@@ -1306,11 +1304,11 @@ impl<'a> LorRankedV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_leaderboards(&self, route: RegionalRoute)
-        -> impl Future<Output = Result<lor_ranked_v1::Leaderboard>> + 'a
+        -> impl Future<Output = Result<crate::models::lor_ranked_v1::Leaderboard>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/lor/ranked/v1/leaderboards");
-        let future = self.base.execute_val::<lor_ranked_v1::Leaderboard>("lor-ranked-v1.getLeaderboards", route_str, request);
+        let future = self.base.execute_val::<crate::models::lor_ranked_v1::Leaderboard>("lor-ranked-v1.getLeaderboards", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("lor-ranked-v1.getLeaderboards", route = route_str));
         #[cfg(feature = "metrics")]
@@ -1338,11 +1336,11 @@ impl<'a> LorStatusV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_platform_data(&self, route: RegionalRoute)
-        -> impl Future<Output = Result<lor_status_v1::PlatformData>> + 'a
+        -> impl Future<Output = Result<crate::models::lor_status_v1::PlatformData>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/lor/status/v1/platform-data");
-        let future = self.base.execute_val::<lor_status_v1::PlatformData>("lor-status-v1.getPlatformData", route_str, request);
+        let future = self.base.execute_val::<crate::models::lor_status_v1::PlatformData>("lor-status-v1.getPlatformData", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("lor-status-v1.getPlatformData", route = route_str));
         #[cfg(feature = "metrics")]
@@ -1404,11 +1402,11 @@ impl<'a> MatchV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_match(&self, route: RegionalRoute, match_id: &str)
-        -> impl Future<Output = Result<Option<match_v5::Match>>> + 'a
+        -> impl Future<Output = Result<Option<crate::models::match_v5::Match>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/match/v5/matches/{}", match_id));
-        let future = self.base.execute_opt::<match_v5::Match>("match-v5.getMatch", route_str, request);
+        let future = self.base.execute_opt::<crate::models::match_v5::Match>("match-v5.getMatch", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("match-v5.getMatch", route = route_str));
         #[cfg(feature = "metrics")]
@@ -1425,11 +1423,11 @@ impl<'a> MatchV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_timeline(&self, route: RegionalRoute, match_id: &str)
-        -> impl Future<Output = Result<Option<match_v5::Timeline>>> + 'a
+        -> impl Future<Output = Result<Option<crate::models::match_v5::Timeline>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/match/v5/matches/{}/timeline", match_id));
-        let future = self.base.execute_opt::<match_v5::Timeline>("match-v5.getTimeline", route_str, request);
+        let future = self.base.execute_opt::<crate::models::match_v5::Timeline>("match-v5.getTimeline", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("match-v5.getTimeline", route = route_str));
         #[cfg(feature = "metrics")]
@@ -1458,11 +1456,11 @@ impl<'a> SpectatorTftV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_current_game_info_by_puuid(&self, route: PlatformRoute, encrypted_puuid: &str)
-        -> impl Future<Output = Result<Option<spectator_tft_v5::CurrentGameInfo>>> + 'a
+        -> impl Future<Output = Result<Option<crate::models::spectator_tft_v5::CurrentGameInfo>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/spectator/tft/v5/active-games/by-puuid/{}", encrypted_puuid));
-        let future = self.base.execute_opt::<spectator_tft_v5::CurrentGameInfo>("spectator-tft-v5.getCurrentGameInfoByPuuid", route_str, request);
+        let future = self.base.execute_opt::<crate::models::spectator_tft_v5::CurrentGameInfo>("spectator-tft-v5.getCurrentGameInfoByPuuid", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("spectator-tft-v5.getCurrentGameInfoByPuuid", route = route_str));
         #[cfg(feature = "metrics")]
@@ -1478,11 +1476,11 @@ impl<'a> SpectatorTftV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_featured_games(&self, route: PlatformRoute)
-        -> impl Future<Output = Result<spectator_tft_v5::FeaturedGames>> + 'a
+        -> impl Future<Output = Result<crate::models::spectator_tft_v5::FeaturedGames>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/lol/spectator/tft/v5/featured-games");
-        let future = self.base.execute_val::<spectator_tft_v5::FeaturedGames>("spectator-tft-v5.getFeaturedGames", route_str, request);
+        let future = self.base.execute_val::<crate::models::spectator_tft_v5::FeaturedGames>("spectator-tft-v5.getFeaturedGames", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("spectator-tft-v5.getFeaturedGames", route = route_str));
         #[cfg(feature = "metrics")]
@@ -1511,11 +1509,11 @@ impl<'a> SpectatorV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_current_game_info_by_puuid(&self, route: PlatformRoute, encrypted_puuid: &str)
-        -> impl Future<Output = Result<Option<spectator_v5::CurrentGameInfo>>> + 'a
+        -> impl Future<Output = Result<Option<crate::models::spectator_v5::CurrentGameInfo>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/spectator/v5/active-games/by-summoner/{}", encrypted_puuid));
-        let future = self.base.execute_opt::<spectator_v5::CurrentGameInfo>("spectator-v5.getCurrentGameInfoByPuuid", route_str, request);
+        let future = self.base.execute_opt::<crate::models::spectator_v5::CurrentGameInfo>("spectator-v5.getCurrentGameInfoByPuuid", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("spectator-v5.getCurrentGameInfoByPuuid", route = route_str));
         #[cfg(feature = "metrics")]
@@ -1531,11 +1529,11 @@ impl<'a> SpectatorV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_featured_games(&self, route: PlatformRoute)
-        -> impl Future<Output = Result<spectator_v5::FeaturedGames>> + 'a
+        -> impl Future<Output = Result<crate::models::spectator_v5::FeaturedGames>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/lol/spectator/v5/featured-games");
-        let future = self.base.execute_val::<spectator_v5::FeaturedGames>("spectator-v5.getFeaturedGames", route_str, request);
+        let future = self.base.execute_val::<crate::models::spectator_v5::FeaturedGames>("spectator-v5.getFeaturedGames", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("spectator-v5.getFeaturedGames", route = route_str));
         #[cfg(feature = "metrics")]
@@ -1564,11 +1562,11 @@ impl<'a> SummonerV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_by_rsopuuid(&self, route: PlatformRoute, rso_puuid: &str)
-        -> impl Future<Output = Result<summoner_v4::Summoner>> + 'a
+        -> impl Future<Output = Result<crate::models::summoner_v4::Summoner>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/fulfillment/v1/summoners/by-puuid/{}", rso_puuid));
-        let future = self.base.execute_val::<summoner_v4::Summoner>("summoner-v4.getByRSOPUUID", route_str, request);
+        let future = self.base.execute_val::<crate::models::summoner_v4::Summoner>("summoner-v4.getByRSOPUUID", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("summoner-v4.getByRSOPUUID", route = route_str));
         #[cfg(feature = "metrics")]
@@ -1585,11 +1583,11 @@ impl<'a> SummonerV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_by_account_id(&self, route: PlatformRoute, encrypted_account_id: &str)
-        -> impl Future<Output = Result<summoner_v4::Summoner>> + 'a
+        -> impl Future<Output = Result<crate::models::summoner_v4::Summoner>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/summoner/v4/summoners/by-account/{}", encrypted_account_id));
-        let future = self.base.execute_val::<summoner_v4::Summoner>("summoner-v4.getByAccountId", route_str, request);
+        let future = self.base.execute_val::<crate::models::summoner_v4::Summoner>("summoner-v4.getByAccountId", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("summoner-v4.getByAccountId", route = route_str));
         #[cfg(feature = "metrics")]
@@ -1606,11 +1604,11 @@ impl<'a> SummonerV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_by_puuid(&self, route: PlatformRoute, encrypted_puuid: &str)
-        -> impl Future<Output = Result<summoner_v4::Summoner>> + 'a
+        -> impl Future<Output = Result<crate::models::summoner_v4::Summoner>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/summoner/v4/summoners/by-puuid/{}", encrypted_puuid));
-        let future = self.base.execute_val::<summoner_v4::Summoner>("summoner-v4.getByPUUID", route_str, request);
+        let future = self.base.execute_val::<crate::models::summoner_v4::Summoner>("summoner-v4.getByPUUID", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("summoner-v4.getByPUUID", route = route_str));
         #[cfg(feature = "metrics")]
@@ -1630,13 +1628,13 @@ impl<'a> SummonerV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_by_access_token(&self, route: PlatformRoute, access_token: impl std::fmt::Display)
-        -> impl Future<Output = Result<summoner_v4::Summoner>> + 'a
+        -> impl Future<Output = Result<crate::models::summoner_v4::Summoner>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/lol/summoner/v4/summoners/me");
         let mut request = request.bearer_auth(access_token);
         if let Some(clear) = self.base.get_rso_clear_header() { request = request.header(clear, "") }
-        let future = self.base.execute_val::<summoner_v4::Summoner>("summoner-v4.getByAccessToken", route_str, request);
+        let future = self.base.execute_val::<crate::models::summoner_v4::Summoner>("summoner-v4.getByAccessToken", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("summoner-v4.getByAccessToken", route = route_str));
         #[cfg(feature = "metrics")]
@@ -1653,11 +1651,11 @@ impl<'a> SummonerV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_by_summoner_id(&self, route: PlatformRoute, encrypted_summoner_id: &str)
-        -> impl Future<Output = Result<summoner_v4::Summoner>> + 'a
+        -> impl Future<Output = Result<crate::models::summoner_v4::Summoner>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/summoner/v4/summoners/{}", encrypted_summoner_id));
-        let future = self.base.execute_val::<summoner_v4::Summoner>("summoner-v4.getBySummonerId", route_str, request);
+        let future = self.base.execute_val::<crate::models::summoner_v4::Summoner>("summoner-v4.getBySummonerId", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("summoner-v4.getBySummonerId", route = route_str));
         #[cfg(feature = "metrics")]
@@ -1686,12 +1684,12 @@ impl<'a> TftLeagueV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_challenger_league(&self, route: PlatformRoute, queue: Option<&str>)
-        -> impl Future<Output = Result<tft_league_v1::LeagueList>> + 'a
+        -> impl Future<Output = Result<crate::models::tft_league_v1::LeagueList>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/tft/league/v1/challenger");
         let request = if let Some(queue) = queue { request.query(&[ ("queue", queue) ]) } else { request };
-        let future = self.base.execute_val::<tft_league_v1::LeagueList>("tft-league-v1.getChallengerLeague", route_str, request);
+        let future = self.base.execute_val::<crate::models::tft_league_v1::LeagueList>("tft-league-v1.getChallengerLeague", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tft-league-v1.getChallengerLeague", route = route_str));
         #[cfg(feature = "metrics")]
@@ -1708,11 +1706,11 @@ impl<'a> TftLeagueV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_league_entries_for_summoner(&self, route: PlatformRoute, summoner_id: &str)
-        -> impl Future<Output = Result<Vec<tft_league_v1::LeagueEntry>>> + 'a
+        -> impl Future<Output = Result<Vec<crate::models::tft_league_v1::LeagueEntry>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/tft/league/v1/entries/by-summoner/{}", summoner_id));
-        let future = self.base.execute_val::<Vec<tft_league_v1::LeagueEntry>>("tft-league-v1.getLeagueEntriesForSummoner", route_str, request);
+        let future = self.base.execute_val::<Vec<crate::models::tft_league_v1::LeagueEntry>>("tft-league-v1.getLeagueEntriesForSummoner", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tft-league-v1.getLeagueEntriesForSummoner", route = route_str));
         #[cfg(feature = "metrics")]
@@ -1732,13 +1730,13 @@ impl<'a> TftLeagueV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_league_entries(&self, route: PlatformRoute, tier: crate::consts::Tier, division: &str, page: Option<i32>, queue: Option<&str>)
-        -> impl Future<Output = Result<Vec<tft_league_v1::LeagueEntry>>> + 'a
+        -> impl Future<Output = Result<Vec<crate::models::tft_league_v1::LeagueEntry>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/tft/league/v1/entries/{}/{}", tier, division));
         let request = if let Some(page) = page { request.query(&[ ("page", page) ]) } else { request };
         let request = if let Some(queue) = queue { request.query(&[ ("queue", queue) ]) } else { request };
-        let future = self.base.execute_val::<Vec<tft_league_v1::LeagueEntry>>("tft-league-v1.getLeagueEntries", route_str, request);
+        let future = self.base.execute_val::<Vec<crate::models::tft_league_v1::LeagueEntry>>("tft-league-v1.getLeagueEntries", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tft-league-v1.getLeagueEntries", route = route_str));
         #[cfg(feature = "metrics")]
@@ -1755,12 +1753,12 @@ impl<'a> TftLeagueV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_grandmaster_league(&self, route: PlatformRoute, queue: Option<&str>)
-        -> impl Future<Output = Result<tft_league_v1::LeagueList>> + 'a
+        -> impl Future<Output = Result<crate::models::tft_league_v1::LeagueList>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/tft/league/v1/grandmaster");
         let request = if let Some(queue) = queue { request.query(&[ ("queue", queue) ]) } else { request };
-        let future = self.base.execute_val::<tft_league_v1::LeagueList>("tft-league-v1.getGrandmasterLeague", route_str, request);
+        let future = self.base.execute_val::<crate::models::tft_league_v1::LeagueList>("tft-league-v1.getGrandmasterLeague", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tft-league-v1.getGrandmasterLeague", route = route_str));
         #[cfg(feature = "metrics")]
@@ -1777,11 +1775,11 @@ impl<'a> TftLeagueV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_league_by_id(&self, route: PlatformRoute, league_id: &str)
-        -> impl Future<Output = Result<Option<tft_league_v1::LeagueList>>> + 'a
+        -> impl Future<Output = Result<Option<crate::models::tft_league_v1::LeagueList>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/tft/league/v1/leagues/{}", league_id));
-        let future = self.base.execute_opt::<tft_league_v1::LeagueList>("tft-league-v1.getLeagueById", route_str, request);
+        let future = self.base.execute_opt::<crate::models::tft_league_v1::LeagueList>("tft-league-v1.getLeagueById", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tft-league-v1.getLeagueById", route = route_str));
         #[cfg(feature = "metrics")]
@@ -1798,12 +1796,12 @@ impl<'a> TftLeagueV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_master_league(&self, route: PlatformRoute, queue: Option<&str>)
-        -> impl Future<Output = Result<tft_league_v1::LeagueList>> + 'a
+        -> impl Future<Output = Result<crate::models::tft_league_v1::LeagueList>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/tft/league/v1/master");
         let request = if let Some(queue) = queue { request.query(&[ ("queue", queue) ]) } else { request };
-        let future = self.base.execute_val::<tft_league_v1::LeagueList>("tft-league-v1.getMasterLeague", route_str, request);
+        let future = self.base.execute_val::<crate::models::tft_league_v1::LeagueList>("tft-league-v1.getMasterLeague", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tft-league-v1.getMasterLeague", route = route_str));
         #[cfg(feature = "metrics")]
@@ -1820,11 +1818,11 @@ impl<'a> TftLeagueV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_top_rated_ladder(&self, route: PlatformRoute, queue: crate::consts::QueueType)
-        -> impl Future<Output = Result<Vec<tft_league_v1::TopRatedLadderEntry>>> + 'a
+        -> impl Future<Output = Result<Vec<crate::models::tft_league_v1::TopRatedLadderEntry>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/tft/league/v1/rated-ladders/{}/top", queue));
-        let future = self.base.execute_val::<Vec<tft_league_v1::TopRatedLadderEntry>>("tft-league-v1.getTopRatedLadder", route_str, request);
+        let future = self.base.execute_val::<Vec<crate::models::tft_league_v1::TopRatedLadderEntry>>("tft-league-v1.getTopRatedLadder", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tft-league-v1.getTopRatedLadder", route = route_str));
         #[cfg(feature = "metrics")]
@@ -1882,11 +1880,11 @@ impl<'a> TftMatchV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_match(&self, route: RegionalRoute, match_id: &str)
-        -> impl Future<Output = Result<Option<tft_match_v1::Match>>> + 'a
+        -> impl Future<Output = Result<Option<crate::models::tft_match_v1::Match>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/tft/match/v1/matches/{}", match_id));
-        let future = self.base.execute_opt::<tft_match_v1::Match>("tft-match-v1.getMatch", route_str, request);
+        let future = self.base.execute_opt::<crate::models::tft_match_v1::Match>("tft-match-v1.getMatch", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tft-match-v1.getMatch", route = route_str));
         #[cfg(feature = "metrics")]
@@ -1914,11 +1912,11 @@ impl<'a> TftStatusV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_platform_data(&self, route: PlatformRoute)
-        -> impl Future<Output = Result<tft_status_v1::PlatformData>> + 'a
+        -> impl Future<Output = Result<crate::models::tft_status_v1::PlatformData>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/tft/status/v1/platform-data");
-        let future = self.base.execute_val::<tft_status_v1::PlatformData>("tft-status-v1.getPlatformData", route_str, request);
+        let future = self.base.execute_val::<crate::models::tft_status_v1::PlatformData>("tft-status-v1.getPlatformData", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tft-status-v1.getPlatformData", route = route_str));
         #[cfg(feature = "metrics")]
@@ -1947,11 +1945,11 @@ impl<'a> TftSummonerV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_by_account_id(&self, route: PlatformRoute, encrypted_account_id: &str)
-        -> impl Future<Output = Result<tft_summoner_v1::Summoner>> + 'a
+        -> impl Future<Output = Result<crate::models::tft_summoner_v1::Summoner>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/tft/summoner/v1/summoners/by-account/{}", encrypted_account_id));
-        let future = self.base.execute_val::<tft_summoner_v1::Summoner>("tft-summoner-v1.getByAccountId", route_str, request);
+        let future = self.base.execute_val::<crate::models::tft_summoner_v1::Summoner>("tft-summoner-v1.getByAccountId", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tft-summoner-v1.getByAccountId", route = route_str));
         #[cfg(feature = "metrics")]
@@ -1968,11 +1966,11 @@ impl<'a> TftSummonerV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_by_puuid(&self, route: PlatformRoute, encrypted_puuid: &str)
-        -> impl Future<Output = Result<tft_summoner_v1::Summoner>> + 'a
+        -> impl Future<Output = Result<crate::models::tft_summoner_v1::Summoner>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/tft/summoner/v1/summoners/by-puuid/{}", encrypted_puuid));
-        let future = self.base.execute_val::<tft_summoner_v1::Summoner>("tft-summoner-v1.getByPUUID", route_str, request);
+        let future = self.base.execute_val::<crate::models::tft_summoner_v1::Summoner>("tft-summoner-v1.getByPUUID", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tft-summoner-v1.getByPUUID", route = route_str));
         #[cfg(feature = "metrics")]
@@ -1992,13 +1990,13 @@ impl<'a> TftSummonerV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_by_access_token(&self, route: PlatformRoute, access_token: impl std::fmt::Display)
-        -> impl Future<Output = Result<tft_summoner_v1::Summoner>> + 'a
+        -> impl Future<Output = Result<crate::models::tft_summoner_v1::Summoner>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/tft/summoner/v1/summoners/me");
         let mut request = request.bearer_auth(access_token);
         if let Some(clear) = self.base.get_rso_clear_header() { request = request.header(clear, "") }
-        let future = self.base.execute_val::<tft_summoner_v1::Summoner>("tft-summoner-v1.getByAccessToken", route_str, request);
+        let future = self.base.execute_val::<crate::models::tft_summoner_v1::Summoner>("tft-summoner-v1.getByAccessToken", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tft-summoner-v1.getByAccessToken", route = route_str));
         #[cfg(feature = "metrics")]
@@ -2015,11 +2013,11 @@ impl<'a> TftSummonerV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_by_summoner_id(&self, route: PlatformRoute, encrypted_summoner_id: &str)
-        -> impl Future<Output = Result<tft_summoner_v1::Summoner>> + 'a
+        -> impl Future<Output = Result<crate::models::tft_summoner_v1::Summoner>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/tft/summoner/v1/summoners/{}", encrypted_summoner_id));
-        let future = self.base.execute_val::<tft_summoner_v1::Summoner>("tft-summoner-v1.getBySummonerId", route_str, request);
+        let future = self.base.execute_val::<crate::models::tft_summoner_v1::Summoner>("tft-summoner-v1.getBySummonerId", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tft-summoner-v1.getBySummonerId", route = route_str));
         #[cfg(feature = "metrics")]
@@ -2048,7 +2046,7 @@ impl<'a> TournamentStubV5<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tournament-stub-v5/POST_createTournamentCode" target="_blank">`tournament-stub-v5.createTournamentCode`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn create_tournament_code(&self, route: RegionalRoute, body: &tournament_stub_v5::TournamentCodeParametersV5, tournament_id: i64, count: Option<i32>)
+    pub fn create_tournament_code(&self, route: RegionalRoute, body: &crate::models::tournament_stub_v5::TournamentCodeParametersV5, tournament_id: i64, count: Option<i32>)
         -> impl Future<Output = Result<Vec<String>>> + 'a
     {
         let route_str = route.into();
@@ -2075,11 +2073,11 @@ impl<'a> TournamentStubV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_tournament_code(&self, route: RegionalRoute, tournament_code: &str)
-        -> impl Future<Output = Result<tournament_stub_v5::TournamentCodeV5>> + 'a
+        -> impl Future<Output = Result<crate::models::tournament_stub_v5::TournamentCodeV5>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/tournament-stub/v5/codes/{}", tournament_code));
-        let future = self.base.execute_val::<tournament_stub_v5::TournamentCodeV5>("tournament-stub-v5.getTournamentCode", route_str, request);
+        let future = self.base.execute_val::<crate::models::tournament_stub_v5::TournamentCodeV5>("tournament-stub-v5.getTournamentCode", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tournament-stub-v5.getTournamentCode", route = route_str));
         #[cfg(feature = "metrics")]
@@ -2096,11 +2094,11 @@ impl<'a> TournamentStubV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_lobby_events_by_code(&self, route: RegionalRoute, tournament_code: &str)
-        -> impl Future<Output = Result<tournament_stub_v5::LobbyEventV5Wrapper>> + 'a
+        -> impl Future<Output = Result<crate::models::tournament_stub_v5::LobbyEventV5Wrapper>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/tournament-stub/v5/lobby-events/by-code/{}", tournament_code));
-        let future = self.base.execute_val::<tournament_stub_v5::LobbyEventV5Wrapper>("tournament-stub-v5.getLobbyEventsByCode", route_str, request);
+        let future = self.base.execute_val::<crate::models::tournament_stub_v5::LobbyEventV5Wrapper>("tournament-stub-v5.getLobbyEventsByCode", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tournament-stub-v5.getLobbyEventsByCode", route = route_str));
         #[cfg(feature = "metrics")]
@@ -2117,7 +2115,7 @@ impl<'a> TournamentStubV5<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tournament-stub-v5/POST_registerProviderData" target="_blank">`tournament-stub-v5.registerProviderData`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn register_provider_data(&self, route: RegionalRoute, body: &tournament_stub_v5::ProviderRegistrationParametersV5)
+    pub fn register_provider_data(&self, route: RegionalRoute, body: &crate::models::tournament_stub_v5::ProviderRegistrationParametersV5)
         -> impl Future<Output = Result<i32>> + 'a
     {
         let route_str = route.into();
@@ -2140,7 +2138,7 @@ impl<'a> TournamentStubV5<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tournament-stub-v5/POST_registerTournament" target="_blank">`tournament-stub-v5.registerTournament`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn register_tournament(&self, route: RegionalRoute, body: &tournament_stub_v5::TournamentRegistrationParametersV5)
+    pub fn register_tournament(&self, route: RegionalRoute, body: &crate::models::tournament_stub_v5::TournamentRegistrationParametersV5)
         -> impl Future<Output = Result<i32>> + 'a
     {
         let route_str = route.into();
@@ -2177,7 +2175,7 @@ impl<'a> TournamentV5<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tournament-v5/POST_createTournamentCode" target="_blank">`tournament-v5.createTournamentCode`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn create_tournament_code(&self, route: RegionalRoute, body: &tournament_v5::TournamentCodeParametersV5, tournament_id: i64, count: Option<i32>)
+    pub fn create_tournament_code(&self, route: RegionalRoute, body: &crate::models::tournament_v5::TournamentCodeParametersV5, tournament_id: i64, count: Option<i32>)
         -> impl Future<Output = Result<Vec<String>>> + 'a
     {
         let route_str = route.into();
@@ -2204,11 +2202,11 @@ impl<'a> TournamentV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_tournament_code(&self, route: RegionalRoute, tournament_code: &str)
-        -> impl Future<Output = Result<tournament_v5::TournamentCodeV5>> + 'a
+        -> impl Future<Output = Result<crate::models::tournament_v5::TournamentCodeV5>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/tournament/v5/codes/{}", tournament_code));
-        let future = self.base.execute_val::<tournament_v5::TournamentCodeV5>("tournament-v5.getTournamentCode", route_str, request);
+        let future = self.base.execute_val::<crate::models::tournament_v5::TournamentCodeV5>("tournament-v5.getTournamentCode", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tournament-v5.getTournamentCode", route = route_str));
         #[cfg(feature = "metrics")]
@@ -2224,7 +2222,7 @@ impl<'a> TournamentV5<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tournament-v5/PUT_updateCode" target="_blank">`tournament-v5.updateCode`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn update_code(&self, route: RegionalRoute, body: &tournament_v5::TournamentCodeUpdateParametersV5, tournament_code: &str)
+    pub fn update_code(&self, route: RegionalRoute, body: &crate::models::tournament_v5::TournamentCodeUpdateParametersV5, tournament_code: &str)
         -> impl Future<Output = Result<()>> + 'a
     {
         let route_str = route.into();
@@ -2255,11 +2253,11 @@ impl<'a> TournamentV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_games(&self, route: RegionalRoute, tournament_code: &str)
-        -> impl Future<Output = Result<Vec<tournament_v5::TournamentGamesV5>>> + 'a
+        -> impl Future<Output = Result<Vec<crate::models::tournament_v5::TournamentGamesV5>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/tournament/v5/games/by-code/{}", tournament_code));
-        let future = self.base.execute_val::<Vec<tournament_v5::TournamentGamesV5>>("tournament-v5.getGames", route_str, request);
+        let future = self.base.execute_val::<Vec<crate::models::tournament_v5::TournamentGamesV5>>("tournament-v5.getGames", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tournament-v5.getGames", route = route_str));
         #[cfg(feature = "metrics")]
@@ -2276,11 +2274,11 @@ impl<'a> TournamentV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_lobby_events_by_code(&self, route: RegionalRoute, tournament_code: &str)
-        -> impl Future<Output = Result<tournament_v5::LobbyEventV5Wrapper>> + 'a
+        -> impl Future<Output = Result<crate::models::tournament_v5::LobbyEventV5Wrapper>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/tournament/v5/lobby-events/by-code/{}", tournament_code));
-        let future = self.base.execute_val::<tournament_v5::LobbyEventV5Wrapper>("tournament-v5.getLobbyEventsByCode", route_str, request);
+        let future = self.base.execute_val::<crate::models::tournament_v5::LobbyEventV5Wrapper>("tournament-v5.getLobbyEventsByCode", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("tournament-v5.getLobbyEventsByCode", route = route_str));
         #[cfg(feature = "metrics")]
@@ -2297,7 +2295,7 @@ impl<'a> TournamentV5<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tournament-v5/POST_registerProviderData" target="_blank">`tournament-v5.registerProviderData`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn register_provider_data(&self, route: RegionalRoute, body: &tournament_v5::ProviderRegistrationParametersV5)
+    pub fn register_provider_data(&self, route: RegionalRoute, body: &crate::models::tournament_v5::ProviderRegistrationParametersV5)
         -> impl Future<Output = Result<i32>> + 'a
     {
         let route_str = route.into();
@@ -2320,7 +2318,7 @@ impl<'a> TournamentV5<'a> {
     /// <a href="https://developer.riotgames.com/api-methods/#tournament-v5/POST_registerTournament" target="_blank">`tournament-v5.registerTournament`</a>
     ///
     /// Note: this method is automatically generated.
-    pub fn register_tournament(&self, route: RegionalRoute, body: &tournament_v5::TournamentRegistrationParametersV5)
+    pub fn register_tournament(&self, route: RegionalRoute, body: &crate::models::tournament_v5::TournamentRegistrationParametersV5)
         -> impl Future<Output = Result<i32>> + 'a
     {
         let route_str = route.into();
@@ -2357,11 +2355,11 @@ impl<'a> ValConsoleMatchV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_match(&self, route: ValPlatformRoute, match_id: &str)
-        -> impl Future<Output = Result<val_console_match_v1::Match>> + 'a
+        -> impl Future<Output = Result<crate::models::val_console_match_v1::Match>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/val/match/console/v1/matches/{}", match_id));
-        let future = self.base.execute_val::<val_console_match_v1::Match>("val-console-match-v1.getMatch", route_str, request);
+        let future = self.base.execute_val::<crate::models::val_console_match_v1::Match>("val-console-match-v1.getMatch", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("val-console-match-v1.getMatch", route = route_str));
         #[cfg(feature = "metrics")]
@@ -2379,12 +2377,12 @@ impl<'a> ValConsoleMatchV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_matchlist(&self, route: ValPlatformRoute, puuid: &str, platform_type: &str)
-        -> impl Future<Output = Result<val_console_match_v1::Matchlist>> + 'a
+        -> impl Future<Output = Result<crate::models::val_console_match_v1::Matchlist>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/val/match/console/v1/matchlists/by-puuid/{}", puuid));
         let request = request.query(&[ ("platformType", platform_type) ]);
-        let future = self.base.execute_val::<val_console_match_v1::Matchlist>("val-console-match-v1.getMatchlist", route_str, request);
+        let future = self.base.execute_val::<crate::models::val_console_match_v1::Matchlist>("val-console-match-v1.getMatchlist", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("val-console-match-v1.getMatchlist", route = route_str));
         #[cfg(feature = "metrics")]
@@ -2403,11 +2401,11 @@ impl<'a> ValConsoleMatchV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_recent(&self, route: ValPlatformRoute, queue: &str)
-        -> impl Future<Output = Result<val_console_match_v1::RecentMatches>> + 'a
+        -> impl Future<Output = Result<crate::models::val_console_match_v1::RecentMatches>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/val/match/console/v1/recent-matches/by-queue/{}", queue));
-        let future = self.base.execute_val::<val_console_match_v1::RecentMatches>("val-console-match-v1.getRecent", route_str, request);
+        let future = self.base.execute_val::<crate::models::val_console_match_v1::RecentMatches>("val-console-match-v1.getRecent", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("val-console-match-v1.getRecent", route = route_str));
         #[cfg(feature = "metrics")]
@@ -2439,14 +2437,14 @@ impl<'a> ValConsoleRankedV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_leaderboard(&self, route: ValPlatformRoute, act_id: &str, platform_type: &str, size: Option<i32>, start_index: Option<i32>)
-        -> impl Future<Output = Result<val_console_ranked_v1::Leaderboard>> + 'a
+        -> impl Future<Output = Result<crate::models::val_console_ranked_v1::Leaderboard>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/val/console/ranked/v1/leaderboards/by-act/{}", act_id));
         let request = request.query(&[ ("platformType", platform_type) ]);
         let request = if let Some(size) = size { request.query(&[ ("size", size) ]) } else { request };
         let request = if let Some(start_index) = start_index { request.query(&[ ("startIndex", start_index) ]) } else { request };
-        let future = self.base.execute_val::<val_console_ranked_v1::Leaderboard>("val-console-ranked-v1.getLeaderboard", route_str, request);
+        let future = self.base.execute_val::<crate::models::val_console_ranked_v1::Leaderboard>("val-console-ranked-v1.getLeaderboard", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("val-console-ranked-v1.getLeaderboard", route = route_str));
         #[cfg(feature = "metrics")]
@@ -2475,12 +2473,12 @@ impl<'a> ValContentV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_content(&self, route: ValPlatformRoute, locale: Option<&str>)
-        -> impl Future<Output = Result<val_content_v1::Content>> + 'a
+        -> impl Future<Output = Result<crate::models::val_content_v1::Content>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/val/content/v1/contents");
         let request = if let Some(locale) = locale { request.query(&[ ("locale", locale) ]) } else { request };
-        let future = self.base.execute_val::<val_content_v1::Content>("val-content-v1.getContent", route_str, request);
+        let future = self.base.execute_val::<crate::models::val_content_v1::Content>("val-content-v1.getContent", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("val-content-v1.getContent", route = route_str));
         #[cfg(feature = "metrics")]
@@ -2509,11 +2507,11 @@ impl<'a> ValMatchV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_match(&self, route: ValPlatformRoute, match_id: &str)
-        -> impl Future<Output = Result<Option<val_match_v1::Match>>> + 'a
+        -> impl Future<Output = Result<Option<crate::models::val_match_v1::Match>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/val/match/v1/matches/{}", match_id));
-        let future = self.base.execute_opt::<val_match_v1::Match>("val-match-v1.getMatch", route_str, request);
+        let future = self.base.execute_opt::<crate::models::val_match_v1::Match>("val-match-v1.getMatch", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("val-match-v1.getMatch", route = route_str));
         #[cfg(feature = "metrics")]
@@ -2530,11 +2528,11 @@ impl<'a> ValMatchV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_matchlist(&self, route: ValPlatformRoute, puuid: &str)
-        -> impl Future<Output = Result<val_match_v1::Matchlist>> + 'a
+        -> impl Future<Output = Result<crate::models::val_match_v1::Matchlist>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/val/match/v1/matchlists/by-puuid/{}", puuid));
-        let future = self.base.execute_val::<val_match_v1::Matchlist>("val-match-v1.getMatchlist", route_str, request);
+        let future = self.base.execute_val::<crate::models::val_match_v1::Matchlist>("val-match-v1.getMatchlist", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("val-match-v1.getMatchlist", route = route_str));
         #[cfg(feature = "metrics")]
@@ -2553,11 +2551,11 @@ impl<'a> ValMatchV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_recent(&self, route: ValPlatformRoute, queue: &str)
-        -> impl Future<Output = Result<val_match_v1::RecentMatches>> + 'a
+        -> impl Future<Output = Result<crate::models::val_match_v1::RecentMatches>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/val/match/v1/recent-matches/by-queue/{}", queue));
-        let future = self.base.execute_val::<val_match_v1::RecentMatches>("val-match-v1.getRecent", route_str, request);
+        let future = self.base.execute_val::<crate::models::val_match_v1::RecentMatches>("val-match-v1.getRecent", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("val-match-v1.getRecent", route = route_str));
         #[cfg(feature = "metrics")]
@@ -2588,13 +2586,13 @@ impl<'a> ValRankedV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_leaderboard(&self, route: ValPlatformRoute, act_id: &str, size: Option<i32>, start_index: Option<i32>)
-        -> impl Future<Output = Result<Option<val_ranked_v1::Leaderboard>>> + 'a
+        -> impl Future<Output = Result<Option<crate::models::val_ranked_v1::Leaderboard>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/val/ranked/v1/leaderboards/by-act/{}", act_id));
         let request = if let Some(size) = size { request.query(&[ ("size", size) ]) } else { request };
         let request = if let Some(start_index) = start_index { request.query(&[ ("startIndex", start_index) ]) } else { request };
-        let future = self.base.execute_opt::<val_ranked_v1::Leaderboard>("val-ranked-v1.getLeaderboard", route_str, request);
+        let future = self.base.execute_opt::<crate::models::val_ranked_v1::Leaderboard>("val-ranked-v1.getLeaderboard", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("val-ranked-v1.getLeaderboard", route = route_str));
         #[cfg(feature = "metrics")]
@@ -2622,11 +2620,11 @@ impl<'a> ValStatusV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_platform_data(&self, route: ValPlatformRoute)
-        -> impl Future<Output = Result<val_status_v1::PlatformData>> + 'a
+        -> impl Future<Output = Result<crate::models::val_status_v1::PlatformData>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/val/status/v1/platform-data");
-        let future = self.base.execute_val::<val_status_v1::PlatformData>("val-status-v1.getPlatformData", route_str, request);
+        let future = self.base.execute_val::<crate::models::val_status_v1::PlatformData>("val-status-v1.getPlatformData", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("val-status-v1.getPlatformData", route = route_str));
         #[cfg(feature = "metrics")]

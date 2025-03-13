@@ -9,8 +9,6 @@
 //! Automatically generated endpoint handles.
 #![allow(clippy::let_and_return, clippy::too_many_arguments)]
 
-use crate::models::*;
-
 use std::future::Future;
 use std::vec::Vec;
 
@@ -92,7 +90,7 @@ impl<'a> {{= endpoint }}<'a> {
                     hasReturn = true;
                     const jsonInfo = resp200.content['application/json'];
 
-                    const parseType = dotUtils.stringifyType(jsonInfo.schema, { endpoint, fullpath: false });
+                    const parseType = dotUtils.stringifyType(jsonInfo.schema, { fullpath: false });
                     returnTypeTurbofish = `::<${parseType}>`;
                     returnOptional = !!operation['x-nullable-404'];
                     returnType = returnOptional ? `Option<${parseType}>` : parseType;
@@ -103,7 +101,7 @@ impl<'a> {{= endpoint }}<'a> {
                 if (operation.requestBody)
                 {
                     const jsonInfo = operation.requestBody.content['application/json'];
-                    bodyType = dotUtils.stringifyType(jsonInfo.schema, { endpoint, fullpath: false });
+                    bodyType = dotUtils.stringifyType(jsonInfo.schema, { fullpath: false });
                 }
 
                 /* Description processing. */
@@ -148,7 +146,7 @@ impl<'a> {{= endpoint }}<'a> {
                         for (const param of paramList)
                         {
                             argBuilder.push(', ', dotUtils.normalizePropName(param.name), ': ',
-                                dotUtils.stringifyType(param.schema, { endpoint, optional: !(required || param.required), owned: false }));
+                                dotUtils.stringifyType(param.schema, { optional: !(required || param.required), owned: false }));
                         }
                     }
 

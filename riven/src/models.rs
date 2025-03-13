@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 0ec1ee73a0d4f3138f9cbbe51b2787d41c3d8892
+// Version 70189fcbec142793477bfadf264265de0134d742
 
 #![allow(missing_docs)]
 
@@ -98,7 +98,7 @@ pub mod champion_mastery_v4 {
         #[serde(rename = "championSeasonMilestone")]
         pub champion_season_milestone: i32,
         #[serde(rename = "nextSeasonMilestone")]
-        pub next_season_milestone: NextSeasonMilestones,
+        pub next_season_milestone: crate::models::champion_mastery_v4::NextSeasonMilestones,
         /// The token earned for this champion at the current championLevel. When the championLevel is advanced the tokensEarned resets to 0.
         #[serde(rename = "tokensEarned")]
         pub tokens_earned: i32,
@@ -126,7 +126,7 @@ pub mod champion_mastery_v4 {
         /// Reward configuration.
         #[serde(rename = "rewardConfig")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub reward_config: Option<RewardConfig>,
+        pub reward_config: Option<crate::models::champion_mastery_v4::RewardConfig>,
         #[serde(rename = "totalGamesRequires")]
         pub total_games_requires: i32,
     }
@@ -216,7 +216,7 @@ pub mod clash_v1 {
         pub abbreviation: String,
         /// Team members.
         #[serde(rename = "players")]
-        pub players: std::vec::Vec<Player>,
+        pub players: std::vec::Vec<crate::models::clash_v1::Player>,
     }
     /// `clash-v1.TournamentDto` data object.
     #[derive(Clone, Debug)]
@@ -233,7 +233,7 @@ pub mod clash_v1 {
         pub name_key_secondary: String,
         /// Tournament phase.
         #[serde(rename = "schedule")]
-        pub schedule: std::vec::Vec<TournamentPhase>,
+        pub schedule: std::vec::Vec<crate::models::clash_v1::TournamentPhase>,
     }
     /// `clash-v1.TournamentPhaseDto` data object.
     #[derive(Clone, Debug)]
@@ -294,7 +294,7 @@ pub mod league_exp_v4 {
         pub inactive: bool,
         #[serde(rename = "miniSeries")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub mini_series: Option<MiniSeries>,
+        pub mini_series: Option<crate::models::league_exp_v4::MiniSeries>,
     }
     /// `league-exp-v4.MiniSeriesDTO` data object.
     #[derive(Clone, Debug)]
@@ -326,7 +326,7 @@ pub mod league_v4 {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub league_id: Option<String>,
         #[serde(rename = "entries")]
-        pub entries: std::vec::Vec<LeagueItem>,
+        pub entries: std::vec::Vec<crate::models::league_v4::LeagueItem>,
         #[serde(rename = "tier")]
         pub tier: crate::consts::Tier,
         #[serde(rename = "name")]
@@ -348,7 +348,7 @@ pub mod league_v4 {
         pub wins: i32,
         #[serde(rename = "miniSeries")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub mini_series: Option<MiniSeries>,
+        pub mini_series: Option<crate::models::league_v4::MiniSeries>,
         #[serde(rename = "inactive")]
         pub inactive: bool,
         #[serde(rename = "veteran")]
@@ -424,7 +424,7 @@ pub mod league_v4 {
         pub inactive: bool,
         #[serde(rename = "miniSeries")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub mini_series: Option<MiniSeries>,
+        pub mini_series: Option<crate::models::league_v4::MiniSeries>,
     }
 }
 
@@ -521,13 +521,13 @@ pub mod lol_challenges_v1 {
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct PlayerInfo {
         #[serde(rename = "challenges")]
-        pub challenges: std::vec::Vec<ChallengeInfo>,
+        pub challenges: std::vec::Vec<crate::models::lol_challenges_v1::ChallengeInfo>,
         #[serde(rename = "preferences")]
-        pub preferences: PlayerClientPreferences,
+        pub preferences: crate::models::lol_challenges_v1::PlayerClientPreferences,
         #[serde(rename = "totalPoints")]
-        pub total_points: ChallengePoints,
+        pub total_points: crate::models::lol_challenges_v1::ChallengePoints,
         #[serde(rename = "categoryPoints")]
-        pub category_points: std::collections::HashMap<String, ChallengePoints>,
+        pub category_points: std::collections::HashMap<String, crate::models::lol_challenges_v1::ChallengePoints>,
     }
     /// `lol-challenges-v1.ChallengeInfo` data object.
     #[derive(Clone, Debug)]
@@ -634,9 +634,9 @@ pub mod lol_status_v4 {
         #[serde(rename = "locales")]
         pub locales: std::vec::Vec<String>,
         #[serde(rename = "maintenances")]
-        pub maintenances: std::vec::Vec<Status>,
+        pub maintenances: std::vec::Vec<crate::models::lol_status_v4::Status>,
         #[serde(rename = "incidents")]
-        pub incidents: std::vec::Vec<Status>,
+        pub incidents: std::vec::Vec<crate::models::lol_status_v4::Status>,
     }
     /// `lol-status-v4.StatusDto` data object.
     #[derive(Clone, Debug)]
@@ -654,9 +654,9 @@ pub mod lol_status_v4 {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub incident_severity: Option<String>,
         #[serde(rename = "titles")]
-        pub titles: std::vec::Vec<Content>,
+        pub titles: std::vec::Vec<crate::models::lol_status_v4::Content>,
         #[serde(rename = "updates")]
-        pub updates: std::vec::Vec<Update>,
+        pub updates: std::vec::Vec<crate::models::lol_status_v4::Update>,
         #[serde(rename = "created_at")]
         pub created_at: String,
         #[serde(rename = "archive_at")]
@@ -694,7 +694,7 @@ pub mod lol_status_v4 {
         #[serde(rename = "publish_locations")]
         pub publish_locations: std::vec::Vec<String>,
         #[serde(rename = "translations")]
-        pub translations: std::vec::Vec<Content>,
+        pub translations: std::vec::Vec<crate::models::lol_status_v4::Content>,
         #[serde(rename = "created_at")]
         pub created_at: String,
         #[serde(rename = "updated_at")]
@@ -760,10 +760,10 @@ pub mod lor_match_v1 {
     pub struct Match {
         /// Match metadata.
         #[serde(rename = "metadata")]
-        pub metadata: Metadata,
+        pub metadata: crate::models::lor_match_v1::Metadata,
         /// Match info.
         #[serde(rename = "info")]
-        pub info: Info,
+        pub info: crate::models::lor_match_v1::Info,
     }
     /// `lor-match-v1.MetadataDto` data object.
     #[derive(Clone, Debug)]
@@ -799,7 +799,7 @@ pub mod lor_match_v1 {
         #[serde(rename = "game_format")]
         pub game_format: String,
         #[serde(rename = "players")]
-        pub players: std::vec::Vec<Player>,
+        pub players: std::vec::Vec<crate::models::lor_match_v1::Player>,
         /// Total turns taken by both players.
         #[serde(rename = "total_turn_count")]
         pub total_turn_count: i32,
@@ -838,7 +838,7 @@ pub mod lor_ranked_v1 {
     pub struct Leaderboard {
         /// A list of players in Master tier.
         #[serde(rename = "players")]
-        pub players: std::vec::Vec<Player>,
+        pub players: std::vec::Vec<crate::models::lor_ranked_v1::Player>,
     }
     /// `lor-ranked-v1.PlayerDto` data object.
     #[derive(Clone, Debug)]
@@ -872,9 +872,9 @@ pub mod lor_status_v1 {
         #[serde(rename = "locales")]
         pub locales: std::vec::Vec<String>,
         #[serde(rename = "maintenances")]
-        pub maintenances: std::vec::Vec<Status>,
+        pub maintenances: std::vec::Vec<crate::models::lor_status_v1::Status>,
         #[serde(rename = "incidents")]
-        pub incidents: std::vec::Vec<Status>,
+        pub incidents: std::vec::Vec<crate::models::lor_status_v1::Status>,
     }
     /// `lor-status-v1.StatusDto` data object.
     #[derive(Clone, Debug)]
@@ -890,9 +890,9 @@ pub mod lor_status_v1 {
         #[serde(rename = "incident_severity")]
         pub incident_severity: String,
         #[serde(rename = "titles")]
-        pub titles: std::vec::Vec<Content>,
+        pub titles: std::vec::Vec<crate::models::lor_status_v1::Content>,
         #[serde(rename = "updates")]
-        pub updates: std::vec::Vec<Update>,
+        pub updates: std::vec::Vec<crate::models::lor_status_v1::Update>,
         #[serde(rename = "created_at")]
         pub created_at: String,
         #[serde(rename = "archive_at")]
@@ -928,7 +928,7 @@ pub mod lor_status_v1 {
         #[serde(rename = "publish_locations")]
         pub publish_locations: std::vec::Vec<String>,
         #[serde(rename = "translations")]
-        pub translations: std::vec::Vec<Content>,
+        pub translations: std::vec::Vec<crate::models::lor_status_v1::Content>,
         #[serde(rename = "created_at")]
         pub created_at: String,
         #[serde(rename = "updated_at")]
@@ -948,10 +948,10 @@ pub mod match_v5 {
     pub struct Match {
         /// Match metadata.
         #[serde(rename = "metadata")]
-        pub metadata: Metadata,
+        pub metadata: crate::models::match_v5::Metadata,
         /// Match info.
         #[serde(rename = "info")]
-        pub info: Info,
+        pub info: crate::models::match_v5::Info,
     }
     /// `match-v5.MetadataDto` data object.
     #[derive(Clone, Debug)]
@@ -1010,7 +1010,7 @@ pub mod match_v5 {
         #[serde(rename = "mapId")]
         pub map_id: crate::consts::Map,
         #[serde(rename = "participants")]
-        pub participants: std::vec::Vec<Participant>,
+        pub participants: std::vec::Vec<crate::models::match_v5::Participant>,
         /// Platform where the match was played.
         #[serde(rename = "platformId")]
         pub platform_id: String,
@@ -1018,7 +1018,7 @@ pub mod match_v5 {
         #[serde(rename = "queueId")]
         pub queue_id: crate::consts::Queue,
         #[serde(rename = "teams")]
-        pub teams: std::vec::Vec<Team>,
+        pub teams: std::vec::Vec<crate::models::match_v5::Team>,
         /// Tournament code used to generate the match. This field was added to match-v5 in patch 11.13 on June 23rd, 2021.
         #[serde(rename = "tournamentCode")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1068,7 +1068,7 @@ pub mod match_v5 {
         pub consumables_purchased: i32,
         #[serde(rename = "challenges")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub challenges: Option<Challenges>,
+        pub challenges: Option<crate::models::match_v5::Challenges>,
         #[serde(rename = "damageDealtToBuildings")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub damage_dealt_to_buildings: Option<i32>,
@@ -1170,7 +1170,7 @@ pub mod match_v5 {
         pub magic_damage_taken: i32,
         #[serde(rename = "missions")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub missions: Option<Missions>,
+        pub missions: Option<crate::models::match_v5::Missions>,
         /// neutralMinionsKilled = mNeutralMinionsKilled, which is incremented on kills of kPet and kJungleMonster
         #[serde(rename = "neutralMinionsKilled")]
         pub neutral_minions_killed: i32,
@@ -1235,7 +1235,7 @@ pub mod match_v5 {
         #[serde(rename = "pentaKills")]
         pub penta_kills: i32,
         #[serde(rename = "perks")]
-        pub perks: Perks,
+        pub perks: crate::models::match_v5::Perks,
         #[serde(rename = "physicalDamageDealt")]
         pub physical_damage_dealt: i32,
         #[serde(rename = "physicalDamageDealtToChampions")]
@@ -1907,9 +1907,9 @@ pub mod match_v5 {
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Perks {
         #[serde(rename = "statPerks")]
-        pub stat_perks: PerkStats,
+        pub stat_perks: crate::models::match_v5::PerkStats,
         #[serde(rename = "styles")]
-        pub styles: std::vec::Vec<PerkStyle>,
+        pub styles: std::vec::Vec<crate::models::match_v5::PerkStyle>,
     }
     /// `match-v5.PerkStatsDto` data object.
     #[derive(Clone, Debug)]
@@ -1931,7 +1931,7 @@ pub mod match_v5 {
         #[serde(rename = "description")]
         pub description: String,
         #[serde(rename = "selections")]
-        pub selections: std::vec::Vec<PerkStyleSelection>,
+        pub selections: std::vec::Vec<crate::models::match_v5::PerkStyleSelection>,
         #[serde(rename = "style")]
         pub style: i32,
     }
@@ -1955,16 +1955,16 @@ pub mod match_v5 {
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Team {
         #[serde(rename = "bans")]
-        pub bans: std::vec::Vec<Ban>,
+        pub bans: std::vec::Vec<crate::models::match_v5::Ban>,
         #[serde(rename = "objectives")]
-        pub objectives: Objectives,
+        pub objectives: crate::models::match_v5::Objectives,
         #[serde(rename = "teamId")]
         pub team_id: crate::consts::Team,
         #[serde(rename = "win")]
         pub win: bool,
         #[serde(rename = "feats")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub feats: Option<Feats>,
+        pub feats: Option<crate::models::match_v5::Feats>,
     }
     /// `match-v5.BanDto` data object.
     #[derive(Clone, Debug)]
@@ -1982,23 +1982,23 @@ pub mod match_v5 {
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Objectives {
         #[serde(rename = "baron")]
-        pub baron: Objective,
+        pub baron: crate::models::match_v5::Objective,
         #[serde(rename = "champion")]
-        pub champion: Objective,
+        pub champion: crate::models::match_v5::Objective,
         #[serde(rename = "dragon")]
-        pub dragon: Objective,
+        pub dragon: crate::models::match_v5::Objective,
         #[serde(rename = "horde")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub horde: Option<Objective>,
+        pub horde: Option<crate::models::match_v5::Objective>,
         #[serde(rename = "inhibitor")]
-        pub inhibitor: Objective,
+        pub inhibitor: crate::models::match_v5::Objective,
         #[serde(rename = "riftHerald")]
-        pub rift_herald: Objective,
+        pub rift_herald: crate::models::match_v5::Objective,
         #[serde(rename = "tower")]
-        pub tower: Objective,
+        pub tower: crate::models::match_v5::Objective,
         #[serde(rename = "atakhan")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub atakhan: Option<Objective>,
+        pub atakhan: Option<crate::models::match_v5::Objective>,
     }
     /// `match-v5.ObjectiveDto` data object.
     #[derive(Clone, Debug)]
@@ -2017,10 +2017,10 @@ pub mod match_v5 {
     pub struct Timeline {
         /// Match metadata.
         #[serde(rename = "metadata")]
-        pub metadata: MetadataTimeLine,
+        pub metadata: crate::models::match_v5::MetadataTimeLine,
         /// Match info.
         #[serde(rename = "info")]
-        pub info: InfoTimeLine,
+        pub info: crate::models::match_v5::InfoTimeLine,
     }
     /// `match-v5.MetadataTimeLineDto` data object.
     #[derive(Clone, Debug)]
@@ -2053,9 +2053,9 @@ pub mod match_v5 {
         pub game_id: Option<i64>,
         #[serde(rename = "participants")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub participants: Option<std::vec::Vec<ParticipantTimeLine>>,
+        pub participants: Option<std::vec::Vec<crate::models::match_v5::ParticipantTimeLine>>,
         #[serde(rename = "frames")]
-        pub frames: std::vec::Vec<FramesTimeLine>,
+        pub frames: std::vec::Vec<crate::models::match_v5::FramesTimeLine>,
     }
     /// `match-v5.ParticipantTimeLineDto` data object.
     #[derive(Clone, Debug)]
@@ -2073,10 +2073,10 @@ pub mod match_v5 {
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct FramesTimeLine {
         #[serde(rename = "events")]
-        pub events: std::vec::Vec<EventsTimeLine>,
+        pub events: std::vec::Vec<crate::models::match_v5::EventsTimeLine>,
         #[serde(rename = "participantFrames")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub participant_frames: Option<std::collections::HashMap<i32, ParticipantFrame>>,
+        pub participant_frames: Option<std::collections::HashMap<i32, crate::models::match_v5::ParticipantFrame>>,
         #[serde(rename = "timestamp")]
         pub timestamp: i32,
     }
@@ -2127,13 +2127,13 @@ pub mod match_v5 {
         pub killer_id: Option<i32>,
         #[serde(rename = "position")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub position: Option<Position>,
+        pub position: Option<crate::models::match_v5::Position>,
         #[serde(rename = "victimDamageDealt")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub victim_damage_dealt: Option<std::vec::Vec<MatchTimelineVictimDamage>>,
+        pub victim_damage_dealt: Option<std::vec::Vec<crate::models::match_v5::MatchTimelineVictimDamage>>,
         #[serde(rename = "victimDamageReceived")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub victim_damage_received: Option<std::vec::Vec<MatchTimelineVictimDamage>>,
+        pub victim_damage_received: Option<std::vec::Vec<crate::models::match_v5::MatchTimelineVictimDamage>>,
         #[serde(rename = "victimId")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub victim_id: Option<i32>,
@@ -2205,7 +2205,7 @@ pub mod match_v5 {
     pub struct ParticipantFrames {
         /// Key value mapping for each participant
         #[serde(rename = "1-9")]
-        pub x1_9: ParticipantFrame,
+        pub x1_9: crate::models::match_v5::ParticipantFrame,
     }
     /// `match-v5.ParticipantFrameDto` data object.
     #[derive(Clone, Debug)]
@@ -2213,11 +2213,11 @@ pub mod match_v5 {
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct ParticipantFrame {
         #[serde(rename = "championStats")]
-        pub champion_stats: ChampionStats,
+        pub champion_stats: crate::models::match_v5::ChampionStats,
         #[serde(rename = "currentGold")]
         pub current_gold: i32,
         #[serde(rename = "damageStats")]
-        pub damage_stats: DamageStats,
+        pub damage_stats: crate::models::match_v5::DamageStats,
         #[serde(rename = "goldPerSecond")]
         pub gold_per_second: i32,
         #[serde(rename = "jungleMinionsKilled")]
@@ -2229,7 +2229,7 @@ pub mod match_v5 {
         #[serde(rename = "participantId")]
         pub participant_id: i32,
         #[serde(rename = "position")]
-        pub position: Position,
+        pub position: crate::models::match_v5::Position,
         #[serde(rename = "timeEnemySpentControlled")]
         pub time_enemy_spent_controlled: i32,
         #[serde(rename = "totalGold")]
@@ -2343,13 +2343,13 @@ pub mod match_v5 {
     pub struct Feats {
         #[serde(rename = "EPIC_MONSTER_KILL")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub epic_monster_kill: Option<Feat>,
+        pub epic_monster_kill: Option<crate::models::match_v5::Feat>,
         #[serde(rename = "FIRST_BLOOD")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub first_blood: Option<Feat>,
+        pub first_blood: Option<crate::models::match_v5::Feat>,
         #[serde(rename = "FIRST_TURRET")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub first_turret: Option<Feat>,
+        pub first_turret: Option<crate::models::match_v5::Feat>,
     }
     /// `match-v5.MatchTimelineVictimDamage` data object.
     #[derive(Clone, Debug)]
@@ -2419,17 +2419,17 @@ pub mod spectator_tft_v5 {
         pub game_mode: crate::consts::GameMode,
         /// Banned champion information
         #[serde(rename = "bannedChampions")]
-        pub banned_champions: std::vec::Vec<BannedChampion>,
+        pub banned_champions: std::vec::Vec<crate::models::spectator_tft_v5::BannedChampion>,
         /// The queue type (queue types are documented on the Game Constants page)
         #[serde(rename = "gameQueueConfigId")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub game_queue_config_id: Option<crate::consts::Queue>,
         /// The observer information
         #[serde(rename = "observers")]
-        pub observers: Observer,
+        pub observers: crate::models::spectator_tft_v5::Observer,
         /// The participant information
         #[serde(rename = "participants")]
-        pub participants: std::vec::Vec<CurrentGameParticipant>,
+        pub participants: std::vec::Vec<crate::models::spectator_tft_v5::CurrentGameParticipant>,
     }
     /// `spectator-tft-v5.BannedChampion` data object.
     #[derive(Clone, Debug)]
@@ -2466,7 +2466,7 @@ pub mod spectator_tft_v5 {
         /// Perks/Runes Reforged Information
         #[serde(rename = "perks")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub perks: Option<Perks>,
+        pub perks: Option<crate::models::spectator_tft_v5::Perks>,
         /// The ID of the profile icon used by this participant
         #[serde(rename = "profileIconId")]
         pub profile_icon_id: i64,
@@ -2488,7 +2488,7 @@ pub mod spectator_tft_v5 {
         pub spell2_id: i64,
         /// List of Game Customizations
         #[serde(rename = "gameCustomizationObjects")]
-        pub game_customization_objects: std::vec::Vec<GameCustomizationObject>,
+        pub game_customization_objects: std::vec::Vec<crate::models::spectator_tft_v5::GameCustomizationObject>,
         #[serde(rename = "riotId")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub riot_id: Option<String>,
@@ -2527,7 +2527,7 @@ pub mod spectator_tft_v5 {
     pub struct FeaturedGames {
         /// The list of featured games
         #[serde(rename = "gameList")]
-        pub game_list: std::vec::Vec<FeaturedGameInfo>,
+        pub game_list: std::vec::Vec<crate::models::spectator_tft_v5::FeaturedGameInfo>,
         /// The suggested interval to wait before requesting FeaturedGames again
         #[serde(rename = "clientRefreshInterval")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2554,19 +2554,19 @@ pub mod spectator_tft_v5 {
         pub game_type: crate::consts::GameType,
         /// Banned champion information
         #[serde(rename = "bannedChampions")]
-        pub banned_champions: std::vec::Vec<BannedChampion>,
+        pub banned_champions: std::vec::Vec<crate::models::spectator_tft_v5::BannedChampion>,
         /// The ID of the game
         #[serde(rename = "gameId")]
         pub game_id: i64,
         /// The observer information
         #[serde(rename = "observers")]
-        pub observers: Observer,
+        pub observers: crate::models::spectator_tft_v5::Observer,
         /// The queue type (queue types are documented on the Game Constants page)
         #[serde(rename = "gameQueueConfigId")]
         pub game_queue_config_id: crate::consts::Queue,
         /// The participant information
         #[serde(rename = "participants")]
-        pub participants: std::vec::Vec<Participant>,
+        pub participants: std::vec::Vec<crate::models::spectator_tft_v5::Participant>,
         /// The ID of the platform on which the game is being played
         #[serde(rename = "platformId")]
         pub platform_id: String,
@@ -2638,17 +2638,17 @@ pub mod spectator_v5 {
         pub game_mode: crate::consts::GameMode,
         /// Banned champion information
         #[serde(rename = "bannedChampions")]
-        pub banned_champions: std::vec::Vec<BannedChampion>,
+        pub banned_champions: std::vec::Vec<crate::models::spectator_v5::BannedChampion>,
         /// The queue type (queue types are documented on the Game Constants page)
         #[serde(rename = "gameQueueConfigId")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub game_queue_config_id: Option<crate::consts::Queue>,
         /// The observer information
         #[serde(rename = "observers")]
-        pub observers: Observer,
+        pub observers: crate::models::spectator_v5::Observer,
         /// The participant information
         #[serde(rename = "participants")]
-        pub participants: std::vec::Vec<CurrentGameParticipant>,
+        pub participants: std::vec::Vec<crate::models::spectator_v5::CurrentGameParticipant>,
     }
     /// `spectator-v5.BannedChampion` data object.
     #[derive(Clone, Debug)]
@@ -2685,7 +2685,7 @@ pub mod spectator_v5 {
         /// Perks/Runes Reforged Information
         #[serde(rename = "perks")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub perks: Option<Perks>,
+        pub perks: Option<crate::models::spectator_v5::Perks>,
         /// The ID of the profile icon used by this participant
         #[serde(rename = "profileIconId")]
         pub profile_icon_id: i64,
@@ -2710,7 +2710,7 @@ pub mod spectator_v5 {
         pub spell2_id: i64,
         /// List of Game Customizations
         #[serde(rename = "gameCustomizationObjects")]
-        pub game_customization_objects: std::vec::Vec<GameCustomizationObject>,
+        pub game_customization_objects: std::vec::Vec<crate::models::spectator_v5::GameCustomizationObject>,
         #[serde(rename = "riotId")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub riot_id: Option<String>,
@@ -2749,7 +2749,7 @@ pub mod spectator_v5 {
     pub struct FeaturedGames {
         /// The list of featured games
         #[serde(rename = "gameList")]
-        pub game_list: std::vec::Vec<FeaturedGameInfo>,
+        pub game_list: std::vec::Vec<crate::models::spectator_v5::FeaturedGameInfo>,
         /// The suggested interval to wait before requesting FeaturedGames again
         #[serde(rename = "clientRefreshInterval")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2776,19 +2776,19 @@ pub mod spectator_v5 {
         pub game_type: crate::consts::GameType,
         /// Banned champion information
         #[serde(rename = "bannedChampions")]
-        pub banned_champions: std::vec::Vec<BannedChampion>,
+        pub banned_champions: std::vec::Vec<crate::models::spectator_v5::BannedChampion>,
         /// The ID of the game
         #[serde(rename = "gameId")]
         pub game_id: i64,
         /// The observer information
         #[serde(rename = "observers")]
-        pub observers: Observer,
+        pub observers: crate::models::spectator_v5::Observer,
         /// The queue type (queue types are documented on the Game Constants page)
         #[serde(rename = "gameQueueConfigId")]
         pub game_queue_config_id: crate::consts::Queue,
         /// The participant information
         #[serde(rename = "participants")]
-        pub participants: std::vec::Vec<Participant>,
+        pub participants: std::vec::Vec<crate::models::spectator_v5::Participant>,
         /// The ID of the platform on which the game is being played
         #[serde(rename = "platformId")]
         pub platform_id: String,
@@ -2850,7 +2850,7 @@ pub mod summoner_v4 {
         /// ID of the summoner icon associated with the summoner.
         #[serde(rename = "profileIconId")]
         pub profile_icon_id: i32,
-        /// Date summoner was last modified specified as epoch milliseconds. The following events will update this timestamp: profile icon change, playing the tutorial or advanced tutorial, finishing a game, summoner name change
+        /// Date summoner was last modified specified as epoch milliseconds. The following events will update this timestamp: profile icon change, playing the tutorial or advanced tutorial, finishing a game, summoner name change.
         #[serde(rename = "revisionDate")]
         pub revision_date: i64,
         /// Encrypted summoner ID. Max length 63 characters.
@@ -2879,7 +2879,7 @@ pub mod tft_league_v1 {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub league_id: Option<String>,
         #[serde(rename = "entries")]
-        pub entries: std::vec::Vec<LeagueItem>,
+        pub entries: std::vec::Vec<crate::models::tft_league_v1::LeagueItem>,
         #[serde(rename = "tier")]
         pub tier: crate::consts::Tier,
         #[serde(rename = "name")]
@@ -2901,7 +2901,7 @@ pub mod tft_league_v1 {
         pub wins: i32,
         #[serde(rename = "miniSeries")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub mini_series: Option<MiniSeries>,
+        pub mini_series: Option<crate::models::tft_league_v1::MiniSeries>,
         #[serde(rename = "inactive")]
         pub inactive: bool,
         #[serde(rename = "veteran")]
@@ -3000,7 +3000,7 @@ pub mod tft_league_v1 {
         /// Not included for the RANKED_TFT_TURBO queueType.
         #[serde(rename = "miniSeries")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub mini_series: Option<MiniSeries>,
+        pub mini_series: Option<crate::models::tft_league_v1::MiniSeries>,
     }
     /// `tft-league-v1.TopRatedLadderEntryDto` data object.
     #[derive(Clone, Debug)]
@@ -3034,10 +3034,10 @@ pub mod tft_match_v1 {
     pub struct Match {
         /// Match metadata.
         #[serde(rename = "metadata")]
-        pub metadata: Metadata,
+        pub metadata: crate::models::tft_match_v1::Metadata,
         /// Match info.
         #[serde(rename = "info")]
-        pub info: Info,
+        pub info: crate::models::tft_match_v1::Info,
     }
     /// `tft-match-v1.MetadataDto` data object.
     #[derive(Clone, Debug)]
@@ -3073,7 +3073,7 @@ pub mod tft_match_v1 {
         #[serde(rename = "game_version")]
         pub game_version: String,
         #[serde(rename = "participants")]
-        pub participants: std::vec::Vec<Participant>,
+        pub participants: std::vec::Vec<crate::models::tft_match_v1::Participant>,
         /// Please refer to the League of Legends documentation.
         #[serde(rename = "queue_id")]
         pub queue_id: crate::consts::Queue,
@@ -3110,7 +3110,7 @@ pub mod tft_match_v1 {
     pub struct Participant {
         /// Participant's companion.
         #[serde(rename = "companion")]
-        pub companion: Companion,
+        pub companion: crate::models::tft_match_v1::Companion,
         /// Gold left after participant was eliminated.
         #[serde(rename = "gold_left")]
         pub gold_left: i32,
@@ -3142,10 +3142,10 @@ pub mod tft_match_v1 {
         pub total_damage_to_players: i32,
         /// A complete list of traits for the participant's active units.
         #[serde(rename = "traits")]
-        pub traits: std::vec::Vec<Trait>,
+        pub traits: std::vec::Vec<crate::models::tft_match_v1::Trait>,
         /// A list of active units for the participant.
         #[serde(rename = "units")]
-        pub units: std::vec::Vec<Unit>,
+        pub units: std::vec::Vec<crate::models::tft_match_v1::Unit>,
         #[serde(rename = "augments")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub augments: Option<std::vec::Vec<String>>,
@@ -3154,7 +3154,7 @@ pub mod tft_match_v1 {
         pub partner_group_id: Option<i32>,
         #[serde(rename = "missions")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub missions: Option<ParticipantMissions>,
+        pub missions: Option<crate::models::tft_match_v1::ParticipantMissions>,
         #[serde(rename = "win")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub win: Option<bool>,
@@ -3398,9 +3398,9 @@ pub mod tft_status_v1 {
         #[serde(rename = "locales")]
         pub locales: std::vec::Vec<String>,
         #[serde(rename = "maintenances")]
-        pub maintenances: std::vec::Vec<Status>,
+        pub maintenances: std::vec::Vec<crate::models::tft_status_v1::Status>,
         #[serde(rename = "incidents")]
-        pub incidents: std::vec::Vec<Status>,
+        pub incidents: std::vec::Vec<crate::models::tft_status_v1::Status>,
     }
     /// `tft-status-v1.StatusDto` data object.
     #[derive(Clone, Debug)]
@@ -3416,9 +3416,9 @@ pub mod tft_status_v1 {
         #[serde(rename = "incident_severity")]
         pub incident_severity: String,
         #[serde(rename = "titles")]
-        pub titles: std::vec::Vec<Content>,
+        pub titles: std::vec::Vec<crate::models::tft_status_v1::Content>,
         #[serde(rename = "updates")]
-        pub updates: std::vec::Vec<Update>,
+        pub updates: std::vec::Vec<crate::models::tft_status_v1::Update>,
         #[serde(rename = "created_at")]
         pub created_at: String,
         #[serde(rename = "archive_at")]
@@ -3454,7 +3454,7 @@ pub mod tft_status_v1 {
         #[serde(rename = "publish_locations")]
         pub publish_locations: std::vec::Vec<String>,
         #[serde(rename = "translations")]
-        pub translations: std::vec::Vec<Content>,
+        pub translations: std::vec::Vec<crate::models::tft_status_v1::Content>,
         #[serde(rename = "created_at")]
         pub created_at: String,
         #[serde(rename = "updated_at")]
@@ -3482,7 +3482,7 @@ pub mod tft_summoner_v1 {
         /// ID of the summoner icon associated with the summoner.
         #[serde(rename = "profileIconId")]
         pub profile_icon_id: i32,
-        /// Date summoner was last modified specified as epoch milliseconds. The following events will update this timestamp: summoner name change, summoner level change, or profile icon change.
+        /// Date summoner was last modified specified as epoch milliseconds. The following events will update this timestamp: profile icon change, playing the tutorial or advanced tutorial, finishing a game, summoner name change.
         #[serde(rename = "revisionDate")]
         pub revision_date: i64,
         /// Encrypted summoner ID. Max length 63 characters.
@@ -3586,7 +3586,7 @@ pub mod tournament_stub_v5 {
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct LobbyEventV5Wrapper {
         #[serde(rename = "eventList")]
-        pub event_list: std::vec::Vec<LobbyEventV5>,
+        pub event_list: std::vec::Vec<crate::models::tournament_stub_v5::LobbyEventV5>,
     }
     /// `tournament-stub-v5.LobbyEventV5DTO` data object.
     #[derive(Clone, Debug)]
@@ -3742,9 +3742,9 @@ pub mod tournament_v5 {
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct TournamentGamesV5 {
         #[serde(rename = "winningTeam")]
-        pub winning_team: std::vec::Vec<TournamentTeamV5>,
+        pub winning_team: std::vec::Vec<crate::models::tournament_v5::TournamentTeamV5>,
         #[serde(rename = "losingTeam")]
-        pub losing_team: std::vec::Vec<TournamentTeamV5>,
+        pub losing_team: std::vec::Vec<crate::models::tournament_v5::TournamentTeamV5>,
         /// Tournament Code
         #[serde(rename = "shortCode")]
         pub short_code: String,
@@ -3782,7 +3782,7 @@ pub mod tournament_v5 {
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct LobbyEventV5Wrapper {
         #[serde(rename = "eventList")]
-        pub event_list: std::vec::Vec<LobbyEventV5>,
+        pub event_list: std::vec::Vec<crate::models::tournament_v5::LobbyEventV5>,
     }
     /// `tournament-v5.LobbyEventV5DTO` data object.
     #[derive(Clone, Debug)]
@@ -3838,15 +3838,15 @@ pub mod val_console_match_v1 {
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Match {
         #[serde(rename = "matchInfo")]
-        pub match_info: MatchInfo,
+        pub match_info: crate::models::val_console_match_v1::MatchInfo,
         #[serde(rename = "players")]
-        pub players: std::vec::Vec<Player>,
+        pub players: std::vec::Vec<crate::models::val_console_match_v1::Player>,
         #[serde(rename = "coaches")]
-        pub coaches: std::vec::Vec<Coach>,
+        pub coaches: std::vec::Vec<crate::models::val_console_match_v1::Coach>,
         #[serde(rename = "teams")]
-        pub teams: std::vec::Vec<Team>,
+        pub teams: std::vec::Vec<crate::models::val_console_match_v1::Team>,
         #[serde(rename = "roundResults")]
-        pub round_results: std::vec::Vec<RoundResult>,
+        pub round_results: std::vec::Vec<crate::models::val_console_match_v1::RoundResult>,
     }
     /// `val-console-match-v1.MatchInfoDto` data object.
     #[derive(Clone, Debug)]
@@ -3894,7 +3894,7 @@ pub mod val_console_match_v1 {
         #[serde(rename = "characterId")]
         pub character_id: String,
         #[serde(rename = "stats")]
-        pub stats: PlayerStats,
+        pub stats: crate::models::val_console_match_v1::PlayerStats,
         #[serde(rename = "competitiveTier")]
         pub competitive_tier: i32,
         #[serde(rename = "playerCard")]
@@ -3920,7 +3920,7 @@ pub mod val_console_match_v1 {
         #[serde(rename = "playtimeMillis")]
         pub playtime_millis: i32,
         #[serde(rename = "abilityCasts")]
-        pub ability_casts: AbilityCasts,
+        pub ability_casts: crate::models::val_console_match_v1::AbilityCasts,
     }
     /// `val-console-match-v1.AbilityCastsDto` data object.
     #[derive(Clone, Debug)]
@@ -3986,19 +3986,19 @@ pub mod val_console_match_v1 {
         #[serde(rename = "plantRoundTime")]
         pub plant_round_time: i32,
         #[serde(rename = "plantPlayerLocations")]
-        pub plant_player_locations: std::vec::Vec<PlayerLocations>,
+        pub plant_player_locations: std::vec::Vec<crate::models::val_console_match_v1::PlayerLocations>,
         #[serde(rename = "plantLocation")]
-        pub plant_location: Location,
+        pub plant_location: crate::models::val_console_match_v1::Location,
         #[serde(rename = "plantSite")]
         pub plant_site: String,
         #[serde(rename = "defuseRoundTime")]
         pub defuse_round_time: i32,
         #[serde(rename = "defusePlayerLocations")]
-        pub defuse_player_locations: std::vec::Vec<PlayerLocations>,
+        pub defuse_player_locations: std::vec::Vec<crate::models::val_console_match_v1::PlayerLocations>,
         #[serde(rename = "defuseLocation")]
-        pub defuse_location: Location,
+        pub defuse_location: crate::models::val_console_match_v1::Location,
         #[serde(rename = "playerStats")]
-        pub player_stats: std::vec::Vec<PlayerRoundStats>,
+        pub player_stats: std::vec::Vec<crate::models::val_console_match_v1::PlayerRoundStats>,
         #[serde(rename = "roundResultCode")]
         pub round_result_code: String,
     }
@@ -4012,7 +4012,7 @@ pub mod val_console_match_v1 {
         #[serde(rename = "viewRadians")]
         pub view_radians: f32,
         #[serde(rename = "location")]
-        pub location: Location,
+        pub location: crate::models::val_console_match_v1::Location,
     }
     /// `val-console-match-v1.LocationDto` data object.
     #[derive(Clone, Debug)]
@@ -4032,15 +4032,15 @@ pub mod val_console_match_v1 {
         #[serde(rename = "puuid")]
         pub puuid: String,
         #[serde(rename = "kills")]
-        pub kills: std::vec::Vec<Kill>,
+        pub kills: std::vec::Vec<crate::models::val_console_match_v1::Kill>,
         #[serde(rename = "damage")]
-        pub damage: std::vec::Vec<Damage>,
+        pub damage: std::vec::Vec<crate::models::val_console_match_v1::Damage>,
         #[serde(rename = "score")]
         pub score: i32,
         #[serde(rename = "economy")]
-        pub economy: Economy,
+        pub economy: crate::models::val_console_match_v1::Economy,
         #[serde(rename = "ability")]
-        pub ability: Ability,
+        pub ability: crate::models::val_console_match_v1::Ability,
     }
     /// `val-console-match-v1.KillDto` data object.
     #[derive(Clone, Debug)]
@@ -4058,14 +4058,14 @@ pub mod val_console_match_v1 {
         #[serde(rename = "victim")]
         pub victim: String,
         #[serde(rename = "victimLocation")]
-        pub victim_location: Location,
+        pub victim_location: crate::models::val_console_match_v1::Location,
         /// List of PUUIDs
         #[serde(rename = "assistants")]
         pub assistants: std::vec::Vec<String>,
         #[serde(rename = "playerLocations")]
-        pub player_locations: std::vec::Vec<PlayerLocations>,
+        pub player_locations: std::vec::Vec<crate::models::val_console_match_v1::PlayerLocations>,
         #[serde(rename = "finishingDamage")]
-        pub finishing_damage: FinishingDamage,
+        pub finishing_damage: crate::models::val_console_match_v1::FinishingDamage,
     }
     /// `val-console-match-v1.FinishingDamageDto` data object.
     #[derive(Clone, Debug)]
@@ -4134,7 +4134,7 @@ pub mod val_console_match_v1 {
         #[serde(rename = "puuid")]
         pub puuid: String,
         #[serde(rename = "history")]
-        pub history: std::vec::Vec<MatchlistEntry>,
+        pub history: std::vec::Vec<crate::models::val_console_match_v1::MatchlistEntry>,
     }
     /// `val-console-match-v1.MatchlistEntryDto` data object.
     #[derive(Clone, Debug)]
@@ -4181,7 +4181,7 @@ pub mod val_console_ranked_v1 {
         #[serde(rename = "totalPlayers")]
         pub total_players: i64,
         #[serde(rename = "players")]
-        pub players: std::vec::Vec<Player>,
+        pub players: std::vec::Vec<crate::models::val_console_ranked_v1::Player>,
     }
     /// `val-console-ranked-v1.PlayerDto` data object.
     #[derive(Clone, Debug)]
@@ -4219,39 +4219,39 @@ pub mod val_content_v1 {
         #[serde(rename = "version")]
         pub version: String,
         #[serde(rename = "characters")]
-        pub characters: std::vec::Vec<ContentItem>,
+        pub characters: std::vec::Vec<crate::models::val_content_v1::ContentItem>,
         #[serde(rename = "maps")]
-        pub maps: std::vec::Vec<ContentItem>,
+        pub maps: std::vec::Vec<crate::models::val_content_v1::ContentItem>,
         #[serde(rename = "chromas")]
-        pub chromas: std::vec::Vec<ContentItem>,
+        pub chromas: std::vec::Vec<crate::models::val_content_v1::ContentItem>,
         #[serde(rename = "skins")]
-        pub skins: std::vec::Vec<ContentItem>,
+        pub skins: std::vec::Vec<crate::models::val_content_v1::ContentItem>,
         #[serde(rename = "skinLevels")]
-        pub skin_levels: std::vec::Vec<ContentItem>,
+        pub skin_levels: std::vec::Vec<crate::models::val_content_v1::ContentItem>,
         #[serde(rename = "equips")]
-        pub equips: std::vec::Vec<ContentItem>,
+        pub equips: std::vec::Vec<crate::models::val_content_v1::ContentItem>,
         #[serde(rename = "gameModes")]
-        pub game_modes: std::vec::Vec<ContentItem>,
+        pub game_modes: std::vec::Vec<crate::models::val_content_v1::ContentItem>,
         #[serde(rename = "sprays")]
-        pub sprays: std::vec::Vec<ContentItem>,
+        pub sprays: std::vec::Vec<crate::models::val_content_v1::ContentItem>,
         #[serde(rename = "sprayLevels")]
-        pub spray_levels: std::vec::Vec<ContentItem>,
+        pub spray_levels: std::vec::Vec<crate::models::val_content_v1::ContentItem>,
         #[serde(rename = "charms")]
-        pub charms: std::vec::Vec<ContentItem>,
+        pub charms: std::vec::Vec<crate::models::val_content_v1::ContentItem>,
         #[serde(rename = "charmLevels")]
-        pub charm_levels: std::vec::Vec<ContentItem>,
+        pub charm_levels: std::vec::Vec<crate::models::val_content_v1::ContentItem>,
         #[serde(rename = "playerCards")]
-        pub player_cards: std::vec::Vec<ContentItem>,
+        pub player_cards: std::vec::Vec<crate::models::val_content_v1::ContentItem>,
         #[serde(rename = "playerTitles")]
-        pub player_titles: std::vec::Vec<ContentItem>,
+        pub player_titles: std::vec::Vec<crate::models::val_content_v1::ContentItem>,
         #[serde(rename = "acts")]
-        pub acts: std::vec::Vec<Act>,
+        pub acts: std::vec::Vec<crate::models::val_content_v1::Act>,
         #[serde(rename = "ceremonies")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub ceremonies: Option<std::vec::Vec<ContentItem>>,
+        pub ceremonies: Option<std::vec::Vec<crate::models::val_content_v1::ContentItem>>,
         #[serde(rename = "totems")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub totems: Option<std::vec::Vec<ContentItem>>,
+        pub totems: Option<std::vec::Vec<crate::models::val_content_v1::ContentItem>>,
     }
     /// `val-content-v1.ContentItemDto` data object.
     #[derive(Clone, Debug)]
@@ -4263,7 +4263,7 @@ pub mod val_content_v1 {
         /// This field is excluded from the response when a locale is set
         #[serde(rename = "localizedNames")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub localized_names: Option<LocalizedNames>,
+        pub localized_names: Option<crate::models::val_content_v1::LocalizedNames>,
         #[serde(rename = "id")]
         pub id: String,
         #[serde(rename = "assetName")]
@@ -4328,7 +4328,7 @@ pub mod val_content_v1 {
         /// This field is excluded from the response when a locale is set
         #[serde(rename = "localizedNames")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub localized_names: Option<LocalizedNames>,
+        pub localized_names: Option<crate::models::val_content_v1::LocalizedNames>,
         #[serde(rename = "id")]
         pub id: String,
         #[serde(rename = "isActive")]
@@ -4353,17 +4353,17 @@ pub mod val_match_v1 {
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Match {
         #[serde(rename = "matchInfo")]
-        pub match_info: MatchInfo,
+        pub match_info: crate::models::val_match_v1::MatchInfo,
         #[serde(rename = "players")]
-        pub players: std::vec::Vec<Player>,
+        pub players: std::vec::Vec<crate::models::val_match_v1::Player>,
         #[serde(rename = "coaches")]
-        pub coaches: std::vec::Vec<Coach>,
+        pub coaches: std::vec::Vec<crate::models::val_match_v1::Coach>,
         #[serde(rename = "teams")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub teams: Option<std::vec::Vec<Team>>,
+        pub teams: Option<std::vec::Vec<crate::models::val_match_v1::Team>>,
         #[serde(rename = "roundResults")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub round_results: Option<std::vec::Vec<RoundResult>>,
+        pub round_results: Option<std::vec::Vec<crate::models::val_match_v1::RoundResult>>,
     }
     /// `val-match-v1.MatchInfoDto` data object.
     #[derive(Clone, Debug)]
@@ -4419,7 +4419,7 @@ pub mod val_match_v1 {
         pub character_id: String,
         #[serde(rename = "stats")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub stats: Option<PlayerStats>,
+        pub stats: Option<crate::models::val_match_v1::PlayerStats>,
         #[serde(rename = "competitiveTier")]
         pub competitive_tier: i32,
         #[serde(rename = "playerCard")]
@@ -4450,7 +4450,7 @@ pub mod val_match_v1 {
         pub playtime_millis: i32,
         #[serde(rename = "abilityCasts")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub ability_casts: Option<AbilityCasts>,
+        pub ability_casts: Option<crate::models::val_match_v1::AbilityCasts>,
     }
     /// `val-match-v1.AbilityCastsDto` data object.
     #[derive(Clone, Debug)]
@@ -4519,20 +4519,20 @@ pub mod val_match_v1 {
         pub plant_round_time: i32,
         #[serde(rename = "plantPlayerLocations")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub plant_player_locations: Option<std::vec::Vec<PlayerLocations>>,
+        pub plant_player_locations: Option<std::vec::Vec<crate::models::val_match_v1::PlayerLocations>>,
         #[serde(rename = "plantLocation")]
-        pub plant_location: Location,
+        pub plant_location: crate::models::val_match_v1::Location,
         #[serde(rename = "plantSite")]
         pub plant_site: String,
         #[serde(rename = "defuseRoundTime")]
         pub defuse_round_time: i32,
         #[serde(rename = "defusePlayerLocations")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub defuse_player_locations: Option<std::vec::Vec<PlayerLocations>>,
+        pub defuse_player_locations: Option<std::vec::Vec<crate::models::val_match_v1::PlayerLocations>>,
         #[serde(rename = "defuseLocation")]
-        pub defuse_location: Location,
+        pub defuse_location: crate::models::val_match_v1::Location,
         #[serde(rename = "playerStats")]
-        pub player_stats: std::vec::Vec<PlayerRoundStats>,
+        pub player_stats: std::vec::Vec<crate::models::val_match_v1::PlayerRoundStats>,
         #[serde(rename = "roundResultCode")]
         pub round_result_code: String,
         #[serde(rename = "winningTeamRole")]
@@ -4548,7 +4548,7 @@ pub mod val_match_v1 {
         #[serde(rename = "viewRadians")]
         pub view_radians: f32,
         #[serde(rename = "location")]
-        pub location: Location,
+        pub location: crate::models::val_match_v1::Location,
     }
     /// `val-match-v1.LocationDto` data object.
     #[derive(Clone, Debug)]
@@ -4568,15 +4568,15 @@ pub mod val_match_v1 {
         #[serde(rename = "puuid")]
         pub puuid: String,
         #[serde(rename = "kills")]
-        pub kills: std::vec::Vec<Kill>,
+        pub kills: std::vec::Vec<crate::models::val_match_v1::Kill>,
         #[serde(rename = "damage")]
-        pub damage: std::vec::Vec<Damage>,
+        pub damage: std::vec::Vec<crate::models::val_match_v1::Damage>,
         #[serde(rename = "score")]
         pub score: i32,
         #[serde(rename = "economy")]
-        pub economy: Economy,
+        pub economy: crate::models::val_match_v1::Economy,
         #[serde(rename = "ability")]
-        pub ability: Ability,
+        pub ability: crate::models::val_match_v1::Ability,
     }
     /// `val-match-v1.KillDto` data object.
     #[derive(Clone, Debug)]
@@ -4594,14 +4594,14 @@ pub mod val_match_v1 {
         #[serde(rename = "victim")]
         pub victim: String,
         #[serde(rename = "victimLocation")]
-        pub victim_location: Location,
+        pub victim_location: crate::models::val_match_v1::Location,
         /// List of PUUIDs
         #[serde(rename = "assistants")]
         pub assistants: std::vec::Vec<String>,
         #[serde(rename = "playerLocations")]
-        pub player_locations: std::vec::Vec<PlayerLocations>,
+        pub player_locations: std::vec::Vec<crate::models::val_match_v1::PlayerLocations>,
         #[serde(rename = "finishingDamage")]
-        pub finishing_damage: FinishingDamage,
+        pub finishing_damage: crate::models::val_match_v1::FinishingDamage,
     }
     /// `val-match-v1.FinishingDamageDto` data object.
     #[derive(Clone, Debug)]
@@ -4674,7 +4674,7 @@ pub mod val_match_v1 {
         #[serde(rename = "puuid")]
         pub puuid: String,
         #[serde(rename = "history")]
-        pub history: std::vec::Vec<MatchlistEntry>,
+        pub history: std::vec::Vec<crate::models::val_match_v1::MatchlistEntry>,
     }
     /// `val-match-v1.MatchlistEntryDto` data object.
     #[derive(Clone, Debug)]
@@ -4721,7 +4721,7 @@ pub mod val_ranked_v1 {
         #[serde(rename = "totalPlayers")]
         pub total_players: i64,
         #[serde(rename = "players")]
-        pub players: std::vec::Vec<Player>,
+        pub players: std::vec::Vec<crate::models::val_ranked_v1::Player>,
         #[serde(rename = "immortalStartingPage")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub immortal_starting_page: Option<i64>,
@@ -4733,7 +4733,7 @@ pub mod val_ranked_v1 {
         pub top_tier_rr_threshold: Option<i64>,
         #[serde(rename = "tierDetails")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub tier_details: Option<std::collections::HashMap<i64, TierDetail>>,
+        pub tier_details: Option<std::collections::HashMap<i64, crate::models::val_ranked_v1::TierDetail>>,
         #[serde(rename = "startIndex")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub start_index: Option<i64>,
@@ -4799,9 +4799,9 @@ pub mod val_status_v1 {
         #[serde(rename = "locales")]
         pub locales: std::vec::Vec<String>,
         #[serde(rename = "maintenances")]
-        pub maintenances: std::vec::Vec<Status>,
+        pub maintenances: std::vec::Vec<crate::models::val_status_v1::Status>,
         #[serde(rename = "incidents")]
-        pub incidents: std::vec::Vec<Status>,
+        pub incidents: std::vec::Vec<crate::models::val_status_v1::Status>,
     }
     /// `val-status-v1.StatusDto` data object.
     #[derive(Clone, Debug)]
@@ -4817,9 +4817,9 @@ pub mod val_status_v1 {
         #[serde(rename = "incident_severity")]
         pub incident_severity: String,
         #[serde(rename = "titles")]
-        pub titles: std::vec::Vec<Content>,
+        pub titles: std::vec::Vec<crate::models::val_status_v1::Content>,
         #[serde(rename = "updates")]
-        pub updates: std::vec::Vec<Update>,
+        pub updates: std::vec::Vec<crate::models::val_status_v1::Update>,
         #[serde(rename = "created_at")]
         pub created_at: String,
         #[serde(rename = "archive_at")]
@@ -4855,7 +4855,7 @@ pub mod val_status_v1 {
         #[serde(rename = "publish_locations")]
         pub publish_locations: std::vec::Vec<String>,
         #[serde(rename = "translations")]
-        pub translations: std::vec::Vec<Content>,
+        pub translations: std::vec::Vec<crate::models::val_status_v1::Content>,
         #[serde(rename = "created_at")]
         pub created_at: String,
         #[serde(rename = "updated_at")]

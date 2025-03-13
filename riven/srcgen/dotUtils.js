@@ -65,12 +65,12 @@ function normalizePropName(propName) {
   return out;
 }
 
-function stringifyType(prop, { endpoint = null, optional = false, fullpath = true, owned = true }) {
+function stringifyType(prop, { optional = false, fullpath = true, owned = true }) {
   if (prop.anyOf) {
     prop = prop.anyOf[0];
   }
   if (optional) {
-    return `Option<${stringifyType(prop, { endpoint, fullpath, owned })}>`;
+    return `Option<${stringifyType(prop, { fullpath, owned })}>`;
   }
 
   let enumType = prop['x-enum'];
@@ -79,23 +79,23 @@ function stringifyType(prop, { endpoint = null, optional = false, fullpath = tru
 
   let refType = prop['$ref'];
   if (refType) {
-    return (!endpoint ? '' : changeCase.snakeCase(endpoint) + '::') +
-      normalizeSchemaName(refType.slice(refType.indexOf('.') + 1));
+    let [endpoint, schema] = refType.slice(refType.lastIndexOf('/') + 1).split('.');
+    return 'crate::models::' + changeCase.snakeCase(endpoint) + '::' + normalizeSchemaName(schema);
   }
   switch (prop.type) {
     case 'boolean': return 'bool';
     case 'integer': return ('int32' === prop.format ? 'i32' : 'i64');
     case 'number': return ('float' === prop.format ? 'f32' : 'f64');
     case 'array':
-      const subprop = stringifyType(prop.items, { endpoint, optional, fullpath, owned });
+      const subprop = stringifyType(prop.items, { optional, fullpath, owned });
       return (owned ? (fullpath ? 'std::vec::' : '') + `Vec<${subprop}>` : `&[${subprop}]`);
     case 'string': return (owned ? 'String' : '&str');
     case 'object':
       if (1 === Object.keys(prop).length) { // Only `{ "type": "object" }`.
         return 'serde_json::Map<String, serde_json::Value>'
       }
-      return 'std::collections::HashMap<' + stringifyType(prop['x-key'], { endpoint, optional, fullpath, owned }) + ', ' +
-        stringifyType(prop.additionalProperties, { endpoint, optional, fullpath, owned }) + '>';
+      return 'std::collections::HashMap<' + stringifyType(prop['x-key'], { optional, fullpath, owned }) + ', ' +
+        stringifyType(prop.additionalProperties, { optional, fullpath, owned }) + '>';
     default: return prop.type;
   }
 }
