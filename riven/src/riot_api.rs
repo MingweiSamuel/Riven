@@ -18,12 +18,12 @@ use crate::{ResponseInfo, Result, RiotApiConfig, RiotApiError};
 /// and look like `"RGAPI-01234567-89ab-cdef-0123-456789abcdef"`.
 ///
 /// An instance provides access to "endpoint handles" which in turn provide
-/// access to individual API method calls. For example, to get a summoner by
-/// name we first access the [`summoner_v4()`](RiotApi::summoner_v4) endpoints
-/// then call the [`get_by_summoner_name()`](crate::endpoints::SummonerV4::get_by_summoner_name)
+/// access to individual API method calls. For example, to get a user by Riot
+/// ID we first access the [`account_v1()`](RiotApi::account_v1) endpoints
+/// then call the [`get_by_riot_id()`](crate::endpoints::AccountV1::get_by_riot_id)
 /// method:
 /// ```ignore
-/// riot_api.summoner_v4().get_by_summoner_name(Region::NA, "LugnutsK")
+/// riot_api.account_v1().get_by_riot_id(Region::NA, "LugnutsK", "000")
 /// ```
 ///
 /// # Rate Limiting
