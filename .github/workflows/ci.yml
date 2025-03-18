@@ -31,67 +31,19 @@ jobs:
     needs: pre_job
     if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
     runs-on: ubuntu-latest
+    env:
+      RGAPI_KEY: ${{ secrets.RGAPI_KEY }}
     steps:
-      - name: Checkout sources
-        uses: actions/checkout@v4
-
-      # - name: Setup Node
-      #   uses: actions/setup-node@v4
-      #   with:
-      #     node-version: 20
-
-      # - name: Install Node dependencies
-      #   run: npm ci --prefix riven/srcgen
-
-      # - name: Run codegen
-      #   run: node riven/srcgen
-
-      - name: Install Rust nightly toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: nightly
-          override: true
-          components: rustfmt
-
-      - uses: actions-rs/cargo@v1
-        with:
-          toolchain: stable
-          command: check
-          args: --all-targets --features __proxy
-
-      - uses: actions-rs/cargo@v1
-        with:
-          toolchain: stable
-          command: check
-          args: --all-targets --features tracing,__proxy
-
-      - uses: actions-rs/cargo@v1
-        with:
-          command: check
-          args: --all-targets --features nightly,tracing,__proxy
-
-      - uses: actions-rs/cargo@v1
-        with:
-          command: build
-          args: --all-targets --features nightly,deny-unknown,eserde,__proxy
-
-      - uses: actions-rs/cargo@v1
-        with:
-          command: test
-          args: --no-fail-fast --features nightly,deny-unknown,eserde,__proxy
-        env:
-          RUST_BACKTRACE: 1
-          RUST_LOG: riven=debug
-          RGAPI_KEY: ${{ secrets.RGAPI_KEY }}
-
+      - uses: actions/checkout@v4
+      - run: cargo +stable check --all-targets --features riven/__proxy
+      - run: cargo +stable check --all-targets --features riven/tracing,riven/__proxy
+      - run: cargo check --all-targets --features riven/nightly,riven/tracing,riven/__proxy
+      - run: cargo build --all-targets --features riven/nightly,riven/deny-unknown,riven/eserde,riven/__proxy
+      - run: cargo test --no-fail-fast --features riven/nightly,riven/deny-unknown,riven/eserde,riven/__proxy
       - name: Install `wasm-pack`
         run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
-
-      - working-directory: riven
-        run: wasm-pack test --node -- --features nightly,deny-unknown,eserde
-        env:
-          RGAPI_KEY: ${{ secrets.RGAPI_KEY }}
+      - run: wasm-pack test --node -- --features nightly,deny-unknown,eserde
+        working-directory: riven
 
   lints:
     name: Lints
@@ -99,28 +51,23 @@ jobs:
     if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout sources
-        uses: actions/checkout@v4
-
-      - name: Install nightly toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: nightly
-          override: true
-          components: rustfmt, clippy
-
+      - uses: actions/checkout@v4
       - name: Run cargo fmt
-        uses: actions-rs/cargo@v1
-        with:
-          command: fmt
-          args: --all -- --check
-
+        run: cargo fmt --all -- --check
       - name: Run cargo clippy
-        uses: actions-rs/cargo@v1
-        with:
-          command: clippy
-          args: --all-features --all-targets -- -D warnings
+        run: cargo clippy --all-features --all-targets -- -D warnings
+
+  doc:
+    name: Docs
+    needs: pre_job
+    if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
+    runs-on: ubuntu-latest
+    env:
+      RUSTDOCFLAGS: -Dwarnings
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/install@cargo-docs-rs
+      - run: cargo docs-rs -p riven
 
   msrv:
     name: Verify MSRV
@@ -128,16 +75,6 @@ jobs:
     if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout sources
-        uses: actions/checkout@v4
-
-      - name: Install Rust nightly toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: nightly
-          override: true
-          components: rustfmt
-
+      - uses: actions/checkout@v4
       - run: cargo install cargo-msrv --no-default-features
       - run: cargo msrv verify --path riven

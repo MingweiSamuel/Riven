@@ -8,7 +8,7 @@ readme = "../README.md"
 license = "MIT"
 edition = "2018"
 rust-version = "1.71.1"
-include = [ "src/**", "../README.md", "/examples" ]
+include = [ "/src/**", "/../README.md" ]
 keywords = [ "riot-games", "riot", "league", "league-of-legends" ]
 categories = [ "api-bindings", "web-programming::http-client", "wasm" ]
 
@@ -16,7 +16,7 @@ categories = [ "api-bindings", "web-programming::http-client", "wasm" ]
 crate-type = [ "cdylib", "rlib" ]
 
 [package.metadata.docs.rs]
-features = [ "nightly" ]
+rustc-args = [ "--cfg=docsrs_deps" ]
 
 [features]
 default = [ "default-tls" ]
@@ -46,6 +46,7 @@ deny-unknown-enum-variants-strings = [  ]
 # If enabled, unknown integer enum variants will cause an error.
 deny-unknown-enum-variants-integers = [  ]
 
+# Required for the proxy example.
 __proxy = [  ]
 
 [[example]]
@@ -93,3 +94,8 @@ console_error_panic_hook = "0.1"
 console_log = "1.0"
 wasm-bindgen = "0.2.70"
 wasm-bindgen-test = "0.3"
+
+[target.'cfg(docsrs_deps)'.dependencies]
+eserde = { version = "0.1.6", features = [ "json" ] }
+gloo-timers = { version = "0.3", features = [ "futures" ] }
+web-time = "1.0.0"

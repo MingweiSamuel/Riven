@@ -40,7 +40,7 @@ pub mod {{= dotUtils.changeCase.snakeCase(endpoint) }} {
     /// `{{= endpoint }}.{{= rawSchemaName }}` data object.
 {{? schema.description }}
     /// # Description
-    /// {{= schema.description.split('\n').map(x => x.trim()).join('<br>\r\n    /// ') }}
+    /// {{= schema.description.replace(/https?:\/\/\S+[^\s\.!?]/g, "<$&>").split('\n').map(x => x.trim()).join('<br>\r\n    /// ') }}
     ///
     /// Note: This struct is automatically generated
 {{?}}
@@ -61,7 +61,7 @@ pub mod {{= dotUtils.changeCase.snakeCase(endpoint) }} {
                 usedNames.add(name);
 }}
 {{? prop.description }}
-        /// {{= prop.description.split('\n').map(x => x.trim()).join('<br>\r\n        /// ') }}
+        /// {{= prop.description.replace(/https?:\/\/\S+[^\s\.!?]/g, "<$&>").split('\n').map(x => x.trim()).join('<br>\r\n        /// ') }}
 {{?}}
         {{= dotUtils.formatJsonProperty(propKey, prop) }}
 {{? optional }}
@@ -70,13 +70,13 @@ pub mod {{= dotUtils.changeCase.snakeCase(endpoint) }} {
 {{? 'championId' === propKey && (prop.description || '').includes('this field returned invalid championIds') }}
         ///
         /// Instead use [`Self::champion()`] which checks this field then parses [`Self::champion_name`].
-        #[deprecated(since = "2.5.0", note = "Use `Participant.champion()` instead. Riot sometimes returns corrupted data for this field: https://github.com/RiotGames/developer-relations/issues/553")]
+        #[deprecated(since = "2.5.0", note = "Use `Participant.champion()` instead. Riot sometimes returns corrupted data for this field: <https://github.com/RiotGames/developer-relations/issues/553>")]
         #[serde(serialize_with = "crate::consts::Champion::serialize_result")]
         #[serde(deserialize_with = "crate::consts::Champion::deserialize_result")]
         pub {{= name }}: Result<crate::consts::Champion, std::num::TryFromIntError>,
 {{?? 'gameType' === propKey && 'Info' === schemaName && 'match-v5' === endpoint }}
         ///
-        /// Will be `None` if empty string is returned: https://github.com/RiotGames/developer-relations/issues/898
+        /// Will be `None` if empty string is returned: <https://github.com/RiotGames/developer-relations/issues/898>
         #[serde(serialize_with = "crate::consts::serialize_empty_string_none")]
         #[serde(deserialize_with = "crate::consts::deserialize_empty_string_none")]
         pub {{= name }}: Option<crate::consts::GameType>,

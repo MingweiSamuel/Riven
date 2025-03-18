@@ -11,21 +11,22 @@ with bodies, however it does not handle RSO endpoints which require an
 failure information. Rate limits are enforced, so requests will wait to complete
 when Riven is at the rate limit.
 
-Set `RGAPI_KEY` env var then run:
+Put your API key into either the `RGAPI_KEY` environment variable or the `apikey.txt`
+file, then run the proxy:
 ```bash
-export RGAPI_KEY=RGAPI-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
-cargo run --example proxy
+cargo run --example proxy --features riven/__proxy
 ```
 
 Test in your browser or using `curl`. The first path segment specifies the region:
-```json
-$ curl http://localhost:3000/na1/lol/summoner/v4/summoners/by-name/LugnutsK
-{"id":"...","accountId":"...","puuid":"...","name":"LugnutsK","profileIconId":4540,"revisionDate":1589704662000,"summonerLevel":111}
+```bash
+$ curl http://localhost:3000/americas/riot/account/v1/accounts/by-riot-id/LugnutsK/000
+{"puuid":"...","gameName":"LugnutsK","tagLine":"000"}
 
 $ curl http://localhost:3000/eu/val/status/v1/platform-data
 {"id": "EU", "name": "Europe", "locales": ["..."], "maintenances": [], "incidents": []}
 
-$ curl http://localhost:3000/americas/lol/tournament-stub/v5/providers -H "Content-Type: application/json" -d '{"region":"JP","url":"https://github.com/MingweiSamuel/Riven"}'
+$ curl http://localhost:3000/americas/lol/tournament-stub/v5/providers \
+    -H "Content-Type: application/json" -d '{"region":"JP","url":"https://github.com/MingweiSamuel/Riven"}'
 1
 
 $ curl http://localhost:3000/na1/unknown/endpoint
