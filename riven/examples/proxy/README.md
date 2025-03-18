@@ -14,7 +14,7 @@ when Riven is at the rate limit.
 Put your API key into either the `RGAPI_KEY` environment variable or the `apikey.txt`
 file, then run the proxy:
 ```bash
-cargo run --example proxy --features riven/__proxy
+cargo run --example proxy --features __proxy
 ```
 
 Test in your browser or using `curl`. The first path segment specifies the region:
