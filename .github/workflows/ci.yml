@@ -42,7 +42,7 @@ jobs:
       - run: cargo test --no-fail-fast --features riven/nightly,riven/deny-unknown,riven/eserde,riven/__proxy
       - name: Install `wasm-pack`
         run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
-      - run: wasm-pack test --node -- --features riven/nightly,riven/deny-unknown,riven/eserde
+      - run: wasm-pack test --node -- --features nightly,deny-unknown,eserde
         working-directory: riven
 
   lints:
