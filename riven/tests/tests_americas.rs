@@ -55,7 +55,7 @@ async fn tournamentstub() -> Result<(), String> {
         .register_provider_data(
             ROUTE,
             &ProviderRegistrationParametersV5 {
-                region: PlatformRoute::NA1.as_region_str().to_owned(),
+                region: PlatformRoute::NA1.to_tournament_region().unwrap(),
                 url: "https://github.com/MingweiSamuel/Riven".to_owned(),
             },
         )

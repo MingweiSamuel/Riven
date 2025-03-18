@@ -57,7 +57,7 @@ impl RiotApi {
         const endpoint_snake_case = dotUtils.changeCase.snakeCase(endpointName);
 }}
 
-/// {{= endpoint }} endpoints handle, accessed by calling [`{{= endpoint_snake_case }}()`](crate::RiotApi::{{= endpoint_snake_case }}) on a [`RiotApi`](crate::RiotApi) instance.
+/// {{= endpoint }} endpoints handle, accessed by calling [`{{= endpoint_snake_case }}()`](RiotApi::{{= endpoint_snake_case }}) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#{{= endpointName }}" target="_blank">`{{= endpointName }}`</a>
 ///

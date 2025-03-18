@@ -104,10 +104,17 @@ and specifying the `rustls-tls` feature:
 riven = { version = "...", default-features = false, features = [ "rustls-tls" ] }
 ```
 
-### `log` or `tracing`
+### `tracing` (or `log`)
 
-Riven is additionally able to produce [tracing](https://docs.rs/tracing) spans for requests if the `tracing` feature is enabled.
-By default the `tracing` feature is disabled and Riven instead writes to [`log`](https://docs.rs/log).
+By default Riven logs some diagnostic information using [`log`](https://docs.rs/log).
+If the `tracing` feature is enabled, Riven will use [tracing](https://docs.rs/tracing) which
+usefully aguments logs with per-request span information.
+
+### `metrics`
+
+The `metrics` feature enables some rudiementary metrics collecting via the [`metrics`](https://docs.rs/metrics)
+crate. See [#76](https://github.com/MingweiSamuel/Riven/pull/76) for details. More metrics may be
+added in the future.
 
 ## Docs
 
@@ -176,3 +183,8 @@ To set up the srcgen, you will first need to install NodeJS. Then enter the
 dependencies.
 
 To run the srcgen use `node riven/srcgen` from the repository root.
+
+## Testing
+
+To run tests put your API key into either the `RGAPI_KEY` environment variable or the `apikey.txt`
+file.

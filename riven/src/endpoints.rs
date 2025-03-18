@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 70189fcbec142793477bfadf264265de0134d742
+// Version 996d171a2b79e9bb85c549f47b07c6ef2721fc8a
 
 //! Automatically generated endpoint handles.
 #![allow(clippy::let_and_return, clippy::too_many_arguments)]
@@ -300,7 +300,7 @@ impl RiotApi {
     }
 }
 
-/// AccountV1 endpoints handle, accessed by calling [`account_v1()`](crate::RiotApi::account_v1) on a [`RiotApi`](crate::RiotApi) instance.
+/// AccountV1 endpoints handle, accessed by calling [`account_v1()`](RiotApi::account_v1) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#account-v1" target="_blank">`account-v1`</a>
 ///
@@ -403,7 +403,7 @@ impl<'a> AccountV1<'a> {
 
 }
 
-/// ChampionMasteryV4 endpoints handle, accessed by calling [`champion_mastery_v4()`](crate::RiotApi::champion_mastery_v4) on a [`RiotApi`](crate::RiotApi) instance.
+/// ChampionMasteryV4 endpoints handle, accessed by calling [`champion_mastery_v4()`](RiotApi::champion_mastery_v4) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#champion-mastery-v4" target="_blank">`champion-mastery-v4`</a>
 ///
@@ -502,7 +502,7 @@ impl<'a> ChampionMasteryV4<'a> {
 
 }
 
-/// ChampionV3 endpoints handle, accessed by calling [`champion_v3()`](crate::RiotApi::champion_v3) on a [`RiotApi`](crate::RiotApi) instance.
+/// ChampionV3 endpoints handle, accessed by calling [`champion_v3()`](RiotApi::champion_v3) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#champion-v3" target="_blank">`champion-v3`</a>
 ///
@@ -534,7 +534,7 @@ impl<'a> ChampionV3<'a> {
 
 }
 
-/// ClashV1 endpoints handle, accessed by calling [`clash_v1()`](crate::RiotApi::clash_v1) on a [`RiotApi`](crate::RiotApi) instance.
+/// ClashV1 endpoints handle, accessed by calling [`clash_v1()`](RiotApi::clash_v1) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#clash-v1" target="_blank">`clash-v1`</a>
 ///
@@ -652,7 +652,7 @@ impl<'a> ClashV1<'a> {
 
 }
 
-/// LeagueExpV4 endpoints handle, accessed by calling [`league_exp_v4()`](crate::RiotApi::league_exp_v4) on a [`RiotApi`](crate::RiotApi) instance.
+/// LeagueExpV4 endpoints handle, accessed by calling [`league_exp_v4()`](RiotApi::league_exp_v4) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#league-exp-v4" target="_blank">`league-exp-v4`</a>
 ///
@@ -689,7 +689,7 @@ impl<'a> LeagueExpV4<'a> {
 
 }
 
-/// LeagueV4 endpoints handle, accessed by calling [`league_v4()`](crate::RiotApi::league_v4) on a [`RiotApi`](crate::RiotApi) instance.
+/// LeagueV4 endpoints handle, accessed by calling [`league_v4()`](RiotApi::league_v4) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#league-v4" target="_blank">`league-v4`</a>
 ///
@@ -852,7 +852,7 @@ impl<'a> LeagueV4<'a> {
 
 }
 
-/// LolChallengesV1 endpoints handle, accessed by calling [`lol_challenges_v1()`](crate::RiotApi::lol_challenges_v1) on a [`RiotApi`](crate::RiotApi) instance.
+/// LolChallengesV1 endpoints handle, accessed by calling [`lol_challenges_v1()`](RiotApi::lol_challenges_v1) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#lol-challenges-v1" target="_blank">`lol-challenges-v1`</a>
 ///
@@ -991,7 +991,7 @@ impl<'a> LolChallengesV1<'a> {
 
 }
 
-/// LolRsoMatchV1 endpoints handle, accessed by calling [`lol_rso_match_v1()`](crate::RiotApi::lol_rso_match_v1) on a [`RiotApi`](crate::RiotApi) instance.
+/// LolRsoMatchV1 endpoints handle, accessed by calling [`lol_rso_match_v1()`](RiotApi::lol_rso_match_v1) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#lol-rso-match-v1" target="_blank">`lol-rso-match-v1`</a>
 ///
@@ -1095,7 +1095,7 @@ impl<'a> LolRsoMatchV1<'a> {
 
 }
 
-/// LolStatusV4 endpoints handle, accessed by calling [`lol_status_v4()`](crate::RiotApi::lol_status_v4) on a [`RiotApi`](crate::RiotApi) instance.
+/// LolStatusV4 endpoints handle, accessed by calling [`lol_status_v4()`](RiotApi::lol_status_v4) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#lol-status-v4" target="_blank">`lol-status-v4`</a>
 ///
@@ -1127,7 +1127,7 @@ impl<'a> LolStatusV4<'a> {
 
 }
 
-/// LorDeckV1 endpoints handle, accessed by calling [`lor_deck_v1()`](crate::RiotApi::lor_deck_v1) on a [`RiotApi`](crate::RiotApi) instance.
+/// LorDeckV1 endpoints handle, accessed by calling [`lor_deck_v1()`](RiotApi::lor_deck_v1) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#lor-deck-v1" target="_blank">`lor-deck-v1`</a>
 ///
@@ -1194,7 +1194,7 @@ impl<'a> LorDeckV1<'a> {
 
 }
 
-/// LorInventoryV1 endpoints handle, accessed by calling [`lor_inventory_v1()`](crate::RiotApi::lor_inventory_v1) on a [`RiotApi`](crate::RiotApi) instance.
+/// LorInventoryV1 endpoints handle, accessed by calling [`lor_inventory_v1()`](RiotApi::lor_inventory_v1) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#lor-inventory-v1" target="_blank">`lor-inventory-v1`</a>
 ///
@@ -1232,7 +1232,7 @@ impl<'a> LorInventoryV1<'a> {
 
 }
 
-/// LorMatchV1 endpoints handle, accessed by calling [`lor_match_v1()`](crate::RiotApi::lor_match_v1) on a [`RiotApi`](crate::RiotApi) instance.
+/// LorMatchV1 endpoints handle, accessed by calling [`lor_match_v1()`](RiotApi::lor_match_v1) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#lor-match-v1" target="_blank">`lor-match-v1`</a>
 ///
@@ -1286,7 +1286,7 @@ impl<'a> LorMatchV1<'a> {
 
 }
 
-/// LorRankedV1 endpoints handle, accessed by calling [`lor_ranked_v1()`](crate::RiotApi::lor_ranked_v1) on a [`RiotApi`](crate::RiotApi) instance.
+/// LorRankedV1 endpoints handle, accessed by calling [`lor_ranked_v1()`](RiotApi::lor_ranked_v1) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#lor-ranked-v1" target="_blank">`lor-ranked-v1`</a>
 ///
@@ -1318,7 +1318,7 @@ impl<'a> LorRankedV1<'a> {
 
 }
 
-/// LorStatusV1 endpoints handle, accessed by calling [`lor_status_v1()`](crate::RiotApi::lor_status_v1) on a [`RiotApi`](crate::RiotApi) instance.
+/// LorStatusV1 endpoints handle, accessed by calling [`lor_status_v1()`](RiotApi::lor_status_v1) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#lor-status-v1" target="_blank">`lor-status-v1`</a>
 ///
@@ -1350,7 +1350,7 @@ impl<'a> LorStatusV1<'a> {
 
 }
 
-/// MatchV5 endpoints handle, accessed by calling [`match_v5()`](crate::RiotApi::match_v5) on a [`RiotApi`](crate::RiotApi) instance.
+/// MatchV5 endpoints handle, accessed by calling [`match_v5()`](RiotApi::match_v5) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#match-v5" target="_blank">`match-v5`</a>
 ///
@@ -1437,7 +1437,7 @@ impl<'a> MatchV5<'a> {
 
 }
 
-/// SpectatorTftV5 endpoints handle, accessed by calling [`spectator_tft_v5()`](crate::RiotApi::spectator_tft_v5) on a [`RiotApi`](crate::RiotApi) instance.
+/// SpectatorTftV5 endpoints handle, accessed by calling [`spectator_tft_v5()`](RiotApi::spectator_tft_v5) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#spectator-tft-v5" target="_blank">`spectator-tft-v5`</a>
 ///
@@ -1490,7 +1490,7 @@ impl<'a> SpectatorTftV5<'a> {
 
 }
 
-/// SpectatorV5 endpoints handle, accessed by calling [`spectator_v5()`](crate::RiotApi::spectator_v5) on a [`RiotApi`](crate::RiotApi) instance.
+/// SpectatorV5 endpoints handle, accessed by calling [`spectator_v5()`](RiotApi::spectator_v5) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#spectator-v5" target="_blank">`spectator-v5`</a>
 ///
@@ -1543,7 +1543,7 @@ impl<'a> SpectatorV5<'a> {
 
 }
 
-/// SummonerV4 endpoints handle, accessed by calling [`summoner_v4()`](crate::RiotApi::summoner_v4) on a [`RiotApi`](crate::RiotApi) instance.
+/// SummonerV4 endpoints handle, accessed by calling [`summoner_v4()`](RiotApi::summoner_v4) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#summoner-v4" target="_blank">`summoner-v4`</a>
 ///
@@ -1665,7 +1665,7 @@ impl<'a> SummonerV4<'a> {
 
 }
 
-/// TftLeagueV1 endpoints handle, accessed by calling [`tft_league_v1()`](crate::RiotApi::tft_league_v1) on a [`RiotApi`](crate::RiotApi) instance.
+/// TftLeagueV1 endpoints handle, accessed by calling [`tft_league_v1()`](RiotApi::tft_league_v1) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#tft-league-v1" target="_blank">`tft-league-v1`</a>
 ///
@@ -1832,7 +1832,7 @@ impl<'a> TftLeagueV1<'a> {
 
 }
 
-/// TftMatchV1 endpoints handle, accessed by calling [`tft_match_v1()`](crate::RiotApi::tft_match_v1) on a [`RiotApi`](crate::RiotApi) instance.
+/// TftMatchV1 endpoints handle, accessed by calling [`tft_match_v1()`](RiotApi::tft_match_v1) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#tft-match-v1" target="_blank">`tft-match-v1`</a>
 ///
@@ -1894,7 +1894,7 @@ impl<'a> TftMatchV1<'a> {
 
 }
 
-/// TftStatusV1 endpoints handle, accessed by calling [`tft_status_v1()`](crate::RiotApi::tft_status_v1) on a [`RiotApi`](crate::RiotApi) instance.
+/// TftStatusV1 endpoints handle, accessed by calling [`tft_status_v1()`](RiotApi::tft_status_v1) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#tft-status-v1" target="_blank">`tft-status-v1`</a>
 ///
@@ -1926,7 +1926,7 @@ impl<'a> TftStatusV1<'a> {
 
 }
 
-/// TftSummonerV1 endpoints handle, accessed by calling [`tft_summoner_v1()`](crate::RiotApi::tft_summoner_v1) on a [`RiotApi`](crate::RiotApi) instance.
+/// TftSummonerV1 endpoints handle, accessed by calling [`tft_summoner_v1()`](RiotApi::tft_summoner_v1) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#tft-summoner-v1" target="_blank">`tft-summoner-v1`</a>
 ///
@@ -2027,7 +2027,7 @@ impl<'a> TftSummonerV1<'a> {
 
 }
 
-/// TournamentStubV5 endpoints handle, accessed by calling [`tournament_stub_v5()`](crate::RiotApi::tournament_stub_v5) on a [`RiotApi`](crate::RiotApi) instance.
+/// TournamentStubV5 endpoints handle, accessed by calling [`tournament_stub_v5()`](RiotApi::tournament_stub_v5) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#tournament-stub-v5" target="_blank">`tournament-stub-v5`</a>
 ///
@@ -2156,7 +2156,7 @@ impl<'a> TournamentStubV5<'a> {
 
 }
 
-/// TournamentV5 endpoints handle, accessed by calling [`tournament_v5()`](crate::RiotApi::tournament_v5) on a [`RiotApi`](crate::RiotApi) instance.
+/// TournamentV5 endpoints handle, accessed by calling [`tournament_v5()`](RiotApi::tournament_v5) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#tournament-v5" target="_blank">`tournament-v5`</a>
 ///
@@ -2336,7 +2336,7 @@ impl<'a> TournamentV5<'a> {
 
 }
 
-/// ValConsoleMatchV1 endpoints handle, accessed by calling [`val_console_match_v1()`](crate::RiotApi::val_console_match_v1) on a [`RiotApi`](crate::RiotApi) instance.
+/// ValConsoleMatchV1 endpoints handle, accessed by calling [`val_console_match_v1()`](RiotApi::val_console_match_v1) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#val-console-match-v1" target="_blank">`val-console-match-v1`</a>
 ///
@@ -2415,7 +2415,7 @@ impl<'a> ValConsoleMatchV1<'a> {
 
 }
 
-/// ValConsoleRankedV1 endpoints handle, accessed by calling [`val_console_ranked_v1()`](crate::RiotApi::val_console_ranked_v1) on a [`RiotApi`](crate::RiotApi) instance.
+/// ValConsoleRankedV1 endpoints handle, accessed by calling [`val_console_ranked_v1()`](RiotApi::val_console_ranked_v1) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#val-console-ranked-v1" target="_blank">`val-console-ranked-v1`</a>
 ///
@@ -2454,7 +2454,7 @@ impl<'a> ValConsoleRankedV1<'a> {
 
 }
 
-/// ValContentV1 endpoints handle, accessed by calling [`val_content_v1()`](crate::RiotApi::val_content_v1) on a [`RiotApi`](crate::RiotApi) instance.
+/// ValContentV1 endpoints handle, accessed by calling [`val_content_v1()`](RiotApi::val_content_v1) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#val-content-v1" target="_blank">`val-content-v1`</a>
 ///
@@ -2488,7 +2488,7 @@ impl<'a> ValContentV1<'a> {
 
 }
 
-/// ValMatchV1 endpoints handle, accessed by calling [`val_match_v1()`](crate::RiotApi::val_match_v1) on a [`RiotApi`](crate::RiotApi) instance.
+/// ValMatchV1 endpoints handle, accessed by calling [`val_match_v1()`](RiotApi::val_match_v1) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#val-match-v1" target="_blank">`val-match-v1`</a>
 ///
@@ -2565,7 +2565,7 @@ impl<'a> ValMatchV1<'a> {
 
 }
 
-/// ValRankedV1 endpoints handle, accessed by calling [`val_ranked_v1()`](crate::RiotApi::val_ranked_v1) on a [`RiotApi`](crate::RiotApi) instance.
+/// ValRankedV1 endpoints handle, accessed by calling [`val_ranked_v1()`](RiotApi::val_ranked_v1) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#val-ranked-v1" target="_blank">`val-ranked-v1`</a>
 ///
@@ -2602,7 +2602,7 @@ impl<'a> ValRankedV1<'a> {
 
 }
 
-/// ValStatusV1 endpoints handle, accessed by calling [`val_status_v1()`](crate::RiotApi::val_status_v1) on a [`RiotApi`](crate::RiotApi) instance.
+/// ValStatusV1 endpoints handle, accessed by calling [`val_status_v1()`](RiotApi::val_status_v1) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#val-status-v1" target="_blank">`val-status-v1`</a>
 ///

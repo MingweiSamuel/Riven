@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 70189fcbec142793477bfadf264265de0134d742
+// Version 996d171a2b79e9bb85c549f47b07c6ef2721fc8a
 
 #![allow(missing_docs)]
 
@@ -999,7 +999,7 @@ pub mod match_v5 {
         pub game_start_timestamp: i64,
         #[serde(rename = "gameType")]
         ///
-        /// Will be `None` if empty string is returned: https://github.com/RiotGames/developer-relations/issues/898
+        /// Will be `None` if empty string is returned: <https://github.com/RiotGames/developer-relations/issues/898>
         #[serde(serialize_with = "crate::consts::serialize_empty_string_none")]
         #[serde(deserialize_with = "crate::consts::deserialize_empty_string_none")]
         pub game_type: Option<crate::consts::GameType>,
@@ -1051,7 +1051,7 @@ pub mod match_v5 {
         #[serde(rename = "championId")]
         ///
         /// Instead use [`Self::champion()`] which checks this field then parses [`Self::champion_name`].
-        #[deprecated(since = "2.5.0", note = "Use `Participant.champion()` instead. Riot sometimes returns corrupted data for this field: https://github.com/RiotGames/developer-relations/issues/553")]
+        #[deprecated(since = "2.5.0", note = "Use `Participant.champion()` instead. Riot sometimes returns corrupted data for this field: <https://github.com/RiotGames/developer-relations/issues/553>")]
         #[serde(serialize_with = "crate::consts::Champion::serialize_result")]
         #[serde(deserialize_with = "crate::consts::Champion::deserialize_result")]
         pub champion_id: Result<crate::consts::Champion, std::num::TryFromIntError>,
@@ -1379,11 +1379,11 @@ pub mod match_v5 {
         #[serde(rename = "baitPings")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub bait_pings: Option<i32>,
-        /// https://github.com/RiotGames/developer-relations/issues/870
+        /// <https://github.com/RiotGames/developer-relations/issues/870>
         #[serde(rename = "dangerPings")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub danger_pings: Option<i32>,
-        /// https://github.com/RiotGames/developer-relations/issues/814
+        /// <https://github.com/RiotGames/developer-relations/issues/814>
         #[serde(rename = "basicPings")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub basic_pings: Option<i32>,
@@ -1397,7 +1397,7 @@ pub mod match_v5 {
         #[serde(rename = "riotIdName")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub riot_id_name: Option<String>,
-        /// https://github.com/RiotGames/developer-relations/issues/814
+        /// <https://github.com/RiotGames/developer-relations/issues/814>
         #[serde(rename = "retreatPings")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub retreat_pings: Option<i32>,
@@ -3572,7 +3572,7 @@ pub mod tournament_stub_v5 {
         /// The tournament code's region.<br>
         /// (Legal values:  BR,  EUNE,  EUW,  JP,  LAN,  LAS,  NA,  OCE,  PBE,  RU,  TR,  KR)
         #[serde(rename = "region")]
-        pub region: String,
+        pub region: crate::consts::TournamentRegion,
         /// The game map for the tournament code game
         #[serde(rename = "map")]
         pub map: String,
@@ -3611,7 +3611,7 @@ pub mod tournament_stub_v5 {
         /// The region in which the provider will be running tournaments.<br>
         /// (Legal values:  BR,  EUNE,  EUW,  JP,  LAN,  LAS,  NA,  OCE,  PBE,  RU,  TR,  KR)
         #[serde(rename = "region")]
-        pub region: String,
+        pub region: crate::consts::TournamentRegion,
         /// The provider's callback URL to which tournament game results in this region should be posted. The URL must be well-formed, use the http or https protocol, and use the default port for the protocol (http URLs must use port 80, https URLs must use port 443).
         #[serde(rename = "url")]
         pub url: String,
@@ -3706,7 +3706,7 @@ pub mod tournament_v5 {
         /// The tournament code's region.<br>
         /// (Legal values:  BR,  EUNE,  EUW,  JP,  LAN,  LAS,  NA,  OCE,  PBE,  RU,  TR,  KR,  PH,  SG,  TH,  TW,  VN)
         #[serde(rename = "region")]
-        pub region: String,
+        pub region: crate::consts::TournamentRegion,
         /// The game map for the tournament code game
         #[serde(rename = "map")]
         pub map: String,
@@ -3765,7 +3765,7 @@ pub mod tournament_v5 {
         pub game_mode: String,
         /// Region of the game
         #[serde(rename = "region")]
-        pub region: String,
+        pub region: crate::consts::TournamentRegion,
     }
     /// `tournament-v5.TournamentTeamV5` data object.
     #[derive(Clone, Debug)]
@@ -3807,7 +3807,7 @@ pub mod tournament_v5 {
         /// The region in which the provider will be running tournaments.<br>
         /// (Legal values:  BR,  EUNE,  EUW,  JP,  LAN,  LAS,  NA,  OCE,  PBE,  RU,  TR,  KR,  PH,  SG,  TH,  TW,  VN)
         #[serde(rename = "region")]
-        pub region: String,
+        pub region: crate::consts::TournamentRegion,
         /// The provider's callback URL to which tournament game results in this region should be posted. The URL must be well-formed, use the http or https protocol, and use the default port for the protocol (http URLs must use port 80, https URLs must use port 443).
         #[serde(rename = "url")]
         pub url: String,
