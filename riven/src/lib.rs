@@ -1,6 +1,6 @@
+#![doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/", env!("CARGO_PKG_README")))]
 #![forbid(unsafe_code)]
 #![deny(missing_docs)]
-#![doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/", env!("CARGO_PKG_README")))]
 
 // Re-exported crates.
 #[cfg(feature = "eserde")]

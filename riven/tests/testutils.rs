@@ -98,7 +98,7 @@ pub fn riot_api() -> &'static RiotApi {
                     std::path::PathBuf::from_iter([env!("CARGO_MANIFEST_DIR"), "../apikey.txt"]);
                 std::fs::read_to_string(path).ok()
             })
-            .expect("Failed to find `RGAPI_KEY` env var or `apikey.txt`.");
+            .expect("Failed to find RGAPI_KEY env var or apikey.txt.");
         RiotApi::new(RiotApiConfig::with_key(api_key.trim()).preconfig_burst())
     })
 }
