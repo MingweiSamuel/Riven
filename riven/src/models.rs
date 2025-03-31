@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 0ec1ee73a0d4f3138f9cbbe51b2787d41c3d8892
+// Version 996d171a2b79e9bb85c549f47b07c6ef2721fc8a
 
 #![allow(missing_docs)]
 
@@ -2850,7 +2850,7 @@ pub mod summoner_v4 {
         /// ID of the summoner icon associated with the summoner.
         #[serde(rename = "profileIconId")]
         pub profile_icon_id: i32,
-        /// Date summoner was last modified specified as epoch milliseconds. The following events will update this timestamp: profile icon change, playing the tutorial or advanced tutorial, finishing a game, summoner name change
+        /// Date summoner was last modified specified as epoch milliseconds. The following events will update this timestamp: profile icon change, playing the tutorial or advanced tutorial, finishing a game, summoner name change.
         #[serde(rename = "revisionDate")]
         pub revision_date: i64,
         /// Encrypted summoner ID. Max length 63 characters.
@@ -3482,7 +3482,7 @@ pub mod tft_summoner_v1 {
         /// ID of the summoner icon associated with the summoner.
         #[serde(rename = "profileIconId")]
         pub profile_icon_id: i32,
-        /// Date summoner was last modified specified as epoch milliseconds. The following events will update this timestamp: summoner name change, summoner level change, or profile icon change.
+        /// Date summoner was last modified specified as epoch milliseconds. The following events will update this timestamp: profile icon change, playing the tutorial or advanced tutorial, finishing a game, summoner name change.
         #[serde(rename = "revisionDate")]
         pub revision_date: i64,
         /// Encrypted summoner ID. Max length 63 characters.
@@ -3572,7 +3572,7 @@ pub mod tournament_stub_v5 {
         /// The tournament code's region.<br>
         /// (Legal values:  BR,  EUNE,  EUW,  JP,  LAN,  LAS,  NA,  OCE,  PBE,  RU,  TR,  KR)
         #[serde(rename = "region")]
-        pub region: String,
+        pub region: crate::consts::TournamentRegion,
         /// The game map for the tournament code game
         #[serde(rename = "map")]
         pub map: String,
@@ -3611,7 +3611,7 @@ pub mod tournament_stub_v5 {
         /// The region in which the provider will be running tournaments.<br>
         /// (Legal values:  BR,  EUNE,  EUW,  JP,  LAN,  LAS,  NA,  OCE,  PBE,  RU,  TR,  KR)
         #[serde(rename = "region")]
-        pub region: String,
+        pub region: crate::consts::TournamentRegion,
         /// The provider's callback URL to which tournament game results in this region should be posted. The URL must be well-formed, use the http or https protocol, and use the default port for the protocol (http URLs must use port 80, https URLs must use port 443).
         #[serde(rename = "url")]
         pub url: String,
@@ -3706,7 +3706,7 @@ pub mod tournament_v5 {
         /// The tournament code's region.<br>
         /// (Legal values:  BR,  EUNE,  EUW,  JP,  LAN,  LAS,  NA,  OCE,  PBE,  RU,  TR,  KR,  PH,  SG,  TH,  TW,  VN)
         #[serde(rename = "region")]
-        pub region: String,
+        pub region: crate::consts::TournamentRegion,
         /// The game map for the tournament code game
         #[serde(rename = "map")]
         pub map: String,
@@ -3765,7 +3765,7 @@ pub mod tournament_v5 {
         pub game_mode: String,
         /// Region of the game
         #[serde(rename = "region")]
-        pub region: String,
+        pub region: crate::consts::TournamentRegion,
     }
     /// TournamentTeamV5 data object.
     #[derive(Clone, Debug)]
@@ -3807,7 +3807,7 @@ pub mod tournament_v5 {
         /// The region in which the provider will be running tournaments.<br>
         /// (Legal values:  BR,  EUNE,  EUW,  JP,  LAN,  LAS,  NA,  OCE,  PBE,  RU,  TR,  KR,  PH,  SG,  TH,  TW,  VN)
         #[serde(rename = "region")]
-        pub region: String,
+        pub region: crate::consts::TournamentRegion,
         /// The provider's callback URL to which tournament game results in this region should be posted. The URL must be well-formed, use the http or https protocol, and use the default port for the protocol (http URLs must use port 80, https URLs must use port 443).
         #[serde(rename = "url")]
         pub url: String,

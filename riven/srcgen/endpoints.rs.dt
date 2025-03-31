@@ -213,6 +213,20 @@ impl<'a> {{= endpoint }}<'a> {
     /// See `{{= method }}` for detailed documentation
     /// # Parameters
     /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+{{? isRso }}
+    /// * `access_token` - RSO access token.
+{{?}}
+{{~ allParams || [] :param }}
+    /// * `{{= dotUtils.changeCase.snakeCase(param.name) }}` ({{= param.required ? 'required' : 'optional' }}, in {{= param.in }}){{= param.description ? ' - ' + param.description : ''}}
+{{~}}
+{{? isRso }}
+    /// # RSO
+    /// This endpoint uses [Riot Sign On](https://developer.riotgames.com/docs/lol#rso-integration)
+    /// via the `access_token` parameter, instead of the Riot API key.
+{{?}}
+    /// # Riot Developer API Reference
+    /// <a href="{{= operation.externalDocs.url }}" target="_blank">`{{= operationId }}`</a>
     ///
     /// Note: this method is automatically generated.
     pub fn try_{{= method }}(&self, min_capacity: f32, {{= argBuilder.join('') }})
@@ -237,7 +251,7 @@ impl<'a> {{= endpoint }}<'a> {
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("{{= operationId }}", route = route_str));
         #[cfg(feature = "metrics")]
-        let future = metrics::timed(future, "{{= operationId }}", route_str);
+        let future = metrics::try_timed(future, "{{= operationId }}", route_str);
         future
     }
 
