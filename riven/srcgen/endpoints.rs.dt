@@ -9,8 +9,6 @@
 //! Automatically generated endpoint handles.
 #![allow(clippy::let_and_return, clippy::too_many_arguments)]
 
-use crate::models::*;
-
 use std::future::Future;
 use std::vec::Vec;
 
@@ -59,7 +57,7 @@ impl RiotApi {
         const endpoint_snake_case = dotUtils.changeCase.snakeCase(endpointName);
 }}
 
-/// {{= endpoint }} endpoints handle, accessed by calling [`{{= endpoint_snake_case }}()`](crate::RiotApi::{{= endpoint_snake_case }}) on a [`RiotApi`](crate::RiotApi) instance.
+/// {{= endpoint }} endpoints handle, accessed by calling [`{{= endpoint_snake_case }}()`](RiotApi::{{= endpoint_snake_case }}) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#{{= endpointName }}" target="_blank">`{{= endpointName }}`</a>
 ///
@@ -92,7 +90,7 @@ impl<'a> {{= endpoint }}<'a> {
                     hasReturn = true;
                     const jsonInfo = resp200.content['application/json'];
 
-                    const parseType = dotUtils.stringifyType(jsonInfo.schema, { endpoint, fullpath: false });
+                    const parseType = dotUtils.stringifyType(jsonInfo.schema, { fullpath: false });
                     returnTypeTurbofish = `::<${parseType}>`;
                     returnOptional = !!operation['x-nullable-404'];
                     returnType = returnOptional ? `Option<${parseType}>` : parseType;
@@ -103,7 +101,7 @@ impl<'a> {{= endpoint }}<'a> {
                 if (operation.requestBody)
                 {
                     const jsonInfo = operation.requestBody.content['application/json'];
-                    bodyType = dotUtils.stringifyType(jsonInfo.schema, { endpoint, fullpath: false });
+                    bodyType = dotUtils.stringifyType(jsonInfo.schema, { fullpath: false });
                 }
 
                 /* Description processing. */
@@ -148,7 +146,7 @@ impl<'a> {{= endpoint }}<'a> {
                         for (const param of paramList)
                         {
                             argBuilder.push(', ', dotUtils.normalizePropName(param.name), ': ',
-                                dotUtils.stringifyType(param.schema, { endpoint, optional: !(required || param.required), owned: false }));
+                                dotUtils.stringifyType(param.schema, { optional: !(required || param.required), owned: false }));
                         }
                     }
 
@@ -199,7 +197,9 @@ impl<'a> {{= endpoint }}<'a> {
         {{= dotUtils.formatAddHeaderParam(headerParam) }}
 {{~}}
 {{? bodyType }}
-        let request = request.body(serde_json::ser::to_vec(body).unwrap());
+        let request = request
+            .body(serde_json::ser::to_vec(body).unwrap())
+            .header(reqwest::header::CONTENT_TYPE, "application/json");
 {{?}}
         let future = self.base.execute{{= hasReturn ? (returnOptional ? '_opt' : '_val') : '' }}{{= returnTypeTurbofish }}("{{= operationId }}", route_str, request);
         #[cfg(feature = "tracing")]

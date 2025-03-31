@@ -6,6 +6,7 @@
 //           Do not directly edit!           //
 //                                           //
 ///////////////////////////////////////////////
+#![allow(clippy::upper_case_acronyms)]
 
 use num_enum::{ IntoPrimitive, TryFromPrimitive };
 use strum_macros::{ EnumString, EnumIter, Display, IntoStaticStr };
@@ -231,8 +232,7 @@ impl PlatformRoute {
     }
 
     /// Used in the LoL Tournament API. Specifically
-    /// [`tournament-stub-v4.registerProviderData`](crate::endpoints::TournamentStubV4::register_provider_data)
-    /// and [`tournament-v4.registerProviderData`](crate::endpoints::TournamentV4::register_provider_data).
+    /// [`TournamentStubV5`](crate::endpoints::TournamentStubV5)/[`TournamentV5`](crate::endpoints::TournamentV5).
     pub fn to_tournament_region(self) -> Option<TournamentRegion> {
         match self {
             Self::BR1 => Some(TournamentRegion::BR),
@@ -326,13 +326,12 @@ pub enum ValPlatformRoute {
 }
 
 /// Tournament regions for League of Legends (LoL) used in
-/// [`tournament-stub-v4.registerProviderData`](crate::endpoints::TournamentStubV4::register_provider_data)
-/// and [`tournament-v4.registerProviderData`](crate::endpoints::TournamentV4::register_provider_data).
+/// [`TournamentStubV5`](crate::endpoints::TournamentStubV5)/[`TournamentV5`](crate::endpoints::TournamentV5).
 #[derive(Debug)]
 #[derive(PartialEq, Eq, Hash, PartialOrd, Ord)]
 #[derive(IntoPrimitive, TryFromPrimitive)]
 #[derive(EnumString, EnumIter, Display, IntoStaticStr)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(serde::Serialize, crate::de::Deserialize)]
 #[derive(Clone, Copy)]
 #[repr(u8)]
 #[non_exhaustive]

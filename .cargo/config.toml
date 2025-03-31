@@ -1,0 +1,3 @@
+[env]
+RUST_BACKTRACE = "full"
+RUST_LOG = "info,riven=debug"

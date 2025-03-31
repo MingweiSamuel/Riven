@@ -18,12 +18,12 @@ use crate::{ResponseInfo, Result, RiotApiConfig, RiotApiError};
 /// and look like `"RGAPI-01234567-89ab-cdef-0123-456789abcdef"`.
 ///
 /// An instance provides access to "endpoint handles" which in turn provide
-/// access to individual API method calls. For example, to get a summoner by
-/// name we first access the [`summoner_v4()`](RiotApi::summoner_v4) endpoints
-/// then call the [`get_by_summoner_name()`](crate::endpoints::SummonerV4::get_by_summoner_name)
+/// access to individual API method calls. For example, to get a user by Riot
+/// ID we first access the [`account_v1()`](RiotApi::account_v1) endpoints
+/// then call the [`get_by_riot_id()`](crate::endpoints::AccountV1::get_by_riot_id)
 /// method:
 /// ```ignore
-/// riot_api.summoner_v4().get_by_summoner_name(Region::NA, "LugnutsK")
+/// riot_api.account_v1().get_by_riot_id(Region::NA, "LugnutsK", "000")
 /// ```
 ///
 /// # Rate Limiting
@@ -90,7 +90,7 @@ impl RiotApi {
     ///
     /// # Returns
     /// A future resolving to a `Result` containg either a `T` (success) or a `RiotApiError` (failure).
-    pub async fn execute_val<'a, T: serde::de::DeserializeOwned + 'a>(
+    pub async fn execute_val<'a, T: for<'de> crate::de::Deserialize<'de> + 'a>(
         &'a self,
         method_id: &'static str,
         region_platform: &'static str,
@@ -99,10 +99,7 @@ impl RiotApi {
         let rinfo = self
             .execute_raw(method_id, region_platform, request)
             .await?;
-        let retries = rinfo.retries;
-        let status = rinfo.response.status();
-        let value = rinfo.response.json::<T>().await;
-        value.map_err(|e| RiotApiError::new(e, retries, None, Some(status)))
+        rinfo.json::<T>().await
     }
 
     /// This method should generally not be used directly. Consider using endpoint wrappers instead.
@@ -116,7 +113,7 @@ impl RiotApi {
     ///
     /// # Returns
     /// A future resolving to a `Result` containg either an `Option<T>` (success) or a `RiotApiError` (failure).
-    pub async fn execute_opt<'a, T: serde::de::DeserializeOwned + 'a>(
+    pub async fn execute_opt<'a, T: for<'de> crate::de::Deserialize<'de> + 'a>(
         &'a self,
         method_id: &'static str,
         region_platform: &'static str,
@@ -128,10 +125,7 @@ impl RiotApi {
         if rinfo.status_none {
             return Ok(None);
         }
-        let retries = rinfo.retries;
-        let status = rinfo.response.status();
-        let value = rinfo.response.json::<Option<T>>().await;
-        value.map_err(|e| RiotApiError::new(e, retries, None, Some(status)))
+        rinfo.json::<Option<T>>().await
     }
 
     /// This method should generally not be used directly. Consider using endpoint wrappers instead.
@@ -156,11 +150,17 @@ impl RiotApi {
             .await?;
         let retries = rinfo.retries;
         let status = rinfo.response.status();
-        rinfo
-            .response
-            .error_for_status()
-            .map(|_| ())
-            .map_err(|e| RiotApiError::new(e, retries, None, Some(status)))
+        if status.is_client_error() || status.is_server_error() {
+            Err(RiotApiError::new(
+                rinfo.reqwest_errors,
+                None,
+                retries,
+                Some(rinfo.response),
+                Some(status),
+            ))
+        } else {
+            Ok(())
+        }
     }
 
     /// This method should generally not be used directly. Consider using endpoint wrappers instead.
@@ -171,11 +171,11 @@ impl RiotApi {
     /// * `method_id` - A unique string id representing the endpoint method for per-method rate limiting.
     /// * `region_platform` - The stringified platform, used in rate limiting.
     /// * `request` - The request information. Use `request()` to obtain a `RequestBuilder` instance.
-    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
     ///
     /// # Returns
     /// None if min_capacity is not met, otherwise a future resolving to a `Result` containg either a `T` (success) or a `RiotApiError` (failure).
-    pub async fn try_execute_val<'a, T: serde::de::DeserializeOwned + 'a>(
+    pub async fn try_execute_val<'a, T: for<'de> crate::de::Deserialize<'de> + 'a>(
         &'a self,
         method_id: &'static str,
         region_platform: &'static str,
@@ -187,14 +187,7 @@ impl RiotApi {
             .await;
         if let Some(rinfo) = rinfo {
             match rinfo {
-                Ok(rinfo) => {
-                    let retries = rinfo.retries;
-                    let status = rinfo.response.status();
-                    let value = rinfo.response.json::<T>().await;
-                    let value =
-                        value.map_err(|e| RiotApiError::new(e, retries, None, Some(status)));
-                    Some(value)
-                }
+                Ok(rinfo) => Some(rinfo.json::<T>().await),
                 Err(e) => Some(Err(e)),
             }
         } else {
@@ -214,7 +207,7 @@ impl RiotApi {
     ///
     /// # Returns
     /// None if min_capacity is not met, otherwise a future resolving to a `Result` containg either an `Option<T>` (success) or a `RiotApiError` (failure).
-    pub async fn try_execute_opt<'a, T: serde::de::DeserializeOwned + 'a>(
+    pub async fn try_execute_opt<'a, T: for<'de> crate::de::Deserialize<'de> + 'a>(
         &'a self,
         method_id: &'static str,
         region_platform: &'static str,
@@ -227,12 +220,10 @@ impl RiotApi {
         if let Some(rinfo) = rinfo {
             match rinfo {
                 Ok(rinfo) => {
-                    let retries = rinfo.retries;
-                    let status = rinfo.response.status();
-                    let value = rinfo.response.json::<Option<T>>().await;
-                    let value =
-                        value.map_err(|e| RiotApiError::new(e, retries, None, Some(status)));
-                    Some(value)
+                    if rinfo.status_none {
+                        return Some(Ok(None));
+                    }
+                    Some(rinfo.json::<Option<T>>().await)
                 }
                 Err(e) => Some(Err(e)),
             }
@@ -249,7 +240,6 @@ impl RiotApi {
     /// * `method_id` - A unique string id representing the endpoint method for per-method rate limiting.
     /// * `region_platform` - The stringified platform, used in rate limiting.
     /// * `request` - The request information. Use `request()` to obtain a `RequestBuilder` instance.
-    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
     ///
     /// # Returns
     /// None if min_capacity is not met, otherwise a future resolving to a `Result` containg either `()` (success) or a `RiotApiError` (failure).
@@ -268,13 +258,17 @@ impl RiotApi {
                 Ok(rinfo) => {
                     let retries = rinfo.retries;
                     let status = rinfo.response.status();
-                    Some(
-                        rinfo
-                            .response
-                            .error_for_status()
-                            .map(|_| ())
-                            .map_err(|e| RiotApiError::new(e, retries, None, Some(status))),
-                    )
+                    if status.is_client_error() || status.is_server_error() {
+                        Some(Err(RiotApiError::new(
+                            rinfo.reqwest_errors,
+                            None,
+                            retries,
+                            Some(rinfo.response),
+                            Some(status),
+                        )))
+                    } else {
+                        Some(Ok(()))
+                    }
                 }
                 Err(e) => Some(Err(e)),
             }
