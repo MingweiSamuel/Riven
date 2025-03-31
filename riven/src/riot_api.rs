@@ -171,7 +171,7 @@ impl RiotApi {
     /// * `method_id` - A unique string id representing the endpoint method for per-method rate limiting.
     /// * `region_platform` - The stringified platform, used in rate limiting.
     /// * `request` - The request information. Use `request()` to obtain a `RequestBuilder` instance.
-    /// /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
     ///
     /// # Returns
     /// None if min_capacity is not met, otherwise a future resolving to a `Result` containg either a `T` (success) or a `RiotApiError` (failure).
