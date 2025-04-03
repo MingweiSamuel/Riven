@@ -19,7 +19,7 @@ use crate::metrics;
 use tracing::Instrument;
 use reqwest::Method;
 
-use crate::Result;
+use crate::{Result, TryRequestResult};
 use crate::consts::{ RegionalRoute, PlatformRoute, ValPlatformRoute };
 use crate::riot_api::RiotApi;
 
@@ -230,7 +230,7 @@ impl<'a> {{= endpoint }}<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_{{= method }}(&self, min_capacity: f32, {{= argBuilder.join('') }})
-        -> impl Future<Output = Option<Result<{{= returnType }}>>> + 'a
+        -> impl Future<Output = TryRequestResult<{{= returnType }}>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::{{= verb.toUpperCase() }}, route_str, {{= routeArgument }});

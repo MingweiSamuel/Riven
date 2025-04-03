@@ -1,3 +1,4 @@
+use core::panic;
 use std::future::Future;
 
 use memo_map::MemoMap;
@@ -6,7 +7,7 @@ use reqwest::{Client, Method, RequestBuilder};
 use tracing as log;
 
 use crate::req::RegionalRequester;
-use crate::{ResponseInfo, Result, RiotApiConfig, RiotApiError};
+use crate::{ResponseInfo, Result, RiotApiConfig, RiotApiError, TryRequestError, TryRequestResult};
 
 /// For retrieving data from the Riot Games API.
 ///
@@ -181,18 +182,14 @@ impl RiotApi {
         region_platform: &'static str,
         request: RequestBuilder,
         min_capacity: f32,
-    ) -> Option<Result<T>> {
+    ) -> TryRequestResult<T> {
         let rinfo = self
             .try_execute_raw(method_id, region_platform, request, min_capacity)
-            .await;
-        if let Some(rinfo) = rinfo {
-            match rinfo {
-                Ok(rinfo) => Some(rinfo.json::<T>().await),
-                Err(e) => Some(Err(e)),
-            }
-        } else {
-            None
-        }
+            .await?;
+        rinfo
+            .json::<T>()
+            .await
+            .map_err(|e| TryRequestError::RiotApiError(e))
     }
 
     /// This method should generally not be used directly. Consider using endpoint wrappers instead.
@@ -213,23 +210,17 @@ impl RiotApi {
         region_platform: &'static str,
         request: RequestBuilder,
         min_capacity: f32,
-    ) -> Option<Result<Option<T>>> {
+    ) -> TryRequestResult<Option<T>> {
         let rinfo = self
             .try_execute_raw(method_id, region_platform, request, min_capacity)
-            .await;
-        if let Some(rinfo) = rinfo {
-            match rinfo {
-                Ok(rinfo) => {
-                    if rinfo.status_none {
-                        return Some(Ok(None));
-                    }
-                    Some(rinfo.json::<Option<T>>().await)
-                }
-                Err(e) => Some(Err(e)),
-            }
-        } else {
-            None
+            .await?;
+        if rinfo.status_none {
+            return Ok(None);
         }
+        rinfo
+            .json::<Option<T>>()
+            .await
+            .map_err(|e| TryRequestError::RiotApiError(e))
     }
 
     /// This method should generally not be used directly. Consider using endpoint wrappers instead.
@@ -249,31 +240,22 @@ impl RiotApi {
         region_platform: &'static str,
         request: RequestBuilder,
         min_capacity: f32,
-    ) -> Option<Result<()>> {
+    ) -> TryRequestResult<()> {
         let rinfo = self
             .try_execute_raw(method_id, region_platform, request, min_capacity)
-            .await;
-        if let Some(rinfo) = rinfo {
-            match rinfo {
-                Ok(rinfo) => {
-                    let retries = rinfo.retries;
-                    let status = rinfo.response.status();
-                    if status.is_client_error() || status.is_server_error() {
-                        Some(Err(RiotApiError::new(
-                            rinfo.reqwest_errors,
-                            None,
-                            retries,
-                            Some(rinfo.response),
-                            Some(status),
-                        )))
-                    } else {
-                        Some(Ok(()))
-                    }
-                }
-                Err(e) => Some(Err(e)),
-            }
+            .await?;
+        let retries = rinfo.retries;
+        let status = rinfo.response.status();
+        if status.is_client_error() || status.is_server_error() {
+            Err(TryRequestError::RiotApiError(RiotApiError::new(
+                rinfo.reqwest_errors,
+                None,
+                retries,
+                Some(rinfo.response),
+                Some(status),
+            )))
         } else {
-            None
+            Ok(())
         }
     }
 
@@ -299,7 +281,12 @@ impl RiotApi {
         self.regional_requester(region_platform)
             .execute(&self.config, method_id, request, None)
             .await
-            .expect("regional_requester.excute only returns None when min_capacity is Some(f32)")
+            .map_err(|e| match e {
+                TryRequestError::NotEnoughCapacity => {
+                    panic!("execute called with no capacity requirement, should not happen.")
+                }
+                TryRequestError::RiotApiError(e) => e,
+            })
     }
 
     /// This method should generally not be used directly. Consider using endpoint wrappers instead.
@@ -321,7 +308,7 @@ impl RiotApi {
         region_platform: &'static str,
         request: RequestBuilder,
         min_capacity: f32,
-    ) -> impl Future<Output = Option<Result<ResponseInfo>>> + '_ {
+    ) -> impl Future<Output = TryRequestResult<ResponseInfo>> + '_ {
         self.regional_requester(region_platform).execute(
             &self.config,
             method_id,

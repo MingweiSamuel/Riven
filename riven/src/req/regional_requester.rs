@@ -5,7 +5,7 @@ use tracing::{self as log, Instrument};
 
 use super::{RateLimit, RateLimitType};
 use crate::time::{sleep, Duration};
-use crate::{ResponseInfo, Result, RiotApiConfig, RiotApiError};
+use crate::{ResponseInfo, RiotApiConfig, RiotApiError, TryRequestError, TryRequestResult};
 
 pub struct RegionalRequester {
     /// The app rate limit.
@@ -34,7 +34,7 @@ impl RegionalRequester {
         method_id: &'static str,
         request: RequestBuilder,
         min_capacity: Option<f32>,
-    ) -> Option<Result<ResponseInfo>> {
+    ) -> TryRequestResult<ResponseInfo> {
         let mut retries: u8 = 0;
         let mut reqwest_errors = Vec::new();
         loop {
@@ -49,7 +49,7 @@ impl RegionalRequester {
                     method_rate_limit,
                     min_capacity,
                 ) {
-                    return None;
+                    return Err(TryRequestError::NotEnoughCapacity);
                 }
             } else {
                 // Sleep until we have capcacity
@@ -77,7 +77,7 @@ impl RegionalRequester {
                             "Request failed (retried {} times), failure, returning error.",
                             retries
                         );
-                        break Some(Err(RiotApiError::new(
+                        break Err(TryRequestError::RiotApiError(RiotApiError::new(
                             reqwest_errors,
                             None,
                             retries,
@@ -114,12 +114,12 @@ impl RegionalRequester {
                     status,
                     retries
                 );
-                break Some(Ok(ResponseInfo {
+                break Ok(ResponseInfo {
                     response,
                     retries,
                     status_none,
                     reqwest_errors,
-                }));
+                });
             }
             reqwest_errors.push(response.error_for_status_ref().err().unwrap_or_else(|| {
                 panic!(
@@ -139,7 +139,7 @@ impl RegionalRequester {
                     status,
                     retries
                 );
-                break Some(Err(RiotApiError::new(
+                break Err(TryRequestError::RiotApiError(RiotApiError::new(
                     reqwest_errors,
                     None,
                     retries,

@@ -23,7 +23,7 @@ use crate::metrics;
 use tracing::Instrument;
 use reqwest::Method;
 
-use crate::Result;
+use crate::{Result, TryRequestResult};
 use crate::consts::{ RegionalRoute, PlatformRoute, ValPlatformRoute };
 use crate::riot_api::RiotApi;
 
@@ -342,7 +342,7 @@ impl<'a> AccountV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_by_puuid(&self, min_capacity: f32, route: RegionalRoute, puuid: &str)
-        -> impl Future<Output = Option<Result<crate::models::account_v1::Account>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::account_v1::Account>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/riot/account/v1/accounts/by-puuid/{}", puuid));
@@ -388,7 +388,7 @@ impl<'a> AccountV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_by_riot_id(&self, min_capacity: f32, route: RegionalRoute, game_name: &str, tag_line: &str)
-        -> impl Future<Output = Option<Result<Option<crate::models::account_v1::Account>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Option<crate::models::account_v1::Account>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/riot/account/v1/accounts/by-riot-id/{}/{}", game_name, tag_line));
@@ -440,7 +440,7 @@ impl<'a> AccountV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_by_access_token(&self, min_capacity: f32, route: RegionalRoute, access_token: impl std::fmt::Display)
-        -> impl Future<Output = Option<Result<crate::models::account_v1::Account>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::account_v1::Account>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/riot/account/v1/accounts/me");
@@ -488,7 +488,7 @@ impl<'a> AccountV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_active_shard(&self, min_capacity: f32, route: RegionalRoute, game: &str, puuid: &str)
-        -> impl Future<Output = Option<Result<Option<crate::models::account_v1::ActiveShard>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Option<crate::models::account_v1::ActiveShard>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/riot/account/v1/active-shards/by-game/{}/by-puuid/{}", game, puuid));
@@ -544,7 +544,7 @@ impl<'a> ChampionMasteryV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_all_champion_masteries_by_puuid(&self, min_capacity: f32, route: PlatformRoute, encrypted_puuid: &str)
-        -> impl Future<Output = Option<Result<Vec<crate::models::champion_mastery_v4::ChampionMastery>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Vec<crate::models::champion_mastery_v4::ChampionMastery>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/champion-mastery/v4/champion-masteries/by-puuid/{}", encrypted_puuid));
@@ -590,7 +590,7 @@ impl<'a> ChampionMasteryV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_champion_mastery_by_puuid(&self, min_capacity: f32, route: PlatformRoute, encrypted_puuid: &str, champion_id: crate::consts::Champion)
-        -> impl Future<Output = Option<Result<crate::models::champion_mastery_v4::ChampionMastery>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::champion_mastery_v4::ChampionMastery>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/champion-mastery/v4/champion-masteries/by-puuid/{}/by-champion/{}", encrypted_puuid, champion_id));
@@ -637,7 +637,7 @@ impl<'a> ChampionMasteryV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_top_champion_masteries_by_puuid(&self, min_capacity: f32, route: PlatformRoute, encrypted_puuid: &str, count: Option<i32>)
-        -> impl Future<Output = Option<Result<Vec<crate::models::champion_mastery_v4::ChampionMastery>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Vec<crate::models::champion_mastery_v4::ChampionMastery>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/champion-mastery/v4/champion-masteries/by-puuid/{}/top", encrypted_puuid));
@@ -682,7 +682,7 @@ impl<'a> ChampionMasteryV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_champion_mastery_score_by_puuid(&self, min_capacity: f32, route: PlatformRoute, encrypted_puuid: &str)
-        -> impl Future<Output = Option<Result<i32>>> + 'a
+        -> impl Future<Output = TryRequestResult<i32>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/champion-mastery/v4/scores/by-puuid/{}", encrypted_puuid));
@@ -736,7 +736,7 @@ impl<'a> ChampionV3<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_champion_info(&self, min_capacity: f32, route: PlatformRoute)
-        -> impl Future<Output = Option<Result<crate::models::champion_v3::ChampionInfo>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::champion_v3::ChampionInfo>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/lol/platform/v3/champion-rotations");
@@ -794,7 +794,7 @@ impl<'a> ClashV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_players_by_puuid(&self, min_capacity: f32, route: PlatformRoute, puuid: &str)
-        -> impl Future<Output = Option<Result<Vec<crate::models::clash_v1::Player>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Vec<crate::models::clash_v1::Player>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/clash/v1/players/by-puuid/{}", puuid));
@@ -838,7 +838,7 @@ impl<'a> ClashV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_team_by_id(&self, min_capacity: f32, route: PlatformRoute, team_id: &str)
-        -> impl Future<Output = Option<Result<Option<crate::models::clash_v1::Team>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Option<crate::models::clash_v1::Team>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/clash/v1/teams/{}", team_id));
@@ -880,7 +880,7 @@ impl<'a> ClashV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_tournaments(&self, min_capacity: f32, route: PlatformRoute)
-        -> impl Future<Output = Option<Result<Vec<crate::models::clash_v1::Tournament>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Vec<crate::models::clash_v1::Tournament>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/lol/clash/v1/tournaments");
@@ -924,7 +924,7 @@ impl<'a> ClashV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_tournament_by_team(&self, min_capacity: f32, route: PlatformRoute, team_id: &str)
-        -> impl Future<Output = Option<Result<Option<crate::models::clash_v1::Tournament>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Option<crate::models::clash_v1::Tournament>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/clash/v1/tournaments/by-team/{}", team_id));
@@ -968,7 +968,7 @@ impl<'a> ClashV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_tournament_by_id(&self, min_capacity: f32, route: PlatformRoute, tournament_id: i32)
-        -> impl Future<Output = Option<Result<Option<crate::models::clash_v1::Tournament>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Option<crate::models::clash_v1::Tournament>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/clash/v1/tournaments/{}", tournament_id));
@@ -1031,7 +1031,7 @@ impl<'a> LeagueExpV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_league_entries(&self, min_capacity: f32, route: PlatformRoute, queue: crate::consts::QueueType, tier: crate::consts::Tier, division: crate::consts::Division, page: Option<i32>)
-        -> impl Future<Output = Option<Result<Option<Vec<crate::models::league_exp_v4::LeagueEntry>>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Option<Vec<crate::models::league_exp_v4::LeagueEntry>>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/league-exp/v4/entries/{}/{}/{}", queue, tier, division));
@@ -1088,7 +1088,7 @@ impl<'a> LeagueV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_challenger_league(&self, min_capacity: f32, route: PlatformRoute, queue: crate::consts::QueueType)
-        -> impl Future<Output = Option<Result<crate::models::league_v4::LeagueList>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::league_v4::LeagueList>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/challengerleagues/by-queue/{}", queue));
@@ -1132,7 +1132,7 @@ impl<'a> LeagueV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_league_entries_by_puuid(&self, min_capacity: f32, route: PlatformRoute, encrypted_puuid: &str)
-        -> impl Future<Output = Option<Result<Vec<crate::models::league_v4::LeagueEntry>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Vec<crate::models::league_v4::LeagueEntry>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/entries/by-puuid/{}", encrypted_puuid));
@@ -1176,7 +1176,7 @@ impl<'a> LeagueV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_league_entries_for_summoner(&self, min_capacity: f32, route: PlatformRoute, encrypted_summoner_id: &str)
-        -> impl Future<Output = Option<Result<Vec<crate::models::league_v4::LeagueEntry>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Vec<crate::models::league_v4::LeagueEntry>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/entries/by-summoner/{}", encrypted_summoner_id));
@@ -1227,7 +1227,7 @@ impl<'a> LeagueV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_league_entries(&self, min_capacity: f32, route: PlatformRoute, queue: crate::consts::QueueType, tier: crate::consts::Tier, division: crate::consts::Division, page: Option<i32>)
-        -> impl Future<Output = Option<Result<Option<Vec<crate::models::league_v4::LeagueEntry>>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Option<Vec<crate::models::league_v4::LeagueEntry>>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/entries/{}/{}/{}", queue, tier, division));
@@ -1272,7 +1272,7 @@ impl<'a> LeagueV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_grandmaster_league(&self, min_capacity: f32, route: PlatformRoute, queue: crate::consts::QueueType)
-        -> impl Future<Output = Option<Result<crate::models::league_v4::LeagueList>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::league_v4::LeagueList>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/grandmasterleagues/by-queue/{}", queue));
@@ -1316,7 +1316,7 @@ impl<'a> LeagueV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_league_by_id(&self, min_capacity: f32, route: PlatformRoute, league_id: &str)
-        -> impl Future<Output = Option<Result<Option<crate::models::league_v4::LeagueList>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Option<crate::models::league_v4::LeagueList>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/leagues/{}", league_id));
@@ -1360,7 +1360,7 @@ impl<'a> LeagueV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_master_league(&self, min_capacity: f32, route: PlatformRoute, queue: crate::consts::QueueType)
-        -> impl Future<Output = Option<Result<crate::models::league_v4::LeagueList>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::league_v4::LeagueList>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/masterleagues/by-queue/{}", queue));
@@ -1414,7 +1414,7 @@ impl<'a> LolChallengesV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_all_challenge_configs(&self, min_capacity: f32, route: PlatformRoute)
-        -> impl Future<Output = Option<Result<Vec<crate::models::lol_challenges_v1::ChallengeConfigInfo>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Vec<crate::models::lol_challenges_v1::ChallengeConfigInfo>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/lol/challenges/v1/challenges/config");
@@ -1456,7 +1456,7 @@ impl<'a> LolChallengesV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_all_challenge_percentiles(&self, min_capacity: f32, route: PlatformRoute)
-        -> impl Future<Output = Option<Result<std::collections::HashMap<i64, std::collections::HashMap<crate::consts::Tier, f64>>>>> + 'a
+        -> impl Future<Output = TryRequestResult<std::collections::HashMap<i64, std::collections::HashMap<crate::consts::Tier, f64>>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/lol/challenges/v1/challenges/percentiles");
@@ -1500,7 +1500,7 @@ impl<'a> LolChallengesV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_challenge_configs(&self, min_capacity: f32, route: PlatformRoute, challenge_id: i64)
-        -> impl Future<Output = Option<Result<Option<crate::models::lol_challenges_v1::ChallengeConfigInfo>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Option<crate::models::lol_challenges_v1::ChallengeConfigInfo>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/challenges/v1/challenges/{}/config", challenge_id));
@@ -1549,7 +1549,7 @@ impl<'a> LolChallengesV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_challenge_leaderboards(&self, min_capacity: f32, route: PlatformRoute, challenge_id: i64, level: crate::consts::Tier, limit: Option<i32>)
-        -> impl Future<Output = Option<Result<Option<Vec<crate::models::lol_challenges_v1::ApexPlayerInfo>>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Option<Vec<crate::models::lol_challenges_v1::ApexPlayerInfo>>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/challenges/v1/challenges/{}/leaderboards/by-level/{}", challenge_id, level));
@@ -1594,7 +1594,7 @@ impl<'a> LolChallengesV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_challenge_percentiles(&self, min_capacity: f32, route: PlatformRoute, challenge_id: i64)
-        -> impl Future<Output = Option<Result<Option<std::collections::HashMap<crate::consts::Tier, f64>>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Option<std::collections::HashMap<crate::consts::Tier, f64>>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/challenges/v1/challenges/{}/percentiles", challenge_id));
@@ -1638,7 +1638,7 @@ impl<'a> LolChallengesV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_player_data(&self, min_capacity: f32, route: PlatformRoute, puuid: &str)
-        -> impl Future<Output = Option<Result<crate::models::lol_challenges_v1::PlayerInfo>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::lol_challenges_v1::PlayerInfo>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/challenges/v1/player-data/{}", puuid));
@@ -1720,7 +1720,7 @@ impl<'a> LolRsoMatchV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_match_ids(&self, min_capacity: f32, route: RegionalRoute, access_token: impl std::fmt::Display, count: Option<i32>, end_time: Option<i64>, queue: Option<i32>, start: Option<i32>, start_time: Option<i64>, r#type: Option<&str>)
-        -> impl Future<Output = Option<Result<Vec<String>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Vec<String>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/lol/rso-match/v1/matches/ids");
@@ -1782,7 +1782,7 @@ impl<'a> LolRsoMatchV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_match(&self, min_capacity: f32, route: RegionalRoute, access_token: impl std::fmt::Display, match_id: &str)
-        -> impl Future<Output = Option<Result<crate::models::match_v5::Match>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::match_v5::Match>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/rso-match/v1/matches/{}", match_id));
@@ -1838,7 +1838,7 @@ impl<'a> LolRsoMatchV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_timeline(&self, min_capacity: f32, route: RegionalRoute, access_token: impl std::fmt::Display, match_id: &str)
-        -> impl Future<Output = Option<Result<crate::models::match_v5::Timeline>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::match_v5::Timeline>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/rso-match/v1/matches/{}/timeline", match_id));
@@ -1894,7 +1894,7 @@ impl<'a> LolStatusV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_platform_data(&self, min_capacity: f32, route: PlatformRoute)
-        -> impl Future<Output = Option<Result<crate::models::lol_status_v4::PlatformData>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::lol_status_v4::PlatformData>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/lol/status/v4/platform-data");
@@ -1958,7 +1958,7 @@ impl<'a> LorDeckV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_decks(&self, min_capacity: f32, route: RegionalRoute, access_token: impl std::fmt::Display)
-        -> impl Future<Output = Option<Result<Vec<crate::models::lor_deck_v1::Deck>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Vec<crate::models::lor_deck_v1::Deck>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/lor/deck/v1/decks/me");
@@ -2015,7 +2015,7 @@ impl<'a> LorDeckV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_create_deck(&self, min_capacity: f32, route: RegionalRoute, access_token: impl std::fmt::Display, body: &crate::models::lor_deck_v1::NewDeck)
-        -> impl Future<Output = Option<Result<String>>> + 'a
+        -> impl Future<Output = TryRequestResult<String>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::POST, route_str, "/lor/deck/v1/decks/me");
@@ -2082,7 +2082,7 @@ impl<'a> LorInventoryV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_cards(&self, min_capacity: f32, route: RegionalRoute, access_token: impl std::fmt::Display)
-        -> impl Future<Output = Option<Result<Vec<crate::models::lor_inventory_v1::Card>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Vec<crate::models::lor_inventory_v1::Card>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/lor/inventory/v1/cards/me");
@@ -2140,7 +2140,7 @@ impl<'a> LorMatchV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_match_ids_by_puuid(&self, min_capacity: f32, route: RegionalRoute, puuid: &str)
-        -> impl Future<Output = Option<Result<Vec<String>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Vec<String>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lor/match/v1/matches/by-puuid/{}/ids", puuid));
@@ -2184,7 +2184,7 @@ impl<'a> LorMatchV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_match(&self, min_capacity: f32, route: RegionalRoute, match_id: &str)
-        -> impl Future<Output = Option<Result<crate::models::lor_match_v1::Match>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::lor_match_v1::Match>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lor/match/v1/matches/{}", match_id));
@@ -2238,7 +2238,7 @@ impl<'a> LorRankedV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_leaderboards(&self, min_capacity: f32, route: RegionalRoute)
-        -> impl Future<Output = Option<Result<crate::models::lor_ranked_v1::Leaderboard>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::lor_ranked_v1::Leaderboard>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/lor/ranked/v1/leaderboards");
@@ -2292,7 +2292,7 @@ impl<'a> LorStatusV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_platform_data(&self, min_capacity: f32, route: RegionalRoute)
-        -> impl Future<Output = Option<Result<crate::models::lor_status_v1::PlatformData>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::lor_status_v1::PlatformData>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/lor/status/v1/platform-data");
@@ -2366,7 +2366,7 @@ impl<'a> MatchV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_match_ids_by_puuid(&self, min_capacity: f32, route: RegionalRoute, puuid: &str, count: Option<i32>, end_time: Option<i64>, queue: Option<crate::consts::Queue>, start_time: Option<i64>, start: Option<i32>, r#type: Option<&str>)
-        -> impl Future<Output = Option<Result<Vec<String>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Vec<String>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/match/v5/matches/by-puuid/{}/ids", puuid));
@@ -2416,7 +2416,7 @@ impl<'a> MatchV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_match(&self, min_capacity: f32, route: RegionalRoute, match_id: &str)
-        -> impl Future<Output = Option<Result<Option<crate::models::match_v5::Match>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Option<crate::models::match_v5::Match>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/match/v5/matches/{}", match_id));
@@ -2460,7 +2460,7 @@ impl<'a> MatchV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_timeline(&self, min_capacity: f32, route: RegionalRoute, match_id: &str)
-        -> impl Future<Output = Option<Result<Option<crate::models::match_v5::Timeline>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Option<crate::models::match_v5::Timeline>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/match/v5/matches/{}/timeline", match_id));
@@ -2516,7 +2516,7 @@ impl<'a> SpectatorTftV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_current_game_info_by_puuid(&self, min_capacity: f32, route: PlatformRoute, encrypted_puuid: &str)
-        -> impl Future<Output = Option<Result<Option<crate::models::spectator_tft_v5::CurrentGameInfo>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Option<crate::models::spectator_tft_v5::CurrentGameInfo>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/spectator/tft/v5/active-games/by-puuid/{}", encrypted_puuid));
@@ -2558,7 +2558,7 @@ impl<'a> SpectatorTftV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_featured_games(&self, min_capacity: f32, route: PlatformRoute)
-        -> impl Future<Output = Option<Result<crate::models::spectator_tft_v5::FeaturedGames>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::spectator_tft_v5::FeaturedGames>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/lol/spectator/tft/v5/featured-games");
@@ -2614,7 +2614,7 @@ impl<'a> SpectatorV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_current_game_info_by_puuid(&self, min_capacity: f32, route: PlatformRoute, encrypted_puuid: &str)
-        -> impl Future<Output = Option<Result<Option<crate::models::spectator_v5::CurrentGameInfo>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Option<crate::models::spectator_v5::CurrentGameInfo>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/spectator/v5/active-games/by-summoner/{}", encrypted_puuid));
@@ -2656,7 +2656,7 @@ impl<'a> SpectatorV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_featured_games(&self, min_capacity: f32, route: PlatformRoute)
-        -> impl Future<Output = Option<Result<crate::models::spectator_v5::FeaturedGames>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::spectator_v5::FeaturedGames>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/lol/spectator/v5/featured-games");
@@ -2712,7 +2712,7 @@ impl<'a> SummonerV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_by_rsopuuid(&self, min_capacity: f32, route: PlatformRoute, rso_puuid: &str)
-        -> impl Future<Output = Option<Result<crate::models::summoner_v4::Summoner>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::summoner_v4::Summoner>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/fulfillment/v1/summoners/by-puuid/{}", rso_puuid));
@@ -2756,7 +2756,7 @@ impl<'a> SummonerV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_by_account_id(&self, min_capacity: f32, route: PlatformRoute, encrypted_account_id: &str)
-        -> impl Future<Output = Option<Result<crate::models::summoner_v4::Summoner>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::summoner_v4::Summoner>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/summoner/v4/summoners/by-account/{}", encrypted_account_id));
@@ -2800,7 +2800,7 @@ impl<'a> SummonerV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_by_puuid(&self, min_capacity: f32, route: PlatformRoute, encrypted_puuid: &str)
-        -> impl Future<Output = Option<Result<crate::models::summoner_v4::Summoner>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::summoner_v4::Summoner>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/summoner/v4/summoners/by-puuid/{}", encrypted_puuid));
@@ -2852,7 +2852,7 @@ impl<'a> SummonerV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_by_access_token(&self, min_capacity: f32, route: PlatformRoute, access_token: impl std::fmt::Display)
-        -> impl Future<Output = Option<Result<crate::models::summoner_v4::Summoner>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::summoner_v4::Summoner>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/lol/summoner/v4/summoners/me");
@@ -2898,7 +2898,7 @@ impl<'a> SummonerV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_by_summoner_id(&self, min_capacity: f32, route: PlatformRoute, encrypted_summoner_id: &str)
-        -> impl Future<Output = Option<Result<crate::models::summoner_v4::Summoner>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::summoner_v4::Summoner>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/summoner/v4/summoners/{}", encrypted_summoner_id));
@@ -2955,7 +2955,7 @@ impl<'a> TftLeagueV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_challenger_league(&self, min_capacity: f32, route: PlatformRoute, queue: Option<&str>)
-        -> impl Future<Output = Option<Result<crate::models::tft_league_v1::LeagueList>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::tft_league_v1::LeagueList>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/tft/league/v1/challenger");
@@ -3000,7 +3000,7 @@ impl<'a> TftLeagueV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_league_entries_for_summoner(&self, min_capacity: f32, route: PlatformRoute, summoner_id: &str)
-        -> impl Future<Output = Option<Result<Vec<crate::models::tft_league_v1::LeagueEntry>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Vec<crate::models::tft_league_v1::LeagueEntry>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/tft/league/v1/entries/by-summoner/{}", summoner_id));
@@ -3052,7 +3052,7 @@ impl<'a> TftLeagueV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_league_entries(&self, min_capacity: f32, route: PlatformRoute, tier: crate::consts::Tier, division: &str, page: Option<i32>, queue: Option<&str>)
-        -> impl Future<Output = Option<Result<Vec<crate::models::tft_league_v1::LeagueEntry>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Vec<crate::models::tft_league_v1::LeagueEntry>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/tft/league/v1/entries/{}/{}", tier, division));
@@ -3099,7 +3099,7 @@ impl<'a> TftLeagueV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_grandmaster_league(&self, min_capacity: f32, route: PlatformRoute, queue: Option<&str>)
-        -> impl Future<Output = Option<Result<crate::models::tft_league_v1::LeagueList>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::tft_league_v1::LeagueList>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/tft/league/v1/grandmaster");
@@ -3144,7 +3144,7 @@ impl<'a> TftLeagueV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_league_by_id(&self, min_capacity: f32, route: PlatformRoute, league_id: &str)
-        -> impl Future<Output = Option<Result<Option<crate::models::tft_league_v1::LeagueList>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Option<crate::models::tft_league_v1::LeagueList>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/tft/league/v1/leagues/{}", league_id));
@@ -3189,7 +3189,7 @@ impl<'a> TftLeagueV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_master_league(&self, min_capacity: f32, route: PlatformRoute, queue: Option<&str>)
-        -> impl Future<Output = Option<Result<crate::models::tft_league_v1::LeagueList>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::tft_league_v1::LeagueList>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/tft/league/v1/master");
@@ -3234,7 +3234,7 @@ impl<'a> TftLeagueV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_top_rated_ladder(&self, min_capacity: f32, route: PlatformRoute, queue: crate::consts::QueueType)
-        -> impl Future<Output = Option<Result<Vec<crate::models::tft_league_v1::TopRatedLadderEntry>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Vec<crate::models::tft_league_v1::TopRatedLadderEntry>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/tft/league/v1/rated-ladders/{}/top", queue));
@@ -3302,7 +3302,7 @@ impl<'a> TftMatchV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_match_ids_by_puuid(&self, min_capacity: f32, route: RegionalRoute, puuid: &str, count: Option<i32>, end_time: Option<i64>, start: Option<i32>, start_time: Option<i64>)
-        -> impl Future<Output = Option<Result<Vec<String>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Vec<String>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/tft/match/v1/matches/by-puuid/{}/ids", puuid));
@@ -3350,7 +3350,7 @@ impl<'a> TftMatchV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_match(&self, min_capacity: f32, route: RegionalRoute, match_id: &str)
-        -> impl Future<Output = Option<Result<Option<crate::models::tft_match_v1::Match>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Option<crate::models::tft_match_v1::Match>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/tft/match/v1/matches/{}", match_id));
@@ -3404,7 +3404,7 @@ impl<'a> TftStatusV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_platform_data(&self, min_capacity: f32, route: PlatformRoute)
-        -> impl Future<Output = Option<Result<crate::models::tft_status_v1::PlatformData>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::tft_status_v1::PlatformData>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/tft/status/v1/platform-data");
@@ -3460,7 +3460,7 @@ impl<'a> TftSummonerV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_by_account_id(&self, min_capacity: f32, route: PlatformRoute, encrypted_account_id: &str)
-        -> impl Future<Output = Option<Result<crate::models::tft_summoner_v1::Summoner>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::tft_summoner_v1::Summoner>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/tft/summoner/v1/summoners/by-account/{}", encrypted_account_id));
@@ -3504,7 +3504,7 @@ impl<'a> TftSummonerV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_by_puuid(&self, min_capacity: f32, route: PlatformRoute, encrypted_puuid: &str)
-        -> impl Future<Output = Option<Result<crate::models::tft_summoner_v1::Summoner>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::tft_summoner_v1::Summoner>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/tft/summoner/v1/summoners/by-puuid/{}", encrypted_puuid));
@@ -3556,7 +3556,7 @@ impl<'a> TftSummonerV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_by_access_token(&self, min_capacity: f32, route: PlatformRoute, access_token: impl std::fmt::Display)
-        -> impl Future<Output = Option<Result<crate::models::tft_summoner_v1::Summoner>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::tft_summoner_v1::Summoner>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/tft/summoner/v1/summoners/me");
@@ -3602,7 +3602,7 @@ impl<'a> TftSummonerV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_by_summoner_id(&self, min_capacity: f32, route: PlatformRoute, encrypted_summoner_id: &str)
-        -> impl Future<Output = Option<Result<crate::models::tft_summoner_v1::Summoner>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::tft_summoner_v1::Summoner>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/tft/summoner/v1/summoners/{}", encrypted_summoner_id));
@@ -3665,7 +3665,7 @@ impl<'a> TournamentStubV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_create_tournament_code(&self, min_capacity: f32, route: RegionalRoute, body: &crate::models::tournament_stub_v5::TournamentCodeParametersV5, tournament_id: i64, count: Option<i32>)
-        -> impl Future<Output = Option<Result<Vec<String>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Vec<String>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::POST, route_str, "/lol/tournament-stub/v5/codes");
@@ -3712,7 +3712,7 @@ impl<'a> TournamentStubV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_tournament_code(&self, min_capacity: f32, route: RegionalRoute, tournament_code: &str)
-        -> impl Future<Output = Option<Result<crate::models::tournament_stub_v5::TournamentCodeV5>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::tournament_stub_v5::TournamentCodeV5>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/tournament-stub/v5/codes/{}", tournament_code));
@@ -3756,7 +3756,7 @@ impl<'a> TournamentStubV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_lobby_events_by_code(&self, min_capacity: f32, route: RegionalRoute, tournament_code: &str)
-        -> impl Future<Output = Option<Result<crate::models::tournament_stub_v5::LobbyEventV5Wrapper>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::tournament_stub_v5::LobbyEventV5Wrapper>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/tournament-stub/v5/lobby-events/by-code/{}", tournament_code));
@@ -3803,7 +3803,7 @@ impl<'a> TournamentStubV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_register_provider_data(&self, min_capacity: f32, route: RegionalRoute, body: &crate::models::tournament_stub_v5::ProviderRegistrationParametersV5)
-        -> impl Future<Output = Option<Result<i32>>> + 'a
+        -> impl Future<Output = TryRequestResult<i32>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::POST, route_str, "/lol/tournament-stub/v5/providers");
@@ -3849,7 +3849,7 @@ impl<'a> TournamentStubV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_register_tournament(&self, min_capacity: f32, route: RegionalRoute, body: &crate::models::tournament_stub_v5::TournamentRegistrationParametersV5)
-        -> impl Future<Output = Option<Result<i32>>> + 'a
+        -> impl Future<Output = TryRequestResult<i32>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::POST, route_str, "/lol/tournament-stub/v5/tournaments");
@@ -3913,7 +3913,7 @@ impl<'a> TournamentV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_create_tournament_code(&self, min_capacity: f32, route: RegionalRoute, body: &crate::models::tournament_v5::TournamentCodeParametersV5, tournament_id: i64, count: Option<i32>)
-        -> impl Future<Output = Option<Result<Vec<String>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Vec<String>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::POST, route_str, "/lol/tournament/v5/codes");
@@ -3960,7 +3960,7 @@ impl<'a> TournamentV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_tournament_code(&self, min_capacity: f32, route: RegionalRoute, tournament_code: &str)
-        -> impl Future<Output = Option<Result<crate::models::tournament_v5::TournamentCodeV5>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::tournament_v5::TournamentCodeV5>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/tournament/v5/codes/{}", tournament_code));
@@ -4007,7 +4007,7 @@ impl<'a> TournamentV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_update_code(&self, min_capacity: f32, route: RegionalRoute, body: &crate::models::tournament_v5::TournamentCodeUpdateParametersV5, tournament_code: &str)
-        -> impl Future<Output = Option<Result<()>>> + 'a
+        -> impl Future<Output = TryRequestResult<()>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::PUT, route_str, &format!("/lol/tournament/v5/codes/{}", tournament_code));
@@ -4058,7 +4058,7 @@ impl<'a> TournamentV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_games(&self, min_capacity: f32, route: RegionalRoute, tournament_code: &str)
-        -> impl Future<Output = Option<Result<Vec<crate::models::tournament_v5::TournamentGamesV5>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Vec<crate::models::tournament_v5::TournamentGamesV5>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/tournament/v5/games/by-code/{}", tournament_code));
@@ -4102,7 +4102,7 @@ impl<'a> TournamentV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_lobby_events_by_code(&self, min_capacity: f32, route: RegionalRoute, tournament_code: &str)
-        -> impl Future<Output = Option<Result<crate::models::tournament_v5::LobbyEventV5Wrapper>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::tournament_v5::LobbyEventV5Wrapper>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/tournament/v5/lobby-events/by-code/{}", tournament_code));
@@ -4149,7 +4149,7 @@ impl<'a> TournamentV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_register_provider_data(&self, min_capacity: f32, route: RegionalRoute, body: &crate::models::tournament_v5::ProviderRegistrationParametersV5)
-        -> impl Future<Output = Option<Result<i32>>> + 'a
+        -> impl Future<Output = TryRequestResult<i32>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::POST, route_str, "/lol/tournament/v5/providers");
@@ -4195,7 +4195,7 @@ impl<'a> TournamentV5<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_register_tournament(&self, min_capacity: f32, route: RegionalRoute, body: &crate::models::tournament_v5::TournamentRegistrationParametersV5)
-        -> impl Future<Output = Option<Result<i32>>> + 'a
+        -> impl Future<Output = TryRequestResult<i32>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::POST, route_str, "/lol/tournament/v5/tournaments");
@@ -4252,7 +4252,7 @@ impl<'a> ValConsoleMatchV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_match(&self, min_capacity: f32, route: ValPlatformRoute, match_id: &str)
-        -> impl Future<Output = Option<Result<crate::models::val_console_match_v1::Match>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::val_console_match_v1::Match>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/val/match/console/v1/matches/{}", match_id));
@@ -4299,7 +4299,7 @@ impl<'a> ValConsoleMatchV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_matchlist(&self, min_capacity: f32, route: ValPlatformRoute, puuid: &str, platform_type: &str)
-        -> impl Future<Output = Option<Result<crate::models::val_console_match_v1::Matchlist>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::val_console_match_v1::Matchlist>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/val/match/console/v1/matchlists/by-puuid/{}", puuid));
@@ -4346,7 +4346,7 @@ impl<'a> ValConsoleMatchV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_recent(&self, min_capacity: f32, route: ValPlatformRoute, queue: &str)
-        -> impl Future<Output = Option<Result<crate::models::val_console_match_v1::RecentMatches>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::val_console_match_v1::RecentMatches>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/val/match/console/v1/recent-matches/by-queue/{}", queue));
@@ -4411,7 +4411,7 @@ impl<'a> ValConsoleRankedV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_leaderboard(&self, min_capacity: f32, route: ValPlatformRoute, act_id: &str, platform_type: &str, size: Option<i32>, start_index: Option<i32>)
-        -> impl Future<Output = Option<Result<crate::models::val_console_ranked_v1::Leaderboard>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::val_console_ranked_v1::Leaderboard>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/val/console/ranked/v1/leaderboards/by-act/{}", act_id));
@@ -4471,7 +4471,7 @@ impl<'a> ValContentV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_content(&self, min_capacity: f32, route: ValPlatformRoute, locale: Option<&str>)
-        -> impl Future<Output = Option<Result<crate::models::val_content_v1::Content>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::val_content_v1::Content>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/val/content/v1/contents");
@@ -4528,7 +4528,7 @@ impl<'a> ValMatchV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_match(&self, min_capacity: f32, route: ValPlatformRoute, match_id: &str)
-        -> impl Future<Output = Option<Result<Option<crate::models::val_match_v1::Match>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Option<crate::models::val_match_v1::Match>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/val/match/v1/matches/{}", match_id));
@@ -4572,7 +4572,7 @@ impl<'a> ValMatchV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_matchlist(&self, min_capacity: f32, route: ValPlatformRoute, puuid: &str)
-        -> impl Future<Output = Option<Result<crate::models::val_match_v1::Matchlist>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::val_match_v1::Matchlist>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/val/match/v1/matchlists/by-puuid/{}", puuid));
@@ -4618,7 +4618,7 @@ impl<'a> ValMatchV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_recent(&self, min_capacity: f32, route: ValPlatformRoute, queue: &str)
-        -> impl Future<Output = Option<Result<crate::models::val_match_v1::RecentMatches>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::val_match_v1::RecentMatches>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/val/match/v1/recent-matches/by-queue/{}", queue));
@@ -4680,7 +4680,7 @@ impl<'a> ValRankedV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_leaderboard(&self, min_capacity: f32, route: ValPlatformRoute, act_id: &str, size: Option<i32>, start_index: Option<i32>)
-        -> impl Future<Output = Option<Result<Option<crate::models::val_ranked_v1::Leaderboard>>>> + 'a
+        -> impl Future<Output = TryRequestResult<Option<crate::models::val_ranked_v1::Leaderboard>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/val/ranked/v1/leaderboards/by-act/{}", act_id));
@@ -4736,7 +4736,7 @@ impl<'a> ValStatusV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_platform_data(&self, min_capacity: f32, route: ValPlatformRoute)
-        -> impl Future<Output = Option<Result<crate::models::val_status_v1::PlatformData>>> + 'a
+        -> impl Future<Output = TryRequestResult<crate::models::val_status_v1::PlatformData>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, "/val/status/v1/platform-data");
