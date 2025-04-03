@@ -15,8 +15,8 @@ use crate::time::Duration;
 pub trait TokenBucket {
     /// Get the amount of capcaity available in the bucket.
     /// # Returns
-    /// a float representing the amount of capacity available in the bucket from 1.0 to 0.0.
-    /// returns -1.0 if wer're at least one request into our burst capacity.
+    /// A float representing the amount of capacity available in the bucket from 1.0 to 0.0.
+    /// Returns -1.0 if we're out of capacity.
     fn get_capacity(&self) -> f32;
 
     /// Get the duration til the next available token, or None if a token
@@ -143,7 +143,7 @@ impl TokenBucket for VectorTokenBucket {
 
         let timestamps = self.update_get_timestamps();
         if timestamps.len() > self.total_limit {
-            // We're at least one request into our burst capacity.
+            // Total limit hit
             return -1.0;
         }
 
