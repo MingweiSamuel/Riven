@@ -15,19 +15,19 @@ where
 }
 
 /// Returns a wrapped future that records the time it takes to complete the future as a histogram metric.
-pub async fn try_timed<Fut, T>(
+pub async fn try_timed<Fut, T, E>(
     future: Fut,
     operation: &'static str,
     route: &'static str,
-) -> Option<T>
+) -> Result<T, E>
 where
-    Fut: Future<Output = Option<T>>,
+    Fut: Future<Output = Result<T, E>>,
 {
     let start = Instant::now();
-    let out = future.await;
-    if out.is_some() {
+    let result = future.await;
+    if result.is_ok() {
         metrics::histogram!("riot_api", "operation" => operation, "route" => route)
             .record(start.elapsed());
     }
-    out
+    result
 }
