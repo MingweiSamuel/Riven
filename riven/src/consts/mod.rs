@@ -6,50 +6,46 @@
 #![allow(deprecated)]
 #![allow(non_camel_case_types)]
 
-mod macros;
+/// Trait allowing iteration of enum types, implemented by several enums in this module.
+/// Re-exported from strum.
+pub use strum::IntoEnumIterator;
 
-#[rustfmt::skip]
 mod champion;
 pub use champion::*;
 
 mod division;
 pub use division::*;
 
-#[rustfmt::skip]
-mod game_mode;
+mod game_mode {
+    include_autogen!("game_mode.gen.rs");
+}
 pub use game_mode::*;
 
-#[rustfmt::skip]
 mod game_type;
 pub use game_type::*;
 
-#[rustfmt::skip]
-mod map;
+mod map {
+    include_autogen!("map.gen.rs");
+}
 pub use map::*;
 
-#[rustfmt::skip]
 mod queue_type;
 pub use queue_type::*;
 
-#[rustfmt::skip]
-mod queue;
+mod queue {
+    include_autogen!("queue.gen.rs");
+}
 pub use queue::*;
 
 pub mod ranks;
 
-#[rustfmt::skip]
 mod route;
 pub use route::*;
 
-mod route_ext;
-pub use route_ext::*;
-
-#[rustfmt::skip]
-mod season;
+mod season {
+    include_autogen!("season.gen.rs");
+}
 pub use season::*;
-/// Trait allowing iteration of enum types, implemented by several enums in this module.
-/// Re-exported from strum.
-pub use strum::IntoEnumIterator;
 
 mod team;
 pub use team::*;

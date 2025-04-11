@@ -1,0 +1,4430 @@
+// http://www.mingweisamuel.com/riotapi-schema/tool/
+// Version: 996d171a2b79e9bb85c549f47b07c6ef2721fc8a
+
+use std::future::Future;
+use std::vec::Vec;
+#[cfg(feature = "metrics")]
+use crate::metrics;
+#[cfg(feature = "tracing")]
+use tracing::Instrument;
+use reqwest::Method;
+use crate::Result;
+use crate::consts::{RegionalRoute, PlatformRoute, ValPlatformRoute};
+use crate::riot_api::RiotApi;
+impl RiotApi {
+    ///Returns a handle for accessing [`account-v1`](crate::endpoints::AccountV1) endpoints.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/apis#account-v1" target="_blank">`account-v1`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    #[inline]
+    pub fn account_v1(&self) -> AccountV1<'_> {
+        AccountV1 { base: self }
+    }
+    ///Returns a handle for accessing [`champion-mastery-v4`](crate::endpoints::ChampionMasteryV4) endpoints.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/apis#champion-mastery-v4" target="_blank">`champion-mastery-v4`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    #[inline]
+    pub fn champion_mastery_v4(&self) -> ChampionMasteryV4<'_> {
+        ChampionMasteryV4 { base: self }
+    }
+    ///Returns a handle for accessing [`champion-v3`](crate::endpoints::ChampionV3) endpoints.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/apis#champion-v3" target="_blank">`champion-v3`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    #[inline]
+    pub fn champion_v3(&self) -> ChampionV3<'_> {
+        ChampionV3 { base: self }
+    }
+    ///Returns a handle for accessing [`clash-v1`](crate::endpoints::ClashV1) endpoints.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/apis#clash-v1" target="_blank">`clash-v1`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    #[inline]
+    pub fn clash_v1(&self) -> ClashV1<'_> {
+        ClashV1 { base: self }
+    }
+    ///Returns a handle for accessing [`league-exp-v4`](crate::endpoints::LeagueExpV4) endpoints.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/apis#league-exp-v4" target="_blank">`league-exp-v4`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    #[inline]
+    pub fn league_exp_v4(&self) -> LeagueExpV4<'_> {
+        LeagueExpV4 { base: self }
+    }
+    ///Returns a handle for accessing [`league-v4`](crate::endpoints::LeagueV4) endpoints.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/apis#league-v4" target="_blank">`league-v4`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    #[inline]
+    pub fn league_v4(&self) -> LeagueV4<'_> {
+        LeagueV4 { base: self }
+    }
+    ///Returns a handle for accessing [`lol-challenges-v1`](crate::endpoints::LolChallengesV1) endpoints.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/apis#lol-challenges-v1" target="_blank">`lol-challenges-v1`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    #[inline]
+    pub fn lol_challenges_v1(&self) -> LolChallengesV1<'_> {
+        LolChallengesV1 { base: self }
+    }
+    ///Returns a handle for accessing [`lol-rso-match-v1`](crate::endpoints::LolRsoMatchV1) endpoints.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/apis#lol-rso-match-v1" target="_blank">`lol-rso-match-v1`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    #[inline]
+    pub fn lol_rso_match_v1(&self) -> LolRsoMatchV1<'_> {
+        LolRsoMatchV1 { base: self }
+    }
+    ///Returns a handle for accessing [`lol-status-v4`](crate::endpoints::LolStatusV4) endpoints.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/apis#lol-status-v4" target="_blank">`lol-status-v4`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    #[inline]
+    pub fn lol_status_v4(&self) -> LolStatusV4<'_> {
+        LolStatusV4 { base: self }
+    }
+    ///Returns a handle for accessing [`lor-deck-v1`](crate::endpoints::LorDeckV1) endpoints.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/apis#lor-deck-v1" target="_blank">`lor-deck-v1`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    #[inline]
+    pub fn lor_deck_v1(&self) -> LorDeckV1<'_> {
+        LorDeckV1 { base: self }
+    }
+    ///Returns a handle for accessing [`lor-inventory-v1`](crate::endpoints::LorInventoryV1) endpoints.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/apis#lor-inventory-v1" target="_blank">`lor-inventory-v1`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    #[inline]
+    pub fn lor_inventory_v1(&self) -> LorInventoryV1<'_> {
+        LorInventoryV1 { base: self }
+    }
+    ///Returns a handle for accessing [`lor-match-v1`](crate::endpoints::LorMatchV1) endpoints.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/apis#lor-match-v1" target="_blank">`lor-match-v1`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    #[inline]
+    pub fn lor_match_v1(&self) -> LorMatchV1<'_> {
+        LorMatchV1 { base: self }
+    }
+    ///Returns a handle for accessing [`lor-ranked-v1`](crate::endpoints::LorRankedV1) endpoints.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/apis#lor-ranked-v1" target="_blank">`lor-ranked-v1`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    #[inline]
+    pub fn lor_ranked_v1(&self) -> LorRankedV1<'_> {
+        LorRankedV1 { base: self }
+    }
+    ///Returns a handle for accessing [`lor-status-v1`](crate::endpoints::LorStatusV1) endpoints.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/apis#lor-status-v1" target="_blank">`lor-status-v1`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    #[inline]
+    pub fn lor_status_v1(&self) -> LorStatusV1<'_> {
+        LorStatusV1 { base: self }
+    }
+    ///Returns a handle for accessing [`match-v5`](crate::endpoints::MatchV5) endpoints.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/apis#match-v5" target="_blank">`match-v5`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    #[inline]
+    pub fn match_v5(&self) -> MatchV5<'_> {
+        MatchV5 { base: self }
+    }
+    ///Returns a handle for accessing [`spectator-tft-v5`](crate::endpoints::SpectatorTftV5) endpoints.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/apis#spectator-tft-v5" target="_blank">`spectator-tft-v5`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    #[inline]
+    pub fn spectator_tft_v5(&self) -> SpectatorTftV5<'_> {
+        SpectatorTftV5 { base: self }
+    }
+    ///Returns a handle for accessing [`spectator-v5`](crate::endpoints::SpectatorV5) endpoints.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/apis#spectator-v5" target="_blank">`spectator-v5`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    #[inline]
+    pub fn spectator_v5(&self) -> SpectatorV5<'_> {
+        SpectatorV5 { base: self }
+    }
+    ///Returns a handle for accessing [`summoner-v4`](crate::endpoints::SummonerV4) endpoints.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/apis#summoner-v4" target="_blank">`summoner-v4`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    #[inline]
+    pub fn summoner_v4(&self) -> SummonerV4<'_> {
+        SummonerV4 { base: self }
+    }
+    ///Returns a handle for accessing [`tft-league-v1`](crate::endpoints::TftLeagueV1) endpoints.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/apis#tft-league-v1" target="_blank">`tft-league-v1`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    #[inline]
+    pub fn tft_league_v1(&self) -> TftLeagueV1<'_> {
+        TftLeagueV1 { base: self }
+    }
+    ///Returns a handle for accessing [`tft-match-v1`](crate::endpoints::TftMatchV1) endpoints.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/apis#tft-match-v1" target="_blank">`tft-match-v1`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    #[inline]
+    pub fn tft_match_v1(&self) -> TftMatchV1<'_> {
+        TftMatchV1 { base: self }
+    }
+    ///Returns a handle for accessing [`tft-status-v1`](crate::endpoints::TftStatusV1) endpoints.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/apis#tft-status-v1" target="_blank">`tft-status-v1`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    #[inline]
+    pub fn tft_status_v1(&self) -> TftStatusV1<'_> {
+        TftStatusV1 { base: self }
+    }
+    ///Returns a handle for accessing [`tft-summoner-v1`](crate::endpoints::TftSummonerV1) endpoints.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/apis#tft-summoner-v1" target="_blank">`tft-summoner-v1`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    #[inline]
+    pub fn tft_summoner_v1(&self) -> TftSummonerV1<'_> {
+        TftSummonerV1 { base: self }
+    }
+    ///Returns a handle for accessing [`tournament-stub-v5`](crate::endpoints::TournamentStubV5) endpoints.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/apis#tournament-stub-v5" target="_blank">`tournament-stub-v5`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    #[inline]
+    pub fn tournament_stub_v5(&self) -> TournamentStubV5<'_> {
+        TournamentStubV5 { base: self }
+    }
+    ///Returns a handle for accessing [`tournament-v5`](crate::endpoints::TournamentV5) endpoints.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/apis#tournament-v5" target="_blank">`tournament-v5`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    #[inline]
+    pub fn tournament_v5(&self) -> TournamentV5<'_> {
+        TournamentV5 { base: self }
+    }
+    ///Returns a handle for accessing [`val-console-match-v1`](crate::endpoints::ValConsoleMatchV1) endpoints.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/apis#val-console-match-v1" target="_blank">`val-console-match-v1`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    #[inline]
+    pub fn val_console_match_v1(&self) -> ValConsoleMatchV1<'_> {
+        ValConsoleMatchV1 { base: self }
+    }
+    ///Returns a handle for accessing [`val-console-ranked-v1`](crate::endpoints::ValConsoleRankedV1) endpoints.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/apis#val-console-ranked-v1" target="_blank">`val-console-ranked-v1`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    #[inline]
+    pub fn val_console_ranked_v1(&self) -> ValConsoleRankedV1<'_> {
+        ValConsoleRankedV1 { base: self }
+    }
+    ///Returns a handle for accessing [`val-content-v1`](crate::endpoints::ValContentV1) endpoints.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/apis#val-content-v1" target="_blank">`val-content-v1`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    #[inline]
+    pub fn val_content_v1(&self) -> ValContentV1<'_> {
+        ValContentV1 { base: self }
+    }
+    ///Returns a handle for accessing [`val-match-v1`](crate::endpoints::ValMatchV1) endpoints.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/apis#val-match-v1" target="_blank">`val-match-v1`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    #[inline]
+    pub fn val_match_v1(&self) -> ValMatchV1<'_> {
+        ValMatchV1 { base: self }
+    }
+    ///Returns a handle for accessing [`val-ranked-v1`](crate::endpoints::ValRankedV1) endpoints.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/apis#val-ranked-v1" target="_blank">`val-ranked-v1`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    #[inline]
+    pub fn val_ranked_v1(&self) -> ValRankedV1<'_> {
+        ValRankedV1 { base: self }
+    }
+    ///Returns a handle for accessing [`val-status-v1`](crate::endpoints::ValStatusV1) endpoints.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/apis#val-status-v1" target="_blank">`val-status-v1`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    #[inline]
+    pub fn val_status_v1(&self) -> ValStatusV1<'_> {
+        ValStatusV1 { base: self }
+    }
+}
+///account-v1 endpoints handle, accessed by calling [`account_v1()`](crate::RiotApi::account_v1) on a [`RiotApi`] instance.
+///
+/// # Riot Developer API Reference
+///<a href="https://developer.riotgames.com/apis#account-v1" target="_blank">`account-v1`</a>
+///
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+#[repr(transparent)]
+pub struct AccountV1<'a> {
+    base: &'a RiotApi,
+}
+///champion-mastery-v4 endpoints handle, accessed by calling [`champion_mastery_v4()`](crate::RiotApi::champion_mastery_v4) on a [`RiotApi`] instance.
+///
+/// # Riot Developer API Reference
+///<a href="https://developer.riotgames.com/apis#champion-mastery-v4" target="_blank">`champion-mastery-v4`</a>
+///
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+#[repr(transparent)]
+pub struct ChampionMasteryV4<'a> {
+    base: &'a RiotApi,
+}
+///champion-v3 endpoints handle, accessed by calling [`champion_v3()`](crate::RiotApi::champion_v3) on a [`RiotApi`] instance.
+///
+/// # Riot Developer API Reference
+///<a href="https://developer.riotgames.com/apis#champion-v3" target="_blank">`champion-v3`</a>
+///
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+#[repr(transparent)]
+pub struct ChampionV3<'a> {
+    base: &'a RiotApi,
+}
+///clash-v1 endpoints handle, accessed by calling [`clash_v1()`](crate::RiotApi::clash_v1) on a [`RiotApi`] instance.
+///
+/// # Riot Developer API Reference
+///<a href="https://developer.riotgames.com/apis#clash-v1" target="_blank">`clash-v1`</a>
+///
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+#[repr(transparent)]
+pub struct ClashV1<'a> {
+    base: &'a RiotApi,
+}
+///league-exp-v4 endpoints handle, accessed by calling [`league_exp_v4()`](crate::RiotApi::league_exp_v4) on a [`RiotApi`] instance.
+///
+/// # Riot Developer API Reference
+///<a href="https://developer.riotgames.com/apis#league-exp-v4" target="_blank">`league-exp-v4`</a>
+///
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+#[repr(transparent)]
+pub struct LeagueExpV4<'a> {
+    base: &'a RiotApi,
+}
+///league-v4 endpoints handle, accessed by calling [`league_v4()`](crate::RiotApi::league_v4) on a [`RiotApi`] instance.
+///
+/// # Riot Developer API Reference
+///<a href="https://developer.riotgames.com/apis#league-v4" target="_blank">`league-v4`</a>
+///
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+#[repr(transparent)]
+pub struct LeagueV4<'a> {
+    base: &'a RiotApi,
+}
+///lol-challenges-v1 endpoints handle, accessed by calling [`lol_challenges_v1()`](crate::RiotApi::lol_challenges_v1) on a [`RiotApi`] instance.
+///
+/// # Riot Developer API Reference
+///<a href="https://developer.riotgames.com/apis#lol-challenges-v1" target="_blank">`lol-challenges-v1`</a>
+///
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+#[repr(transparent)]
+pub struct LolChallengesV1<'a> {
+    base: &'a RiotApi,
+}
+///lol-rso-match-v1 endpoints handle, accessed by calling [`lol_rso_match_v1()`](crate::RiotApi::lol_rso_match_v1) on a [`RiotApi`] instance.
+///
+/// # Riot Developer API Reference
+///<a href="https://developer.riotgames.com/apis#lol-rso-match-v1" target="_blank">`lol-rso-match-v1`</a>
+///
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+#[repr(transparent)]
+pub struct LolRsoMatchV1<'a> {
+    base: &'a RiotApi,
+}
+///lol-status-v4 endpoints handle, accessed by calling [`lol_status_v4()`](crate::RiotApi::lol_status_v4) on a [`RiotApi`] instance.
+///
+/// # Riot Developer API Reference
+///<a href="https://developer.riotgames.com/apis#lol-status-v4" target="_blank">`lol-status-v4`</a>
+///
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+#[repr(transparent)]
+pub struct LolStatusV4<'a> {
+    base: &'a RiotApi,
+}
+///lor-deck-v1 endpoints handle, accessed by calling [`lor_deck_v1()`](crate::RiotApi::lor_deck_v1) on a [`RiotApi`] instance.
+///
+/// # Riot Developer API Reference
+///<a href="https://developer.riotgames.com/apis#lor-deck-v1" target="_blank">`lor-deck-v1`</a>
+///
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+#[repr(transparent)]
+pub struct LorDeckV1<'a> {
+    base: &'a RiotApi,
+}
+///lor-inventory-v1 endpoints handle, accessed by calling [`lor_inventory_v1()`](crate::RiotApi::lor_inventory_v1) on a [`RiotApi`] instance.
+///
+/// # Riot Developer API Reference
+///<a href="https://developer.riotgames.com/apis#lor-inventory-v1" target="_blank">`lor-inventory-v1`</a>
+///
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+#[repr(transparent)]
+pub struct LorInventoryV1<'a> {
+    base: &'a RiotApi,
+}
+///lor-match-v1 endpoints handle, accessed by calling [`lor_match_v1()`](crate::RiotApi::lor_match_v1) on a [`RiotApi`] instance.
+///
+/// # Riot Developer API Reference
+///<a href="https://developer.riotgames.com/apis#lor-match-v1" target="_blank">`lor-match-v1`</a>
+///
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+#[repr(transparent)]
+pub struct LorMatchV1<'a> {
+    base: &'a RiotApi,
+}
+///lor-ranked-v1 endpoints handle, accessed by calling [`lor_ranked_v1()`](crate::RiotApi::lor_ranked_v1) on a [`RiotApi`] instance.
+///
+/// # Riot Developer API Reference
+///<a href="https://developer.riotgames.com/apis#lor-ranked-v1" target="_blank">`lor-ranked-v1`</a>
+///
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+#[repr(transparent)]
+pub struct LorRankedV1<'a> {
+    base: &'a RiotApi,
+}
+///lor-status-v1 endpoints handle, accessed by calling [`lor_status_v1()`](crate::RiotApi::lor_status_v1) on a [`RiotApi`] instance.
+///
+/// # Riot Developer API Reference
+///<a href="https://developer.riotgames.com/apis#lor-status-v1" target="_blank">`lor-status-v1`</a>
+///
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+#[repr(transparent)]
+pub struct LorStatusV1<'a> {
+    base: &'a RiotApi,
+}
+///match-v5 endpoints handle, accessed by calling [`match_v5()`](crate::RiotApi::match_v5) on a [`RiotApi`] instance.
+///
+/// # Riot Developer API Reference
+///<a href="https://developer.riotgames.com/apis#match-v5" target="_blank">`match-v5`</a>
+///
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+#[repr(transparent)]
+pub struct MatchV5<'a> {
+    base: &'a RiotApi,
+}
+///spectator-tft-v5 endpoints handle, accessed by calling [`spectator_tft_v5()`](crate::RiotApi::spectator_tft_v5) on a [`RiotApi`] instance.
+///
+/// # Riot Developer API Reference
+///<a href="https://developer.riotgames.com/apis#spectator-tft-v5" target="_blank">`spectator-tft-v5`</a>
+///
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+#[repr(transparent)]
+pub struct SpectatorTftV5<'a> {
+    base: &'a RiotApi,
+}
+///spectator-v5 endpoints handle, accessed by calling [`spectator_v5()`](crate::RiotApi::spectator_v5) on a [`RiotApi`] instance.
+///
+/// # Riot Developer API Reference
+///<a href="https://developer.riotgames.com/apis#spectator-v5" target="_blank">`spectator-v5`</a>
+///
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+#[repr(transparent)]
+pub struct SpectatorV5<'a> {
+    base: &'a RiotApi,
+}
+///summoner-v4 endpoints handle, accessed by calling [`summoner_v4()`](crate::RiotApi::summoner_v4) on a [`RiotApi`] instance.
+///
+/// # Riot Developer API Reference
+///<a href="https://developer.riotgames.com/apis#summoner-v4" target="_blank">`summoner-v4`</a>
+///
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+#[repr(transparent)]
+pub struct SummonerV4<'a> {
+    base: &'a RiotApi,
+}
+///tft-league-v1 endpoints handle, accessed by calling [`tft_league_v1()`](crate::RiotApi::tft_league_v1) on a [`RiotApi`] instance.
+///
+/// # Riot Developer API Reference
+///<a href="https://developer.riotgames.com/apis#tft-league-v1" target="_blank">`tft-league-v1`</a>
+///
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+#[repr(transparent)]
+pub struct TftLeagueV1<'a> {
+    base: &'a RiotApi,
+}
+///tft-match-v1 endpoints handle, accessed by calling [`tft_match_v1()`](crate::RiotApi::tft_match_v1) on a [`RiotApi`] instance.
+///
+/// # Riot Developer API Reference
+///<a href="https://developer.riotgames.com/apis#tft-match-v1" target="_blank">`tft-match-v1`</a>
+///
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+#[repr(transparent)]
+pub struct TftMatchV1<'a> {
+    base: &'a RiotApi,
+}
+///tft-status-v1 endpoints handle, accessed by calling [`tft_status_v1()`](crate::RiotApi::tft_status_v1) on a [`RiotApi`] instance.
+///
+/// # Riot Developer API Reference
+///<a href="https://developer.riotgames.com/apis#tft-status-v1" target="_blank">`tft-status-v1`</a>
+///
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+#[repr(transparent)]
+pub struct TftStatusV1<'a> {
+    base: &'a RiotApi,
+}
+///tft-summoner-v1 endpoints handle, accessed by calling [`tft_summoner_v1()`](crate::RiotApi::tft_summoner_v1) on a [`RiotApi`] instance.
+///
+/// # Riot Developer API Reference
+///<a href="https://developer.riotgames.com/apis#tft-summoner-v1" target="_blank">`tft-summoner-v1`</a>
+///
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+#[repr(transparent)]
+pub struct TftSummonerV1<'a> {
+    base: &'a RiotApi,
+}
+///tournament-stub-v5 endpoints handle, accessed by calling [`tournament_stub_v5()`](crate::RiotApi::tournament_stub_v5) on a [`RiotApi`] instance.
+///
+/// # Riot Developer API Reference
+///<a href="https://developer.riotgames.com/apis#tournament-stub-v5" target="_blank">`tournament-stub-v5`</a>
+///
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+#[repr(transparent)]
+pub struct TournamentStubV5<'a> {
+    base: &'a RiotApi,
+}
+///tournament-v5 endpoints handle, accessed by calling [`tournament_v5()`](crate::RiotApi::tournament_v5) on a [`RiotApi`] instance.
+///
+/// # Riot Developer API Reference
+///<a href="https://developer.riotgames.com/apis#tournament-v5" target="_blank">`tournament-v5`</a>
+///
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+#[repr(transparent)]
+pub struct TournamentV5<'a> {
+    base: &'a RiotApi,
+}
+///val-console-match-v1 endpoints handle, accessed by calling [`val_console_match_v1()`](crate::RiotApi::val_console_match_v1) on a [`RiotApi`] instance.
+///
+/// # Riot Developer API Reference
+///<a href="https://developer.riotgames.com/apis#val-console-match-v1" target="_blank">`val-console-match-v1`</a>
+///
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+#[repr(transparent)]
+pub struct ValConsoleMatchV1<'a> {
+    base: &'a RiotApi,
+}
+///val-console-ranked-v1 endpoints handle, accessed by calling [`val_console_ranked_v1()`](crate::RiotApi::val_console_ranked_v1) on a [`RiotApi`] instance.
+///
+/// # Riot Developer API Reference
+///<a href="https://developer.riotgames.com/apis#val-console-ranked-v1" target="_blank">`val-console-ranked-v1`</a>
+///
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+#[repr(transparent)]
+pub struct ValConsoleRankedV1<'a> {
+    base: &'a RiotApi,
+}
+///val-content-v1 endpoints handle, accessed by calling [`val_content_v1()`](crate::RiotApi::val_content_v1) on a [`RiotApi`] instance.
+///
+/// # Riot Developer API Reference
+///<a href="https://developer.riotgames.com/apis#val-content-v1" target="_blank">`val-content-v1`</a>
+///
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+#[repr(transparent)]
+pub struct ValContentV1<'a> {
+    base: &'a RiotApi,
+}
+///val-match-v1 endpoints handle, accessed by calling [`val_match_v1()`](crate::RiotApi::val_match_v1) on a [`RiotApi`] instance.
+///
+/// # Riot Developer API Reference
+///<a href="https://developer.riotgames.com/apis#val-match-v1" target="_blank">`val-match-v1`</a>
+///
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+#[repr(transparent)]
+pub struct ValMatchV1<'a> {
+    base: &'a RiotApi,
+}
+///val-ranked-v1 endpoints handle, accessed by calling [`val_ranked_v1()`](crate::RiotApi::val_ranked_v1) on a [`RiotApi`] instance.
+///
+/// # Riot Developer API Reference
+///<a href="https://developer.riotgames.com/apis#val-ranked-v1" target="_blank">`val-ranked-v1`</a>
+///
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+#[repr(transparent)]
+pub struct ValRankedV1<'a> {
+    base: &'a RiotApi,
+}
+///val-status-v1 endpoints handle, accessed by calling [`val_status_v1()`](crate::RiotApi::val_status_v1) on a [`RiotApi`] instance.
+///
+/// # Riot Developer API Reference
+///<a href="https://developer.riotgames.com/apis#val-status-v1" target="_blank">`val-status-v1`</a>
+///
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+#[repr(transparent)]
+pub struct ValStatusV1<'a> {
+    base: &'a RiotApi,
+}
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+impl<'a> AccountV1<'a> {
+    ///Get account by puuid
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `puuid` (required, in path)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#account-v1/GET_getByPuuid" target="_blank">`account-v1.getByPuuid`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_by_puuid(
+        &self,
+        route: RegionalRoute,
+        puuid: &str,
+    ) -> impl 'a + Future<Output = Result<crate::models::account_v1::Account>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/riot/account/v1/accounts/by-puuid/{}", puuid),
+            );
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::account_v1::Account,
+            >("account-v1.getByPuuid", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(tracing::info_span!("account-v1.getByPuuid", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "account-v1.getByPuuid", route_str);
+        future
+    }
+    ///Get account by riot id
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `game_name` (required, in path) - When querying for a player by their riot id, the gameName and tagLine query params are required.
+    ///- `tag_line` (required, in path) - When querying for a player by their riot id, the gameName and tagLine query params are required.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#account-v1/GET_getByRiotId" target="_blank">`account-v1.getByRiotId`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_by_riot_id(
+        &self,
+        route: RegionalRoute,
+        game_name: &str,
+        tag_line: &str,
+    ) -> impl 'a + Future<Output = Result<Option<crate::models::account_v1::Account>>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!(
+                    "/riot/account/v1/accounts/by-riot-id/{}/{}", game_name, tag_line
+                ),
+            );
+        let future = self
+            .base
+            .execute_opt::<
+                crate::models::account_v1::Account,
+            >("account-v1.getByRiotId", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("account-v1.getByRiotId", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "account-v1.getByRiotId", route_str);
+        future
+    }
+    ///Get account by access token
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `access_token` - RSO access token.
+    ///
+    /// # RSO
+    /// This endpoint uses [Riot Sign On](https://developer.riotgames.com/docs/lol#rso-integration)
+    /// via the `access_token` parameter, instead of the Riot API key.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#account-v1/GET_getByAccessToken" target="_blank">`account-v1.getByAccessToken`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_by_access_token(
+        &self,
+        route: RegionalRoute,
+        access_token: impl std::fmt::Display,
+    ) -> impl 'a + Future<Output = Result<crate::models::account_v1::Account>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(Method::GET, route_str, "/riot/account/v1/accounts/me");
+        let mut request = request.bearer_auth(access_token);
+        if let Some(clear) = self.base.get_rso_clear_header() {
+            request = request.header(clear, "");
+        }
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::account_v1::Account,
+            >("account-v1.getByAccessToken", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("account-v1.getByAccessToken", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "account-v1.getByAccessToken", route_str);
+        future
+    }
+    ///Get active shard for a player
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `game` (required, in path)
+    ///- `puuid` (required, in path)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#account-v1/GET_getActiveShard" target="_blank">`account-v1.getActiveShard`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_active_shard(
+        &self,
+        route: RegionalRoute,
+        game: &str,
+        puuid: &str,
+    ) -> impl 'a + Future<
+        Output = Result<Option<crate::models::account_v1::ActiveShard>>,
+    > {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!(
+                    "/riot/account/v1/active-shards/by-game/{}/by-puuid/{}", game, puuid
+                ),
+            );
+        let future = self
+            .base
+            .execute_opt::<
+                crate::models::account_v1::ActiveShard,
+            >("account-v1.getActiveShard", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("account-v1.getActiveShard", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "account-v1.getActiveShard", route_str);
+        future
+    }
+}
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+impl<'a> ChampionMasteryV4<'a> {
+    ///Get all champion mastery entries sorted by number of champion points descending.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `encrypted_puuid` (required, in path)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getAllChampionMasteriesByPUUID" target="_blank">`champion-mastery-v4.getAllChampionMasteriesByPUUID`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_all_champion_masteries_by_puuid(
+        &self,
+        route: PlatformRoute,
+        encrypted_puuid: &str,
+    ) -> impl 'a + Future<
+        Output = Result<Vec<crate::models::champion_mastery_v4::ChampionMastery>>,
+    > {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!(
+                    "/lol/champion-mastery/v4/champion-masteries/by-puuid/{}",
+                    encrypted_puuid
+                ),
+            );
+        let future = self
+            .base
+            .execute_val::<
+                Vec<crate::models::champion_mastery_v4::ChampionMastery>,
+            >("champion-mastery-v4.getAllChampionMasteriesByPUUID", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!(
+                    "champion-mastery-v4.getAllChampionMasteriesByPUUID", route =
+                    route_str
+                ),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "champion-mastery-v4.getAllChampionMasteriesByPUUID",
+            route_str,
+        );
+        future
+    }
+    ///Get a champion mastery by puuid and champion ID.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `encrypted_puuid` (required, in path)
+    ///- `champion_id` (required, in path) - Champion ID to retrieve Champion Mastery.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMasteryByPUUID" target="_blank">`champion-mastery-v4.getChampionMasteryByPUUID`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_champion_mastery_by_puuid(
+        &self,
+        route: PlatformRoute,
+        encrypted_puuid: &str,
+        champion_id: crate::consts::Champion,
+    ) -> impl 'a + Future<
+        Output = Result<crate::models::champion_mastery_v4::ChampionMastery>,
+    > {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!(
+                    "/lol/champion-mastery/v4/champion-masteries/by-puuid/{}/by-champion/{}",
+                    encrypted_puuid, champion_id
+                ),
+            );
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::champion_mastery_v4::ChampionMastery,
+            >("champion-mastery-v4.getChampionMasteryByPUUID", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!(
+                    "champion-mastery-v4.getChampionMasteryByPUUID", route = route_str
+                ),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "champion-mastery-v4.getChampionMasteryByPUUID",
+            route_str,
+        );
+        future
+    }
+    ///Get specified number of top champion mastery entries sorted by number of champion points descending.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `encrypted_puuid` (required, in path)
+    ///- `count` (optional, in query) - Number of entries to retrieve, defaults to 3.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getTopChampionMasteriesByPUUID" target="_blank">`champion-mastery-v4.getTopChampionMasteriesByPUUID`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_top_champion_masteries_by_puuid(
+        &self,
+        route: PlatformRoute,
+        encrypted_puuid: &str,
+        count: Option<i32>,
+    ) -> impl 'a + Future<
+        Output = Result<Vec<crate::models::champion_mastery_v4::ChampionMastery>>,
+    > {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!(
+                    "/lol/champion-mastery/v4/champion-masteries/by-puuid/{}/top",
+                    encrypted_puuid
+                ),
+            );
+        let request = if let Some(count) = count {
+            request.query(&[("count", count)])
+        } else {
+            request
+        };
+        let future = self
+            .base
+            .execute_val::<
+                Vec<crate::models::champion_mastery_v4::ChampionMastery>,
+            >("champion-mastery-v4.getTopChampionMasteriesByPUUID", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!(
+                    "champion-mastery-v4.getTopChampionMasteriesByPUUID", route =
+                    route_str
+                ),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "champion-mastery-v4.getTopChampionMasteriesByPUUID",
+            route_str,
+        );
+        future
+    }
+    ///Get a player's total champion mastery score, which is the sum of individual champion mastery levels.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `encrypted_puuid` (required, in path)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMasteryScoreByPUUID" target="_blank">`champion-mastery-v4.getChampionMasteryScoreByPUUID`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_champion_mastery_score_by_puuid(
+        &self,
+        route: PlatformRoute,
+        encrypted_puuid: &str,
+    ) -> impl 'a + Future<Output = Result<i32>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/lol/champion-mastery/v4/scores/by-puuid/{}", encrypted_puuid),
+            );
+        let future = self
+            .base
+            .execute_val::<
+                i32,
+            >("champion-mastery-v4.getChampionMasteryScoreByPUUID", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!(
+                    "champion-mastery-v4.getChampionMasteryScoreByPUUID", route =
+                    route_str
+                ),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "champion-mastery-v4.getChampionMasteryScoreByPUUID",
+            route_str,
+        );
+        future
+    }
+}
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+impl<'a> ChampionV3<'a> {
+    ///Returns champion rotations, including free-to-play and low-level free-to-play rotations (REST)
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#champion-v3/GET_getChampionInfo" target="_blank">`champion-v3.getChampionInfo`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_champion_info(
+        &self,
+        route: PlatformRoute,
+    ) -> impl 'a + Future<Output = Result<crate::models::champion_v3::ChampionInfo>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(Method::GET, route_str, "/lol/platform/v3/champion-rotations");
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::champion_v3::ChampionInfo,
+            >("champion-v3.getChampionInfo", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("champion-v3.getChampionInfo", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "champion-v3.getChampionInfo", route_str);
+        future
+    }
+}
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+impl<'a> ClashV1<'a> {
+    ///Get players by puuid
+    ///## Implementation Notes
+    ///This endpoint returns a list of active Clash players for a given PUUID. If a summoner registers for multiple tournaments at the same time (e.g., Saturday and Sunday) then both registrations would appear in this list.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `puuid` (required, in path)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#clash-v1/GET_getPlayersByPUUID" target="_blank">`clash-v1.getPlayersByPUUID`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_players_by_puuid(
+        &self,
+        route: PlatformRoute,
+        puuid: &str,
+    ) -> impl 'a + Future<Output = Result<Vec<crate::models::clash_v1::Player>>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/lol/clash/v1/players/by-puuid/{}", puuid),
+            );
+        let future = self
+            .base
+            .execute_val::<
+                Vec<crate::models::clash_v1::Player>,
+            >("clash-v1.getPlayersByPUUID", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("clash-v1.getPlayersByPUUID", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "clash-v1.getPlayersByPUUID", route_str);
+        future
+    }
+    ///Get team by ID.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `team_id` (required, in path)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#clash-v1/GET_getTeamById" target="_blank">`clash-v1.getTeamById`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_team_by_id(
+        &self,
+        route: PlatformRoute,
+        team_id: &str,
+    ) -> impl 'a + Future<Output = Result<Option<crate::models::clash_v1::Team>>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/lol/clash/v1/teams/{}", team_id),
+            );
+        let future = self
+            .base
+            .execute_opt::<
+                crate::models::clash_v1::Team,
+            >("clash-v1.getTeamById", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(tracing::info_span!("clash-v1.getTeamById", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "clash-v1.getTeamById", route_str);
+        future
+    }
+    ///Get all active or upcoming tournaments.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#clash-v1/GET_getTournaments" target="_blank">`clash-v1.getTournaments`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_tournaments(
+        &self,
+        route: PlatformRoute,
+    ) -> impl 'a + Future<Output = Result<Vec<crate::models::clash_v1::Tournament>>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(Method::GET, route_str, "/lol/clash/v1/tournaments");
+        let future = self
+            .base
+            .execute_val::<
+                Vec<crate::models::clash_v1::Tournament>,
+            >("clash-v1.getTournaments", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("clash-v1.getTournaments", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "clash-v1.getTournaments", route_str);
+        future
+    }
+    ///Get tournament by team ID.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `team_id` (required, in path)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#clash-v1/GET_getTournamentByTeam" target="_blank">`clash-v1.getTournamentByTeam`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_tournament_by_team(
+        &self,
+        route: PlatformRoute,
+        team_id: &str,
+    ) -> impl 'a + Future<Output = Result<Option<crate::models::clash_v1::Tournament>>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/lol/clash/v1/tournaments/by-team/{}", team_id),
+            );
+        let future = self
+            .base
+            .execute_opt::<
+                crate::models::clash_v1::Tournament,
+            >("clash-v1.getTournamentByTeam", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("clash-v1.getTournamentByTeam", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "clash-v1.getTournamentByTeam", route_str);
+        future
+    }
+    ///Get tournament by ID.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `tournament_id` (required, in path)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#clash-v1/GET_getTournamentById" target="_blank">`clash-v1.getTournamentById`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_tournament_by_id(
+        &self,
+        route: PlatformRoute,
+        tournament_id: i32,
+    ) -> impl 'a + Future<Output = Result<Option<crate::models::clash_v1::Tournament>>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/lol/clash/v1/tournaments/{}", tournament_id),
+            );
+        let future = self
+            .base
+            .execute_opt::<
+                crate::models::clash_v1::Tournament,
+            >("clash-v1.getTournamentById", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("clash-v1.getTournamentById", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "clash-v1.getTournamentById", route_str);
+        future
+    }
+}
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+impl<'a> LeagueExpV4<'a> {
+    ///Get all the league entries.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `queue` (required, in path) - Note that the queue value must be a valid ranked queue.
+    ///- `tier` (required, in path)
+    ///- `division` (required, in path)
+    ///- `page` (optional, in query) - Defaults to 1. Starts with page 1.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#league-exp-v4/GET_getLeagueEntries" target="_blank">`league-exp-v4.getLeagueEntries`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_league_entries(
+        &self,
+        route: PlatformRoute,
+        queue: crate::consts::QueueType,
+        tier: crate::consts::Tier,
+        division: crate::consts::Division,
+        page: Option<i32>,
+    ) -> impl 'a + Future<
+        Output = Result<Option<Vec<crate::models::league_exp_v4::LeagueEntry>>>,
+    > {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/lol/league-exp/v4/entries/{}/{}/{}", queue, tier, division),
+            );
+        let request = if let Some(page) = page {
+            request.query(&[("page", page)])
+        } else {
+            request
+        };
+        let future = self
+            .base
+            .execute_opt::<
+                Vec<crate::models::league_exp_v4::LeagueEntry>,
+            >("league-exp-v4.getLeagueEntries", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("league-exp-v4.getLeagueEntries", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "league-exp-v4.getLeagueEntries", route_str);
+        future
+    }
+}
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+impl<'a> LeagueV4<'a> {
+    ///Get the challenger league for given queue.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `queue` (required, in path)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getChallengerLeague" target="_blank">`league-v4.getChallengerLeague`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_challenger_league(
+        &self,
+        route: PlatformRoute,
+        queue: crate::consts::QueueType,
+    ) -> impl 'a + Future<Output = Result<crate::models::league_v4::LeagueList>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/lol/league/v4/challengerleagues/by-queue/{}", queue),
+            );
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::league_v4::LeagueList,
+            >("league-v4.getChallengerLeague", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("league-v4.getChallengerLeague", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "league-v4.getChallengerLeague", route_str);
+        future
+    }
+    ///Get league entries in all queues for a given puuid
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `encrypted_puuid` (required, in path)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntriesByPUUID" target="_blank">`league-v4.getLeagueEntriesByPUUID`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_league_entries_by_puuid(
+        &self,
+        route: PlatformRoute,
+        encrypted_puuid: &str,
+    ) -> impl 'a + Future<Output = Result<Vec<crate::models::league_v4::LeagueEntry>>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/lol/league/v4/entries/by-puuid/{}", encrypted_puuid),
+            );
+        let future = self
+            .base
+            .execute_val::<
+                Vec<crate::models::league_v4::LeagueEntry>,
+            >("league-v4.getLeagueEntriesByPUUID", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!(
+                    "league-v4.getLeagueEntriesByPUUID", route = route_str
+                ),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "league-v4.getLeagueEntriesByPUUID",
+            route_str,
+        );
+        future
+    }
+    ///Get league entries in all queues for a given summoner ID.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `encrypted_summoner_id` (required, in path)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntriesForSummoner" target="_blank">`league-v4.getLeagueEntriesForSummoner`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_league_entries_for_summoner(
+        &self,
+        route: PlatformRoute,
+        encrypted_summoner_id: &str,
+    ) -> impl 'a + Future<Output = Result<Vec<crate::models::league_v4::LeagueEntry>>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/lol/league/v4/entries/by-summoner/{}", encrypted_summoner_id),
+            );
+        let future = self
+            .base
+            .execute_val::<
+                Vec<crate::models::league_v4::LeagueEntry>,
+            >("league-v4.getLeagueEntriesForSummoner", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!(
+                    "league-v4.getLeagueEntriesForSummoner", route = route_str
+                ),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "league-v4.getLeagueEntriesForSummoner",
+            route_str,
+        );
+        future
+    }
+    ///Get all the league entries.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `queue` (required, in path) - Note that the queue value must be a valid ranked queue.
+    ///- `tier` (required, in path)
+    ///- `division` (required, in path)
+    ///- `page` (optional, in query) - Defaults to 1. Starts with page 1.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntries" target="_blank">`league-v4.getLeagueEntries`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_league_entries(
+        &self,
+        route: PlatformRoute,
+        queue: crate::consts::QueueType,
+        tier: crate::consts::Tier,
+        division: crate::consts::Division,
+        page: Option<i32>,
+    ) -> impl 'a + Future<
+        Output = Result<Option<Vec<crate::models::league_v4::LeagueEntry>>>,
+    > {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/lol/league/v4/entries/{}/{}/{}", queue, tier, division),
+            );
+        let request = if let Some(page) = page {
+            request.query(&[("page", page)])
+        } else {
+            request
+        };
+        let future = self
+            .base
+            .execute_opt::<
+                Vec<crate::models::league_v4::LeagueEntry>,
+            >("league-v4.getLeagueEntries", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("league-v4.getLeagueEntries", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "league-v4.getLeagueEntries", route_str);
+        future
+    }
+    ///Get the grandmaster league of a specific queue.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `queue` (required, in path)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getGrandmasterLeague" target="_blank">`league-v4.getGrandmasterLeague`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_grandmaster_league(
+        &self,
+        route: PlatformRoute,
+        queue: crate::consts::QueueType,
+    ) -> impl 'a + Future<Output = Result<crate::models::league_v4::LeagueList>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/lol/league/v4/grandmasterleagues/by-queue/{}", queue),
+            );
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::league_v4::LeagueList,
+            >("league-v4.getGrandmasterLeague", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("league-v4.getGrandmasterLeague", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "league-v4.getGrandmasterLeague", route_str);
+        future
+    }
+    ///Get league with given ID, including inactive entries.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `league_id` (required, in path) - The UUID of the league.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueById" target="_blank">`league-v4.getLeagueById`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_league_by_id(
+        &self,
+        route: PlatformRoute,
+        league_id: &str,
+    ) -> impl 'a + Future<
+        Output = Result<Option<crate::models::league_v4::LeagueList>>,
+    > {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/lol/league/v4/leagues/{}", league_id),
+            );
+        let future = self
+            .base
+            .execute_opt::<
+                crate::models::league_v4::LeagueList,
+            >("league-v4.getLeagueById", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("league-v4.getLeagueById", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "league-v4.getLeagueById", route_str);
+        future
+    }
+    ///Get the master league for given queue.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `queue` (required, in path)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getMasterLeague" target="_blank">`league-v4.getMasterLeague`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_master_league(
+        &self,
+        route: PlatformRoute,
+        queue: crate::consts::QueueType,
+    ) -> impl 'a + Future<Output = Result<crate::models::league_v4::LeagueList>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/lol/league/v4/masterleagues/by-queue/{}", queue),
+            );
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::league_v4::LeagueList,
+            >("league-v4.getMasterLeague", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("league-v4.getMasterLeague", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "league-v4.getMasterLeague", route_str);
+        future
+    }
+}
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+impl<'a> LolChallengesV1<'a> {
+    ///List of all basic challenge configuration information (includes all translations for names and descriptions)
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#lol-challenges-v1/GET_getAllChallengeConfigs" target="_blank">`lol-challenges-v1.getAllChallengeConfigs`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_all_challenge_configs(
+        &self,
+        route: PlatformRoute,
+    ) -> impl 'a + Future<
+        Output = Result<Vec<crate::models::lol_challenges_v1::ChallengeConfigInfo>>,
+    > {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(Method::GET, route_str, "/lol/challenges/v1/challenges/config");
+        let future = self
+            .base
+            .execute_val::<
+                Vec<crate::models::lol_challenges_v1::ChallengeConfigInfo>,
+            >("lol-challenges-v1.getAllChallengeConfigs", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!(
+                    "lol-challenges-v1.getAllChallengeConfigs", route = route_str
+                ),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "lol-challenges-v1.getAllChallengeConfigs",
+            route_str,
+        );
+        future
+    }
+    ///Map of level to percentile of players who have achieved it - keys: ChallengeId -> Season -> Level -> percentile of players who achieved it
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#lol-challenges-v1/GET_getAllChallengePercentiles" target="_blank">`lol-challenges-v1.getAllChallengePercentiles`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_all_challenge_percentiles(
+        &self,
+        route: PlatformRoute,
+    ) -> impl 'a + Future<
+        Output = Result<
+            ::std::collections::HashMap<
+                i64,
+                ::std::collections::HashMap<crate::consts::Tier, f64>,
+            >,
+        >,
+    > {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                "/lol/challenges/v1/challenges/percentiles",
+            );
+        let future = self
+            .base
+            .execute_val::<
+                ::std::collections::HashMap<
+                    i64,
+                    ::std::collections::HashMap<crate::consts::Tier, f64>,
+                >,
+            >("lol-challenges-v1.getAllChallengePercentiles", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!(
+                    "lol-challenges-v1.getAllChallengePercentiles", route = route_str
+                ),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "lol-challenges-v1.getAllChallengePercentiles",
+            route_str,
+        );
+        future
+    }
+    ///Get challenge configuration (REST)
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `challenge_id` (required, in path)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#lol-challenges-v1/GET_getChallengeConfigs" target="_blank">`lol-challenges-v1.getChallengeConfigs`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_challenge_configs(
+        &self,
+        route: PlatformRoute,
+        challenge_id: i64,
+    ) -> impl 'a + Future<
+        Output = Result<Option<crate::models::lol_challenges_v1::ChallengeConfigInfo>>,
+    > {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/lol/challenges/v1/challenges/{}/config", challenge_id),
+            );
+        let future = self
+            .base
+            .execute_opt::<
+                crate::models::lol_challenges_v1::ChallengeConfigInfo,
+            >("lol-challenges-v1.getChallengeConfigs", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!(
+                    "lol-challenges-v1.getChallengeConfigs", route = route_str
+                ),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "lol-challenges-v1.getChallengeConfigs",
+            route_str,
+        );
+        future
+    }
+    ///Return top players for each level. Level must be MASTER, GRANDMASTER or CHALLENGER.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `challenge_id` (required, in path)
+    ///- `level` (required, in path)
+    ///- `limit` (optional, in query)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#lol-challenges-v1/GET_getChallengeLeaderboards" target="_blank">`lol-challenges-v1.getChallengeLeaderboards`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_challenge_leaderboards(
+        &self,
+        route: PlatformRoute,
+        challenge_id: i64,
+        level: crate::consts::Tier,
+        limit: Option<i32>,
+    ) -> impl 'a + Future<
+        Output = Result<Option<Vec<crate::models::lol_challenges_v1::ApexPlayerInfo>>>,
+    > {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!(
+                    "/lol/challenges/v1/challenges/{}/leaderboards/by-level/{}",
+                    challenge_id, level
+                ),
+            );
+        let request = if let Some(limit) = limit {
+            request.query(&[("limit", limit)])
+        } else {
+            request
+        };
+        let future = self
+            .base
+            .execute_opt::<
+                Vec<crate::models::lol_challenges_v1::ApexPlayerInfo>,
+            >("lol-challenges-v1.getChallengeLeaderboards", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!(
+                    "lol-challenges-v1.getChallengeLeaderboards", route = route_str
+                ),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "lol-challenges-v1.getChallengeLeaderboards",
+            route_str,
+        );
+        future
+    }
+    ///Map of level to percentile of players who have achieved it
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `challenge_id` (required, in path)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#lol-challenges-v1/GET_getChallengePercentiles" target="_blank">`lol-challenges-v1.getChallengePercentiles`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_challenge_percentiles(
+        &self,
+        route: PlatformRoute,
+        challenge_id: i64,
+    ) -> impl 'a + Future<
+        Output = Result<Option<::std::collections::HashMap<crate::consts::Tier, f64>>>,
+    > {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/lol/challenges/v1/challenges/{}/percentiles", challenge_id),
+            );
+        let future = self
+            .base
+            .execute_opt::<
+                ::std::collections::HashMap<crate::consts::Tier, f64>,
+            >("lol-challenges-v1.getChallengePercentiles", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!(
+                    "lol-challenges-v1.getChallengePercentiles", route = route_str
+                ),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "lol-challenges-v1.getChallengePercentiles",
+            route_str,
+        );
+        future
+    }
+    ///Returns player information with list of all progressed challenges (REST)
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `puuid` (required, in path)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#lol-challenges-v1/GET_getPlayerData" target="_blank">`lol-challenges-v1.getPlayerData`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_player_data(
+        &self,
+        route: PlatformRoute,
+        puuid: &str,
+    ) -> impl 'a + Future<
+        Output = Result<crate::models::lol_challenges_v1::PlayerInfo>,
+    > {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/lol/challenges/v1/player-data/{}", puuid),
+            );
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::lol_challenges_v1::PlayerInfo,
+            >("lol-challenges-v1.getPlayerData", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("lol-challenges-v1.getPlayerData", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "lol-challenges-v1.getPlayerData",
+            route_str,
+        );
+        future
+    }
+}
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+impl<'a> LolRsoMatchV1<'a> {
+    ///Get a list of match ids by player access token - Includes custom matches
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `access_token` - RSO access token.
+    ///- `count` (optional, in query) - Defaults to 20. Valid values: 0 to 100. Number of match ids to return.
+    ///- `start` (optional, in query) - Defaults to 0. Start index.
+    ///- `r#type` (optional, in query) - Filter the list of match ids by the type of match. This filter is mutually inclusive of the queue filter meaning any match ids returned must match both the queue and type filters.
+    ///- `queue` (optional, in query) - Filter the list of match ids by a specific queue id. This filter is mutually inclusive of the type filter meaning any match ids returned must match both the queue and type filters.
+    ///- `end_time` (optional, in query) - Epoch timestamp in seconds.
+    ///- `start_time` (optional, in query) - Epoch timestamp in seconds. The matchlist started storing timestamps on June 16th, 2021. Any matches played before June 16th, 2021 won't be included in the results if the startTime filter is set.
+    ///
+    /// # RSO
+    /// This endpoint uses [Riot Sign On](https://developer.riotgames.com/docs/lol#rso-integration)
+    /// via the `access_token` parameter, instead of the Riot API key.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#lol-rso-match-v1/GET_getMatchIds" target="_blank">`lol-rso-match-v1.getMatchIds`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_match_ids(
+        &self,
+        route: RegionalRoute,
+        access_token: impl std::fmt::Display,
+        count: Option<i32>,
+        start: Option<i32>,
+        r#type: Option<&str>,
+        queue: Option<i32>,
+        end_time: Option<i64>,
+        start_time: Option<i64>,
+    ) -> impl 'a + Future<Output = Result<Vec<String>>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(Method::GET, route_str, "/lol/rso-match/v1/matches/ids");
+        let mut request = request.bearer_auth(access_token);
+        if let Some(clear) = self.base.get_rso_clear_header() {
+            request = request.header(clear, "");
+        }
+        let request = if let Some(count) = count {
+            request.query(&[("count", count)])
+        } else {
+            request
+        };
+        let request = if let Some(start) = start {
+            request.query(&[("start", start)])
+        } else {
+            request
+        };
+        let request = if let Some(r#type) = r#type {
+            request.query(&[("type", r#type)])
+        } else {
+            request
+        };
+        let request = if let Some(queue) = queue {
+            request.query(&[("queue", queue)])
+        } else {
+            request
+        };
+        let request = if let Some(end_time) = end_time {
+            request.query(&[("endTime", end_time)])
+        } else {
+            request
+        };
+        let request = if let Some(start_time) = start_time {
+            request.query(&[("startTime", start_time)])
+        } else {
+            request
+        };
+        let future = self
+            .base
+            .execute_val::<
+                Vec<String>,
+            >("lol-rso-match-v1.getMatchIds", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("lol-rso-match-v1.getMatchIds", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "lol-rso-match-v1.getMatchIds", route_str);
+        future
+    }
+    ///Get a match by match id
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `access_token` - RSO access token.
+    ///- `match_id` (required, in path)
+    ///
+    /// # RSO
+    /// This endpoint uses [Riot Sign On](https://developer.riotgames.com/docs/lol#rso-integration)
+    /// via the `access_token` parameter, instead of the Riot API key.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#lol-rso-match-v1/GET_getMatch" target="_blank">`lol-rso-match-v1.getMatch`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_match(
+        &self,
+        route: RegionalRoute,
+        access_token: impl std::fmt::Display,
+        match_id: &str,
+    ) -> impl 'a + Future<Output = Result<crate::models::match_v5::Match>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/lol/rso-match/v1/matches/{}", match_id),
+            );
+        let mut request = request.bearer_auth(access_token);
+        if let Some(clear) = self.base.get_rso_clear_header() {
+            request = request.header(clear, "");
+        }
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::match_v5::Match,
+            >("lol-rso-match-v1.getMatch", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("lol-rso-match-v1.getMatch", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "lol-rso-match-v1.getMatch", route_str);
+        future
+    }
+    ///Get a match timeline by match id
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `access_token` - RSO access token.
+    ///- `match_id` (required, in path)
+    ///
+    /// # RSO
+    /// This endpoint uses [Riot Sign On](https://developer.riotgames.com/docs/lol#rso-integration)
+    /// via the `access_token` parameter, instead of the Riot API key.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#lol-rso-match-v1/GET_getTimeline" target="_blank">`lol-rso-match-v1.getTimeline`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_timeline(
+        &self,
+        route: RegionalRoute,
+        access_token: impl std::fmt::Display,
+        match_id: &str,
+    ) -> impl 'a + Future<Output = Result<crate::models::match_v5::Timeline>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/lol/rso-match/v1/matches/{}/timeline", match_id),
+            );
+        let mut request = request.bearer_auth(access_token);
+        if let Some(clear) = self.base.get_rso_clear_header() {
+            request = request.header(clear, "");
+        }
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::match_v5::Timeline,
+            >("lol-rso-match-v1.getTimeline", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("lol-rso-match-v1.getTimeline", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "lol-rso-match-v1.getTimeline", route_str);
+        future
+    }
+}
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+impl<'a> LolStatusV4<'a> {
+    ///Get League of Legends status for the given platform.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#lol-status-v4/GET_getPlatformData" target="_blank">`lol-status-v4.getPlatformData`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_platform_data(
+        &self,
+        route: PlatformRoute,
+    ) -> impl 'a + Future<Output = Result<crate::models::lol_status_v4::PlatformData>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(Method::GET, route_str, "/lol/status/v4/platform-data");
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::lol_status_v4::PlatformData,
+            >("lol-status-v4.getPlatformData", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("lol-status-v4.getPlatformData", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "lol-status-v4.getPlatformData", route_str);
+        future
+    }
+}
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+impl<'a> LorDeckV1<'a> {
+    ///Get a list of the calling user's decks.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `access_token` - RSO access token.
+    ///
+    /// # RSO
+    /// This endpoint uses [Riot Sign On](https://developer.riotgames.com/docs/lol#rso-integration)
+    /// via the `access_token` parameter, instead of the Riot API key.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#lor-deck-v1/GET_getDecks" target="_blank">`lor-deck-v1.getDecks`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_decks(
+        &self,
+        route: RegionalRoute,
+        access_token: impl std::fmt::Display,
+    ) -> impl 'a + Future<Output = Result<Vec<crate::models::lor_deck_v1::Deck>>> {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/lor/deck/v1/decks/me");
+        let mut request = request.bearer_auth(access_token);
+        if let Some(clear) = self.base.get_rso_clear_header() {
+            request = request.header(clear, "");
+        }
+        let future = self
+            .base
+            .execute_val::<
+                Vec<crate::models::lor_deck_v1::Deck>,
+            >("lor-deck-v1.getDecks", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(tracing::info_span!("lor-deck-v1.getDecks", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "lor-deck-v1.getDecks", route_str);
+        future
+    }
+    ///Create a new deck for the calling user.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `access_token` - RSO access token.
+    ///- `body` (required, in body)
+    ///
+    /// # RSO
+    /// This endpoint uses [Riot Sign On](https://developer.riotgames.com/docs/lol#rso-integration)
+    /// via the `access_token` parameter, instead of the Riot API key.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#lor-deck-v1/POST_createDeck" target="_blank">`lor-deck-v1.createDeck`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn create_deck(
+        &self,
+        route: RegionalRoute,
+        access_token: impl std::fmt::Display,
+        body: &crate::models::lor_deck_v1::NewDeck,
+    ) -> impl 'a + Future<Output = Result<String>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(Method::POST, route_str, "/lor/deck/v1/decks/me");
+        let mut request = request.bearer_auth(access_token);
+        if let Some(clear) = self.base.get_rso_clear_header() {
+            request = request.header(clear, "");
+        }
+        let request = request
+            .body(serde_json::ser::to_vec(body).unwrap())
+            .header(reqwest::header::CONTENT_TYPE, "application/json");
+        let future = self
+            .base
+            .execute_val::<String>("lor-deck-v1.createDeck", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("lor-deck-v1.createDeck", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "lor-deck-v1.createDeck", route_str);
+        future
+    }
+}
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+impl<'a> LorInventoryV1<'a> {
+    ///Return a list of cards owned by the calling user.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `access_token` - RSO access token.
+    ///
+    /// # RSO
+    /// This endpoint uses [Riot Sign On](https://developer.riotgames.com/docs/lol#rso-integration)
+    /// via the `access_token` parameter, instead of the Riot API key.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#lor-inventory-v1/GET_getCards" target="_blank">`lor-inventory-v1.getCards`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_cards(
+        &self,
+        route: RegionalRoute,
+        access_token: impl std::fmt::Display,
+    ) -> impl 'a + Future<Output = Result<Vec<crate::models::lor_inventory_v1::Card>>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(Method::GET, route_str, "/lor/inventory/v1/cards/me");
+        let mut request = request.bearer_auth(access_token);
+        if let Some(clear) = self.base.get_rso_clear_header() {
+            request = request.header(clear, "");
+        }
+        let future = self
+            .base
+            .execute_val::<
+                Vec<crate::models::lor_inventory_v1::Card>,
+            >("lor-inventory-v1.getCards", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("lor-inventory-v1.getCards", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "lor-inventory-v1.getCards", route_str);
+        future
+    }
+}
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+impl<'a> LorMatchV1<'a> {
+    ///Get a list of match ids by PUUID
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `puuid` (required, in path)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#lor-match-v1/GET_getMatchIdsByPUUID" target="_blank">`lor-match-v1.getMatchIdsByPUUID`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_match_ids_by_puuid(
+        &self,
+        route: RegionalRoute,
+        puuid: &str,
+    ) -> impl 'a + Future<Output = Result<Vec<String>>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/lor/match/v1/matches/by-puuid/{}/ids", puuid),
+            );
+        let future = self
+            .base
+            .execute_val::<
+                Vec<String>,
+            >("lor-match-v1.getMatchIdsByPUUID", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("lor-match-v1.getMatchIdsByPUUID", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "lor-match-v1.getMatchIdsByPUUID",
+            route_str,
+        );
+        future
+    }
+    ///Get match by id
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `match_id` (required, in path)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#lor-match-v1/GET_getMatch" target="_blank">`lor-match-v1.getMatch`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_match(
+        &self,
+        route: RegionalRoute,
+        match_id: &str,
+    ) -> impl 'a + Future<Output = Result<crate::models::lor_match_v1::Match>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/lor/match/v1/matches/{}", match_id),
+            );
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::lor_match_v1::Match,
+            >("lor-match-v1.getMatch", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(tracing::info_span!("lor-match-v1.getMatch", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "lor-match-v1.getMatch", route_str);
+        future
+    }
+}
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+impl<'a> LorRankedV1<'a> {
+    ///Get the players in Master tier.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#lor-ranked-v1/GET_getLeaderboards" target="_blank">`lor-ranked-v1.getLeaderboards`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_leaderboards(
+        &self,
+        route: RegionalRoute,
+    ) -> impl 'a + Future<Output = Result<crate::models::lor_ranked_v1::Leaderboard>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(Method::GET, route_str, "/lor/ranked/v1/leaderboards");
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::lor_ranked_v1::Leaderboard,
+            >("lor-ranked-v1.getLeaderboards", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("lor-ranked-v1.getLeaderboards", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "lor-ranked-v1.getLeaderboards", route_str);
+        future
+    }
+}
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+impl<'a> LorStatusV1<'a> {
+    ///Get Legends of Runeterra status for the given platform.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#lor-status-v1/GET_getPlatformData" target="_blank">`lor-status-v1.getPlatformData`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_platform_data(
+        &self,
+        route: RegionalRoute,
+    ) -> impl 'a + Future<Output = Result<crate::models::lor_status_v1::PlatformData>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(Method::GET, route_str, "/lor/status/v1/platform-data");
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::lor_status_v1::PlatformData,
+            >("lor-status-v1.getPlatformData", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("lor-status-v1.getPlatformData", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "lor-status-v1.getPlatformData", route_str);
+        future
+    }
+}
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+impl<'a> MatchV5<'a> {
+    ///Get a list of match ids by puuid
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `puuid` (required, in path)
+    ///- `start_time` (optional, in query) - Epoch timestamp in seconds. The matchlist started storing timestamps on June 16th, 2021. Any matches played before June 16th, 2021 won't be included in the results if the startTime filter is set.
+    ///- `end_time` (optional, in query) - Epoch timestamp in seconds.
+    ///- `queue` (optional, in query) - Filter the list of match ids by a specific queue id. This filter is mutually inclusive of the type filter meaning any match ids returned must match both the queue and type filters.
+    ///- `r#type` (optional, in query) - Filter the list of match ids by the type of match. This filter is mutually inclusive of the queue filter meaning any match ids returned must match both the queue and type filters.
+    ///- `start` (optional, in query) - Defaults to 0. Start index.
+    ///- `count` (optional, in query) - Defaults to 20. Valid values: 0 to 100. Number of match ids to return.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#match-v5/GET_getMatchIdsByPUUID" target="_blank">`match-v5.getMatchIdsByPUUID`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_match_ids_by_puuid(
+        &self,
+        route: RegionalRoute,
+        puuid: &str,
+        start_time: Option<i64>,
+        end_time: Option<i64>,
+        queue: Option<crate::consts::Queue>,
+        r#type: Option<&str>,
+        start: Option<i32>,
+        count: Option<i32>,
+    ) -> impl 'a + Future<Output = Result<Vec<String>>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/lol/match/v5/matches/by-puuid/{}/ids", puuid),
+            );
+        let request = if let Some(start_time) = start_time {
+            request.query(&[("startTime", start_time)])
+        } else {
+            request
+        };
+        let request = if let Some(end_time) = end_time {
+            request.query(&[("endTime", end_time)])
+        } else {
+            request
+        };
+        let request = if let Some(queue) = queue {
+            request.query(&[("queue", queue)])
+        } else {
+            request
+        };
+        let request = if let Some(r#type) = r#type {
+            request.query(&[("type", r#type)])
+        } else {
+            request
+        };
+        let request = if let Some(start) = start {
+            request.query(&[("start", start)])
+        } else {
+            request
+        };
+        let request = if let Some(count) = count {
+            request.query(&[("count", count)])
+        } else {
+            request
+        };
+        let future = self
+            .base
+            .execute_val::<
+                Vec<String>,
+            >("match-v5.getMatchIdsByPUUID", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("match-v5.getMatchIdsByPUUID", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "match-v5.getMatchIdsByPUUID", route_str);
+        future
+    }
+    ///Get a match by match id
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `match_id` (required, in path)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#match-v5/GET_getMatch" target="_blank">`match-v5.getMatch`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_match(
+        &self,
+        route: RegionalRoute,
+        match_id: &str,
+    ) -> impl 'a + Future<Output = Result<Option<crate::models::match_v5::Match>>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/lol/match/v5/matches/{}", match_id),
+            );
+        let future = self
+            .base
+            .execute_opt::<
+                crate::models::match_v5::Match,
+            >("match-v5.getMatch", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(tracing::info_span!("match-v5.getMatch", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "match-v5.getMatch", route_str);
+        future
+    }
+    ///Get a match timeline by match id
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `match_id` (required, in path)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#match-v5/GET_getTimeline" target="_blank">`match-v5.getTimeline`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_timeline(
+        &self,
+        route: RegionalRoute,
+        match_id: &str,
+    ) -> impl 'a + Future<Output = Result<Option<crate::models::match_v5::Timeline>>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/lol/match/v5/matches/{}/timeline", match_id),
+            );
+        let future = self
+            .base
+            .execute_opt::<
+                crate::models::match_v5::Timeline,
+            >("match-v5.getTimeline", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(tracing::info_span!("match-v5.getTimeline", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "match-v5.getTimeline", route_str);
+        future
+    }
+}
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+impl<'a> SpectatorTftV5<'a> {
+    ///Get current game information for the given puuid.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `encrypted_puuid` (required, in path) - The puuid of the summoner.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#spectator-tft-v5/GET_getCurrentGameInfoByPuuid" target="_blank">`spectator-tft-v5.getCurrentGameInfoByPuuid`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_current_game_info_by_puuid(
+        &self,
+        route: PlatformRoute,
+        encrypted_puuid: &str,
+    ) -> impl 'a + Future<
+        Output = Result<Option<crate::models::spectator_tft_v5::CurrentGameInfo>>,
+    > {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!(
+                    "/lol/spectator/tft/v5/active-games/by-puuid/{}", encrypted_puuid
+                ),
+            );
+        let future = self
+            .base
+            .execute_opt::<
+                crate::models::spectator_tft_v5::CurrentGameInfo,
+            >("spectator-tft-v5.getCurrentGameInfoByPuuid", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!(
+                    "spectator-tft-v5.getCurrentGameInfoByPuuid", route = route_str
+                ),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "spectator-tft-v5.getCurrentGameInfoByPuuid",
+            route_str,
+        );
+        future
+    }
+    ///Get list of featured games.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#spectator-tft-v5/GET_getFeaturedGames" target="_blank">`spectator-tft-v5.getFeaturedGames`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_featured_games(
+        &self,
+        route: PlatformRoute,
+    ) -> impl 'a + Future<
+        Output = Result<crate::models::spectator_tft_v5::FeaturedGames>,
+    > {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(Method::GET, route_str, "/lol/spectator/tft/v5/featured-games");
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::spectator_tft_v5::FeaturedGames,
+            >("spectator-tft-v5.getFeaturedGames", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!(
+                    "spectator-tft-v5.getFeaturedGames", route = route_str
+                ),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "spectator-tft-v5.getFeaturedGames",
+            route_str,
+        );
+        future
+    }
+}
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+impl<'a> SpectatorV5<'a> {
+    ///Get current game information for the given puuid.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `encrypted_puuid` (required, in path) - The puuid of the summoner.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#spectator-v5/GET_getCurrentGameInfoByPuuid" target="_blank">`spectator-v5.getCurrentGameInfoByPuuid`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_current_game_info_by_puuid(
+        &self,
+        route: PlatformRoute,
+        encrypted_puuid: &str,
+    ) -> impl 'a + Future<
+        Output = Result<Option<crate::models::spectator_v5::CurrentGameInfo>>,
+    > {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!(
+                    "/lol/spectator/v5/active-games/by-summoner/{}", encrypted_puuid
+                ),
+            );
+        let future = self
+            .base
+            .execute_opt::<
+                crate::models::spectator_v5::CurrentGameInfo,
+            >("spectator-v5.getCurrentGameInfoByPuuid", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!(
+                    "spectator-v5.getCurrentGameInfoByPuuid", route = route_str
+                ),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "spectator-v5.getCurrentGameInfoByPuuid",
+            route_str,
+        );
+        future
+    }
+    ///Get list of featured games.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#spectator-v5/GET_getFeaturedGames" target="_blank">`spectator-v5.getFeaturedGames`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_featured_games(
+        &self,
+        route: PlatformRoute,
+    ) -> impl 'a + Future<Output = Result<crate::models::spectator_v5::FeaturedGames>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(Method::GET, route_str, "/lol/spectator/v5/featured-games");
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::spectator_v5::FeaturedGames,
+            >("spectator-v5.getFeaturedGames", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("spectator-v5.getFeaturedGames", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "spectator-v5.getFeaturedGames", route_str);
+        future
+    }
+}
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+impl<'a> SummonerV4<'a> {
+    ///Get a summoner by its RSO encrypted PUUID.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `rso_puuid` (required, in path) - Summoner ID.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByRSOPUUID" target="_blank">`summoner-v4.getByRSOPUUID`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_by_rsopuuid(
+        &self,
+        route: PlatformRoute,
+        rso_puuid: &str,
+    ) -> impl 'a + Future<Output = Result<crate::models::summoner_v4::Summoner>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/fulfillment/v1/summoners/by-puuid/{}", rso_puuid),
+            );
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::summoner_v4::Summoner,
+            >("summoner-v4.getByRSOPUUID", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("summoner-v4.getByRSOPUUID", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "summoner-v4.getByRSOPUUID", route_str);
+        future
+    }
+    ///Get a summoner by account ID.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `encrypted_account_id` (required, in path)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByAccountId" target="_blank">`summoner-v4.getByAccountId`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_by_account_id(
+        &self,
+        route: PlatformRoute,
+        encrypted_account_id: &str,
+    ) -> impl 'a + Future<Output = Result<crate::models::summoner_v4::Summoner>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!(
+                    "/lol/summoner/v4/summoners/by-account/{}", encrypted_account_id
+                ),
+            );
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::summoner_v4::Summoner,
+            >("summoner-v4.getByAccountId", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("summoner-v4.getByAccountId", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "summoner-v4.getByAccountId", route_str);
+        future
+    }
+    ///Get a summoner by PUUID.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `encrypted_puuid` (required, in path) - Summoner ID.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByPUUID" target="_blank">`summoner-v4.getByPUUID`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_by_puuid(
+        &self,
+        route: PlatformRoute,
+        encrypted_puuid: &str,
+    ) -> impl 'a + Future<Output = Result<crate::models::summoner_v4::Summoner>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/lol/summoner/v4/summoners/by-puuid/{}", encrypted_puuid),
+            );
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::summoner_v4::Summoner,
+            >("summoner-v4.getByPUUID", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("summoner-v4.getByPUUID", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "summoner-v4.getByPUUID", route_str);
+        future
+    }
+    ///Get a summoner by access token.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `access_token` - RSO access token.
+    ///
+    /// # RSO
+    /// This endpoint uses [Riot Sign On](https://developer.riotgames.com/docs/lol#rso-integration)
+    /// via the `access_token` parameter, instead of the Riot API key.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByAccessToken" target="_blank">`summoner-v4.getByAccessToken`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_by_access_token(
+        &self,
+        route: PlatformRoute,
+        access_token: impl std::fmt::Display,
+    ) -> impl 'a + Future<Output = Result<crate::models::summoner_v4::Summoner>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(Method::GET, route_str, "/lol/summoner/v4/summoners/me");
+        let mut request = request.bearer_auth(access_token);
+        if let Some(clear) = self.base.get_rso_clear_header() {
+            request = request.header(clear, "");
+        }
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::summoner_v4::Summoner,
+            >("summoner-v4.getByAccessToken", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("summoner-v4.getByAccessToken", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "summoner-v4.getByAccessToken", route_str);
+        future
+    }
+    ///Get a summoner by summoner ID.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `encrypted_summoner_id` (required, in path) - Summoner ID.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getBySummonerId" target="_blank">`summoner-v4.getBySummonerId`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_by_summoner_id(
+        &self,
+        route: PlatformRoute,
+        encrypted_summoner_id: &str,
+    ) -> impl 'a + Future<Output = Result<crate::models::summoner_v4::Summoner>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/lol/summoner/v4/summoners/{}", encrypted_summoner_id),
+            );
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::summoner_v4::Summoner,
+            >("summoner-v4.getBySummonerId", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("summoner-v4.getBySummonerId", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "summoner-v4.getBySummonerId", route_str);
+        future
+    }
+}
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+impl<'a> TftLeagueV1<'a> {
+    ///Get the challenger league.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `queue` (optional, in query) - Defaults to RANKED_TFT.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getChallengerLeague" target="_blank">`tft-league-v1.getChallengerLeague`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_challenger_league(
+        &self,
+        route: PlatformRoute,
+        queue: Option<&str>,
+    ) -> impl 'a + Future<Output = Result<crate::models::tft_league_v1::LeagueList>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(Method::GET, route_str, "/tft/league/v1/challenger");
+        let request = if let Some(queue) = queue {
+            request.query(&[("queue", queue)])
+        } else {
+            request
+        };
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::tft_league_v1::LeagueList,
+            >("tft-league-v1.getChallengerLeague", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!(
+                    "tft-league-v1.getChallengerLeague", route = route_str
+                ),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "tft-league-v1.getChallengerLeague",
+            route_str,
+        );
+        future
+    }
+    ///Get league entries for a given summoner ID.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `summoner_id` (required, in path)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getLeagueEntriesForSummoner" target="_blank">`tft-league-v1.getLeagueEntriesForSummoner`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_league_entries_for_summoner(
+        &self,
+        route: PlatformRoute,
+        summoner_id: &str,
+    ) -> impl 'a + Future<
+        Output = Result<Vec<crate::models::tft_league_v1::LeagueEntry>>,
+    > {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/tft/league/v1/entries/by-summoner/{}", summoner_id),
+            );
+        let future = self
+            .base
+            .execute_val::<
+                Vec<crate::models::tft_league_v1::LeagueEntry>,
+            >("tft-league-v1.getLeagueEntriesForSummoner", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!(
+                    "tft-league-v1.getLeagueEntriesForSummoner", route = route_str
+                ),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "tft-league-v1.getLeagueEntriesForSummoner",
+            route_str,
+        );
+        future
+    }
+    ///Get all the league entries.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `tier` (required, in path)
+    ///- `division` (required, in path)
+    ///- `queue` (optional, in query) - Defaults to RANKED_TFT.
+    ///- `page` (optional, in query) - Defaults to 1. Starts with page 1.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getLeagueEntries" target="_blank">`tft-league-v1.getLeagueEntries`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_league_entries(
+        &self,
+        route: PlatformRoute,
+        tier: crate::consts::Tier,
+        division: &str,
+        queue: Option<&str>,
+        page: Option<i32>,
+    ) -> impl 'a + Future<
+        Output = Result<Vec<crate::models::tft_league_v1::LeagueEntry>>,
+    > {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/tft/league/v1/entries/{}/{}", tier, division),
+            );
+        let request = if let Some(queue) = queue {
+            request.query(&[("queue", queue)])
+        } else {
+            request
+        };
+        let request = if let Some(page) = page {
+            request.query(&[("page", page)])
+        } else {
+            request
+        };
+        let future = self
+            .base
+            .execute_val::<
+                Vec<crate::models::tft_league_v1::LeagueEntry>,
+            >("tft-league-v1.getLeagueEntries", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("tft-league-v1.getLeagueEntries", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "tft-league-v1.getLeagueEntries", route_str);
+        future
+    }
+    ///Get the grandmaster league.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `queue` (optional, in query) - Defaults to RANKED_TFT.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getGrandmasterLeague" target="_blank">`tft-league-v1.getGrandmasterLeague`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_grandmaster_league(
+        &self,
+        route: PlatformRoute,
+        queue: Option<&str>,
+    ) -> impl 'a + Future<Output = Result<crate::models::tft_league_v1::LeagueList>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(Method::GET, route_str, "/tft/league/v1/grandmaster");
+        let request = if let Some(queue) = queue {
+            request.query(&[("queue", queue)])
+        } else {
+            request
+        };
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::tft_league_v1::LeagueList,
+            >("tft-league-v1.getGrandmasterLeague", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!(
+                    "tft-league-v1.getGrandmasterLeague", route = route_str
+                ),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "tft-league-v1.getGrandmasterLeague",
+            route_str,
+        );
+        future
+    }
+    ///Get league with given ID, including inactive entries.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `league_id` (required, in path) - The UUID of the league.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getLeagueById" target="_blank">`tft-league-v1.getLeagueById`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_league_by_id(
+        &self,
+        route: PlatformRoute,
+        league_id: &str,
+    ) -> impl 'a + Future<
+        Output = Result<Option<crate::models::tft_league_v1::LeagueList>>,
+    > {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/tft/league/v1/leagues/{}", league_id),
+            );
+        let future = self
+            .base
+            .execute_opt::<
+                crate::models::tft_league_v1::LeagueList,
+            >("tft-league-v1.getLeagueById", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("tft-league-v1.getLeagueById", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "tft-league-v1.getLeagueById", route_str);
+        future
+    }
+    ///Get the master league.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `queue` (optional, in query) - Defaults to RANKED_TFT.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getMasterLeague" target="_blank">`tft-league-v1.getMasterLeague`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_master_league(
+        &self,
+        route: PlatformRoute,
+        queue: Option<&str>,
+    ) -> impl 'a + Future<Output = Result<crate::models::tft_league_v1::LeagueList>> {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/tft/league/v1/master");
+        let request = if let Some(queue) = queue {
+            request.query(&[("queue", queue)])
+        } else {
+            request
+        };
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::tft_league_v1::LeagueList,
+            >("tft-league-v1.getMasterLeague", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("tft-league-v1.getMasterLeague", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "tft-league-v1.getMasterLeague", route_str);
+        future
+    }
+    ///Get the top rated ladder for given queue
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `queue` (required, in path)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getTopRatedLadder" target="_blank">`tft-league-v1.getTopRatedLadder`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_top_rated_ladder(
+        &self,
+        route: PlatformRoute,
+        queue: crate::consts::QueueType,
+    ) -> impl 'a + Future<
+        Output = Result<Vec<crate::models::tft_league_v1::TopRatedLadderEntry>>,
+    > {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/tft/league/v1/rated-ladders/{}/top", queue),
+            );
+        let future = self
+            .base
+            .execute_val::<
+                Vec<crate::models::tft_league_v1::TopRatedLadderEntry>,
+            >("tft-league-v1.getTopRatedLadder", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("tft-league-v1.getTopRatedLadder", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "tft-league-v1.getTopRatedLadder",
+            route_str,
+        );
+        future
+    }
+}
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+impl<'a> TftMatchV1<'a> {
+    ///Get a list of match ids by PUUID
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `puuid` (required, in path)
+    ///- `start` (optional, in query) - Defaults to 0. Start index.
+    ///- `end_time` (optional, in query) - Epoch timestamp in seconds.
+    ///- `start_time` (optional, in query) - Epoch timestamp in seconds. The matchlist started storing timestamps on June 16th, 2021. Any matches played before June 16th, 2021 won't be included in the results if the startTime filter is set.
+    ///- `count` (optional, in query) - Defaults to 20. Number of match ids to return.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#tft-match-v1/GET_getMatchIdsByPUUID" target="_blank">`tft-match-v1.getMatchIdsByPUUID`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_match_ids_by_puuid(
+        &self,
+        route: RegionalRoute,
+        puuid: &str,
+        start: Option<i32>,
+        end_time: Option<i64>,
+        start_time: Option<i64>,
+        count: Option<i32>,
+    ) -> impl 'a + Future<Output = Result<Vec<String>>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/tft/match/v1/matches/by-puuid/{}/ids", puuid),
+            );
+        let request = if let Some(start) = start {
+            request.query(&[("start", start)])
+        } else {
+            request
+        };
+        let request = if let Some(end_time) = end_time {
+            request.query(&[("endTime", end_time)])
+        } else {
+            request
+        };
+        let request = if let Some(start_time) = start_time {
+            request.query(&[("startTime", start_time)])
+        } else {
+            request
+        };
+        let request = if let Some(count) = count {
+            request.query(&[("count", count)])
+        } else {
+            request
+        };
+        let future = self
+            .base
+            .execute_val::<
+                Vec<String>,
+            >("tft-match-v1.getMatchIdsByPUUID", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("tft-match-v1.getMatchIdsByPUUID", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "tft-match-v1.getMatchIdsByPUUID",
+            route_str,
+        );
+        future
+    }
+    ///Get a match by match id
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `match_id` (required, in path)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#tft-match-v1/GET_getMatch" target="_blank">`tft-match-v1.getMatch`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_match(
+        &self,
+        route: RegionalRoute,
+        match_id: &str,
+    ) -> impl 'a + Future<Output = Result<Option<crate::models::tft_match_v1::Match>>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/tft/match/v1/matches/{}", match_id),
+            );
+        let future = self
+            .base
+            .execute_opt::<
+                crate::models::tft_match_v1::Match,
+            >("tft-match-v1.getMatch", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(tracing::info_span!("tft-match-v1.getMatch", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "tft-match-v1.getMatch", route_str);
+        future
+    }
+}
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+impl<'a> TftStatusV1<'a> {
+    ///Get Teamfight Tactics status for the given platform.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#tft-status-v1/GET_getPlatformData" target="_blank">`tft-status-v1.getPlatformData`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_platform_data(
+        &self,
+        route: PlatformRoute,
+    ) -> impl 'a + Future<Output = Result<crate::models::tft_status_v1::PlatformData>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(Method::GET, route_str, "/tft/status/v1/platform-data");
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::tft_status_v1::PlatformData,
+            >("tft-status-v1.getPlatformData", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("tft-status-v1.getPlatformData", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "tft-status-v1.getPlatformData", route_str);
+        future
+    }
+}
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+impl<'a> TftSummonerV1<'a> {
+    ///Get a summoner by account ID.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `encrypted_account_id` (required, in path)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getByAccountId" target="_blank">`tft-summoner-v1.getByAccountId`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_by_account_id(
+        &self,
+        route: PlatformRoute,
+        encrypted_account_id: &str,
+    ) -> impl 'a + Future<Output = Result<crate::models::tft_summoner_v1::Summoner>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!(
+                    "/tft/summoner/v1/summoners/by-account/{}", encrypted_account_id
+                ),
+            );
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::tft_summoner_v1::Summoner,
+            >("tft-summoner-v1.getByAccountId", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("tft-summoner-v1.getByAccountId", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "tft-summoner-v1.getByAccountId", route_str);
+        future
+    }
+    ///Get a summoner by PUUID.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `encrypted_puuid` (required, in path) - Summoner ID.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getByPUUID" target="_blank">`tft-summoner-v1.getByPUUID`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_by_puuid(
+        &self,
+        route: PlatformRoute,
+        encrypted_puuid: &str,
+    ) -> impl 'a + Future<Output = Result<crate::models::tft_summoner_v1::Summoner>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/tft/summoner/v1/summoners/by-puuid/{}", encrypted_puuid),
+            );
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::tft_summoner_v1::Summoner,
+            >("tft-summoner-v1.getByPUUID", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("tft-summoner-v1.getByPUUID", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "tft-summoner-v1.getByPUUID", route_str);
+        future
+    }
+    ///Get a summoner by access token.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `access_token` - RSO access token.
+    ///
+    /// # RSO
+    /// This endpoint uses [Riot Sign On](https://developer.riotgames.com/docs/lol#rso-integration)
+    /// via the `access_token` parameter, instead of the Riot API key.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getByAccessToken" target="_blank">`tft-summoner-v1.getByAccessToken`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_by_access_token(
+        &self,
+        route: PlatformRoute,
+        access_token: impl std::fmt::Display,
+    ) -> impl 'a + Future<Output = Result<crate::models::tft_summoner_v1::Summoner>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(Method::GET, route_str, "/tft/summoner/v1/summoners/me");
+        let mut request = request.bearer_auth(access_token);
+        if let Some(clear) = self.base.get_rso_clear_header() {
+            request = request.header(clear, "");
+        }
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::tft_summoner_v1::Summoner,
+            >("tft-summoner-v1.getByAccessToken", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!(
+                    "tft-summoner-v1.getByAccessToken", route = route_str
+                ),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "tft-summoner-v1.getByAccessToken",
+            route_str,
+        );
+        future
+    }
+    ///Get a summoner by summoner ID.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `encrypted_summoner_id` (required, in path) - Summoner ID.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getBySummonerId" target="_blank">`tft-summoner-v1.getBySummonerId`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_by_summoner_id(
+        &self,
+        route: PlatformRoute,
+        encrypted_summoner_id: &str,
+    ) -> impl 'a + Future<Output = Result<crate::models::tft_summoner_v1::Summoner>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/tft/summoner/v1/summoners/{}", encrypted_summoner_id),
+            );
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::tft_summoner_v1::Summoner,
+            >("tft-summoner-v1.getBySummonerId", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("tft-summoner-v1.getBySummonerId", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "tft-summoner-v1.getBySummonerId",
+            route_str,
+        );
+        future
+    }
+}
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+impl<'a> TournamentStubV5<'a> {
+    ///Create a tournament code for the given tournament - Stub method
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `body` (required, in body) - Metadata for the generated code.
+    ///- `tournament_id` (required, in query) - The tournament ID.
+    ///- `count` (optional, in query) - The number of codes to create (max 1000).
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#tournament-stub-v5/POST_createTournamentCode" target="_blank">`tournament-stub-v5.createTournamentCode`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn create_tournament_code(
+        &self,
+        route: RegionalRoute,
+        body: &crate::models::tournament_stub_v5::TournamentCodeParametersV5,
+        tournament_id: i64,
+        count: Option<i32>,
+    ) -> impl 'a + Future<Output = Result<Vec<String>>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(Method::POST, route_str, "/lol/tournament-stub/v5/codes");
+        let request = request
+            .body(serde_json::ser::to_vec(body).unwrap())
+            .header(reqwest::header::CONTENT_TYPE, "application/json");
+        let request = request.query(&[("tournamentId", tournament_id)]);
+        let request = if let Some(count) = count {
+            request.query(&[("count", count)])
+        } else {
+            request
+        };
+        let future = self
+            .base
+            .execute_val::<
+                Vec<String>,
+            >("tournament-stub-v5.createTournamentCode", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!(
+                    "tournament-stub-v5.createTournamentCode", route = route_str
+                ),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "tournament-stub-v5.createTournamentCode",
+            route_str,
+        );
+        future
+    }
+    ///Returns the tournament code DTO associated with a tournament code string - Stub Method
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `tournament_code` (required, in path) - The tournament code string.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#tournament-stub-v5/GET_getTournamentCode" target="_blank">`tournament-stub-v5.getTournamentCode`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_tournament_code(
+        &self,
+        route: RegionalRoute,
+        tournament_code: &str,
+    ) -> impl 'a + Future<
+        Output = Result<crate::models::tournament_stub_v5::TournamentCodeV5>,
+    > {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/lol/tournament-stub/v5/codes/{}", tournament_code),
+            );
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::tournament_stub_v5::TournamentCodeV5,
+            >("tournament-stub-v5.getTournamentCode", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!(
+                    "tournament-stub-v5.getTournamentCode", route = route_str
+                ),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "tournament-stub-v5.getTournamentCode",
+            route_str,
+        );
+        future
+    }
+    ///Gets a list of lobby events by tournament code - Stub method
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `tournament_code` (required, in path) - The short code to look up lobby events for.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#tournament-stub-v5/GET_getLobbyEventsByCode" target="_blank">`tournament-stub-v5.getLobbyEventsByCode`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_lobby_events_by_code(
+        &self,
+        route: RegionalRoute,
+        tournament_code: &str,
+    ) -> impl 'a + Future<
+        Output = Result<crate::models::tournament_stub_v5::LobbyEventV5Wrapper>,
+    > {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!(
+                    "/lol/tournament-stub/v5/lobby-events/by-code/{}", tournament_code
+                ),
+            );
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::tournament_stub_v5::LobbyEventV5Wrapper,
+            >("tournament-stub-v5.getLobbyEventsByCode", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!(
+                    "tournament-stub-v5.getLobbyEventsByCode", route = route_str
+                ),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "tournament-stub-v5.getLobbyEventsByCode",
+            route_str,
+        );
+        future
+    }
+    ///Creates a tournament provider and returns its ID - Stub method
+    ///## Implementation Notes
+    ///Providers will need to call this endpoint first to register their callback URL and their API key with the tournament system before any other tournament provider endpoints will work.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `body` (required, in body) - The provider definition.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#tournament-stub-v5/POST_registerProviderData" target="_blank">`tournament-stub-v5.registerProviderData`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn register_provider_data(
+        &self,
+        route: RegionalRoute,
+        body: &crate::models::tournament_stub_v5::ProviderRegistrationParametersV5,
+    ) -> impl 'a + Future<Output = Result<i32>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(Method::POST, route_str, "/lol/tournament-stub/v5/providers");
+        let request = request
+            .body(serde_json::ser::to_vec(body).unwrap())
+            .header(reqwest::header::CONTENT_TYPE, "application/json");
+        let future = self
+            .base
+            .execute_val::<
+                i32,
+            >("tournament-stub-v5.registerProviderData", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!(
+                    "tournament-stub-v5.registerProviderData", route = route_str
+                ),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "tournament-stub-v5.registerProviderData",
+            route_str,
+        );
+        future
+    }
+    ///Creates a tournament and returns its ID - Stub method
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `body` (required, in body) - The tournament definition.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#tournament-stub-v5/POST_registerTournament" target="_blank">`tournament-stub-v5.registerTournament`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn register_tournament(
+        &self,
+        route: RegionalRoute,
+        body: &crate::models::tournament_stub_v5::TournamentRegistrationParametersV5,
+    ) -> impl 'a + Future<Output = Result<i32>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(Method::POST, route_str, "/lol/tournament-stub/v5/tournaments");
+        let request = request
+            .body(serde_json::ser::to_vec(body).unwrap())
+            .header(reqwest::header::CONTENT_TYPE, "application/json");
+        let future = self
+            .base
+            .execute_val::<
+                i32,
+            >("tournament-stub-v5.registerTournament", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!(
+                    "tournament-stub-v5.registerTournament", route = route_str
+                ),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "tournament-stub-v5.registerTournament",
+            route_str,
+        );
+        future
+    }
+}
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+impl<'a> TournamentV5<'a> {
+    ///Create a tournament code for the given tournament.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `body` (required, in body) - Metadata for the generated code.
+    ///- `tournament_id` (required, in query) - The tournament ID.
+    ///- `count` (optional, in query) - The number of codes to create (max 1000).
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#tournament-v5/POST_createTournamentCode" target="_blank">`tournament-v5.createTournamentCode`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn create_tournament_code(
+        &self,
+        route: RegionalRoute,
+        body: &crate::models::tournament_v5::TournamentCodeParametersV5,
+        tournament_id: i64,
+        count: Option<i32>,
+    ) -> impl 'a + Future<Output = Result<Vec<String>>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(Method::POST, route_str, "/lol/tournament/v5/codes");
+        let request = request
+            .body(serde_json::ser::to_vec(body).unwrap())
+            .header(reqwest::header::CONTENT_TYPE, "application/json");
+        let request = request.query(&[("tournamentId", tournament_id)]);
+        let request = if let Some(count) = count {
+            request.query(&[("count", count)])
+        } else {
+            request
+        };
+        let future = self
+            .base
+            .execute_val::<
+                Vec<String>,
+            >("tournament-v5.createTournamentCode", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!(
+                    "tournament-v5.createTournamentCode", route = route_str
+                ),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "tournament-v5.createTournamentCode",
+            route_str,
+        );
+        future
+    }
+    ///Returns the tournament code DTO associated with a tournament code string.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `tournament_code` (required, in path) - The tournament code string.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#tournament-v5/GET_getTournamentCode" target="_blank">`tournament-v5.getTournamentCode`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_tournament_code(
+        &self,
+        route: RegionalRoute,
+        tournament_code: &str,
+    ) -> impl 'a + Future<
+        Output = Result<crate::models::tournament_v5::TournamentCodeV5>,
+    > {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/lol/tournament/v5/codes/{}", tournament_code),
+            );
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::tournament_v5::TournamentCodeV5,
+            >("tournament-v5.getTournamentCode", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("tournament-v5.getTournamentCode", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "tournament-v5.getTournamentCode",
+            route_str,
+        );
+        future
+    }
+    ///Update the pick type, map, spectator type, or allowed puuids for a code.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `tournament_code` (required, in path) - The tournament code to update.
+    ///- `body` (optional, in body) - The fields to update.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#tournament-v5/PUT_updateCode" target="_blank">`tournament-v5.updateCode`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn update_code(
+        &self,
+        route: RegionalRoute,
+        tournament_code: &str,
+        body: &Option<crate::models::tournament_v5::TournamentCodeUpdateParametersV5>,
+    ) -> impl 'a + Future<Output = Result<()>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::PUT,
+                route_str,
+                &format!("/lol/tournament/v5/codes/{}", tournament_code),
+            );
+        let request = if let Some(body) = body {
+            request
+                .body(serde_json::ser::to_vec(body).unwrap())
+                .header(reqwest::header::CONTENT_TYPE, "application/json")
+        } else {
+            request
+        };
+        let future = self.base.execute("tournament-v5.updateCode", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("tournament-v5.updateCode", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "tournament-v5.updateCode", route_str);
+        future
+    }
+    ///Get games details
+    ///## Implementation Notes
+    ///Additional endpoint to get tournament games. From this endpoint, you are able to get participants PUUID (the callback doesn't contain this info).
+    ///
+    ///You can also use it to check if the game was recorded and validate callbacks. If the endpoint returns the game, it means a callback was attempted.
+    ///
+    ///This will only work for tournament codes created after November 10, 2023.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `tournament_code` (required, in path)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#tournament-v5/GET_getGames" target="_blank">`tournament-v5.getGames`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_games(
+        &self,
+        route: RegionalRoute,
+        tournament_code: &str,
+    ) -> impl 'a + Future<
+        Output = Result<Vec<crate::models::tournament_v5::TournamentGamesV5>>,
+    > {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/lol/tournament/v5/games/by-code/{}", tournament_code),
+            );
+        let future = self
+            .base
+            .execute_val::<
+                Vec<crate::models::tournament_v5::TournamentGamesV5>,
+            >("tournament-v5.getGames", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("tournament-v5.getGames", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "tournament-v5.getGames", route_str);
+        future
+    }
+    ///Gets a list of lobby events by tournament code.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `tournament_code` (required, in path) - The short code to look up lobby events for.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#tournament-v5/GET_getLobbyEventsByCode" target="_blank">`tournament-v5.getLobbyEventsByCode`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_lobby_events_by_code(
+        &self,
+        route: RegionalRoute,
+        tournament_code: &str,
+    ) -> impl 'a + Future<
+        Output = Result<crate::models::tournament_v5::LobbyEventV5Wrapper>,
+    > {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/lol/tournament/v5/lobby-events/by-code/{}", tournament_code),
+            );
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::tournament_v5::LobbyEventV5Wrapper,
+            >("tournament-v5.getLobbyEventsByCode", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!(
+                    "tournament-v5.getLobbyEventsByCode", route = route_str
+                ),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "tournament-v5.getLobbyEventsByCode",
+            route_str,
+        );
+        future
+    }
+    ///Creates a tournament provider and returns its ID.
+    ///## Implementation Notes
+    ///Providers will need to call this endpoint first to register their callback URL and their API key with the tournament system before any other tournament provider endpoints will work.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `body` (required, in body) - The provider definition.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#tournament-v5/POST_registerProviderData" target="_blank">`tournament-v5.registerProviderData`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn register_provider_data(
+        &self,
+        route: RegionalRoute,
+        body: &crate::models::tournament_v5::ProviderRegistrationParametersV5,
+    ) -> impl 'a + Future<Output = Result<i32>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(Method::POST, route_str, "/lol/tournament/v5/providers");
+        let request = request
+            .body(serde_json::ser::to_vec(body).unwrap())
+            .header(reqwest::header::CONTENT_TYPE, "application/json");
+        let future = self
+            .base
+            .execute_val::<
+                i32,
+            >("tournament-v5.registerProviderData", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!(
+                    "tournament-v5.registerProviderData", route = route_str
+                ),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "tournament-v5.registerProviderData",
+            route_str,
+        );
+        future
+    }
+    ///Creates a tournament and returns its ID.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `body` (required, in body) - The tournament definition.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#tournament-v5/POST_registerTournament" target="_blank">`tournament-v5.registerTournament`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn register_tournament(
+        &self,
+        route: RegionalRoute,
+        body: &crate::models::tournament_v5::TournamentRegistrationParametersV5,
+    ) -> impl 'a + Future<Output = Result<i32>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(Method::POST, route_str, "/lol/tournament/v5/tournaments");
+        let request = request
+            .body(serde_json::ser::to_vec(body).unwrap())
+            .header(reqwest::header::CONTENT_TYPE, "application/json");
+        let future = self
+            .base
+            .execute_val::<i32>("tournament-v5.registerTournament", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!(
+                    "tournament-v5.registerTournament", route = route_str
+                ),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "tournament-v5.registerTournament",
+            route_str,
+        );
+        future
+    }
+}
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+impl<'a> ValConsoleMatchV1<'a> {
+    ///Get match by id
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `match_id` (required, in path)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#val-console-match-v1/GET_getMatch" target="_blank">`val-console-match-v1.getMatch`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_match(
+        &self,
+        route: ValPlatformRoute,
+        match_id: &str,
+    ) -> impl 'a + Future<Output = Result<crate::models::val_console_match_v1::Match>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/val/match/console/v1/matches/{}", match_id),
+            );
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::val_console_match_v1::Match,
+            >("val-console-match-v1.getMatch", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("val-console-match-v1.getMatch", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "val-console-match-v1.getMatch", route_str);
+        future
+    }
+    ///Get matchlist for games played by puuid and platform type
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `puuid` (required, in path)
+    ///- `platform_type` (required, in query)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#val-console-match-v1/GET_getMatchlist" target="_blank">`val-console-match-v1.getMatchlist`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_matchlist(
+        &self,
+        route: ValPlatformRoute,
+        puuid: &str,
+        platform_type: &str,
+    ) -> impl 'a + Future<
+        Output = Result<crate::models::val_console_match_v1::Matchlist>,
+    > {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/val/match/console/v1/matchlists/by-puuid/{}", puuid),
+            );
+        let request = request.query(&[("platformType", platform_type)]);
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::val_console_match_v1::Matchlist,
+            >("val-console-match-v1.getMatchlist", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!(
+                    "val-console-match-v1.getMatchlist", route = route_str
+                ),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "val-console-match-v1.getMatchlist",
+            route_str,
+        );
+        future
+    }
+    ///Get recent matches
+    ///## Implementation Notes
+    ///Returns a list of match ids that have completed in the last 10 minutes for live regions and 12 hours for the esports routing value. NA/LATAM/BR share a match history deployment. As such, recent matches will return a combined list of matches from those three regions. Requests are load balanced so you may see some inconsistencies as matches are added/removed from the list.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `queue` (required, in path)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#val-console-match-v1/GET_getRecent" target="_blank">`val-console-match-v1.getRecent`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_recent(
+        &self,
+        route: ValPlatformRoute,
+        queue: &str,
+    ) -> impl 'a + Future<
+        Output = Result<crate::models::val_console_match_v1::RecentMatches>,
+    > {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/val/match/console/v1/recent-matches/by-queue/{}", queue),
+            );
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::val_console_match_v1::RecentMatches,
+            >("val-console-match-v1.getRecent", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("val-console-match-v1.getRecent", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "val-console-match-v1.getRecent", route_str);
+        future
+    }
+}
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+impl<'a> ValConsoleRankedV1<'a> {
+    ///Get leaderboard for the competitive queue
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `act_id` (required, in path) - Act ids can be found using the val-content API.
+    ///- `platform_type` (required, in query)
+    ///- `start_index` (optional, in query) - Defaults to 0.
+    ///- `size` (optional, in query) - Defaults to 200. Valid values: 1 to 200.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#val-console-ranked-v1/GET_getLeaderboard" target="_blank">`val-console-ranked-v1.getLeaderboard`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_leaderboard(
+        &self,
+        route: ValPlatformRoute,
+        act_id: &str,
+        platform_type: &str,
+        start_index: Option<i32>,
+        size: Option<i32>,
+    ) -> impl 'a + Future<
+        Output = Result<crate::models::val_console_ranked_v1::Leaderboard>,
+    > {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/val/console/ranked/v1/leaderboards/by-act/{}", act_id),
+            );
+        let request = request.query(&[("platformType", platform_type)]);
+        let request = if let Some(start_index) = start_index {
+            request.query(&[("startIndex", start_index)])
+        } else {
+            request
+        };
+        let request = if let Some(size) = size {
+            request.query(&[("size", size)])
+        } else {
+            request
+        };
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::val_console_ranked_v1::Leaderboard,
+            >("val-console-ranked-v1.getLeaderboard", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!(
+                    "val-console-ranked-v1.getLeaderboard", route = route_str
+                ),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(
+            future,
+            "val-console-ranked-v1.getLeaderboard",
+            route_str,
+        );
+        future
+    }
+}
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+impl<'a> ValContentV1<'a> {
+    ///Get content optionally filtered by locale
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `locale` (optional, in query)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#val-content-v1/GET_getContent" target="_blank">`val-content-v1.getContent`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_content(
+        &self,
+        route: ValPlatformRoute,
+        locale: Option<&str>,
+    ) -> impl 'a + Future<Output = Result<crate::models::val_content_v1::Content>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(Method::GET, route_str, "/val/content/v1/contents");
+        let request = if let Some(locale) = locale {
+            request.query(&[("locale", locale)])
+        } else {
+            request
+        };
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::val_content_v1::Content,
+            >("val-content-v1.getContent", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("val-content-v1.getContent", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "val-content-v1.getContent", route_str);
+        future
+    }
+}
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+impl<'a> ValMatchV1<'a> {
+    ///Get match by id
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `match_id` (required, in path)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#val-match-v1/GET_getMatch" target="_blank">`val-match-v1.getMatch`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_match(
+        &self,
+        route: ValPlatformRoute,
+        match_id: &str,
+    ) -> impl 'a + Future<Output = Result<Option<crate::models::val_match_v1::Match>>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/val/match/v1/matches/{}", match_id),
+            );
+        let future = self
+            .base
+            .execute_opt::<
+                crate::models::val_match_v1::Match,
+            >("val-match-v1.getMatch", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(tracing::info_span!("val-match-v1.getMatch", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "val-match-v1.getMatch", route_str);
+        future
+    }
+    ///Get matchlist for games played by puuid
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `puuid` (required, in path)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#val-match-v1/GET_getMatchlist" target="_blank">`val-match-v1.getMatchlist`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_matchlist(
+        &self,
+        route: ValPlatformRoute,
+        puuid: &str,
+    ) -> impl 'a + Future<Output = Result<crate::models::val_match_v1::Matchlist>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/val/match/v1/matchlists/by-puuid/{}", puuid),
+            );
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::val_match_v1::Matchlist,
+            >("val-match-v1.getMatchlist", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("val-match-v1.getMatchlist", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "val-match-v1.getMatchlist", route_str);
+        future
+    }
+    ///Get recent matches
+    ///## Implementation Notes
+    ///Returns a list of match ids that have completed in the last 10 minutes for live regions and 12 hours for the esports routing value. NA/LATAM/BR share a match history deployment. As such, recent matches will return a combined list of matches from those three regions. Requests are load balanced so you may see some inconsistencies as matches are added/removed from the list.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `queue` (required, in path)
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#val-match-v1/GET_getRecent" target="_blank">`val-match-v1.getRecent`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_recent(
+        &self,
+        route: ValPlatformRoute,
+        queue: &str,
+    ) -> impl 'a + Future<Output = Result<crate::models::val_match_v1::RecentMatches>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/val/match/v1/recent-matches/by-queue/{}", queue),
+            );
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::val_match_v1::RecentMatches,
+            >("val-match-v1.getRecent", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("val-match-v1.getRecent", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "val-match-v1.getRecent", route_str);
+        future
+    }
+}
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+impl<'a> ValRankedV1<'a> {
+    ///Get leaderboard for the competitive queue
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///- `act_id` (required, in path) - Act ids can be found using the val-content API.
+    ///- `size` (optional, in query) - Defaults to 200. Valid values: 1 to 200.
+    ///- `start_index` (optional, in query) - Defaults to 0.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#val-ranked-v1/GET_getLeaderboard" target="_blank">`val-ranked-v1.getLeaderboard`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_leaderboard(
+        &self,
+        route: ValPlatformRoute,
+        act_id: &str,
+        size: Option<i32>,
+        start_index: Option<i32>,
+    ) -> impl 'a + Future<
+        Output = Result<Option<crate::models::val_ranked_v1::Leaderboard>>,
+    > {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(
+                Method::GET,
+                route_str,
+                &format!("/val/ranked/v1/leaderboards/by-act/{}", act_id),
+            );
+        let request = if let Some(size) = size {
+            request.query(&[("size", size)])
+        } else {
+            request
+        };
+        let request = if let Some(start_index) = start_index {
+            request.query(&[("startIndex", start_index)])
+        } else {
+            request
+        };
+        let future = self
+            .base
+            .execute_opt::<
+                crate::models::val_ranked_v1::Leaderboard,
+            >("val-ranked-v1.getLeaderboard", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("val-ranked-v1.getLeaderboard", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "val-ranked-v1.getLeaderboard", route_str);
+        future
+    }
+}
+///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+impl<'a> ValStatusV1<'a> {
+    ///Get VALORANT status for the given platform.
+    ///
+    /// # Parameters
+    ///- `route` - Route to query.
+    ///
+    /// # Riot Developer API Reference
+    ///<a href="https://developer.riotgames.com/api-methods/#val-status-v1/GET_getPlatformData" target="_blank">`val-status-v1.getPlatformData`</a>
+    ///
+    ///Note: this item is generated based on <a href="https://github.com/MingweiSamuel/riotapi-schema" target="_blank">`riotapi-schema`</a>.
+    pub fn get_platform_data(
+        &self,
+        route: ValPlatformRoute,
+    ) -> impl 'a + Future<Output = Result<crate::models::val_status_v1::PlatformData>> {
+        let route_str = route.into();
+        let request = self
+            .base
+            .request(Method::GET, route_str, "/val/status/v1/platform-data");
+        let future = self
+            .base
+            .execute_val::<
+                crate::models::val_status_v1::PlatformData,
+            >("val-status-v1.getPlatformData", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future
+            .instrument(
+                tracing::info_span!("val-status-v1.getPlatformData", route = route_str),
+            );
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "val-status-v1.getPlatformData", route_str);
+        future
+    }
+}
+

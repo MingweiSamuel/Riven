@@ -1,3 +1,7 @@
+[build]
+rustflags = [ "--cfg", "riven_autogen" ]
+
 [env]
 RUST_BACKTRACE = "full"
 RUST_LOG = "info,riven=debug"
+RIVEN_AUTOGEN_DEVMODE = "none"

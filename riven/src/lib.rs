@@ -7,6 +7,9 @@
 pub use eserde;
 pub use {reqwest, serde, serde_json};
 
+#[macro_use]
+mod macros;
+
 mod config;
 pub use config::RiotApiConfig;
 pub mod consts;

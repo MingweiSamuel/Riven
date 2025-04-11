@@ -1,5 +1,3 @@
-#![macro_use]
-
 /// Macro for deriving `Serialize` and `Deserialize` for string enums with an
 /// `UNKNOWN(String)` variant.
 ///
@@ -88,8 +86,9 @@ macro_rules! arr {
 /// ```
 macro_rules! newtype_enum {
     {
+        #[repr($repr:ident)]
         $( #[$attr:meta] )*
-        $v:vis newtype_enum $name:ident($repr:ty) {
+        $v:vis enum $name:ident {
             $(
                 $( #[$var_attr:meta] )*
                 $var_name:ident = $var_val:expr,
@@ -203,5 +202,15 @@ macro_rules! impl_edeserialize {
                 }
             }
         )*
+    };
+}
+
+/// Include the given file from `OUT_DIR` if the `riven_autogen_outdir` feature is enabled, otherwise from the current dir.
+macro_rules! include_autogen {
+    ($file:literal) => {
+        #[cfg(riven_autogen_outdir)]
+        include!(concat!(env!("OUT_DIR"), "/", $file));
+        #[cfg(not(riven_autogen_outdir))]
+        include!($file);
     };
 }
