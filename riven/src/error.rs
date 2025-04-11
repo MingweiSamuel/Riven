@@ -105,3 +105,20 @@ impl std::error::Error for RiotApiError {
             .or_else(|| self.de_error().map(|e| e as _))
     }
 }
+
+/// Either not enough capacity or an error that occurred while processing a Riot API request.
+pub enum TryRequestError {
+    /// not enough capacity to process the request (based on the amount requested).
+    NotEnoughCapacity,
+    /// an error that occurred while processing a Riot API request.
+    RiotApiError(RiotApiError),
+}
+
+/// Result containing either NotEnoughReserve or RiotApiError on failure.
+pub type TryRequestResult<T> = std::result::Result<T, TryRequestError>;
+
+impl From<RiotApiError> for TryRequestError {
+    fn from(err: RiotApiError) -> Self {
+        TryRequestError::RiotApiError(err)
+    }
+}

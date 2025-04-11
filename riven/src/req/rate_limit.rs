@@ -49,6 +49,41 @@ impl RateLimit {
         }
     }
 
+    /// Attempt to acquire tokens from both rate limits only if they above min_capacity before factoring in bust factor.
+    pub fn acquire_both_if_above_capacity(
+        app_rate_limit: &Self,
+        method_rate_limit: &Self,
+        min_capacity: f32,
+    ) -> bool {
+        // Check retry after.
+        if app_rate_limit.get_retry_after_delay().is_some()
+            || method_rate_limit.get_retry_after_delay().is_some()
+        {
+            return false;
+        }
+
+        // Check buckets.
+        let app_buckets = app_rate_limit.buckets.read();
+        let method_buckets = method_rate_limit.buckets.read();
+        for bucket in app_buckets.iter().chain(method_buckets.iter()) {
+            if bucket.get_capacity() < min_capacity {
+                return false;
+            }
+        }
+        // Success.
+        for bucket in app_buckets.iter().chain(method_buckets.iter()) {
+            bucket.get_tokens(1);
+        }
+
+        log::trace!(
+            "Tokens obtained, buckets: APP {:?} METHOD {:?}",
+            app_buckets,
+            method_buckets
+        );
+
+        true
+    }
+
     pub async fn acquire_both(app_rate_limit: &Self, method_rate_limit: &Self) {
         while let Some(delay) = Self::acquire_both_or_duration(app_rate_limit, method_rate_limit) {
             futures::select_biased! {

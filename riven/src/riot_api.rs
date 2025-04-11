@@ -1,3 +1,4 @@
+use core::panic;
 use std::future::Future;
 
 use memo_map::MemoMap;
@@ -6,7 +7,7 @@ use reqwest::{Client, Method, RequestBuilder};
 use tracing as log;
 
 use crate::req::RegionalRequester;
-use crate::{ResponseInfo, Result, RiotApiConfig, RiotApiError};
+use crate::{ResponseInfo, Result, RiotApiConfig, RiotApiError, TryRequestError, TryRequestResult};
 
 /// For retrieving data from the Riot Games API.
 ///
@@ -165,6 +166,101 @@ impl RiotApi {
 
     /// This method should generally not be used directly. Consider using endpoint wrappers instead.
     ///
+    /// This sends a request based on the given parameters and returns a parsed result.
+    ///
+    /// # Parameters
+    /// * `method_id` - A unique string id representing the endpoint method for per-method rate limiting.
+    /// * `region_platform` - The stringified platform, used in rate limiting.
+    /// * `request` - The request information. Use `request()` to obtain a `RequestBuilder` instance.
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    ///
+    /// # Returns
+    /// None if min_capacity is not met, otherwise a future resolving to a `Result` containg either a `T` (success) or a `RiotApiError` (failure).
+    pub async fn try_execute_val<'a, T: for<'de> crate::de::Deserialize<'de> + 'a>(
+        &'a self,
+        method_id: &'static str,
+        region_platform: &'static str,
+        request: RequestBuilder,
+        min_capacity: f32,
+    ) -> TryRequestResult<T> {
+        let rinfo = self
+            .try_execute_raw(method_id, region_platform, request, min_capacity)
+            .await?;
+        rinfo
+            .json::<T>()
+            .await
+            .map_err(|e| TryRequestError::RiotApiError(e))
+    }
+
+    /// This method should generally not be used directly. Consider using endpoint wrappers instead.
+    ///
+    /// This sends a request based on the given parameters and returns an optional parsed result.
+    ///
+    /// # Parameters
+    /// * `method_id` - A unique string id representing the endpoint method for per-method rate limiting.
+    /// * `region_platform` - The stringified platform, used in rate limiting.
+    /// * `request` - The request information. Use `request()` to obtain a `RequestBuilder` instance.
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    ///
+    /// # Returns
+    /// None if min_capacity is not met, otherwise a future resolving to a `Result` containg either an `Option<T>` (success) or a `RiotApiError` (failure).
+    pub async fn try_execute_opt<'a, T: for<'de> crate::de::Deserialize<'de> + 'a>(
+        &'a self,
+        method_id: &'static str,
+        region_platform: &'static str,
+        request: RequestBuilder,
+        min_capacity: f32,
+    ) -> TryRequestResult<Option<T>> {
+        let rinfo = self
+            .try_execute_raw(method_id, region_platform, request, min_capacity)
+            .await?;
+        if rinfo.status_none {
+            return Ok(None);
+        }
+        rinfo
+            .json::<Option<T>>()
+            .await
+            .map_err(|e| TryRequestError::RiotApiError(e))
+    }
+
+    /// This method should generally not be used directly. Consider using endpoint wrappers instead.
+    ///
+    /// This sends a request based on the given parameters but does not deserialize any response body.
+    ///
+    /// # Parameters
+    /// * `method_id` - A unique string id representing the endpoint method for per-method rate limiting.
+    /// * `region_platform` - The stringified platform, used in rate limiting.
+    /// * `request` - The request information. Use `request()` to obtain a `RequestBuilder` instance.
+    ///
+    /// # Returns
+    /// None if min_capacity is not met, otherwise a future resolving to a `Result` containg either `()` (success) or a `RiotApiError` (failure).
+    pub async fn try_execute(
+        &self,
+        method_id: &'static str,
+        region_platform: &'static str,
+        request: RequestBuilder,
+        min_capacity: f32,
+    ) -> TryRequestResult<()> {
+        let rinfo = self
+            .try_execute_raw(method_id, region_platform, request, min_capacity)
+            .await?;
+        let retries = rinfo.retries;
+        let status = rinfo.response.status();
+        if status.is_client_error() || status.is_server_error() {
+            Err(TryRequestError::RiotApiError(RiotApiError::new(
+                rinfo.reqwest_errors,
+                None,
+                retries,
+                Some(rinfo.response),
+                Some(status),
+            )))
+        } else {
+            Ok(())
+        }
+    }
+
+    /// This method should generally not be used directly. Consider using endpoint wrappers instead.
+    ///
     /// This sends a request based on the given parameters and returns a raw `ResponseInfo`.
     ///
     /// This can be used to implement a Riot API proxy without needing to deserialize and reserialize JSON responses.
@@ -176,14 +272,49 @@ impl RiotApi {
     ///
     /// # Returns
     /// A future resolving to a `Result` containg either a `ResponseInfo` (success) or a `RiotApiError` (failure).
-    pub fn execute_raw(
+    pub async fn execute_raw(
         &self,
         method_id: &'static str,
         region_platform: &'static str,
         request: RequestBuilder,
-    ) -> impl Future<Output = Result<ResponseInfo>> + '_ {
+    ) -> Result<ResponseInfo> {
         self.regional_requester(region_platform)
-            .execute(&self.config, method_id, request)
+            .execute(&self.config, method_id, request, None)
+            .await
+            .map_err(|e| match e {
+                TryRequestError::NotEnoughCapacity => {
+                    panic!("execute called with no capacity requirement, should not happen.")
+                }
+                TryRequestError::RiotApiError(e) => e,
+            })
+    }
+
+    /// This method should generally not be used directly. Consider using endpoint wrappers instead.
+    ///
+    /// A variabion of `execute_raw` that allows for a minimum capacity to be specified for load shedding.
+    ///
+    /// # Parameters
+    /// * `method_id` - A unique string id representing the endpoint method for per-method rate limiting.
+    /// * `region_platform` - The stringified platform, used in rate limiting.
+    /// * `request` - The request information. Use `request()` to obtain a `RequestBuilder` instance.
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    ///
+    /// # Returns
+    /// None if there is not enough capacity to make the request, otherwise a future resolving to a `Result` containg
+    /// either a `ResponseInfo` (success) or a `RiotApiError` (failure).
+    pub fn try_execute_raw(
+        &self,
+        method_id: &'static str,
+        region_platform: &'static str,
+        request: RequestBuilder,
+        min_capacity: f32,
+    ) -> impl Future<Output = TryRequestResult<ResponseInfo>> + '_ {
+        self.regional_requester(region_platform).execute(
+            &self.config,
+            method_id,
+            request,
+            Some(min_capacity),
+        )
     }
 
     /// Gets the [`RiotApiConfig::rso_clear_header`] for use in RSO endpoints.

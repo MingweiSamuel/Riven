@@ -23,7 +23,7 @@ use crate::metrics;
 use tracing::Instrument;
 use reqwest::Method;
 
-use crate::Result;
+use crate::{Result, TryRequestResult};
 use crate::consts::{ RegionalRoute, PlatformRoute, ValPlatformRoute };
 use crate::riot_api::RiotApi;
 
@@ -331,6 +331,29 @@ impl<'a> AccountV1<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_by_puuid` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `puuid` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#account-v1/GET_getByPuuid" target="_blank">`account-v1.getByPuuid`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_by_puuid(&self, min_capacity: f32, route: RegionalRoute, puuid: &str)
+        -> impl Future<Output = TryRequestResult<crate::models::account_v1::Account>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/riot/account/v1/accounts/by-puuid/{}", puuid));
+        let future = self.base.try_execute_val::<crate::models::account_v1::Account>("account-v1.getByPuuid", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("account-v1.getByPuuid", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "account-v1.getByPuuid", route_str);
+        future
+    }
+
     /// Get account by riot id
     /// # Parameters
     /// * `route` - Route to query.
@@ -350,6 +373,30 @@ impl<'a> AccountV1<'a> {
         let future = future.instrument(tracing::info_span!("account-v1.getByRiotId", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "account-v1.getByRiotId", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_by_riot_id` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `tag_line` (required, in path) - When querying for a player by their riot id, the gameName and tagLine query params are required.
+    /// * `game_name` (required, in path) - When querying for a player by their riot id, the gameName and tagLine query params are required.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#account-v1/GET_getByRiotId" target="_blank">`account-v1.getByRiotId`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_by_riot_id(&self, min_capacity: f32, route: RegionalRoute, game_name: &str, tag_line: &str)
+        -> impl Future<Output = TryRequestResult<Option<crate::models::account_v1::Account>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/riot/account/v1/accounts/by-riot-id/{}/{}", game_name, tag_line));
+        let future = self.base.try_execute_opt::<crate::models::account_v1::Account>("account-v1.getByRiotId", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("account-v1.getByRiotId", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "account-v1.getByRiotId", route_str);
         future
     }
 
@@ -379,6 +426,34 @@ impl<'a> AccountV1<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_by_access_token` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `access_token` - RSO access token.
+    /// # RSO
+    /// This endpoint uses [Riot Sign On](https://developer.riotgames.com/docs/lol#rso-integration)
+    /// via the `access_token` parameter, instead of the Riot API key.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#account-v1/GET_getByAccessToken" target="_blank">`account-v1.getByAccessToken`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_by_access_token(&self, min_capacity: f32, route: RegionalRoute, access_token: impl std::fmt::Display)
+        -> impl Future<Output = TryRequestResult<crate::models::account_v1::Account>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/riot/account/v1/accounts/me");
+        let mut request = request.bearer_auth(access_token);
+        if let Some(clear) = self.base.get_rso_clear_header() { request = request.header(clear, "") }
+        let future = self.base.try_execute_val::<crate::models::account_v1::Account>("account-v1.getByAccessToken", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("account-v1.getByAccessToken", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "account-v1.getByAccessToken", route_str);
+        future
+    }
+
     /// Get active shard for a player
     /// # Parameters
     /// * `route` - Route to query.
@@ -398,6 +473,30 @@ impl<'a> AccountV1<'a> {
         let future = future.instrument(tracing::info_span!("account-v1.getActiveShard", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "account-v1.getActiveShard", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_active_shard` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `game` (required, in path)
+    /// * `puuid` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#account-v1/GET_getActiveShard" target="_blank">`account-v1.getActiveShard`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_active_shard(&self, min_capacity: f32, route: RegionalRoute, game: &str, puuid: &str)
+        -> impl Future<Output = TryRequestResult<Option<crate::models::account_v1::ActiveShard>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/riot/account/v1/active-shards/by-game/{}/by-puuid/{}", game, puuid));
+        let future = self.base.try_execute_opt::<crate::models::account_v1::ActiveShard>("account-v1.getActiveShard", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("account-v1.getActiveShard", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "account-v1.getActiveShard", route_str);
         future
     }
 
@@ -434,6 +533,29 @@ impl<'a> ChampionMasteryV4<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_all_champion_masteries_by_puuid` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `encrypted_puuid` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getAllChampionMasteriesByPUUID" target="_blank">`champion-mastery-v4.getAllChampionMasteriesByPUUID`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_all_champion_masteries_by_puuid(&self, min_capacity: f32, route: PlatformRoute, encrypted_puuid: &str)
+        -> impl Future<Output = TryRequestResult<Vec<crate::models::champion_mastery_v4::ChampionMastery>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/champion-mastery/v4/champion-masteries/by-puuid/{}", encrypted_puuid));
+        let future = self.base.try_execute_val::<Vec<crate::models::champion_mastery_v4::ChampionMastery>>("champion-mastery-v4.getAllChampionMasteriesByPUUID", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("champion-mastery-v4.getAllChampionMasteriesByPUUID", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "champion-mastery-v4.getAllChampionMasteriesByPUUID", route_str);
+        future
+    }
+
     /// Get a champion mastery by puuid and champion ID.
     /// # Parameters
     /// * `route` - Route to query.
@@ -453,6 +575,30 @@ impl<'a> ChampionMasteryV4<'a> {
         let future = future.instrument(tracing::info_span!("champion-mastery-v4.getChampionMasteryByPUUID", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "champion-mastery-v4.getChampionMasteryByPUUID", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_champion_mastery_by_puuid` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `encrypted_puuid` (required, in path)
+    /// * `champion_id` (required, in path) - Champion ID to retrieve Champion Mastery.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMasteryByPUUID" target="_blank">`champion-mastery-v4.getChampionMasteryByPUUID`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_champion_mastery_by_puuid(&self, min_capacity: f32, route: PlatformRoute, encrypted_puuid: &str, champion_id: crate::consts::Champion)
+        -> impl Future<Output = TryRequestResult<crate::models::champion_mastery_v4::ChampionMastery>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/champion-mastery/v4/champion-masteries/by-puuid/{}/by-champion/{}", encrypted_puuid, champion_id));
+        let future = self.base.try_execute_val::<crate::models::champion_mastery_v4::ChampionMastery>("champion-mastery-v4.getChampionMasteryByPUUID", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("champion-mastery-v4.getChampionMasteryByPUUID", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "champion-mastery-v4.getChampionMasteryByPUUID", route_str);
         future
     }
 
@@ -479,6 +625,31 @@ impl<'a> ChampionMasteryV4<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_top_champion_masteries_by_puuid` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `encrypted_puuid` (required, in path)
+    /// * `count` (optional, in query) - Number of entries to retrieve, defaults to 3.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getTopChampionMasteriesByPUUID" target="_blank">`champion-mastery-v4.getTopChampionMasteriesByPUUID`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_top_champion_masteries_by_puuid(&self, min_capacity: f32, route: PlatformRoute, encrypted_puuid: &str, count: Option<i32>)
+        -> impl Future<Output = TryRequestResult<Vec<crate::models::champion_mastery_v4::ChampionMastery>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/champion-mastery/v4/champion-masteries/by-puuid/{}/top", encrypted_puuid));
+        let request = if let Some(count) = count { request.query(&[ ("count", count) ]) } else { request };
+        let future = self.base.try_execute_val::<Vec<crate::models::champion_mastery_v4::ChampionMastery>>("champion-mastery-v4.getTopChampionMasteriesByPUUID", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("champion-mastery-v4.getTopChampionMasteriesByPUUID", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "champion-mastery-v4.getTopChampionMasteriesByPUUID", route_str);
+        future
+    }
+
     /// Get a player's total champion mastery score, which is the sum of individual champion mastery levels.
     /// # Parameters
     /// * `route` - Route to query.
@@ -497,6 +668,29 @@ impl<'a> ChampionMasteryV4<'a> {
         let future = future.instrument(tracing::info_span!("champion-mastery-v4.getChampionMasteryScoreByPUUID", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "champion-mastery-v4.getChampionMasteryScoreByPUUID", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_champion_mastery_score_by_puuid` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `encrypted_puuid` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMasteryScoreByPUUID" target="_blank">`champion-mastery-v4.getChampionMasteryScoreByPUUID`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_champion_mastery_score_by_puuid(&self, min_capacity: f32, route: PlatformRoute, encrypted_puuid: &str)
+        -> impl Future<Output = TryRequestResult<i32>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/champion-mastery/v4/scores/by-puuid/{}", encrypted_puuid));
+        let future = self.base.try_execute_val::<i32>("champion-mastery-v4.getChampionMasteryScoreByPUUID", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("champion-mastery-v4.getChampionMasteryScoreByPUUID", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "champion-mastery-v4.getChampionMasteryScoreByPUUID", route_str);
         future
     }
 
@@ -529,6 +723,28 @@ impl<'a> ChampionV3<'a> {
         let future = future.instrument(tracing::info_span!("champion-v3.getChampionInfo", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "champion-v3.getChampionInfo", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_champion_info` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#champion-v3/GET_getChampionInfo" target="_blank">`champion-v3.getChampionInfo`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_champion_info(&self, min_capacity: f32, route: PlatformRoute)
+        -> impl Future<Output = TryRequestResult<crate::models::champion_v3::ChampionInfo>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/lol/platform/v3/champion-rotations");
+        let future = self.base.try_execute_val::<crate::models::champion_v3::ChampionInfo>("champion-v3.getChampionInfo", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("champion-v3.getChampionInfo", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "champion-v3.getChampionInfo", route_str);
         future
     }
 
@@ -567,6 +783,29 @@ impl<'a> ClashV1<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_players_by_puuid` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `puuid` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#clash-v1/GET_getPlayersByPUUID" target="_blank">`clash-v1.getPlayersByPUUID`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_players_by_puuid(&self, min_capacity: f32, route: PlatformRoute, puuid: &str)
+        -> impl Future<Output = TryRequestResult<Vec<crate::models::clash_v1::Player>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/clash/v1/players/by-puuid/{}", puuid));
+        let future = self.base.try_execute_val::<Vec<crate::models::clash_v1::Player>>("clash-v1.getPlayersByPUUID", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("clash-v1.getPlayersByPUUID", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "clash-v1.getPlayersByPUUID", route_str);
+        future
+    }
+
     /// Get team by ID.
     /// # Parameters
     /// * `route` - Route to query.
@@ -588,6 +827,29 @@ impl<'a> ClashV1<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_team_by_id` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `team_id` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#clash-v1/GET_getTeamById" target="_blank">`clash-v1.getTeamById`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_team_by_id(&self, min_capacity: f32, route: PlatformRoute, team_id: &str)
+        -> impl Future<Output = TryRequestResult<Option<crate::models::clash_v1::Team>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/clash/v1/teams/{}", team_id));
+        let future = self.base.try_execute_opt::<crate::models::clash_v1::Team>("clash-v1.getTeamById", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("clash-v1.getTeamById", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "clash-v1.getTeamById", route_str);
+        future
+    }
+
     /// Get all active or upcoming tournaments.
     /// # Parameters
     /// * `route` - Route to query.
@@ -605,6 +867,28 @@ impl<'a> ClashV1<'a> {
         let future = future.instrument(tracing::info_span!("clash-v1.getTournaments", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "clash-v1.getTournaments", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_tournaments` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#clash-v1/GET_getTournaments" target="_blank">`clash-v1.getTournaments`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_tournaments(&self, min_capacity: f32, route: PlatformRoute)
+        -> impl Future<Output = TryRequestResult<Vec<crate::models::clash_v1::Tournament>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/lol/clash/v1/tournaments");
+        let future = self.base.try_execute_val::<Vec<crate::models::clash_v1::Tournament>>("clash-v1.getTournaments", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("clash-v1.getTournaments", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "clash-v1.getTournaments", route_str);
         future
     }
 
@@ -629,6 +913,29 @@ impl<'a> ClashV1<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_tournament_by_team` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `team_id` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#clash-v1/GET_getTournamentByTeam" target="_blank">`clash-v1.getTournamentByTeam`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_tournament_by_team(&self, min_capacity: f32, route: PlatformRoute, team_id: &str)
+        -> impl Future<Output = TryRequestResult<Option<crate::models::clash_v1::Tournament>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/clash/v1/tournaments/by-team/{}", team_id));
+        let future = self.base.try_execute_opt::<crate::models::clash_v1::Tournament>("clash-v1.getTournamentByTeam", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("clash-v1.getTournamentByTeam", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "clash-v1.getTournamentByTeam", route_str);
+        future
+    }
+
     /// Get tournament by ID.
     /// # Parameters
     /// * `route` - Route to query.
@@ -647,6 +954,29 @@ impl<'a> ClashV1<'a> {
         let future = future.instrument(tracing::info_span!("clash-v1.getTournamentById", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "clash-v1.getTournamentById", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_tournament_by_id` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `tournament_id` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#clash-v1/GET_getTournamentById" target="_blank">`clash-v1.getTournamentById`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_tournament_by_id(&self, min_capacity: f32, route: PlatformRoute, tournament_id: i32)
+        -> impl Future<Output = TryRequestResult<Option<crate::models::clash_v1::Tournament>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/clash/v1/tournaments/{}", tournament_id));
+        let future = self.base.try_execute_opt::<crate::models::clash_v1::Tournament>("clash-v1.getTournamentById", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("clash-v1.getTournamentById", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "clash-v1.getTournamentById", route_str);
         future
     }
 
@@ -687,6 +1017,33 @@ impl<'a> LeagueExpV4<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_league_entries` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `queue` (required, in path) - Note that the queue value must be a valid ranked queue.
+    /// * `tier` (required, in path)
+    /// * `division` (required, in path)
+    /// * `page` (optional, in query) - Defaults to 1. Starts with page 1.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#league-exp-v4/GET_getLeagueEntries" target="_blank">`league-exp-v4.getLeagueEntries`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_league_entries(&self, min_capacity: f32, route: PlatformRoute, queue: crate::consts::QueueType, tier: crate::consts::Tier, division: crate::consts::Division, page: Option<i32>)
+        -> impl Future<Output = TryRequestResult<Option<Vec<crate::models::league_exp_v4::LeagueEntry>>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/league-exp/v4/entries/{}/{}/{}", queue, tier, division));
+        let request = if let Some(page) = page { request.query(&[ ("page", page) ]) } else { request };
+        let future = self.base.try_execute_opt::<Vec<crate::models::league_exp_v4::LeagueEntry>>("league-exp-v4.getLeagueEntries", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("league-exp-v4.getLeagueEntries", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "league-exp-v4.getLeagueEntries", route_str);
+        future
+    }
+
 }
 
 /// LeagueV4 endpoints handle, accessed by calling [`league_v4()`](RiotApi::league_v4) on a [`RiotApi`] instance.
@@ -720,6 +1077,29 @@ impl<'a> LeagueV4<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_challenger_league` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `queue` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getChallengerLeague" target="_blank">`league-v4.getChallengerLeague`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_challenger_league(&self, min_capacity: f32, route: PlatformRoute, queue: crate::consts::QueueType)
+        -> impl Future<Output = TryRequestResult<crate::models::league_v4::LeagueList>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/challengerleagues/by-queue/{}", queue));
+        let future = self.base.try_execute_val::<crate::models::league_v4::LeagueList>("league-v4.getChallengerLeague", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("league-v4.getChallengerLeague", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "league-v4.getChallengerLeague", route_str);
+        future
+    }
+
     /// Get league entries in all queues for a given puuid
     /// # Parameters
     /// * `route` - Route to query.
@@ -741,6 +1121,29 @@ impl<'a> LeagueV4<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_league_entries_by_puuid` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `encrypted_puuid` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntriesByPUUID" target="_blank">`league-v4.getLeagueEntriesByPUUID`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_league_entries_by_puuid(&self, min_capacity: f32, route: PlatformRoute, encrypted_puuid: &str)
+        -> impl Future<Output = TryRequestResult<Vec<crate::models::league_v4::LeagueEntry>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/entries/by-puuid/{}", encrypted_puuid));
+        let future = self.base.try_execute_val::<Vec<crate::models::league_v4::LeagueEntry>>("league-v4.getLeagueEntriesByPUUID", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("league-v4.getLeagueEntriesByPUUID", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "league-v4.getLeagueEntriesByPUUID", route_str);
+        future
+    }
+
     /// Get league entries in all queues for a given summoner ID.
     /// # Parameters
     /// * `route` - Route to query.
@@ -759,6 +1162,29 @@ impl<'a> LeagueV4<'a> {
         let future = future.instrument(tracing::info_span!("league-v4.getLeagueEntriesForSummoner", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "league-v4.getLeagueEntriesForSummoner", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_league_entries_for_summoner` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `encrypted_summoner_id` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntriesForSummoner" target="_blank">`league-v4.getLeagueEntriesForSummoner`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_league_entries_for_summoner(&self, min_capacity: f32, route: PlatformRoute, encrypted_summoner_id: &str)
+        -> impl Future<Output = TryRequestResult<Vec<crate::models::league_v4::LeagueEntry>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/entries/by-summoner/{}", encrypted_summoner_id));
+        let future = self.base.try_execute_val::<Vec<crate::models::league_v4::LeagueEntry>>("league-v4.getLeagueEntriesForSummoner", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("league-v4.getLeagueEntriesForSummoner", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "league-v4.getLeagueEntriesForSummoner", route_str);
         future
     }
 
@@ -787,6 +1213,33 @@ impl<'a> LeagueV4<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_league_entries` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `division` (required, in path)
+    /// * `tier` (required, in path)
+    /// * `queue` (required, in path) - Note that the queue value must be a valid ranked queue.
+    /// * `page` (optional, in query) - Defaults to 1. Starts with page 1.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntries" target="_blank">`league-v4.getLeagueEntries`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_league_entries(&self, min_capacity: f32, route: PlatformRoute, queue: crate::consts::QueueType, tier: crate::consts::Tier, division: crate::consts::Division, page: Option<i32>)
+        -> impl Future<Output = TryRequestResult<Option<Vec<crate::models::league_v4::LeagueEntry>>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/entries/{}/{}/{}", queue, tier, division));
+        let request = if let Some(page) = page { request.query(&[ ("page", page) ]) } else { request };
+        let future = self.base.try_execute_opt::<Vec<crate::models::league_v4::LeagueEntry>>("league-v4.getLeagueEntries", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("league-v4.getLeagueEntries", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "league-v4.getLeagueEntries", route_str);
+        future
+    }
+
     /// Get the grandmaster league of a specific queue.
     /// # Parameters
     /// * `route` - Route to query.
@@ -805,6 +1258,29 @@ impl<'a> LeagueV4<'a> {
         let future = future.instrument(tracing::info_span!("league-v4.getGrandmasterLeague", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "league-v4.getGrandmasterLeague", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_grandmaster_league` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `queue` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getGrandmasterLeague" target="_blank">`league-v4.getGrandmasterLeague`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_grandmaster_league(&self, min_capacity: f32, route: PlatformRoute, queue: crate::consts::QueueType)
+        -> impl Future<Output = TryRequestResult<crate::models::league_v4::LeagueList>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/grandmasterleagues/by-queue/{}", queue));
+        let future = self.base.try_execute_val::<crate::models::league_v4::LeagueList>("league-v4.getGrandmasterLeague", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("league-v4.getGrandmasterLeague", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "league-v4.getGrandmasterLeague", route_str);
         future
     }
 
@@ -829,6 +1305,29 @@ impl<'a> LeagueV4<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_league_by_id` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `league_id` (required, in path) - The UUID of the league.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueById" target="_blank">`league-v4.getLeagueById`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_league_by_id(&self, min_capacity: f32, route: PlatformRoute, league_id: &str)
+        -> impl Future<Output = TryRequestResult<Option<crate::models::league_v4::LeagueList>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/leagues/{}", league_id));
+        let future = self.base.try_execute_opt::<crate::models::league_v4::LeagueList>("league-v4.getLeagueById", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("league-v4.getLeagueById", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "league-v4.getLeagueById", route_str);
+        future
+    }
+
     /// Get the master league for given queue.
     /// # Parameters
     /// * `route` - Route to query.
@@ -847,6 +1346,29 @@ impl<'a> LeagueV4<'a> {
         let future = future.instrument(tracing::info_span!("league-v4.getMasterLeague", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "league-v4.getMasterLeague", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_master_league` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `queue` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getMasterLeague" target="_blank">`league-v4.getMasterLeague`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_master_league(&self, min_capacity: f32, route: PlatformRoute, queue: crate::consts::QueueType)
+        -> impl Future<Output = TryRequestResult<crate::models::league_v4::LeagueList>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/masterleagues/by-queue/{}", queue));
+        let future = self.base.try_execute_val::<crate::models::league_v4::LeagueList>("league-v4.getMasterLeague", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("league-v4.getMasterLeague", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "league-v4.getMasterLeague", route_str);
         future
     }
 
@@ -882,6 +1404,28 @@ impl<'a> LolChallengesV1<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_all_challenge_configs` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#lol-challenges-v1/GET_getAllChallengeConfigs" target="_blank">`lol-challenges-v1.getAllChallengeConfigs`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_all_challenge_configs(&self, min_capacity: f32, route: PlatformRoute)
+        -> impl Future<Output = TryRequestResult<Vec<crate::models::lol_challenges_v1::ChallengeConfigInfo>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/lol/challenges/v1/challenges/config");
+        let future = self.base.try_execute_val::<Vec<crate::models::lol_challenges_v1::ChallengeConfigInfo>>("lol-challenges-v1.getAllChallengeConfigs", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("lol-challenges-v1.getAllChallengeConfigs", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "lol-challenges-v1.getAllChallengeConfigs", route_str);
+        future
+    }
+
     /// Map of level to percentile of players who have achieved it - keys: ChallengeId -> Season -> Level -> percentile of players who achieved it
     /// # Parameters
     /// * `route` - Route to query.
@@ -899,6 +1443,28 @@ impl<'a> LolChallengesV1<'a> {
         let future = future.instrument(tracing::info_span!("lol-challenges-v1.getAllChallengePercentiles", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "lol-challenges-v1.getAllChallengePercentiles", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_all_challenge_percentiles` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#lol-challenges-v1/GET_getAllChallengePercentiles" target="_blank">`lol-challenges-v1.getAllChallengePercentiles`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_all_challenge_percentiles(&self, min_capacity: f32, route: PlatformRoute)
+        -> impl Future<Output = TryRequestResult<std::collections::HashMap<i64, std::collections::HashMap<crate::consts::Tier, f64>>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/lol/challenges/v1/challenges/percentiles");
+        let future = self.base.try_execute_val::<std::collections::HashMap<i64, std::collections::HashMap<crate::consts::Tier, f64>>>("lol-challenges-v1.getAllChallengePercentiles", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("lol-challenges-v1.getAllChallengePercentiles", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "lol-challenges-v1.getAllChallengePercentiles", route_str);
         future
     }
 
@@ -920,6 +1486,29 @@ impl<'a> LolChallengesV1<'a> {
         let future = future.instrument(tracing::info_span!("lol-challenges-v1.getChallengeConfigs", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "lol-challenges-v1.getChallengeConfigs", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_challenge_configs` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `challenge_id` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#lol-challenges-v1/GET_getChallengeConfigs" target="_blank">`lol-challenges-v1.getChallengeConfigs`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_challenge_configs(&self, min_capacity: f32, route: PlatformRoute, challenge_id: i64)
+        -> impl Future<Output = TryRequestResult<Option<crate::models::lol_challenges_v1::ChallengeConfigInfo>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/challenges/v1/challenges/{}/config", challenge_id));
+        let future = self.base.try_execute_opt::<crate::models::lol_challenges_v1::ChallengeConfigInfo>("lol-challenges-v1.getChallengeConfigs", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("lol-challenges-v1.getChallengeConfigs", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "lol-challenges-v1.getChallengeConfigs", route_str);
         future
     }
 
@@ -947,6 +1536,32 @@ impl<'a> LolChallengesV1<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_challenge_leaderboards` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `level` (required, in path)
+    /// * `challenge_id` (required, in path)
+    /// * `limit` (optional, in query)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#lol-challenges-v1/GET_getChallengeLeaderboards" target="_blank">`lol-challenges-v1.getChallengeLeaderboards`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_challenge_leaderboards(&self, min_capacity: f32, route: PlatformRoute, challenge_id: i64, level: crate::consts::Tier, limit: Option<i32>)
+        -> impl Future<Output = TryRequestResult<Option<Vec<crate::models::lol_challenges_v1::ApexPlayerInfo>>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/challenges/v1/challenges/{}/leaderboards/by-level/{}", challenge_id, level));
+        let request = if let Some(limit) = limit { request.query(&[ ("limit", limit) ]) } else { request };
+        let future = self.base.try_execute_opt::<Vec<crate::models::lol_challenges_v1::ApexPlayerInfo>>("lol-challenges-v1.getChallengeLeaderboards", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("lol-challenges-v1.getChallengeLeaderboards", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "lol-challenges-v1.getChallengeLeaderboards", route_str);
+        future
+    }
+
     /// Map of level to percentile of players who have achieved it
     /// # Parameters
     /// * `route` - Route to query.
@@ -968,6 +1583,29 @@ impl<'a> LolChallengesV1<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_challenge_percentiles` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `challenge_id` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#lol-challenges-v1/GET_getChallengePercentiles" target="_blank">`lol-challenges-v1.getChallengePercentiles`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_challenge_percentiles(&self, min_capacity: f32, route: PlatformRoute, challenge_id: i64)
+        -> impl Future<Output = TryRequestResult<Option<std::collections::HashMap<crate::consts::Tier, f64>>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/challenges/v1/challenges/{}/percentiles", challenge_id));
+        let future = self.base.try_execute_opt::<std::collections::HashMap<crate::consts::Tier, f64>>("lol-challenges-v1.getChallengePercentiles", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("lol-challenges-v1.getChallengePercentiles", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "lol-challenges-v1.getChallengePercentiles", route_str);
+        future
+    }
+
     /// Returns player information with list of all progressed challenges (REST)
     /// # Parameters
     /// * `route` - Route to query.
@@ -986,6 +1624,29 @@ impl<'a> LolChallengesV1<'a> {
         let future = future.instrument(tracing::info_span!("lol-challenges-v1.getPlayerData", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "lol-challenges-v1.getPlayerData", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_player_data` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `puuid` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#lol-challenges-v1/GET_getPlayerData" target="_blank">`lol-challenges-v1.getPlayerData`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_player_data(&self, min_capacity: f32, route: PlatformRoute, puuid: &str)
+        -> impl Future<Output = TryRequestResult<crate::models::lol_challenges_v1::PlayerInfo>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/challenges/v1/player-data/{}", puuid));
+        let future = self.base.try_execute_val::<crate::models::lol_challenges_v1::PlayerInfo>("lol-challenges-v1.getPlayerData", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("lol-challenges-v1.getPlayerData", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "lol-challenges-v1.getPlayerData", route_str);
         future
     }
 
@@ -1039,6 +1700,46 @@ impl<'a> LolRsoMatchV1<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_match_ids` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `access_token` - RSO access token.
+    /// * `count` (optional, in query) - Defaults to 20. Valid values: 0 to 100. Number of match ids to return.
+    /// * `start` (optional, in query) - Defaults to 0. Start index.
+    /// * `type` (optional, in query) - Filter the list of match ids by the type of match. This filter is mutually inclusive of the queue filter meaning any match ids returned must match both the queue and type filters.
+    /// * `queue` (optional, in query) - Filter the list of match ids by a specific queue id. This filter is mutually inclusive of the type filter meaning any match ids returned must match both the queue and type filters.
+    /// * `end_time` (optional, in query) - Epoch timestamp in seconds.
+    /// * `start_time` (optional, in query) - Epoch timestamp in seconds. The matchlist started storing timestamps on June 16th, 2021. Any matches played before June 16th, 2021 won't be included in the results if the startTime filter is set.
+    /// # RSO
+    /// This endpoint uses [Riot Sign On](https://developer.riotgames.com/docs/lol#rso-integration)
+    /// via the `access_token` parameter, instead of the Riot API key.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#lol-rso-match-v1/GET_getMatchIds" target="_blank">`lol-rso-match-v1.getMatchIds`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_match_ids(&self, min_capacity: f32, route: RegionalRoute, access_token: impl std::fmt::Display, count: Option<i32>, end_time: Option<i64>, queue: Option<i32>, start: Option<i32>, start_time: Option<i64>, r#type: Option<&str>)
+        -> impl Future<Output = TryRequestResult<Vec<String>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/lol/rso-match/v1/matches/ids");
+        let mut request = request.bearer_auth(access_token);
+        if let Some(clear) = self.base.get_rso_clear_header() { request = request.header(clear, "") }
+        let request = if let Some(count) = count { request.query(&[ ("count", count) ]) } else { request };
+        let request = if let Some(end_time) = end_time { request.query(&[ ("endTime", end_time) ]) } else { request };
+        let request = if let Some(queue) = queue { request.query(&[ ("queue", queue) ]) } else { request };
+        let request = if let Some(start) = start { request.query(&[ ("start", start) ]) } else { request };
+        let request = if let Some(start_time) = start_time { request.query(&[ ("startTime", start_time) ]) } else { request };
+        let request = if let Some(r#type) = r#type { request.query(&[ ("type", r#type) ]) } else { request };
+        let future = self.base.try_execute_val::<Vec<String>>("lol-rso-match-v1.getMatchIds", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("lol-rso-match-v1.getMatchIds", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "lol-rso-match-v1.getMatchIds", route_str);
+        future
+    }
+
     /// Get a match by match id
     /// # Parameters
     /// * `route` - Route to query.
@@ -1066,6 +1767,35 @@ impl<'a> LolRsoMatchV1<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_match` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `access_token` - RSO access token.
+    /// * `match_id` (required, in path)
+    /// # RSO
+    /// This endpoint uses [Riot Sign On](https://developer.riotgames.com/docs/lol#rso-integration)
+    /// via the `access_token` parameter, instead of the Riot API key.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#lol-rso-match-v1/GET_getMatch" target="_blank">`lol-rso-match-v1.getMatch`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_match(&self, min_capacity: f32, route: RegionalRoute, access_token: impl std::fmt::Display, match_id: &str)
+        -> impl Future<Output = TryRequestResult<crate::models::match_v5::Match>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/rso-match/v1/matches/{}", match_id));
+        let mut request = request.bearer_auth(access_token);
+        if let Some(clear) = self.base.get_rso_clear_header() { request = request.header(clear, "") }
+        let future = self.base.try_execute_val::<crate::models::match_v5::Match>("lol-rso-match-v1.getMatch", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("lol-rso-match-v1.getMatch", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "lol-rso-match-v1.getMatch", route_str);
+        future
+    }
+
     /// Get a match timeline by match id
     /// # Parameters
     /// * `route` - Route to query.
@@ -1090,6 +1820,35 @@ impl<'a> LolRsoMatchV1<'a> {
         let future = future.instrument(tracing::info_span!("lol-rso-match-v1.getTimeline", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "lol-rso-match-v1.getTimeline", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_timeline` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `access_token` - RSO access token.
+    /// * `match_id` (required, in path)
+    /// # RSO
+    /// This endpoint uses [Riot Sign On](https://developer.riotgames.com/docs/lol#rso-integration)
+    /// via the `access_token` parameter, instead of the Riot API key.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#lol-rso-match-v1/GET_getTimeline" target="_blank">`lol-rso-match-v1.getTimeline`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_timeline(&self, min_capacity: f32, route: RegionalRoute, access_token: impl std::fmt::Display, match_id: &str)
+        -> impl Future<Output = TryRequestResult<crate::models::match_v5::Timeline>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/rso-match/v1/matches/{}/timeline", match_id));
+        let mut request = request.bearer_auth(access_token);
+        if let Some(clear) = self.base.get_rso_clear_header() { request = request.header(clear, "") }
+        let future = self.base.try_execute_val::<crate::models::match_v5::Timeline>("lol-rso-match-v1.getTimeline", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("lol-rso-match-v1.getTimeline", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "lol-rso-match-v1.getTimeline", route_str);
         future
     }
 
@@ -1122,6 +1881,28 @@ impl<'a> LolStatusV4<'a> {
         let future = future.instrument(tracing::info_span!("lol-status-v4.getPlatformData", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "lol-status-v4.getPlatformData", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_platform_data` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#lol-status-v4/GET_getPlatformData" target="_blank">`lol-status-v4.getPlatformData`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_platform_data(&self, min_capacity: f32, route: PlatformRoute)
+        -> impl Future<Output = TryRequestResult<crate::models::lol_status_v4::PlatformData>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/lol/status/v4/platform-data");
+        let future = self.base.try_execute_val::<crate::models::lol_status_v4::PlatformData>("lol-status-v4.getPlatformData", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("lol-status-v4.getPlatformData", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "lol-status-v4.getPlatformData", route_str);
         future
     }
 
@@ -1163,6 +1944,34 @@ impl<'a> LorDeckV1<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_decks` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `access_token` - RSO access token.
+    /// # RSO
+    /// This endpoint uses [Riot Sign On](https://developer.riotgames.com/docs/lol#rso-integration)
+    /// via the `access_token` parameter, instead of the Riot API key.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#lor-deck-v1/GET_getDecks" target="_blank">`lor-deck-v1.getDecks`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_decks(&self, min_capacity: f32, route: RegionalRoute, access_token: impl std::fmt::Display)
+        -> impl Future<Output = TryRequestResult<Vec<crate::models::lor_deck_v1::Deck>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/lor/deck/v1/decks/me");
+        let mut request = request.bearer_auth(access_token);
+        if let Some(clear) = self.base.get_rso_clear_header() { request = request.header(clear, "") }
+        let future = self.base.try_execute_val::<Vec<crate::models::lor_deck_v1::Deck>>("lor-deck-v1.getDecks", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("lor-deck-v1.getDecks", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "lor-deck-v1.getDecks", route_str);
+        future
+    }
+
     /// Create a new deck for the calling user.
     /// # Parameters
     /// * `route` - Route to query.
@@ -1189,6 +1998,35 @@ impl<'a> LorDeckV1<'a> {
         let future = future.instrument(tracing::info_span!("lor-deck-v1.createDeck", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "lor-deck-v1.createDeck", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `create_deck` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `access_token` - RSO access token.
+    /// # RSO
+    /// This endpoint uses [Riot Sign On](https://developer.riotgames.com/docs/lol#rso-integration)
+    /// via the `access_token` parameter, instead of the Riot API key.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#lor-deck-v1/POST_createDeck" target="_blank">`lor-deck-v1.createDeck`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_create_deck(&self, min_capacity: f32, route: RegionalRoute, access_token: impl std::fmt::Display, body: &crate::models::lor_deck_v1::NewDeck)
+        -> impl Future<Output = TryRequestResult<String>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::POST, route_str, "/lor/deck/v1/decks/me");
+        let mut request = request.bearer_auth(access_token);
+        if let Some(clear) = self.base.get_rso_clear_header() { request = request.header(clear, "") }
+        let request = request.body(serde_json::ser::to_vec(body).unwrap());
+        let future = self.base.try_execute_val::<String>("lor-deck-v1.createDeck", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("lor-deck-v1.createDeck", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "lor-deck-v1.createDeck", route_str);
         future
     }
 
@@ -1230,6 +2068,34 @@ impl<'a> LorInventoryV1<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_cards` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `access_token` - RSO access token.
+    /// # RSO
+    /// This endpoint uses [Riot Sign On](https://developer.riotgames.com/docs/lol#rso-integration)
+    /// via the `access_token` parameter, instead of the Riot API key.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#lor-inventory-v1/GET_getCards" target="_blank">`lor-inventory-v1.getCards`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_cards(&self, min_capacity: f32, route: RegionalRoute, access_token: impl std::fmt::Display)
+        -> impl Future<Output = TryRequestResult<Vec<crate::models::lor_inventory_v1::Card>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/lor/inventory/v1/cards/me");
+        let mut request = request.bearer_auth(access_token);
+        if let Some(clear) = self.base.get_rso_clear_header() { request = request.header(clear, "") }
+        let future = self.base.try_execute_val::<Vec<crate::models::lor_inventory_v1::Card>>("lor-inventory-v1.getCards", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("lor-inventory-v1.getCards", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "lor-inventory-v1.getCards", route_str);
+        future
+    }
+
 }
 
 /// LorMatchV1 endpoints handle, accessed by calling [`lor_match_v1()`](RiotApi::lor_match_v1) on a [`RiotApi`] instance.
@@ -1263,6 +2129,29 @@ impl<'a> LorMatchV1<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_match_ids_by_puuid` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `puuid` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#lor-match-v1/GET_getMatchIdsByPUUID" target="_blank">`lor-match-v1.getMatchIdsByPUUID`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_match_ids_by_puuid(&self, min_capacity: f32, route: RegionalRoute, puuid: &str)
+        -> impl Future<Output = TryRequestResult<Vec<String>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lor/match/v1/matches/by-puuid/{}/ids", puuid));
+        let future = self.base.try_execute_val::<Vec<String>>("lor-match-v1.getMatchIdsByPUUID", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("lor-match-v1.getMatchIdsByPUUID", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "lor-match-v1.getMatchIdsByPUUID", route_str);
+        future
+    }
+
     /// Get match by id
     /// # Parameters
     /// * `route` - Route to query.
@@ -1281,6 +2170,29 @@ impl<'a> LorMatchV1<'a> {
         let future = future.instrument(tracing::info_span!("lor-match-v1.getMatch", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "lor-match-v1.getMatch", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_match` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `match_id` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#lor-match-v1/GET_getMatch" target="_blank">`lor-match-v1.getMatch`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_match(&self, min_capacity: f32, route: RegionalRoute, match_id: &str)
+        -> impl Future<Output = TryRequestResult<crate::models::lor_match_v1::Match>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lor/match/v1/matches/{}", match_id));
+        let future = self.base.try_execute_val::<crate::models::lor_match_v1::Match>("lor-match-v1.getMatch", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("lor-match-v1.getMatch", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "lor-match-v1.getMatch", route_str);
         future
     }
 
@@ -1316,6 +2228,28 @@ impl<'a> LorRankedV1<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_leaderboards` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#lor-ranked-v1/GET_getLeaderboards" target="_blank">`lor-ranked-v1.getLeaderboards`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_leaderboards(&self, min_capacity: f32, route: RegionalRoute)
+        -> impl Future<Output = TryRequestResult<crate::models::lor_ranked_v1::Leaderboard>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/lor/ranked/v1/leaderboards");
+        let future = self.base.try_execute_val::<crate::models::lor_ranked_v1::Leaderboard>("lor-ranked-v1.getLeaderboards", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("lor-ranked-v1.getLeaderboards", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "lor-ranked-v1.getLeaderboards", route_str);
+        future
+    }
+
 }
 
 /// LorStatusV1 endpoints handle, accessed by calling [`lor_status_v1()`](RiotApi::lor_status_v1) on a [`RiotApi`] instance.
@@ -1345,6 +2279,28 @@ impl<'a> LorStatusV1<'a> {
         let future = future.instrument(tracing::info_span!("lor-status-v1.getPlatformData", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "lor-status-v1.getPlatformData", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_platform_data` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#lor-status-v1/GET_getPlatformData" target="_blank">`lor-status-v1.getPlatformData`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_platform_data(&self, min_capacity: f32, route: RegionalRoute)
+        -> impl Future<Output = TryRequestResult<crate::models::lor_status_v1::PlatformData>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/lor/status/v1/platform-data");
+        let future = self.base.try_execute_val::<crate::models::lor_status_v1::PlatformData>("lor-status-v1.getPlatformData", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("lor-status-v1.getPlatformData", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "lor-status-v1.getPlatformData", route_str);
         future
     }
 
@@ -1393,6 +2349,41 @@ impl<'a> MatchV5<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_match_ids_by_puuid` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `puuid` (required, in path)
+    /// * `start_time` (optional, in query) - Epoch timestamp in seconds. The matchlist started storing timestamps on June 16th, 2021. Any matches played before June 16th, 2021 won't be included in the results if the startTime filter is set.
+    /// * `end_time` (optional, in query) - Epoch timestamp in seconds.
+    /// * `queue` (optional, in query) - Filter the list of match ids by a specific queue id. This filter is mutually inclusive of the type filter meaning any match ids returned must match both the queue and type filters.
+    /// * `type` (optional, in query) - Filter the list of match ids by the type of match. This filter is mutually inclusive of the queue filter meaning any match ids returned must match both the queue and type filters.
+    /// * `start` (optional, in query) - Defaults to 0. Start index.
+    /// * `count` (optional, in query) - Defaults to 20. Valid values: 0 to 100. Number of match ids to return.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#match-v5/GET_getMatchIdsByPUUID" target="_blank">`match-v5.getMatchIdsByPUUID`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_match_ids_by_puuid(&self, min_capacity: f32, route: RegionalRoute, puuid: &str, count: Option<i32>, end_time: Option<i64>, queue: Option<crate::consts::Queue>, start_time: Option<i64>, start: Option<i32>, r#type: Option<&str>)
+        -> impl Future<Output = TryRequestResult<Vec<String>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/match/v5/matches/by-puuid/{}/ids", puuid));
+        let request = if let Some(count) = count { request.query(&[ ("count", count) ]) } else { request };
+        let request = if let Some(end_time) = end_time { request.query(&[ ("endTime", end_time) ]) } else { request };
+        let request = if let Some(queue) = queue { request.query(&[ ("queue", queue) ]) } else { request };
+        let request = if let Some(start_time) = start_time { request.query(&[ ("startTime", start_time) ]) } else { request };
+        let request = if let Some(start) = start { request.query(&[ ("start", start) ]) } else { request };
+        let request = if let Some(r#type) = r#type { request.query(&[ ("type", r#type) ]) } else { request };
+        let future = self.base.try_execute_val::<Vec<String>>("match-v5.getMatchIdsByPUUID", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("match-v5.getMatchIdsByPUUID", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "match-v5.getMatchIdsByPUUID", route_str);
+        future
+    }
+
     /// Get a match by match id
     /// # Parameters
     /// * `route` - Route to query.
@@ -1414,6 +2405,29 @@ impl<'a> MatchV5<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_match` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `match_id` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#match-v5/GET_getMatch" target="_blank">`match-v5.getMatch`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_match(&self, min_capacity: f32, route: RegionalRoute, match_id: &str)
+        -> impl Future<Output = TryRequestResult<Option<crate::models::match_v5::Match>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/match/v5/matches/{}", match_id));
+        let future = self.base.try_execute_opt::<crate::models::match_v5::Match>("match-v5.getMatch", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("match-v5.getMatch", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "match-v5.getMatch", route_str);
+        future
+    }
+
     /// Get a match timeline by match id
     /// # Parameters
     /// * `route` - Route to query.
@@ -1432,6 +2446,29 @@ impl<'a> MatchV5<'a> {
         let future = future.instrument(tracing::info_span!("match-v5.getTimeline", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "match-v5.getTimeline", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_timeline` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `match_id` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#match-v5/GET_getTimeline" target="_blank">`match-v5.getTimeline`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_timeline(&self, min_capacity: f32, route: RegionalRoute, match_id: &str)
+        -> impl Future<Output = TryRequestResult<Option<crate::models::match_v5::Timeline>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/match/v5/matches/{}/timeline", match_id));
+        let future = self.base.try_execute_opt::<crate::models::match_v5::Timeline>("match-v5.getTimeline", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("match-v5.getTimeline", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "match-v5.getTimeline", route_str);
         future
     }
 
@@ -1468,6 +2505,29 @@ impl<'a> SpectatorTftV5<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_current_game_info_by_puuid` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `encrypted_puuid` (required, in path) - The puuid of the summoner.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#spectator-tft-v5/GET_getCurrentGameInfoByPuuid" target="_blank">`spectator-tft-v5.getCurrentGameInfoByPuuid`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_current_game_info_by_puuid(&self, min_capacity: f32, route: PlatformRoute, encrypted_puuid: &str)
+        -> impl Future<Output = TryRequestResult<Option<crate::models::spectator_tft_v5::CurrentGameInfo>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/spectator/tft/v5/active-games/by-puuid/{}", encrypted_puuid));
+        let future = self.base.try_execute_opt::<crate::models::spectator_tft_v5::CurrentGameInfo>("spectator-tft-v5.getCurrentGameInfoByPuuid", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("spectator-tft-v5.getCurrentGameInfoByPuuid", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "spectator-tft-v5.getCurrentGameInfoByPuuid", route_str);
+        future
+    }
+
     /// Get list of featured games.
     /// # Parameters
     /// * `route` - Route to query.
@@ -1485,6 +2545,28 @@ impl<'a> SpectatorTftV5<'a> {
         let future = future.instrument(tracing::info_span!("spectator-tft-v5.getFeaturedGames", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "spectator-tft-v5.getFeaturedGames", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_featured_games` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#spectator-tft-v5/GET_getFeaturedGames" target="_blank">`spectator-tft-v5.getFeaturedGames`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_featured_games(&self, min_capacity: f32, route: PlatformRoute)
+        -> impl Future<Output = TryRequestResult<crate::models::spectator_tft_v5::FeaturedGames>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/lol/spectator/tft/v5/featured-games");
+        let future = self.base.try_execute_val::<crate::models::spectator_tft_v5::FeaturedGames>("spectator-tft-v5.getFeaturedGames", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("spectator-tft-v5.getFeaturedGames", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "spectator-tft-v5.getFeaturedGames", route_str);
         future
     }
 
@@ -1521,6 +2603,29 @@ impl<'a> SpectatorV5<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_current_game_info_by_puuid` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `encrypted_puuid` (required, in path) - The puuid of the summoner.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#spectator-v5/GET_getCurrentGameInfoByPuuid" target="_blank">`spectator-v5.getCurrentGameInfoByPuuid`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_current_game_info_by_puuid(&self, min_capacity: f32, route: PlatformRoute, encrypted_puuid: &str)
+        -> impl Future<Output = TryRequestResult<Option<crate::models::spectator_v5::CurrentGameInfo>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/spectator/v5/active-games/by-summoner/{}", encrypted_puuid));
+        let future = self.base.try_execute_opt::<crate::models::spectator_v5::CurrentGameInfo>("spectator-v5.getCurrentGameInfoByPuuid", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("spectator-v5.getCurrentGameInfoByPuuid", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "spectator-v5.getCurrentGameInfoByPuuid", route_str);
+        future
+    }
+
     /// Get list of featured games.
     /// # Parameters
     /// * `route` - Route to query.
@@ -1538,6 +2643,28 @@ impl<'a> SpectatorV5<'a> {
         let future = future.instrument(tracing::info_span!("spectator-v5.getFeaturedGames", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "spectator-v5.getFeaturedGames", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_featured_games` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#spectator-v5/GET_getFeaturedGames" target="_blank">`spectator-v5.getFeaturedGames`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_featured_games(&self, min_capacity: f32, route: PlatformRoute)
+        -> impl Future<Output = TryRequestResult<crate::models::spectator_v5::FeaturedGames>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/lol/spectator/v5/featured-games");
+        let future = self.base.try_execute_val::<crate::models::spectator_v5::FeaturedGames>("spectator-v5.getFeaturedGames", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("spectator-v5.getFeaturedGames", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "spectator-v5.getFeaturedGames", route_str);
         future
     }
 
@@ -1574,6 +2701,29 @@ impl<'a> SummonerV4<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_by_rsopuuid` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `rso_puuid` (required, in path) - Summoner ID
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByRSOPUUID" target="_blank">`summoner-v4.getByRSOPUUID`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_by_rsopuuid(&self, min_capacity: f32, route: PlatformRoute, rso_puuid: &str)
+        -> impl Future<Output = TryRequestResult<crate::models::summoner_v4::Summoner>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/fulfillment/v1/summoners/by-puuid/{}", rso_puuid));
+        let future = self.base.try_execute_val::<crate::models::summoner_v4::Summoner>("summoner-v4.getByRSOPUUID", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("summoner-v4.getByRSOPUUID", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "summoner-v4.getByRSOPUUID", route_str);
+        future
+    }
+
     /// Get a summoner by account ID.
     /// # Parameters
     /// * `route` - Route to query.
@@ -1595,6 +2745,29 @@ impl<'a> SummonerV4<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_by_account_id` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `encrypted_account_id` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByAccountId" target="_blank">`summoner-v4.getByAccountId`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_by_account_id(&self, min_capacity: f32, route: PlatformRoute, encrypted_account_id: &str)
+        -> impl Future<Output = TryRequestResult<crate::models::summoner_v4::Summoner>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/summoner/v4/summoners/by-account/{}", encrypted_account_id));
+        let future = self.base.try_execute_val::<crate::models::summoner_v4::Summoner>("summoner-v4.getByAccountId", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("summoner-v4.getByAccountId", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "summoner-v4.getByAccountId", route_str);
+        future
+    }
+
     /// Get a summoner by PUUID.
     /// # Parameters
     /// * `route` - Route to query.
@@ -1613,6 +2786,29 @@ impl<'a> SummonerV4<'a> {
         let future = future.instrument(tracing::info_span!("summoner-v4.getByPUUID", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "summoner-v4.getByPUUID", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_by_puuid` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `encrypted_puuid` (required, in path) - Summoner ID
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByPUUID" target="_blank">`summoner-v4.getByPUUID`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_by_puuid(&self, min_capacity: f32, route: PlatformRoute, encrypted_puuid: &str)
+        -> impl Future<Output = TryRequestResult<crate::models::summoner_v4::Summoner>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/summoner/v4/summoners/by-puuid/{}", encrypted_puuid));
+        let future = self.base.try_execute_val::<crate::models::summoner_v4::Summoner>("summoner-v4.getByPUUID", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("summoner-v4.getByPUUID", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "summoner-v4.getByPUUID", route_str);
         future
     }
 
@@ -1642,6 +2838,34 @@ impl<'a> SummonerV4<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_by_access_token` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `access_token` - RSO access token.
+    /// # RSO
+    /// This endpoint uses [Riot Sign On](https://developer.riotgames.com/docs/lol#rso-integration)
+    /// via the `access_token` parameter, instead of the Riot API key.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByAccessToken" target="_blank">`summoner-v4.getByAccessToken`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_by_access_token(&self, min_capacity: f32, route: PlatformRoute, access_token: impl std::fmt::Display)
+        -> impl Future<Output = TryRequestResult<crate::models::summoner_v4::Summoner>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/lol/summoner/v4/summoners/me");
+        let mut request = request.bearer_auth(access_token);
+        if let Some(clear) = self.base.get_rso_clear_header() { request = request.header(clear, "") }
+        let future = self.base.try_execute_val::<crate::models::summoner_v4::Summoner>("summoner-v4.getByAccessToken", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("summoner-v4.getByAccessToken", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "summoner-v4.getByAccessToken", route_str);
+        future
+    }
+
     /// Get a summoner by summoner ID.
     /// # Parameters
     /// * `route` - Route to query.
@@ -1660,6 +2884,29 @@ impl<'a> SummonerV4<'a> {
         let future = future.instrument(tracing::info_span!("summoner-v4.getBySummonerId", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "summoner-v4.getBySummonerId", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_by_summoner_id` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `encrypted_summoner_id` (required, in path) - Summoner ID
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getBySummonerId" target="_blank">`summoner-v4.getBySummonerId`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_by_summoner_id(&self, min_capacity: f32, route: PlatformRoute, encrypted_summoner_id: &str)
+        -> impl Future<Output = TryRequestResult<crate::models::summoner_v4::Summoner>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/summoner/v4/summoners/{}", encrypted_summoner_id));
+        let future = self.base.try_execute_val::<crate::models::summoner_v4::Summoner>("summoner-v4.getBySummonerId", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("summoner-v4.getBySummonerId", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "summoner-v4.getBySummonerId", route_str);
         future
     }
 
@@ -1697,6 +2944,30 @@ impl<'a> TftLeagueV1<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_challenger_league` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `queue` (optional, in query) - Defaults to RANKED_TFT.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getChallengerLeague" target="_blank">`tft-league-v1.getChallengerLeague`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_challenger_league(&self, min_capacity: f32, route: PlatformRoute, queue: Option<&str>)
+        -> impl Future<Output = TryRequestResult<crate::models::tft_league_v1::LeagueList>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/tft/league/v1/challenger");
+        let request = if let Some(queue) = queue { request.query(&[ ("queue", queue) ]) } else { request };
+        let future = self.base.try_execute_val::<crate::models::tft_league_v1::LeagueList>("tft-league-v1.getChallengerLeague", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tft-league-v1.getChallengerLeague", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "tft-league-v1.getChallengerLeague", route_str);
+        future
+    }
+
     /// Get league entries for a given summoner ID.
     /// # Parameters
     /// * `route` - Route to query.
@@ -1715,6 +2986,29 @@ impl<'a> TftLeagueV1<'a> {
         let future = future.instrument(tracing::info_span!("tft-league-v1.getLeagueEntriesForSummoner", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "tft-league-v1.getLeagueEntriesForSummoner", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_league_entries_for_summoner` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `summoner_id` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getLeagueEntriesForSummoner" target="_blank">`tft-league-v1.getLeagueEntriesForSummoner`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_league_entries_for_summoner(&self, min_capacity: f32, route: PlatformRoute, summoner_id: &str)
+        -> impl Future<Output = TryRequestResult<Vec<crate::models::tft_league_v1::LeagueEntry>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/tft/league/v1/entries/by-summoner/{}", summoner_id));
+        let future = self.base.try_execute_val::<Vec<crate::models::tft_league_v1::LeagueEntry>>("tft-league-v1.getLeagueEntriesForSummoner", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tft-league-v1.getLeagueEntriesForSummoner", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "tft-league-v1.getLeagueEntriesForSummoner", route_str);
         future
     }
 
@@ -1744,6 +3038,34 @@ impl<'a> TftLeagueV1<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_league_entries` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `tier` (required, in path)
+    /// * `division` (required, in path)
+    /// * `queue` (optional, in query) - Defaults to RANKED_TFT.
+    /// * `page` (optional, in query) - Defaults to 1. Starts with page 1.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getLeagueEntries" target="_blank">`tft-league-v1.getLeagueEntries`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_league_entries(&self, min_capacity: f32, route: PlatformRoute, tier: crate::consts::Tier, division: &str, page: Option<i32>, queue: Option<&str>)
+        -> impl Future<Output = TryRequestResult<Vec<crate::models::tft_league_v1::LeagueEntry>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/tft/league/v1/entries/{}/{}", tier, division));
+        let request = if let Some(page) = page { request.query(&[ ("page", page) ]) } else { request };
+        let request = if let Some(queue) = queue { request.query(&[ ("queue", queue) ]) } else { request };
+        let future = self.base.try_execute_val::<Vec<crate::models::tft_league_v1::LeagueEntry>>("tft-league-v1.getLeagueEntries", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tft-league-v1.getLeagueEntries", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "tft-league-v1.getLeagueEntries", route_str);
+        future
+    }
+
     /// Get the grandmaster league.
     /// # Parameters
     /// * `route` - Route to query.
@@ -1766,6 +3088,30 @@ impl<'a> TftLeagueV1<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_grandmaster_league` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `queue` (optional, in query) - Defaults to RANKED_TFT.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getGrandmasterLeague" target="_blank">`tft-league-v1.getGrandmasterLeague`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_grandmaster_league(&self, min_capacity: f32, route: PlatformRoute, queue: Option<&str>)
+        -> impl Future<Output = TryRequestResult<crate::models::tft_league_v1::LeagueList>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/tft/league/v1/grandmaster");
+        let request = if let Some(queue) = queue { request.query(&[ ("queue", queue) ]) } else { request };
+        let future = self.base.try_execute_val::<crate::models::tft_league_v1::LeagueList>("tft-league-v1.getGrandmasterLeague", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tft-league-v1.getGrandmasterLeague", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "tft-league-v1.getGrandmasterLeague", route_str);
+        future
+    }
+
     /// Get league with given ID, including inactive entries.
     /// # Parameters
     /// * `route` - Route to query.
@@ -1784,6 +3130,29 @@ impl<'a> TftLeagueV1<'a> {
         let future = future.instrument(tracing::info_span!("tft-league-v1.getLeagueById", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "tft-league-v1.getLeagueById", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_league_by_id` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `league_id` (required, in path) - The UUID of the league.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getLeagueById" target="_blank">`tft-league-v1.getLeagueById`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_league_by_id(&self, min_capacity: f32, route: PlatformRoute, league_id: &str)
+        -> impl Future<Output = TryRequestResult<Option<crate::models::tft_league_v1::LeagueList>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/tft/league/v1/leagues/{}", league_id));
+        let future = self.base.try_execute_opt::<crate::models::tft_league_v1::LeagueList>("tft-league-v1.getLeagueById", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tft-league-v1.getLeagueById", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "tft-league-v1.getLeagueById", route_str);
         future
     }
 
@@ -1809,6 +3178,30 @@ impl<'a> TftLeagueV1<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_master_league` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `queue` (optional, in query) - Defaults to RANKED_TFT.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getMasterLeague" target="_blank">`tft-league-v1.getMasterLeague`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_master_league(&self, min_capacity: f32, route: PlatformRoute, queue: Option<&str>)
+        -> impl Future<Output = TryRequestResult<crate::models::tft_league_v1::LeagueList>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/tft/league/v1/master");
+        let request = if let Some(queue) = queue { request.query(&[ ("queue", queue) ]) } else { request };
+        let future = self.base.try_execute_val::<crate::models::tft_league_v1::LeagueList>("tft-league-v1.getMasterLeague", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tft-league-v1.getMasterLeague", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "tft-league-v1.getMasterLeague", route_str);
+        future
+    }
+
     /// Get the top rated ladder for given queue
     /// # Parameters
     /// * `route` - Route to query.
@@ -1827,6 +3220,29 @@ impl<'a> TftLeagueV1<'a> {
         let future = future.instrument(tracing::info_span!("tft-league-v1.getTopRatedLadder", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "tft-league-v1.getTopRatedLadder", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_top_rated_ladder` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `queue` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getTopRatedLadder" target="_blank">`tft-league-v1.getTopRatedLadder`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_top_rated_ladder(&self, min_capacity: f32, route: PlatformRoute, queue: crate::consts::QueueType)
+        -> impl Future<Output = TryRequestResult<Vec<crate::models::tft_league_v1::TopRatedLadderEntry>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/tft/league/v1/rated-ladders/{}/top", queue));
+        let future = self.base.try_execute_val::<Vec<crate::models::tft_league_v1::TopRatedLadderEntry>>("tft-league-v1.getTopRatedLadder", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tft-league-v1.getTopRatedLadder", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "tft-league-v1.getTopRatedLadder", route_str);
         future
     }
 
@@ -1871,6 +3287,37 @@ impl<'a> TftMatchV1<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_match_ids_by_puuid` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `puuid` (required, in path)
+    /// * `start` (optional, in query) - Defaults to 0. Start index.
+    /// * `end_time` (optional, in query) - Epoch timestamp in seconds.
+    /// * `start_time` (optional, in query) - Epoch timestamp in seconds. The matchlist started storing timestamps on June 16th, 2021. Any matches played before June 16th, 2021 won't be included in the results if the startTime filter is set.
+    /// * `count` (optional, in query) - Defaults to 20. Number of match ids to return.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-match-v1/GET_getMatchIdsByPUUID" target="_blank">`tft-match-v1.getMatchIdsByPUUID`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_match_ids_by_puuid(&self, min_capacity: f32, route: RegionalRoute, puuid: &str, count: Option<i32>, end_time: Option<i64>, start: Option<i32>, start_time: Option<i64>)
+        -> impl Future<Output = TryRequestResult<Vec<String>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/tft/match/v1/matches/by-puuid/{}/ids", puuid));
+        let request = if let Some(count) = count { request.query(&[ ("count", count) ]) } else { request };
+        let request = if let Some(end_time) = end_time { request.query(&[ ("endTime", end_time) ]) } else { request };
+        let request = if let Some(start) = start { request.query(&[ ("start", start) ]) } else { request };
+        let request = if let Some(start_time) = start_time { request.query(&[ ("startTime", start_time) ]) } else { request };
+        let future = self.base.try_execute_val::<Vec<String>>("tft-match-v1.getMatchIdsByPUUID", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tft-match-v1.getMatchIdsByPUUID", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "tft-match-v1.getMatchIdsByPUUID", route_str);
+        future
+    }
+
     /// Get a match by match id
     /// # Parameters
     /// * `route` - Route to query.
@@ -1889,6 +3336,29 @@ impl<'a> TftMatchV1<'a> {
         let future = future.instrument(tracing::info_span!("tft-match-v1.getMatch", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "tft-match-v1.getMatch", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_match` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `match_id` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-match-v1/GET_getMatch" target="_blank">`tft-match-v1.getMatch`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_match(&self, min_capacity: f32, route: RegionalRoute, match_id: &str)
+        -> impl Future<Output = TryRequestResult<Option<crate::models::tft_match_v1::Match>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/tft/match/v1/matches/{}", match_id));
+        let future = self.base.try_execute_opt::<crate::models::tft_match_v1::Match>("tft-match-v1.getMatch", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tft-match-v1.getMatch", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "tft-match-v1.getMatch", route_str);
         future
     }
 
@@ -1921,6 +3391,28 @@ impl<'a> TftStatusV1<'a> {
         let future = future.instrument(tracing::info_span!("tft-status-v1.getPlatformData", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "tft-status-v1.getPlatformData", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_platform_data` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-status-v1/GET_getPlatformData" target="_blank">`tft-status-v1.getPlatformData`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_platform_data(&self, min_capacity: f32, route: PlatformRoute)
+        -> impl Future<Output = TryRequestResult<crate::models::tft_status_v1::PlatformData>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/tft/status/v1/platform-data");
+        let future = self.base.try_execute_val::<crate::models::tft_status_v1::PlatformData>("tft-status-v1.getPlatformData", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tft-status-v1.getPlatformData", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "tft-status-v1.getPlatformData", route_str);
         future
     }
 
@@ -1957,6 +3449,29 @@ impl<'a> TftSummonerV1<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_by_account_id` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `encrypted_account_id` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getByAccountId" target="_blank">`tft-summoner-v1.getByAccountId`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_by_account_id(&self, min_capacity: f32, route: PlatformRoute, encrypted_account_id: &str)
+        -> impl Future<Output = TryRequestResult<crate::models::tft_summoner_v1::Summoner>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/tft/summoner/v1/summoners/by-account/{}", encrypted_account_id));
+        let future = self.base.try_execute_val::<crate::models::tft_summoner_v1::Summoner>("tft-summoner-v1.getByAccountId", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tft-summoner-v1.getByAccountId", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "tft-summoner-v1.getByAccountId", route_str);
+        future
+    }
+
     /// Get a summoner by PUUID.
     /// # Parameters
     /// * `route` - Route to query.
@@ -1975,6 +3490,29 @@ impl<'a> TftSummonerV1<'a> {
         let future = future.instrument(tracing::info_span!("tft-summoner-v1.getByPUUID", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "tft-summoner-v1.getByPUUID", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_by_puuid` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `encrypted_puuid` (required, in path) - Summoner ID
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getByPUUID" target="_blank">`tft-summoner-v1.getByPUUID`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_by_puuid(&self, min_capacity: f32, route: PlatformRoute, encrypted_puuid: &str)
+        -> impl Future<Output = TryRequestResult<crate::models::tft_summoner_v1::Summoner>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/tft/summoner/v1/summoners/by-puuid/{}", encrypted_puuid));
+        let future = self.base.try_execute_val::<crate::models::tft_summoner_v1::Summoner>("tft-summoner-v1.getByPUUID", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tft-summoner-v1.getByPUUID", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "tft-summoner-v1.getByPUUID", route_str);
         future
     }
 
@@ -2004,6 +3542,34 @@ impl<'a> TftSummonerV1<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_by_access_token` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `access_token` - RSO access token.
+    /// # RSO
+    /// This endpoint uses [Riot Sign On](https://developer.riotgames.com/docs/lol#rso-integration)
+    /// via the `access_token` parameter, instead of the Riot API key.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getByAccessToken" target="_blank">`tft-summoner-v1.getByAccessToken`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_by_access_token(&self, min_capacity: f32, route: PlatformRoute, access_token: impl std::fmt::Display)
+        -> impl Future<Output = TryRequestResult<crate::models::tft_summoner_v1::Summoner>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/tft/summoner/v1/summoners/me");
+        let mut request = request.bearer_auth(access_token);
+        if let Some(clear) = self.base.get_rso_clear_header() { request = request.header(clear, "") }
+        let future = self.base.try_execute_val::<crate::models::tft_summoner_v1::Summoner>("tft-summoner-v1.getByAccessToken", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tft-summoner-v1.getByAccessToken", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "tft-summoner-v1.getByAccessToken", route_str);
+        future
+    }
+
     /// Get a summoner by summoner ID.
     /// # Parameters
     /// * `route` - Route to query.
@@ -2022,6 +3588,29 @@ impl<'a> TftSummonerV1<'a> {
         let future = future.instrument(tracing::info_span!("tft-summoner-v1.getBySummonerId", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "tft-summoner-v1.getBySummonerId", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_by_summoner_id` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `encrypted_summoner_id` (required, in path) - Summoner ID
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getBySummonerId" target="_blank">`tft-summoner-v1.getBySummonerId`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_by_summoner_id(&self, min_capacity: f32, route: PlatformRoute, encrypted_summoner_id: &str)
+        -> impl Future<Output = TryRequestResult<crate::models::tft_summoner_v1::Summoner>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/tft/summoner/v1/summoners/{}", encrypted_summoner_id));
+        let future = self.base.try_execute_val::<crate::models::tft_summoner_v1::Summoner>("tft-summoner-v1.getBySummonerId", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tft-summoner-v1.getBySummonerId", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "tft-summoner-v1.getBySummonerId", route_str);
         future
     }
 
@@ -2064,6 +3653,33 @@ impl<'a> TournamentStubV5<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `create_tournament_code` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `count` (optional, in query) - The number of codes to create (max 1000)
+    /// * `tournament_id` (required, in query) - The tournament ID
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-stub-v5/POST_createTournamentCode" target="_blank">`tournament-stub-v5.createTournamentCode`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_create_tournament_code(&self, min_capacity: f32, route: RegionalRoute, body: &crate::models::tournament_stub_v5::TournamentCodeParametersV5, tournament_id: i64, count: Option<i32>)
+        -> impl Future<Output = TryRequestResult<Vec<String>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::POST, route_str, "/lol/tournament-stub/v5/codes");
+        let request = request.query(&[ ("tournamentId", tournament_id) ]);
+        let request = if let Some(count) = count { request.query(&[ ("count", count) ]) } else { request };
+        let request = request.body(serde_json::ser::to_vec(body).unwrap());
+        let future = self.base.try_execute_val::<Vec<String>>("tournament-stub-v5.createTournamentCode", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tournament-stub-v5.createTournamentCode", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "tournament-stub-v5.createTournamentCode", route_str);
+        future
+    }
+
     /// Returns the tournament code DTO associated with a tournament code string - Stub Method
     /// # Parameters
     /// * `route` - Route to query.
@@ -2085,6 +3701,29 @@ impl<'a> TournamentStubV5<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_tournament_code` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `tournament_code` (required, in path) - The tournament code string.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-stub-v5/GET_getTournamentCode" target="_blank">`tournament-stub-v5.getTournamentCode`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_tournament_code(&self, min_capacity: f32, route: RegionalRoute, tournament_code: &str)
+        -> impl Future<Output = TryRequestResult<crate::models::tournament_stub_v5::TournamentCodeV5>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/tournament-stub/v5/codes/{}", tournament_code));
+        let future = self.base.try_execute_val::<crate::models::tournament_stub_v5::TournamentCodeV5>("tournament-stub-v5.getTournamentCode", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tournament-stub-v5.getTournamentCode", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "tournament-stub-v5.getTournamentCode", route_str);
+        future
+    }
+
     /// Gets a list of lobby events by tournament code - Stub method
     /// # Parameters
     /// * `route` - Route to query.
@@ -2103,6 +3742,29 @@ impl<'a> TournamentStubV5<'a> {
         let future = future.instrument(tracing::info_span!("tournament-stub-v5.getLobbyEventsByCode", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "tournament-stub-v5.getLobbyEventsByCode", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_lobby_events_by_code` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `tournament_code` (required, in path) - The short code to look up lobby events for
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-stub-v5/GET_getLobbyEventsByCode" target="_blank">`tournament-stub-v5.getLobbyEventsByCode`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_lobby_events_by_code(&self, min_capacity: f32, route: RegionalRoute, tournament_code: &str)
+        -> impl Future<Output = TryRequestResult<crate::models::tournament_stub_v5::LobbyEventV5Wrapper>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/tournament-stub/v5/lobby-events/by-code/{}", tournament_code));
+        let future = self.base.try_execute_val::<crate::models::tournament_stub_v5::LobbyEventV5Wrapper>("tournament-stub-v5.getLobbyEventsByCode", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tournament-stub-v5.getLobbyEventsByCode", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "tournament-stub-v5.getLobbyEventsByCode", route_str);
         future
     }
 
@@ -2131,6 +3793,29 @@ impl<'a> TournamentStubV5<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `register_provider_data` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-stub-v5/POST_registerProviderData" target="_blank">`tournament-stub-v5.registerProviderData`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_register_provider_data(&self, min_capacity: f32, route: RegionalRoute, body: &crate::models::tournament_stub_v5::ProviderRegistrationParametersV5)
+        -> impl Future<Output = TryRequestResult<i32>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::POST, route_str, "/lol/tournament-stub/v5/providers");
+        let request = request.body(serde_json::ser::to_vec(body).unwrap());
+        let future = self.base.try_execute_val::<i32>("tournament-stub-v5.registerProviderData", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tournament-stub-v5.registerProviderData", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "tournament-stub-v5.registerProviderData", route_str);
+        future
+    }
+
     /// Creates a tournament and returns its ID - Stub method
     /// # Parameters
     /// * `route` - Route to query.
@@ -2151,6 +3836,29 @@ impl<'a> TournamentStubV5<'a> {
         let future = future.instrument(tracing::info_span!("tournament-stub-v5.registerTournament", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "tournament-stub-v5.registerTournament", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `register_tournament` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-stub-v5/POST_registerTournament" target="_blank">`tournament-stub-v5.registerTournament`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_register_tournament(&self, min_capacity: f32, route: RegionalRoute, body: &crate::models::tournament_stub_v5::TournamentRegistrationParametersV5)
+        -> impl Future<Output = TryRequestResult<i32>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::POST, route_str, "/lol/tournament-stub/v5/tournaments");
+        let request = request.body(serde_json::ser::to_vec(body).unwrap());
+        let future = self.base.try_execute_val::<i32>("tournament-stub-v5.registerTournament", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tournament-stub-v5.registerTournament", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "tournament-stub-v5.registerTournament", route_str);
         future
     }
 
@@ -2193,6 +3901,33 @@ impl<'a> TournamentV5<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `create_tournament_code` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `tournament_id` (required, in query) - The tournament ID
+    /// * `count` (optional, in query) - The number of codes to create (max 1000)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-v5/POST_createTournamentCode" target="_blank">`tournament-v5.createTournamentCode`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_create_tournament_code(&self, min_capacity: f32, route: RegionalRoute, body: &crate::models::tournament_v5::TournamentCodeParametersV5, tournament_id: i64, count: Option<i32>)
+        -> impl Future<Output = TryRequestResult<Vec<String>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::POST, route_str, "/lol/tournament/v5/codes");
+        let request = request.query(&[ ("tournamentId", tournament_id) ]);
+        let request = if let Some(count) = count { request.query(&[ ("count", count) ]) } else { request };
+        let request = request.body(serde_json::ser::to_vec(body).unwrap());
+        let future = self.base.try_execute_val::<Vec<String>>("tournament-v5.createTournamentCode", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tournament-v5.createTournamentCode", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "tournament-v5.createTournamentCode", route_str);
+        future
+    }
+
     /// Returns the tournament code DTO associated with a tournament code string.
     /// # Parameters
     /// * `route` - Route to query.
@@ -2211,6 +3946,29 @@ impl<'a> TournamentV5<'a> {
         let future = future.instrument(tracing::info_span!("tournament-v5.getTournamentCode", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "tournament-v5.getTournamentCode", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_tournament_code` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `tournament_code` (required, in path) - The tournament code string.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-v5/GET_getTournamentCode" target="_blank">`tournament-v5.getTournamentCode`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_tournament_code(&self, min_capacity: f32, route: RegionalRoute, tournament_code: &str)
+        -> impl Future<Output = TryRequestResult<crate::models::tournament_v5::TournamentCodeV5>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/tournament/v5/codes/{}", tournament_code));
+        let future = self.base.try_execute_val::<crate::models::tournament_v5::TournamentCodeV5>("tournament-v5.getTournamentCode", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tournament-v5.getTournamentCode", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "tournament-v5.getTournamentCode", route_str);
         future
     }
 
@@ -2235,6 +3993,30 @@ impl<'a> TournamentV5<'a> {
         let future = future.instrument(tracing::info_span!("tournament-v5.updateCode", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "tournament-v5.updateCode", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `update_code` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `tournament_code` (required, in path) - The tournament code to update
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-v5/PUT_updateCode" target="_blank">`tournament-v5.updateCode`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_update_code(&self, min_capacity: f32, route: RegionalRoute, body: &crate::models::tournament_v5::TournamentCodeUpdateParametersV5, tournament_code: &str)
+        -> impl Future<Output = TryRequestResult<()>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::PUT, route_str, &format!("/lol/tournament/v5/codes/{}", tournament_code));
+        let request = request.body(serde_json::ser::to_vec(body).unwrap());
+        let future = self.base.try_execute("tournament-v5.updateCode", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tournament-v5.updateCode", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "tournament-v5.updateCode", route_str);
         future
     }
 
@@ -2265,6 +4047,29 @@ impl<'a> TournamentV5<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_games` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `tournament_code` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-v5/GET_getGames" target="_blank">`tournament-v5.getGames`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_games(&self, min_capacity: f32, route: RegionalRoute, tournament_code: &str)
+        -> impl Future<Output = TryRequestResult<Vec<crate::models::tournament_v5::TournamentGamesV5>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/tournament/v5/games/by-code/{}", tournament_code));
+        let future = self.base.try_execute_val::<Vec<crate::models::tournament_v5::TournamentGamesV5>>("tournament-v5.getGames", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tournament-v5.getGames", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "tournament-v5.getGames", route_str);
+        future
+    }
+
     /// Gets a list of lobby events by tournament code.
     /// # Parameters
     /// * `route` - Route to query.
@@ -2283,6 +4088,29 @@ impl<'a> TournamentV5<'a> {
         let future = future.instrument(tracing::info_span!("tournament-v5.getLobbyEventsByCode", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "tournament-v5.getLobbyEventsByCode", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_lobby_events_by_code` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `tournament_code` (required, in path) - The short code to look up lobby events for
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-v5/GET_getLobbyEventsByCode" target="_blank">`tournament-v5.getLobbyEventsByCode`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_lobby_events_by_code(&self, min_capacity: f32, route: RegionalRoute, tournament_code: &str)
+        -> impl Future<Output = TryRequestResult<crate::models::tournament_v5::LobbyEventV5Wrapper>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/tournament/v5/lobby-events/by-code/{}", tournament_code));
+        let future = self.base.try_execute_val::<crate::models::tournament_v5::LobbyEventV5Wrapper>("tournament-v5.getLobbyEventsByCode", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tournament-v5.getLobbyEventsByCode", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "tournament-v5.getLobbyEventsByCode", route_str);
         future
     }
 
@@ -2311,6 +4139,29 @@ impl<'a> TournamentV5<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `register_provider_data` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-v5/POST_registerProviderData" target="_blank">`tournament-v5.registerProviderData`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_register_provider_data(&self, min_capacity: f32, route: RegionalRoute, body: &crate::models::tournament_v5::ProviderRegistrationParametersV5)
+        -> impl Future<Output = TryRequestResult<i32>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::POST, route_str, "/lol/tournament/v5/providers");
+        let request = request.body(serde_json::ser::to_vec(body).unwrap());
+        let future = self.base.try_execute_val::<i32>("tournament-v5.registerProviderData", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tournament-v5.registerProviderData", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "tournament-v5.registerProviderData", route_str);
+        future
+    }
+
     /// Creates a tournament and returns its ID.
     /// # Parameters
     /// * `route` - Route to query.
@@ -2331,6 +4182,29 @@ impl<'a> TournamentV5<'a> {
         let future = future.instrument(tracing::info_span!("tournament-v5.registerTournament", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "tournament-v5.registerTournament", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `register_tournament` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tournament-v5/POST_registerTournament" target="_blank">`tournament-v5.registerTournament`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_register_tournament(&self, min_capacity: f32, route: RegionalRoute, body: &crate::models::tournament_v5::TournamentRegistrationParametersV5)
+        -> impl Future<Output = TryRequestResult<i32>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::POST, route_str, "/lol/tournament/v5/tournaments");
+        let request = request.body(serde_json::ser::to_vec(body).unwrap());
+        let future = self.base.try_execute_val::<i32>("tournament-v5.registerTournament", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tournament-v5.registerTournament", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "tournament-v5.registerTournament", route_str);
         future
     }
 
@@ -2367,6 +4241,29 @@ impl<'a> ValConsoleMatchV1<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_match` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `match_id` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#val-console-match-v1/GET_getMatch" target="_blank">`val-console-match-v1.getMatch`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_match(&self, min_capacity: f32, route: ValPlatformRoute, match_id: &str)
+        -> impl Future<Output = TryRequestResult<crate::models::val_console_match_v1::Match>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/val/match/console/v1/matches/{}", match_id));
+        let future = self.base.try_execute_val::<crate::models::val_console_match_v1::Match>("val-console-match-v1.getMatch", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("val-console-match-v1.getMatch", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "val-console-match-v1.getMatch", route_str);
+        future
+    }
+
     /// Get matchlist for games played by puuid and platform type
     /// # Parameters
     /// * `route` - Route to query.
@@ -2390,6 +4287,31 @@ impl<'a> ValConsoleMatchV1<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_matchlist` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `puuid` (required, in path)
+    /// * `platform_type` (required, in query)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#val-console-match-v1/GET_getMatchlist" target="_blank">`val-console-match-v1.getMatchlist`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_matchlist(&self, min_capacity: f32, route: ValPlatformRoute, puuid: &str, platform_type: &str)
+        -> impl Future<Output = TryRequestResult<crate::models::val_console_match_v1::Matchlist>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/val/match/console/v1/matchlists/by-puuid/{}", puuid));
+        let request = request.query(&[ ("platformType", platform_type) ]);
+        let future = self.base.try_execute_val::<crate::models::val_console_match_v1::Matchlist>("val-console-match-v1.getMatchlist", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("val-console-match-v1.getMatchlist", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "val-console-match-v1.getMatchlist", route_str);
+        future
+    }
+
     /// Get recent matches
     /// ## Implementation Notes
     /// Returns a list of match ids that have completed in the last 10 minutes for live regions and 12 hours for the esports routing value. NA/LATAM/BR share a match history deployment. As such, recent matches will return a combined list of matches from those three regions. Requests are load balanced so you may see some inconsistencies as matches are added/removed from the list.
@@ -2410,6 +4332,29 @@ impl<'a> ValConsoleMatchV1<'a> {
         let future = future.instrument(tracing::info_span!("val-console-match-v1.getRecent", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "val-console-match-v1.getRecent", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_recent` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `queue` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#val-console-match-v1/GET_getRecent" target="_blank">`val-console-match-v1.getRecent`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_recent(&self, min_capacity: f32, route: ValPlatformRoute, queue: &str)
+        -> impl Future<Output = TryRequestResult<crate::models::val_console_match_v1::RecentMatches>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/val/match/console/v1/recent-matches/by-queue/{}", queue));
+        let future = self.base.try_execute_val::<crate::models::val_console_match_v1::RecentMatches>("val-console-match-v1.getRecent", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("val-console-match-v1.getRecent", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "val-console-match-v1.getRecent", route_str);
         future
     }
 
@@ -2452,6 +4397,35 @@ impl<'a> ValConsoleRankedV1<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_leaderboard` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `act_id` (required, in path) - Act ids can be found using the val-content API.
+    /// * `platform_type` (required, in query)
+    /// * `start_index` (optional, in query) - Defaults to 0.
+    /// * `size` (optional, in query) - Defaults to 200. Valid values: 1 to 200.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#val-console-ranked-v1/GET_getLeaderboard" target="_blank">`val-console-ranked-v1.getLeaderboard`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_leaderboard(&self, min_capacity: f32, route: ValPlatformRoute, act_id: &str, platform_type: &str, size: Option<i32>, start_index: Option<i32>)
+        -> impl Future<Output = TryRequestResult<crate::models::val_console_ranked_v1::Leaderboard>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/val/console/ranked/v1/leaderboards/by-act/{}", act_id));
+        let request = request.query(&[ ("platformType", platform_type) ]);
+        let request = if let Some(size) = size { request.query(&[ ("size", size) ]) } else { request };
+        let request = if let Some(start_index) = start_index { request.query(&[ ("startIndex", start_index) ]) } else { request };
+        let future = self.base.try_execute_val::<crate::models::val_console_ranked_v1::Leaderboard>("val-console-ranked-v1.getLeaderboard", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("val-console-ranked-v1.getLeaderboard", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "val-console-ranked-v1.getLeaderboard", route_str);
+        future
+    }
+
 }
 
 /// ValContentV1 endpoints handle, accessed by calling [`val_content_v1()`](RiotApi::val_content_v1) on a [`RiotApi`] instance.
@@ -2483,6 +4457,30 @@ impl<'a> ValContentV1<'a> {
         let future = future.instrument(tracing::info_span!("val-content-v1.getContent", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "val-content-v1.getContent", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_content` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `locale` (optional, in query)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#val-content-v1/GET_getContent" target="_blank">`val-content-v1.getContent`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_content(&self, min_capacity: f32, route: ValPlatformRoute, locale: Option<&str>)
+        -> impl Future<Output = TryRequestResult<crate::models::val_content_v1::Content>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/val/content/v1/contents");
+        let request = if let Some(locale) = locale { request.query(&[ ("locale", locale) ]) } else { request };
+        let future = self.base.try_execute_val::<crate::models::val_content_v1::Content>("val-content-v1.getContent", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("val-content-v1.getContent", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "val-content-v1.getContent", route_str);
         future
     }
 
@@ -2519,6 +4517,29 @@ impl<'a> ValMatchV1<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_match` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `match_id` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#val-match-v1/GET_getMatch" target="_blank">`val-match-v1.getMatch`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_match(&self, min_capacity: f32, route: ValPlatformRoute, match_id: &str)
+        -> impl Future<Output = TryRequestResult<Option<crate::models::val_match_v1::Match>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/val/match/v1/matches/{}", match_id));
+        let future = self.base.try_execute_opt::<crate::models::val_match_v1::Match>("val-match-v1.getMatch", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("val-match-v1.getMatch", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "val-match-v1.getMatch", route_str);
+        future
+    }
+
     /// Get matchlist for games played by puuid
     /// # Parameters
     /// * `route` - Route to query.
@@ -2537,6 +4558,29 @@ impl<'a> ValMatchV1<'a> {
         let future = future.instrument(tracing::info_span!("val-match-v1.getMatchlist", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "val-match-v1.getMatchlist", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_matchlist` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `puuid` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#val-match-v1/GET_getMatchlist" target="_blank">`val-match-v1.getMatchlist`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_matchlist(&self, min_capacity: f32, route: ValPlatformRoute, puuid: &str)
+        -> impl Future<Output = TryRequestResult<crate::models::val_match_v1::Matchlist>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/val/match/v1/matchlists/by-puuid/{}", puuid));
+        let future = self.base.try_execute_val::<crate::models::val_match_v1::Matchlist>("val-match-v1.getMatchlist", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("val-match-v1.getMatchlist", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "val-match-v1.getMatchlist", route_str);
         future
     }
 
@@ -2560,6 +4604,29 @@ impl<'a> ValMatchV1<'a> {
         let future = future.instrument(tracing::info_span!("val-match-v1.getRecent", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "val-match-v1.getRecent", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_recent` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `queue` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#val-match-v1/GET_getRecent" target="_blank">`val-match-v1.getRecent`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_recent(&self, min_capacity: f32, route: ValPlatformRoute, queue: &str)
+        -> impl Future<Output = TryRequestResult<crate::models::val_match_v1::RecentMatches>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/val/match/v1/recent-matches/by-queue/{}", queue));
+        let future = self.base.try_execute_val::<crate::models::val_match_v1::RecentMatches>("val-match-v1.getRecent", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("val-match-v1.getRecent", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "val-match-v1.getRecent", route_str);
         future
     }
 
@@ -2600,6 +4667,33 @@ impl<'a> ValRankedV1<'a> {
         future
     }
 
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_leaderboard` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `act_id` (required, in path) - Act ids can be found using the val-content API.
+    /// * `size` (optional, in query) - Defaults to 200. Valid values: 1 to 200.
+    /// * `start_index` (optional, in query) - Defaults to 0.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#val-ranked-v1/GET_getLeaderboard" target="_blank">`val-ranked-v1.getLeaderboard`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_leaderboard(&self, min_capacity: f32, route: ValPlatformRoute, act_id: &str, size: Option<i32>, start_index: Option<i32>)
+        -> impl Future<Output = TryRequestResult<Option<crate::models::val_ranked_v1::Leaderboard>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/val/ranked/v1/leaderboards/by-act/{}", act_id));
+        let request = if let Some(size) = size { request.query(&[ ("size", size) ]) } else { request };
+        let request = if let Some(start_index) = start_index { request.query(&[ ("startIndex", start_index) ]) } else { request };
+        let future = self.base.try_execute_opt::<crate::models::val_ranked_v1::Leaderboard>("val-ranked-v1.getLeaderboard", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("val-ranked-v1.getLeaderboard", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "val-ranked-v1.getLeaderboard", route_str);
+        future
+    }
+
 }
 
 /// ValStatusV1 endpoints handle, accessed by calling [`val_status_v1()`](RiotApi::val_status_v1) on a [`RiotApi`] instance.
@@ -2629,6 +4723,28 @@ impl<'a> ValStatusV1<'a> {
         let future = future.instrument(tracing::info_span!("val-status-v1.getPlatformData", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::timed(future, "val-status-v1.getPlatformData", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_platform_data` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#val-status-v1/GET_getPlatformData" target="_blank">`val-status-v1.getPlatformData`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_platform_data(&self, min_capacity: f32, route: ValPlatformRoute)
+        -> impl Future<Output = TryRequestResult<crate::models::val_status_v1::PlatformData>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/val/status/v1/platform-data");
+        let future = self.base.try_execute_val::<crate::models::val_status_v1::PlatformData>("val-status-v1.getPlatformData", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("val-status-v1.getPlatformData", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "val-status-v1.getPlatformData", route_str);
         future
     }
 

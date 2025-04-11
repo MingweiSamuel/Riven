@@ -13,6 +13,12 @@ use crate::time::Duration;
 /// `"X-App-Rate-Limit": "20:1,100:120"`. Each `TokenBucket` corresponds to a
 /// single `"100:120"` (100 requests per 120 seconds).
 pub trait TokenBucket {
+    /// Get the amount of capcaity available in the bucket.
+    /// # Returns
+    /// A float representing the amount of capacity available in the bucket from 1.0 to 0.0.
+    /// Returns -1.0 if we're out of capacity.
+    fn get_capacity(&self) -> f32;
+
     /// Get the duration til the next available token, or None if a token
     /// is available.
     /// # Returns
@@ -129,6 +135,21 @@ impl VectorTokenBucket {
 }
 
 impl TokenBucket for VectorTokenBucket {
+    fn get_capacity(&self) -> f32 {
+        if self.total_limit == 0 {
+            // Handle edge cases by telling the caller we have no capacity.
+            return -1.0;
+        }
+
+        let timestamps = self.update_get_timestamps();
+        if timestamps.len() > self.total_limit {
+            // Total limit hit
+            return -1.0;
+        }
+
+        1.0 - (timestamps.len() as f32 / self.total_limit as f32)
+    }
+
     fn get_delay(&self) -> Option<Duration> {
         let timestamps = self.update_get_timestamps();
 
