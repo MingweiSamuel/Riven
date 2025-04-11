@@ -186,10 +186,7 @@ impl RiotApi {
         let rinfo = self
             .try_execute_raw(method_id, region_platform, request, min_capacity)
             .await?;
-        rinfo
-            .json::<T>()
-            .await
-            .map_err(|e| TryRequestError::RiotApiError(e))
+        Ok(rinfo.json::<T>().await?)
     }
 
     /// This method should generally not be used directly. Consider using endpoint wrappers instead.
@@ -217,10 +214,7 @@ impl RiotApi {
         if rinfo.status_none {
             return Ok(None);
         }
-        rinfo
-            .json::<Option<T>>()
-            .await
-            .map_err(|e| TryRequestError::RiotApiError(e))
+        Ok(rinfo.json::<Option<T>>().await?)
     }
 
     /// This method should generally not be used directly. Consider using endpoint wrappers instead.

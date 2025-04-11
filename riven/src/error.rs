@@ -17,14 +17,14 @@ pub struct RiotApiError {
 impl RiotApiError {
     pub(crate) fn new(
         reqwest_errors: Vec<reqwest::Error>,
-        serde_error: Option<crate::de::Error>,
+        de_error: Option<crate::de::Error>,
         retries: u8,
         response: Option<Response>,
         status_code: Option<StatusCode>,
     ) -> Self {
         Self {
             reqwest_errors,
-            de_error: serde_error,
+            de_error,
             retries,
             response,
             status_code,
@@ -106,19 +106,16 @@ impl std::error::Error for RiotApiError {
     }
 }
 
-/// Either not enough capacity or an error that occurred while processing a Riot API request.
+/// Error returned by `try_` methods. Either not enough capacity or the [`RiotApiError`] that
+/// occurred while processing the request.
+#[derive(thiserror::Error, Debug)]
+#[allow(missing_docs, clippy::large_enum_variant)]
 pub enum TryRequestError {
-    /// not enough capacity to process the request (based on the amount requested).
+    #[error("Not enough capacity available to process the request immediately (based on the capacity overhead requested)")]
     NotEnoughCapacity,
-    /// an error that occurred while processing a Riot API request.
-    RiotApiError(RiotApiError),
+    #[error(transparent)]
+    RiotApiError(#[from] RiotApiError),
 }
 
 /// Result containing either NotEnoughReserve or RiotApiError on failure.
 pub type TryRequestResult<T> = std::result::Result<T, TryRequestError>;
-
-impl From<RiotApiError> for TryRequestError {
-    fn from(err: RiotApiError) -> Self {
-        TryRequestError::RiotApiError(err)
-    }
-}

@@ -69,6 +69,7 @@ serde_repr = "0.1.0"
 slab = "0.4.4"
 strum = "0.20.0"
 strum_macros = "0.20.0"
+thiserror = "2.0.0"
 tracing = { optional = true, version = "0.1.22" }
 
 [target.'cfg(not(target_family = "wasm"))'.dependencies]

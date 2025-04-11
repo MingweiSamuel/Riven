@@ -43,7 +43,7 @@ impl RegionalRequester {
                 .get_or_insert(&method_id, || RateLimit::new(RateLimitType::Method));
 
             if let Some(min_capacity) = min_capacity {
-                // Never sleep, return None if we don't have enough capacity.
+                // Never sleep, return `None` if we don't have enough capacity.
                 if !RateLimit::acquire_both_if_above_capacity(
                     &self.app_rate_limit,
                     method_rate_limit,
@@ -52,7 +52,7 @@ impl RegionalRequester {
                     return Err(TryRequestError::NotEnoughCapacity);
                 }
             } else {
-                // Sleep until we have capcacity
+                // Sleep until we can aquire both.
                 let rate_limit = RateLimit::acquire_both(&self.app_rate_limit, method_rate_limit);
                 #[cfg(feature = "tracing")]
                 let rate_limit = rate_limit.instrument(tracing::info_span!("rate_limit"));

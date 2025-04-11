@@ -13,7 +13,7 @@ use crate::time::Duration;
 /// `"X-App-Rate-Limit": "20:1,100:120"`. Each `TokenBucket` corresponds to a
 /// single `"100:120"` (100 requests per 120 seconds).
 pub trait TokenBucket {
-    /// Get the amount of capcaity available in the bucket.
+    /// Get the amount of capacity available in the bucket.
     /// # Returns
     /// A float representing the amount of capacity available in the bucket from 1.0 to 0.0.
     /// Returns -1.0 if we're out of capacity.

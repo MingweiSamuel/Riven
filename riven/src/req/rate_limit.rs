@@ -49,7 +49,8 @@ impl RateLimit {
         }
     }
 
-    /// Attempt to acquire tokens from both rate limits only if they above min_capacity before factoring in bust factor.
+    /// Attempt to acquire tokens from both rate limits only if they have at least `min_capacity`
+    /// fraction of tokens available.
     pub fn acquire_both_if_above_capacity(
         app_rate_limit: &Self,
         method_rate_limit: &Self,
