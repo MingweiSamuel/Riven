@@ -16,7 +16,7 @@ categories = [ "api-bindings", "web-programming::http-client", "wasm" ]
 crate-type = [ "cdylib", "rlib" ]
 
 [package.metadata.docs.rs]
-rustc-args = [ "--cfg=docsrs_deps" ]
+rustc-args = [ "--cfg=docsrs_deps", "--cfg=procmacro2_semver_exempt" ]
 
 [features]
 default = [ "default-tls" ]
@@ -96,6 +96,7 @@ console_log = "1.0"
 wasm-bindgen = "0.2.70"
 wasm-bindgen-test = "0.3"
 
+# Dependencies to include for the sake of links in the docs.rs documentation.
 [target.'cfg(docsrs_deps)'.dependencies]
 eserde = { version = "0.1.6", features = [ "json" ] }
 gloo-timers = { version = "0.3", features = [ "futures" ] }
