@@ -9,6 +9,8 @@ static TFT_MATCHES: &[&str] = &[
     "JP1_466820197",
     // 2024-10-23
     "JP1_476014499",
+    // 2025-04-21 `ParticipantDTO.pve_score`. (removed??)
+    "JP1_505036811",
 ];
 
 #[riven_test]
