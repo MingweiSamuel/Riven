@@ -1,9 +1,9 @@
 {
     "rust-analyzer.cargo.features": [
-        "riven/nightly",
-        "riven/tracing",
-        "riven/deny-unknown",
-        "riven/eserde",
+        "nightly",
+        "tracing",
+        "deny-unknown",
+        "eserde",
     ],
     "evenBetterToml.formatter.compactArrays": false,
     "evenBetterToml.formatter.columnWidth": 100
