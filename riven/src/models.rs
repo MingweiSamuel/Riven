@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 996d171a2b79e9bb85c549f47b07c6ef2721fc8a
+// Version 19ec54bd1d2d70698daa3ab49c0fde1006f87b2a
 
 #![allow(missing_docs)]
 
@@ -3161,6 +3161,12 @@ pub mod tft_match_v1 {
         #[serde(rename = "skill_tree")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub skill_tree: Option<std::collections::HashMap<String, i32>>,
+        #[serde(rename = "pve_score")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub pve_score: Option<i32>,
+        #[serde(rename = "pve_wonrun")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub pve_wonrun: Option<bool>,
     }
     /// `tft-match-v1.TraitDto` data object.
     #[derive(Clone, Debug)]

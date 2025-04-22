@@ -391,6 +391,9 @@ newtype_enum! {
         /// `1210`.
         /// Teamfight Tactics (Choncc's Treasure) games on Convergence
         CONVERGENCE_TEAMFIGHT_TACTICS_CHONCCS_TREASURE = 1210,
+        /// `1220`.
+        /// Teamfight Tactics: Tocker's Trials games on Convergence
+        CONVERGENCE_TEAMFIGHT_TACTICS_TOCKERS_TRIALS = 1220,
         /// `1300`.
         /// Nexus Blitz games on Nexus Blitz
         NEXUS_BLITZ = 1300,
