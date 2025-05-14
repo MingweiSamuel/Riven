@@ -17,23 +17,33 @@ static MATCHES: &[&str] = &[
 
 /// Account-v1
 #[riven_test]
-async fn account_v1_getbyriotid_getbypuuid() -> Result<(), String> {
+async fn account_v1_getbyriotid_getbypuuid_getactiveregion() -> Result<(), String> {
     // Game name is case and whitespace insensitive.
     // But tag cannot have spaces. (Is it case sensitive?).
-    let account_tag = riot_api()
+    let account_by_tag = riot_api()
         .account_v1()
         .get_by_riot_id(ROUTE, "Lug nuts K", "000")
         .await
         .map_err(|e| format!("Failed to get account by riot ID: {}", e))?
         .ok_or("Riot account not found!".to_owned())?;
 
-    let account_puuid = riot_api()
+    let account_by_puuid = riot_api()
         .account_v1()
-        .get_by_puuid(ROUTE, &account_tag.puuid)
+        .get_by_puuid(ROUTE, &account_by_tag.puuid)
         .await
         .map_err(|e| format!("Failed to get account by PUUID: {}", e))?;
 
-    let _ = account_puuid;
+    assert_eq!(account_by_tag.puuid, account_by_puuid.puuid);
+
+    let active_region = riot_api()
+        .account_v1()
+        .get_active_region(ROUTE, "lol", &account_by_tag.puuid)
+        .await
+        .map_err(|e| format!("Failed to get active region: {}", e))?;
+
+    assert_eq!(active_region.puuid, account_by_tag.puuid);
+    assert_eq!(active_region.game, "lol");
+    assert_eq!(active_region.region, "na1");
 
     Ok(())
 }
