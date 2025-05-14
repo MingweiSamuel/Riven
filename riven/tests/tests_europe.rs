@@ -31,6 +31,13 @@ static MATCHES: &[&str] = &[
     "EUW1_7333077176",
     // https://github.com/RiotGames/developer-relations/issues/939#issuecomment-2164112865
     "RU_490603994",
+    // https://github.com/RiotGames/developer-relations/issues/1076
+    "EUW1_7400007273",
+    "EUW1_7399991093",
+    "EUW1_7399939488",
+    "EUW1_7399909108",
+    "EUW1_7399899238",
+    "EUW1_7399886298",
 ];
 
 #[riven_test]

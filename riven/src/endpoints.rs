@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 19ec54bd1d2d70698daa3ab49c0fde1006f87b2a
+// Version 851168dfd956a2260ec2cbe085627c7e9fb3452c
 
 //! Automatically generated endpoint handles.
 #![allow(clippy::let_and_return, clippy::too_many_arguments)]
@@ -497,6 +497,52 @@ impl<'a> AccountV1<'a> {
         let future = future.instrument(tracing::info_span!("account-v1.getActiveShard", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::try_timed(future, "account-v1.getActiveShard", route_str);
+        future
+    }
+
+    /// Get active region (lol and tft)
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// * `puuid` (required, in path)
+    /// * `game` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#account-v1/GET_getActiveRegion" target="_blank">`account-v1.getActiveRegion`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_active_region(&self, route: RegionalRoute, game: &str, puuid: &str)
+        -> impl Future<Output = Result<crate::models::account_v1::AccountRegion>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/riot/account/v1/region/by-game/{}/by-puuid/{}", game, puuid));
+        let future = self.base.execute_val::<crate::models::account_v1::AccountRegion>("account-v1.getActiveRegion", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("account-v1.getActiveRegion", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "account-v1.getActiveRegion", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_active_region` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `puuid` (required, in path)
+    /// * `game` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#account-v1/GET_getActiveRegion" target="_blank">`account-v1.getActiveRegion`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_active_region(&self, min_capacity: f32, route: RegionalRoute, game: &str, puuid: &str)
+        -> impl Future<Output = TryRequestResult<crate::models::account_v1::AccountRegion>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/riot/account/v1/region/by-game/{}/by-puuid/{}", game, puuid));
+        let future = self.base.try_execute_val::<crate::models::account_v1::AccountRegion>("account-v1.getActiveRegion", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("account-v1.getActiveRegion", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "account-v1.getActiveRegion", route_str);
         future
     }
 
@@ -2922,6 +2968,50 @@ pub struct TftLeagueV1<'a> {
     base: &'a RiotApi,
 }
 impl<'a> TftLeagueV1<'a> {
+    /// Get league entries in all queues for a given puuid
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// * `puuid` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getLeagueEntriesByPUUID" target="_blank">`tft-league-v1.getLeagueEntriesByPUUID`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_league_entries_by_puuid(&self, route: PlatformRoute, puuid: &str)
+        -> impl Future<Output = Result<Vec<crate::models::tft_league_v1::LeagueEntry>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/tft/league/v1/by-puuid/{}", puuid));
+        let future = self.base.execute_val::<Vec<crate::models::tft_league_v1::LeagueEntry>>("tft-league-v1.getLeagueEntriesByPUUID", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tft-league-v1.getLeagueEntriesByPUUID", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "tft-league-v1.getLeagueEntriesByPUUID", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_league_entries_by_puuid` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `puuid` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getLeagueEntriesByPUUID" target="_blank">`tft-league-v1.getLeagueEntriesByPUUID`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_league_entries_by_puuid(&self, min_capacity: f32, route: PlatformRoute, puuid: &str)
+        -> impl Future<Output = TryRequestResult<Vec<crate::models::tft_league_v1::LeagueEntry>>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/tft/league/v1/by-puuid/{}", puuid));
+        let future = self.base.try_execute_val::<Vec<crate::models::tft_league_v1::LeagueEntry>>("tft-league-v1.getLeagueEntriesByPUUID", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("tft-league-v1.getLeagueEntriesByPUUID", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "tft-league-v1.getLeagueEntriesByPUUID", route_str);
+        future
+    }
+
     /// Get the challenger league.
     /// # Parameters
     /// * `route` - Route to query.

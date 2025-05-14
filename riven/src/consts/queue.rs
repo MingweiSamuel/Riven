@@ -430,6 +430,9 @@ newtype_enum! {
         /// `2020`.
         /// Tutorial 3 games on Summoner's Rift
         SUMMONERS_RIFT_TUTORIAL_3 = 2020,
+        /// `2300`.
+        /// Games on The Bandlewood
+        THE_BANDLEWOOD = 2300,
         /// `6000`.
         /// Teamfight Tactics Set 3.5 Revival games on Convergence
         CONVERGENCE_TEAMFIGHT_TACTICS_SET_3_5_REVIVAL = 6000,

@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 19ec54bd1d2d70698daa3ab49c0fde1006f87b2a
+// Version 851168dfd956a2260ec2cbe085627c7e9fb3452c
 
 #![allow(missing_docs)]
 
@@ -39,6 +39,25 @@ pub mod account_v1 {
         #[serde(rename = "tagLine")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub tag_line: Option<String>,
+    }
+    /// `account-v1.AccountRegionDTO` data object.
+    /// # Description
+    /// Account region
+    ///
+    /// Note: This struct is automatically generated
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, crate::de::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct AccountRegion {
+        /// Player Universal Unique Identifier. Exact length of 78 characters. (Encrypted)
+        #[serde(rename = "puuid")]
+        pub puuid: String,
+        /// Game to lookup active region
+        #[serde(rename = "game")]
+        pub game: String,
+        /// Player active region
+        #[serde(rename = "region")]
+        pub region: String,
     }
     /// `account-v1.ActiveShardDto` data object.
     #[derive(Clone, Debug)]
@@ -1042,7 +1061,8 @@ pub mod match_v5 {
         #[serde(rename = "baronKills")]
         pub baron_kills: i32,
         #[serde(rename = "bountyLevel")]
-        pub bounty_level: i32,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub bounty_level: Option<i32>,
         #[serde(rename = "champExperience")]
         pub champ_experience: i32,
         #[serde(rename = "champLevel")]
@@ -2870,72 +2890,6 @@ pub mod summoner_v4 {
 /// Note: this module is automatically generated.
 #[allow(dead_code)]
 pub mod tft_league_v1 {
-    /// `tft-league-v1.LeagueListDTO` data object.
-    #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, crate::de::Deserialize)]
-    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
-    pub struct LeagueList {
-        #[serde(rename = "leagueId")]
-        #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub league_id: Option<String>,
-        #[serde(rename = "entries")]
-        pub entries: std::vec::Vec<crate::models::tft_league_v1::LeagueItem>,
-        #[serde(rename = "tier")]
-        pub tier: crate::consts::Tier,
-        #[serde(rename = "name")]
-        #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub name: Option<String>,
-        #[serde(rename = "queue")]
-        #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub queue: Option<crate::consts::QueueType>,
-    }
-    /// `tft-league-v1.LeagueItemDTO` data object.
-    #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, crate::de::Deserialize)]
-    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
-    pub struct LeagueItem {
-        #[serde(rename = "freshBlood")]
-        pub fresh_blood: bool,
-        /// First placement.
-        #[serde(rename = "wins")]
-        pub wins: i32,
-        #[serde(rename = "miniSeries")]
-        #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub mini_series: Option<crate::models::tft_league_v1::MiniSeries>,
-        #[serde(rename = "inactive")]
-        pub inactive: bool,
-        #[serde(rename = "veteran")]
-        pub veteran: bool,
-        #[serde(rename = "hotStreak")]
-        pub hot_streak: bool,
-        #[serde(rename = "rank")]
-        pub rank: crate::consts::Division,
-        #[serde(rename = "leaguePoints")]
-        pub league_points: i32,
-        /// Second through eighth placement.
-        #[serde(rename = "losses")]
-        pub losses: i32,
-        /// Player's encrypted summonerId.
-        #[serde(rename = "summonerId")]
-        pub summoner_id: String,
-        /// Player's encrypted puuid.
-        #[serde(rename = "puuid")]
-        pub puuid: String,
-    }
-    /// `tft-league-v1.MiniSeriesDTO` data object.
-    #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, crate::de::Deserialize)]
-    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
-    pub struct MiniSeries {
-        #[serde(rename = "losses")]
-        pub losses: i32,
-        #[serde(rename = "progress")]
-        pub progress: String,
-        #[serde(rename = "target")]
-        pub target: i32,
-        #[serde(rename = "wins")]
-        pub wins: i32,
-    }
     /// `tft-league-v1.LeagueEntryDTO` data object.
     #[derive(Clone, Debug)]
     #[derive(serde::Serialize, crate::de::Deserialize)]
@@ -3001,6 +2955,72 @@ pub mod tft_league_v1 {
         #[serde(rename = "miniSeries")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub mini_series: Option<crate::models::tft_league_v1::MiniSeries>,
+    }
+    /// `tft-league-v1.MiniSeriesDTO` data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, crate::de::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct MiniSeries {
+        #[serde(rename = "losses")]
+        pub losses: i32,
+        #[serde(rename = "progress")]
+        pub progress: String,
+        #[serde(rename = "target")]
+        pub target: i32,
+        #[serde(rename = "wins")]
+        pub wins: i32,
+    }
+    /// `tft-league-v1.LeagueListDTO` data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, crate::de::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct LeagueList {
+        #[serde(rename = "leagueId")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub league_id: Option<String>,
+        #[serde(rename = "entries")]
+        pub entries: std::vec::Vec<crate::models::tft_league_v1::LeagueItem>,
+        #[serde(rename = "tier")]
+        pub tier: crate::consts::Tier,
+        #[serde(rename = "name")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub name: Option<String>,
+        #[serde(rename = "queue")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub queue: Option<crate::consts::QueueType>,
+    }
+    /// `tft-league-v1.LeagueItemDTO` data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, crate::de::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct LeagueItem {
+        #[serde(rename = "freshBlood")]
+        pub fresh_blood: bool,
+        /// First placement.
+        #[serde(rename = "wins")]
+        pub wins: i32,
+        #[serde(rename = "miniSeries")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub mini_series: Option<crate::models::tft_league_v1::MiniSeries>,
+        #[serde(rename = "inactive")]
+        pub inactive: bool,
+        #[serde(rename = "veteran")]
+        pub veteran: bool,
+        #[serde(rename = "hotStreak")]
+        pub hot_streak: bool,
+        #[serde(rename = "rank")]
+        pub rank: crate::consts::Division,
+        #[serde(rename = "leaguePoints")]
+        pub league_points: i32,
+        /// Second through eighth placement.
+        #[serde(rename = "losses")]
+        pub losses: i32,
+        /// Player's encrypted summonerId.
+        #[serde(rename = "summonerId")]
+        pub summoner_id: String,
+        /// Player's encrypted puuid.
+        #[serde(rename = "puuid")]
+        pub puuid: String,
     }
     /// `tft-league-v1.TopRatedLadderEntryDto` data object.
     #[derive(Clone, Debug)]
@@ -3548,9 +3568,6 @@ pub mod tournament_stub_v5 {
         /// The tournament code.
         #[serde(rename = "code")]
         pub code: String,
-        /// The spectator mode for the tournament code game.
-        #[serde(rename = "spectators")]
-        pub spectators: String,
         /// The lobby name for the tournament code game.
         #[serde(rename = "lobbyName")]
         pub lobby_name: String,

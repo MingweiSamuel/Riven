@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 19ec54bd1d2d70698daa3ab49c0fde1006f87b2a
+// Version 851168dfd956a2260ec2cbe085627c7e9fb3452c
 
 //! Metadata about the Riot API and Riven.
 //!
@@ -16,11 +16,12 @@
 
 /// Metadata for endpoints. Each tuple corresponds to one endpoint and contains
 /// the HTTP [`Method`](reqwest::Method), `str` path, and the method's `str` ID.
-pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 87] = [
+pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 89] = [
     (reqwest::Method::GET, "/riot/account/v1/accounts/by-puuid/{puuid}", "account-v1.getByPuuid"),
     (reqwest::Method::GET, "/riot/account/v1/accounts/by-riot-id/{gameName}/{tagLine}", "account-v1.getByRiotId"),
     (reqwest::Method::GET, "/riot/account/v1/accounts/me", "account-v1.getByAccessToken"),
     (reqwest::Method::GET, "/riot/account/v1/active-shards/by-game/{game}/by-puuid/{puuid}", "account-v1.getActiveShard"),
+    (reqwest::Method::GET, "/riot/account/v1/region/by-game/{game}/by-puuid/{puuid}", "account-v1.getActiveRegion"),
     (reqwest::Method::GET, "/lol/champion-mastery/v4/champion-masteries/by-puuid/{encryptedPUUID}", "champion-mastery-v4.getAllChampionMasteriesByPUUID"),
     (reqwest::Method::GET, "/lol/champion-mastery/v4/champion-masteries/by-puuid/{encryptedPUUID}/by-champion/{championId}", "champion-mastery-v4.getChampionMasteryByPUUID"),
     (reqwest::Method::GET, "/lol/champion-mastery/v4/champion-masteries/by-puuid/{encryptedPUUID}/top", "champion-mastery-v4.getTopChampionMasteriesByPUUID"),
@@ -68,6 +69,7 @@ pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 87] = [
     (reqwest::Method::GET, "/lol/summoner/v4/summoners/by-puuid/{encryptedPUUID}", "summoner-v4.getByPUUID"),
     (reqwest::Method::GET, "/lol/summoner/v4/summoners/me", "summoner-v4.getByAccessToken"),
     (reqwest::Method::GET, "/lol/summoner/v4/summoners/{encryptedSummonerId}", "summoner-v4.getBySummonerId"),
+    (reqwest::Method::GET, "/tft/league/v1/by-puuid/{puuid}", "tft-league-v1.getLeagueEntriesByPUUID"),
     (reqwest::Method::GET, "/tft/league/v1/challenger", "tft-league-v1.getChallengerLeague"),
     (reqwest::Method::GET, "/tft/league/v1/entries/by-summoner/{summonerId}", "tft-league-v1.getLeagueEntriesForSummoner"),
     (reqwest::Method::GET, "/tft/league/v1/entries/{tier}/{division}", "tft-league-v1.getLeagueEntries"),

@@ -78,5 +78,9 @@ newtype_enum! {
         /// Swarm
         /// Map for Swarm (`STRAWBERRY`). Team up with a friend or venture solo in this horde survival mode.
         SWARM = 33,
+        /// `35`.
+        /// The Bandlewood
+        /// Map for Brawl (`BRAWL`). Work together with your team to escort minions into the enemy portal. No roles, no lanes, no pressure. Just a five-on-five brawl.
+        THE_BANDLEWOOD = 35,
     }
 }

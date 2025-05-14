@@ -29,6 +29,8 @@ pub enum GameMode {
     ASCENSION,
     /// Blood Hunt Assassin games
     ASSASSINATE,
+    /// Brawl
+    BRAWL,
     /// 2v2v2v2 Arena
     CHERRY,
     /// Classic Summoner's Rift and Twisted Treeline games
