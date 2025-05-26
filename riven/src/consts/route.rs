@@ -338,23 +338,43 @@ pub enum ValPlatformRoute {
 // Note: strum(serialize = ...) actually specifies extra DEserialization values.
 pub enum TournamentRegion {
     /// Brazil.
+    #[strum(to_string="BR", serialize="BR1")]
+    #[serde(alias = "BR1")]
     BR = 16,
     /// Europe, Northeast.
+    #[strum(to_string="EUNE", serialize="EUN1")]
+    #[serde(alias = "EUN1")]
     EUNE = 17,
     /// Europe, West.
+    #[strum(to_string="EUW", serialize="EUW1")]
+    #[serde(alias = "EUW1")]
     EUW = 18,
     /// Japan.
+    #[strum(to_string="JP", serialize="JP1")]
+    #[serde(alias = "JP1")]
     JP = 19,
     /// Latin America, North.
+    #[strum(to_string="LAN", serialize="LA1")]
+    #[serde(alias = "LA1")]
     LAN = 21,
     /// Latin America, South.
+    #[strum(to_string="LAS", serialize="LA2")]
+    #[serde(alias = "LA2")]
     LAS = 22,
     /// North America.
+    #[strum(to_string="NA", serialize="NA1")]
+    #[serde(alias = "NA1")]
     NA = 23,
     /// Oceania.
+    #[strum(to_string="OCE", serialize="OC1")]
+    #[serde(alias = "OC1")]
     OCE = 24,
     /// Turkey
+    #[strum(to_string="TR", serialize="TR1")]
+    #[serde(alias = "TR1")]
     TR = 26,
     /// Public Beta Environment, special beta testing platform. Located in North America.
+    #[strum(to_string="PBE", serialize="PBE1")]
+    #[serde(alias = "PBE1")]
     PBE = 31,
 }

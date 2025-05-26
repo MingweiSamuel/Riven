@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 851168dfd956a2260ec2cbe085627c7e9fb3452c
+// Version 7ea607ed5d43b39f05e50ae331894b00248173c7
 
 #![allow(missing_docs)]
 
@@ -29,6 +29,7 @@ pub mod account_v1 {
     #[derive(serde::Serialize, crate::de::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Account {
+        /// Encrypted PUUID. Exact length of 78 characters.
         #[serde(rename = "puuid")]
         pub puuid: String,
         /// This field may be excluded from the response if the account doesn't have a gameName.
@@ -3079,33 +3080,6 @@ pub mod tft_match_v1 {
     #[derive(serde::Serialize, crate::de::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Info {
-        /// Unix timestamp.
-        #[serde(rename = "game_datetime")]
-        pub game_datetime: i64,
-        /// Game length in seconds.
-        #[serde(rename = "game_length")]
-        pub game_length: f32,
-        /// Game variation key. Game variations documented in TFT static data.
-        #[serde(rename = "game_variation")]
-        #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub game_variation: Option<String>,
-        /// Game client version.
-        #[serde(rename = "game_version")]
-        pub game_version: String,
-        #[serde(rename = "participants")]
-        pub participants: std::vec::Vec<crate::models::tft_match_v1::Participant>,
-        /// Please refer to the League of Legends documentation.
-        #[serde(rename = "queue_id")]
-        pub queue_id: crate::consts::Queue,
-        /// Teamfight Tactics set number.
-        #[serde(rename = "tft_set_number")]
-        pub tft_set_number: i32,
-        #[serde(rename = "tft_game_type")]
-        #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub tft_game_type: Option<String>,
-        #[serde(rename = "tft_set_core_name")]
-        #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub tft_set_core_name: Option<String>,
         #[serde(rename = "endOfGameResult")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub end_of_game_result: Option<String>,
@@ -3115,13 +3089,40 @@ pub mod tft_match_v1 {
         #[serde(rename = "gameId")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub game_id: Option<i64>,
+        /// Unix timestamp.
+        #[serde(rename = "game_datetime")]
+        pub game_datetime: i64,
+        /// Game length in seconds.
+        #[serde(rename = "game_length")]
+        pub game_length: f32,
+        /// Game client version.
+        #[serde(rename = "game_version")]
+        pub game_version: String,
+        /// Game variation key. Game variations documented in TFT static data.
+        #[serde(rename = "game_variation")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub game_variation: Option<String>,
         #[serde(rename = "mapId")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub map_id: Option<i64>,
+        #[serde(rename = "participants")]
+        pub participants: std::vec::Vec<crate::models::tft_match_v1::Participant>,
+        /// Please refer to the League of Legends documentation.
+        #[serde(rename = "queue_id")]
+        pub queue_id: crate::consts::Queue,
         /// Please refer to the League of Legends documentation.
         #[serde(rename = "queueId")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub queue_id_: Option<crate::consts::Queue>,
+        #[serde(rename = "tft_game_type")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub tft_game_type: Option<String>,
+        #[serde(rename = "tft_set_core_name")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub tft_set_core_name: Option<String>,
+        /// Teamfight Tactics set number.
+        #[serde(rename = "tft_set_number")]
+        pub tft_set_number: i32,
     }
     /// `tft-match-v1.ParticipantDto` data object.
     #[derive(Clone, Debug)]
@@ -3188,6 +3189,20 @@ pub mod tft_match_v1 {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub pve_wonrun: Option<bool>,
     }
+    /// `tft-match-v1.CompanionDto` data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, crate::de::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct Companion {
+        #[serde(rename = "content_ID")]
+        pub content_id: String,
+        #[serde(rename = "item_ID")]
+        pub item_id: i32,
+        #[serde(rename = "skin_ID")]
+        pub skin_id: i32,
+        #[serde(rename = "species")]
+        pub species: String,
+    }
     /// `tft-match-v1.TraitDto` data object.
     #[derive(Clone, Debug)]
     #[derive(serde::Serialize, crate::de::Deserialize)]
@@ -3239,21 +3254,6 @@ pub mod tft_match_v1 {
         #[serde(rename = "itemNames")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub item_names: Option<std::vec::Vec<String>>,
-    }
-    /// `tft-match-v1.CompanionDto` data object.
-    #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, crate::de::Deserialize)]
-    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
-    pub struct Companion {
-        #[serde(rename = "item_ID")]
-        #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub item_id: Option<i32>,
-        #[serde(rename = "skin_ID")]
-        pub skin_id: i32,
-        #[serde(rename = "content_ID")]
-        pub content_id: String,
-        #[serde(rename = "species")]
-        pub species: String,
     }
     /// `tft-match-v1.ParticipantMissionsDto` data object.
     #[derive(Clone, Debug)]
@@ -3867,9 +3867,11 @@ pub mod val_console_match_v1 {
         #[serde(rename = "coaches")]
         pub coaches: std::vec::Vec<crate::models::val_console_match_v1::Coach>,
         #[serde(rename = "teams")]
-        pub teams: std::vec::Vec<crate::models::val_console_match_v1::Team>,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub teams: Option<std::vec::Vec<crate::models::val_console_match_v1::Team>>,
         #[serde(rename = "roundResults")]
-        pub round_results: std::vec::Vec<crate::models::val_console_match_v1::RoundResult>,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub round_results: Option<std::vec::Vec<crate::models::val_console_match_v1::RoundResult>>,
     }
     /// `val-console-match-v1.MatchInfoDto` data object.
     #[derive(Clone, Debug)]
@@ -3881,7 +3883,8 @@ pub mod val_console_match_v1 {
         #[serde(rename = "mapId")]
         pub map_id: String,
         #[serde(rename = "gameLengthMillis")]
-        pub game_length_millis: i32,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub game_length_millis: Option<i32>,
         #[serde(rename = "gameStartMillis")]
         pub game_start_millis: i64,
         #[serde(rename = "provisioningFlowId")]
@@ -3915,9 +3918,11 @@ pub mod val_console_match_v1 {
         #[serde(rename = "partyId")]
         pub party_id: String,
         #[serde(rename = "characterId")]
-        pub character_id: String,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub character_id: Option<String>,
         #[serde(rename = "stats")]
-        pub stats: crate::models::val_console_match_v1::PlayerStats,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub stats: Option<crate::models::val_console_match_v1::PlayerStats>,
         #[serde(rename = "competitiveTier")]
         pub competitive_tier: i32,
         #[serde(rename = "playerCard")]
@@ -3943,7 +3948,8 @@ pub mod val_console_match_v1 {
         #[serde(rename = "playtimeMillis")]
         pub playtime_millis: i32,
         #[serde(rename = "abilityCasts")]
-        pub ability_casts: crate::models::val_console_match_v1::AbilityCasts,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub ability_casts: Option<crate::models::val_console_match_v1::AbilityCasts>,
     }
     /// `val-console-match-v1.AbilityCastsDto` data object.
     #[derive(Clone, Debug)]
@@ -4002,14 +4008,17 @@ pub mod val_console_match_v1 {
         pub winning_team: String,
         /// PUUID of player
         #[serde(rename = "bombPlanter")]
-        pub bomb_planter: String,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub bomb_planter: Option<String>,
         /// PUUID of player
         #[serde(rename = "bombDefuser")]
-        pub bomb_defuser: String,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub bomb_defuser: Option<String>,
         #[serde(rename = "plantRoundTime")]
         pub plant_round_time: i32,
         #[serde(rename = "plantPlayerLocations")]
-        pub plant_player_locations: std::vec::Vec<crate::models::val_console_match_v1::PlayerLocations>,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub plant_player_locations: Option<std::vec::Vec<crate::models::val_console_match_v1::PlayerLocations>>,
         #[serde(rename = "plantLocation")]
         pub plant_location: crate::models::val_console_match_v1::Location,
         #[serde(rename = "plantSite")]
@@ -4017,7 +4026,8 @@ pub mod val_console_match_v1 {
         #[serde(rename = "defuseRoundTime")]
         pub defuse_round_time: i32,
         #[serde(rename = "defusePlayerLocations")]
-        pub defuse_player_locations: std::vec::Vec<crate::models::val_console_match_v1::PlayerLocations>,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub defuse_player_locations: Option<std::vec::Vec<crate::models::val_console_match_v1::PlayerLocations>>,
         #[serde(rename = "defuseLocation")]
         pub defuse_location: crate::models::val_console_match_v1::Location,
         #[serde(rename = "playerStats")]
@@ -4141,13 +4151,17 @@ pub mod val_console_match_v1 {
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Ability {
         #[serde(rename = "grenadeEffects")]
-        pub grenade_effects: String,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub grenade_effects: Option<String>,
         #[serde(rename = "ability1Effects")]
-        pub ability1_effects: String,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub ability1_effects: Option<String>,
         #[serde(rename = "ability2Effects")]
-        pub ability2_effects: String,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub ability2_effects: Option<String>,
         #[serde(rename = "ultimateEffects")]
-        pub ultimate_effects: String,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub ultimate_effects: Option<String>,
     }
     /// `val-console-match-v1.MatchlistDto` data object.
     #[derive(Clone, Debug)]
@@ -4213,13 +4227,16 @@ pub mod val_console_ranked_v1 {
     pub struct Player {
         /// This field may be omitted if the player has been anonymized.
         #[serde(rename = "puuid")]
-        pub puuid: String,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub puuid: Option<String>,
         /// This field may be omitted if the player has been anonymized.
         #[serde(rename = "gameName")]
-        pub game_name: String,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub game_name: Option<String>,
         /// This field may be omitted if the player has been anonymized.
         #[serde(rename = "tagLine")]
-        pub tag_line: String,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub tag_line: Option<String>,
         #[serde(rename = "leaderboardRank")]
         pub leaderboard_rank: i64,
         #[serde(rename = "rankedRating")]
@@ -4439,7 +4456,8 @@ pub mod val_match_v1 {
         #[serde(rename = "partyId")]
         pub party_id: String,
         #[serde(rename = "characterId")]
-        pub character_id: String,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub character_id: Option<String>,
         #[serde(rename = "stats")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub stats: Option<crate::models::val_match_v1::PlayerStats>,

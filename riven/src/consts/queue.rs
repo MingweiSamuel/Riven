@@ -439,5 +439,8 @@ newtype_enum! {
         /// `6100`.
         /// Teamfight Tactics Revival: Festival of Beasts games on Convergence
         CONVERGENCE_TEAMFIGHT_TACTICS_REVIVAL_FESTIVAL_OF_BEASTS = 6100,
+        /// `6110`.
+        /// Teamfight Tactics Revival: Remix Rumble games on Convergence
+        CONVERGENCE_TEAMFIGHT_TACTICS_REVIVAL_REMIX_RUMBLE = 6110,
     }
 }

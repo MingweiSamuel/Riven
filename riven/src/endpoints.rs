@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 851168dfd956a2260ec2cbe085627c7e9fb3452c
+// Version 7ea607ed5d43b39f05e50ae331894b00248173c7
 
 //! Automatically generated endpoint handles.
 #![allow(clippy::let_and_return, clippy::too_many_arguments)]
@@ -4319,11 +4319,11 @@ impl<'a> ValConsoleMatchV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_match(&self, route: ValPlatformRoute, match_id: &str)
-        -> impl Future<Output = Result<crate::models::val_console_match_v1::Match>> + 'a
+        -> impl Future<Output = Result<Option<crate::models::val_console_match_v1::Match>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/val/match/console/v1/matches/{}", match_id));
-        let future = self.base.execute_val::<crate::models::val_console_match_v1::Match>("val-console-match-v1.getMatch", route_str, request);
+        let future = self.base.execute_opt::<crate::models::val_console_match_v1::Match>("val-console-match-v1.getMatch", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("val-console-match-v1.getMatch", route = route_str));
         #[cfg(feature = "metrics")]
@@ -4342,11 +4342,11 @@ impl<'a> ValConsoleMatchV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_match(&self, min_capacity: f32, route: ValPlatformRoute, match_id: &str)
-        -> impl Future<Output = TryRequestResult<crate::models::val_console_match_v1::Match>> + 'a
+        -> impl Future<Output = TryRequestResult<Option<crate::models::val_console_match_v1::Match>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/val/match/console/v1/matches/{}", match_id));
-        let future = self.base.try_execute_val::<crate::models::val_console_match_v1::Match>("val-console-match-v1.getMatch", route_str, request, min_capacity);
+        let future = self.base.try_execute_opt::<crate::models::val_console_match_v1::Match>("val-console-match-v1.getMatch", route_str, request, min_capacity);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("val-console-match-v1.getMatch", route = route_str));
         #[cfg(feature = "metrics")]
@@ -4472,14 +4472,14 @@ impl<'a> ValConsoleRankedV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_leaderboard(&self, route: ValPlatformRoute, act_id: &str, platform_type: &str, size: Option<i32>, start_index: Option<i32>)
-        -> impl Future<Output = Result<crate::models::val_console_ranked_v1::Leaderboard>> + 'a
+        -> impl Future<Output = Result<Option<crate::models::val_console_ranked_v1::Leaderboard>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/val/console/ranked/v1/leaderboards/by-act/{}", act_id));
         let request = request.query(&[ ("platformType", platform_type) ]);
         let request = if let Some(size) = size { request.query(&[ ("size", size) ]) } else { request };
         let request = if let Some(start_index) = start_index { request.query(&[ ("startIndex", start_index) ]) } else { request };
-        let future = self.base.execute_val::<crate::models::val_console_ranked_v1::Leaderboard>("val-console-ranked-v1.getLeaderboard", route_str, request);
+        let future = self.base.execute_opt::<crate::models::val_console_ranked_v1::Leaderboard>("val-console-ranked-v1.getLeaderboard", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("val-console-ranked-v1.getLeaderboard", route = route_str));
         #[cfg(feature = "metrics")]
@@ -4501,14 +4501,14 @@ impl<'a> ValConsoleRankedV1<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_leaderboard(&self, min_capacity: f32, route: ValPlatformRoute, act_id: &str, platform_type: &str, size: Option<i32>, start_index: Option<i32>)
-        -> impl Future<Output = TryRequestResult<crate::models::val_console_ranked_v1::Leaderboard>> + 'a
+        -> impl Future<Output = TryRequestResult<Option<crate::models::val_console_ranked_v1::Leaderboard>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/val/console/ranked/v1/leaderboards/by-act/{}", act_id));
         let request = request.query(&[ ("platformType", platform_type) ]);
         let request = if let Some(size) = size { request.query(&[ ("size", size) ]) } else { request };
         let request = if let Some(start_index) = start_index { request.query(&[ ("startIndex", start_index) ]) } else { request };
-        let future = self.base.try_execute_val::<crate::models::val_console_ranked_v1::Leaderboard>("val-console-ranked-v1.getLeaderboard", route_str, request, min_capacity);
+        let future = self.base.try_execute_opt::<crate::models::val_console_ranked_v1::Leaderboard>("val-console-ranked-v1.getLeaderboard", route_str, request, min_capacity);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("val-console-ranked-v1.getLeaderboard", route = route_str));
         #[cfg(feature = "metrics")]
