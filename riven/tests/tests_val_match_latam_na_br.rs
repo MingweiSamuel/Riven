@@ -5,8 +5,10 @@ use testutils::{riven_test, val_content_ranked, val_match_v1_get, val_match_v1_l
 const ROUTE: ValPlatformRoute = ValPlatformRoute::NA;
 
 static MATCHES: &[&str] = &[
-    // Aborted game
-    "4c196b0a-b396-46ae-a937-b4c52ee83f9a",
+    // // Aborted game (removed 2025-05-26)
+    // "4c196b0a-b396-46ae-a937-b4c52ee83f9a",
+    // https://github.com/MingweiSamuel/Riven/issues/92
+    "db6033b7-fede-41ea-8c33-63bd31a68be7",
 ];
 
 #[riven_test]
