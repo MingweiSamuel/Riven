@@ -5,10 +5,9 @@ use testutils::*;
 const ROUTE: PlatformRoute = PlatformRoute::JP1;
 
 static MATCHES: &[&str] = &[
-    // New field `ParticipantChallenges` `twoWardsOneSweeperCount`
-    "JP1_397348569",
-    // New fields:
-    // `match-v5.ParticipantDto.playerAugment[1234],playerSubteamId,subteamPlacement`
+    // // New field `ParticipantChallenges` `twoWardsOneSweeperCount` (removed 2025-05-26).
+    // "JP1_397348569",
+    // New fields: `match-v5.ParticipantDto.playerAugment[1234],playerSubteamId,subteamPlacement`
     "JP1_400700181",
     // New field: `match-v5.ParticipantDto.placement`
     "JP1_405073638",

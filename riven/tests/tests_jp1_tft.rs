@@ -11,6 +11,8 @@ static TFT_MATCHES: &[&str] = &[
     "JP1_476014499",
     // 2025-04-21 `ParticipantDTO.pve_score`. (removed??)
     "JP1_505036811",
+    // Queue ID 6110.
+    "JP1_510452964",
 ];
 
 #[riven_test]
