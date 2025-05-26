@@ -178,6 +178,7 @@ pub enum ValPlatformRoute {
 pub enum TournamentRegion {
 {{
     for (const [ name, { id, description, tournamentRegion, deprecated } ] of Object.entries(routesTable['platform'])) {
+        const nameUpper = name.toUpperCase();
         if (tournamentRegion) {
             const desc = description.split('\n');
 }}
@@ -186,6 +187,10 @@ pub enum TournamentRegion {
 {{~}}
 {{? deprecated }}
     #[deprecated]
+{{?}}
+{{? tournamentRegion != name }}
+    #[strum(to_string={{= JSON.stringify(tournamentRegion) }}, serialize={{= JSON.stringify(nameUpper) }})]
+    #[serde(alias = {{= JSON.stringify(nameUpper) }})]
 {{?}}
     {{= tournamentRegion }} = {{= id }},
 {{
