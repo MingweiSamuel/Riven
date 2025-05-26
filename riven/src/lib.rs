@@ -1,4 +1,4 @@
-#![doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/", env!("CARGO_PKG_README")))]
+#![cfg_attr(not(target_family = "wasm"), doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/", env!("CARGO_PKG_README"))))]
 #![forbid(unsafe_code)]
 #![warn(missing_docs)]
 
