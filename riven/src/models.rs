@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 7ea607ed5d43b39f05e50ae331894b00248173c7
+// Version 22eaf104ffa026981e6ecbf9bd5d60054f12ddf9
 
 #![allow(missing_docs)]
 
@@ -200,8 +200,6 @@ pub mod clash_v1 {
     #[derive(serde::Serialize, crate::de::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Player {
-        #[serde(rename = "summonerId")]
-        pub summoner_id: String,
         #[serde(rename = "puuid")]
         pub puuid: String,
         #[serde(rename = "teamId")]
@@ -285,7 +283,8 @@ pub mod league_exp_v4 {
         pub league_id: String,
         /// Player's summonerId (Encrypted)
         #[serde(rename = "summonerId")]
-        pub summoner_id: String,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub summoner_id: Option<String>,
         /// Player's encrypted puuid.
         #[serde(rename = "puuid")]
         pub puuid: String,
@@ -382,9 +381,6 @@ pub mod league_v4 {
         /// Losing team on Summoners Rift.
         #[serde(rename = "losses")]
         pub losses: i32,
-        /// Player's encrypted summonerId.
-        #[serde(rename = "summonerId")]
-        pub summoner_id: String,
         /// Player's encrypted puuid.
         #[serde(rename = "puuid")]
         pub puuid: String,
@@ -411,9 +407,6 @@ pub mod league_v4 {
         #[serde(rename = "leagueId")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub league_id: Option<String>,
-        /// Player's encrypted summonerId.
-        #[serde(rename = "summonerId")]
-        pub summoner_id: String,
         /// Player's encrypted puuid.
         #[serde(rename = "puuid")]
         pub puuid: String,
@@ -1422,6 +1415,9 @@ pub mod match_v5 {
         #[serde(rename = "retreatPings")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub retreat_pings: Option<i32>,
+        #[serde(rename = "championSkinId")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub champion_skin_id: Option<i32>,
     }
     /// `match-v5.ChallengesDto` data object.
     /// # Description
@@ -2494,9 +2490,6 @@ pub mod spectator_tft_v5 {
         /// The team ID of this participant, indicating the participant's team
         #[serde(rename = "teamId")]
         pub team_id: crate::consts::Team,
-        /// The encrypted summoner ID of this participant
-        #[serde(rename = "summonerId")]
-        pub summoner_id: String,
         /// The encrypted puuid of this participant
         #[serde(rename = "puuid")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2603,10 +2596,6 @@ pub mod spectator_tft_v5 {
         /// The ID of the profile icon used by this participant
         #[serde(rename = "profileIconId")]
         pub profile_icon_id: i64,
-        /// Encrypted summoner ID of this participant
-        #[serde(rename = "summonerId")]
-        #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub summoner_id: Option<String>,
         /// Encrypted puuid of this participant
         #[serde(rename = "puuid")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2716,9 +2705,6 @@ pub mod spectator_v5 {
         /// The team ID of this participant, indicating the participant's team
         #[serde(rename = "teamId")]
         pub team_id: crate::consts::Team,
-        /// The encrypted summoner ID of this participant
-        #[serde(rename = "summonerId")]
-        pub summoner_id: String,
         /// The encrypted puuid of this participant
         #[serde(rename = "puuid")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2828,10 +2814,6 @@ pub mod spectator_v5 {
         /// The ID of the profile icon used by this participant
         #[serde(rename = "profileIconId")]
         pub profile_icon_id: i64,
-        /// Encrypted summoner ID of this participant
-        #[serde(rename = "summonerId")]
-        #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub summoner_id: Option<String>,
         /// Encrypted puuid of this participant
         #[serde(rename = "puuid")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2865,18 +2847,12 @@ pub mod summoner_v4 {
     #[derive(serde::Serialize, crate::de::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Summoner {
-        /// Encrypted account ID. Max length 56 characters.
-        #[serde(rename = "accountId")]
-        pub account_id: String,
         /// ID of the summoner icon associated with the summoner.
         #[serde(rename = "profileIconId")]
         pub profile_icon_id: i32,
         /// Date summoner was last modified specified as epoch milliseconds. The following events will update this timestamp: profile icon change, playing the tutorial or advanced tutorial, finishing a game, summoner name change.
         #[serde(rename = "revisionDate")]
         pub revision_date: i64,
-        /// Encrypted summoner ID. Max length 63 characters.
-        #[serde(rename = "id")]
-        pub id: String,
         /// Encrypted PUUID. Exact length of 78 characters.
         #[serde(rename = "puuid")]
         pub puuid: String,
@@ -2904,9 +2880,6 @@ pub mod tft_league_v1 {
         #[serde(rename = "leagueId")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub league_id: Option<String>,
-        /// Player's encrypted summonerId.
-        #[serde(rename = "summonerId")]
-        pub summoner_id: String,
         #[serde(rename = "queueType")]
         pub queue_type: crate::consts::QueueType,
         /// Only included for the RANKED_TFT_TURBO queueType.<br>
@@ -3016,9 +2989,6 @@ pub mod tft_league_v1 {
         /// Second through eighth placement.
         #[serde(rename = "losses")]
         pub losses: i32,
-        /// Player's encrypted summonerId.
-        #[serde(rename = "summonerId")]
-        pub summoner_id: String,
         /// Player's encrypted puuid.
         #[serde(rename = "puuid")]
         pub puuid: String,
@@ -3028,8 +2998,9 @@ pub mod tft_league_v1 {
     #[derive(serde::Serialize, crate::de::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct TopRatedLadderEntry {
-        #[serde(rename = "summonerId")]
-        pub summoner_id: String,
+        /// Player's encrypted puuid.
+        #[serde(rename = "puuid")]
+        pub puuid: String,
         /// (Legal values:  ORANGE,  PURPLE,  BLUE,  GREEN,  GRAY)
         #[serde(rename = "ratedTier")]
         pub rated_tier: String,
@@ -3098,7 +3069,7 @@ pub mod tft_match_v1 {
         /// Game client version.
         #[serde(rename = "game_version")]
         pub game_version: String,
-        /// Game variation key. Game variations documented in TFT static data.
+        /// Deprecated. Game variation key. Game variations documented in TFT static data.
         #[serde(rename = "game_variation")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub game_variation: Option<String>,
@@ -3167,6 +3138,9 @@ pub mod tft_match_v1 {
         /// A list of active units for the participant.
         #[serde(rename = "units")]
         pub units: std::vec::Vec<crate::models::tft_match_v1::Unit>,
+        #[serde(rename = "win")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub win: Option<bool>,
         #[serde(rename = "augments")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub augments: Option<std::vec::Vec<String>>,
@@ -3176,9 +3150,6 @@ pub mod tft_match_v1 {
         #[serde(rename = "missions")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub missions: Option<crate::models::tft_match_v1::ParticipantMissions>,
-        #[serde(rename = "win")]
-        #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub win: Option<bool>,
         #[serde(rename = "skill_tree")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub skill_tree: Option<std::collections::HashMap<String, i32>>,
@@ -3238,6 +3209,9 @@ pub mod tft_match_v1 {
         /// This field was introduced in patch 9.22 with data_version 2.
         #[serde(rename = "character_id")]
         pub character_id: String,
+        #[serde(rename = "itemNames")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub item_names: Option<std::vec::Vec<String>>,
         /// If a unit is chosen as part of the Fates set mechanic, the chosen trait will be indicated by this field. Otherwise this field is excluded from the response.
         #[serde(rename = "chosen")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3251,9 +3225,6 @@ pub mod tft_match_v1 {
         /// Unit tier.
         #[serde(rename = "tier")]
         pub tier: i32,
-        #[serde(rename = "itemNames")]
-        #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub item_names: Option<std::vec::Vec<String>>,
     }
     /// `tft-match-v1.ParticipantMissionsDto` data object.
     #[derive(Clone, Debug)]
@@ -3502,21 +3473,15 @@ pub mod tft_summoner_v1 {
     #[derive(serde::Serialize, crate::de::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Summoner {
-        /// Encrypted account ID. Max length 56 characters.
-        #[serde(rename = "accountId")]
-        pub account_id: String,
+        /// Encrypted PUUID. Exact length of 78 characters.
+        #[serde(rename = "puuid")]
+        pub puuid: String,
         /// ID of the summoner icon associated with the summoner.
         #[serde(rename = "profileIconId")]
         pub profile_icon_id: i32,
         /// Date summoner was last modified specified as epoch milliseconds. The following events will update this timestamp: profile icon change, playing the tutorial or advanced tutorial, finishing a game, summoner name change.
         #[serde(rename = "revisionDate")]
         pub revision_date: i64,
-        /// Encrypted summoner ID. Max length 63 characters.
-        #[serde(rename = "id")]
-        pub id: String,
-        /// Encrypted PUUID. Exact length of 78 characters.
-        #[serde(rename = "puuid")]
-        pub puuid: String,
         /// Summoner level associated with the summoner.
         #[serde(rename = "summonerLevel")]
         pub summoner_level: i64,
@@ -3696,36 +3661,18 @@ pub mod tournament_v5 {
     #[derive(serde::Serialize, crate::de::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct TournamentCodeV5 {
-        /// The tournament code.
-        #[serde(rename = "code")]
-        pub code: String,
-        /// The spectator mode for the tournament code game.
-        #[serde(rename = "spectators")]
-        pub spectators: String,
-        /// The lobby name for the tournament code game.
-        #[serde(rename = "lobbyName")]
-        pub lobby_name: String,
-        /// The metadata for tournament code.
-        #[serde(rename = "metaData")]
-        pub meta_data: String,
-        /// The password for the tournament code game.
-        #[serde(rename = "password")]
-        pub password: String,
-        /// The team size for the tournament code game.
-        #[serde(rename = "teamSize")]
-        pub team_size: i32,
-        /// The provider's ID.
-        #[serde(rename = "providerId")]
-        pub provider_id: i32,
-        /// The pick mode for tournament code game.
-        #[serde(rename = "pickType")]
-        pub pick_type: String,
-        /// The tournament's ID.
-        #[serde(rename = "tournamentId")]
-        pub tournament_id: i32,
         /// The tournament code's ID.
         #[serde(rename = "id")]
         pub id: i32,
+        /// The provider's ID.
+        #[serde(rename = "providerId")]
+        pub provider_id: i32,
+        /// The tournament's ID.
+        #[serde(rename = "tournamentId")]
+        pub tournament_id: i32,
+        /// The tournament code.
+        #[serde(rename = "code")]
+        pub code: String,
         /// The tournament code's region.<br>
         /// (Legal values:  BR,  EUNE,  EUW,  JP,  LAN,  LAS,  NA,  OCE,  PBE,  RU,  TR,  KR,  PH,  SG,  TH,  TW,  VN)
         #[serde(rename = "region")]
@@ -3733,6 +3680,24 @@ pub mod tournament_v5 {
         /// The game map for the tournament code game
         #[serde(rename = "map")]
         pub map: String,
+        /// The team size for the tournament code game.
+        #[serde(rename = "teamSize")]
+        pub team_size: i32,
+        /// The spectator mode for the tournament code game.
+        #[serde(rename = "spectators")]
+        pub spectators: String,
+        /// The pick mode for tournament code game.
+        #[serde(rename = "pickType")]
+        pub pick_type: String,
+        /// The lobby name for the tournament code game.
+        #[serde(rename = "lobbyName")]
+        pub lobby_name: String,
+        /// The password for the tournament code game.
+        #[serde(rename = "password")]
+        pub password: String,
+        /// The metadata for tournament code.
+        #[serde(rename = "metaData")]
+        pub meta_data: String,
         /// The puuids of the participants (Encrypted)
         #[serde(rename = "participants")]
         pub participants: std::vec::Vec<String>,
@@ -3764,6 +3729,8 @@ pub mod tournament_v5 {
     #[derive(serde::Serialize, crate::de::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct TournamentGamesV5 {
+        #[serde(rename = "startTime")]
+        pub start_time: i64,
         #[serde(rename = "winningTeam")]
         pub winning_team: std::vec::Vec<crate::models::tournament_v5::TournamentTeamV5>,
         #[serde(rename = "losingTeam")]
@@ -4414,9 +4381,13 @@ pub mod val_match_v1 {
         pub match_id: String,
         #[serde(rename = "mapId")]
         pub map_id: String,
+        #[serde(rename = "gameVersion")]
+        pub game_version: String,
         #[serde(rename = "gameLengthMillis")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub game_length_millis: Option<i32>,
+        #[serde(rename = "region")]
+        pub region: String,
         #[serde(rename = "gameStartMillis")]
         pub game_start_millis: i64,
         #[serde(rename = "provisioningFlowId")]
@@ -4433,10 +4404,6 @@ pub mod val_match_v1 {
         pub is_ranked: bool,
         #[serde(rename = "seasonId")]
         pub season_id: String,
-        #[serde(rename = "gameVersion")]
-        pub game_version: String,
-        #[serde(rename = "region")]
-        pub region: String,
         #[serde(rename = "premierMatchInfo")]
         pub premier_match_info: serde_json::Map<String, serde_json::Value>,
     }
@@ -4463,12 +4430,12 @@ pub mod val_match_v1 {
         pub stats: Option<crate::models::val_match_v1::PlayerStats>,
         #[serde(rename = "competitiveTier")]
         pub competitive_tier: i32,
+        #[serde(rename = "isObserver")]
+        pub is_observer: bool,
         #[serde(rename = "playerCard")]
         pub player_card: String,
         #[serde(rename = "playerTitle")]
         pub player_title: String,
-        #[serde(rename = "isObserver")]
-        pub is_observer: bool,
         #[serde(rename = "accountLevel")]
         pub account_level: i32,
     }
@@ -4548,6 +4515,8 @@ pub mod val_match_v1 {
         pub round_ceremony: String,
         #[serde(rename = "winningTeam")]
         pub winning_team: String,
+        #[serde(rename = "winningTeamRole")]
+        pub winning_team_role: String,
         /// PUUID of player
         #[serde(rename = "bombPlanter")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -4576,8 +4545,6 @@ pub mod val_match_v1 {
         pub player_stats: std::vec::Vec<crate::models::val_match_v1::PlayerRoundStats>,
         #[serde(rename = "roundResultCode")]
         pub round_result_code: String,
-        #[serde(rename = "winningTeamRole")]
-        pub winning_team_role: String,
     }
     /// `val-match-v1.PlayerLocationsDto` data object.
     #[derive(Clone, Debug)]

@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 7ea607ed5d43b39f05e50ae331894b00248173c7
+// Version 22eaf104ffa026981e6ecbf9bd5d60054f12ddf9
 
 //! Automatically generated endpoint handles.
 #![allow(clippy::let_and_return, clippy::too_many_arguments)]
@@ -1187,50 +1187,6 @@ impl<'a> LeagueV4<'a> {
         let future = future.instrument(tracing::info_span!("league-v4.getLeagueEntriesByPUUID", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::try_timed(future, "league-v4.getLeagueEntriesByPUUID", route_str);
-        future
-    }
-
-    /// Get league entries in all queues for a given summoner ID.
-    /// # Parameters
-    /// * `route` - Route to query.
-    /// * `encrypted_summoner_id` (required, in path)
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntriesForSummoner" target="_blank">`league-v4.getLeagueEntriesForSummoner`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn get_league_entries_for_summoner(&self, route: PlatformRoute, encrypted_summoner_id: &str)
-        -> impl Future<Output = Result<Vec<crate::models::league_v4::LeagueEntry>>> + 'a
-    {
-        let route_str = route.into();
-        let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/entries/by-summoner/{}", encrypted_summoner_id));
-        let future = self.base.execute_val::<Vec<crate::models::league_v4::LeagueEntry>>("league-v4.getLeagueEntriesForSummoner", route_str, request);
-        #[cfg(feature = "tracing")]
-        let future = future.instrument(tracing::info_span!("league-v4.getLeagueEntriesForSummoner", route = route_str));
-        #[cfg(feature = "metrics")]
-        let future = metrics::timed(future, "league-v4.getLeagueEntriesForSummoner", route_str);
-        future
-    }
-
-    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
-    /// See `get_league_entries_for_summoner` for detailed documentation
-    /// # Parameters
-    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
-    /// * `route` - Route to query.
-    /// * `encrypted_summoner_id` (required, in path)
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueEntriesForSummoner" target="_blank">`league-v4.getLeagueEntriesForSummoner`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn try_get_league_entries_for_summoner(&self, min_capacity: f32, route: PlatformRoute, encrypted_summoner_id: &str)
-        -> impl Future<Output = TryRequestResult<Vec<crate::models::league_v4::LeagueEntry>>> + 'a
-    {
-        let route_str = route.into();
-        let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/entries/by-summoner/{}", encrypted_summoner_id));
-        let future = self.base.try_execute_val::<Vec<crate::models::league_v4::LeagueEntry>>("league-v4.getLeagueEntriesForSummoner", route_str, request, min_capacity);
-        #[cfg(feature = "tracing")]
-        let future = future.instrument(tracing::info_span!("league-v4.getLeagueEntriesForSummoner", route = route_str));
-        #[cfg(feature = "metrics")]
-        let future = metrics::try_timed(future, "league-v4.getLeagueEntriesForSummoner", route_str);
         future
     }
 
@@ -2770,50 +2726,6 @@ impl<'a> SummonerV4<'a> {
         future
     }
 
-    /// Get a summoner by account ID.
-    /// # Parameters
-    /// * `route` - Route to query.
-    /// * `encrypted_account_id` (required, in path)
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByAccountId" target="_blank">`summoner-v4.getByAccountId`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn get_by_account_id(&self, route: PlatformRoute, encrypted_account_id: &str)
-        -> impl Future<Output = Result<crate::models::summoner_v4::Summoner>> + 'a
-    {
-        let route_str = route.into();
-        let request = self.base.request(Method::GET, route_str, &format!("/lol/summoner/v4/summoners/by-account/{}", encrypted_account_id));
-        let future = self.base.execute_val::<crate::models::summoner_v4::Summoner>("summoner-v4.getByAccountId", route_str, request);
-        #[cfg(feature = "tracing")]
-        let future = future.instrument(tracing::info_span!("summoner-v4.getByAccountId", route = route_str));
-        #[cfg(feature = "metrics")]
-        let future = metrics::timed(future, "summoner-v4.getByAccountId", route_str);
-        future
-    }
-
-    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
-    /// See `get_by_account_id` for detailed documentation
-    /// # Parameters
-    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
-    /// * `route` - Route to query.
-    /// * `encrypted_account_id` (required, in path)
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByAccountId" target="_blank">`summoner-v4.getByAccountId`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn try_get_by_account_id(&self, min_capacity: f32, route: PlatformRoute, encrypted_account_id: &str)
-        -> impl Future<Output = TryRequestResult<crate::models::summoner_v4::Summoner>> + 'a
-    {
-        let route_str = route.into();
-        let request = self.base.request(Method::GET, route_str, &format!("/lol/summoner/v4/summoners/by-account/{}", encrypted_account_id));
-        let future = self.base.try_execute_val::<crate::models::summoner_v4::Summoner>("summoner-v4.getByAccountId", route_str, request, min_capacity);
-        #[cfg(feature = "tracing")]
-        let future = future.instrument(tracing::info_span!("summoner-v4.getByAccountId", route = route_str));
-        #[cfg(feature = "metrics")]
-        let future = metrics::try_timed(future, "summoner-v4.getByAccountId", route_str);
-        future
-    }
-
     /// Get a summoner by PUUID.
     /// # Parameters
     /// * `route` - Route to query.
@@ -2909,50 +2821,6 @@ impl<'a> SummonerV4<'a> {
         let future = future.instrument(tracing::info_span!("summoner-v4.getByAccessToken", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::try_timed(future, "summoner-v4.getByAccessToken", route_str);
-        future
-    }
-
-    /// Get a summoner by summoner ID.
-    /// # Parameters
-    /// * `route` - Route to query.
-    /// * `encrypted_summoner_id` (required, in path) - Summoner ID
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getBySummonerId" target="_blank">`summoner-v4.getBySummonerId`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn get_by_summoner_id(&self, route: PlatformRoute, encrypted_summoner_id: &str)
-        -> impl Future<Output = Result<crate::models::summoner_v4::Summoner>> + 'a
-    {
-        let route_str = route.into();
-        let request = self.base.request(Method::GET, route_str, &format!("/lol/summoner/v4/summoners/{}", encrypted_summoner_id));
-        let future = self.base.execute_val::<crate::models::summoner_v4::Summoner>("summoner-v4.getBySummonerId", route_str, request);
-        #[cfg(feature = "tracing")]
-        let future = future.instrument(tracing::info_span!("summoner-v4.getBySummonerId", route = route_str));
-        #[cfg(feature = "metrics")]
-        let future = metrics::timed(future, "summoner-v4.getBySummonerId", route_str);
-        future
-    }
-
-    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
-    /// See `get_by_summoner_id` for detailed documentation
-    /// # Parameters
-    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
-    /// * `route` - Route to query.
-    /// * `encrypted_summoner_id` (required, in path) - Summoner ID
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getBySummonerId" target="_blank">`summoner-v4.getBySummonerId`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn try_get_by_summoner_id(&self, min_capacity: f32, route: PlatformRoute, encrypted_summoner_id: &str)
-        -> impl Future<Output = TryRequestResult<crate::models::summoner_v4::Summoner>> + 'a
-    {
-        let route_str = route.into();
-        let request = self.base.request(Method::GET, route_str, &format!("/lol/summoner/v4/summoners/{}", encrypted_summoner_id));
-        let future = self.base.try_execute_val::<crate::models::summoner_v4::Summoner>("summoner-v4.getBySummonerId", route_str, request, min_capacity);
-        #[cfg(feature = "tracing")]
-        let future = future.instrument(tracing::info_span!("summoner-v4.getBySummonerId", route = route_str));
-        #[cfg(feature = "metrics")]
-        let future = metrics::try_timed(future, "summoner-v4.getBySummonerId", route_str);
         future
     }
 
@@ -3055,50 +2923,6 @@ impl<'a> TftLeagueV1<'a> {
         let future = future.instrument(tracing::info_span!("tft-league-v1.getChallengerLeague", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::try_timed(future, "tft-league-v1.getChallengerLeague", route_str);
-        future
-    }
-
-    /// Get league entries for a given summoner ID.
-    /// # Parameters
-    /// * `route` - Route to query.
-    /// * `summoner_id` (required, in path)
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getLeagueEntriesForSummoner" target="_blank">`tft-league-v1.getLeagueEntriesForSummoner`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn get_league_entries_for_summoner(&self, route: PlatformRoute, summoner_id: &str)
-        -> impl Future<Output = Result<Vec<crate::models::tft_league_v1::LeagueEntry>>> + 'a
-    {
-        let route_str = route.into();
-        let request = self.base.request(Method::GET, route_str, &format!("/tft/league/v1/entries/by-summoner/{}", summoner_id));
-        let future = self.base.execute_val::<Vec<crate::models::tft_league_v1::LeagueEntry>>("tft-league-v1.getLeagueEntriesForSummoner", route_str, request);
-        #[cfg(feature = "tracing")]
-        let future = future.instrument(tracing::info_span!("tft-league-v1.getLeagueEntriesForSummoner", route = route_str));
-        #[cfg(feature = "metrics")]
-        let future = metrics::timed(future, "tft-league-v1.getLeagueEntriesForSummoner", route_str);
-        future
-    }
-
-    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
-    /// See `get_league_entries_for_summoner` for detailed documentation
-    /// # Parameters
-    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
-    /// * `route` - Route to query.
-    /// * `summoner_id` (required, in path)
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getLeagueEntriesForSummoner" target="_blank">`tft-league-v1.getLeagueEntriesForSummoner`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn try_get_league_entries_for_summoner(&self, min_capacity: f32, route: PlatformRoute, summoner_id: &str)
-        -> impl Future<Output = TryRequestResult<Vec<crate::models::tft_league_v1::LeagueEntry>>> + 'a
-    {
-        let route_str = route.into();
-        let request = self.base.request(Method::GET, route_str, &format!("/tft/league/v1/entries/by-summoner/{}", summoner_id));
-        let future = self.base.try_execute_val::<Vec<crate::models::tft_league_v1::LeagueEntry>>("tft-league-v1.getLeagueEntriesForSummoner", route_str, request, min_capacity);
-        #[cfg(feature = "tracing")]
-        let future = future.instrument(tracing::info_span!("tft-league-v1.getLeagueEntriesForSummoner", route = route_str));
-        #[cfg(feature = "metrics")]
-        let future = metrics::try_timed(future, "tft-league-v1.getLeagueEntriesForSummoner", route_str);
         future
     }
 
@@ -3518,50 +3342,6 @@ pub struct TftSummonerV1<'a> {
     base: &'a RiotApi,
 }
 impl<'a> TftSummonerV1<'a> {
-    /// Get a summoner by account ID.
-    /// # Parameters
-    /// * `route` - Route to query.
-    /// * `encrypted_account_id` (required, in path)
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getByAccountId" target="_blank">`tft-summoner-v1.getByAccountId`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn get_by_account_id(&self, route: PlatformRoute, encrypted_account_id: &str)
-        -> impl Future<Output = Result<crate::models::tft_summoner_v1::Summoner>> + 'a
-    {
-        let route_str = route.into();
-        let request = self.base.request(Method::GET, route_str, &format!("/tft/summoner/v1/summoners/by-account/{}", encrypted_account_id));
-        let future = self.base.execute_val::<crate::models::tft_summoner_v1::Summoner>("tft-summoner-v1.getByAccountId", route_str, request);
-        #[cfg(feature = "tracing")]
-        let future = future.instrument(tracing::info_span!("tft-summoner-v1.getByAccountId", route = route_str));
-        #[cfg(feature = "metrics")]
-        let future = metrics::timed(future, "tft-summoner-v1.getByAccountId", route_str);
-        future
-    }
-
-    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
-    /// See `get_by_account_id` for detailed documentation
-    /// # Parameters
-    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
-    /// * `route` - Route to query.
-    /// * `encrypted_account_id` (required, in path)
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getByAccountId" target="_blank">`tft-summoner-v1.getByAccountId`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn try_get_by_account_id(&self, min_capacity: f32, route: PlatformRoute, encrypted_account_id: &str)
-        -> impl Future<Output = TryRequestResult<crate::models::tft_summoner_v1::Summoner>> + 'a
-    {
-        let route_str = route.into();
-        let request = self.base.request(Method::GET, route_str, &format!("/tft/summoner/v1/summoners/by-account/{}", encrypted_account_id));
-        let future = self.base.try_execute_val::<crate::models::tft_summoner_v1::Summoner>("tft-summoner-v1.getByAccountId", route_str, request, min_capacity);
-        #[cfg(feature = "tracing")]
-        let future = future.instrument(tracing::info_span!("tft-summoner-v1.getByAccountId", route = route_str));
-        #[cfg(feature = "metrics")]
-        let future = metrics::try_timed(future, "tft-summoner-v1.getByAccountId", route_str);
-        future
-    }
-
     /// Get a summoner by PUUID.
     /// # Parameters
     /// * `route` - Route to query.
@@ -3657,50 +3437,6 @@ impl<'a> TftSummonerV1<'a> {
         let future = future.instrument(tracing::info_span!("tft-summoner-v1.getByAccessToken", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::try_timed(future, "tft-summoner-v1.getByAccessToken", route_str);
-        future
-    }
-
-    /// Get a summoner by summoner ID.
-    /// # Parameters
-    /// * `route` - Route to query.
-    /// * `encrypted_summoner_id` (required, in path) - Summoner ID
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getBySummonerId" target="_blank">`tft-summoner-v1.getBySummonerId`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn get_by_summoner_id(&self, route: PlatformRoute, encrypted_summoner_id: &str)
-        -> impl Future<Output = Result<crate::models::tft_summoner_v1::Summoner>> + 'a
-    {
-        let route_str = route.into();
-        let request = self.base.request(Method::GET, route_str, &format!("/tft/summoner/v1/summoners/{}", encrypted_summoner_id));
-        let future = self.base.execute_val::<crate::models::tft_summoner_v1::Summoner>("tft-summoner-v1.getBySummonerId", route_str, request);
-        #[cfg(feature = "tracing")]
-        let future = future.instrument(tracing::info_span!("tft-summoner-v1.getBySummonerId", route = route_str));
-        #[cfg(feature = "metrics")]
-        let future = metrics::timed(future, "tft-summoner-v1.getBySummonerId", route_str);
-        future
-    }
-
-    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
-    /// See `get_by_summoner_id` for detailed documentation
-    /// # Parameters
-    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
-    /// * `route` - Route to query.
-    /// * `encrypted_summoner_id` (required, in path) - Summoner ID
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#tft-summoner-v1/GET_getBySummonerId" target="_blank">`tft-summoner-v1.getBySummonerId`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn try_get_by_summoner_id(&self, min_capacity: f32, route: PlatformRoute, encrypted_summoner_id: &str)
-        -> impl Future<Output = TryRequestResult<crate::models::tft_summoner_v1::Summoner>> + 'a
-    {
-        let route_str = route.into();
-        let request = self.base.request(Method::GET, route_str, &format!("/tft/summoner/v1/summoners/{}", encrypted_summoner_id));
-        let future = self.base.try_execute_val::<crate::models::tft_summoner_v1::Summoner>("tft-summoner-v1.getBySummonerId", route_str, request, min_capacity);
-        #[cfg(feature = "tracing")]
-        let future = future.instrument(tracing::info_span!("tft-summoner-v1.getBySummonerId", route = route_str));
-        #[cfg(feature = "metrics")]
-        let future = metrics::try_timed(future, "tft-summoner-v1.getBySummonerId", route_str);
         future
     }
 
