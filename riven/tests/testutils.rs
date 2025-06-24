@@ -132,16 +132,9 @@ pub async fn league_v4_match_v5_latest_combo(route: PlatformRoute) -> Result<(),
         .iter()
         .take(5)
         .map(|entry| async move {
-            let summoner_future = riot_api()
-                .summoner_v4()
-                .get_by_summoner_id(route, &entry.summoner_id);
-            let summoner_info = summoner_future
-                .await
-                .map_err(|e| format!("Failed to find summoner info: {}", e))?;
-
             let match_ids_future = riot_api().match_v5().get_match_ids_by_puuid(
                 route.to_regional(),
-                &summoner_info.puuid,
+                &entry.puuid,
                 Some(5),
                 None,
                 None,

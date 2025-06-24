@@ -19,20 +19,16 @@ async fn league_summoner_bulk_test() -> Result<(), String> {
         league_list.entries.len()
     );
 
-    let summoner_vec = join_all(league_list.entries.iter().take(50).map(|entry| async move {
-        let summoner = riot_api()
-            .summoner_v4()
-            .get_by_summoner_id(ROUTE, &entry.summoner_id)
-            .await?;
+    let account_vec = join_all(league_list.entries.iter().take(50).map(|entry| async move {
         let account = riot_api()
             .account_v1()
-            .get_by_puuid(ROUTE.to_regional(), &summoner.puuid)
+            .get_by_puuid(ROUTE.to_regional(), &entry.puuid)
             .await;
         Ok(account)
     }))
     .await;
 
-    for (i, s) in summoner_vec.into_iter().enumerate() {
+    for (i, s) in account_vec.into_iter().enumerate() {
         let account = s
             .and_then(std::convert::identity)
             .map_err(|e| e.to_string())?;

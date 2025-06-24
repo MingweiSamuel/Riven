@@ -65,7 +65,7 @@ async fn tft_combo() -> Result<(), String> {
     let top_player_entry = &top_players[0];
     let top_player = riot_api()
         .tft_summoner_v1()
-        .get_by_summoner_id(ROUTE, &top_player_entry.summoner_id);
+        .get_by_puuid(ROUTE, &top_player_entry.puuid);
     let top_player = top_player.await.map_err(|e| e.to_string())?;
     println!("Top player has `puuid` {}.", top_player.puuid);
     let match_ids = riot_api().tft_match_v1().get_match_ids_by_puuid(

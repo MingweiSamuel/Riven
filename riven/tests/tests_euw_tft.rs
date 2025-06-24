@@ -41,18 +41,6 @@ async fn tftleaguev1_gettopratedladder() -> Result<(), String> {
     Ok(())
 }
 
-#[riven_test]
-async fn tftmatchv1_getmatch() -> Result<(), String> {
-    let p = riot_api()
-        .tft_match_v1()
-        .get_match(ROUTE.to_regional(), "EUW1_6455483163");
-    let _m = p
-        .await
-        .map_err(|e| e.to_string())?
-        .ok_or("Failed to get TFT match.".to_owned())?;
-    Ok(())
-}
-
 /// Get top rated player, get some of their matches.
 #[riven_test]
 async fn tft_combo() -> Result<(), String> {
@@ -64,7 +52,7 @@ async fn tft_combo() -> Result<(), String> {
     let top_player_entry = &top_players[0];
     let top_player = riot_api()
         .tft_summoner_v1()
-        .get_by_summoner_id(ROUTE, &top_player_entry.summoner_id);
+        .get_by_puuid(ROUTE, &top_player_entry.puuid);
     let top_player = top_player.await.map_err(|e| e.to_string())?;
     println!("Top player has `puuid` {}.", top_player.puuid);
     let match_ids = riot_api().tft_match_v1().get_match_ids_by_puuid(
