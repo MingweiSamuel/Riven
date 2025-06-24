@@ -34,7 +34,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn account_v1(&self) -> AccountV1 {
+    pub fn account_v1(&self) -> AccountV1<'_> {
         AccountV1 { base: self }
     }
     /// Returns a handle for accessing [ChampionMasteryV4](crate::endpoints::ChampionMasteryV4) endpoints.
@@ -43,7 +43,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn champion_mastery_v4(&self) -> ChampionMasteryV4 {
+    pub fn champion_mastery_v4(&self) -> ChampionMasteryV4<'_> {
         ChampionMasteryV4 { base: self }
     }
     /// Returns a handle for accessing [ChampionV3](crate::endpoints::ChampionV3) endpoints.
@@ -52,7 +52,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn champion_v3(&self) -> ChampionV3 {
+    pub fn champion_v3(&self) -> ChampionV3<'_> {
         ChampionV3 { base: self }
     }
     /// Returns a handle for accessing [ClashV1](crate::endpoints::ClashV1) endpoints.
@@ -61,7 +61,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn clash_v1(&self) -> ClashV1 {
+    pub fn clash_v1(&self) -> ClashV1<'_> {
         ClashV1 { base: self }
     }
     /// Returns a handle for accessing [LeagueExpV4](crate::endpoints::LeagueExpV4) endpoints.
@@ -70,7 +70,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn league_exp_v4(&self) -> LeagueExpV4 {
+    pub fn league_exp_v4(&self) -> LeagueExpV4<'_> {
         LeagueExpV4 { base: self }
     }
     /// Returns a handle for accessing [LeagueV4](crate::endpoints::LeagueV4) endpoints.
@@ -79,7 +79,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn league_v4(&self) -> LeagueV4 {
+    pub fn league_v4(&self) -> LeagueV4<'_> {
         LeagueV4 { base: self }
     }
     /// Returns a handle for accessing [LolChallengesV1](crate::endpoints::LolChallengesV1) endpoints.
@@ -88,7 +88,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn lol_challenges_v1(&self) -> LolChallengesV1 {
+    pub fn lol_challenges_v1(&self) -> LolChallengesV1<'_> {
         LolChallengesV1 { base: self }
     }
     /// Returns a handle for accessing [LolRsoMatchV1](crate::endpoints::LolRsoMatchV1) endpoints.
@@ -97,7 +97,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn lol_rso_match_v1(&self) -> LolRsoMatchV1 {
+    pub fn lol_rso_match_v1(&self) -> LolRsoMatchV1<'_> {
         LolRsoMatchV1 { base: self }
     }
     /// Returns a handle for accessing [LolStatusV4](crate::endpoints::LolStatusV4) endpoints.
@@ -106,7 +106,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn lol_status_v4(&self) -> LolStatusV4 {
+    pub fn lol_status_v4(&self) -> LolStatusV4<'_> {
         LolStatusV4 { base: self }
     }
     /// Returns a handle for accessing [LorDeckV1](crate::endpoints::LorDeckV1) endpoints.
@@ -115,7 +115,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn lor_deck_v1(&self) -> LorDeckV1 {
+    pub fn lor_deck_v1(&self) -> LorDeckV1<'_> {
         LorDeckV1 { base: self }
     }
     /// Returns a handle for accessing [LorInventoryV1](crate::endpoints::LorInventoryV1) endpoints.
@@ -124,7 +124,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn lor_inventory_v1(&self) -> LorInventoryV1 {
+    pub fn lor_inventory_v1(&self) -> LorInventoryV1<'_> {
         LorInventoryV1 { base: self }
     }
     /// Returns a handle for accessing [LorMatchV1](crate::endpoints::LorMatchV1) endpoints.
@@ -133,7 +133,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn lor_match_v1(&self) -> LorMatchV1 {
+    pub fn lor_match_v1(&self) -> LorMatchV1<'_> {
         LorMatchV1 { base: self }
     }
     /// Returns a handle for accessing [LorRankedV1](crate::endpoints::LorRankedV1) endpoints.
@@ -142,7 +142,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn lor_ranked_v1(&self) -> LorRankedV1 {
+    pub fn lor_ranked_v1(&self) -> LorRankedV1<'_> {
         LorRankedV1 { base: self }
     }
     /// Returns a handle for accessing [LorStatusV1](crate::endpoints::LorStatusV1) endpoints.
@@ -151,7 +151,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn lor_status_v1(&self) -> LorStatusV1 {
+    pub fn lor_status_v1(&self) -> LorStatusV1<'_> {
         LorStatusV1 { base: self }
     }
     /// Returns a handle for accessing [MatchV5](crate::endpoints::MatchV5) endpoints.
@@ -160,7 +160,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn match_v5(&self) -> MatchV5 {
+    pub fn match_v5(&self) -> MatchV5<'_> {
         MatchV5 { base: self }
     }
     /// Returns a handle for accessing [SpectatorTftV5](crate::endpoints::SpectatorTftV5) endpoints.
@@ -169,7 +169,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn spectator_tft_v5(&self) -> SpectatorTftV5 {
+    pub fn spectator_tft_v5(&self) -> SpectatorTftV5<'_> {
         SpectatorTftV5 { base: self }
     }
     /// Returns a handle for accessing [SpectatorV5](crate::endpoints::SpectatorV5) endpoints.
@@ -178,7 +178,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn spectator_v5(&self) -> SpectatorV5 {
+    pub fn spectator_v5(&self) -> SpectatorV5<'_> {
         SpectatorV5 { base: self }
     }
     /// Returns a handle for accessing [SummonerV4](crate::endpoints::SummonerV4) endpoints.
@@ -187,7 +187,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn summoner_v4(&self) -> SummonerV4 {
+    pub fn summoner_v4(&self) -> SummonerV4<'_> {
         SummonerV4 { base: self }
     }
     /// Returns a handle for accessing [TftLeagueV1](crate::endpoints::TftLeagueV1) endpoints.
@@ -196,7 +196,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn tft_league_v1(&self) -> TftLeagueV1 {
+    pub fn tft_league_v1(&self) -> TftLeagueV1<'_> {
         TftLeagueV1 { base: self }
     }
     /// Returns a handle for accessing [TftMatchV1](crate::endpoints::TftMatchV1) endpoints.
@@ -205,7 +205,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn tft_match_v1(&self) -> TftMatchV1 {
+    pub fn tft_match_v1(&self) -> TftMatchV1<'_> {
         TftMatchV1 { base: self }
     }
     /// Returns a handle for accessing [TftStatusV1](crate::endpoints::TftStatusV1) endpoints.
@@ -214,7 +214,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn tft_status_v1(&self) -> TftStatusV1 {
+    pub fn tft_status_v1(&self) -> TftStatusV1<'_> {
         TftStatusV1 { base: self }
     }
     /// Returns a handle for accessing [TftSummonerV1](crate::endpoints::TftSummonerV1) endpoints.
@@ -223,7 +223,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn tft_summoner_v1(&self) -> TftSummonerV1 {
+    pub fn tft_summoner_v1(&self) -> TftSummonerV1<'_> {
         TftSummonerV1 { base: self }
     }
     /// Returns a handle for accessing [TournamentStubV5](crate::endpoints::TournamentStubV5) endpoints.
@@ -232,7 +232,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn tournament_stub_v5(&self) -> TournamentStubV5 {
+    pub fn tournament_stub_v5(&self) -> TournamentStubV5<'_> {
         TournamentStubV5 { base: self }
     }
     /// Returns a handle for accessing [TournamentV5](crate::endpoints::TournamentV5) endpoints.
@@ -241,7 +241,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn tournament_v5(&self) -> TournamentV5 {
+    pub fn tournament_v5(&self) -> TournamentV5<'_> {
         TournamentV5 { base: self }
     }
     /// Returns a handle for accessing [ValConsoleMatchV1](crate::endpoints::ValConsoleMatchV1) endpoints.
@@ -250,7 +250,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn val_console_match_v1(&self) -> ValConsoleMatchV1 {
+    pub fn val_console_match_v1(&self) -> ValConsoleMatchV1<'_> {
         ValConsoleMatchV1 { base: self }
     }
     /// Returns a handle for accessing [ValConsoleRankedV1](crate::endpoints::ValConsoleRankedV1) endpoints.
@@ -259,7 +259,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn val_console_ranked_v1(&self) -> ValConsoleRankedV1 {
+    pub fn val_console_ranked_v1(&self) -> ValConsoleRankedV1<'_> {
         ValConsoleRankedV1 { base: self }
     }
     /// Returns a handle for accessing [ValContentV1](crate::endpoints::ValContentV1) endpoints.
@@ -268,7 +268,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn val_content_v1(&self) -> ValContentV1 {
+    pub fn val_content_v1(&self) -> ValContentV1<'_> {
         ValContentV1 { base: self }
     }
     /// Returns a handle for accessing [ValMatchV1](crate::endpoints::ValMatchV1) endpoints.
@@ -277,7 +277,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn val_match_v1(&self) -> ValMatchV1 {
+    pub fn val_match_v1(&self) -> ValMatchV1<'_> {
         ValMatchV1 { base: self }
     }
     /// Returns a handle for accessing [ValRankedV1](crate::endpoints::ValRankedV1) endpoints.
@@ -286,7 +286,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn val_ranked_v1(&self) -> ValRankedV1 {
+    pub fn val_ranked_v1(&self) -> ValRankedV1<'_> {
         ValRankedV1 { base: self }
     }
     /// Returns a handle for accessing [ValStatusV1](crate::endpoints::ValStatusV1) endpoints.
@@ -295,7 +295,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn val_status_v1(&self) -> ValStatusV1 {
+    pub fn val_status_v1(&self) -> ValStatusV1<'_> {
         ValStatusV1 { base: self }
     }
 }

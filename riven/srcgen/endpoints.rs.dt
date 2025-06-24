@@ -43,7 +43,7 @@ impl RiotApi {
     ///
     /// Note: this method is automatically generated.
     #[inline]
-    pub fn {{= method }}(&self) -> {{= type }} {
+    pub fn {{= method }}(&self) -> {{= type }}<'_> {
         {{= type }} { base: self }
     }
 {{

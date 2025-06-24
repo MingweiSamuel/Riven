@@ -120,7 +120,7 @@ impl VectorTokenBucket {
         }
     }
 
-    fn update_get_timestamps(&self) -> MutexGuard<VecDeque<Instant>> {
+    fn update_get_timestamps(&self) -> MutexGuard<'_, VecDeque<Instant>> {
         let mut timestamps = self.timestamps.lock();
         // Only `None` in wasm, for some implementation reason. Probably sets time 0 at the first
         // `Instant::now()` call or something.
