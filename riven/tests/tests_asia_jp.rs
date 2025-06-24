@@ -48,6 +48,25 @@ async fn get_nonoptional_invalid() -> Result<(), String> {
     Ok(())
 }
 
+/// Test getting a Summoner (rather than an Account) from the latest MATCHES match.
+#[riven_test]
+async fn matchv5_getmatch_summonerv4_getbypuuid() -> Result<(), String> {
+    let match_id = *MATCHES.last().unwrap();
+    let p = riot_api()
+        .match_v5()
+        .get_match(ROUTE.to_regional(), match_id);
+    let m = p
+        .await
+        .map_err(|e| e.to_string())?
+        .ok_or_else(|| format!("Match {} not found", match_id))?;
+    rassert!(!m.info.participants.is_empty());
+    let puuid = &m.info.participants[0].puuid;
+    let sp = riot_api().summoner_v4().get_by_puuid(ROUTE, puuid);
+    let sr = sp.await.map_err(|e| e.to_string())?;
+    rassert_eq!(sr.puuid, *puuid);
+    Ok(())
+}
+
 /// Check invalid code, make sure 403 is handled as expected.
 #[riven_test]
 async fn tournament_forbidden() -> Result<(), String> {
