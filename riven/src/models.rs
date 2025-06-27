@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 22eaf104ffa026981e6ecbf9bd5d60054f12ddf9
+// Version 0487b4ddee110f6612edc0f59e1cabb3da2ea9b2
 
 #![allow(missing_docs)]
 
@@ -384,6 +384,10 @@ pub mod league_v4 {
         /// Player's encrypted puuid.
         #[serde(rename = "puuid")]
         pub puuid: String,
+        /// Encrypted summoner ID. This field is deprecated and will be removed. Use `puuid` instead.
+        #[serde(rename = "summonerId")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub summoner_id: Option<String>,
     }
     /// `league-v4.MiniSeriesDTO` data object.
     #[derive(Clone, Debug)]
@@ -438,6 +442,10 @@ pub mod league_v4 {
         #[serde(rename = "miniSeries")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub mini_series: Option<crate::models::league_v4::MiniSeries>,
+        /// Encrypted summoner ID. This field is deprecated and will be removed. Use `puuid` instead.
+        #[serde(rename = "summonerId")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub summoner_id: Option<String>,
     }
 }
 
@@ -2859,6 +2867,10 @@ pub mod summoner_v4 {
         /// Summoner level associated with the summoner.
         #[serde(rename = "summonerLevel")]
         pub summoner_level: i64,
+        /// Encrypted summoner ID. This field is deprecated and will be removed. Use `puuid` instead.
+        #[serde(rename = "id")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub id: Option<String>,
     }
 }
 
@@ -3485,6 +3497,10 @@ pub mod tft_summoner_v1 {
         /// Summoner level associated with the summoner.
         #[serde(rename = "summonerLevel")]
         pub summoner_level: i64,
+        /// Encrypted summoner ID. This field is deprecated and will be removed. Use `puuid` instead.
+        #[serde(rename = "id")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub id: Option<String>,
     }
 }
 
@@ -4775,6 +4791,9 @@ pub mod val_ranked_v1 {
         #[serde(rename = "competitiveTier")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub competitive_tier: Option<i64>,
+        #[serde(rename = "prefix")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub prefix: Option<String>,
     }
     /// `val-ranked-v1.TierDetailDto` data object.
     #[derive(Clone, Debug)]
