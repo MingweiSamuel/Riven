@@ -42,18 +42,23 @@ async fn tftleaguev1_gettopratedladder() -> Result<(), String> {
 }
 
 /// Get top rated player, get some of their matches.
+/// TODO(mingwei): Deduplicate with `tft_combo` in `tests_asia_jp.rs`.
 #[riven_test]
 async fn tft_combo() -> Result<(), String> {
     let top_players = riot_api()
         .tft_league_v1()
         .get_top_rated_ladder(ROUTE, QueueType::RANKED_TFT_TURBO);
-    let top_players = top_players.await.map_err(|e| e.to_string())?;
+    let top_players = top_players
+        .await
+        .map_err(|e| format!("Failed to get top players: {}", e))?;
     rassert!(!top_players.is_empty());
     let top_player_entry = &top_players[0];
     let top_player = riot_api()
         .tft_summoner_v1()
         .get_by_puuid(ROUTE, &top_player_entry.puuid);
-    let top_player = top_player.await.map_err(|e| e.to_string())?;
+    let top_player = top_player
+        .await
+        .map_err(|e| format!("Failed to get summoner of top player: {}", e))?;
     println!("Top player has `puuid` {}.", top_player.puuid);
     let match_ids = riot_api().tft_match_v1().get_match_ids_by_puuid(
         ROUTE.to_regional(),
@@ -63,7 +68,9 @@ async fn tft_combo() -> Result<(), String> {
         None,
         None,
     );
-    let match_ids = match_ids.await.map_err(|e| e.to_string())?;
+    let match_ids = match_ids
+        .await
+        .map_err(|e| format!("Failed to get match IDs: {}", e))?;
     tft_match_v1_get(ROUTE.to_regional(), &*match_ids).await?;
     Ok(())
 }

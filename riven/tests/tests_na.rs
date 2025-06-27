@@ -28,7 +28,9 @@ async fn league_get_diamond() -> Result<(), String> {
         Division::IV,
         None,
     );
-    let opt = p.await.map_err(|e| e.to_string())?;
+    let opt = p
+        .await
+        .map_err(|e| format!("Failed to get league entries: {}", e))?;
     if let Some(list) = opt {
         assert!(!list.is_empty(), "Returns 204 (`None`) when empty.");
     } else {

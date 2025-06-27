@@ -414,10 +414,13 @@ pub async fn val_content_ranked(route: ValPlatformRoute) -> Result<(), String> {
     let p = riot_api()
         .val_ranked_v1()
         .get_leaderboard(route, &act.id, None, None);
-    let leaderboard = p.await.map_err(|e| e.to_string())?.ok_or(format!(
-        "Failed to get act leaderboard {} {}.",
-        act.id, act.name
-    ))?;
+    let leaderboard = p
+        .await
+        .map_err(|e| format!("Failed to get act leaderboard: {} {}", act.id, e))?
+        .ok_or(format!(
+            "Act leaderboard was not found: {} {}.",
+            act.id, act.name
+        ))?;
 
     if leaderboard.act_id.is_empty() {
         eprintln!("Leaderboard has empty `act_id`, continuing anyway.");
