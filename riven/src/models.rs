@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 0487b4ddee110f6612edc0f59e1cabb3da2ea9b2
+// Version c5f59a3e27f5101b78b8c7eb9b3fb88318b4225d
 
 #![allow(missing_docs)]
 
@@ -1044,6 +1044,9 @@ pub mod match_v5 {
         #[serde(rename = "tournamentCode")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub tournament_code: Option<String>,
+        #[serde(rename = "gameModeMutators")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub game_mode_mutators: Option<std::vec::Vec<String>>,
     }
     /// `match-v5.ParticipantDto` data object.
     #[derive(Clone, Debug)]

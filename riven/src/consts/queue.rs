@@ -442,5 +442,8 @@ newtype_enum! {
         /// `6110`.
         /// Teamfight Tactics Revival: Remix Rumble games on Convergence
         CONVERGENCE_TEAMFIGHT_TACTICS_REVIVAL_REMIX_RUMBLE = 6110,
+        /// `6120`.
+        /// Teamfight Tactics: Pengu's Party games on Convergence
+        CONVERGENCE_TEAMFIGHT_TACTICS_PENGUS_PARTY = 6120,
     }
 }
