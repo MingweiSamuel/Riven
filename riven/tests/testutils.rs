@@ -482,7 +482,7 @@ pub async fn val_match_v1_get(
 }
 
 /// Joins all futures and keeps ALL error messages, separated by newlines.
-async fn join_all_future_errs<T>(
+pub async fn join_all_future_errs<T>(
     result_tasks: impl Iterator<Item = impl Future<Output = Result<T, String>>>,
 ) -> Result<(), String> {
     futures::future::join_all(result_tasks)
