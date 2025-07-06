@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version c5f59a3e27f5101b78b8c7eb9b3fb88318b4225d
+// Version 88956af79c4a4706f5644ebb15ee1c007a7053ee
 
 #![allow(missing_docs)]
 

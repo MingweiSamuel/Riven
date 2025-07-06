@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version c5f59a3e27f5101b78b8c7eb9b3fb88318b4225d
+// Version 88956af79c4a4706f5644ebb15ee1c007a7053ee
 
 //! Automatically generated endpoint handles.
 #![allow(clippy::let_and_return, clippy::too_many_arguments)]
@@ -2735,11 +2735,11 @@ impl<'a> SummonerV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn get_by_puuid(&self, route: PlatformRoute, encrypted_puuid: &str)
-        -> impl Future<Output = Result<crate::models::summoner_v4::Summoner>> + 'a
+        -> impl Future<Output = Result<Option<crate::models::summoner_v4::Summoner>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/summoner/v4/summoners/by-puuid/{}", encrypted_puuid));
-        let future = self.base.execute_val::<crate::models::summoner_v4::Summoner>("summoner-v4.getByPUUID", route_str, request);
+        let future = self.base.execute_opt::<crate::models::summoner_v4::Summoner>("summoner-v4.getByPUUID", route_str, request);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("summoner-v4.getByPUUID", route = route_str));
         #[cfg(feature = "metrics")]
@@ -2758,11 +2758,11 @@ impl<'a> SummonerV4<'a> {
     ///
     /// Note: this method is automatically generated.
     pub fn try_get_by_puuid(&self, min_capacity: f32, route: PlatformRoute, encrypted_puuid: &str)
-        -> impl Future<Output = TryRequestResult<crate::models::summoner_v4::Summoner>> + 'a
+        -> impl Future<Output = TryRequestResult<Option<crate::models::summoner_v4::Summoner>>> + 'a
     {
         let route_str = route.into();
         let request = self.base.request(Method::GET, route_str, &format!("/lol/summoner/v4/summoners/by-puuid/{}", encrypted_puuid));
-        let future = self.base.try_execute_val::<crate::models::summoner_v4::Summoner>("summoner-v4.getByPUUID", route_str, request, min_capacity);
+        let future = self.base.try_execute_opt::<crate::models::summoner_v4::Summoner>("summoner-v4.getByPUUID", route_str, request, min_capacity);
         #[cfg(feature = "tracing")]
         let future = future.instrument(tracing::info_span!("summoner-v4.getByPUUID", route = route_str));
         #[cfg(feature = "metrics")]
