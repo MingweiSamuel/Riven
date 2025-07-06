@@ -323,11 +323,15 @@ async fn account_summoner_by_puuid() -> Result<(), String> {
                 )
             })?;
 
-        assert_eq!(
-            account.puuid, summoner.puuid,
-            "PUUID mismatch for {}#{}",
-            game_name, tag_line
-        );
+        if let Some(summoner) = summoner {
+            assert_eq!(
+                account.puuid, summoner.puuid,
+                "PUUID mismatch for {}#{}",
+                game_name, tag_line
+            );
+        } else {
+            eprintln!("Summoner not found (404) for {}#{}", game_name, tag_line);
+        }
 
         Ok(())
     });

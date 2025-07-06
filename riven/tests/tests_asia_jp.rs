@@ -60,12 +60,23 @@ async fn matchv5_getmatch_summonerv4_getbypuuid() -> Result<(), String> {
         .map_err(|e| format!("Failed to get match: {}", e))?
         .ok_or_else(|| format!("Match {} not found", match_id))?;
     rassert!(!m.info.participants.is_empty());
-    let puuid = &m.info.participants[0].puuid;
-    let sp = riot_api().summoner_v4().get_by_puuid(ROUTE, puuid);
-    let sr = sp
+    let participant = &m.info.participants[0];
+    let sp = riot_api()
+        .summoner_v4()
+        .get_by_puuid(ROUTE, &participant.puuid);
+    let summoner = sp
         .await
-        .map_err(|e| format!("Failed to get summoner: {}", e))?;
-    rassert_eq!(sr.puuid, *puuid);
+        .map_err(|e| format!("Failed to get summoner: {}", e))?
+        .ok_or_else(|| {
+            format!(
+                "Summoner not found (404) for PUUID {}, {}#{}",
+                participant.puuid,
+                participant.riot_id_game_name().unwrap_or("???"),
+                participant.riot_id_tagline.as_deref().unwrap_or("???"),
+            )
+        })?;
+    rassert_eq!(summoner.puuid, *participant.puuid);
+
     Ok(())
 }
 
