@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 88956af79c4a4706f5644ebb15ee1c007a7053ee
+// Version e2d9f6306aaed7b541fdaffb1d10711073291f6e
 
 //! Automatically generated endpoint handles.
 #![allow(clippy::let_and_return, clippy::too_many_arguments)]
@@ -162,6 +162,15 @@ impl RiotApi {
     #[inline]
     pub fn match_v5(&self) -> MatchV5<'_> {
         MatchV5 { base: self }
+    }
+    /// Returns a handle for accessing [RiftboundContentV1](crate::endpoints::RiftboundContentV1) endpoints.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/apis#riftbound-content-v1" target="_blank">`riftbound-content-v1`</a>
+    ///
+    /// Note: this method is automatically generated.
+    #[inline]
+    pub fn riftbound_content_v1(&self) -> RiftboundContentV1<'_> {
+        RiftboundContentV1 { base: self }
     }
     /// Returns a handle for accessing [SpectatorTftV5](crate::endpoints::SpectatorTftV5) endpoints.
     /// # Riot Developer API Reference
@@ -2476,6 +2485,64 @@ impl<'a> MatchV5<'a> {
 
 }
 
+/// RiftboundContentV1 endpoints handle, accessed by calling [`riftbound_content_v1()`](RiotApi::riftbound_content_v1) on a [`RiotApi`] instance.
+/// # Riot Developer API Reference
+/// <a href="https://developer.riotgames.com/apis#riftbound-content-v1" target="_blank">`riftbound-content-v1`</a>
+///
+/// Note: this struct is automatically generated.
+#[repr(transparent)]
+pub struct RiftboundContentV1<'a> {
+    base: &'a RiotApi,
+}
+impl<'a> RiftboundContentV1<'a> {
+    /// Get riftbound content
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// * `locale` (optional, in query) - Defaults to en. Optional. Specifies the language and regional settings for the response. Use a locale code. During beta only en available.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#riftbound-content-v1/GET_getContent" target="_blank">`riftbound-content-v1.getContent`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_content(&self, route: RegionalRoute, locale: Option<&str>)
+        -> impl Future<Output = Result<crate::models::riftbound_content_v1::RiftboundContent>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/riftbound/content/v1/contents");
+        let request = if let Some(locale) = locale { request.query(&[ ("locale", locale) ]) } else { request };
+        let future = self.base.execute_val::<crate::models::riftbound_content_v1::RiftboundContent>("riftbound-content-v1.getContent", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("riftbound-content-v1.getContent", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "riftbound-content-v1.getContent", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_content` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `locale` (optional, in query) - Defaults to en. Optional. Specifies the language and regional settings for the response. Use a locale code. During beta only en available.
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#riftbound-content-v1/GET_getContent" target="_blank">`riftbound-content-v1.getContent`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_content(&self, min_capacity: f32, route: RegionalRoute, locale: Option<&str>)
+        -> impl Future<Output = TryRequestResult<crate::models::riftbound_content_v1::RiftboundContent>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, "/riftbound/content/v1/contents");
+        let request = if let Some(locale) = locale { request.query(&[ ("locale", locale) ]) } else { request };
+        let future = self.base.try_execute_val::<crate::models::riftbound_content_v1::RiftboundContent>("riftbound-content-v1.getContent", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("riftbound-content-v1.getContent", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "riftbound-content-v1.getContent", route_str);
+        future
+    }
+
+}
+
 /// SpectatorTftV5 endpoints handle, accessed by calling [`spectator_tft_v5()`](RiotApi::spectator_tft_v5) on a [`RiotApi`] instance.
 /// # Riot Developer API Reference
 /// <a href="https://developer.riotgames.com/apis#spectator-tft-v5" target="_blank">`spectator-tft-v5`</a>
@@ -2682,50 +2749,6 @@ pub struct SummonerV4<'a> {
     base: &'a RiotApi,
 }
 impl<'a> SummonerV4<'a> {
-    /// Get a summoner by its RSO encrypted PUUID.
-    /// # Parameters
-    /// * `route` - Route to query.
-    /// * `rso_puuid` (required, in path) - Summoner ID
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByRSOPUUID" target="_blank">`summoner-v4.getByRSOPUUID`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn get_by_rsopuuid(&self, route: PlatformRoute, rso_puuid: &str)
-        -> impl Future<Output = Result<crate::models::summoner_v4::Summoner>> + 'a
-    {
-        let route_str = route.into();
-        let request = self.base.request(Method::GET, route_str, &format!("/fulfillment/v1/summoners/by-puuid/{}", rso_puuid));
-        let future = self.base.execute_val::<crate::models::summoner_v4::Summoner>("summoner-v4.getByRSOPUUID", route_str, request);
-        #[cfg(feature = "tracing")]
-        let future = future.instrument(tracing::info_span!("summoner-v4.getByRSOPUUID", route = route_str));
-        #[cfg(feature = "metrics")]
-        let future = metrics::timed(future, "summoner-v4.getByRSOPUUID", route_str);
-        future
-    }
-
-    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
-    /// See `get_by_rsopuuid` for detailed documentation
-    /// # Parameters
-    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
-    /// * `route` - Route to query.
-    /// * `rso_puuid` (required, in path) - Summoner ID
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByRSOPUUID" target="_blank">`summoner-v4.getByRSOPUUID`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn try_get_by_rsopuuid(&self, min_capacity: f32, route: PlatformRoute, rso_puuid: &str)
-        -> impl Future<Output = TryRequestResult<crate::models::summoner_v4::Summoner>> + 'a
-    {
-        let route_str = route.into();
-        let request = self.base.request(Method::GET, route_str, &format!("/fulfillment/v1/summoners/by-puuid/{}", rso_puuid));
-        let future = self.base.try_execute_val::<crate::models::summoner_v4::Summoner>("summoner-v4.getByRSOPUUID", route_str, request, min_capacity);
-        #[cfg(feature = "tracing")]
-        let future = future.instrument(tracing::info_span!("summoner-v4.getByRSOPUUID", route = route_str));
-        #[cfg(feature = "metrics")]
-        let future = metrics::try_timed(future, "summoner-v4.getByRSOPUUID", route_str);
-        future
-    }
-
     /// Get a summoner by PUUID.
     /// # Parameters
     /// * `route` - Route to query.

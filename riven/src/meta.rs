@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 88956af79c4a4706f5644ebb15ee1c007a7053ee
+// Version e2d9f6306aaed7b541fdaffb1d10711073291f6e
 
 //! Metadata about the Riot API and Riven.
 //!
@@ -59,11 +59,11 @@ pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 83] = [
     (reqwest::Method::GET, "/lol/match/v5/matches/by-puuid/{puuid}/ids", "match-v5.getMatchIdsByPUUID"),
     (reqwest::Method::GET, "/lol/match/v5/matches/{matchId}", "match-v5.getMatch"),
     (reqwest::Method::GET, "/lol/match/v5/matches/{matchId}/timeline", "match-v5.getTimeline"),
+    (reqwest::Method::GET, "/riftbound/content/v1/contents", "riftbound-content-v1.getContent"),
     (reqwest::Method::GET, "/lol/spectator/tft/v5/active-games/by-puuid/{encryptedPUUID}", "spectator-tft-v5.getCurrentGameInfoByPuuid"),
     (reqwest::Method::GET, "/lol/spectator/tft/v5/featured-games", "spectator-tft-v5.getFeaturedGames"),
     (reqwest::Method::GET, "/lol/spectator/v5/active-games/by-summoner/{encryptedPUUID}", "spectator-v5.getCurrentGameInfoByPuuid"),
     (reqwest::Method::GET, "/lol/spectator/v5/featured-games", "spectator-v5.getFeaturedGames"),
-    (reqwest::Method::GET, "/fulfillment/v1/summoners/by-puuid/{rsoPUUID}", "summoner-v4.getByRSOPUUID"),
     (reqwest::Method::GET, "/lol/summoner/v4/summoners/by-puuid/{encryptedPUUID}", "summoner-v4.getByPUUID"),
     (reqwest::Method::GET, "/lol/summoner/v4/summoners/me", "summoner-v4.getByAccessToken"),
     (reqwest::Method::GET, "/tft/league/v1/by-puuid/{puuid}", "tft-league-v1.getLeagueEntriesByPUUID"),

@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 88956af79c4a4706f5644ebb15ee1c007a7053ee
+// Version e2d9f6306aaed7b541fdaffb1d10711073291f6e
 
 #![allow(missing_docs)]
 
@@ -546,34 +546,35 @@ pub mod lol_challenges_v1 {
         #[serde(rename = "preferences")]
         pub preferences: crate::models::lol_challenges_v1::PlayerClientPreferences,
         #[serde(rename = "totalPoints")]
-        pub total_points: crate::models::lol_challenges_v1::ChallengePoints,
+        pub total_points: crate::models::lol_challenges_v1::ChallengePoint,
         #[serde(rename = "categoryPoints")]
-        pub category_points: std::collections::HashMap<String, crate::models::lol_challenges_v1::ChallengePoints>,
+        pub category_points: std::collections::HashMap<String, crate::models::lol_challenges_v1::ChallengePoint>,
     }
-    /// `lol-challenges-v1.ChallengeInfo` data object.
+    /// `lol-challenges-v1.ChallengeInfoDto` data object.
     #[derive(Clone, Debug)]
     #[derive(serde::Serialize, crate::de::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct ChallengeInfo {
-        #[serde(rename = "challengeId")]
-        pub challenge_id: i64,
         #[serde(rename = "percentile")]
         pub percentile: f64,
-        #[serde(rename = "level")]
-        pub level: crate::consts::Tier,
-        #[serde(rename = "value")]
-        pub value: f64,
+        #[serde(rename = "playersInLevel")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub players_in_level: Option<i32>,
         #[serde(rename = "achievedTime")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub achieved_time: Option<i64>,
+        #[serde(rename = "value")]
+        pub value: f64,
+        #[serde(rename = "challengeId")]
+        pub challenge_id: i64,
+        /// (Legal values:  NONE,  IRON,  BRONZE,  SILVER,  GOLD,  PLATINUM,  DIAMOND,  MASTER,  GRANDMASTER,  CHALLENGER,  HIGHEST_NOT_LEADERBOARD_ONLY,  HIGHEST,  LOWEST)
+        #[serde(rename = "level")]
+        pub level: String,
         #[serde(rename = "position")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub position: Option<i64>,
-        #[serde(rename = "playersInLevel")]
-        #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub players_in_level: Option<i64>,
+        pub position: Option<i32>,
     }
-    /// `lol-challenges-v1.PlayerClientPreferences` data object.
+    /// `lol-challenges-v1.PlayerClientPreferencesDto` data object.
     #[derive(Clone, Debug)]
     #[derive(serde::Serialize, crate::de::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
@@ -594,11 +595,11 @@ pub mod lol_challenges_v1 {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub prestige_crest_border_level: Option<i32>,
     }
-    /// `lol-challenges-v1.ChallengePoints` data object.
+    /// `lol-challenges-v1.ChallengePointDto` data object.
     #[derive(Clone, Debug)]
     #[derive(serde::Serialize, crate::de::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
-    pub struct ChallengePoints {
+    pub struct ChallengePoint {
         #[serde(rename = "level")]
         pub level: crate::consts::Tier,
         #[serde(rename = "current")]
@@ -2414,6 +2415,105 @@ pub mod match_v5 {
     }
 }
 
+/// Data structs used by [`RiftboundContentV1`](crate::endpoints::RiftboundContentV1).
+///
+/// Note: this module is automatically generated.
+#[allow(dead_code)]
+pub mod riftbound_content_v1 {
+    /// `riftbound-content-v1.RiftboundContentDTO` data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, crate::de::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct RiftboundContent {
+        /// Game Name
+        #[serde(rename = "game")]
+        pub game: String,
+        /// Content version
+        #[serde(rename = "version")]
+        pub version: String,
+        /// ISO Timestamp of content last update
+        #[serde(rename = "lastUpdated")]
+        pub last_updated: String,
+        #[serde(rename = "sets")]
+        pub sets: std::vec::Vec<crate::models::riftbound_content_v1::Set>,
+    }
+    /// `riftbound-content-v1.SetDTO` data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, crate::de::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct Set {
+        /// Set ID
+        #[serde(rename = "id")]
+        pub id: String,
+        /// Set Name
+        #[serde(rename = "name")]
+        pub name: String,
+        #[serde(rename = "cards")]
+        pub cards: std::vec::Vec<crate::models::riftbound_content_v1::Card>,
+    }
+    /// `riftbound-content-v1.CardDTO` data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, crate::de::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct Card {
+        /// Card ID
+        #[serde(rename = "id")]
+        pub id: String,
+        #[serde(rename = "collectorNumber")]
+        pub collector_number: i64,
+        #[serde(rename = "set")]
+        pub set: String,
+        /// Card Name
+        #[serde(rename = "name")]
+        pub name: String,
+        #[serde(rename = "description")]
+        pub description: String,
+        /// Card Type
+        #[serde(rename = "type")]
+        pub r#type: String,
+        #[serde(rename = "rarity")]
+        pub rarity: String,
+        #[serde(rename = "faction")]
+        pub faction: String,
+        #[serde(rename = "stats")]
+        pub stats: crate::models::riftbound_content_v1::CardStats,
+        #[serde(rename = "keywords")]
+        pub keywords: std::vec::Vec<String>,
+        #[serde(rename = "art")]
+        pub art: crate::models::riftbound_content_v1::CardArt,
+        #[serde(rename = "flavorText")]
+        pub flavor_text: String,
+        #[serde(rename = "tags")]
+        pub tags: std::vec::Vec<String>,
+    }
+    /// `riftbound-content-v1.CardStatsDTO` data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, crate::de::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct CardStats {
+        #[serde(rename = "energy")]
+        pub energy: i64,
+        #[serde(rename = "might")]
+        pub might: i64,
+        #[serde(rename = "cost")]
+        pub cost: i64,
+        #[serde(rename = "power")]
+        pub power: i64,
+    }
+    /// `riftbound-content-v1.CardArtDTO` data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, crate::de::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct CardArt {
+        #[serde(rename = "thumbnailURL")]
+        pub thumbnail_url: String,
+        #[serde(rename = "fullURL")]
+        pub full_url: String,
+        #[serde(rename = "artist")]
+        pub artist: String,
+    }
+}
+
 /// Data structs used by [`SpectatorTftV5`](crate::endpoints::SpectatorTftV5).
 ///
 /// Note: this module is automatically generated.
@@ -4194,17 +4294,23 @@ pub mod val_console_ranked_v1 {
     #[derive(serde::Serialize, crate::de::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct Leaderboard {
-        /// The shard for the given leaderboard.
-        #[serde(rename = "shard")]
-        pub shard: String,
         /// The act id for the given leaderboard. Act ids can be found using the val-content API.
         #[serde(rename = "actId")]
         pub act_id: String,
         /// The total number of players in the leaderboard.
         #[serde(rename = "totalPlayers")]
         pub total_players: i64,
+        #[serde(rename = "query")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub query: Option<String>,
+        /// The shard for the given leaderboard.
+        #[serde(rename = "shard")]
+        pub shard: String,
         #[serde(rename = "players")]
         pub players: std::vec::Vec<crate::models::val_console_ranked_v1::Player>,
+        #[serde(rename = "tierDetails")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub tier_details: Option<std::vec::Vec<crate::models::val_console_ranked_v1::Tier>>,
     }
     /// `val-console-ranked-v1.PlayerDto` data object.
     #[derive(Clone, Debug)]
@@ -4229,6 +4335,16 @@ pub mod val_console_ranked_v1 {
         pub ranked_rating: i64,
         #[serde(rename = "numberOfWins")]
         pub number_of_wins: i64,
+    }
+    /// `val-console-ranked-v1.TierDto` data object.
+    /// # Description
+    /// UNKNOWN TYPE.
+    ///
+    /// Note: This struct is automatically generated
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, crate::de::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct Tier {
     }
 }
 
