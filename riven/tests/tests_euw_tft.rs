@@ -33,11 +33,12 @@ async fn tftleaguev1_gettopratedladder() -> Result<(), String> {
         .tft_league_v1()
         .get_top_rated_ladder(ROUTE, QueueType::RANKED_TFT_TURBO);
     let l = p.await.map_err(|e| e.to_string())?;
-    rassert!(
-        l.len() > 10,
-        "Expected a few ranked players, got: {}.",
-        l.len()
-    );
+    if l.len() < 10 {
+        eprintln!(
+            "Only {} top ranked players found! Is it the off-season?",
+            l.len()
+        );
+    }
     Ok(())
 }
 
@@ -51,8 +52,10 @@ async fn tft_combo() -> Result<(), String> {
     let top_players = top_players
         .await
         .map_err(|e| format!("Failed to get top players: {}", e))?;
-    rassert!(!top_players.is_empty());
-    let top_player_entry = &top_players[0];
+    let Some(top_player_entry) = top_players.first() else {
+        eprintln!("No top players found! Is it the off-season? Skipping remaining checks.");
+        return Ok(());
+    };
     let top_player = riot_api()
         .tft_summoner_v1()
         .get_by_puuid(ROUTE, &top_player_entry.puuid);

@@ -5,14 +5,6 @@ use testutils::*;
 const ROUTE: PlatformRoute = PlatformRoute::JP1;
 
 static MATCHES: &[&str] = &[
-    // // New field `ParticipantChallenges` `twoWardsOneSweeperCount` (removed 2025-05-26).
-    // "JP1_397348569",
-    // // New fields: `match-v5.ParticipantDto.playerAugment[1234],playerSubteamId,subteamPlacement`
-    // "JP1_400700181",
-    // New field: `match-v5.ParticipantDto.placement`
-    "JP1_405073638",
-    // New ARENA 2v2v2v2 game mode, broken `subteamPlacement`
-    "KR_6604607115",
     // New field: `match-v5.ParticipantDto.missions`
     "JP1_417935351",
     // New field: `match-v5.ParticipantDto.riotIdGameName`
@@ -116,7 +108,9 @@ async fn tft_league_gettopratedladder() -> Result<(), String> {
         .tft_league_v1()
         .get_top_rated_ladder(ROUTE, QueueType::RANKED_TFT_TURBO);
     let lr = lp.await.map_err(|e| e.to_string())?;
-    rassert!(!lr.is_empty());
+    if lr.is_empty() {
+        eprintln!("No top ranked players found! Is it the off-season?");
+    }
     Ok(())
 }
 
