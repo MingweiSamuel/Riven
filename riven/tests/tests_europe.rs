@@ -11,16 +11,16 @@ const ROUTE: RegionalRoute = RegionalRoute::EUROPE;
 // "EUW1_5102203800", // https://github.com/MingweiSamuel/Riven/issues/36
 // "EUW1_5765650307", // https://gist.github.com/MingweiSamuel/d5f9dc40cc5a80a9255e488f27705c56?permalink_comment_id=4088256#gistcomment-4088256
 // "EUW1_6349186754", // https://github.com/MingweiSamuel/Riven/issues/71
+// // Added 2023-08-27
+// "EUW1_6569580003",
+// "EUW1_6569417645",
+// "EUW1_6568707352",
+// "EUW1_6568635198",
+// "EUW1_6568537080",
+// //
+// "EUW1_6569580003",
 
 static MATCHES: &[&str] = &[
-    // Added 2023-08-27
-    "EUW1_6569580003",
-    "EUW1_6569417645",
-    "EUW1_6568707352",
-    "EUW1_6568635198",
-    "EUW1_6568537080",
-    //
-    "EUW1_6569580003",
     "EUW1_6834713231", // `game_id` is zero.
     // Timeline `OBJECTIVE_BOUNTY_PRESTART` https://github.com/MingweiSamuel/riotapi-schema/issues/45
     "EUW1_6852390800",
