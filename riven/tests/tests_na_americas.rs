@@ -226,7 +226,7 @@ async fn championmasteryv4_lugnutsk() -> Result<(), String> {
     let account = account
         .await
         .map_err(|e| e.to_string())?
-        .ok_or_else(|| "'LugnutsK' not found!".to_owned())?;
+        .ok_or_else(|| "'LugnutsK#000' not found!".to_owned())?;
     let masteries = riot_api()
         .champion_mastery_v4()
         .get_all_champion_masteries_by_puuid(PLATFORM, &account.puuid);
@@ -244,7 +244,7 @@ async fn championmasteryv4_getall_iamchanese123() -> Result<(), String> {
     let summoner = summoner
         .await
         .map_err(|e| e.to_string())?
-        .ok_or_else(|| "'LugnutsK' not found!".to_owned())?;
+        .ok_or_else(|| "'iamchanese123#NA1' not found!".to_owned())?;
     let masteries = riot_api()
         .champion_mastery_v4()
         .get_all_champion_masteries_by_puuid(PLATFORM, &summoner.puuid);
@@ -337,4 +337,15 @@ async fn account_summoner_by_puuid() -> Result<(), String> {
     });
 
     join_all_future_errs(futures).await
+}
+
+#[riven_test]
+async fn match_v5_get_replay_canttype1998() -> Result<(), String> {
+    match_v5_get_replay(REGION, "cant type", "1998").await
+}
+
+/// Test 0 replays.
+#[riven_test]
+async fn match_v5_get_replay_whitewolff270() -> Result<(), String> {
+    match_v5_get_replay(REGION, "WHITEWOLFF", "270").await
 }

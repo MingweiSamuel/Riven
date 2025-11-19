@@ -395,6 +395,44 @@ pub async fn val_match_v1_get(
     join_all_future_errs(futures).await
 }
 
+/// Gets replays for a given Riot ID.
+pub async fn match_v5_get_replay(
+    route: RegionalRoute,
+    game_name: &str,
+    tag_line: &str,
+) -> Result<(), String> {
+    let account = riot_api()
+        .account_v1()
+        .get_by_riot_id(route, game_name, tag_line)
+        .await
+        .map_err(|e| {
+            format!(
+                "Failed to get account `{}#{}` by riot ID: {}",
+                game_name, tag_line, e
+            )
+        })?
+        .ok_or_else(|| format!("Account `{}#{}` not found!", game_name, tag_line))?;
+
+    let replays = riot_api()
+        .match_v5()
+        .get_replay(route, &account.puuid)
+        .await
+        .map_err(|e| {
+            format!(
+                "Failed to get replays for account `{}#{}`: {}",
+                game_name, tag_line, e
+            )
+        })?;
+
+    assert_eq!(replays.total as usize, replays.match_file_ur_ls.len());
+    println!(
+        "{} replays:\n{:#?}",
+        replays.total, replays.match_file_ur_ls
+    );
+
+    Ok(())
+}
+
 /// Joins all futures and keeps ALL error messages, separated by newlines.
 pub async fn join_all_future_errs<T>(
     result_tasks: impl Iterator<Item = impl Future<Output = Result<T, String>>>,
