@@ -4,9 +4,10 @@ use testutils::*;
 
 const ROUTE: PlatformRoute = PlatformRoute::JP1;
 
+// // New field: `match-v5.ParticipantDto.missions`
+// "JP1_417935351",
+
 static MATCHES: &[&str] = &[
-    // New field: `match-v5.ParticipantDto.missions`
-    "JP1_417935351",
     // New field: `match-v5.ParticipantDto.riotIdGameName`
     "JP1_419115017",
     // New field: `match-v5.ParticipantChallenges`: `InfernalScalePickup`, `fistBumpParticipation`
@@ -19,6 +20,9 @@ static MATCHES: &[&str] = &[
     "JP1_457196409",
     // `feats` https://github.com/RiotGames/developer-relations/issues/1052
     "JP1_497158018",
+    // `match-v5.ParticipantDto.damageDealtToEpicMonsters`
+    // https://github.com/RiotGames/developer-relations/issues/754#issuecomment-3553945295
+    "JP1_546614216",
 ];
 
 /// summoner_v4().get_by_summoner_name(...) normally returns an option.
