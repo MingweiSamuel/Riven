@@ -2,8 +2,8 @@
     const dotUtils = require('./dotUtils.js');
     const champions = require('./.champion.json')
         .filter(({ id }) => id > 0)
-        /* Ignore strawberry champions for now */
-        .filter(({ alias }) => !alias.startsWith('Strawberry_'))
+        /* Ignore strawberry and ruby (DOOM_BOT_) champions */
+        .filter(({ alias }) => !alias.startsWith('Strawberry_') && !alias.startsWith('Ruby_'))
         .sortBy(({ name }) => name);
 
     const constName = name => dotUtils.changeCase.constantCase(name).replace(/[^_A-Z0-9]+/g, '');
