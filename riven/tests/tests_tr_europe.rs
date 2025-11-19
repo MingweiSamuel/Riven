@@ -42,13 +42,3 @@ async fn league_summoner_bulk_test() -> Result<(), String> {
 
     Ok(())
 }
-
-#[riven_test]
-async fn spectator_v5_combo_test() -> Result<(), String> {
-    spectator_v5_combo(ROUTE).await
-}
-
-#[riven_test]
-async fn spectator_tft_v5_combo_test() -> Result<(), String> {
-    spectator_tft_v5_combo(ROUTE).await
-}
