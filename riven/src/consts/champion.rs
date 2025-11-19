@@ -181,6 +181,7 @@ newtype_enum! {
     /// `YORICK` | "Yorick" | "Yorick" | 83
     /// `YUNARA` | "Yunara" | "Yunara" | 804
     /// `YUUMI` | "Yuumi" | "Yuumi" | 350
+    /// `ZAAHEN` | "Zaahen" | "Zaahen" | 904
     /// `ZAC` | "Zac" | "Zac" | 154
     /// `ZED` | "Zed" | "Zed" | 238
     /// `ZERI` | "Zeri" | "Zeri" | 221
@@ -520,6 +521,8 @@ newtype_enum! {
         YUNARA = 804,
         /// `350`.
         YUUMI = 350,
+        /// `904`.
+        ZAAHEN = 904,
         /// `154`.
         ZAC = 154,
         /// `238`.
@@ -705,6 +708,7 @@ impl Champion {
             Self::YORICK       => Some("Yorick"),
             Self::YUNARA       => Some("Yunara"),
             Self::YUUMI        => Some("Yuumi"),
+            Self::ZAAHEN       => Some("Zaahen"),
             Self::ZAC          => Some("Zac"),
             Self::ZED          => Some("Zed"),
             Self::ZERI         => Some("Zeri"),
@@ -900,6 +904,7 @@ impl Champion {
             Self::YORICK       => Some("Yorick"),
             Self::YUNARA       => Some("Yunara"),
             Self::YUUMI        => Some("Yuumi"),
+            Self::ZAAHEN       => Some("Zaahen"),
             Self::ZAC          => Some("Zac"),
             Self::ZED          => Some("Zed"),
             Self::ZERI         => Some("Zeri"),
@@ -1137,6 +1142,7 @@ impl std::str::FromStr for Champion {
             /* YORI */ [ 'Y',  'O',  'R',  'I'] => Ok(Champion::YORICK),
             /* YUNA */ [ 'Y',  'U',  'N',  'A'] => Ok(Champion::YUNARA),
             /* YUUM */ [ 'Y',  'U',  'U',  'M'] => Ok(Champion::YUUMI),
+            /* ZAAH */ [ 'Z',  'A',  'A',  'H'] => Ok(Champion::ZAAHEN),
             /* ZAC  */ [ 'Z',  'A',  'C', '\0'] => Ok(Champion::ZAC),
             /* ZED  */ [ 'Z',  'E',  'D', '\0'] => Ok(Champion::ZED),
             /* ZERI */ [ 'Z',  'E',  'R',  'I'] => Ok(Champion::ZERI),

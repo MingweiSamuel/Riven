@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version e2d9f6306aaed7b541fdaffb1d10711073291f6e
+// Version eab2eb8a2511a4d0acfafed305cf02fddd843c59
 
 #![allow(missing_docs)]
 
@@ -963,6 +963,17 @@ pub mod lor_status_v1 {
 /// Note: this module is automatically generated.
 #[allow(dead_code)]
 pub mod match_v5 {
+    /// `match-v5.ReplayDTO` data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, crate::de::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct Replay {
+        /// Total of replay files
+        #[serde(rename = "total")]
+        pub total: i32,
+        #[serde(rename = "matchFileURLs")]
+        pub match_file_ur_ls: std::vec::Vec<String>,
+    }
     /// `match-v5.MatchDto` data object.
     #[derive(Clone, Debug)]
     #[derive(serde::Serialize, crate::de::Deserialize)]
@@ -1430,6 +1441,9 @@ pub mod match_v5 {
         #[serde(rename = "championSkinId")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub champion_skin_id: Option<i32>,
+        #[serde(rename = "damageDealtToEpicMonsters")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub damage_dealt_to_epic_monsters: Option<i32>,
     }
     /// `match-v5.ChallengesDto` data object.
     /// # Description
@@ -2601,7 +2615,7 @@ pub mod spectator_tft_v5 {
         /// The team ID of this participant, indicating the participant's team
         #[serde(rename = "teamId")]
         pub team_id: crate::consts::Team,
-        /// The encrypted puuid of this participant
+        /// The encrypted puuid of this participant. null when the player is anonym.
         #[serde(rename = "puuid")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub puuid: Option<String>,
@@ -2644,85 +2658,6 @@ pub mod spectator_tft_v5 {
         /// Game Customization content
         #[serde(rename = "content")]
         pub content: String,
-    }
-    /// `spectator-tft-v5.FeaturedGames` data object.
-    #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, crate::de::Deserialize)]
-    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
-    pub struct FeaturedGames {
-        /// The list of featured games
-        #[serde(rename = "gameList")]
-        pub game_list: std::vec::Vec<crate::models::spectator_tft_v5::FeaturedGameInfo>,
-        /// The suggested interval to wait before requesting FeaturedGames again
-        #[serde(rename = "clientRefreshInterval")]
-        #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub client_refresh_interval: Option<i64>,
-    }
-    /// `spectator-tft-v5.FeaturedGameInfo` data object.
-    #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, crate::de::Deserialize)]
-    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
-    pub struct FeaturedGameInfo {
-        /// The game mode<br>
-        /// (Legal values:  TFT)
-        #[serde(rename = "gameMode")]
-        pub game_mode: crate::consts::GameMode,
-        /// The amount of time in seconds that has passed since the game started
-        #[serde(rename = "gameLength")]
-        pub game_length: i64,
-        /// The ID of the map
-        #[serde(rename = "mapId")]
-        pub map_id: crate::consts::Map,
-        /// The game type<br>
-        /// (Legal values:  MATCHED)
-        #[serde(rename = "gameType")]
-        pub game_type: crate::consts::GameType,
-        /// Banned champion information
-        #[serde(rename = "bannedChampions")]
-        pub banned_champions: std::vec::Vec<crate::models::spectator_tft_v5::BannedChampion>,
-        /// The ID of the game
-        #[serde(rename = "gameId")]
-        pub game_id: i64,
-        /// The observer information
-        #[serde(rename = "observers")]
-        pub observers: crate::models::spectator_tft_v5::Observer,
-        /// The queue type (queue types are documented on the Game Constants page)
-        #[serde(rename = "gameQueueConfigId")]
-        pub game_queue_config_id: crate::consts::Queue,
-        /// The participant information
-        #[serde(rename = "participants")]
-        pub participants: std::vec::Vec<crate::models::spectator_tft_v5::Participant>,
-        /// The ID of the platform on which the game is being played
-        #[serde(rename = "platformId")]
-        pub platform_id: String,
-    }
-    /// `spectator-tft-v5.Participant` data object.
-    #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, crate::de::Deserialize)]
-    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
-    pub struct Participant {
-        /// The ID of the second summoner spell used by this participant
-        #[serde(rename = "spell2Id")]
-        pub spell2_id: i64,
-        /// The ID of the profile icon used by this participant
-        #[serde(rename = "profileIconId")]
-        pub profile_icon_id: i64,
-        /// Encrypted puuid of this participant
-        #[serde(rename = "puuid")]
-        #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub puuid: Option<String>,
-        /// The ID of the champion played by this participant
-        #[serde(rename = "championId")]
-        pub champion_id: crate::consts::Champion,
-        /// The team ID of this participant, indicating the participant's team
-        #[serde(rename = "teamId")]
-        pub team_id: crate::consts::Team,
-        /// The ID of the first summoner spell used by this participant
-        #[serde(rename = "spell1Id")]
-        pub spell1_id: i64,
-        #[serde(rename = "riotId")]
-        #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub riot_id: Option<String>,
     }
 }
 
@@ -2816,7 +2751,7 @@ pub mod spectator_v5 {
         /// The team ID of this participant, indicating the participant's team
         #[serde(rename = "teamId")]
         pub team_id: crate::consts::Team,
-        /// The encrypted puuid of this participant
+        /// The encrypted puuid of this participant. null when the player is anonym.
         #[serde(rename = "puuid")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub puuid: Option<String>,
@@ -2859,88 +2794,6 @@ pub mod spectator_v5 {
         /// Game Customization content
         #[serde(rename = "content")]
         pub content: String,
-    }
-    /// `spectator-v5.FeaturedGames` data object.
-    #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, crate::de::Deserialize)]
-    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
-    pub struct FeaturedGames {
-        /// The list of featured games
-        #[serde(rename = "gameList")]
-        pub game_list: std::vec::Vec<crate::models::spectator_v5::FeaturedGameInfo>,
-        /// The suggested interval to wait before requesting FeaturedGames again
-        #[serde(rename = "clientRefreshInterval")]
-        #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub client_refresh_interval: Option<i64>,
-    }
-    /// `spectator-v5.FeaturedGameInfo` data object.
-    #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, crate::de::Deserialize)]
-    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
-    pub struct FeaturedGameInfo {
-        /// The game mode<br>
-        /// (Legal values:  CLASSIC,  ODIN,  ARAM,  TUTORIAL,  ONEFORALL,  ASCENSION,  FIRSTBLOOD,  KINGPORO)
-        #[serde(rename = "gameMode")]
-        pub game_mode: crate::consts::GameMode,
-        /// The amount of time in seconds that has passed since the game started
-        #[serde(rename = "gameLength")]
-        pub game_length: i64,
-        /// The ID of the map
-        #[serde(rename = "mapId")]
-        pub map_id: crate::consts::Map,
-        /// The game type<br>
-        /// (Legal values:  CUSTOM_GAME,  MATCHED_GAME,  TUTORIAL_GAME)
-        #[serde(rename = "gameType")]
-        pub game_type: crate::consts::GameType,
-        /// Banned champion information
-        #[serde(rename = "bannedChampions")]
-        pub banned_champions: std::vec::Vec<crate::models::spectator_v5::BannedChampion>,
-        /// The ID of the game
-        #[serde(rename = "gameId")]
-        pub game_id: i64,
-        /// The observer information
-        #[serde(rename = "observers")]
-        pub observers: crate::models::spectator_v5::Observer,
-        /// The queue type (queue types are documented on the Game Constants page)
-        #[serde(rename = "gameQueueConfigId")]
-        pub game_queue_config_id: crate::consts::Queue,
-        /// The participant information
-        #[serde(rename = "participants")]
-        pub participants: std::vec::Vec<crate::models::spectator_v5::Participant>,
-        /// The ID of the platform on which the game is being played
-        #[serde(rename = "platformId")]
-        pub platform_id: String,
-    }
-    /// `spectator-v5.Participant` data object.
-    #[derive(Clone, Debug)]
-    #[derive(serde::Serialize, crate::de::Deserialize)]
-    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
-    pub struct Participant {
-        /// Flag indicating whether or not this participant is a bot
-        #[serde(rename = "bot")]
-        pub bot: bool,
-        /// The ID of the second summoner spell used by this participant
-        #[serde(rename = "spell2Id")]
-        pub spell2_id: i64,
-        /// The ID of the profile icon used by this participant
-        #[serde(rename = "profileIconId")]
-        pub profile_icon_id: i64,
-        /// Encrypted puuid of this participant
-        #[serde(rename = "puuid")]
-        #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub puuid: Option<String>,
-        /// The ID of the champion played by this participant
-        #[serde(rename = "championId")]
-        pub champion_id: crate::consts::Champion,
-        /// The team ID of this participant, indicating the participant's team
-        #[serde(rename = "teamId")]
-        pub team_id: crate::consts::Team,
-        /// The ID of the first summoner spell used by this participant
-        #[serde(rename = "spell1Id")]
-        pub spell1_id: i64,
-        #[serde(rename = "riotId")]
-        #[serde(default, skip_serializing_if = "Option::is_none")]
-        pub riot_id: Option<String>,
     }
 }
 

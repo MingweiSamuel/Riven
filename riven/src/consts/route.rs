@@ -182,7 +182,7 @@ impl PlatformRoute {
     /// Converts this [`PlatformRoute`] into its corresponding
     /// [`RegionalRoute`] for LoL and TFT match endpoints.
     /// For example, [`match-v5`](crate::endpoints::MatchV5).
-    pub fn to_regional(self) -> RegionalRoute {
+    pub const fn to_regional(self) -> RegionalRoute {
         match self {
             Self::BR1 => RegionalRoute::AMERICAS,
             Self::EUN1 => RegionalRoute::EUROPE,
@@ -208,7 +208,7 @@ impl PlatformRoute {
     /// Converts this [`PlatformRoute`] into its corresponding
     /// [`RegionalRoute`] for LoR endpoints.
     /// For example, [`lor-match-v1`](crate::endpoints::LorMatchV1).
-    pub fn to_regional_lor(self) -> RegionalRoute {
+    pub const fn to_regional_lor(self) -> RegionalRoute {
         match self {
             Self::BR1 => RegionalRoute::AMERICAS,
             Self::EUN1 => RegionalRoute::EUROPE,
@@ -233,7 +233,7 @@ impl PlatformRoute {
 
     /// Used in the LoL Tournament API. Specifically
     /// [`TournamentStubV5`](crate::endpoints::TournamentStubV5)/[`TournamentV5`](crate::endpoints::TournamentV5).
-    pub fn to_tournament_region(self) -> Option<TournamentRegion> {
+    pub const fn to_tournament_region(self) -> Option<TournamentRegion> {
         match self {
             Self::BR1 => Some(TournamentRegion::BR),
             Self::EUN1 => Some(TournamentRegion::EUNE),

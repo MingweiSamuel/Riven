@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version e2d9f6306aaed7b541fdaffb1d10711073291f6e
+// Version eab2eb8a2511a4d0acfafed305cf02fddd843c59
 
 //! Metadata about the Riot API and Riven.
 //!
@@ -16,7 +16,7 @@
 
 /// Metadata for endpoints. Each tuple corresponds to one endpoint and contains
 /// the HTTP [`Method`](reqwest::Method), `str` path, and the method's `str` ID.
-pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 83] = [
+pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 82] = [
     (reqwest::Method::GET, "/riot/account/v1/accounts/by-puuid/{puuid}", "account-v1.getByPuuid"),
     (reqwest::Method::GET, "/riot/account/v1/accounts/by-riot-id/{gameName}/{tagLine}", "account-v1.getByRiotId"),
     (reqwest::Method::GET, "/riot/account/v1/accounts/me", "account-v1.getByAccessToken"),
@@ -57,13 +57,12 @@ pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 83] = [
     (reqwest::Method::GET, "/lor/ranked/v1/leaderboards", "lor-ranked-v1.getLeaderboards"),
     (reqwest::Method::GET, "/lor/status/v1/platform-data", "lor-status-v1.getPlatformData"),
     (reqwest::Method::GET, "/lol/match/v5/matches/by-puuid/{puuid}/ids", "match-v5.getMatchIdsByPUUID"),
+    (reqwest::Method::GET, "/lol/match/v5/matches/by-puuid/{puuid}/replays", "match-v5.getReplay"),
     (reqwest::Method::GET, "/lol/match/v5/matches/{matchId}", "match-v5.getMatch"),
     (reqwest::Method::GET, "/lol/match/v5/matches/{matchId}/timeline", "match-v5.getTimeline"),
     (reqwest::Method::GET, "/riftbound/content/v1/contents", "riftbound-content-v1.getContent"),
     (reqwest::Method::GET, "/lol/spectator/tft/v5/active-games/by-puuid/{encryptedPUUID}", "spectator-tft-v5.getCurrentGameInfoByPuuid"),
-    (reqwest::Method::GET, "/lol/spectator/tft/v5/featured-games", "spectator-tft-v5.getFeaturedGames"),
     (reqwest::Method::GET, "/lol/spectator/v5/active-games/by-summoner/{encryptedPUUID}", "spectator-v5.getCurrentGameInfoByPuuid"),
-    (reqwest::Method::GET, "/lol/spectator/v5/featured-games", "spectator-v5.getFeaturedGames"),
     (reqwest::Method::GET, "/lol/summoner/v4/summoners/by-puuid/{encryptedPUUID}", "summoner-v4.getByPUUID"),
     (reqwest::Method::GET, "/lol/summoner/v4/summoners/me", "summoner-v4.getByAccessToken"),
     (reqwest::Method::GET, "/tft/league/v1/by-puuid/{puuid}", "tft-league-v1.getLeagueEntriesByPUUID"),

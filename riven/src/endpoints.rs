@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version e2d9f6306aaed7b541fdaffb1d10711073291f6e
+// Version eab2eb8a2511a4d0acfafed305cf02fddd843c59
 
 //! Automatically generated endpoint handles.
 #![allow(clippy::let_and_return, clippy::too_many_arguments)]
@@ -2395,6 +2395,50 @@ impl<'a> MatchV5<'a> {
         future
     }
 
+    /// Get player replays
+    /// # Parameters
+    /// * `route` - Route to query.
+    /// * `puuid` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#match-v5/GET_getReplay" target="_blank">`match-v5.getReplay`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn get_replay(&self, route: RegionalRoute, puuid: &str)
+        -> impl Future<Output = Result<crate::models::match_v5::Replay>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/match/v5/matches/by-puuid/{}/replays", puuid));
+        let future = self.base.execute_val::<crate::models::match_v5::Replay>("match-v5.getReplay", route_str, request);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("match-v5.getReplay", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::timed(future, "match-v5.getReplay", route_str);
+        future
+    }
+
+    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
+    /// See `get_replay` for detailed documentation
+    /// # Parameters
+    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
+    /// * `route` - Route to query.
+    /// * `puuid` (required, in path)
+    /// # Riot Developer API Reference
+    /// <a href="https://developer.riotgames.com/api-methods/#match-v5/GET_getReplay" target="_blank">`match-v5.getReplay`</a>
+    ///
+    /// Note: this method is automatically generated.
+    pub fn try_get_replay(&self, min_capacity: f32, route: RegionalRoute, puuid: &str)
+        -> impl Future<Output = TryRequestResult<crate::models::match_v5::Replay>> + 'a
+    {
+        let route_str = route.into();
+        let request = self.base.request(Method::GET, route_str, &format!("/lol/match/v5/matches/by-puuid/{}/replays", puuid));
+        let future = self.base.try_execute_val::<crate::models::match_v5::Replay>("match-v5.getReplay", route_str, request, min_capacity);
+        #[cfg(feature = "tracing")]
+        let future = future.instrument(tracing::info_span!("match-v5.getReplay", route = route_str));
+        #[cfg(feature = "metrics")]
+        let future = metrics::try_timed(future, "match-v5.getReplay", route_str);
+        future
+    }
+
     /// Get a match by match id
     /// # Parameters
     /// * `route` - Route to query.
@@ -2597,48 +2641,6 @@ impl<'a> SpectatorTftV5<'a> {
         future
     }
 
-    /// Get list of featured games.
-    /// # Parameters
-    /// * `route` - Route to query.
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#spectator-tft-v5/GET_getFeaturedGames" target="_blank">`spectator-tft-v5.getFeaturedGames`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn get_featured_games(&self, route: PlatformRoute)
-        -> impl Future<Output = Result<crate::models::spectator_tft_v5::FeaturedGames>> + 'a
-    {
-        let route_str = route.into();
-        let request = self.base.request(Method::GET, route_str, "/lol/spectator/tft/v5/featured-games");
-        let future = self.base.execute_val::<crate::models::spectator_tft_v5::FeaturedGames>("spectator-tft-v5.getFeaturedGames", route_str, request);
-        #[cfg(feature = "tracing")]
-        let future = future.instrument(tracing::info_span!("spectator-tft-v5.getFeaturedGames", route = route_str));
-        #[cfg(feature = "metrics")]
-        let future = metrics::timed(future, "spectator-tft-v5.getFeaturedGames", route_str);
-        future
-    }
-
-    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
-    /// See `get_featured_games` for detailed documentation
-    /// # Parameters
-    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
-    /// * `route` - Route to query.
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#spectator-tft-v5/GET_getFeaturedGames" target="_blank">`spectator-tft-v5.getFeaturedGames`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn try_get_featured_games(&self, min_capacity: f32, route: PlatformRoute)
-        -> impl Future<Output = TryRequestResult<crate::models::spectator_tft_v5::FeaturedGames>> + 'a
-    {
-        let route_str = route.into();
-        let request = self.base.request(Method::GET, route_str, "/lol/spectator/tft/v5/featured-games");
-        let future = self.base.try_execute_val::<crate::models::spectator_tft_v5::FeaturedGames>("spectator-tft-v5.getFeaturedGames", route_str, request, min_capacity);
-        #[cfg(feature = "tracing")]
-        let future = future.instrument(tracing::info_span!("spectator-tft-v5.getFeaturedGames", route = route_str));
-        #[cfg(feature = "metrics")]
-        let future = metrics::try_timed(future, "spectator-tft-v5.getFeaturedGames", route_str);
-        future
-    }
-
 }
 
 /// SpectatorV5 endpoints handle, accessed by calling [`spectator_v5()`](RiotApi::spectator_v5) on a [`RiotApi`] instance.
@@ -2692,48 +2694,6 @@ impl<'a> SpectatorV5<'a> {
         let future = future.instrument(tracing::info_span!("spectator-v5.getCurrentGameInfoByPuuid", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::try_timed(future, "spectator-v5.getCurrentGameInfoByPuuid", route_str);
-        future
-    }
-
-    /// Get list of featured games.
-    /// # Parameters
-    /// * `route` - Route to query.
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#spectator-v5/GET_getFeaturedGames" target="_blank">`spectator-v5.getFeaturedGames`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn get_featured_games(&self, route: PlatformRoute)
-        -> impl Future<Output = Result<crate::models::spectator_v5::FeaturedGames>> + 'a
-    {
-        let route_str = route.into();
-        let request = self.base.request(Method::GET, route_str, "/lol/spectator/v5/featured-games");
-        let future = self.base.execute_val::<crate::models::spectator_v5::FeaturedGames>("spectator-v5.getFeaturedGames", route_str, request);
-        #[cfg(feature = "tracing")]
-        let future = future.instrument(tracing::info_span!("spectator-v5.getFeaturedGames", route = route_str));
-        #[cfg(feature = "metrics")]
-        let future = metrics::timed(future, "spectator-v5.getFeaturedGames", route_str);
-        future
-    }
-
-    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
-    /// See `get_featured_games` for detailed documentation
-    /// # Parameters
-    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
-    /// * `route` - Route to query.
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#spectator-v5/GET_getFeaturedGames" target="_blank">`spectator-v5.getFeaturedGames`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn try_get_featured_games(&self, min_capacity: f32, route: PlatformRoute)
-        -> impl Future<Output = TryRequestResult<crate::models::spectator_v5::FeaturedGames>> + 'a
-    {
-        let route_str = route.into();
-        let request = self.base.request(Method::GET, route_str, "/lol/spectator/v5/featured-games");
-        let future = self.base.try_execute_val::<crate::models::spectator_v5::FeaturedGames>("spectator-v5.getFeaturedGames", route_str, request, min_capacity);
-        #[cfg(feature = "tracing")]
-        let future = future.instrument(tracing::info_span!("spectator-v5.getFeaturedGames", route = route_str));
-        #[cfg(feature = "metrics")]
-        let future = metrics::try_timed(future, "spectator-v5.getFeaturedGames", route_str);
         future
     }
 
