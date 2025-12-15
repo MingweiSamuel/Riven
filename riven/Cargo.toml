@@ -58,7 +58,7 @@ eserde = { optional = true, version = "0.1.6", features = [ "json" ] }
 futures = "0.3.0"
 log = "0.4.8"
 memo-map = "0.3.0"
-metrics = { optional = true, version = "0.24.0" }
+metrics = { optional = true, version = "0.24.2" }
 num_enum = "0.5.0"
 parking_lot = "0.12.0"
 reqwest = { version = "0.11.2", default-features = false, features = [ "gzip" ] }
