@@ -136,7 +136,8 @@ The project uses GitHub Actions with these workflows:
 
 - **Main docs**: https://docs.rs/riven/
 - **API reference**: Auto-generated from code
-- Documentation is built with `cargo docs-rs -p riven`
+- Build documentation locally: `cargo doc --features nightly` (or use `./doc.bash`)
+- CI builds with `cargo docs-rs -p riven` (requires cargo-docs-rs tool)
 - Doc warnings are treated as errors in CI
 
 ## Dependencies and Versioning
