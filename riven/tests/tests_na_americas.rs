@@ -21,7 +21,6 @@ static ACCOUNTS: &[(&str, &str)] = &[
     // https://github.com/MingweiSamuel/Riven/issues/96
     ("WHITEWOLFF", "270"),
     ("INTIK", "270"),
-    ("kingpin1905", "NA1"),
 ];
 
 /// Account-v1
