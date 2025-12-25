@@ -5,6 +5,7 @@ use testutils::*;
 
 const REGION: RegionalRoute = RegionalRoute::AMERICAS;
 const PLATFORM: PlatformRoute = PlatformRoute::NA1;
+const PLATFORM_PBE: PlatformRoute = PlatformRoute::PBE1;
 
 static MATCHES: &[&str] = &[
     "NA1_4924008147",
@@ -347,4 +348,10 @@ async fn match_v5_get_replay_canttype1998() -> Result<(), String> {
 #[riven_test]
 async fn match_v5_get_replay_whitewolff270() -> Result<(), String> {
     match_v5_get_replay(REGION, "WHITEWOLFF", "270").await
+}
+
+/// Get matches from PBE.
+#[riven_test]
+async fn league_v4_match_v5_latest_combo_test() -> Result<(), String> {
+    league_v4_match_v5_latest_combo(PLATFORM_PBE).await
 }
