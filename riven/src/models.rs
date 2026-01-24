@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version eab2eb8a2511a4d0acfafed305cf02fddd843c59
+// Version 34dd37e1c020a12b2e8071c6a49cd0c84ba451cb
 
 #![allow(missing_docs)]
 
@@ -609,6 +609,9 @@ pub mod lol_challenges_v1 {
         #[serde(rename = "percentile")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub percentile: Option<f64>,
+        #[serde(rename = "position")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub position: Option<i64>,
     }
 }
 
@@ -1444,6 +1447,9 @@ pub mod match_v5 {
         #[serde(rename = "damageDealtToEpicMonsters")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub damage_dealt_to_epic_monsters: Option<i32>,
+        #[serde(rename = "roleBoundItem")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub role_bound_item: Option<i32>,
     }
     /// `match-v5.ChallengesDto` data object.
     /// # Description
@@ -4766,6 +4772,8 @@ pub mod val_ranked_v1 {
         #[serde(rename = "prefix")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub prefix: Option<String>,
+        #[serde(rename = "premierRosterType")]
+        pub premier_roster_type: String,
     }
     /// `val-ranked-v1.TierDetailDto` data object.
     #[derive(Clone, Debug)]

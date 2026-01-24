@@ -433,6 +433,9 @@ newtype_enum! {
         /// `2300`.
         /// Games on The Bandlewood
         THE_BANDLEWOOD = 2300,
+        /// `2400`.
+        /// ARAM: Mayhem games on Howling Abyss
+        HOWLING_ABYSS_ARAM_MAYHEM = 2400,
         /// `6000`.
         /// Teamfight Tactics Set 3.5 Revival games on Convergence
         CONVERGENCE_TEAMFIGHT_TACTICS_SET_3_5_REVIVAL = 6000,

@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version eab2eb8a2511a4d0acfafed305cf02fddd843c59
+// Version 34dd37e1c020a12b2e8071c6a49cd0c84ba451cb
 
 //! Metadata about the Riot API and Riven.
 //!
