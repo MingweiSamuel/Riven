@@ -1,10 +1,15 @@
-const util = require('util');
-const fs = require('fs');
-fs.readFileAsync = util.promisify(fs.readFile);
-fs.writeFileAsync = util.promisify(fs.writeFile);
-const req = require("request-promise-native");
+const fs = require('fs/promises');
+const { parseArgs } = require('node:util');
 
 process.chdir(__dirname);
+
+const { values: argv } = parseArgs({
+  options: {
+    spec: {
+      type: 'string'
+    }
+  }
+});
 
 const files = [
   [
@@ -12,7 +17,7 @@ const files = [
     '.champion.json'
   ],
   [
-    'http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.json',
+    argv.spec || 'http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.json',
     '.spec.json'
   ],
   [
@@ -45,8 +50,19 @@ const files = [
   ],
 ];
 
-const downloadFilesPromise = Promise.all(files.map(([url, file]) => req(url)
-  .then(body => fs.writeFileAsync(file, body, "utf8"))));
+if (argv.spec) console.log(`Using custom spec file: ${argv.spec}`);
+
+const downloadFilesPromise = Promise.all(files.map(async ([url, file]) => {
+  let body;
+  if (url.startsWith('http')) {
+    const req = await fetch(url);
+    body = await req.text();
+  }
+  else {
+    body = await fs.readFile(url, "utf8");
+  }
+  await fs.writeFile(file, body, "utf8");
+}));
 
 const doT = require('dot');
 const glob = require('glob-promise');
@@ -73,7 +89,7 @@ global.require = require;
 downloadFilesPromise.then(() => glob.promise("**/*" + suffix, { ignore: ["**/node_modules/**"] }))
   .then(files => Promise.all(files
     .map(log)
-    .map(file => fs.readFileAsync(file, "utf8")
+    .map(file => fs.readFile(file, "utf8")
       .then(input => {
         try {
           return doT.template(input)({});
@@ -83,7 +99,7 @@ downloadFilesPromise.then(() => glob.promise("**/*" + suffix, { ignore: ["**/nod
           throw e;
         }
       })
-      .then(output => fs.writeFileAsync("../src/" + file.slice(0, -suffix.length), output, "utf8"))
+      .then(output => fs.writeFile("../src/" + file.slice(0, -suffix.length), output, "utf8"))
     )
   ))
   .catch(console.error);
