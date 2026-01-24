@@ -23,6 +23,10 @@ static MATCHES: &[&str] = &[
     // `match-v5.ParticipantDto.damageDealtToEpicMonsters`
     // https://github.com/RiotGames/developer-relations/issues/754#issuecomment-3553945295
     "JP1_546614216",
+    // `match-v5.ParticipantDto.roleBoundItem`
+    // https://github.com/RiotGames/developer-relations/issues/754#issuecomment-3793761744
+    "JP1_559769819",
+    "JP1_560612530",
 ];
 
 /// summoner_v4().get_by_summoner_name(...) normally returns an option.
