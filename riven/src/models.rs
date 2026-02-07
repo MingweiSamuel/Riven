@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 34dd37e1c020a12b2e8071c6a49cd0c84ba451cb
+// Version 74ce4c4b124cc8d70ed161e46e4d84a1898f7736
 
 #![allow(missing_docs)]
 
@@ -2246,6 +2246,12 @@ pub mod match_v5 {
         #[serde(rename = "featValue")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub feat_value: Option<i32>,
+        #[serde(rename = "victimTeamfightDamageDealt")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub victim_teamfight_damage_dealt: Option<std::vec::Vec<crate::models::match_v5::MatchTimelineVictimDamage>>,
+        #[serde(rename = "victimTeamfightDamageReceived")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub victim_teamfight_damage_received: Option<std::vec::Vec<crate::models::match_v5::MatchTimelineVictimDamage>>,
     }
     /// `match-v5.ParticipantFramesDto` data object.
     #[derive(Clone, Debug)]
