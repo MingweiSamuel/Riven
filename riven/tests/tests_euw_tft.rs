@@ -5,8 +5,6 @@ use testutils::*;
 const ROUTE: PlatformRoute = PlatformRoute::EUW1;
 
 static TFT_MATCHES: &[&str] = &[
-    // 2024-02-16
-    "EUW1_6807630149",
     // 2025-01-31
     "EUW1_7288129746",
 ];
