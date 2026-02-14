@@ -424,11 +424,8 @@ pub async fn match_v5_get_replay(
             )
         })?;
 
-    assert_eq!(replays.total as usize, replays.match_file_ur_ls.len());
-    println!(
-        "{} replays:\n{:#?}",
-        replays.total, replays.match_file_ur_ls
-    );
+    assert_eq!(replays.total as usize, replays.match_file_urls.len());
+    println!("{} replays:\n{:#?}", replays.total, replays.match_file_urls);
 
     Ok(())
 }

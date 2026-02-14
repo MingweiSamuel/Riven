@@ -975,7 +975,7 @@ pub mod match_v5 {
         #[serde(rename = "total")]
         pub total: i32,
         #[serde(rename = "matchFileURLs")]
-        pub match_file_ur_ls: std::vec::Vec<String>,
+        pub match_file_urls: std::vec::Vec<String>,
     }
     /// `match-v5.MatchDto` data object.
     #[derive(Clone, Debug)]
