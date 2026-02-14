@@ -1353,7 +1353,7 @@ pub mod match_v5 {
         #[serde(rename = "teamPosition")]
         pub team_position: String,
         #[serde(rename = "timeCCingOthers")]
-        pub time_c_cing_others: i32,
+        pub time_ccing_others: i32,
         #[serde(rename = "timePlayed")]
         pub time_played: i32,
         #[serde(rename = "totalAllyJungleMinionsKilled")]
