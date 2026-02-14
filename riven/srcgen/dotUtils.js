@@ -59,6 +59,7 @@ function normalizeArgName(name) {
 function normalizePropName(propName) {
   // Convert "URLs" and "IDs" to "Urls" and "Ids" before snake_case conversion
   propName = propName.replace(/URLs/g, 'Urls').replace(/IDs/g, 'Ids');
+  propName = propName.replace(/timeCCing/g, 'timeCcing').replace(/IDs/g, 'Ids');
   let out = changeCase.snakeCase(propName);
   if (/^\d/.test(out)) // No leading digits.
     out = 'x' + out;
