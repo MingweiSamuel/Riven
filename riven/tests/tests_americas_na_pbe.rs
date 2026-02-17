@@ -8,7 +8,6 @@ const PLATFORM: PlatformRoute = PlatformRoute::NA1;
 const PLATFORM_PBE: PlatformRoute = PlatformRoute::PBE1;
 
 static MATCHES: &[&str] = &[
-    "NA1_4924008147",
     "LA1_1568057368",
     // https://github.com/RiotGames/developer-relations/issues/939#issuecomment-2164119529
     "NA1_5018382378",
