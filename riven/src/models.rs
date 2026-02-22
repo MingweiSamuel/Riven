@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 74ce4c4b124cc8d70ed161e46e4d84a1898f7736
+// Version 31ff4a6ed5162ea6595678b0ba9294f385bc7160
 
 #![allow(missing_docs)]
 
@@ -1450,6 +1450,10 @@ pub mod match_v5 {
         #[serde(rename = "roleBoundItem")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub role_bound_item: Option<i32>,
+        /// <https://github.com/RiotGames/developer-relations/issues/754#issuecomment-3940157820>
+        #[serde(rename = "PlayerBehavior")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub player_behavior: Option<crate::models::match_v5::ParticipantPlayerBehavior>,
     }
     /// `match-v5.ChallengesDto` data object.
     /// # Description
@@ -2390,6 +2394,15 @@ pub mod match_v5 {
         pub x: i32,
         #[serde(rename = "y")]
         pub y: i32,
+    }
+    /// `match-v5.ParticipantPlayerBehaviorDto` data object.
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, crate::de::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct ParticipantPlayerBehavior {
+        #[serde(rename = "PlayerBehavior_IsHeroInCombat")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub player_behavior_is_hero_in_combat: Option<i32>,
     }
     /// `match-v5.FeatsDto` data object.
     #[derive(Clone, Debug)]
