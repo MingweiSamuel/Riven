@@ -1,7 +1,6 @@
 const fs = require('fs/promises');
+const path = require('path');
 const { parseArgs } = require('node:util');
-
-process.chdir(__dirname);
 
 const { values: argv } = parseArgs({
   options: {
@@ -61,7 +60,7 @@ const downloadFilesPromise = Promise.all(files.map(async ([url, file]) => {
   else {
     body = await fs.readFile(url, "utf8");
   }
-  await fs.writeFile(file, body, "utf8");
+  await fs.writeFile(path.join(__dirname, file), body, "utf8");
 }));
 
 const doT = require('dot');
@@ -86,7 +85,7 @@ doT.templateSettings = {
 
 global.require = require;
 
-downloadFilesPromise.then(() => glob.promise("**/*" + suffix, { ignore: ["**/node_modules/**"] }))
+downloadFilesPromise.then(() => glob.promise(path.join(__dirname, "**/*" + suffix), { ignore: ["**/node_modules/**"] }))
   .then(files => Promise.all(files
     .map(log)
     .map(file => fs.readFile(file, "utf8")
@@ -99,7 +98,7 @@ downloadFilesPromise.then(() => glob.promise("**/*" + suffix, { ignore: ["**/nod
           throw e;
         }
       })
-      .then(output => fs.writeFile("../src/" + file.slice(0, -suffix.length), output, "utf8"))
+      .then(output => fs.writeFile(file.replace(/\bsrcgen\b/, "src").slice(0, -suffix.length), output, "utf8"))
     )
   ))
   .catch(console.error);
