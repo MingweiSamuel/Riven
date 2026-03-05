@@ -5,7 +5,7 @@
 // Re-exported crates.
 #[cfg(feature = "eserde")]
 pub use eserde;
-pub use {reqwest, serde, serde_json};
+pub use ::{reqwest, serde, serde_json};
 
 mod config;
 pub use config::RiotApiConfig;
