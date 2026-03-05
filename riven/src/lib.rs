@@ -3,9 +3,9 @@
 #![warn(missing_docs)]
 
 // Re-exported crates.
-pub use ::{reqwest, serde, serde_json};
 #[cfg(feature = "eserde")]
 pub use eserde;
+pub use ::{reqwest, serde, serde_json};
 
 mod config;
 pub use config::RiotApiConfig;
