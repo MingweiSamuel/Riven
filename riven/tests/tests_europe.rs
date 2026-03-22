@@ -22,10 +22,6 @@ const ROUTE: RegionalRoute = RegionalRoute::EUROPE;
 // "EUW1_6834713231", // `game_id` is zero.
 
 static MATCHES: &[&str] = &[
-    // Removed EUW1_6852390800 (previously: Timeline `OBJECTIVE_BOUNTY_PRESTART`
-    // https://github.com/MingweiSamuel/riotapi-schema/issues/45) — match no longer
-    // exists in the Riot API ("not found"), causing CI failures due to ephemeral
-    // external data.
     // SWIFTPLAY
     "EUW1_7261321891",
     "EUW1_7333077176",
