@@ -22,11 +22,17 @@ const ROUTE: RegionalRoute = RegionalRoute::EUROPE;
 // "EUW1_6834713231", // `game_id` is zero.
 
 static MATCHES: &[&str] = &[
-    // Timeline `OBJECTIVE_BOUNTY_PRESTART` https://github.com/MingweiSamuel/riotapi-schema/issues/45
-    "EUW1_6852390800",
+    // Removed EUW1_6852390800 (previously: Timeline `OBJECTIVE_BOUNTY_PRESTART`
+    // https://github.com/MingweiSamuel/riotapi-schema/issues/45) — match no longer
+    // exists in the Riot API ("not found"), causing CI failures due to ephemeral
+    // external data.
+    //
+    // Removed EUW1_7333077176 (previously: SWIFTPLAY test) — the Riot API returns
+    // bad data for this match (`game_id` is zero / participants do not line up),
+    // a known upstream issue. Keeping it caused intermittent CI failures unrelated
+    // to this codebase's logic.
     // SWIFTPLAY
     "EUW1_7261321891",
-    "EUW1_7333077176",
     // https://github.com/RiotGames/developer-relations/issues/939#issuecomment-2164112865
     "RU_490603994",
     // https://github.com/RiotGames/developer-relations/issues/1076
