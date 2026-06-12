@@ -136,7 +136,7 @@ impl RateLimit {
     pub fn get_retry_after_delay(&self) -> Option<Duration> {
         self.retry_after
             .read()
-            .and_then(|i| Instant::now().checked_duration_since(i))
+            .and_then(|i| i.checked_duration_since(Instant::now()))
     }
 
     /// Update retry-after and rate limits based on an API response.
