@@ -102,15 +102,16 @@ impl RateLimit {
     ) -> Option<Duration> {
         // Check retry after.
         {
-            let retry_after_delay = app_rate_limit.get_retry_after_delay().and_then(|a| {
-                method_rate_limit
-                    .get_retry_after_delay()
-                    .map(|m| cmp::max(a, m))
-            });
+            let retry_after_delay = cmp::max(
+                app_rate_limit.get_retry_after_delay(),
+                method_rate_limit.get_retry_after_delay(),
+            );
+
             if retry_after_delay.is_some() {
                 return retry_after_delay;
             }
         }
+
         // Check buckets.
         let app_buckets = app_rate_limit.buckets.read();
         let method_buckets = method_rate_limit.buckets.read();
@@ -136,7 +137,7 @@ impl RateLimit {
     pub fn get_retry_after_delay(&self) -> Option<Duration> {
         self.retry_after
             .read()
-            .and_then(|i| Instant::now().checked_duration_since(i))
+            .and_then(|i| i.checked_duration_since(Instant::now()))
     }
 
     /// Update retry-after and rate limits based on an API response.
