@@ -1,4 +1,5 @@
 const fs = require('fs/promises');
+const fsSync = require('fs');
 const path = require('path');
 const { parseArgs } = require('node:util');
 
@@ -10,46 +11,66 @@ const { values: argv } = parseArgs({
   }
 });
 
+const defaultSchemaSource = 'http://www.mingweisamuel.com/riotapi-schema';
+let schemaSource = argv.spec || defaultSchemaSource;
+const isRemoteSource = /^https?:\/\//.test(schemaSource);
+
+if (!isRemoteSource) {
+  schemaSource = path.resolve(process.cwd(), schemaSource);
+  if (!fsSync.existsSync(schemaSource) || !fsSync.statSync(schemaSource).isDirectory()) {
+    throw new Error(
+      `--spec must point to a schema source directory (typically riotapi-schema/out). Received: ${schemaSource}`
+    );
+  }
+}
+
+const trimTrailingSlash = s => s.replace(/\/+$/, '');
+const resolveFromSource = relPath => {
+  if (isRemoteSource)
+    return `${trimTrailingSlash(schemaSource)}/${relPath}`;
+  return path.join(schemaSource, ...relPath.split('/'));
+};
+
 const files = [
   [
     'http://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/default/v1/champion-summary.json',
     '.champion.json'
   ],
   [
-    argv.spec || 'http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.json',
+    resolveFromSource('openapi-3.0.0.json'),
     '.spec.json'
   ],
   [
-    'http://www.mingweisamuel.com/riotapi-schema/enums/seasons.json',
+    resolveFromSource('enums/seasons.json'),
     '.seasons.json'
   ],
   [
-    'http://www.mingweisamuel.com/riotapi-schema/enums/queues.json',
+    resolveFromSource('enums/queues.json'),
     '.queues.json'
   ],
   [
-    'http://www.mingweisamuel.com/riotapi-schema/enums/queueTypes.json',
+    resolveFromSource('enums/queueTypes.json'),
     '.queueTypes.json'
   ],
   [
-    'http://www.mingweisamuel.com/riotapi-schema/enums/gameTypes.json',
+    resolveFromSource('enums/gameTypes.json'),
     '.gameTypes.json'
   ],
   [
-    'http://www.mingweisamuel.com/riotapi-schema/enums/gameModes.json',
+    resolveFromSource('enums/gameModes.json'),
     '.gameModes.json'
   ],
   [
-    'http://www.mingweisamuel.com/riotapi-schema/enums/maps.json',
+    resolveFromSource('enums/maps.json'),
     '.maps.json'
   ],
   [
-    'http://www.mingweisamuel.com/riotapi-schema/routesTable.json',
+    resolveFromSource('routesTable.json'),
     '.routesTable.json'
   ],
 ];
 
-if (argv.spec) console.log(`Using custom spec file: ${argv.spec}`);
+if (argv.spec) console.log(`Using custom schema source: ${schemaSource}`);
 
 const downloadFilesPromise = Promise.all(files.map(async ([url, file]) => {
   let body;

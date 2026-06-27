@@ -97,10 +97,15 @@ To regenerate using the local riotapi-schema file:
 
 ```bash
 cd /path/to/Riven
-node riven/srcgen --spec=../../../riotapi-schema/out/openapi-3.0.0.json
+node riven/srcgen --spec=../../../riotapi-schema/out
 ```
 
-The `--spec` argument overrides the default online URL with your local schema file. Omit it to use the published schema instead.
+The `--spec` argument should point to a schema source root (either a local `riotapi-schema/out` directory or a website base URL like `https://www.mingweisamuel.com/riotapi-schema`).
+
+- Local source example: `--spec=../../../riotapi-schema/out`
+- Website source example: `--spec=https://www.mingweisamuel.com/riotapi-schema`
+
+Omit `--spec` to use the default published schema source.
 
 This updates the Rust structs in `riven/src/models.rs`.
 
@@ -113,6 +118,29 @@ cd /path/to/Riven
 RGAPI_KEY="$(cat apikey.txt)" cargo test --test tests_name \
     --features riven/nightly,riven/tracing,riven/eserde,riven/deny-unknown
 ```
+
+### 5b. Optional: Use Local `eserde` Patch For Better Errors
+
+When deserialization errors are hard to interpret, temporarily patch `eserde` to your local checkout for richer field-level diagnostics:
+
+```toml
+# Riven/Cargo.toml (temporary; do not commit unless intended)
+[patch.crates-io]
+eserde = { path = "../eserde/eserde" }
+```
+
+Then force lockfile resolution to the patched version:
+
+```bash
+cd /path/to/Riven
+cargo update -p eserde --precise 0.1.7
+```
+
+Validation tip:
+- Use `cargo tree -p eserde` to confirm Cargo is actually using the local patch.
+
+Cleanup tip:
+- Before final commits, restore `Cargo.toml` and `Cargo.lock` if the patch was only for debugging.
 
 ### 6. Commit Changes
 
@@ -191,6 +219,23 @@ This makes the history cleaner and easier to revert individual changes if needed
 - Make sure you added the field to `dtoOptional.jsonc` if it should be optional
 - Check the error message - if it changed from "unknown field" to "missing field", the field needs to be optional
 - Verify you're running tests with `--features riven/deny-unknown`
+
+### Queue ID drift (e.g. queueId 710)
+- Queue IDs can appear in live payloads before Riot's official `queues.json` is updated.
+- If strict enum deserialization fails on a new ID, add it in `riotapi-schema/src/enums/queues.jsonc` with clear notes.
+- Keep descriptions stable and explicit because they influence generated enum identifiers.
+- Queue data sources:
+  - CommunityDragon (often latest, but very large): https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/queues.json
+  - Riot official (usually smaller/easier to inspect): https://static.developer.riotgames.com/docs/lol/queues.json
+- Practical usage:
+  - Do not read the full CommunityDragon JSON directly in chat/output; use targeted filtering by queueId (or a small script) instead.
+  - Reading Riot's official queues JSON directly is generally fine.
+- Regenerate `riotapi-schema` (`node .`) and then regenerate Riven with local source root:
+
+```bash
+cd /path/to/Riven
+node riven/srcgen --spec=../../../riotapi-schema/out
+```
 
 ### Schema generation fails
 - Check JSON syntax in the override files (trailing commas, etc.)

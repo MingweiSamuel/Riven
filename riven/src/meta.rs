@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 31ff4a6ed5162ea6595678b0ba9294f385bc7160
+// Version 55d92749088467cdc4bb517458b1eb6caa5234a8
 
 //! Metadata about the Riot API and Riven.
 //!
@@ -16,7 +16,7 @@
 
 /// Metadata for endpoints. Each tuple corresponds to one endpoint and contains
 /// the HTTP [`Method`](reqwest::Method), `str` path, and the method's `str` ID.
-pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 82] = [
+pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 80] = [
     (reqwest::Method::GET, "/riot/account/v1/accounts/by-puuid/{puuid}", "account-v1.getByPuuid"),
     (reqwest::Method::GET, "/riot/account/v1/accounts/by-riot-id/{gameName}/{tagLine}", "account-v1.getByRiotId"),
     (reqwest::Method::GET, "/riot/account/v1/accounts/me", "account-v1.getByAccessToken"),
@@ -37,7 +37,6 @@ pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 82] = [
     (reqwest::Method::GET, "/lol/league/v4/entries/by-puuid/{encryptedPUUID}", "league-v4.getLeagueEntriesByPUUID"),
     (reqwest::Method::GET, "/lol/league/v4/entries/{queue}/{tier}/{division}", "league-v4.getLeagueEntries"),
     (reqwest::Method::GET, "/lol/league/v4/grandmasterleagues/by-queue/{queue}", "league-v4.getGrandmasterLeague"),
-    (reqwest::Method::GET, "/lol/league/v4/leagues/{leagueId}", "league-v4.getLeagueById"),
     (reqwest::Method::GET, "/lol/league/v4/masterleagues/by-queue/{queue}", "league-v4.getMasterLeague"),
     (reqwest::Method::GET, "/lol/challenges/v1/challenges/config", "lol-challenges-v1.getAllChallengeConfigs"),
     (reqwest::Method::GET, "/lol/challenges/v1/challenges/percentiles", "lol-challenges-v1.getAllChallengePercentiles"),
@@ -69,7 +68,6 @@ pub static ALL_ENDPOINTS: [(reqwest::Method, &str, &str); 82] = [
     (reqwest::Method::GET, "/tft/league/v1/challenger", "tft-league-v1.getChallengerLeague"),
     (reqwest::Method::GET, "/tft/league/v1/entries/{tier}/{division}", "tft-league-v1.getLeagueEntries"),
     (reqwest::Method::GET, "/tft/league/v1/grandmaster", "tft-league-v1.getGrandmasterLeague"),
-    (reqwest::Method::GET, "/tft/league/v1/leagues/{leagueId}", "tft-league-v1.getLeagueById"),
     (reqwest::Method::GET, "/tft/league/v1/master", "tft-league-v1.getMasterLeague"),
     (reqwest::Method::GET, "/tft/league/v1/rated-ladders/{queue}/top", "tft-league-v1.getTopRatedLadder"),
     (reqwest::Method::GET, "/tft/match/v1/matches/by-puuid/{puuid}/ids", "tft-match-v1.getMatchIdsByPUUID"),

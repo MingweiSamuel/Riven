@@ -158,12 +158,10 @@ async fn match_v5_get_timeline_test() -> Result<(), String> {
 async fn champion_getrotation() -> Result<(), String> {
     let p = riot_api().champion_v3().get_champion_info(PLATFORM);
     let d = p.await.map_err(|e| e.to_string())?;
-    let new_len = d.free_champion_ids_for_new_players.len();
-    let free_len = d.free_champion_ids.len();
-    let level = d.max_new_player_level;
+    let new_len = d.newplayer.len();
+    let free_len = d.sr.len();
     rassert!(new_len >= 10, "New len: {}", new_len);
     rassert!(free_len >= 15, "Free len: {}", free_len);
-    rassert_eq!(10, level, "New player level: {}", level);
     Ok(())
 }
 

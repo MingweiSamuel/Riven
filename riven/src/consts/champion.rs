@@ -91,6 +91,7 @@ newtype_enum! {
     /// `LEONA` | "Leona" | "Leona" | 89
     /// `LILLIA` | "Lillia" | "Lillia" | 876
     /// `LISSANDRA` | "Lissandra" | "Lissandra" | 127
+    /// `LOCKE` | "Locke" | "Locke" | 805
     /// `LUCIAN` | "Lucian" | "Lucian" | 236
     /// `LULU` | "Lulu" | "Lulu" | 117
     /// `LUX` | "Lux" | "Lux" | 99
@@ -341,6 +342,8 @@ newtype_enum! {
         LILLIA = 876,
         /// `127`.
         LISSANDRA = 127,
+        /// `805`.
+        LOCKE = 805,
         /// `236`.
         LUCIAN = 236,
         /// `117`.
@@ -618,6 +621,7 @@ impl Champion {
             Self::LEONA        => Some("Leona"),
             Self::LILLIA       => Some("Lillia"),
             Self::LISSANDRA    => Some("Lissandra"),
+            Self::LOCKE        => Some("Locke"),
             Self::LUCIAN       => Some("Lucian"),
             Self::LULU         => Some("Lulu"),
             Self::LUX          => Some("Lux"),
@@ -814,6 +818,7 @@ impl Champion {
             Self::LEONA        => Some("Leona"),
             Self::LILLIA       => Some("Lillia"),
             Self::LISSANDRA    => Some("Lissandra"),
+            Self::LOCKE        => Some("Locke"),
             Self::LUCIAN       => Some("Lucian"),
             Self::LULU         => Some("Lulu"),
             Self::LUX          => Some("Lux"),
@@ -1048,6 +1053,7 @@ impl std::str::FromStr for Champion {
             /* LEON */ [ 'L',  'E',  'O',  'N'] => Ok(Champion::LEONA),
             /* LILL */ [ 'L',  'I',  'L',  'L'] => Ok(Champion::LILLIA),
             /* LISS */ [ 'L',  'I',  'S',  'S'] => Ok(Champion::LISSANDRA),
+            /* LOCK */ [ 'L',  'O',  'C',  'K'] => Ok(Champion::LOCKE),
             /* LUCI */ [ 'L',  'U',  'C',  'I'] => Ok(Champion::LUCIAN),
             /* LULU */ [ 'L',  'U',  'L',  'U'] => Ok(Champion::LULU),
             /* LUX  */ [ 'L',  'U',  'X', '\0'] => Ok(Champion::LUX),

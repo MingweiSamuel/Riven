@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 31ff4a6ed5162ea6595678b0ba9294f385bc7160
+// Version 55d92749088467cdc4bb517458b1eb6caa5234a8
 
 //! Automatically generated endpoint handles.
 #![allow(clippy::let_and_return, clippy::too_many_arguments)]
@@ -1292,50 +1292,6 @@ impl<'a> LeagueV4<'a> {
         let future = future.instrument(tracing::info_span!("league-v4.getGrandmasterLeague", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::try_timed(future, "league-v4.getGrandmasterLeague", route_str);
-        future
-    }
-
-    /// Get league with given ID, including inactive entries.
-    /// # Parameters
-    /// * `route` - Route to query.
-    /// * `league_id` (required, in path) - The UUID of the league.
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueById" target="_blank">`league-v4.getLeagueById`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn get_league_by_id(&self, route: PlatformRoute, league_id: &str)
-        -> impl Future<Output = Result<Option<crate::models::league_v4::LeagueList>>> + 'a
-    {
-        let route_str = route.into();
-        let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/leagues/{}", league_id));
-        let future = self.base.execute_opt::<crate::models::league_v4::LeagueList>("league-v4.getLeagueById", route_str, request);
-        #[cfg(feature = "tracing")]
-        let future = future.instrument(tracing::info_span!("league-v4.getLeagueById", route = route_str));
-        #[cfg(feature = "metrics")]
-        let future = metrics::timed(future, "league-v4.getLeagueById", route_str);
-        future
-    }
-
-    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
-    /// See `get_league_by_id` for detailed documentation
-    /// # Parameters
-    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
-    /// * `route` - Route to query.
-    /// * `league_id` (required, in path) - The UUID of the league.
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#league-v4/GET_getLeagueById" target="_blank">`league-v4.getLeagueById`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn try_get_league_by_id(&self, min_capacity: f32, route: PlatformRoute, league_id: &str)
-        -> impl Future<Output = TryRequestResult<Option<crate::models::league_v4::LeagueList>>> + 'a
-    {
-        let route_str = route.into();
-        let request = self.base.request(Method::GET, route_str, &format!("/lol/league/v4/leagues/{}", league_id));
-        let future = self.base.try_execute_opt::<crate::models::league_v4::LeagueList>("league-v4.getLeagueById", route_str, request, min_capacity);
-        #[cfg(feature = "tracing")]
-        let future = future.instrument(tracing::info_span!("league-v4.getLeagueById", route = route_str));
-        #[cfg(feature = "metrics")]
-        let future = metrics::try_timed(future, "league-v4.getLeagueById", route_str);
         future
     }
 
@@ -3006,50 +2962,6 @@ impl<'a> TftLeagueV1<'a> {
         let future = future.instrument(tracing::info_span!("tft-league-v1.getGrandmasterLeague", route = route_str));
         #[cfg(feature = "metrics")]
         let future = metrics::try_timed(future, "tft-league-v1.getGrandmasterLeague", route_str);
-        future
-    }
-
-    /// Get league with given ID, including inactive entries.
-    /// # Parameters
-    /// * `route` - Route to query.
-    /// * `league_id` (required, in path) - The UUID of the league.
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getLeagueById" target="_blank">`tft-league-v1.getLeagueById`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn get_league_by_id(&self, route: PlatformRoute, league_id: &str)
-        -> impl Future<Output = Result<Option<crate::models::tft_league_v1::LeagueList>>> + 'a
-    {
-        let route_str = route.into();
-        let request = self.base.request(Method::GET, route_str, &format!("/tft/league/v1/leagues/{}", league_id));
-        let future = self.base.execute_opt::<crate::models::tft_league_v1::LeagueList>("tft-league-v1.getLeagueById", route_str, request);
-        #[cfg(feature = "tracing")]
-        let future = future.instrument(tracing::info_span!("tft-league-v1.getLeagueById", route = route_str));
-        #[cfg(feature = "metrics")]
-        let future = metrics::timed(future, "tft-league-v1.getLeagueById", route_str);
-        future
-    }
-
-    /// Variation that checks for minimum capacity before making the request, returning None if insufficent capacity
-    /// See `get_league_by_id` for detailed documentation
-    /// # Parameters
-    /// * `min_capacity` - Minimum capacity required as a float from 1.0 (all capacity) to 0.0 (no capacity) excluding burst
-    /// * `route` - Route to query.
-    /// * `league_id` (required, in path) - The UUID of the league.
-    /// # Riot Developer API Reference
-    /// <a href="https://developer.riotgames.com/api-methods/#tft-league-v1/GET_getLeagueById" target="_blank">`tft-league-v1.getLeagueById`</a>
-    ///
-    /// Note: this method is automatically generated.
-    pub fn try_get_league_by_id(&self, min_capacity: f32, route: PlatformRoute, league_id: &str)
-        -> impl Future<Output = TryRequestResult<Option<crate::models::tft_league_v1::LeagueList>>> + 'a
-    {
-        let route_str = route.into();
-        let request = self.base.request(Method::GET, route_str, &format!("/tft/league/v1/leagues/{}", league_id));
-        let future = self.base.try_execute_opt::<crate::models::tft_league_v1::LeagueList>("tft-league-v1.getLeagueById", route_str, request, min_capacity);
-        #[cfg(feature = "tracing")]
-        let future = future.instrument(tracing::info_span!("tft-league-v1.getLeagueById", route = route_str));
-        #[cfg(feature = "metrics")]
-        let future = metrics::try_timed(future, "tft-league-v1.getLeagueById", route_str);
         future
     }
 

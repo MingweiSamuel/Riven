@@ -259,6 +259,11 @@ newtype_enum! {
         /// `700`.
         /// Summoner's Rift Clash games on Summoner's Rift
         SUMMONERS_RIFT_CLASH = 700,
+        /// `710`.
+        /// Ranked 5v5 Team games on Summoner's Rift
+        ///
+        /// Observed in CommunityDragon queues and live payloads; Riot's official queues.json may lag updates. 420 (Ranked Solo) still exists alongside 710.
+        SUMMONERS_RIFT_RANKED_5V5_TEAM = 710,
         /// `720`.
         /// ARAM Clash games on Howling Abyss
         HOWLING_ABYSS_ARAM_CLASH = 720,

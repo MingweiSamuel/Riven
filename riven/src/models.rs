@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////
 
 // http://www.mingweisamuel.com/riotapi-schema/tool/
-// Version 31ff4a6ed5162ea6595678b0ba9294f385bc7160
+// Version 55d92749088467cdc4bb517458b1eb6caa5234a8
 
 #![allow(missing_docs)]
 
@@ -181,12 +181,20 @@ pub mod champion_v3 {
     #[derive(serde::Serialize, crate::de::Deserialize)]
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct ChampionInfo {
-        #[serde(rename = "maxNewPlayerLevel")]
-        pub max_new_player_level: i32,
-        #[serde(rename = "freeChampionIdsForNewPlayers")]
-        pub free_champion_ids_for_new_players: std::vec::Vec<crate::consts::Champion>,
-        #[serde(rename = "freeChampionIds")]
-        pub free_champion_ids: std::vec::Vec<crate::consts::Champion>,
+        #[serde(rename = "newplayer")]
+        pub newplayer: std::vec::Vec<crate::consts::Champion>,
+        #[serde(rename = "sr")]
+        pub sr: std::vec::Vec<crate::consts::Champion>,
+    }
+    /// `champion-v3.array` data object.
+    /// # Description
+    /// UNKNOWN TYPE.
+    ///
+    /// Note: This struct is automatically generated
+    #[derive(Clone, Debug)]
+    #[derive(serde::Serialize, crate::de::Deserialize)]
+    #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
+    pub struct array {
     }
 }
 
@@ -280,7 +288,8 @@ pub mod league_exp_v4 {
     #[cfg_attr(feature = "deny-unknown-fields", serde(deny_unknown_fields))]
     pub struct LeagueEntry {
         #[serde(rename = "leagueId")]
-        pub league_id: String,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub league_id: Option<String>,
         /// Player's summonerId (Encrypted)
         #[serde(rename = "summonerId")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1454,6 +1463,30 @@ pub mod match_v5 {
         #[serde(rename = "PlayerBehavior")]
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub player_behavior: Option<crate::models::match_v5::ParticipantPlayerBehavior>,
+        #[serde(rename = "causedGameEndFromIGNBSurrender")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub caused_game_end_from_ignb_surrender: Option<bool>,
+        #[serde(rename = "gameEndedInIGNBSurrender")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub game_ended_in_ignb_surrender: Option<bool>,
+        #[serde(rename = "positionAssignedByMatchmaking")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub position_assigned_by_matchmaking: Option<String>,
+        #[serde(rename = "selectedRolePreferences")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub selected_role_preferences: Option<String>,
+        #[serde(rename = "teamIGNBSurrendered")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub team_ignb_surrendered: Option<bool>,
+        #[serde(rename = "wasPremadeWithIGNBGameEndCauser")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub was_premade_with_ignb_game_end_causer: Option<bool>,
+        #[serde(rename = "wasPremadeWithSevereTransgressor")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub was_premade_with_severe_transgressor: Option<bool>,
+        #[serde(rename = "wasSevereTransgressor")]
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub was_severe_transgressor: Option<bool>,
     }
     /// `match-v5.ChallengesDto` data object.
     /// # Description
