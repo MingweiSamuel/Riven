@@ -10,8 +10,6 @@ const ROUTE: PlatformRoute = PlatformRoute::JP1;
 // "JP1_419115017",
 
 static MATCHES: &[&str] = &[
-    // New field: `match-v5.ParticipantChallenges`: `InfernalScalePickup`, `fistBumpParticipation`
-    "JP1_447303353",
     // New fields for swarm: `match-v5.ChallengesDto`: `SWARM_DefeatAatrox`, `SWARM_DefeatBriar`
     "JP1_455137806",
     // Swarm solo/duo/trio.

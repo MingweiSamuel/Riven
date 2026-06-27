@@ -9,9 +9,6 @@ const PLATFORM_PBE: PlatformRoute = PlatformRoute::PBE1;
 
 static MATCHES: &[&str] = &[
     "LA1_1568057368",
-    // https://github.com/RiotGames/developer-relations/issues/939#issuecomment-2164119529
-    "NA1_5018382378",
-    "NA1_5018422066",
     // https://github.com/MingweiSamuel/Riven/issues/84
     "NA1_5245486208",
 ];

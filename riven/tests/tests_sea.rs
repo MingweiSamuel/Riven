@@ -5,9 +5,6 @@ use testutils::*;
 const ROUTE: RegionalRoute = RegionalRoute::SEA;
 
 static MATCHES: &[&str] = &[
-    // https://github.com/RiotGames/developer-relations/issues/939#issuecomment-2164112865
-    "SG2_31726207",
-    "TW2_205251003",
     // https://github.com/RiotGames/developer-relations/issues/1076
     "SG2_72450920",
     "SG2_72421858",

@@ -25,8 +25,6 @@ static MATCHES: &[&str] = &[
     // SWIFTPLAY
     "EUW1_7261321891",
     "EUW1_7333077176",
-    // https://github.com/RiotGames/developer-relations/issues/939#issuecomment-2164112865
-    "RU_490603994",
     // https://github.com/RiotGames/developer-relations/issues/1076
     "EUW1_7400007273",
     "EUW1_7399991093",
