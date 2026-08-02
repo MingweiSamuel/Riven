@@ -8,10 +8,10 @@ const ROUTE: PlatformRoute = PlatformRoute::JP1;
 // "JP1_417935351",
 // // New field: `match-v5.ParticipantDto.riotIdGameName`
 // "JP1_419115017",
+// // New fields for swarm: `match-v5.ChallengesDto`: `SWARM_DefeatAatrox`, `SWARM_DefeatBriar`
+// "JP1_455137806",
 
 static MATCHES: &[&str] = &[
-    // New fields for swarm: `match-v5.ChallengesDto`: `SWARM_DefeatAatrox`, `SWARM_DefeatBriar`
-    "JP1_455137806",
     // Swarm solo/duo/trio.
     "JP1_456819992",
     "JP1_457311633",
