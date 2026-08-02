@@ -247,6 +247,25 @@ async fn championmasteryv4_getall_iamchanese123() -> Result<(), String> {
     Ok(())
 }
 
+
+#[riven_test]
+async fn championmasteryv4_getall_enthralled999() -> Result<(), String> {
+    let summoner =
+        riot_api()
+            .account_v1()
+            .get_by_riot_id(PLATFORM.to_regional(), "enthralled", "999");
+    let summoner = summoner
+        .await
+        .map_err(|e| e.to_string())?
+        .ok_or_else(|| "'enthralled#999' not found!".to_owned())?;
+    let masteries = riot_api()
+        .champion_mastery_v4()
+        .get_all_champion_masteries_by_puuid(PLATFORM, &summoner.puuid);
+    let masteries = masteries.await.map_err(|e| e.to_string())?;
+    rassert_eq!(59, masteries.len());
+    Ok(())
+}
+
 // Commented out, requires special API key.
 // /// LOR
 // #[riven_test]

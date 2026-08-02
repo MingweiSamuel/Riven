@@ -10,12 +10,12 @@ const ROUTE: PlatformRoute = PlatformRoute::JP1;
 // "JP1_419115017",
 // // New fields for swarm: `match-v5.ChallengesDto`: `SWARM_DefeatAatrox`, `SWARM_DefeatBriar`
 // "JP1_455137806",
+// // Swarm solo/duo/trio.
+// "JP1_456819992",
+// "JP1_457311633",
+// "JP1_457196409",
 
 static MATCHES: &[&str] = &[
-    // Swarm solo/duo/trio.
-    "JP1_456819992",
-    "JP1_457311633",
-    "JP1_457196409",
     // `feats` https://github.com/RiotGames/developer-relations/issues/1052
     "JP1_497158018",
     // `match-v5.ParticipantDto.damageDealtToEpicMonsters`
