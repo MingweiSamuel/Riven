@@ -2,9 +2,8 @@ use crate::consts::Champion;
 use crate::models::match_v5::Participant;
 
 impl Participant {
-    /// This method takes the [`Self::champion_id`] field if it is valid
-    /// (`Ok`), otherwise it attempts to parse [`Self::champion_name`] and
-    /// returns the `Result`.
+    /// This method parses [`Self::champion_name`] and returns the [`Champion`]
+    /// `Result`.
     ///
     /// This is needed because some of Riot's [`Self::champion_id`] data is
     /// corrupted, as they describe in the docs:
@@ -15,8 +14,7 @@ impl Participant {
     ///
     /// This issue is reported here: <https://github.com/RiotGames/developer-relations/issues/553>.
     pub fn champion(&self) -> Result<Champion, <Champion as std::str::FromStr>::Err> {
-        #[allow(deprecated)]
-        self.champion_id.or_else(|_| self.champion_name.parse())
+        self.champion_name.parse()
     }
 
     /// This method returns the name portion of the riot ID for this summoner.

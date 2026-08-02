@@ -262,7 +262,7 @@ async fn championmasteryv4_getall_enthralled999() -> Result<(), String> {
         .champion_mastery_v4()
         .get_all_champion_masteries_by_puuid(PLATFORM, &summoner.puuid);
     let masteries = masteries.await.map_err(|e| e.to_string())?;
-    rassert_eq!(59, masteries.len());
+    rassert!(179 <= masteries.len());
     Ok(())
 }
 

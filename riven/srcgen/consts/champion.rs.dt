@@ -1,13 +1,25 @@
 {{
     const dotUtils = require('./dotUtils.js');
+
+    const constName = name => dotUtils.changeCase.constantCase(name).replace(/[^_A-Z0-9]+/g, '');
+    const constNamePad = 22;
+
+    const regToJade = new Map();
     const champions = require('./.champion.json')
         .filter(({ id }) => id > 0)
         /* Ignore strawberry and ruby (DOOM_BOT_) champions */
         .filter(({ alias }) => !alias.startsWith('Strawberry_') && !alias.startsWith('Ruby_'))
-        .sortBy(({ name }) => name);
-
-    const constName = name => dotUtils.changeCase.constantCase(name).replace(/[^_A-Z0-9]+/g, '');
-    const constNamePad = 12;
+        /* Handle jade classic ids. */
+        .map(champ => {
+            champ.fieldName = constName(champ.name);
+            if ((champ.jade = champ.alias.startsWith('Jade_'))) {
+                regToJade.set(champ.name, champ.fieldName);
+                champ.fieldName = 'CLASSIC_' + champ.fieldName;
+            }
+            return champ;
+        })
+        .sort(({ jade: jadeA, name: nameA }, { jade: jadeB, name: nameB }) =>
+            (jadeA - jadeB) || (nameA.localeCompare(nameB)));
 }}{{= dotUtils.preamble() }}
 
 newtype_enum! {
@@ -21,21 +33,21 @@ newtype_enum! {
     /// ---|---|---|---
     /// `NONE` | None (no ban) | | -1
 {{
-    for (const { id, alias, name } of champions) {
+    for (const { fieldName, id, alias, name } of champions) {
 }}
-    /// `{{= constName(name) }}` | "{{= name }}" | "{{= alias }}" | {{= id }}
+    /// `{{= fieldName }}` | "{{= name }}" | "{{= alias }}" | {{= id }}
 {{
     }
 }}
-    pub newtype_enum Champion(i16) {
+    pub newtype_enum Champion(i32) {
         /// `-1`, none. Appears when a champion ban is not used in champ select.
         NONE = -1,
 
 {{
-    for (const { id, alias, name } of champions) {
+    for (const { fieldName, id, alias, name } of champions) {
 }}
         /// `{{= id }}`.
-        {{= constName(name) }} = {{= id }},
+        {{= fieldName }} = {{= id }},
 {{
     }
 }}
@@ -47,9 +59,9 @@ impl Champion {
     pub const fn name(self) -> Option<&'static str> {
         match self {
 {{
-    for (const { name } of champions) {
+    for (const { fieldName, name } of champions) {
 }}
-            Self::{{= constName(name).padEnd(constNamePad) }} => Some("{{= name }}"),
+            Self::{{= fieldName.padEnd(constNamePad) }} => Some("{{= name }}"),
 {{
     }
 }}
@@ -66,10 +78,10 @@ impl Champion {
     /// Field | Name | Identifier | Id
     /// ---|---|---|---
 {{
-    for (const { id, alias, name } of champions) {
+    for (const { fieldName, id, alias, name } of champions) {
         if (name.replace(/[^a-zA-Z0-9]+/, '') !== alias) {
 }}
-    /// `{{= constName(name) }}` | "{{= name }}" | "{{= alias }}" | {{= id }}
+    /// `{{= fieldName }}` | "{{= name }}" | "{{= alias }}" | {{= id }}
 {{
         }
     }
@@ -77,9 +89,9 @@ impl Champion {
     pub const fn identifier(self) -> Option<&'static str> {
         match self {
 {{
-    for (const { name, alias } of champions) {
+    for (const { fieldName, name, alias } of champions) {
 }}
-            Self::{{= constName(name).padEnd(constNamePad) }} => Some("{{= alias }}"),
+            Self::{{= fieldName.padEnd(constNamePad) }} => Some("{{= alias }}"),
 {{
     }
 }}
@@ -87,27 +99,55 @@ impl Champion {
         }
     }
 
-    /// https://github.com/MingweiSamuel/Riven/issues/36
-    pub(crate) fn serialize_result<S>(
-        val: &Result<Self, std::num::TryFromIntError>,
-        serializer: S,
-    ) -> Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::Serialize;
-        val.unwrap_or(Champion(-1)).serialize(serializer)
+    /// If this is a classic version of a champion.
+    ///
+    /// * `true` if this is a classic champion.
+    /// * `false` if this is a regular (modern) champion, or an unknown champion.
+    pub const fn is_classic(self) -> bool {
+        match self {
+{{
+    for (const { fieldName, jade } of champions) {
+}}
+            Self::{{= fieldName.padEnd(constNamePad) }} => {{= jade }},
+{{
+    }
+}}
+            _ => false,
+        }
     }
 
-    /// https://github.com/MingweiSamuel/Riven/issues/36
-    pub(crate) fn deserialize_result<'de, D>(
-        deserializer: D,
-    ) -> Result<Result<Self, std::num::TryFromIntError>, D::Error>
-    where
-        D: serde::de::Deserializer<'de>,
-    {
-        use std::convert::TryInto;
-        <i64 as serde::de::Deserialize>::deserialize(deserializer).map(|id| id.try_into().map(Self))
+    /// Converts any classic versions of a champion to their regular variant.
+    ///
+    /// Returns self unchanged for regular champions.
+    pub const fn from_classic(self) -> Self {
+        match self {
+{{
+    for (const { fieldName, jade, name } of champions) {
+}}
+            Self::{{= fieldName.padEnd(constNamePad) }} => Self::{{= constName(name) }},
+{{
+    }
+}}
+            other => other,
+        }
+    }
+
+    /// Converts a regular champion to its classic variant, if possible.
+    ///
+    /// * `Some(classic)` for champions that are classic or have a classic variant.
+    /// * `None` for champions that have no classic variant, and for unknown champions.
+    pub const fn to_classic(self) -> Option<Self> {
+        match self {
+{{
+    for (const { fieldName, jade, name } of champions) {
+        const jadeFieldName = regToJade.get(name);
+}}
+            Self::{{= fieldName.padEnd(constNamePad) }} => {{? jadeFieldName }}Some(Self::{{= jadeFieldName }}){{??}}None{{?}},
+{{
+    }
+}}
+            _ => None,
+        }
     }
 }
 
@@ -144,13 +184,14 @@ impl std::str::FromStr for Champion {
             s.split(/[^A-Z0-9]/, 1)[0].substring(0, 4),
             s.split(/[^A-Z]/, 1)[0].substring(0, 4),
         ])));
-    for (const { id, alias, name } of champions) {
+    for (const { fieldName, id, alias, name, jade } of champions) {
+        if (jade) { continue; }
         for (const prefix of keyStrings(name, alias)) {
             const chars = Object.assign(Array(4).fill('\\0'), Array.from(prefix))
                 .map(c => `'${c}'`)
                 .map(c => c.padStart(4));
 }}
-            /* {{= prefix.padEnd(4) }} */ [{{= chars.join(', ') }}] => Ok(Champion::{{= constName(name) }}),
+            /* {{= prefix.padEnd(4) }} */ [{{= chars.join(', ') }}] => Ok(Champion::{{= fieldName }}),
 {{
         }
     }
