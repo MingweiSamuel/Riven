@@ -1165,7 +1165,7 @@ dependencies = [
 
 [[package]]
 name = "riven"
-version = "2.80.0"
+version = "2.81.0"
 dependencies = [
  "console_error_panic_hook",
  "console_log",
