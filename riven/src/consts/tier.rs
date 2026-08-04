@@ -33,6 +33,8 @@ use strum_macros::{AsRefStr, Display, EnumString, IntoStaticStr};
 pub enum Tier {
     /// Challenger, the highest tier, an apex tier. Repr: `220_u8`.
     CHALLENGER = 220,
+    /// Legend, classic-exclusive highest apex tier. Repr: `210_u8`.
+    LEGEND = 210,
     /// Grand Master, an apex tier. Repr: `200_u8`.
     GRANDMASTER = 200,
     /// Master, an apex tier. Repr: `180_u8`.
@@ -49,8 +51,12 @@ pub enum Tier {
     SILVER = 80,
     /// Bronze. Repr: `60_u8`.
     BRONZE = 60,
-    /// Iron, the lowest tier. Repr: `40_u8`.
+    /// Iron, the lowest modern tier. Repr: `40_u8`.
     IRON = 40,
+    /// Wood, classic-exclusive. Repr: `25_u8`.
+    WOOD = 25,
+    /// Salt, classic-exclusive lowest tier. Repr: `10_u8`.
+    SALT = 10,
 
     /// Unranked, no tier. Repr: `0_u8`.
     /// Also deserializes from "NONE" returned by `lol-challenges-v1.getChallengePercentiles`.
@@ -85,18 +91,62 @@ impl Tier {
 
     /// If this tier is unranked (`Tier::UNRANKED`).
     ///
-    /// UNRANKED is returned by `Participant.highest_achieved_season_tier`.
+    /// `UNRANKED` is returned by `Participant.highest_achieved_season_tier`.
     pub const fn is_unranked(self) -> bool {
         // Casts needed for const.
         (self as u8) <= (Self::UNRANKED as u8)
     }
 
-    /// Converts UNRANKED to None and all ranked tiers to Some(...).
+    /// Converts `UNRANKED` to `None` and all ranked tiers to `Some(...)`.
     pub fn to_ranked(self) -> Option<Self> {
         if self.is_unranked() {
             None
         } else {
             Some(self)
+        }
+    }
+
+    /// If this tier is a valid League of Legends Classic tier.
+    ///
+    /// Returns `false` for `UNRANKED`.
+    pub fn is_lol_classic(self) -> bool {
+        match self {
+            Tier::CHALLENGER => false,
+            Tier::LEGEND => true,
+            Tier::GRANDMASTER => false,
+            Tier::MASTER => false,
+            Tier::DIAMOND => true,
+            Tier::EMERALD => false,
+            Tier::PLATINUM => true,
+            Tier::GOLD => true,
+            Tier::SILVER => true,
+            Tier::BRONZE => false,
+            Tier::IRON => false,
+            Tier::WOOD => true,
+            Tier::SALT => true,
+            Tier::UNRANKED => false,
+        }
+    }
+
+    /// If this tier is a valid "modern" (non-classic) League of Legends tier.
+    ///
+    /// Returns `false` for `UNRANKED`.
+    pub fn is_lol_modern(self) -> bool {
+        match self {
+            Tier::CHALLENGER => true,
+            Tier::LEGEND => false,
+            Tier::GRANDMASTER => true,
+            Tier::MASTER => true,
+            Tier::DIAMOND => true,
+            Tier::EMERALD => true,
+            Tier::PLATINUM => true,
+            Tier::GOLD => true,
+            Tier::SILVER => true,
+            Tier::BRONZE => true,
+            Tier::IRON => true,
+            Tier::WOOD => false,
+            Tier::SALT => false,
+            Tier::UNRANKED => false,
         }
     }
 }

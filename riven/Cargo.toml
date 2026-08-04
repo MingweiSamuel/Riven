@@ -101,6 +101,3 @@ wasm-bindgen-test = "0.3"
 eserde = { version = "0.1.6", features = [ "json" ] }
 gloo-timers = { version = "0.3", features = [ "futures" ] }
 web-time = "1.0.0"
-
-[lints.clippy]
-uninlined_format_args = "allow"
